@@ -1,0 +1,50 @@
+/* ============================================================
+   Kelola — Spacing, radii, shadows & layout tokens
+   Spacing scale = Mantine defaults. Radii/shadows lifted from
+   the product theme (Card radius 8, Button radius xl/pill,
+   soft 20px card shadow) and app.css.
+   ============================================================ */
+
+:root {
+  /* --- Spacing scale (Mantine) ---------------------------- */
+  --space-xs: 10px;
+  --space-sm: 12px;
+  --space-md: 16px;   /* default card padding */
+  --space-lg: 20px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* --- Radii ---------------------------------------------- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;     /* inputs, table cells */
+  --radius-md: 8px;     /* cards, modals, accordions (the workhorse) */
+  --radius-lg: 16px;
+  --radius-xl: 18px;    /* nav-link active pill (left side) */
+  --radius-pill: 999px; /* buttons, chips, status pills */
+  /* Signature asymmetric corner — beta tags, assistant title */
+  --radius-notch: 8px 0px 8px 0px;
+
+  /* --- Shadows -------------------------------------------- */
+  /* The defining Kelola card shadow: very soft, slightly offset */
+  --shadow-card: 2px 4px 20px 0px rgba(0, 0, 0, 0.07);
+  --shadow-sm: 2px 2px 15px 0px rgba(0, 0, 0, 0.10);   /* info cards, floating chips */
+  --shadow-lg: 0px 0px 24px 0px rgba(0, 0, 0, 0.16);   /* dropzones, popovers */
+  --shadow-focus: 0 0 0 2px var(--primary-1);          /* input focus ring */
+
+  /* --- Borders -------------------------------------------- */
+  --border-width: 1px;
+  --border-width-strong: 2px;   /* org-structure cards, avatars */
+
+  /* --- Layout --------------------------------------------- */
+  --app-header-height: 56px;
+  --sidebar-width: 264px;
+  --content-max-width: 1440px;
+  --login-form-width: 400px;
+
+  /* --- Motion --------------------------------------------- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);  /* @kind other */
+  --duration-fast: 0.15s;  /* @kind other */
+  --duration-base: 0.2s;   /* @kind other */
+  --duration-slow: 0.7s;   /* @kind other */
+}

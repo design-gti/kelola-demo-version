@@ -1,0 +1,1579 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail IDP - Talentlytica</title>
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="design-system/styles.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--surface-sunken);
+    }
+
+    /* ═══════════════ TOP HEADER ═══════════════ */
+    .top-header {
+      background: var(--surface-sunken);
+      padding: 15px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--surface-muted);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .breadcrumb { display: flex; align-items: center; gap: 6px; font-family: var(--font-body); font-size: 13px; }
+    .breadcrumb-back { background: none; border: none; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; padding: 0; line-height: 1; }
+    .breadcrumb-back:hover { color: var(--primary); }
+    .breadcrumb-link { background: none; border: none; cursor: pointer; color: var(--text-muted); font-family: var(--font-body); font-size: 13px; font-weight: 500; padding: 0; }
+    .breadcrumb-link:hover { color: var(--primary); }
+    .breadcrumb-sep { color: var(--text-faint); font-size: 13px; user-select: none; }
+    .breadcrumb-current { font-weight: 600; color: var(--text-body); }
+
+    .notif-icon {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .notif-icon::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #FF4444;
+      border-radius: 50%;
+      top: 0;
+      right: 0;
+    }
+
+    /* ═══════════════ PAGE CONTENT ═══════════════ */
+    .page-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+
+    /* ═══════════════ INFO CARD ═══════════════ */
+    .info-card {
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .info-title {
+      font-family: var(--font-title);
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--text-body);
+      margin-bottom: 16px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .info-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .info-label {
+      font-family: var(--font-title);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-body);
+      min-width: 118px;
+    }
+
+    .info-value {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      flex: 1;
+    }
+
+    .info-value.secondary {
+      color: var(--text-faint);
+    }
+
+    .aspect-chips {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .aspect-chip {
+      background: var(--primary-1);
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 800px;
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+
+    /* ═══════════════ TABLE SECTION ═══════════════ */
+    .table-card {
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+    }
+
+    .table-wrapper::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .table-wrapper::-webkit-scrollbar-track {
+      background: var(--surface-sunken);
+    }
+
+    .table-wrapper::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .table-wrapper::-webkit-scrollbar-thumb:hover {
+      background: var(--neutral-4);
+    }
+
+    .monitoring-table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 1200px;
+    }
+
+    .monitoring-table thead tr {
+      border-bottom: 1px solid var(--border);
+      background: white;
+    }
+
+    .monitoring-table th {
+      padding: 10px 16px;
+      text-align: left;
+      font-family: var(--font-title);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--neutral-8);
+      border: none;
+      white-space: nowrap;
+      height: 44px;
+      min-width: auto;
+    }
+
+    .monitoring-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .monitoring-table tbody tr:hover {
+      background: var(--surface-sunken);
+    }
+
+    .monitoring-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .monitoring-table td {
+      padding: 10px 16px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      border: none;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      height: 56px;
+    }
+
+    /* Column widths */
+    .col-program { min-width: 260px; }
+
+    .monitoring-table th.col-program {
+      position: sticky;
+      left: 0;
+      z-index: 10;
+      background: white;
+    }
+
+    .monitoring-table td.col-program {
+      position: sticky;
+      left: 0;
+      z-index: 9;
+      background: white;
+    }
+
+    .monitoring-table tbody tr:hover td.col-program {
+      background: var(--surface-sunken);
+    }
+    .col-vendor { min-width: 150px; }
+    .col-category { min-width: 180px; }
+    .col-aspect { min-width: 180px; }
+    .col-goals { min-width: 220px; }
+    .col-start-date { min-width: 150px; }
+    .col-end-date { min-width: 150px; }
+    .col-pic { min-width: 170px; }
+    .col-attachment { min-width: 150px; }
+    .col-notes { min-width: 120px; }
+
+    /* Program name with icon */
+    .program-name {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+    }
+    .program-name > span {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .program-icon {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Category badge */
+    .category-badge {
+      background: #F2F9F7;
+      color: #00875A;
+      padding: 2px 8px;
+      border-radius: 800px;
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .category-badge.training {
+      background: #F2F9F7;
+      color: #00875A;
+    }
+
+    .category-badge.on-job {
+      background: #F2F9F7;
+      color: #00875A;
+    }
+
+    .chevron-icon {
+      width: 16px;
+      height: 16px;
+      margin-left: 4px;
+    }
+
+    /* PIC cell */
+    .pic-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pic-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-sm);
+      background: #B0B1B2;
+      flex-shrink: 0;
+    }
+
+    .pic-name {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Attachment link */
+    .attachment-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--primary);
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .attachment-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Attachment cell */
+    .att-cell { display: flex; align-items: center; }
+    .att-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 3px 6px; border-radius: var(--radius-sm); color: var(--text-faint); font-size: 12px; font-family: 'Open Sans', sans-serif; transition: background var(--duration-base), color var(--duration-base); line-height: 1; }
+    .att-btn:hover { background: var(--surface-muted); color: var(--text-body); }
+    .att-btn.has-file { color: var(--primary); }
+    .att-label { max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .att-menu { position: fixed; background: white; border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); z-index: 9999; min-width: 130px; overflow: hidden; display: none; }
+    .att-menu.open { display: block; }
+    .att-menu-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; font-size: 12px; font-family: 'Open Sans', sans-serif; color: var(--text-body); cursor: pointer; white-space: nowrap; }
+    .att-menu-item:hover { background: var(--surface-muted); }
+    .att-menu-item-danger { color: #E53E3E; }
+    .att-menu-item-danger:hover { background: #FFF5F5; color: #C53030; }
+
+    /* Notes icon */
+    .notes-icon {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      display: block;
+      color: var(--text-faint);
+      transition: color var(--duration-base);
+    }
+    .notes-icon:hover { color: var(--primary); }
+    .notes-icon.has-notes { color: var(--primary); }
+
+    /* Notes Modal */
+    .notes-modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+    .notes-modal-overlay.active { display: flex; }
+    .notes-modal {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      width: 520px;
+      max-width: calc(100vw - 32px);
+      padding: 28px;
+      position: relative;
+    }
+    .notes-modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .notes-modal-title {
+      font-family: var(--font-title);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-title);
+      line-height: 1.3;
+    }
+    .notes-modal-close {
+      background: none; border: none;
+      font-size: 20px; line-height: 1;
+      color: var(--text-faint); cursor: pointer;
+      padding: 2px 4px; flex-shrink: 0;
+      border-radius: var(--radius-sm);
+    }
+    .notes-modal-close:hover { background: var(--surface-sunken); color: var(--text-body); }
+    .notes-modal-aspect {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 20px;
+    }
+    .notes-modal-aspect-label {
+      font-size: 12px; color: var(--text-faint);
+    }
+    .notes-label {
+      font-size: 13px; font-weight: 700;
+      color: var(--text-body);
+      margin-bottom: 8px;
+    }
+    .notes-textarea {
+      width: 100%; min-height: 120px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--text-body);
+      resize: vertical;
+      outline: none;
+      transition: border-color var(--duration-base);
+      box-sizing: border-box;
+    }
+    .notes-textarea:focus { border-color: var(--primary); }
+    .notes-modal-footer {
+      display: flex; justify-content: flex-end; gap: 10px;
+      margin-top: 20px;
+    }
+    .notes-btn-cancel {
+      padding: 8px 20px; border-radius: var(--radius-pill);
+      border: 1.5px solid var(--border);
+      background: white; font-family: var(--font-body);
+      font-size: 13px; font-weight: 600;
+      color: var(--text-body); cursor: pointer;
+      transition: border-color var(--duration-base);
+    }
+    .notes-btn-cancel:hover { border-color: var(--primary); color: var(--primary); }
+    .notes-btn-save {
+      padding: 8px 24px; border-radius: var(--radius-pill);
+      border: none;
+      background: var(--primary); font-family: var(--font-body);
+      font-size: 13px; font-weight: 600;
+      color: white; cursor: pointer;
+      transition: opacity var(--duration-base);
+    }
+    .notes-btn-save:hover { opacity: 0.88; }
+
+    /* Checkbox — Kelola DS spec */
+    .checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--neutral-4);
+      border-radius: var(--radius-sm);
+      background: white;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all var(--duration-base);
+    }
+
+    .checkbox:hover {
+      border-color: var(--primary);
+    }
+
+    .checkbox:checked {
+      background: var(--primary);
+      border-color: var(--primary);
+      background-image: url("data:image/svg+xml,%3Csvg width='11' height='11' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 6.2L4.8 8.5L9.5 3.5' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: 11px 11px;
+      background-position: center;
+    }
+
+    .checkbox:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .checkbox:disabled:checked {
+      background: var(--neutral-4);
+      border-color: var(--neutral-4);
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #F8F8F8;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #D9D9D9;
+      border-radius: 3px;
+      width: 55%;
+    }
+
+    /* ═══════════════ EXTERNAL LINK BUTTON ═══════════════ */
+    .external-link-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px 6px;
+      margin-left: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-faint);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      border-radius: var(--radius-xs);
+    }
+
+    .monitoring-table td.col-program:hover .external-link-btn {
+      opacity: 1;
+    }
+
+    /* Sub-program rows */
+    .subprogram-row { background-color: var(--surface-sunken); }
+    .subprogram-row td { border-color: var(--surface-muted); }
+    .subprogram-program-cell {
+      padding-left: 64px !important;
+      position: relative;
+    }
+    .subprogram-program-cell::before {
+      content: '';
+      position: absolute;
+      left: 51px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .subprogram-program-cell::after {
+      content: '';
+      position: absolute;
+      left: 51px;
+      top: 50%;
+      width: 13px;
+      height: 1px;
+      background: var(--border);
+    }
+    .subprogram-row td.col-program {
+      background: var(--surface-sunken);
+    }
+    .subprogram-row:hover td.col-program {
+      background: var(--surface-muted);
+    }
+    .subprogram-row.collapsed-hidden {
+      display: none;
+    }
+
+    .expand-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      transition: transform var(--duration-base);
+    }
+    .expand-toggle:hover { color: var(--text-body); }
+    .expand-toggle.collapsed { transform: rotate(-90deg); }
+    .expand-toggle svg { width: 14px; height: 14px; }
+
+    .expand-spacer {
+      width: 18px;
+      flex-shrink: 0;
+    }
+
+    .external-link-btn svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .external-link-btn span {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+
+    .external-link-btn:hover {
+      opacity: 0.7 !important;
+    }
+
+    .program-name > span.completed {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════ FLOATING DETAIL PANEL ═══════════════ */
+    .detail-panel-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    .detail-panel-overlay.active {
+      display: block;
+    }
+
+    .detail-panel {
+      position: fixed;
+      top: 0;
+      right: -500px;
+      width: 500px;
+      height: 100vh;
+      background: white;
+      box-shadow: -2px 2px 15px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-panel.open {
+      right: 0;
+    }
+
+    .detail-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .detail-panel-title {
+      font-family: var(--font-title);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-body);
+      margin: 0;
+    }
+
+    .detail-panel-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-body);
+      padding: 0;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .detail-panel-close:hover {
+      color: var(--primary);
+    }
+
+    .detail-panel-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .detail-field {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .detail-label {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-faint);
+      width: 106px;
+      flex-shrink: 0;
+      padding-top: 1px;
+    }
+
+    .detail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--primary);
+      text-decoration: underline;
+      font-size: 12px;
+      font-family: var(--font-body);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .comment-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 8px 12px;
+    }
+
+    .comment-footer-icon {
+      width: 16px;
+      height: 16px;
+      color: var(--text-faint);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .comment-footer-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--border);
+      flex-shrink: 0;
+      margin: 0 2px;
+    }
+
+    .detail-value {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      line-height: 1.4;
+    }
+
+    .detail-chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-right: 8px;
+    }
+
+    .detail-chip.training {
+      background: #F2F9F7;
+      color: #00875A;
+    }
+
+    .detail-chip.workshop {
+      background: #FFF3E0;
+      color: #E6661C;
+    }
+
+    .detail-chip.mentoring {
+      background: #F3E5F5;
+      color: #6A1B9A;
+    }
+
+    .detail-chip.primary {
+      background: var(--primary-1);
+      color: var(--primary);
+    }
+
+    .detail-comments {
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-top: 16px;
+    }
+
+    .detail-comments-title {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .comment-item {
+      margin-bottom: 12px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .comment-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .comment-content {
+      flex: 1;
+    }
+
+    .comment-header {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .comment-name {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-body);
+    }
+
+    .comment-time {
+      font-family: var(--font-body);
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .comment-text {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      background: var(--surface-sunken);
+      padding: 8px 12px;
+      border-radius: 12px;
+      line-height: 1.4;
+    }
+
+    .detail-panel-footer {
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+      flex-shrink: 0;
+    }
+
+    .comment-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      min-width: 0;
+      background: transparent;
+    }
+
+    .comment-input::placeholder {
+      color: var(--text-faint);
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Header with Breadcrumbs -->
+  <div class="top-header">
+    <nav class="breadcrumb">
+      <button class="breadcrumb-back" onclick="window.history.back()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="breadcrumb-link" onclick="window.history.back()">My Development</button>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Detail IDP</span>
+    </nav>
+    <div class="notif-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div class="page-wrapper">
+
+    <!-- Info Card -->
+    <div class="info-card">
+      <div class="info-title">My IDP - Ulfa Irawan</div>
+
+      <div class="info-grid">
+        <!-- Left Column -->
+        <div>
+          <div class="info-row">
+            <span class="info-label">NIK</span>
+            <span class="info-value">: 2736596000367498</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">Period</span>
+            <span class="info-value">: 12/09/2024 - 17/09/2024</span>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div>
+          <div class="info-row">
+            <span class="info-label">PIC</span>
+            <div>
+              <span class="info-value">: Ilyas Dirgantara <span class="info-value secondary">(ilyas@emial.com)</span></span>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">Status</span>
+            <span class="info-value">: Ongoing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="table-card">
+      <div class="table-wrapper">
+        <table class="monitoring-table">
+          <thead>
+            <tr>
+              <th class="col-program">Program</th>
+              <th class="col-vendor">Vendor</th>
+              <th class="col-category">Category</th>
+              <th class="col-aspect">Aspect</th>
+              <th class="col-goals">Development Goals</th>
+              <th class="col-start-date">Start Date</th>
+              <th class="col-end-date">End Date</th>
+              <th class="col-pic">PIC</th>
+              <th class="col-attachment">Attachment</th>
+              <th class="col-notes">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Program 1 -->
+            <tr data-program="program-1">
+              <td class="col-program">
+                <div class="program-name">
+                  <button class="expand-toggle" data-program="program-1" onclick="toggleSubprograms(this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+                  <input type="checkbox" class="checkbox" checked>
+                  <span>Root Cause Analysis Training</span>
+                  <button class="external-link-btn" onclick="openDetailPanel(this, 'Root Cause Analysis Training', 'Revou', 'TRAINING', 'COMMUNICATION', 'Mengembangkan kemampuan analytical thinking dan problem-solving', '12/09/2024 - 12/09/2024', 'Muhammad Multazam', 'Achan')">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.9974 2.6665V13.3332M2.66406 3.99984C2.66406 3.64622 2.80454 3.30708 3.05459 3.05703C3.30464 2.80698 3.64377 2.6665 3.9974 2.6665H11.9974C12.351 2.6665 12.6902 2.80698 12.9402 3.05703C13.1903 3.30708 13.3307 3.64622 13.3307 3.99984V11.9998C13.3307 12.3535 13.1903 12.6926 12.9402 12.9426C12.6902 13.1927 12.351 13.3332 11.9974 13.3332H3.9974C3.64377 13.3332 3.30464 13.1927 3.05459 12.9426C2.80454 12.6926 2.66406 12.3535 2.66406 11.9998V3.99984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Open</span>
+                  </button>
+                </div>
+              </td>
+              <td class="col-vendor">Revou</td>
+              <td class="col-category">
+                <span class="category-badge training">TRAINING</span>
+              </td>
+              <td class="col-aspect">
+                <span class="aspect-chip">COMMUNICATION</span>
+              </td>
+              <td class="col-goals">Mengembangkan kemampuan a...</td>
+              <td class="col-start-date">
+                12/09/2024
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </td>
+              <td class="col-end-date">
+                12/09/2024
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </td>
+              <td class="col-pic">
+                <div class="pic-cell">
+                  <div class="pic-avatar"></div>
+                  <span class="pic-name">Achan</span>
+                </div>
+              </td>
+              <td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>
+              <td class="col-notes">
+                <svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg>
+              </td>
+            </tr>
+
+            <!-- Program 1 - Sub 1 -->
+            <tr class="subprogram-row" data-parent="program-1">
+              <td class="col-program subprogram-program-cell">
+                <div class="program-name">
+                  <input type="checkbox" class="checkbox" checked>
+                  <span>Analytical Thinking Workshop</span>
+                  <button class="external-link-btn" onclick="openDetailPanel(this, 'Analytical Thinking Workshop', 'Revou', 'TRAINING', 'PROBLEM SOLVING', 'Memahami teknik analisis dan identifikasi masalah secara sistematis', '12/09/2024 - 13/09/2024', 'Muhammad Multazam', 'Achan')">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.9974 2.6665V13.3332M2.66406 3.99984C2.66406 3.64622 2.80454 3.30708 3.05459 3.05703C3.30464 2.80698 3.64377 2.6665 3.9974 2.6665H11.9974C12.351 2.6665 12.6902 2.80698 12.9402 3.05703C13.1903 3.30708 13.3307 3.64622 13.3307 3.99984V11.9998C13.3307 12.3535 13.1903 12.6926 12.9402 12.9426C12.6902 13.1927 12.351 13.3332 11.9974 13.3332H3.9974C3.64377 13.3332 3.30464 13.1927 3.05459 12.9426C2.80454 12.6926 2.66406 12.3535 2.66406 11.9998V3.99984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Open</span>
+                  </button>
+                </div>
+              </td>
+              <td class="col-vendor">Revou</td>
+              <td class="col-category"><span class="category-badge training">TRAINING</span></td>
+              <td class="col-aspect"><span class="aspect-chip">PROBLEM SOLVING</span></td>
+              <td class="col-goals">Teknik analisis dan identifikasi...</td>
+              <td class="col-start-date">12/09/2024 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></td>
+              <td class="col-end-date">13/09/2024 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></td>
+              <td class="col-pic"><div class="pic-cell"><div class="pic-avatar"></div><span class="pic-name">Achan</span></div></td>
+              <td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>
+              <td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
+            </tr>
+
+            <!-- Program 1 - Sub 2 -->
+            <tr class="subprogram-row" data-parent="program-1">
+              <td class="col-program subprogram-program-cell">
+                <div class="program-name">
+                  <input type="checkbox" class="checkbox">
+                  <span>Root Cause Practice Session</span>
+                  <button class="external-link-btn" onclick="openDetailPanel(this, 'Root Cause Practice Session', 'Revou', 'TRAINING', 'CRITICAL THINKING', 'Berlatih mengidentifikasi akar masalah pada studi kasus nyata', '14/09/2024 - 14/09/2024', 'Muhammad Multazam', 'Achan')">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.9974 2.6665V13.3332M2.66406 3.99984C2.66406 3.64622 2.80454 3.30708 3.05459 3.05703C3.30464 2.80698 3.64377 2.6665 3.9974 2.6665H11.9974C12.351 2.6665 12.6902 2.80698 12.9402 3.05703C13.1903 3.30708 13.3307 3.64622 13.3307 3.99984V11.9998C13.3307 12.3535 13.1903 12.6926 12.9402 12.9426C12.6902 13.1927 12.351 13.3332 11.9974 13.3332H3.9974C3.64377 13.3332 3.30464 13.1927 3.05459 12.9426C2.80454 12.6926 2.66406 12.3535 2.66406 11.9998V3.99984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Open</span>
+                  </button>
+                </div>
+              </td>
+              <td class="col-vendor">Revou</td>
+              <td class="col-category"><span class="category-badge training">TRAINING</span></td>
+              <td class="col-aspect"><span class="aspect-chip">CRITICAL THINKING</span></td>
+              <td class="col-goals">Identifikasi akar masalah pada kasus...</td>
+              <td class="col-start-date">14/09/2024 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></td>
+              <td class="col-end-date">14/09/2024 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></td>
+              <td class="col-pic"><div class="pic-cell"><div class="pic-avatar"></div><span class="pic-name">Achan</span></div></td>
+              <td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>
+              <td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
+            </tr>
+
+            <!-- Program 1 - Sub 3 -->
+            <tr class="subprogram-row" data-parent="program-1">
+              <td class="col-program subprogram-program-cell">
+                <div class="program-name">
+                  <input type="checkbox" class="checkbox">
+                  <span>Group Case Study Discussion</span>
+                  <button class="external-link-btn" onclick="openDetailPanel(this, 'Group Case Study Discussion', 'Revou', 'TRAINING', 'TEAMWORK', 'Diskusi kasus bersama tim untuk memperkuat pemahaman analisis', '15/09/2024 - 15/09/2024', 'Muhammad Multazam', 'Achan')">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.9974 2.6665V13.3332M2.66406 3.99984C2.66406 3.64622 2.80454 3.30708 3.05459 3.05703C3.30464 2.80698 3.64377 2.6665 3.9974 2.6665H11.9974C12.351 2.6665 12.6902 2.80698 12.9402 3.05703C13.1903 3.30708 13.3307 3.64622 13.3307 3.99984V11.9998C13.3307 12.3535 13.1903 12.6926 12.9402 12.9426C12.6902 13.1927 12.351 13.3332 11.9974 13.3332H3.9974C3.64377 13.3332 3.30464 13.1927 3.05459 12.9426C2.80454 12.6926 2.66406 12.3535 2.66406 11.9998V3.99984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Open</span>
+                  </button>
+                </div>
+              </td>
+              <td class="col-vendor">Revou</td>
+              <td class="col-category"><span class="category-badge training">TRAINING</span></td>
+              <td class="col-aspect"><span class="aspect-chip">TEAMWORK</span></td>
+              <td class="col-goals">Diskusi kasus tim dan penguatan analisis...</td>
+              <td class="col-start-date">15/09/2024 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></td>
+              <td class="col-end-date">15/09/2024 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></td>
+              <td class="col-pic"><div class="pic-cell"><div class="pic-avatar"></div><span class="pic-name">Achan</span></div></td>
+              <td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>
+              <td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
+            </tr>
+
+            <!-- Program 2 -->
+            <tr>
+              <td class="col-program">
+                <div class="program-name">
+                  <div class="expand-spacer"></div>
+                  <input type="checkbox" class="checkbox" checked>
+                  <span>Solution Experiment &amp; Iteration Task</span>
+                  <button class="external-link-btn" onclick="openDetailPanel(this, 'Solution Experiment &amp; Iteration Task', 'Universitas Pelita Harapan', 'WORKSHOP', 'PROBLEM SOLVING', 'Mengembangkan kemampuan eksperimen dan iterasi dalam problem-solving', '15/09/2024 - 20/09/2024', 'Imanuel Ibrahim', 'Ibrahim')">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.9974 2.6665V13.3332M2.66406 3.99984C2.66406 3.64622 2.80454 3.30708 3.05459 3.05703C3.30464 2.80698 3.64377 2.6665 3.9974 2.6665H11.9974C12.351 2.6665 12.6902 2.80698 12.9402 3.05703C13.1903 3.30708 13.3307 3.64622 13.3307 3.99984V11.9998C13.3307 12.3535 13.1903 12.6926 12.9402 12.9426C12.6902 13.1927 12.351 13.3332 11.9974 13.3332H3.9974C3.64377 13.3332 3.30464 13.1927 3.05459 12.9426C2.80454 12.6926 2.66406 12.3535 2.66406 11.9998V3.99984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Open</span>
+                  </button>
+                </div>
+              </td>
+              <td class="col-vendor">-</td>
+              <td class="col-category"><span class="category-badge on-job">ON JOB ASSIGNMENT</span></td>
+              <td class="col-aspect"><span class="aspect-chip">PROBLEM SOLVING</span></td>
+              <td class="col-goals">Eksperimen solusi dan iterasi pe...</td>
+              <td class="col-start-date">15/09/2024 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></td>
+              <td class="col-end-date">20/09/2024 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></td>
+              <td class="col-pic">
+                <div class="pic-cell">
+                  <div class="pic-avatar"></div>
+                  <span class="pic-name">Ibrahim</span>
+                </div>
+              </td>
+              <td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>
+              <td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
+            </tr>
+
+            <!-- Program 3 -->
+            <tr>
+              <td class="col-program">
+                <div class="program-name">
+                  <div class="expand-spacer"></div>
+                  <input type="checkbox" class="checkbox">
+                  <span>Leadership Communication Workshop</span>
+                  <button class="external-link-btn" onclick="openDetailPanel(this, 'Leadership Communication Workshop', 'Prasetiya Mulya', 'WORKSHOP', 'LEADERSHIP', 'Mengembangkan kemampuan komunikasi kepemimpinan dan public speaking', '20/09/2024 - 25/09/2024', 'Imanuel Ibrahim', 'Ibrahim')">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.9974 2.6665V13.3332M2.66406 3.99984C2.66406 3.64622 2.80454 3.30708 3.05459 3.05703C3.30464 2.80698 3.64377 2.6665 3.9974 2.6665H11.9974C12.351 2.6665 12.6902 2.80698 12.9402 3.05703C13.1903 3.30708 13.3307 3.64622 13.3307 3.99984V11.9998C13.3307 12.3535 13.1903 12.6926 12.9402 12.9426C12.6902 13.1927 12.351 13.3332 11.9974 13.3332H3.9974C3.64377 13.3332 3.30464 13.1927 3.05459 12.9426C2.80454 12.6926 2.66406 12.3535 2.66406 11.9998V3.99984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Open</span>
+                  </button>
+                </div>
+              </td>
+              <td class="col-vendor">Prasetiya Mulya</td>
+              <td class="col-category"><span class="category-badge on-job">WORKSHOP</span></td>
+              <td class="col-aspect"><span class="aspect-chip">LEADERSHIP</span></td>
+              <td class="col-goals">Komunikasi kepemimpinan dan public...</td>
+              <td class="col-start-date">20/09/2024 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></td>
+              <td class="col-end-date">25/09/2024 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 8px; display: inline;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></td>
+              <td class="col-pic">
+                <div class="pic-cell">
+                  <div class="pic-avatar"></div>
+                  <span class="pic-name">Ibrahim</span>
+                </div>
+              </td>
+              <td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>
+              <td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          this.classList.add('checked');
+        } else {
+          this.classList.remove('checked');
+        }
+      });
+    });
+
+    function updateStrikethrough(row) {
+      var myCheck = row.querySelector('.program-name .checkbox');
+      var nameSpan = row.querySelector('.program-name > span');
+      if (myCheck && nameSpan) {
+        nameSpan.classList.toggle('completed', myCheck.checked);
+      }
+    }
+
+    // Run on page load for all rows
+    document.querySelectorAll('tbody tr').forEach(function(row) {
+      updateStrikethrough(row);
+    });
+
+    // Re-check strikethrough whenever employee changes their left checkbox
+    document.querySelectorAll('.program-name .checkbox').forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
+        updateStrikethrough(this.closest('tr'));
+      });
+    });
+  </script>
+
+  <!-- Detail Panel -->
+  <div class="detail-panel-overlay" id="detailPanelOverlay" onclick="closeDetailPanel()"></div>
+  <div class="detail-panel" id="detailPanel">
+    <div class="detail-panel-header">
+      <h2 class="detail-panel-title" id="panelTitle">Program Detail</h2>
+      <button class="detail-panel-close" onclick="closeDetailPanel()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M13 17l5-5-5-5M6 17l5-5-5-5"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="detail-panel-content">
+      <div class="detail-field">
+        <div class="detail-label">Vendor</div>
+        <div class="detail-value" id="panelVendor">-</div>
+      </div>
+
+      <div class="detail-field">
+        <div class="detail-label">Category</div>
+        <div class="detail-value">
+          <span class="detail-chip" id="panelCategory">-</span>
+        </div>
+      </div>
+
+      <div class="detail-field">
+        <div class="detail-label">Aspect</div>
+        <div class="detail-value">
+          <span class="detail-chip primary" id="panelAspect">-</span>
+        </div>
+      </div>
+
+      <div class="detail-field">
+        <div class="detail-label">Development Goals</div>
+        <div class="detail-value" id="panelGoals">-</div>
+      </div>
+
+      <div class="detail-field">
+        <div class="detail-label">Due</div>
+        <div class="detail-value" style="display: flex; align-items: center; justify-content: space-between; flex: 1;">
+          <span id="panelDueDate">-</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text-faint); flex-shrink: 0;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+      </div>
+
+      <div class="detail-field">
+        <div class="detail-label">PIC</div>
+        <div class="detail-value">
+          <div class="pic-cell">
+            <div class="pic-avatar" style="border-radius: 50%;"></div>
+            <span id="panelPIC">-</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-field">
+        <div class="detail-label">Attachment</div>
+        <div class="detail-value">
+          <div class="att-cell" id="panelAttachCell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div>
+        </div>
+      </div>
+
+      <div class="detail-field">
+        <div class="detail-label">Notes</div>
+        <div class="detail-value">
+          <button class="detail-link" id="panelNotesBtn" onclick="openPanelNotes()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg>
+            Notes
+          </button>
+        </div>
+      </div>
+
+      <div class="detail-field">
+        <div class="detail-label">My Check</div>
+        <div class="detail-value">
+          <input type="checkbox" class="checkbox" id="panelEmpCheck" onchange="syncPanelCheckToRow('my-check', this)">
+        </div>
+      </div>
+
+      <div class="detail-comments">
+        <div class="detail-comments-title">Comment</div>
+        <div id="commentsList" style="margin-bottom: 12px;">
+          <div class="comment-item">
+            <div class="comment-avatar">MM</div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <span class="comment-name">Muhammad Multazam</span>
+                <span class="comment-time">Apr 20, 2026, 11:39 AM</span>
+              </div>
+              <div class="comment-text">tolong sekali lage cek dokumentasinya dan lampirkan kembali</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar" style="background: #B0B1B2; color: var(--text-body);">IB</div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <span class="comment-name">Ibrahim</span>
+                <span class="comment-time">Apr 20, 2026, 11:39 AM</span>
+              </div>
+              <div class="comment-text">dokumentasi trainingnya kah Pak?</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar">MM</div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <span class="comment-name">Muhammad Multazam</span>
+                <span class="comment-time">Apr 20, 2026, 11:40 AM</span>
+              </div>
+              <div class="comment-text">Iya</div>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="comment-avatar" style="background: #B0B1B2; color: var(--text-body);">IB</div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <span class="comment-name">Ibrahim</span>
+                <span class="comment-time">Apr 20, 2026, 11:40 AM</span>
+              </div>
+              <div class="comment-text">Oke akan saya update</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-panel-footer">
+      <div class="comment-input-wrapper">
+        <input type="text" class="comment-input" placeholder="Add comment">
+        <svg class="comment-footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <svg class="comment-footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+        <div class="comment-footer-divider"></div>
+        <svg class="comment-footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary);"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openDetailPanel(btn, title, vendor, category, aspect, goals, dueDate, pic, picShort) {
+      document.getElementById('panelTitle').textContent = title;
+      document.getElementById('panelVendor').textContent = vendor;
+      document.getElementById('panelGoals').textContent = goals;
+      document.getElementById('panelDueDate').textContent = dueDate;
+      document.getElementById('panelPIC').textContent = pic;
+
+      const categoryChip = document.getElementById('panelCategory');
+      categoryChip.textContent = category;
+      categoryChip.className = 'detail-chip ' + category.toLowerCase();
+
+      const aspectChip = document.getElementById('panelAspect');
+      aspectChip.textContent = aspect;
+
+      // Store source row reference
+      _panelSourceRow = btn.closest('tr');
+
+      // My Check = left checkbox inside program-name
+      const myCheck = _panelSourceRow.querySelector('.program-name .checkbox');
+      const empCheckEl = document.getElementById('panelEmpCheck');
+      if (empCheckEl && myCheck) empCheckEl.checked = myCheck.checked;
+
+      // Sync notes button state
+      var notesSvg = _panelSourceRow.querySelector('.col-notes .notes-icon');
+      var notesBtn = document.getElementById('panelNotesBtn');
+      if (notesBtn && notesSvg) notesBtn.classList.toggle('has-notes', notesSvg.classList.contains('has-notes'));
+
+      // Sync attachment
+      var rowAttBtn = _panelSourceRow.querySelector('.col-attachment .att-btn');
+      var panelAttCell = document.getElementById('panelAttachCell');
+      if (panelAttCell && rowAttBtn) {
+        var pBtn = panelAttCell.querySelector('.att-btn');
+        if (pBtn) {
+          pBtn.querySelector('.att-label').textContent = rowAttBtn.querySelector('.att-label').textContent;
+          rowAttBtn.classList.contains('has-file') ? pBtn.classList.add('has-file') : pBtn.classList.remove('has-file');
+        }
+      }
+
+      document.getElementById('detailPanelOverlay').classList.add('active');
+      document.getElementById('detailPanel').classList.add('open');
+    }
+
+    function openPanelNotes() {
+      if (!_panelSourceRow) return;
+      var notesSvg = _panelSourceRow.querySelector('.col-notes .notes-icon');
+      if (notesSvg) openNotesModal(notesSvg);
+    }
+
+    function syncPanelCheckToRow(colClass, checkbox) {
+      if (!_panelSourceRow) return;
+      // My Check maps to .program-name .checkbox (not a col class)
+      if (colClass === 'my-check') {
+        var rowCheck = _panelSourceRow.querySelector('.program-name .checkbox');
+        if (rowCheck) {
+          rowCheck.checked = checkbox.checked;
+          // Trigger strikethrough update
+          if (typeof updateStrikethrough === 'function') updateStrikethrough(rowCheck);
+          else rowCheck.dispatchEvent(new Event('change'));
+        }
+      } else {
+        var rowCheck2 = _panelSourceRow.querySelector('.col-' + colClass + ' .checkbox');
+        if (rowCheck2) rowCheck2.checked = checkbox.checked;
+      }
+    }
+
+    function toggleSubprograms(btn) {
+      var programId = btn.getAttribute('data-program');
+      var subRows = document.querySelectorAll('tr[data-parent="' + programId + '"]');
+      var isCollapsing = !btn.classList.contains('collapsed');
+      btn.classList.toggle('collapsed', isCollapsing);
+      subRows.forEach(function(row) {
+        row.classList.toggle('collapsed-hidden', isCollapsing);
+      });
+    }
+
+    function closeDetailPanel() {
+      const overlay = document.getElementById('detailPanelOverlay');
+      const panel = document.getElementById('detailPanel');
+      overlay.classList.remove('active');
+      panel.classList.remove('open');
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeDetailPanel();
+        closeNotesModal();
+      }
+    });
+
+    var _notesData = {};
+    var _currentNotesSvg = null;
+    var _panelSourceRow = null;
+
+    function openNotesModal(svg) {
+      const row = svg.closest('tr');
+      const programName = row.querySelector('.program-name span').textContent.trim();
+      const aspectEl = row.querySelector('.aspect-chip');
+      const aspect = aspectEl ? aspectEl.textContent.trim() : '-';
+      _currentNotesSvg = svg;
+      document.getElementById('notesModalTitle').textContent = programName;
+      document.getElementById('notesModalAspect').textContent = aspect;
+      document.getElementById('notesTextarea').value = _notesData[programName] || '';
+      document.getElementById('notesModalOverlay').classList.add('active');
+      setTimeout(function(){ document.getElementById('notesTextarea').focus(); }, 50);
+    }
+
+    function closeNotesModal(e) {
+      if (e && e.target !== document.getElementById('notesModalOverlay')) return;
+      document.getElementById('notesModalOverlay').classList.remove('active');
+      _currentNotesSvg = null;
+    }
+
+    function saveNotes() {
+      const text = document.getElementById('notesTextarea').value.trim();
+      const key = document.getElementById('notesModalTitle').textContent;
+      _notesData[key] = text;
+      if (_currentNotesSvg) {
+        _currentNotesSvg.classList.toggle('has-notes', text.length > 0);
+        var notesBtn = document.getElementById('panelNotesBtn');
+        if (notesBtn) notesBtn.classList.toggle('has-notes', text.length > 0);
+      }
+      document.getElementById('notesModalOverlay').classList.remove('active');
+      _currentNotesSvg = null;
+    }
+  </script>
+
+  <!-- ═══ Notes Modal ═══ -->
+  <div class="notes-modal-overlay" id="notesModalOverlay" onclick="closeNotesModal(event)">
+    <div class="notes-modal" onclick="event.stopPropagation()">
+      <div class="notes-modal-header">
+        <span class="notes-modal-title" id="notesModalTitle"></span>
+        <button class="notes-modal-close" onclick="closeNotesModal()">×</button>
+      </div>
+      <div class="notes-modal-aspect">
+        <span class="notes-modal-aspect-label">from aspect</span>
+        <span class="aspect-chip" id="notesModalAspect"></span>
+      </div>
+      <div class="notes-label">My Notes</div>
+      <textarea class="notes-textarea" id="notesTextarea" placeholder="Tulis catatan progress kamu..."></textarea>
+      <div class="notes-modal-footer">
+        <button class="notes-btn-cancel" onclick="closeNotesModal()">Cancel</button>
+        <button class="notes-btn-save" onclick="saveNotes()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ User Switcher ═══ -->
+  <style>
+    #user-switcher { position: fixed; bottom: 20px; left: 20px; z-index: 9999; }
+    #switcher-menu {
+      display: none; position: absolute; bottom: calc(100% + 8px); left: 0;
+      background: white; border: 1px solid var(--border); border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg); overflow: hidden; min-width: 150px;
+    }
+    .sw-option {
+      display: flex; align-items: center; gap: 8px; width: 100%;
+      padding: 9px 14px; background: none; border: none;
+      font-size: 12px; font-family: var(--font-body); color: var(--text-body);
+      cursor: pointer; text-align: left;
+    }
+    .sw-option:hover { background: var(--surface-sunken); }
+    .sw-option.sw-active { color: var(--primary); font-weight: 700; }
+    .sw-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--neutral-4); flex-shrink: 0; }
+    .sw-option.sw-active .sw-dot { background: var(--primary); }
+    #switcher-trigger {
+      display: flex; align-items: center; gap: 6px; padding: 6px 12px;
+      background: white; border: 1px solid var(--border); border-radius: var(--radius-pill);
+      font-size: 12px; font-family: var(--font-body); color: var(--text-muted);
+      cursor: pointer; box-shadow: var(--shadow-sm); white-space: nowrap;
+    }
+    #switcher-trigger:hover { border-color: var(--primary); color: var(--primary); }
+  </style>
+  <div id="user-switcher">
+    <div id="switcher-menu">
+      <button class="sw-option" onclick="swSwitch('Admin')"><span class="sw-dot"></span>Admin</button>
+      <button class="sw-option" onclick="swSwitch('Manager')"><span class="sw-dot"></span>Manager</button>
+      <button class="sw-option" onclick="swSwitch('Employee')"><span class="sw-dot"></span>Employee</button>
+    </div>
+    <button id="switcher-trigger" onclick="swToggle(event)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span id="sw-label">Employee</span>
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+  </div>
+  <script>
+    (function(){
+      var KEY='idp-role';
+      function cur(){ return localStorage.getItem(KEY)||'Employee'; }
+      function render(r){
+        document.getElementById('sw-label').textContent=r;
+        document.querySelectorAll('.sw-option').forEach(function(b){
+          b.classList.toggle('sw-active', b.textContent.trim()===r);
+        });
+      }
+      window.swToggle=function(e){ e.stopPropagation(); var m=document.getElementById('switcher-menu'); m.style.display=m.style.display==='block'?'none':'block'; };
+      window.swSwitch=function(r){
+        localStorage.setItem(KEY,r);
+        document.getElementById('switcher-menu').style.display='none';
+        if(r==='Employee') render(r);
+        else if(r==='Admin') window.location.href='/detail-idp-admin.html';
+        else if(r==='Manager') window.location.href='/detail-idp-manager.html';
+      };
+      document.addEventListener('click',function(e){ if(!document.getElementById('user-switcher').contains(e.target)) document.getElementById('switcher-menu').style.display='none'; });
+      render(cur());
+    })();
+
+    (function(){
+      var ACCEPT = '.jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx';
+      var _menu = document.getElementById('attMenu'), _activeBtn = null, _activeInp = null;
+      if (!_menu) {
+        _menu = document.createElement('div');
+        _menu.className = 'att-menu'; _menu.id = 'attMenu';
+        _menu.innerHTML =
+          '<div class="att-menu-item" id="attMenuView"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Open file</div>' +
+          '<div class="att-menu-item" id="attMenuChange"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>Change file</div>' +
+          '<div class="att-menu-item att-menu-item-danger" id="attMenuDelete"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>Delete file</div>';
+        document.body.appendChild(_menu);
+        document.getElementById('attMenuView').addEventListener('click', function(){
+          if (_activeBtn && _activeBtn._attFile) window.open(URL.createObjectURL(_activeBtn._attFile), '_blank');
+          _menu.classList.remove('open');
+        });
+        document.getElementById('attMenuChange').addEventListener('click', function(){
+          _menu.classList.remove('open');
+          if (_activeInp) _activeInp.click();
+        });
+        document.getElementById('attMenuDelete').addEventListener('click', function(){
+          if (_activeBtn) {
+            _activeBtn._attFile = null;
+            _activeBtn.querySelector('.att-label').textContent = 'Upload file';
+            _activeBtn.classList.remove('has-file');
+            if (_activeInp) _activeInp.value = '';
+          }
+          _menu.classList.remove('open');
+        });
+        document.addEventListener('click', function(e){ if (!_menu.contains(e.target)) _menu.classList.remove('open'); });
+      }
+      function showMenu(btn, inp) {
+        _activeBtn = btn; _activeInp = inp; _menu.classList.add('open');
+        var r = btn.getBoundingClientRect(), mh = _menu.offsetHeight || 80;
+        var top = r.bottom + 4;
+        if (top + mh > window.innerHeight) top = r.top - mh - 4;
+        _menu.style.top = top + 'px';
+        _menu.style.left = Math.max(4, Math.min(r.left, window.innerWidth - 150)) + 'px';
+      }
+      function wireAttBtn(btn) {
+        if (btn.dataset.attInit) return;
+        btn.dataset.attInit = '1';
+        var inp = btn.previousElementSibling;
+        if (!inp || !inp.classList.contains('att-input')) {
+          inp = document.createElement('input');
+          inp.type = 'file'; inp.accept = ACCEPT; inp.className = 'att-input'; inp.style.display = 'none';
+          btn.parentNode.insertBefore(inp, btn);
+        }
+        var isPanel = !!btn.closest('#panelAttachCell');
+        btn.addEventListener('click', function(e){
+          if (btn.classList.contains('has-file')) { e.stopPropagation(); showMenu(btn, inp); }
+          else inp.click();
+        });
+        inp.addEventListener('change', function(){
+          if (!inp.files || !inp.files[0]) return;
+          btn._attFile = inp.files[0];
+          var fname = inp.files[0].name;
+          btn.querySelector('.att-label').textContent = fname;
+          btn.classList.add('has-file');
+          if (isPanel) {
+            if (typeof _panelSourceRow !== 'undefined' && _panelSourceRow) {
+              var rowBtn = _panelSourceRow.querySelector('.col-attachment .att-btn');
+              if (rowBtn) { rowBtn._attFile = inp.files[0]; rowBtn.querySelector('.att-label').textContent = fname; rowBtn.classList.add('has-file'); }
+            }
+          } else {
+            var panelCell = document.getElementById('panelAttachCell');
+            if (panelCell && typeof _panelSourceRow !== 'undefined' && _panelSourceRow) {
+              var td = btn.closest('td.col-attachment');
+              if (td && _panelSourceRow.contains(td)) {
+                var pBtn = panelCell.querySelector('.att-btn');
+                if (pBtn) { pBtn._attFile = inp.files[0]; pBtn.querySelector('.att-label').textContent = fname; pBtn.classList.add('has-file'); }
+              }
+            }
+          }
+        });
+      }
+      document.querySelectorAll('.att-btn').forEach(wireAttBtn);
+    })();
+  </script>
+</body>
+</html>

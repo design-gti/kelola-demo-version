@@ -1,0 +1,81 @@
+/* ============================================================
+   Kelola — Typography tokens
+   Two families: Avenir (titles/UI) + Open Sans (body).
+   Scale lifted verbatim from resources/css/font.css.
+   Naming mirrors the product utility classes (.font-heading, etc).
+   ============================================================ */
+
+:root {
+  /* --- Families ------------------------------------------- */
+  --font-title: 'Avenir', 'Avenir Next', 'Segoe UI', sans-serif;   /* headings, buttons, nav, labels */
+  --font-body: 'Open Sans', 'Avenir', sans-serif;                  /* paragraphs, captions, table data */
+  --font-mono: 'Avenir', 'Open Sans', sans-serif;                  /* product uses Avenir for mono too */
+
+  /* --- Weights -------------------------------------------- */
+  --fw-light: 300;    /* @kind font */
+  --fw-regular: 400;  /* @kind font */
+  --fw-medium: 500;   /* @kind font */
+  --fw-semibold: 600; /* @kind font */
+  --fw-bold: 700;     /* @kind font */
+  --fw-heavy: 800;    /* @kind font */
+  --fw-black: 900;    /* @kind font */
+
+  /* --- Role tokens (size / weight / line-height) ----------
+     Heading & Title roles use --font-title (Avenir).
+     Paragraph/Body/Label/Caption use --font-body (Open Sans). */
+
+  /* Heading — 20 / 800 */
+  --type-heading-size: 20px;
+  --type-heading-weight: 800;
+  --type-heading-line: 27.32px;
+
+  /* Subheading — 16 / 700 */
+  --type-subheading-size: 16px;
+  --type-subheading-weight: 700;
+  --type-subheading-line: 21.86px;
+
+  /* Title — 14 / 700  (buttons, nav links, modal titles) */
+  --type-title-size: 14px;
+  --type-title-weight: 700;
+  --type-title-line: 19.12px;
+
+  /* Subtitle — 12 / 700  (input labels) */
+  --type-subtitle-size: 12px;
+  --type-subtitle-weight: 700;
+  --type-subtitle-line: 16.39px;
+
+  /* Paragraph — 14 / 400  (Open Sans) */
+  --type-paragraph-size: 14px;
+  --type-paragraph-weight: 400;
+  --type-paragraph-line: 19.07px;
+
+  /* Body — 12 / 400  (Open Sans) */
+  --type-body-size: 12px;
+  --type-body-weight: 400;
+  --type-body-line: 16.34px;
+
+  /* Label — 10 / 700  (Open Sans, uppercase-ish micro label) */
+  --type-label-size: 10px;
+  --type-label-weight: 700;
+  --type-label-line: 13.62px;
+
+  /* Caption — 10 / 400  (Open Sans) */
+  --type-caption-size: 10px;
+  --type-caption-weight: 400;
+  --type-caption-line: 16.34px;
+
+  /* Display — large marketing/hero headline (Avenir Black) */
+  --type-display-size: 48px;
+  --type-display-weight: 900;
+  --type-display-line: 1.1;
+}
+
+/* ---------- Optional helper classes (mirror product) -------- */
+.font-heading    { font-family: var(--font-title); font-size: var(--type-heading-size); font-weight: var(--type-heading-weight); line-height: var(--type-heading-line); }
+.font-subheading { font-family: var(--font-title); font-size: var(--type-subheading-size); font-weight: var(--type-subheading-weight); line-height: var(--type-subheading-line); }
+.font-title      { font-family: var(--font-title); font-size: var(--type-title-size); font-weight: var(--type-title-weight); line-height: var(--type-title-line); }
+.font-subtitle   { font-family: var(--font-title); font-size: var(--type-subtitle-size); font-weight: var(--type-subtitle-weight); line-height: var(--type-subtitle-line); }
+.font-paragraph  { font-family: var(--font-body); font-size: var(--type-paragraph-size); font-weight: var(--type-paragraph-weight); line-height: var(--type-paragraph-line); }
+.font-body       { font-family: var(--font-body); font-size: var(--type-body-size); font-weight: var(--type-body-weight); line-height: var(--type-body-line); }
+.font-label      { font-family: var(--font-body); font-size: var(--type-label-size); font-weight: var(--type-label-weight); line-height: var(--type-label-line); }
+.font-caption    { font-family: var(--font-body); font-size: var(--type-caption-size); font-weight: var(--type-caption-weight); line-height: var(--type-caption-line); }

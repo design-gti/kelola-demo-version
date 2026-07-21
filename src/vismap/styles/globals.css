@@ -1,0 +1,400 @@
+/* ============================================================
+   Kelola Design System — fonts
+   ============================================================ */
+/* Avenir — registered under both 'Avenir' and 'Avenir:Heavy' for
+   backward compat with existing font-['Avenir:Heavy',_sans-serif] refs */
+@font-face {
+  font-family: 'Avenir';
+  src: url('/assets/fonts/Avenir-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('/assets/fonts/Avenir-Book.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('/assets/fonts/Avenir-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('/assets/fonts/AvenirNext-DemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('/assets/fonts/Avenir-Heavy.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('/assets/fonts/AvenirNext-Bold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('/assets/fonts/Avenir-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 'Avenir:Heavy' — backward-compat alias used by existing components */
+@font-face {
+  font-family: 'Avenir:Heavy';
+  src: url('/assets/fonts/Avenir-Heavy.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+
+  /* ============================================================
+     Kelola Design System — Color Tokens
+     ============================================================ */
+
+  /* Primary · blue */
+  --primary-0: #F9FAFB;
+  --primary-1: #E7F5FF;
+  --primary-2: #D6E6FF;
+  --primary-3: #A4C7FF;
+  --primary-4: #2F95DE;
+  --primary-5: #016699;
+  --primary-6: #005079;
+  --primary-7: #002E4A;
+  --primary-8: #01293D;
+  --primary-9: #001925;
+
+  /* Secondary · orange */
+  --secondary-0: #FFF2E4;
+  --secondary-1: #FFE3C5;
+  --secondary-2: #FFD399;
+  --secondary-3: #FFBB65;
+  --secondary-4: #FDA637;
+  --secondary-5: #FD9F28;
+  --secondary-6: #F28700;
+  --secondary-7: #E27E00;
+  --secondary-8: #CA6F00;
+  --secondary-9: #854800;
+
+  /* Neutral · greys */
+  --neutral-0: #FFFFFF;
+  --neutral-1: #F8F9FA;
+  --neutral-2: #E9ECEF;
+  --neutral-3: #DEE2E6;
+  --neutral-4: #CED4DA;
+  --neutral-5: #ADB5BD;
+  --neutral-6: #868E96;
+  --neutral-7: #495057;
+  --neutral-8: #343A40;
+  --neutral-9: #212529;
+
+  /* Semantic · error */
+  --error-0: #FDF5F3;
+  --error-5: #DE350B;
+  --error-6: #E01419;
+
+  /* Semantic · success */
+  --success-0: #F2F9F7;
+  --success-5: #00875A;
+  --success-6: #00714C;
+
+  /* Semantic · warning */
+  --warning-0: #FFF4E0;
+  --warning-5: #FF8918;
+
+  /* Semantic · info */
+  --info-0: #E0FFFF;
+  --info-7: #00CAE3;
+
+  /* Surfaces & text aliases */
+  --surface-card: var(--neutral-0);
+  --surface-sunken: var(--neutral-1);
+  --surface-muted: var(--neutral-2);
+  --surface-brand-soft: var(--primary-1);
+  --text-strong: var(--neutral-9);
+  --text-body: var(--neutral-7);
+  --text-muted: var(--neutral-6);
+  --text-faint: var(--neutral-5);
+  --text-on-brand: #FFFFFF;
+  --text-link: var(--primary-5);
+
+  /* Font families */
+  --font-title: 'Avenir', 'Avenir Next', 'Segoe UI', sans-serif;
+  --font-body: 'Open Sans', 'Avenir', sans-serif;
+
+  /* Spacing scale */
+  --space-xs: 10px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 20px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Radius */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 18px;
+  --radius-pill: 999px;
+  --radius-notch: 8px 0px 8px 0px;
+
+  /* Shadows */
+  --shadow-card: 2px 4px 20px 0px rgba(0, 0, 0, 0.07);
+  --shadow-sm: 2px 2px 15px 0px rgba(0, 0, 0, 0.10);
+  --shadow-lg: 0px 0px 24px 0px rgba(0, 0, 0, 0.16);
+  --shadow-focus: 0 0 0 2px var(--primary-1);
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 0.15s;
+  --duration-base: 0.2s;
+  --duration-slow: 0.7s;
+
+  /* Brand gradient */
+  --gradient-primary: linear-gradient(185.52deg, var(--primary-4) 1.4%, var(--primary-5) 60.56%);
+  --gradient-card-action: linear-gradient(270deg, #E7F5FF 0%, #FFFFFF 100%);
+
+  /* ============================================================
+     Shadcn / Tailwind variable overrides — mapped to Kelola values
+     ============================================================ */
+  --background: #F7F7F7;
+  --foreground: #495057;
+  --card: #FFFFFF;
+  --card-foreground: #495057;
+  --popover: #FFFFFF;
+  --popover-foreground: #495057;
+  --primary: #016699;
+  --primary-foreground: #FFFFFF;
+  --secondary: #FFF2E4;
+  --secondary-foreground: #854800;
+  --muted: #F8F9FA;
+  --muted-foreground: #868E96;
+  --accent: #E7F5FF;
+  --accent-foreground: #016699;
+  --destructive: #DE350B;
+  --destructive-foreground: #FFFFFF;
+  --border: #DEE2E6;
+  --input: transparent;
+  --input-background: #F8F9FA;
+  --switch-background: #CED4DA;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #016699;
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.5rem; /* 8px — Kelola card radius */
+  --sidebar: #F8F9FA;
+  --sidebar-foreground: #495057;
+  --sidebar-primary: #016699;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E7F5FF;
+  --sidebar-accent-foreground: #016699;
+  --sidebar-border: #DEE2E6;
+  --sidebar-ring: #016699;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+}
+
+/**
+ * Base typography — Kelola scale.
+ * Headings use Avenir (--font-title), body elements use Open Sans (--font-body).
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-family: var(--font-title);
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-family: var(--font-title);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    h3 {
+      font-family: var(--font-title);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    h4 {
+      font-family: var(--font-title);
+      font-size: var(--text-base);
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+
+    label {
+      font-family: var(--font-title);
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-family: var(--font-title);
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    input {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+/* Custom subtle scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}

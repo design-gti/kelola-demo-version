@@ -1,0 +1,25 @@
+<!-- @dsCard group="Type" viewport="700x230" name="Headings (Avenir)" subtitle="Display · Heading · Subheading — the structural top end" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--background); padding: 22px; font-family: var(--font-title); }
+  .card { background:#fff; border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: 20px 24px; }
+  .spec { display:flex; align-items:baseline; gap:14px; padding: 8px 0; border-bottom: 1px solid var(--neutral-2); }
+  .spec:last-child { border-bottom: none; }
+  .tag { font-family: var(--font-body); font-size: 9px; color: var(--text-faint); width: 120px; flex-shrink:0; }
+  .display { font-size: var(--type-display-size); font-weight: var(--type-display-weight); color: var(--text-strong); line-height: 1; }
+  .h1 { font-size: var(--type-heading-size); font-weight: var(--type-heading-weight); color: var(--text-strong); }
+  .h2 { font-size: var(--type-subheading-size); font-weight: var(--type-subheading-weight); color: var(--text-body); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="spec"><span class="tag">Display · 48 / 900</span><span class="display">Kelola talenta</span></div>
+    <div class="spec"><span class="tag">Heading · 20 / 800</span><span class="h1">Company Dashboard</span></div>
+    <div class="spec"><span class="tag">Subheading · 16 / 700</span><span class="h2">Succession Risk by Position</span></div>
+  </div>
+</body>
+</html>

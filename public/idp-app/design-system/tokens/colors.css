@@ -1,0 +1,127 @@
+/* ============================================================
+   Kelola — Color tokens
+   Sourced from resources/js/config/mantineTheme.ts (Mantine color tuples).
+   Primary = deep blue (#016699, shade 5). Secondary = orange (#FD9F28, shade 5).
+   Scales run 0 (lightest) → 9 (darkest).
+   ============================================================ */
+
+:root {
+  /* --- Primary · blue ------------------------------------- */
+  --primary-0: #F9FAFB;
+  --primary-1: #E7F5FF;
+  --primary-2: #D6E6FF;
+  --primary-3: #A4C7FF;
+  --primary-4: #2F95DE;
+  --primary-5: #016699;   /* DEFAULT */
+  --primary-6: #005079;
+  --primary-7: #002E4A;
+  --primary-8: #01293D;
+  --primary-9: #001925;
+  --primary: var(--primary-5);
+
+  /* --- Secondary · orange --------------------------------- */
+  --secondary-0: #FFF2E4;
+  --secondary-1: #FFE3C5;
+  --secondary-2: #FFD399;
+  --secondary-3: #FFBB65;
+  --secondary-4: #FDA637;
+  --secondary-5: #FD9F28;  /* DEFAULT */
+  --secondary-6: #F28700;
+  --secondary-7: #E27E00;
+  --secondary-8: #CA6F00;
+  --secondary-9: #854800;
+  --secondary: var(--secondary-5);
+
+  /* --- Neutral · greys (UI structure) --------------------- */
+  --neutral-0: #FFFFFF;
+  --neutral-1: #F8F9FA;
+  --neutral-2: #E9ECEF;
+  --neutral-3: #DEE2E6;
+  --neutral-4: #CED4DA;
+  --neutral-5: #ADB5BD;
+  --neutral-6: #868E96;
+  --neutral-7: #495057;   /* DEFAULT (also brand "black") */
+  --neutral-8: #343A40;
+  --neutral-9: #212529;
+  --neutral: var(--neutral-7);
+
+  /* --- Semantic · error ----------------------------------- */
+  --error-0: #FDF5F3;
+  --error-1: #FADFD8;
+  --error-2: #FFD3D3;
+  --error-3: #F6A5A6;
+  --error-4: #EF7476;
+  --error-5: #DE350B;   /* DEFAULT */
+  --error-6: #E01419;
+  --error-7: #CB1418;
+  --error-8: #B60C14;
+  --error-9: #650009;
+  --error: var(--error-5);
+
+  /* --- Semantic · success --------------------------------- */
+  --success-0: #F2F9F7;
+  --success-1: #E0EFEB;
+  --success-2: #ACEECA;
+  --success-3: #80E5AD;
+  --success-4: #5BDD94;
+  --success-5: #00875A;   /* DEFAULT */
+  --success-6: #00714C;
+  --success-7: #006241;
+  --success-8: #005035;
+  --success-9: #003F2A;
+  --success: var(--success-5);
+
+  /* --- Semantic · warning --------------------------------- */
+  --warning-0: #FFF4E0;
+  --warning-1: #FFE6CB;
+  --warning-2: #FFCC99;
+  --warning-3: #FFB063;
+  --warning-4: #FF9836;
+  --warning-5: #FF8918;   /* DEFAULT */
+  --warning-6: #FF8105;
+  --warning-7: #E46E00;
+  --warning-8: #CB6200;
+  --warning-9: #B15200;
+  --warning: var(--warning-5);
+
+  /* --- Semantic · info ------------------------------------ */
+  --info-0: #E0FFFF;
+  --info-1: #CCFBFF;
+  --info-2: #9CF4FF;
+  --info-3: #68EEFE;
+  --info-4: #44E8FE;
+  --info-5: #30E5FD;
+  --info-6: #1EE5FE;
+  --info-7: #00CAE3;   /* DEFAULT */
+  --info-8: #00B5CA;
+  --info-9: #009DB1;
+  --info: var(--info-7);
+
+  /* --- Surfaces & text (semantic aliases) ----------------- */
+  --background: #F7F7F7;          /* app canvas */
+  --surface-card: var(--neutral-0);     /* white cards */
+  --surface-sunken: var(--neutral-1);   /* subtle fills, table rows */
+  --surface-muted: var(--neutral-2);    /* dividers fill, chips */
+  --surface-brand-soft: var(--primary-1); /* tinted brand surface */
+
+  --border: var(--neutral-3);     /* default hairline */
+  --border-strong: var(--neutral-5);
+  --border-input: var(--neutral-3);
+
+  --text-strong: var(--neutral-9);   /* headings */
+  --text-body: var(--neutral-7);     /* body copy / brand black */
+  --text-muted: var(--neutral-6);    /* secondary, descriptions */
+  --text-faint: var(--neutral-5);    /* placeholder, disabled */
+  --text-on-brand: #FFFFFF;
+  --text-link: var(--primary-5);
+  --text-link-hover: var(--primary-6);
+
+  /* Misc brand accents seen in product */
+  --accent-progress: #FD991A;     /* nprogress / loading bar */
+  --kelola-blue-extension: #257CBC;
+  --logo-grey: #58595B;           /* secondary logo stroke */
+
+  /* --- Brand gradient ------------------------------------- */
+  --gradient-primary: linear-gradient(185.52deg, var(--primary-4) 1.4%, var(--primary-5) 60.56%);  /* @kind color */
+  --gradient-card-action: linear-gradient(270deg, #E7F5FF 0%, #FFFFFF 100%);  /* @kind color */
+}

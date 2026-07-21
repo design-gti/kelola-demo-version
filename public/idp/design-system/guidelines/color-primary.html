@@ -1,0 +1,32 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Primary · Blue" subtitle="Brand blue scale 0–9 · DEFAULT = 5 (#016699)" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-body); background: var(--background); padding: 18px; }
+  .row { display: flex; gap: 0; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); }
+  .sw { flex: 1; height: 96px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; box-sizing: border-box; }
+  .sw .n { font-family: var(--font-title); font-weight: 800; font-size: 12px; }
+  .sw .h { font-family: var(--font-body); font-size: 9px; opacity: .85; letter-spacing: .02em; }
+  .light { color: var(--neutral-8); }
+  .dark { color: #fff; }
+  .tag { display:inline-block; font-family: var(--font-body); font-size: 8px; font-weight:700; background:#fff; color:var(--primary-5); border-radius: var(--radius-pill); padding: 1px 6px; margin-top:3px; width:fit-content; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw light" style="background:var(--primary-0)"><span class="n">0</span><span class="h">#F9FAFB</span></div>
+    <div class="sw light" style="background:var(--primary-1)"><span class="n">1</span><span class="h">#E7F5FF</span></div>
+    <div class="sw light" style="background:var(--primary-2)"><span class="n">2</span><span class="h">#D6E6FF</span></div>
+    <div class="sw light" style="background:var(--primary-3)"><span class="n">3</span><span class="h">#A4C7FF</span></div>
+    <div class="sw dark" style="background:var(--primary-4)"><span class="n">4</span><span class="h">#2F95DE</span></div>
+    <div class="sw dark" style="background:var(--primary-5)"><span class="n">5</span><span class="h">#016699</span><span class="tag">DEFAULT</span></div>
+    <div class="sw dark" style="background:var(--primary-6)"><span class="n">6</span><span class="h">#005079</span></div>
+    <div class="sw dark" style="background:var(--primary-7)"><span class="n">7</span><span class="h">#002E4A</span></div>
+    <div class="sw dark" style="background:var(--primary-8)"><span class="n">8</span><span class="h">#01293D</span></div>
+    <div class="sw dark" style="background:var(--primary-9)"><span class="n">9</span><span class="h">#001925</span></div>
+  </div>
+</body>
+</html>

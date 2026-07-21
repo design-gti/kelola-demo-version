@@ -1,0 +1,173 @@
+"use client";
+import { useState, useRef } from "react";
+import { createPortal } from "react-dom";
+import TextButton from "@/components/ui/TextButton";
+
+const av1 = "https://www.figma.com/api/mcp/asset/8ea64e6d-47b2-4170-9dab-1496e1e87b25";
+const av2 = "https://www.figma.com/api/mcp/asset/e67df370-f1b5-4b8a-b619-cb35470142c8";
+const av3 = "https://www.figma.com/api/mcp/asset/dc938b95-9aaf-413d-b182-bc2ce9ac3400";
+const avOverlay = "https://www.figma.com/api/mcp/asset/2719dfbb-ac03-4588-a503-9dbbccb2baa9";
+
+interface CellData {
+  count: number;
+  label: string;
+  countColor: string;
+  bg: string;
+  avatars: string[];
+  names: string[];
+}
+
+const cells: CellData[] = [
+  { count: 6,  label: "Need Coaching",    countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
+    names: ["Doni Setiawan", "Wahyu Hidayat", "Fitri Handayani", "Ratna Wulandari", "Agus Wahyono", "Citra Puspita"] },
+  { count: 8,  label: "Rising Star",      countColor: "#9abdfd",             bg: "#b1cfff", avatars: [av3, av1],
+    names: ["Budi Santoso", "Rizky Pratama", "Fajar Nugroho", "Lina Marlina", "Galih Permana", "Hana Kusuma", "Irfan Maulana", "Joko Susilo"] },
+  { count: 9,  label: "Star",             countColor: "#689eff",             bg: "#83b4ff", avatars: [av3, av2],
+    names: ["Siti Rahayu", "Intan Permata", "Eko Prasetyo", "Nurul Hidayah", "Ahmad Fauzi", "Teguh Prabowo", "Umi Salamah", "Vega Ardiansyah", "Naufal Rizki"] },
+  { count: 3,  label: "Questionable Fit", countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4", avatars: [av1, av2],
+    names: ["Xenia Maharani", "Yusuf Hidayat", "Zara Pertiwi"] },
+  { count: 5,  label: "Contributor",      countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
+    names: ["Dewi Kusuma", "Maya Sari", "Putri Andini", "Lina Marlina", "Erfan Syahdani"] },
+  { count: 7,  label: "Emerging Star",    countColor: "#9abdfd",             bg: "#b1cfff", avatars: [av1, av2],
+    names: ["Agus Salim", "Bambang Sutrisno", "Dewi Kusuma", "Intan Lestari", "Jefri Alibasa", "Kharisma Dewi", "Luthfi Hamdani"] },
+  { count: 1,  label: "Under Performer",  countColor: "rgba(222,53,11,0.4)", bg: "#ffb3b3", avatars: [av1, av2],
+    names: ["Mutiara Safitri"] },
+  { count: 2,  label: "Specialist",       countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4", avatars: [av1, av2],
+    names: ["Wahyu Hidayat", "Ratna Wulandari"] },
+  { count: 4,  label: "Expert",           countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
+    names: ["Hendra Wijaya", "Sri Mulyani", "Bambang Sutrisno", "Agus Salim"] },
+];
+
+function AvatarStack({ avatars, names, count }: { avatars: string[]; names: string[]; count: number }) {
+  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const extra = count - avatars.length;
+
+  return (
+    <>
+      <div
+        ref={ref}
+        className="flex items-center"
+        onMouseEnter={() => {
+          if (ref.current) {
+            const r = ref.current.getBoundingClientRect();
+            setPos({ x: r.left + r.width / 2, y: r.top });
+          }
+        }}
+        onMouseLeave={() => setPos(null)}
+      >
+        {avatars.map((src, i) => (
+          <div key={i} className="w-[22px] h-[22px] rounded-full overflow-hidden border-2 border-white flex-shrink-0"
+            style={{ marginRight: "-4px", zIndex: avatars.length - i }}>
+            <img src={src} alt="" className="w-full h-full object-cover" />
+          </div>
+        ))}
+        {extra > 0 && (
+          <div className="w-[22px] h-[22px] rounded-full flex-shrink-0 flex items-center justify-center"
+            style={{ backgroundImage: `url(${avOverlay})`, backgroundSize: "cover", zIndex: 0, marginLeft: "4px" }}>
+            <span className="text-white text-[10px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>+{extra}</span>
+          </div>
+        )}
+      </div>
+
+      {pos && typeof document !== "undefined" && createPortal(
+        <div style={{
+          position: "fixed",
+          left: pos.x,
+          top: pos.y - 8,
+          transform: "translate(-50%, -100%)",
+          background: "#1e293b",
+          color: "#fff",
+          borderRadius: 8,
+          padding: "8px 12px",
+          zIndex: 9999,
+          pointerEvents: "none",
+          minWidth: 140,
+          boxShadow: "0 4px 16px rgba(0,0,0,0.25)",
+          fontFamily: "'Open Sans', sans-serif",
+          fontSize: 11,
+          lineHeight: "1.6",
+        }}>
+          {names.map((name, i) => (
+            <div key={i} style={{ whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 6 }}>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#94a3b8", display: "inline-block", flexShrink: 0 }} />
+              {name}
+            </div>
+          ))}
+          {/* Arrow */}
+          <div style={{
+            position: "absolute", top: "100%", left: "50%",
+            transform: "translateX(-50%)",
+            border: "5px solid transparent",
+            borderTopColor: "#1e293b",
+            width: 0, height: 0,
+          }} />
+        </div>,
+        document.body
+      )}
+    </>
+  );
+}
+
+function GridCell({ cell, rowIdx, colIdx }: { cell: CellData; rowIdx: number; colIdx: number }) {
+  const roundedMap: Record<string, string> = {
+    "0-0": "rounded-tl-[8px]", "0-2": "rounded-tr-[8px]",
+    "2-0": "rounded-bl-[8px]", "2-2": "rounded-br-[8px]",
+  };
+  return (
+    <div className={`relative overflow-hidden ${roundedMap[`${rowIdx}-${colIdx}`] || ""}`} style={{ background: cell.bg }}>
+      <span className="absolute top-[6px] left-[6px] text-[14px] leading-none"
+        style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: cell.countColor }}>
+        {cell.count}
+      </span>
+      <span className="absolute inset-0 flex items-center justify-center text-[#495057] text-[9px] text-center px-1 pt-2"
+        style={{ fontFamily: "'Open Sans', sans-serif" }}>
+        {cell.label}
+      </span>
+      <div className="absolute bottom-[6px] left-0 right-0 flex justify-center">
+        <AvatarStack avatars={cell.avatars} names={cell.names} count={cell.count} />
+      </div>
+    </div>
+  );
+}
+
+export default function EmployeeMapping({ title = "Employee Mapping", customCells }: { title?: string; customCells?: typeof cells } = {}) {
+  const cellData = customCells ?? cells;
+  return (
+    <div className="bg-white rounded-[8px] p-[16px] flex flex-col gap-[16px] w-full h-full"
+      style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <p className="text-[#495057] text-[12px]"
+          style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700 }}>
+          {title}
+        </p>
+        <TextButton>See Detail</TextButton>
+      </div>
+
+      {/* Matrix */}
+      <div className="flex-1 flex gap-[4px] min-h-[260px]">
+        {/* Y-axis label */}
+        <div className="flex items-center justify-center w-[18px] flex-shrink-0">
+          <div className="text-[#58595b] text-[10px] whitespace-nowrap"
+            style={{ fontFamily: "'Open Sans', sans-serif", writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
+            Competency
+          </div>
+        </div>
+
+        {/* Grid + X-axis */}
+        <div className="flex flex-col flex-1 gap-[2px]">
+          <div className="flex-1 grid grid-cols-3 grid-rows-3 gap-[2px]">
+            {cellData.map((cell, idx) => (
+              <GridCell key={idx} cell={cell} rowIdx={Math.floor(idx / 3)} colIdx={idx % 3} />
+            ))}
+          </div>
+          <div className="h-px bg-[#adb5bd] mt-[2px]" />
+          <p className="text-[#58595b] text-[10px] text-center mt-[2px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+            Performance
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

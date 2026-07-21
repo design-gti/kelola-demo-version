@@ -1,0 +1,42 @@
+<!-- @dsCard group="Colors" viewport="700x170" name="Semantic" subtitle="Error · Success · Warning · Info — each a full scale, DEFAULT shown" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-body); background: var(--background); padding: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .col { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); background:#fff; }
+  .cap { font-family: var(--font-title); font-weight: 700; font-size: 12px; color: var(--text-body); padding: 8px 10px 6px; }
+  .bar { display:flex; height: 14px; }
+  .bar span { flex:1; }
+  .main { height: 56px; display:flex; flex-direction:column; justify-content:flex-end; padding:8px 10px; color:#fff; }
+  .main .h { font-family: var(--font-body); font-size: 10px; font-weight:700; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="col">
+      <div class="cap">Error</div>
+      <div class="main" style="background:var(--error-5)"><span class="h">#DE350B</span></div>
+      <div class="bar"><span style="background:var(--error-1)"></span><span style="background:var(--error-2)"></span><span style="background:var(--error-3)"></span><span style="background:var(--error-7)"></span></div>
+    </div>
+    <div class="col">
+      <div class="cap">Success</div>
+      <div class="main" style="background:var(--success-5)"><span class="h">#00875A</span></div>
+      <div class="bar"><span style="background:var(--success-1)"></span><span style="background:var(--success-2)"></span><span style="background:var(--success-3)"></span><span style="background:var(--success-7)"></span></div>
+    </div>
+    <div class="col">
+      <div class="cap">Warning</div>
+      <div class="main" style="background:var(--warning-5)"><span class="h">#FF8918</span></div>
+      <div class="bar"><span style="background:var(--warning-1)"></span><span style="background:var(--warning-2)"></span><span style="background:var(--warning-3)"></span><span style="background:var(--warning-7)"></span></div>
+    </div>
+    <div class="col">
+      <div class="cap">Info</div>
+      <div class="main" style="background:var(--info-7); color:var(--neutral-9)"><span class="h">#00CAE3</span></div>
+      <div class="bar"><span style="background:var(--info-1)"></span><span style="background:var(--info-3)"></span><span style="background:var(--info-5)"></span><span style="background:var(--info-8)"></span></div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!-- @dsCard group="Spacing" viewport="700x150" name="Spacing Scale" subtitle="Mantine scale · md (16px) is default card padding" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--background); padding: 18px; font-family: var(--font-body); }
+  .card { background:#fff; border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: 16px 20px; }
+  .item { display:flex; align-items:center; gap: 14px; padding: 4px 0; }
+  .bar { background: var(--primary-4); height: 14px; border-radius: 3px; }
+  .lab { font-family: var(--font-title); font-weight:700; font-size: 11px; color: var(--text-body); width: 42px; }
+  .val { font-size: 10px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="item"><span class="lab">xs</span><span class="bar" style="width:10px"></span><span class="val">10px</span></div>
+    <div class="item"><span class="lab">sm</span><span class="bar" style="width:12px"></span><span class="val">12px</span></div>
+    <div class="item"><span class="lab">md</span><span class="bar" style="width:16px"></span><span class="val">16px · default padding</span></div>
+    <div class="item"><span class="lab">lg</span><span class="bar" style="width:20px"></span><span class="val">20px</span></div>
+    <div class="item"><span class="lab">xl</span><span class="bar" style="width:32px"></span><span class="val">32px</span></div>
+  </div>
+</body>
+</html>

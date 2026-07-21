@@ -1,0 +1,3534 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Review IDP - Talentlytica</title>
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="design-system/styles.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      background: var(--surface-sunken);
+      padding: 24px;
+    }
+    
+    .page-wrapper {
+      max-width: 1290px;
+      margin: 0 auto;
+      padding-bottom: 80px;
+    }
+    
+    .page-header { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+    .breadcrumb { display: flex; align-items: center; gap: 6px; flex: 1; font-family: var(--font-body); font-size: 13px; }
+    .breadcrumb-back { background: none; border: none; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; padding: 0; line-height: 1; }
+    .breadcrumb-back:hover { color: var(--primary); }
+    .breadcrumb-link { background: none; border: none; cursor: pointer; color: var(--text-muted); font-family: var(--font-body); font-size: 13px; font-weight: 500; padding: 0; }
+    .breadcrumb-link:hover { color: var(--primary); }
+    .breadcrumb-sep { color: var(--text-faint); font-size: 13px; user-select: none; }
+    .breadcrumb-current { font-weight: 600; color: var(--text-body); }
+
+    .review-header-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-reject-review {
+      background: white;
+      color: var(--error);
+      border: 1.5px solid var(--error);
+      padding: 8px 24px;
+      height: 35px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-title);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--duration-base);
+    }
+    .btn-reject-review:hover { background: var(--error-0); }
+
+    .btn-approve-review {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 24px;
+      height: 35px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-title);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--duration-base);
+    }
+    .btn-approve-review:hover { background: var(--primary-6); }
+
+    /* ═══════════════ INFO CARD ═══════════════ */
+    .info-card {
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .info-title {
+      font-family: var(--font-title);
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--text-body);
+      margin-bottom: 16px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .info-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .info-label {
+      font-family: var(--font-title);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-body);
+      min-width: 118px;
+    }
+
+    .info-value {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      flex: 1;
+    }
+
+    .info-value.secondary {
+      color: var(--text-faint);
+    }
+    
+    
+    .assessed-card {
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .form-label {
+      font-family: var(--font-title);
+      font-size: 14px;
+      color: var(--neutral-8);
+      margin-bottom: 12px;
+      display: block;
+    }
+    
+    /* Custom searchable employee dropdown */
+    .emp-dropdown { position: relative; width: 100%; }
+    .emp-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .emp-search-input {
+      width: 100%;
+      height: 32px;
+      border: 1px solid var(--neutral-4);
+      border-radius: var(--radius-pill);
+      padding: 0 36px 0 16px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      background: white;
+      outline: none;
+      cursor: pointer;
+      transition: border-color var(--duration-base);
+    }
+    .emp-search-input::placeholder { color: var(--text-faint); }
+    .emp-search-input:focus { border-color: var(--primary); cursor: text; }
+    .emp-chevron {
+      position: absolute;
+      right: 12px;
+      pointer-events: none;
+      color: var(--text-faint);
+      transition: transform var(--duration-base);
+    }
+    .emp-dropdown.open .emp-chevron { transform: rotate(180deg); }
+    .emp-list {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      max-height: 220px;
+      overflow-y: auto;
+      z-index: 100;
+    }
+    .emp-dropdown.open .emp-list { display: block; }
+    .emp-item {
+      padding: 8px 14px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .emp-item:hover { background: var(--surface-sunken); }
+    .emp-item.emp-no-result { color: var(--text-faint); cursor: default; }
+    .emp-item.emp-no-result:hover { background: none; }
+    .emp-item.emp-selected { color: var(--text-faint); cursor: default; }
+    .emp-item.emp-selected:hover { background: none; }
+    .emp-item-remove {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #e53e3e;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 0;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .emp-item-remove:hover { color: #c53030; }
+    .emp-email { color: var(--text-faint); }
+    
+    .employee-chips {
+      display: flex;
+      gap: 4px;
+      margin-top: 12px;
+      flex-wrap: nowrap;
+      align-items: center;
+    }
+
+    .chip {
+      background: var(--primary-1);
+      color: var(--primary);
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .chip-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--primary);
+      font-weight: bold;
+      padding: 0;
+      font-size: 14px;
+    }
+
+    .chip-overflow {
+      background: var(--primary-1);
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      cursor: default;
+      position: relative;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .chip-overflow-tooltip {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 400;
+      text-transform: none;
+      z-index: 200;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      min-width: 160px;
+      line-height: 1.8;
+    }
+
+    .chip-overflow-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+    }
+
+    .chip-overflow:hover .chip-overflow-tooltip {
+      display: block;
+    }
+    
+    .program-card {
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .add-column-btn {
+      background: none;
+      border: none;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-body);
+    }
+    
+    .add-column-btn svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--text-body);
+      stroke-width: 2;
+    }
+    
+    .table-wrapper {
+      overflow-x: auto;
+      overflow-y: visible;
+      border-radius: var(--radius-md);
+    }
+    
+    .table-wrapper::-webkit-scrollbar {
+      height: 8px;
+    }
+    
+    .table-wrapper::-webkit-scrollbar-track {
+      background: var(--surface-sunken);
+    }
+    
+    .table-wrapper::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: var(--radius-sm);
+    }
+    
+    .table-wrapper::-webkit-scrollbar-thumb:hover {
+      background: var(--neutral-4);
+    }
+    
+    .program-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    .program-table thead tr {
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .program-table th {
+      background: white;
+      padding: 10px 16px;
+      text-align: left;
+      font-family: var(--font-title);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--neutral-8);
+      border: none;
+      white-space: nowrap;
+      height: 35px;
+      width: auto;
+    }
+    .program-table th[draggable=true] { cursor: grab; }
+    .program-table th[draggable=true]:active { cursor: grabbing; }
+    .th-content {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .drag-handle {
+      color: var(--text-faint);
+      opacity: 0;
+      flex-shrink: 0;
+      transition: opacity var(--duration-base);
+    }
+    .program-table th[draggable=true]:hover .drag-handle { opacity: 1; }
+    .program-table th.col-drag-over { background: var(--primary-1); outline: 2px solid var(--primary); outline-offset: -2px; }
+    .program-table th.col-dragging { opacity: 0.4; }
+
+    .program-table th.required::after {
+      content: ' *';
+      color: #FA5252;
+      font-weight: 700;
+    }
+    
+    .program-table th.col-program {
+      position: sticky;
+      left: 0;
+      z-index: 10;
+      background: white;
+    }
+    
+    .program-table tbody tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .program-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .program-table td {
+      padding: 10px 16px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      border: none;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      height: 52px;
+      white-space: nowrap;
+      width: auto;
+      overflow: visible !important;
+    }
+    
+    .program-table td.col-program {
+      position: sticky;
+      left: 0;
+      z-index: 9;
+      background: white;
+      min-width: 306px;
+    }
+    
+    .col-vendor { min-width: 140px; }
+    .col-category {
+      min-width: 180px;
+      position: relative;
+      overflow: visible !important;
+    }
+    .col-aspect {
+      min-width: 200px;
+      position: relative;
+      overflow: visible !important;
+    }
+    .col-goals { min-width: 180px; }
+    .col-start-date { min-width: 150px; }
+    .col-end-date { min-width: 150px; }
+    .col-pic { min-width: 160px; }
+    .col-notes { min-width: 60px; }
+    .col-custom { min-width: 160px; }
+    .att-cell { display: flex; align-items: center; }
+    .att-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 3px 6px; border-radius: var(--radius-sm); color: var(--text-faint); font-size: 12px; font-family: 'Open Sans', sans-serif; transition: background var(--duration-base), color var(--duration-base); line-height: 1; }
+    .att-btn:hover { background: var(--surface-muted); color: var(--text-body); }
+    .att-btn.has-file { color: var(--primary); }
+    .att-label { max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .att-menu { position: fixed; background: white; border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); z-index: 9999; min-width: 130px; overflow: hidden; display: none; }
+    .att-menu.open { display: block; }
+    .att-menu-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; font-size: 12px; font-family: 'Open Sans', sans-serif; color: var(--text-body); cursor: pointer; white-space: nowrap; }
+    .att-menu-item:hover { background: var(--surface-muted); }
+    .att-menu-item-danger { color: #E53E3E; }
+    .att-menu-item-danger:hover { background: #FFF5F5; color: #C53030; }
+
+    /* ═══ NOTES ICON + MODAL ═══ */
+    .notes-icon { width: 18px; height: 18px; cursor: pointer; display: block; color: var(--text-faint); transition: color var(--duration-base); }
+    .notes-icon:hover { color: var(--primary); }
+    .notes-icon.has-notes { color: var(--primary); }
+    .notes-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 10000; align-items: center; justify-content: center; }
+    .notes-modal-overlay.active { display: flex; }
+    .notes-modal { background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); width: 520px; max-width: calc(100vw - 32px); padding: 28px; position: relative; }
+    .notes-modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .notes-modal-title { font-family: var(--font-title); font-size: 17px; font-weight: 700; color: var(--text-title); line-height: 1.3; }
+    .notes-modal-close { background: none; border: none; font-size: 20px; line-height: 1; color: var(--text-faint); cursor: pointer; padding: 2px 4px; flex-shrink: 0; border-radius: var(--radius-sm); }
+    .notes-modal-close:hover { background: var(--surface-sunken); color: var(--text-body); }
+    .notes-modal-aspect { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+    .notes-modal-aspect-label { font-size: 12px; color: var(--text-faint); }
+    .notes-modal-aspect .aspect-chip { border-radius: var(--radius-pill); }
+    .notes-label { font-size: 13px; font-weight: 700; color: var(--text-body); margin-bottom: 8px; }
+    .notes-textarea { width: 100%; min-height: 120px; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 13px; color: var(--text-body); resize: vertical; outline: none; transition: border-color var(--duration-base); box-sizing: border-box; }
+    .notes-textarea:focus { border-color: var(--primary); }
+    .notes-modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+    .notes-btn-cancel { padding: 8px 20px; border-radius: var(--radius-pill); border: 1.5px solid var(--border); background: white; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--text-body); cursor: pointer; transition: border-color var(--duration-base); }
+    .notes-btn-cancel:hover { border-color: var(--primary); color: var(--primary); }
+    .notes-btn-save { padding: 8px 24px; border-radius: var(--radius-pill); border: none; background: var(--primary); font-family: var(--font-body); font-size: 13px; font-weight: 600; color: white; cursor: pointer; transition: opacity var(--duration-base); }
+    .notes-btn-save:hover { opacity: 0.88; }
+    
+    .program-cell-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    
+    .program-name {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-strong);
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      padding: 0;
+      width: 100%;
+    }
+    
+    .program-name:focus {
+      outline: none;
+    }
+    
+    .program-name::placeholder {
+      color: var(--text-faint);
+    }
+    
+    .program-actions {
+      display: none;
+      gap: 4px;
+      align-items: center;
+    }
+    
+    .program-table td.col-program:hover .program-actions {
+      display: flex;
+    }
+    
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .icon-btn img {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .col-category > div > div:first-child {
+      position: relative;
+      padding-right: 24px;
+    }
+
+    .col-category > div > div:first-child > svg:last-child {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      flex-shrink: 0;
+    }
+
+    .category-chip {
+      background: var(--primary-1);
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: var(--radius-xs);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-right: 4px;
+    }
+    
+    .aspect-chips-container {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+      padding-right: 24px;
+      min-height: 24px;
+    }
+
+    .aspect-chips-container > svg:last-child {
+      position: absolute;
+      top: 4px;
+      right: 0;
+      flex-shrink: 0;
+    }
+    
+    .aspect-chip {
+      background: var(--primary-2);
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: var(--radius-xs);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .aspect-chip-close {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+      line-height: 1;
+    }
+    
+    .dropdown-menu {
+      position: fixed;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      z-index: 10000;
+      min-width: 180px;
+      padding: 4px;
+      display: none;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+    
+    .dropdown-option {
+      padding: 8px 12px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius-xs);
+      transition: background 0.2s;
+    }
+    
+    .dropdown-option:hover {
+      background: var(--surface-sunken);
+    }
+    
+    .dropdown-option input {
+      cursor: pointer;
+    }
+    
+    .dropdown-option label {
+      cursor: pointer;
+      flex: 1;
+    }
+    
+    .add-program-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 0;
+    }
+
+    .program-card-bottom {
+      margin-top: 12px;
+    }
+
+    .footer-actions {
+      position: fixed;
+      bottom: 24px;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .footer-actions .btn,
+    .footer-actions .btn-reject-review,
+    .footer-actions .btn-approve-review {
+      pointer-events: all;
+    }
+    
+    .btn {
+      font-family: var(--font-title);
+      font-size: 14px;
+      padding: 8px 32px;
+      height: 35px;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      transition: all var(--duration-base);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .btn-cancel {
+      background: white;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-cancel:hover {
+      background: var(--surface-sunken);
+    }
+
+    .btn-draft {
+      background: white;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-draft:hover {
+      background: var(--surface-sunken);
+      border-color: var(--text-muted);
+    }
+
+    .btn-submit {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-6);
+    }
+    
+    /* ═══════════════ MODAL ═══════════════ */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+    }
+    
+    .modal {
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      width: 408px;
+      max-width: 90vw;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .modal-title {
+      font-family: var(--font-title);
+      font-size: 16px;
+      color: var(--text-body);
+      font-weight: 500;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      color: var(--text-body);
+      font-size: 24px;
+      line-height: 1;
+    }
+    
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-family: var(--font-title);
+      font-size: 14px;
+      color: var(--text-body);
+    }
+    
+    .form-group label .required {
+      color: #FA5252;
+      margin-left: 4px;
+    }
+    
+    .form-group input,
+    .form-group select {
+      height: 40px;
+      border: 1px solid var(--neutral-4);
+      border-radius: var(--radius-pill);
+      padding: 0 16px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+    }
+    
+    .form-group input::placeholder {
+      color: var(--text-faint);
+    }
+    
+    .form-group select {
+      appearance: none;
+      background: white url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23495057' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 16px center;
+      background-size: 20px;
+      padding-right: 44px;
+    }
+
+    .form-group input.field-error,
+    .form-group select.field-error {
+      border-color: #DC3545;
+      background-color: #FFF5F5;
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .toggle-switch {
+      width: 48px;
+      height: 28px;
+      background: var(--primary);
+      border-radius: 14px;
+      cursor: pointer;
+      position: relative;
+      border: none;
+      padding: 0;
+    }
+    
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 12px;
+      top: 2px;
+      right: 2px;
+      transition: right 0.2s;
+    }
+    
+    .toggle-switch.off {
+      background: var(--border);
+    }
+    
+    .toggle-switch.off::after {
+      right: auto;
+      left: 2px;
+    }
+    
+    .toggle-label {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+    }
+    
+    .modal-footer {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    
+    .btn-modal-cancel {
+      background: white;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      padding: 8px 24px;
+      height: 35px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-title);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--duration-base);
+    }
+    
+    .btn-modal-cancel:hover {
+      background: var(--surface-sunken);
+    }
+    
+    .btn-modal-submit {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 24px;
+      height: 35px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-title);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--duration-base);
+    }
+    
+    .btn-modal-submit:hover {
+      background: var(--primary-6);
+    }
+    
+    /* ═══════════════ PROGRAM LIBRARY MODAL ═══════════════ */
+    .library-modal {
+      width: 421px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    
+    .library-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .library-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .add-program-library-btn {
+      background: white;
+      border: none;
+      color: var(--primary);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0;
+      white-space: nowrap;
+    }
+    
+    .add-program-library-btn:hover {
+      text-decoration: underline;
+    }
+    
+    .add-program-library-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--primary);
+      stroke-width: 2;
+    }
+    
+    .chips-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .filter-chip {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: all var(--duration-base);
+    }
+    
+    .filter-chip.active {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .filter-chip.inactive {
+      background: var(--border);
+      color: var(--text-body);
+    }
+    
+    .program-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .program-item {
+      padding: 12px;
+      background: var(--surface-sunken);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      border: 1px solid transparent;
+    }
+    
+    .program-item:hover {
+      background: var(--primary-1);
+      border-color: var(--primary);
+    }
+    
+    .program-title {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-strong);
+      margin-bottom: 4px;
+    }
+    
+    .program-vendor {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+
+    /* ═══════════════ AI GENERATOR MODAL ═══════════════ */
+    #aiGeneratorModal {
+      display: none;
+    }
+
+    #aiGeneratorModal.active {
+      display: flex !important;
+    }
+
+    .ai-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .ai-modal {
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: 2px 2px 7.5px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 480px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ai-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 22px;
+      margin-bottom: 8px;
+    }
+
+    .ai-modal-title {
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--text-body);
+      line-height: normal;
+    }
+
+    .ai-modal-close {
+      background: none;
+      border: none;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      color: var(--text-body);
+      font-size: 24px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ai-modal-close:hover {
+      color: #000;
+    }
+
+    .ai-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+    }
+
+    .ai-form-label {
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--text-body);
+      line-height: normal;
+    }
+
+    .ai-form-label .required {
+      color: #fa5252;
+      margin-left: 4px;
+    }
+
+    .ai-input-field {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 8px 12px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .ai-input-field:focus {
+      border-color: var(--primary);
+    }
+
+    .ai-textarea-field {
+      background: white;
+      border: 1px solid var(--neutral-4);
+      border-radius: 16px;
+      padding: 8px 12px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      outline: none;
+      min-height: 52px;
+      resize: none;
+      transition: border-color 0.2s;
+    }
+
+    .ai-textarea-field:focus {
+      border-color: var(--primary);
+    }
+
+    .ai-modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      padding-top: 16px;
+      margin-top: 8px;
+    }
+
+    .ai-btn-cancel {
+      border: 1px solid var(--primary);
+      background: white;
+      color: var(--primary);
+      padding: 8px 12px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      width: 104px;
+      transition: all var(--duration-base);
+    }
+
+    .ai-btn-cancel:hover {
+      background: #f0f0f0;
+    }
+
+    .ai-btn-generate {
+      background: var(--primary);
+      color: white;
+      padding: 8px 12px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      width: 126px;
+      border: none;
+      transition: all var(--duration-base);
+    }
+
+    .ai-btn-generate:hover {
+      background: var(--primary-7);
+    }
+
+    .ai-select-field {
+      background: white url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23495057' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;
+      background-size: 16px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 8px 12px 8px 12px;
+      padding-right: 40px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-body);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+
+    .ai-select-field:focus {
+      border-color: var(--primary);
+    }
+
+    /* ═══════════════ SUBTASK STYLING ═══════════════ */
+    .subtask-row {
+      background-color: var(--surface-sunken);
+    }
+
+    .subtask-row td {
+      border-color: var(--surface-muted);
+    }
+
+    .subtask-program-cell {
+      padding-left: 48px !important;
+      position: relative;
+    }
+
+    .subtask-program-cell::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .subtask-program-cell::after {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 50%;
+      width: 12px;
+      height: 1px;
+      background: var(--border);
+      transform: translateY(-50%);
+    }
+
+    /* ═══ PARTICIPANT COLUMN (match create IDP) ═══ */
+    .program-table th.col-participant { position: sticky; left: 306px; z-index: 10; background: white; }
+    .program-table td.col-participant { position: sticky; left: 306px; z-index: 9; background: white; }
+    .col-participant { min-width: 160px; overflow: visible !important; }
+    .participant-cell { display: flex; align-items: center; justify-content: space-between; gap: 6px; width: 100%; cursor: pointer; min-height: 28px; }
+    .pcp-placeholder { color: var(--text-faint); font-size: 12px; font-family: var(--font-body); }
+    .pcp-avatars { display: inline-flex; align-items: center; }
+    .pcp-av { width: 26px; height: 26px; border-radius: 50%; border: 2px solid white; background-size: cover; background-position: center; margin-left: -8px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-title); font-size: 10px; font-weight: 700; color: white; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(0,0,0,0.05); }
+    .pcp-av:first-child { margin-left: 0; }
+    .pcp-count { width: 26px; height: 26px; border-radius: 50%; border: 2px solid white; background: var(--surface-sunken); color: var(--text-body); font-family: var(--font-title); font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; margin-left: -8px; flex-shrink: 0; }
+    .pcp-chevron { color: var(--text-body); flex-shrink: 0; }
+    .pcp-single { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+    .pcp-single-name { font-family: var(--font-body); font-size: 12px; color: var(--text-body); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pcp-picker { position: fixed; z-index: 10001; width: 260px; background: white; border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: 0 4px 16px rgba(0,0,0,0.12); display: none; overflow: hidden; }
+    .pcp-picker.open { display: block; }
+    .pcp-search { width: 100%; box-sizing: border-box; border: none; border-bottom: 1px solid var(--border); padding: 10px 12px; font-family: var(--font-body); font-size: 12px; outline: none; }
+    .pcp-list { max-height: 240px; overflow-y: auto; }
+    .pcp-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; cursor: pointer; font-family: var(--font-body); font-size: 12px; color: var(--text-body); }
+    .pcp-item:hover { background: var(--surface-sunken); }
+    .pcp-item-av { width: 24px; height: 24px; border-radius: 50%; background-size: cover; background-position: center; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-title); font-size: 9px; font-weight: 700; color: white; flex-shrink: 0; }
+    .pcp-item-name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pcp-item-nik { color: var(--text-faint); font-size: 11px; }
+    .pcp-item-check { width: 16px; height: 16px; border: 1.5px solid var(--border); border-radius: 4px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; }
+    .pcp-item.sel .pcp-item-check { background: var(--primary); border-color: var(--primary); }
+    .pcp-item.sel .pcp-item-check::after { content: ''; width: 4px; height: 8px; border-right: 2px solid white; border-bottom: 2px solid white; transform: rotate(45deg) translate(-1px, -1px); }
+    .pcp-no-result { padding: 14px; text-align: center; color: var(--text-faint); font-size: 12px; font-family: var(--font-body); }
+    .pcp-actions { display: flex; align-items: center; justify-content: flex-end; gap: 4px; padding: 4px 8px; border-bottom: 1px solid var(--border); min-height: 32px; }
+    .pcp-act-btn { background: none; border: none; font-family: var(--font-body); font-size: 11px; font-weight: 600; cursor: pointer; padding: 4px 8px; border-radius: var(--radius-sm); color: var(--primary); transition: background var(--duration-base); }
+    .pcp-act-btn:hover { background: var(--primary-1); }
+    .pcp-act-clear { color: var(--text-faint); }
+    .pcp-act-clear:hover { color: #DC3545 !important; background: #FFF5F5 !important; }
+    .pcp-rec-head { padding: 8px 12px 4px; font-family: var(--font-body); font-size: 11px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.4px; }
+    .pcp-rec-divider { border-top: 1px solid var(--border); margin: 4px 0; }
+    .pcp-tooltip { position: fixed; z-index: 10002; background: #2A2D34; color: white; border-radius: 8px; padding: 8px 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.18); display: none; max-width: 240px; }
+    .pcp-tooltip.open { display: block; }
+    .pcp-tooltip-title { font-family: var(--font-title); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; opacity: 0.7; margin-bottom: 6px; }
+    .pcp-tt-item { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-family: var(--font-body); font-size: 12px; white-space: nowrap; }
+    .pcp-tt-av { width: 20px; height: 20px; border-radius: 50%; background-size: cover; background-position: center; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-title); font-size: 8px; font-weight: 700; color: white; flex-shrink: 0; }
+    /* ═══ PIC cell selected state ═══ */
+    .pic-cell { display: flex; align-items: center; gap: 6px; cursor: pointer; min-height: 24px; }
+    .pic-cell .pic-placeholder { color: var(--text-faint); font-size: 12px; font-family: var(--font-body); }
+    .pic-selected { display: flex; align-items: center; gap: 8px; }
+    .pic-av { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .pic-info { display: flex; flex-direction: column; gap: 1px; }
+    .pic-info .pic-name { font-size: 12px; color: var(--text-body); font-family: var(--font-body); line-height: 1.2; white-space: nowrap; }
+    .pic-info .pic-pos { font-size: 10px; color: var(--text-faint); font-family: var(--font-body); line-height: 1.2; white-space: nowrap; }
+    /* ═══ col-add-col ═══ */
+    .col-add-col { width: 40px; min-width: 40px; text-align: center; padding: 0 4px !important; }
+    /* ═══ goal-input ═══ */
+    .goal-input { border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none; resize: none; overflow: hidden; line-height: 1.5; padding: 0; margin: 0; display: block; min-height: 18px; box-sizing: border-box; }
+    .goal-input::placeholder { color: var(--text-faint); }
+    /* ═══ CATEGORY TAG PICKER ═══ */
+    .cat-cell { display: flex; align-items: center; justify-content: space-between; gap: 6px; cursor: pointer; min-height: 28px; }
+    .cat-placeholder { color: var(--text-faint); font-size: 12px; font-family: var(--font-body); }
+    .cat-chip { padding: 2px 10px; border-radius: var(--radius-pill); font-family: var(--font-body); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; display: inline-block; white-space: nowrap; }
+    .cat-picker { position: fixed; z-index: 10001; width: 240px; background: white; border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: 0 4px 16px rgba(0,0,0,0.12); display: none; overflow: hidden; }
+    .cat-picker.open { display: block; }
+    .cat-list { max-height: 200px; overflow-y: auto; padding: 4px 0; }
+    .cat-tag { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 800px; font-size: 10px; font-weight: 700; background: #F2F9F7; color: #00875A; white-space: nowrap; font-family: var(--font-body); text-transform: uppercase; }
+    .cat-item { padding: 6px 12px; cursor: pointer; display: flex; align-items: center; }
+    .cat-item:hover { background: var(--surface-muted); }
+    .cat-item.sel .cat-tag { background: #00875A; color: #fff; }
+    .cat-add-wrap { padding: 6px 8px; border-top: 1px solid var(--border); }
+    .cat-add-input { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 4px 8px; font-size: 12px; font-family: var(--font-body); color: var(--text-body); outline: none; width: 100%; box-sizing: border-box; }
+    .cat-add-input:focus { border-color: var(--primary); }
+    .cat-item .cat-item-actions { display: none; }
+    .cat-item:hover .cat-item-actions { display: inline-flex; margin-left: auto; gap: 2px; }
+    .cat-ic { background: none; border: none; cursor: pointer; color: var(--text-faint); padding: 2px 3px; border-radius: 3px; line-height: 1; display: flex; align-items: center; }
+    .cat-ic:hover { background: rgba(0,0,0,0.07); color: var(--text-body); }
+    .cat-edit-input { border: 1px solid var(--primary); border-radius: var(--radius-sm); padding: 2px 6px; font-size: 12px; font-family: var(--font-body); outline: none; width: 100%; }
+    /* ═══ ASPECT PICKER ═══ */
+    .asp-cell { display: flex; align-items: center; justify-content: space-between; gap: 6px; cursor: pointer; min-height: 28px; flex-wrap: nowrap; }
+    .asp-chips-wrap { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; flex: 1; }
+    .asp-placeholder { color: var(--text-faint); font-size: 12px; font-family: var(--font-body); }
+    .asp-chip { background: var(--primary-1); color: var(--primary); padding: 2px 10px; border-radius: var(--radius-pill); font-family: var(--font-body); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; display: inline-block; white-space: nowrap; }
+    .asp-picker { position: fixed; z-index: 10001; width: 220px; background: white; border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: 0 4px 16px rgba(0,0,0,0.12); display: none; overflow: hidden; }
+    .asp-picker.open { display: block; }
+    .asp-list { max-height: 260px; overflow-y: auto; padding: 6px; display: flex; flex-direction: column; gap: 2px; }
+    .asp-item { display: flex; align-items: center; padding: 6px 8px; border-radius: var(--radius-sm); cursor: pointer; }
+    .asp-item:hover { background: var(--surface-sunken); }
+    .asp-item.sel { background: var(--primary-1); }
+    .asp-search { border: none; border-bottom: 1px solid var(--border); padding: 7px 10px; width: 100%; box-sizing: border-box; font-size: 12px; font-family: var(--font-body); outline: none; color: var(--text-body); }
+    .asp-section-hd { padding: 4px 8px 2px; font-size: 10px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.5px; font-family: var(--font-body); }
+
+    /* ── Reject IDP Modal ── */
+    .reject-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1000; display: none; align-items: center; justify-content: center; }
+    .reject-modal-overlay.open { display: flex; }
+    .reject-modal { background: white; border-radius: 12px; width: 480px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); overflow: hidden; }
+    .reject-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 12px; border-bottom: 1px solid var(--border); }
+    .reject-modal-title { font-family: var(--font-title); font-size: 15px; font-weight: 700; color: var(--text-title); }
+    .reject-modal-close { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 20px; line-height: 1; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 4px; }
+    .reject-modal-close:hover { background: var(--surface-sunken); color: var(--text-body); }
+    .reject-modal-body { padding: 20px 20px 16px; }
+    .reject-modal-label { font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--text-body); margin-bottom: 8px; display: flex; align-items: center; gap: 4px; }
+    .reject-modal-label .req { color: var(--error); }
+    .reject-modal-textarea { width: 100%; min-height: 88px; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-family: var(--font-body); font-size: 13px; color: var(--text-body); resize: vertical; outline: none; transition: border-color 0.15s; }
+    .reject-modal-textarea:focus { border-color: var(--primary); }
+    .reject-modal-textarea::placeholder { color: var(--text-faint); }
+    .reject-modal-footer { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 12px 20px 16px; }
+    .reject-modal-cancel { background: white; color: var(--text-body); border: 1.5px solid var(--border); padding: 0 20px; height: 36px; border-radius: var(--radius-pill); font-family: var(--font-title); font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+    .reject-modal-cancel:hover { background: var(--surface-sunken); }
+    .reject-modal-submit { background: var(--error); color: white; border: none; padding: 0 20px; height: 36px; border-radius: var(--radius-pill); font-family: var(--font-title); font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
+    .reject-modal-submit:disabled { opacity: 0.45; cursor: not-allowed; }
+    .reject-modal-submit:not(:disabled):hover { opacity: 0.88; }
+
+  </style>
+</head>
+<body>
+  <!-- Add Column Modal -->
+  <div class="modal-overlay" id="addColumnModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Add Custom Column</span>
+        <button class="modal-close" onclick="closeAddColumnModal()">×</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Column Name <span class="required">*</span></label>
+          <input type="text" id="columnNameInput" placeholder="Edit text">
+        </div>
+        
+        <div class="form-group">
+          <label>Column Type <span class="required">*</span></label>
+          <select id="columnTypeSelect">
+            <option value="">Choose column type</option>
+            <option value="text">Text</option>
+            <option value="attachment">Attachment</option>
+            <option value="duration">Duration (hour)</option>
+          </select>
+        </div>
+        
+        <div class="toggle-container">
+          <button class="toggle-switch" id="editableToggle" onclick="toggleEditable()"></button>
+          <span class="toggle-label">Column can be filled by employee</span>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn-modal-cancel" onclick="closeAddColumnModal()">Cancel</button>
+        <button class="btn-modal-submit" onclick="submitAddColumn()">Add Column</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Program Library Modal -->
+  <div class="modal-overlay" id="programLibraryModal">
+    <div class="modal library-modal">
+      <div class="library-header">
+        <span class="modal-title">Program Library</span>
+        <div class="library-header-right">
+          <button class="add-program-library-btn" onclick="addProgramLibrary()" style="font-family: &quot;Open Sans&quot;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Add Program
+          </button>
+          <button class="modal-close" onclick="closeProgramLibraryModal()">×</button>
+        </div>
+      </div>
+      
+      <div class="chips-row" style="padding: 16px 0px 8px">
+        <button class="filter-chip active" onclick="filterByCategory(this, 'training')">TRAINING</button>
+        <button class="filter-chip inactive" onclick="filterByCategory(this, 'coaching')">COACHING</button>
+        <button class="filter-chip inactive" onclick="filterByCategory(this, 'job-assignment')">JOB ASSIGNMENT</button>
+      </div>
+      
+      <div class="program-list" id="programList">
+        <div class="program-item" data-category="training" data-vendor="Skilltup Academy" data-aspect="PROBLEM SOLVING" onclick="selectProgram(this, 'Root cause analysis training', 'Skilltup Academy', 'PROBLEM SOLVING')">
+          <div class="program-title">Root cause analysis training</div>
+          <div class="program-vendor">Vendor: Skilltup Academy</div>
+        </div>
+        <div class="program-item" data-category="training" data-vendor="Harvard Business Publishing" data-aspect="CRITICAL THINKING" onclick="selectProgram(this, 'Case study workshop', 'Harvard Business Publishing', 'CRITICAL THINKING')">
+          <div class="program-title">Case study workshop</div>
+          <div class="program-vendor">Vendor: Harvard Business Publishing</div>
+        </div>
+        <div class="program-item" data-category="coaching" data-vendor="Internal Coach" data-aspect="LEADERSHIP" onclick="selectProgram(this, 'Leadership coaching', 'Internal Coach', 'LEADERSHIP')">
+          <div class="program-title">Leadership coaching</div>
+          <div class="program-vendor">Vendor: Internal Coach</div>
+        </div>
+        <div class="program-item" data-category="coaching" data-vendor="External Mentor" data-aspect="COMMUNICATION" onclick="selectProgram(this, 'Communication coaching', 'External Mentor', 'COMMUNICATION')">
+          <div class="program-title">Communication coaching</div>
+          <div class="program-vendor">Vendor: External Mentor</div>
+        </div>
+        <div class="program-item" data-category="job-assignment" data-vendor="-" data-aspect="TEAMWORK" onclick="selectProgram(this, 'Lead project team', '-', 'TEAMWORK')">
+          <div class="program-title">Lead project team</div>
+          <div class="program-vendor">Vendor: -</div>
+        </div>
+        <div class="program-item" data-category="job-assignment" data-vendor="-" data-aspect="PROBLEM SOLVING" onclick="selectProgram(this, 'Cross-functional collaboration', '-', 'PROBLEM SOLVING')">
+          <div class="program-title">Cross-functional collaboration</div>
+          <div class="program-vendor">Vendor: -</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="page-wrapper">
+    <div class="page-header">
+      <nav class="breadcrumb">
+        <button class="breadcrumb-back" onclick="window.location.href='/'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="breadcrumb-link" onclick="window.location.href='/'">Home</button>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Detail Review IDP</span>
+      </nav>
+    </div>
+    
+    <div class="program-card">
+      <div class="table-header">
+        <button class="add-program-btn" onclick="addProgram()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          Add Program
+        </button>
+      </div>
+      
+      <div class="table-wrapper">
+        <table class="program-table">
+          <thead>
+            <tr>
+              <th class="col-program">Program</th>
+              <th class="col-participant">Participant</th>
+              <th class="col-vendor" draggable="true"><div class="th-content"><svg class="drag-handle" viewBox="0 0 8 12" fill="currentColor" width="8" height="12"><circle cx="2" cy="2" r="1.5"/><circle cx="6" cy="2" r="1.5"/><circle cx="2" cy="6" r="1.5"/><circle cx="6" cy="6" r="1.5"/><circle cx="2" cy="10" r="1.5"/><circle cx="6" cy="10" r="1.5"/></svg>Vendor</div></th>
+              <th class="col-category required" draggable="true"><div class="th-content"><svg class="drag-handle" viewBox="0 0 8 12" fill="currentColor" width="8" height="12"><circle cx="2" cy="2" r="1.5"/><circle cx="6" cy="2" r="1.5"/><circle cx="2" cy="6" r="1.5"/><circle cx="6" cy="6" r="1.5"/><circle cx="2" cy="10" r="1.5"/><circle cx="6" cy="10" r="1.5"/></svg>Category</div></th>
+              <th class="col-aspect required" draggable="true"><div class="th-content"><svg class="drag-handle" viewBox="0 0 8 12" fill="currentColor" width="8" height="12"><circle cx="2" cy="2" r="1.5"/><circle cx="6" cy="2" r="1.5"/><circle cx="2" cy="6" r="1.5"/><circle cx="6" cy="6" r="1.5"/><circle cx="2" cy="10" r="1.5"/><circle cx="6" cy="10" r="1.5"/></svg>Aspect</div></th>
+              <th class="col-goals" draggable="true"><div class="th-content"><svg class="drag-handle" viewBox="0 0 8 12" fill="currentColor" width="8" height="12"><circle cx="2" cy="2" r="1.5"/><circle cx="6" cy="2" r="1.5"/><circle cx="2" cy="6" r="1.5"/><circle cx="6" cy="6" r="1.5"/><circle cx="2" cy="10" r="1.5"/><circle cx="6" cy="10" r="1.5"/></svg>Development Goals</div></th>
+              <th class="col-start-date required" draggable="true"><div class="th-content"><svg class="drag-handle" viewBox="0 0 8 12" fill="currentColor" width="8" height="12"><circle cx="2" cy="2" r="1.5"/><circle cx="6" cy="2" r="1.5"/><circle cx="2" cy="6" r="1.5"/><circle cx="6" cy="6" r="1.5"/><circle cx="2" cy="10" r="1.5"/><circle cx="6" cy="10" r="1.5"/></svg>Start Date</div></th>
+              <th class="col-end-date required" draggable="true"><div class="th-content"><svg class="drag-handle" viewBox="0 0 8 12" fill="currentColor" width="8" height="12"><circle cx="2" cy="2" r="1.5"/><circle cx="6" cy="2" r="1.5"/><circle cx="2" cy="6" r="1.5"/><circle cx="6" cy="6" r="1.5"/><circle cx="2" cy="10" r="1.5"/><circle cx="6" cy="10" r="1.5"/></svg>End Date</div></th>
+              <th class="col-pic required" draggable="true"><div class="th-content"><svg class="drag-handle" viewBox="0 0 8 12" fill="currentColor" width="8" height="12"><circle cx="2" cy="2" r="1.5"/><circle cx="6" cy="2" r="1.5"/><circle cx="2" cy="6" r="1.5"/><circle cx="6" cy="6" r="1.5"/><circle cx="2" cy="10" r="1.5"/><circle cx="6" cy="10" r="1.5"/></svg>PIC</div></th>
+              <th class="col-notes" draggable="true"><div class="th-content"><svg class="drag-handle" viewBox="0 0 8 12" fill="currentColor" width="8" height="12"><circle cx="2" cy="2" r="1.5"/><circle cx="6" cy="2" r="1.5"/><circle cx="2" cy="6" r="1.5"/><circle cx="6" cy="6" r="1.5"/><circle cx="2" cy="10" r="1.5"/><circle cx="6" cy="10" r="1.5"/></svg>Notes</div></th>
+              <th class="col-add-col"><button class="add-column-btn" title="Add Custom Column" onclick="addCustomColumn()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" style="stroke:var(--primary)"><path d="M12 5v14M5 12h14"/></svg></button></th>
+            </tr>
+          </thead>
+          <tbody id="programTableBody">
+            <!-- Row 1: Leadership Workshop -->
+            <tr>
+              <td class="col-program">
+                <div class="program-cell-wrapper">
+                  <input type="text" class="program-name" placeholder="Enter program" value="Leadership Fundamentals Workshop" onchange="updateProgramButtons(this)" oninput="updateProgramButtons(this)">
+                  <div class="program-actions">
+                    <button class="icon-btn btn-library" title="Library" onclick="openLibrary(this)" style="display: none;"><img src="assets/icon-library.svg" alt="Library"></button>
+                    <button class="icon-btn btn-ai-generate" title="AI Generate" onclick="openAIGenerateModal()" style="display: none;"><img src="assets/icon-ai-generate.svg" alt="AI Generate"></button>
+                    <button class="icon-btn btn-add-subprogram" title="Add Sub-program" onclick="addSubtask(this)" style="display: flex;"><img src="assets/icon-subtask.svg" alt="Add Sub-program"></button>
+                    <button class="icon-btn btn-delete" title="Delete" onclick="deleteRow(this)" style="display: flex;"><img src="assets/icon-delete.svg" alt="Delete"></button>
+                  </div>
+                </div>
+              </td>
+              <td class="col-participant"><div class="participant-cell" data-participants='["Ulfa Irawan","Budi Prasetyo"]' onclick="openParticipantPicker(event,this)" onmouseenter="showPcpTooltip(this)" onmouseleave="hidePcpTooltip()"></div></td>
+              <td class="col-vendor"><input type="text" style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;" value="Skilltup Academy"></td>
+              <td class="col-category" data-cat-value="TRAINING"></td>
+              <td class="col-aspect" data-asp-value="LEADERSHIP"></td>
+              <td class="col-goals"><textarea class="goal-input" rows="1">Meningkatkan kemampuan memimpin tim</textarea></td>
+              <td class="col-start-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-08"></td>
+              <td class="col-end-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-15"></td>
+              <td class="col-pic" data-pic-name="Metha"></td>
+              <td class="col-notes"><svg class="notes-icon has-notes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)" data-notes="Batch ke-3"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
+            </tr>
+
+            <!-- Row 2: Executive Coaching -->
+            <tr>
+              <td class="col-program">
+                <div class="program-cell-wrapper">
+                  <input type="text" class="program-name" placeholder="Enter program" value="Executive Coaching Session" onchange="updateProgramButtons(this)" oninput="updateProgramButtons(this)">
+                  <div class="program-actions">
+                    <button class="icon-btn btn-library" title="Library" onclick="openLibrary(this)" style="display: none;"><img src="assets/icon-library.svg" alt="Library"></button>
+                    <button class="icon-btn btn-ai-generate" title="AI Generate" onclick="openAIGenerateModal()" style="display: none;"><img src="assets/icon-ai-generate.svg" alt="AI Generate"></button>
+                    <button class="icon-btn btn-add-subprogram" title="Add Sub-program" onclick="addSubtask(this)" style="display: flex;"><img src="assets/icon-subtask.svg" alt="Add Sub-program"></button>
+                    <button class="icon-btn btn-delete" title="Delete" onclick="deleteRow(this)" style="display: flex;"><img src="assets/icon-delete.svg" alt="Delete"></button>
+                  </div>
+                </div>
+              </td>
+              <td class="col-participant"><div class="participant-cell" data-participants='["Siti Rahayu","Ahmad Fauzi","Rina Marlina"]' onclick="openParticipantPicker(event,this)" onmouseenter="showPcpTooltip(this)" onmouseleave="hidePcpTooltip()"></div></td>
+              <td class="col-vendor"><input type="text" style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;" value="Internal Coach"></td>
+              <td class="col-category" data-cat-value="COACHING"></td>
+              <td class="col-aspect" data-asp-value="LEADERSHIP,COMMUNICATION"></td>
+              <td class="col-goals"><textarea class="goal-input" rows="1">Coaching 1-on-1 bersama mentor</textarea></td>
+              <td class="col-start-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-10"></td>
+              <td class="col-end-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-18"></td>
+              <td class="col-pic" data-pic-name="Metha"></td>
+              <td class="col-notes"><svg class="notes-icon has-notes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)" data-notes="Jadwal setiap Rabu"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
+            </tr>
+
+            <!-- Row 3: Lead Cross-functional Project -->
+            <tr>
+              <td class="col-program">
+                <div class="program-cell-wrapper">
+                  <input type="text" class="program-name" placeholder="Enter program" value="Lead Cross-functional Project" onchange="updateProgramButtons(this)" oninput="updateProgramButtons(this)">
+                  <div class="program-actions">
+                    <button class="icon-btn btn-library" title="Library" onclick="openLibrary(this)" style="display: none;"><img src="assets/icon-library.svg" alt="Library"></button>
+                    <button class="icon-btn btn-ai-generate" title="AI Generate" onclick="openAIGenerateModal()" style="display: none;"><img src="assets/icon-ai-generate.svg" alt="AI Generate"></button>
+                    <button class="icon-btn btn-add-subprogram" title="Add Sub-program" onclick="addSubtask(this)" style="display: flex;"><img src="assets/icon-subtask.svg" alt="Add Sub-program"></button>
+                    <button class="icon-btn btn-delete" title="Delete" onclick="deleteRow(this)" style="display: flex;"><img src="assets/icon-delete.svg" alt="Delete"></button>
+                  </div>
+                </div>
+              </td>
+              <td class="col-participant"><div class="participant-cell" data-participants='["Hendra Wijaya","Eko Wahyudi"]' onclick="openParticipantPicker(event,this)" onmouseenter="showPcpTooltip(this)" onmouseleave="hidePcpTooltip()"></div></td>
+              <td class="col-vendor"><input type="text" style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;" value="-"></td>
+              <td class="col-category" data-cat-value="JOB ASSIGNMENT"></td>
+              <td class="col-aspect" data-asp-value="TEAMWORK"></td>
+              <td class="col-goals"><textarea class="goal-input" rows="1">Memimpin proyek lintas divisi</textarea></td>
+              <td class="col-start-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-08"></td>
+              <td class="col-end-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-20"></td>
+              <td class="col-pic" data-pic-name="Metha"></td>
+              <td class="col-notes"><svg class="notes-icon has-notes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)" data-notes="Project Alpha"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
+            </tr>
+
+            <!-- Row 4: Case Study -->
+            <tr>
+              <td class="col-program">
+                <div class="program-cell-wrapper">
+                  <input type="text" class="program-name" placeholder="Enter program" value="Case Study: Strategic Decision Making" onchange="updateProgramButtons(this)" oninput="updateProgramButtons(this)">
+                  <div class="program-actions">
+                    <button class="icon-btn btn-library" title="Library" onclick="openLibrary(this)" style="display: none;"><img src="assets/icon-library.svg" alt="Library"></button>
+                    <button class="icon-btn btn-ai-generate" title="AI Generate" onclick="openAIGenerateModal()" style="display: none;"><img src="assets/icon-ai-generate.svg" alt="AI Generate"></button>
+                    <button class="icon-btn btn-add-subprogram" title="Add Sub-program" onclick="addSubtask(this)" style="display: flex;"><img src="assets/icon-subtask.svg" alt="Add Sub-program"></button>
+                    <button class="icon-btn btn-delete" title="Delete" onclick="deleteRow(this)" style="display: flex;"><img src="assets/icon-delete.svg" alt="Delete"></button>
+                  </div>
+                </div>
+              </td>
+              <td class="col-participant"><div class="participant-cell" data-participants='["Yulia Permatasari","Doni Kurniawan","Sri Mulyani","Bambang Sutrisno"]' onclick="openParticipantPicker(event,this)" onmouseenter="showPcpTooltip(this)" onmouseleave="hidePcpTooltip()"></div></td>
+              <td class="col-vendor"><input type="text" style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;" value="Harvard Business Publishing"></td>
+              <td class="col-category" data-cat-value="TRAINING"></td>
+              <td class="col-aspect" data-asp-value="CRITICAL THINKING"></td>
+              <td class="col-goals"><textarea class="goal-input" rows="1">Analisis kasus pengambilan keputusan</textarea></td>
+              <td class="col-start-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-12"></td>
+              <td class="col-end-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-19"></td>
+              <td class="col-pic" data-pic-name="Metha"></td>
+              <td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+    
+    <div class="footer-actions" id="footerActions">
+      <button class="btn-reject-review" onclick="rejectIDP()">Reject</button>
+      <button class="btn-approve-review" onclick="approveIDP()">Approve</button>
+    </div>
+  </div>
+
+  <!-- AI Program Generator Modal -->
+  <div id="aiGeneratorModal" class="ai-modal-overlay">
+    <div class="ai-modal">
+      <div class="ai-modal-header">
+        <span class="ai-modal-title">AI Program Generator</span>
+        <button class="ai-modal-close" onclick="closeAIGeneratorModal()">×</button>
+      </div>
+
+      <div class="ai-form-group">
+        <label class="ai-form-label">
+          Aspect
+          <span class="required">*</span>
+        </label>
+        <select id="aiAspectSelect" class="ai-select-field">
+          <option value="">Choose aspect</option>
+          <option value="COMMUNICATION">COMMUNICATION</option>
+          <option value="LEADERSHIP">LEADERSHIP</option>
+          <option value="TEAMWORK">TEAMWORK</option>
+          <option value="PROBLEM_SOLVING">PROBLEM SOLVING</option>
+          <option value="CRITICAL_THINKING">CRITICAL THINKING</option>
+        </select>
+      </div>
+
+      <div class="ai-form-group">
+        <label class="ai-form-label">
+          Describe participant daily task or challenge
+          <span class="required">*</span>
+        </label>
+        <textarea id="aiTaskDescription" class="ai-textarea-field" placeholder="Example: Analyzing customer feedback data..."></textarea>
+      </div>
+
+      <div class="ai-modal-footer">
+        <button class="ai-btn-cancel" onclick="closeAIGeneratorModal()">Cancel</button>
+        <button class="ai-btn-generate" onclick="generateProgram()">Generate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reject IDP Modal -->
+  <div id="rejectModal" class="reject-modal-overlay">
+    <div class="reject-modal">
+      <div class="reject-modal-header">
+        <span class="reject-modal-title">Reject IDP</span>
+        <button class="reject-modal-close" onclick="closeRejectModal()">×</button>
+      </div>
+      <div class="reject-modal-body">
+        <div class="reject-modal-label">Reason for rejection <span class="req">*</span></div>
+        <textarea id="rejectReason" class="reject-modal-textarea" placeholder="Write here" oninput="updateRejectBtn()"></textarea>
+      </div>
+      <div class="reject-modal-footer">
+        <button class="reject-modal-cancel" onclick="closeRejectModal()">Cancel</button>
+        <button class="reject-modal-submit" id="rejectSubmitBtn" disabled onclick="submitReject()">Reject</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    function goBack() {
+      window.location.href = '/';
+    }
+
+    function rejectIDP() {
+      document.getElementById('rejectReason').value = '';
+      document.getElementById('rejectSubmitBtn').disabled = true;
+      document.getElementById('rejectModal').classList.add('open');
+    }
+    function closeRejectModal() {
+      document.getElementById('rejectModal').classList.remove('open');
+    }
+    function updateRejectBtn() {
+      document.getElementById('rejectSubmitBtn').disabled =
+        document.getElementById('rejectReason').value.trim().length === 0;
+    }
+    function submitReject() {
+      closeRejectModal();
+      window.location.href = 'review-idp-list.html';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('rejectModal').addEventListener('click', function(e) {
+        if (e.target === this) closeRejectModal();
+      });
+    });
+
+    function approveIDP() {
+      alert('IDP has been approved.');
+      window.location.href = 'review-idp-list.html';
+    }
+
+    function saveChanges() {
+      alert('Changes saved successfully.');
+    }
+
+    function saveAndApprove() {
+      alert('Changes saved and IDP has been approved.');
+      window.location.href = 'review-idp-list.html';
+    }
+    
+    var _empAll = [
+      {name:'Ulfa Irawan',nik:'100042',email:'ulfa@email.com'},
+      {name:'Imanuel Ibrahim',nik:'100127',email:'imanuel@email.com'},
+      {name:'Gunawan Santoso',nik:'100256',email:'gunawan@email.com'},
+      {name:'Budi Prasetyo',nik:'100034',email:'budi@email.com'},
+      {name:'Siti Rahayu',nik:'100189',email:'siti@email.com'},
+      {name:'Ahmad Fauzi',nik:'100312',email:'ahmad@email.com'},
+      {name:'Dewi Kusuma',nik:'100078',email:'dewi@email.com'},
+      {name:'Eko Wahyudi',nik:'100423',email:'eko@email.com'},
+      {name:'Rina Marlina',nik:'100156',email:'rina@email.com'},
+      {name:'Hendra Wijaya',nik:'100089',email:'hendra@email.com'},
+      {name:'Yulia Permatasari',nik:'100711',email:'yulia@email.com'},
+      {name:'Doni Kurniawan',nik:'100234',email:'doni@email.com'},
+      {name:'Sri Mulyani',nik:'100567',email:'sri@email.com'},
+      {name:'Bambang Sutrisno',nik:'100123',email:'bambang@email.com'},
+      {name:'Fitri Handayani',nik:'100345',email:'fitri@email.com'},
+      {name:'Rizky Pratama',nik:'100678',email:'rizky@email.com'},
+      {name:'Mega Wulandari',nik:'100901',email:'mega@email.com'},
+      {name:'Agus Setiawan',nik:'101023',email:'agus@email.com'},
+      {name:'Nurul Hidayah',nik:'101145',email:'nurul@email.com'},
+      {name:'Fajar Ramadhan',nik:'101267',email:'fajar@email.com'},
+      {name:'Lestari Ningrum',nik:'101389',email:'lestari@email.com'},
+      {name:'Surya Dinata',nik:'101411',email:'surya@email.com'},
+      {name:'Rini Agustina',nik:'101533',email:'rini@email.com'},
+      {name:'Muhammad Iqbal',nik:'101655',email:'iqbal@email.com'},
+      {name:'Dian Novitasari',nik:'101777',email:'dian@email.com'},
+      {name:'Wahyu Hidayat',nik:'101899',email:'wahyu@email.com'},
+      {name:'Indah Permata',nik:'101921',email:'indah@email.com'},
+      {name:'Bagas Satrio',nik:'102043',email:'bagas@email.com'},
+      {name:'Ayu Lestari',nik:'102165',email:'ayu@email.com'},
+      {name:'Reza Firmansyah',nik:'102287',email:'reza@email.com'},
+      {name:'Putra Wijaya',nik:'102309',email:'putra@email.com'},
+      {name:'Anisa Rachmawati',nik:'102431',email:'anisa@email.com'},
+      {name:'Andi Setiawan',nik:'102553',email:'andi@email.com'},
+      {name:'Yuli Astuti',nik:'102675',email:'yuli@email.com'},
+      {name:'Farhan Maulana',nik:'102797',email:'farhan@email.com'},
+      {name:'Tika Rahmawati',nik:'102819',email:'tika@email.com'},
+      {name:'Galuh Prabowo',nik:'102941',email:'galuh@email.com'},
+      {name:'Nita Sari',nik:'103063',email:'nita@email.com'},
+      {name:'Ilham Nugroho',nik:'103185',email:'ilham@email.com'},
+      {name:'Sari Puspita',nik:'103207',email:'sari@email.com'},
+      {name:'Kevin Saputra',nik:'103329',email:'kevin@email.com'},
+      {name:'Maya Kusumawati',nik:'103451',email:'maya@email.com'},
+      {name:'Arif Rahman',nik:'103573',email:'arif@email.com'},
+      {name:'Putri Maharani',nik:'103695',email:'putri@email.com'},
+      {name:'Dimas Prayoga',nik:'103717',email:'dimas@email.com'},
+      {name:'Silvia Anggraini',nik:'103839',email:'silvia@email.com'},
+      {name:'Ridwan Alfarisi',nik:'103961',email:'ridwan@email.com'},
+      {name:'Laila Nurhayati',nik:'104083',email:'laila@email.com'},
+      {name:'Teguh Santoso',nik:'104105',email:'teguh@email.com'},
+      {name:'Citra Dewanti',nik:'104227',email:'citra@email.com'}
+    ];
+
+    function renderEmpList(filter) {
+      var list = document.getElementById('empList');
+      var chips = document.getElementById('employeeChips');
+      var selected = Array.from(chips.querySelectorAll('.chip')).map(function(c){ return c.dataset.name; });
+      var q = (filter || '').toLowerCase();
+      var results = _empAll.filter(function(emp){
+        return emp.name.toLowerCase().includes(q) || emp.email.toLowerCase().includes(q);
+      });
+      list.innerHTML = '';
+      if (!results.length) {
+        list.innerHTML = '<div class="emp-item emp-no-result">No results</div>';
+        return;
+      }
+      results.forEach(function(emp){
+        var isSelected = selected.includes(emp.name);
+        var div = document.createElement('div');
+        div.className = 'emp-item' + (isSelected ? ' emp-selected' : '');
+        var textSpan = document.createElement('span');
+        textSpan.innerHTML = emp.name + ' <span class="emp-email">(' + emp.email + ')</span>';
+        div.appendChild(textSpan);
+        if (isSelected) {
+          var removeBtn = document.createElement('button');
+          removeBtn.className = 'emp-item-remove';
+          removeBtn.textContent = '×';
+          removeBtn.onclick = function(e) { e.stopPropagation(); removeEmpFromList(emp.name); };
+          div.appendChild(removeBtn);
+        } else {
+          div.onclick = function(){ pickEmployee(emp.name); };
+        }
+        list.appendChild(div);
+      });
+    }
+
+    function removeEmpFromList(name) {
+      var chip = document.querySelector('#employeeChips .chip[data-name="' + name + '"]');
+      if (chip) {
+        chip.remove();
+        updateChipOverflow();
+        renderEmpList(document.getElementById('empSearchInput').value);
+      }
+    }
+
+    function openEmpDropdown() {
+      document.getElementById('empDropdown').classList.add('open');
+      renderEmpList(document.getElementById('empSearchInput').value);
+    }
+
+    function filterEmployees() {
+      document.getElementById('empDropdown').classList.add('open');
+      renderEmpList(document.getElementById('empSearchInput').value);
+    }
+
+    function empKeydown(e) {
+      if (e.key === 'Escape') closeEmpDropdown();
+    }
+
+    function closeEmpDropdown() {
+      document.getElementById('empDropdown').classList.remove('open');
+      document.getElementById('empSearchInput').value = '';
+    }
+
+    function pickEmployee(name) {
+      var chips = document.getElementById('employeeChips');
+      var chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.dataset.name = name;
+      chip.innerHTML = name.toUpperCase() + ' <button class="chip-close" onclick="removeChip(this)">×</button>';
+      chips.insertBefore(chip, document.getElementById('chipsOverflowBtn'));
+      closeEmpDropdown();
+      updateChipOverflow();
+    }
+
+    function removeChip(btn) {
+      btn.parentElement.remove();
+      updateChipOverflow();
+    }
+
+    function updateChipOverflow() {
+      var container = document.getElementById('employeeChips');
+      var overflowBtn = document.getElementById('chipsOverflowBtn');
+      var chips = Array.from(container.querySelectorAll('.chip'));
+
+      chips.forEach(function(c) { c.style.display = ''; });
+      overflowBtn.style.display = 'none';
+
+      if (!chips.length) return;
+
+      requestAnimationFrame(function() {
+        var containerWidth = container.offsetWidth;
+        var totalWidth = chips.reduce(function(sum, c, i) {
+          return sum + c.offsetWidth + (i > 0 ? 4 : 0);
+        }, 0);
+
+        if (totalWidth <= containerWidth) return;
+
+        overflowBtn.querySelector('.overflow-count').textContent = '+?';
+        overflowBtn.style.display = 'inline-flex';
+        var btnWidth = overflowBtn.offsetWidth + 4;
+        var available = containerWidth - btnWidth;
+
+        var used = 0;
+        var lastVisible = -1;
+        for (var i = 0; i < chips.length; i++) {
+          var w = chips[i].offsetWidth + (i > 0 ? 4 : 0);
+          if (used + w <= available) {
+            used += w;
+            lastVisible = i;
+          } else {
+            break;
+          }
+        }
+
+        var hiddenChips = chips.slice(lastVisible + 1);
+        hiddenChips.forEach(function(c) { c.style.display = 'none'; });
+
+        var names = hiddenChips.map(function(c) { return c.dataset.name || c.textContent.replace(/[×x]/g,'').trim(); });
+        overflowBtn.querySelector('.overflow-count').textContent = '+' + hiddenChips.length;
+        overflowBtn.querySelector('.chip-overflow-tooltip').innerHTML =
+          names.map(function(n) { return '<div>' + n + '</div>'; }).join('');
+      });
+    }
+
+    document.addEventListener('click', function(e){
+      var dd = document.getElementById('empDropdown');
+      if (dd && !dd.contains(e.target)) closeEmpDropdown();
+    });
+
+    window.addEventListener('load', function() { updateChipOverflow(); });
+
+    function updatePICDisplay(select) {
+      // This function can be used to update PIC display with avatar if needed
+      // Currently just allows selection of PIC value
+      const selectedValue = select.value;
+      // You can add avatar display logic here in the future
+    }
+
+    function updateCategoryDisplay(select) {
+      // Category dropdown handler
+      const selectedValue = select.value;
+      // Just update the select value - no special logic needed
+    }
+
+    function updateAspectDisplay(select) {
+      // Aspect dropdown handler
+      const selectedValue = select.value;
+      // Just update the select value - no special logic needed
+    }
+
+    function updateProgramButtons(input) {
+      const wrapper = input.closest('.program-cell-wrapper');
+      if (!wrapper) return;
+
+      const actions = wrapper.querySelector('.program-actions');
+      const btnLibrary = actions.querySelector('.btn-library');
+      const btnAiGenerate = actions.querySelector('.btn-ai-generate');
+      const btnAddSubprogram = actions.querySelector('.btn-add-subprogram');
+      const btnDelete = actions.querySelector('.btn-delete');
+
+      if (input.value.trim() === '') {
+        // Empty - show Library, AI Generate, and Delete
+        if (btnLibrary) btnLibrary.style.display = 'flex';
+        if (btnAiGenerate) btnAiGenerate.style.display = 'flex';
+        if (btnAddSubprogram) btnAddSubprogram.style.display = 'none';
+        if (btnDelete) btnDelete.style.display = 'flex';
+      } else {
+        // Has text - show Add Sub-program and Delete
+        if (btnLibrary) btnLibrary.style.display = 'none';
+        if (btnAiGenerate) btnAiGenerate.style.display = 'none';
+        if (btnAddSubprogram) btnAddSubprogram.style.display = 'flex';
+        if (btnDelete) btnDelete.style.display = 'flex';
+      }
+    }
+    
+    function deleteRow(btn) {
+      const row = btn.closest('tr');
+      const tbody = document.getElementById('programTableBody');
+      if (tbody.children.length > 1) {
+        row.remove();
+        window.markDirty && window.markDirty();
+      }
+    }
+    
+    function addProgram() {
+      const tableBody = document.getElementById('programTableBody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td class="col-program">
+          <div class="program-cell-wrapper">
+            <input type="text" class="program-name" placeholder="Enter program" onchange="updateProgramButtons(this)" oninput="updateProgramButtons(this)">
+            <div class="program-actions">
+              <button class="icon-btn btn-library" title="Library" onclick="openLibrary(this)" style="display: flex;">
+                <img src="assets/icon-library.svg" alt="Library">
+              </button>
+              <button class="icon-btn btn-ai-generate" title="AI Generate" onclick="openAIGenerateModal()" style="display: flex;">
+                <img src="assets/icon-ai-generate.svg" alt="AI Generate">
+              </button>
+              <button class="icon-btn btn-add-subprogram" title="Add Sub-program" onclick="addSubtask(this)" style="display: none;">
+                <img src="assets/icon-subtask.svg" alt="Add Sub-program">
+              </button>
+              <button class="icon-btn btn-delete" title="Delete" onclick="deleteRow(this)" style="display: flex;">
+                <img src="assets/icon-delete.svg" alt="Delete">
+              </button>
+            </div>
+          </div>
+        </td>
+        <td class="col-participant"><div class="participant-cell" data-participants='[]' onclick="openParticipantPicker(event,this)" onmouseenter="showPcpTooltip(this)" onmouseleave="hidePcpTooltip()"></div></td>
+        <td class="col-vendor"><input type="text" style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;" placeholder="Write here"></td>
+        <td class="col-category"></td>
+        <td class="col-aspect"></td>
+        <td class="col-goals"><textarea class="goal-input" rows="1" placeholder="Write here"></textarea></td>
+        <td class="col-start-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;"></td>
+        <td class="col-end-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;"></td>
+        <td class="col-pic"></td>
+        <td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
+      `;
+      tableBody.appendChild(newRow);
+      syncNewRowToHeaderOrder(newRow);
+    }
+
+    function addCustomColumn() {
+      const modal = document.getElementById('addColumnModal');
+      modal.classList.add('active');
+    }
+    
+    function closeAddColumnModal() {
+      const modal = document.getElementById('addColumnModal');
+      modal.classList.remove('active');
+      var ni = document.getElementById('columnNameInput');
+      var ts = document.getElementById('columnTypeSelect');
+      ni.value = '';
+      ts.value = '';
+      ni.classList.remove('field-error');
+      ts.classList.remove('field-error');
+      document.getElementById('editableToggle').classList.remove('off');
+    }
+
+    (function(){
+      var ni = document.getElementById('columnNameInput');
+      var ts = document.getElementById('columnTypeSelect');
+      if(ni) ni.addEventListener('input', function(){ ni.classList.remove('field-error'); });
+      if(ts) ts.addEventListener('change', function(){ ts.classList.remove('field-error'); });
+    })();
+
+    function toggleEditable() {
+      const toggle = document.getElementById('editableToggle');
+      toggle.classList.toggle('off');
+    }
+
+    function submitAddColumn() {
+      const nameInput = document.getElementById('columnNameInput');
+      const typeSelect = document.getElementById('columnTypeSelect');
+      const columnName = nameInput.value.trim();
+      const columnType = typeSelect.value;
+
+      nameInput.classList.remove('field-error');
+      typeSelect.classList.remove('field-error');
+      var hasError = false;
+      if (!columnName) { nameInput.classList.add('field-error'); hasError = true; }
+      if (!columnType) { typeSelect.classList.add('field-error'); hasError = true; }
+      if (hasError) return;
+
+      // Add column to table header (insert before the "+" add-column th so it stays rightmost)
+      const thead = document.querySelector('.program-table thead tr');
+      const addColTh = thead.querySelector('.col-add-col');
+      const newHeader = document.createElement('th');
+      newHeader.className = 'col-custom';
+      newHeader.textContent = columnName;
+      newHeader.style.minWidth = '130px';
+      if (addColTh) thead.insertBefore(newHeader, addColTh);
+      else thead.appendChild(newHeader);
+
+      // Add empty cells to all existing rows
+      const tbody = document.getElementById('programTableBody');
+      const rows = tbody.querySelectorAll('tr:not(.subtask-row)');
+
+      rows.forEach(row => {
+        const newCell = document.createElement('td');
+        newCell.className = 'col-custom';
+
+        // Create input based on column type
+        let inputHTML = '';
+        switch(columnType) {
+          case 'text':
+            inputHTML = '<input type="text" style="border: none; background: transparent; font-family: \'Open Sans\'; font-size: 12px; color: var(--text-body); width: 100%; outline: none;" placeholder="Enter text">';
+            break;
+          case 'attachment':
+            inputHTML = '<div class="att-cell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div>';
+            break;
+          case 'duration':
+            inputHTML = '<input type="number" style="border: none; background: transparent; font-family: \'Open Sans\'; font-size: 12px; color: var(--text-body); width: 100%; outline: none;" placeholder="Hours">';
+            break;
+        }
+
+        newCell.innerHTML = inputHTML;
+        row.appendChild(newCell);
+      });
+
+      window.markDirty && window.markDirty();
+      closeAddColumnModal();
+    }
+
+    function addSubtask(btn) {
+      // Get the current row
+      const currentRow = btn.closest('tr');
+      const tableBody = document.getElementById('programTableBody');
+
+      // Create new subtask row
+      const subtaskRow = document.createElement('tr');
+      subtaskRow.className = 'subtask-row';
+      subtaskRow.innerHTML = `
+        <td class="col-program subtask-program-cell">
+          <div class="program-cell-wrapper" style="align-items: flex-start;">
+            <input type="text" class="program-name" placeholder="Enter sub-program" style="flex: 1;">
+            <div class="program-actions" style="display: flex;">
+              <button class="icon-btn" title="Delete" onclick="deleteRow(this)">
+                <img src="assets/icon-delete.svg" alt="Delete">
+              </button>
+            </div>
+          </div>
+        </td>
+        <td class="col-vendor">
+          <input type="text" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" placeholder="-">
+        </td>
+        <td class="col-category">
+          <div style="position: relative; display: inline-block; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 8px; cursor: pointer;" onclick="openCategoryDropdown(event)">
+              <span style="color: var(--text-faint); font-size: 12px;">Choose category</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            <div class="dropdown-menu" style="display: none;">
+              <div class="dropdown-option">
+                <input type="radio" name="category-subtask" value="TRAINING" checked>
+                <label>TRAINING</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="radio" name="category-subtask" value="COACHING">
+                <label>COACHING</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="radio" name="category-subtask" value="JOB ASSIGNMENT">
+                <label>JOB ASSIGNMENT</label>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td class="col-aspect">
+          <div style="position: relative; display: inline-block; width: 100%;">
+            <div class="aspect-chips-container" style="cursor: pointer;" onclick="openAspectDropdown(event)">
+              <span style="color: var(--text-faint); font-size: 12px;">Choose aspect</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            <div class="dropdown-menu" style="display: none;">
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-subtask" value="COMMUNICATION">
+                <label>COMMUNICATION</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-subtask" value="LEADERSHIP">
+                <label>LEADERSHIP</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-subtask" value="TEAMWORK">
+                <label>TEAMWORK</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-subtask" value="PROBLEM SOLVING">
+                <label>PROBLEM SOLVING</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-subtask" value="CRITICAL THINKING">
+                <label>CRITICAL THINKING</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-subtask" value="CREATIVITY">
+                <label>CREATIVITY</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-subtask" value="ANALYTICAL THINKING">
+                <label>ANALYTICAL THINKING</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-subtask" value="TIME MANAGEMENT">
+                <label>TIME MANAGEMENT</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-subtask" value="ADAPTABILITY">
+                <label>ADAPTABILITY</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-subtask" value="CUSTOMER FOCUS">
+                <label>CUSTOMER FOCUS</label>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td class="col-goals">
+          <input type="text" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" placeholder="Tulis di sini">
+        </td>
+        <td class="col-start-date">
+          <input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;">
+        </td>
+        <td class="col-end-date">
+          <input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;">
+        </td>
+        <td class="col-pic">
+          <select style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none; cursor: pointer;" onchange="updatePICDisplay(this)">
+            <option value="">Choose PIC</option>
+            <option value="Ilyas Dirgantara">Ilyas Dirgantara</option>
+            <option value="Muhammad Multazam">Muhammad Multazam</option>
+            <option value="Adzon">Adzon</option>
+          </select>
+        </td>
+      `;
+
+      // Insert after current row
+      currentRow.insertAdjacentElement('afterend', subtaskRow);
+      window.markDirty && window.markDirty();
+    }
+    
+    // Store reference to the row being edited
+    let currentLibraryRow = null;
+
+    function openLibrary(btn) {
+      // Store the row that triggered the library modal
+      currentLibraryRow = btn.closest('tr');
+      const modal = document.getElementById('programLibraryModal');
+      modal.classList.add('active');
+    }
+
+    function closeProgramLibraryModal() {
+      const modal = document.getElementById('programLibraryModal');
+      modal.classList.remove('active');
+      currentLibraryRow = null;
+    }
+    
+    function openAIGenerateModal() {
+      // Call the new modal function
+      openAIGeneratorModal();
+    }
+    
+    function filterByCategory(btn, category) {
+      // Update filter chip state
+      document.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.classList.remove('active');
+        chip.classList.add('inactive');
+      });
+      btn.classList.remove('inactive');
+      btn.classList.add('active');
+
+      // Filter program list
+      const programList = document.getElementById('programList');
+      const programItems = programList.querySelectorAll('.program-item');
+
+      programItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        if (itemCategory === category) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    function selectProgram(item, programName, vendor, aspect) {
+      if (currentLibraryRow) {
+        // Update program name
+        const programInput = currentLibraryRow.querySelector('.program-name');
+        if (programInput) {
+          programInput.value = programName;
+          updateProgramButtons(programInput);
+        }
+
+        // Update vendor
+        const vendorCell = currentLibraryRow.querySelector('.col-vendor');
+        if (vendorCell) {
+          vendorCell.textContent = vendor;
+        }
+
+        // Update aspect with chip
+        const aspectCell = currentLibraryRow.querySelector('.col-aspect');
+        if (aspectCell) {
+          const aspectContainer = aspectCell.querySelector('.aspect-chips-container');
+          if (aspectContainer) {
+            aspectContainer.innerHTML = `
+              <span class="aspect-chip" style="border-radius: 10px">${aspect} <button class="aspect-chip-close" onclick="removeAspectChip(event)">×</button></span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            `;
+          }
+        }
+
+        // Update category - determine category from vendor/aspect relationship
+        const category = item.getAttribute('data-category').toUpperCase();
+        const categoryText = category === 'JOB-ASSIGNMENT' ? 'JOB ASSIGNMENT' : category;
+        const categoryCell = currentLibraryRow.querySelector('.col-category');
+        if (categoryCell) {
+          const categoryContainer = categoryCell.querySelector('div[style*="relative"]');
+          if (categoryContainer) {
+            categoryContainer.querySelector('div[style*="display"]').innerHTML = `
+              <span class="category-chip" style="border-radius: 10px">${categoryText}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            `;
+            // Update hidden radio button
+            const radioInput = categoryContainer.querySelector(`input[value="${categoryText}"]`);
+            if (radioInput) {
+              radioInput.checked = true;
+            }
+          }
+        }
+      }
+      window.markDirty && window.markDirty();
+      closeProgramLibraryModal();
+    }
+    
+    function addProgramLibrary() {
+      alert('Add Program Library feature coming soon!');
+    }
+    
+    
+    function removeAspectChip(event) {
+      event.stopPropagation();
+      event.target.closest('.aspect-chip').remove();
+    }
+
+    function openCategoryDropdownFixed(event) {
+      event.stopPropagation();
+      const displayArea = event.currentTarget;
+      const parentDiv = displayArea.parentElement;
+      const dropdown = parentDiv.querySelector('.dropdown-menu');
+
+      const isOpen = dropdown.style.display === 'block';
+
+      // Close all other dropdowns
+      document.querySelectorAll('.dropdown-menu').forEach(d => d.style.display = 'none');
+
+      if (!isOpen) {
+        // Position dropdown berdasarkan koordinat element trigger
+        const rect = displayArea.getBoundingClientRect();
+        dropdown.style.top = (rect.bottom + 4) + 'px';
+        dropdown.style.left = rect.left + 'px';
+        dropdown.style.display = 'block';
+
+        // Attach event listener ke radio buttons (sekali saja)
+        const radios = dropdown.querySelectorAll('input[type="radio"]');
+        radios.forEach(radio => {
+          radio.onchange = function() {
+            updateCategoryDisplayFixed(displayArea, this.value, dropdown);
+          };
+        });
+      }
+    }
+
+    function updateCategoryDisplayFixed(displayArea, categoryValue, dropdown) {
+      displayArea.innerHTML = `
+        <span class="category-chip" style="border-radius: 10px">${categoryValue}</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5" style="flex-shrink: 0;">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      `;
+      dropdown.style.display = 'none';
+    }
+
+    function openAspectDropdownFixed(event) {
+      event.stopPropagation();
+      const displayArea = event.currentTarget;
+      const parentDiv = displayArea.parentElement;
+      const dropdown = parentDiv.querySelector('.dropdown-menu');
+
+      const isOpen = dropdown.style.display === 'block';
+
+      // Close all other dropdowns
+      document.querySelectorAll('.dropdown-menu').forEach(d => d.style.display = 'none');
+
+      if (!isOpen) {
+        // Position dropdown berdasarkan koordinat element trigger
+        const rect = displayArea.getBoundingClientRect();
+        dropdown.style.top = (rect.bottom + 4) + 'px';
+        dropdown.style.left = rect.left + 'px';
+        dropdown.style.display = 'block';
+
+        // Attach event listener ke checkboxes (sekali saja)
+        const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+          checkbox.onchange = function() {
+            updateAspectDisplayFixed(displayArea, dropdown);
+          };
+        });
+      }
+    }
+
+    function updateAspectDisplayFixed(displayArea, dropdown) {
+      const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+      let html = '';
+
+      checkboxes.forEach((checkbox) => {
+        html += `<span class="aspect-chip" style="border-radius: 10px">${checkbox.value} <button class="aspect-chip-close" onclick="removeAspectChipFixed(event, '${checkbox.value}')">×</button></span>`;
+      });
+
+      html += `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5" style="flex-shrink: 0; cursor: pointer;">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>`;
+
+      if (checkboxes.length === 0) {
+        html = `<span style="color: var(--text-faint); font-size: 12px;">Choose aspect</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5" style="flex-shrink: 0;">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>`;
+      }
+
+      displayArea.innerHTML = html;
+    }
+
+    function removeAspectChipFixed(event, aspectValue) {
+      event.stopPropagation();
+      const displayArea = event.target.closest('.aspect-chips-container');
+      const parentDiv = displayArea.parentElement;
+      const dropdown = parentDiv.querySelector('.dropdown-menu');
+
+      const checkbox = dropdown.querySelector(`input[type="checkbox"][value="${aspectValue}"]`);
+      if (checkbox) {
+        checkbox.checked = false;
+        updateAspectDisplayFixed(displayArea, dropdown);
+      }
+    }
+    
+    function openCategoryDropdown(event) {
+      event.stopPropagation();
+      const parentDiv = event.currentTarget.closest('div[style*="display: flex"]').parentElement;
+      const dropdown = parentDiv.querySelector('.dropdown-menu');
+      const displayArea = event.currentTarget;
+
+      // Close all other dropdowns
+      document.querySelectorAll('.dropdown-menu').forEach(d => d.style.display = 'none');
+
+      // Toggle current dropdown
+      dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+
+      // Add event listeners to radio buttons in this dropdown
+      const radioButtons = dropdown.querySelectorAll('input[type="radio"]');
+      radioButtons.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.checked) {
+            // Update display
+            displayArea.innerHTML = `
+              <span class="category-chip" style="border-radius: 10px">${this.value}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            `;
+            // Close dropdown
+            dropdown.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    function openAspectDropdown(event) {
+      event.stopPropagation();
+      const parentDiv = event.currentTarget.parentElement;
+      const dropdown = parentDiv.querySelector('.dropdown-menu');
+      const displayArea = event.currentTarget;
+
+      // Close all other dropdowns
+      document.querySelectorAll('.dropdown-menu').forEach(d => d.style.display = 'none');
+
+      // Toggle current dropdown
+      dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+
+      // Add event listeners to checkboxes in this dropdown
+      const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          updateAspectDisplay(displayArea, dropdown);
+        });
+      });
+    }
+
+    function updateAspectDisplay(displayArea, dropdown) {
+      const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+      let html = '';
+
+      checkboxes.forEach((checkbox, index) => {
+        html += `<span class="aspect-chip" style="border-radius: 10px">${checkbox.value} <button class="aspect-chip-close" onclick="removeAspectChipFromDropdown(event)">×</button></span>`;
+      });
+
+      // Add the dropdown trigger if there are selected items
+      if (checkboxes.length > 0) {
+        html += `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>`;
+      } else {
+        html = `<span style="color: var(--text-faint); font-size: 12px;">Choose aspect</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>`;
+      }
+
+      displayArea.innerHTML = html;
+    }
+
+    function removeAspectChipFromDropdown(event) {
+      event.stopPropagation();
+      const chip = event.target.closest('.aspect-chip');
+      const aspectValue = chip.textContent.trim().replace('×', '').trim();
+
+      // Find and uncheck the corresponding checkbox
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(checkbox => {
+        if (checkbox.value === aspectValue) {
+          checkbox.checked = false;
+          // Trigger update
+          const dropdown = checkbox.closest('.dropdown-menu');
+          const displayArea = checkbox.closest('div[style*="relative"]').querySelector('.aspect-chips-container');
+          updateAspectDisplay(displayArea, dropdown);
+        }
+      });
+    }
+    
+    function saveDraft() {
+      alert('Draft saved!');
+    }
+
+    function submitIDP() {
+      alert('IDP submitted successfully!');
+    }
+
+    // ── Column drag-and-drop ──────────────────────────────────────────
+    (function() {
+      var table = document.querySelector('.program-table');
+      var draggedTh = null;
+      var draggedIdx = -1;
+
+      function colIndex(th) {
+        return Array.from(th.parentElement.children).indexOf(th);
+      }
+
+      function reorderColumns(fromIdx, toIdx) {
+        var rows = table.querySelectorAll('tr');
+        rows.forEach(function(row) {
+          var cells = row.children;
+          if (fromIdx >= cells.length || toIdx >= cells.length) return;
+          var moving = cells[fromIdx];
+          var ref = toIdx < fromIdx ? cells[toIdx] : (cells[toIdx + 1] || null);
+          row.insertBefore(moving, ref);
+        });
+      }
+
+      function clearStates() {
+        table.querySelectorAll('th').forEach(function(t) {
+          t.classList.remove('col-drag-over', 'col-dragging');
+        });
+      }
+
+      var thead = table.querySelector('thead');
+
+      thead.addEventListener('dragstart', function(e) {
+        var th = e.target.closest('th[draggable]');
+        if (!th) return;
+        draggedTh = th;
+        draggedIdx = colIndex(th);
+        th.classList.add('col-dragging');
+        e.dataTransfer.effectAllowed = 'move';
+      });
+
+      thead.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        var th = e.target.closest('th');
+        if (!th || th === draggedTh || th.classList.contains('col-program') || th.classList.contains('col-participant') || th.classList.contains('col-add-col')) return;
+        e.dataTransfer.dropEffect = 'move';
+        clearStates();
+        if (draggedTh) draggedTh.classList.add('col-dragging');
+        th.classList.add('col-drag-over');
+      });
+
+      thead.addEventListener('dragleave', function(e) {
+        var th = e.target.closest('th');
+        if (th) th.classList.remove('col-drag-over');
+      });
+
+      thead.addEventListener('drop', function(e) {
+        e.preventDefault();
+        var th = e.target.closest('th');
+        if (!th || th === draggedTh || th.classList.contains('col-program') || th.classList.contains('col-participant') || th.classList.contains('col-add-col')) return;
+        var toIdx = colIndex(th);
+        reorderColumns(draggedIdx, toIdx);
+        clearStates();
+        draggedTh = null;
+        draggedIdx = -1;
+      });
+
+      thead.addEventListener('dragend', function() {
+        clearStates();
+        draggedTh = null;
+        draggedIdx = -1;
+      });
+    })();
+
+    function syncNewRowToHeaderOrder(row) {
+      var headers = document.querySelectorAll('.program-table thead th');
+      var cellMap = {};
+      Array.from(row.cells).forEach(function(cell) {
+        var cls = Array.from(cell.classList).find(function(c) { return c.startsWith('col-'); });
+        if (cls) cellMap[cls] = cell;
+      });
+      while (row.firstChild) row.removeChild(row.firstChild);
+      Array.from(headers).forEach(function(th) {
+        var cls = Array.from(th.classList).find(function(c) { return c.startsWith('col-'); });
+        if (cls && cellMap[cls]) row.appendChild(cellMap[cls]);
+      });
+    }
+    
+    // Stop propagation jika klik di dalam dropdown
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.dropdown-menu')) return;
+      document.querySelectorAll('.dropdown-menu').forEach(d => d.style.display = 'none');
+    });
+
+    // AI Program Generator Modal Functions
+    function openAIGeneratorModal() {
+      const modal = document.getElementById('aiGeneratorModal');
+      modal.classList.add('active');
+      modal.style.display = 'flex';
+    }
+
+    function closeAIGeneratorModal() {
+      const modal = document.getElementById('aiGeneratorModal');
+      modal.classList.remove('active');
+      modal.style.display = 'none';
+      // Reset form
+      document.getElementById('aiAspectSelect').value = '';
+      document.getElementById('aiTaskDescription').value = '';
+    }
+
+    function generateProgram() {
+      const aspect = document.getElementById('aiAspectSelect').value;
+      const taskDescription = document.getElementById('aiTaskDescription').value;
+
+      // Validation
+      if (!aspect) {
+        alert('Please select an aspect');
+        return;
+      }
+
+      if (!taskDescription.trim()) {
+        alert('Please describe the participant daily task or challenge');
+        return;
+      }
+
+      // Simulate AI generation
+      alert(`Generating program for:\nAspect: ${aspect}\nTask: ${taskDescription}`);
+
+      // Add new row with generated data
+      const tableBody = document.getElementById('programTableBody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td class="col-program">
+          <div class="program-cell-wrapper">
+            <input type="text" class="program-name" placeholder="Enter program" value="AI Generated Program">
+            <div class="program-actions">
+              <button class="icon-btn" title="Add Sub-task" onclick="addSubtask(this)">
+                <img src="assets/icon-subtask.svg" alt="Add Sub-task">
+              </button>
+              <button class="icon-btn" title="Delete" onclick="deleteRow(this)">
+                <img src="assets/icon-delete.svg" alt="Delete">
+              </button>
+            </div>
+          </div>
+        </td>
+        <td class="col-vendor">AI Generated</td>
+        <td class="col-category">
+          <div style="position: relative; display: inline-block; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 8px; cursor: pointer;" onclick="openCategoryDropdown(event)">
+              <span class="category-chip" style="border-radius: 10px">TRAINING</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            <div class="dropdown-menu" style="display: none;">
+              <div class="dropdown-option">
+                <input type="radio" name="category-new" value="TRAINING" checked>
+                <label>TRAINING</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="radio" name="category-new" value="COACHING">
+                <label>COACHING</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="radio" name="category-new" value="JOB ASSIGNMENT">
+                <label>JOB ASSIGNMENT</label>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td class="col-aspect">
+          <div style="position: relative; display: inline-block; width: 100%;">
+            <div class="aspect-chips-container" style="cursor: pointer;" onclick="openAspectDropdown(event)">
+              <span class="aspect-chip" style="border-radius: 10px">${aspect} <button class="aspect-chip-close" onclick="removeAspectChip(event)">×</button></span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            <div class="dropdown-menu" style="display: none;">
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-new" value="COMMUNICATION">
+                <label>COMMUNICATION</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-new" value="LEADERSHIP">
+                <label>LEADERSHIP</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-new" value="TEAMWORK">
+                <label>TEAMWORK</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-new" value="PROBLEM SOLVING">
+                <label>PROBLEM SOLVING</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-new" value="CRITICAL THINKING">
+                <label>CRITICAL THINKING</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-new" value="CREATIVITY">
+                <label>CREATIVITY</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-new" value="ANALYTICAL THINKING">
+                <label>ANALYTICAL THINKING</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-new" value="TIME MANAGEMENT">
+                <label>TIME MANAGEMENT</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-new" value="ADAPTABILITY">
+                <label>ADAPTABILITY</label>
+              </div>
+              <div class="dropdown-option">
+                <input type="checkbox" name="aspect-new" value="CUSTOMER FOCUS">
+                <label>CUSTOMER FOCUS</label>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td class="col-goals">
+          <input type="text" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" placeholder="Tulis di sini" value="${taskDescription}">
+        </td>
+        <td class="col-start-date">
+          <input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;">
+        </td>
+        <td class="col-end-date">
+          <input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;">
+        </td>
+        <td class="col-pic">
+          <select style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none; cursor: pointer;" onchange="updatePICDisplay(this)">
+            <option value="">Choose PIC</option>
+            <option value="Ilyas Dirgantara">Ilyas Dirgantara</option>
+            <option value="Muhammad Multazam">Muhammad Multazam</option>
+            <option value="Adzon">Adzon</option>
+          </select>
+        </td>
+        <td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
+      `;
+      tableBody.appendChild(newRow);
+
+      // Close modal
+      closeAIGeneratorModal();
+    }
+
+    // ═══ NOTES MODAL ═══
+    var _notesSvg = null;
+    function notesIconMarkup(){
+      return '<svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg>';
+    }
+    window.openNotesModal = function(svg){
+      var row = svg.closest('tr');
+      var nameInput = row.querySelector('.col-program .program-name');
+      var programName = nameInput ? (nameInput.value.trim() || (nameInput.getAttribute('placeholder')||'').trim() || 'Program') : 'Program';
+      var aspectEl = row.querySelector('.col-aspect .aspect-chip');
+      var aspect = aspectEl ? aspectEl.textContent.replace(/×/g,'').trim() : '';
+      _notesSvg = svg;
+      document.getElementById('notesModalTitle').textContent = programName;
+      document.getElementById('notesModalAspect').textContent = aspect || '-';
+      var ta = document.getElementById('notesTextarea');
+      ta.value = svg.dataset.notes || '';
+      document.getElementById('notesModalOverlay').classList.add('active');
+      setTimeout(function(){ ta.focus(); }, 50);
+    };
+    window.closeNotesModal = function(e){
+      if (e && e.target !== document.getElementById('notesModalOverlay')) return;
+      document.getElementById('notesModalOverlay').classList.remove('active');
+      _notesSvg = null;
+    };
+    window.saveNotes = function(){
+      var text = document.getElementById('notesTextarea').value.trim();
+      if (_notesSvg){ _notesSvg.dataset.notes = text; _notesSvg.classList.toggle('has-notes', text.length > 0); }
+      document.getElementById('notesModalOverlay').classList.remove('active');
+      _notesSvg = null;
+      window.markDirty && window.markDirty();
+    };
+    (function(){
+      var notesOverlay = document.createElement('div');
+      notesOverlay.className = 'notes-modal-overlay';
+      notesOverlay.id = 'notesModalOverlay';
+      notesOverlay.setAttribute('onclick', 'closeNotesModal(event)');
+      notesOverlay.innerHTML = '<div class="notes-modal" onclick="event.stopPropagation()">'+
+        '<div class="notes-modal-header"><span class="notes-modal-title" id="notesModalTitle"></span><button class="notes-modal-close" onclick="closeNotesModal()">&times;</button></div>'+
+        '<div class="notes-modal-aspect"><span class="notes-modal-aspect-label">from aspect</span><span class="aspect-chip" id="notesModalAspect"></span></div>'+
+        '<div class="notes-label">Notes</div>'+
+        '<textarea class="notes-textarea" id="notesTextarea" placeholder="Tulis catatan di sini..."></textarea>'+
+        '<div class="notes-modal-footer"><button class="notes-btn-cancel" onclick="closeNotesModal()">Cancel</button><button class="notes-btn-save" onclick="saveNotes()">Save</button></div>'+
+        '</div>';
+      document.body.appendChild(notesOverlay);
+    })();
+
+    // Close modal when clicking outside
+    document.addEventListener('click', function(event) {
+      const modal = document.getElementById('aiGeneratorModal');
+      if (event.target === modal) {
+        closeAIGeneratorModal();
+      }
+    });
+
+    // Initialize semua button states berdasarkan value awal saat halaman dimuat
+    document.querySelectorAll('.program-name').forEach(function(input) {
+      updateProgramButtons(input);
+    });
+
+  </script>
+
+  <script>
+  /* ═══ Category Tag Picker ═══ */
+  (function(){
+    var CATS = [
+      { name: 'TRAINING', preset: true },
+      { name: 'COACHING', preset: true },
+      { name: 'JOB ASSIGNMENT', preset: true }
+    ];
+    var _catPicker = null, _catActive = null;
+    var CHEV = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5" style="flex-shrink:0;"><path d="M6 9l6 6 6-6"/></svg>';
+    var IC_EDIT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+    var IC_DEL = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+
+    function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function catColor(){ return { bg:'#F2F9F7', fg:'#00875A' }; }
+    function find(name){ for(var i=0;i<CATS.length;i++){ if(CATS[i].name===name) return CATS[i]; } return null; }
+    function exists(name){ var n=name.toLowerCase(); for(var i=0;i<CATS.length;i++){ if(CATS[i].name.toLowerCase()===n) return true; } return false; }
+    function chipHtml(name){ var c=catColor(); return '<span class="cat-chip" style="background:'+c.bg+';color:'+c.fg+'">'+esc(name)+'</span>'; }
+
+    function renderCatCell(cell){
+      var name = cell.dataset.catValue || '';
+      if(!name){ cell.innerHTML = '<div class="cat-cell" onclick="window._catOpen(this.closest(\'.col-category\'))"><span class="cat-placeholder">Choose category</span>'+CHEV+'</div>'; }
+      else { cell.innerHTML = '<div class="cat-cell" onclick="window._catOpen(this.closest(\'.col-category\'))">'+chipHtml(name)+CHEV+'</div>'; }
+    }
+
+    function createCatPicker(){
+      var el = document.createElement('div');
+      el.id = 'catPicker'; el.className = 'cat-picker';
+      el.innerHTML = '<div class="cat-list" id="catList"></div><div class="cat-add-wrap"><input class="cat-add-input" id="catAddInput" placeholder="Enter new tag..." autocomplete="off"></div>';
+      document.body.appendChild(el);
+      el.querySelector('#catList').addEventListener('click', onListClick);
+      el.querySelector('#catAddInput').addEventListener('keydown', function(e){
+        if(e.key==='Enter'){ var v=this.value.trim(); if(!v) return; if(exists(v)){ this.value=''; return; } CATS.push({ name:v, preset:false }); this.value=''; renderCatList(); }
+      });
+      el.addEventListener('click', function(e){ e.stopPropagation(); });
+      return el;
+    }
+
+    function renderCatList(){
+      var list = document.getElementById('catList'); if(!list) return;
+      var cur = _catActive ? (_catActive.dataset.catValue||'') : '';
+      list.innerHTML = CATS.map(function(c){
+        var sel = c.name===cur;
+        var actions = c.preset ? '' : '<span class="cat-item-actions"><button class="cat-ic cat-edit" data-act="edit" title="Edit">'+IC_EDIT+'</button><button class="cat-ic cat-del" data-act="del" title="Delete">'+IC_DEL+'</button></span>';
+        return '<div class="cat-item'+(sel?' sel':'')+'" data-name="'+esc(c.name)+'">'+chipHtml(c.name)+actions+'</div>';
+      }).join('');
+    }
+
+    function onListClick(e){
+      var item = e.target.closest('.cat-item'); if(!item) return;
+      if(item.querySelector('.cat-edit-input')) return;
+      var name = item.dataset.name;
+      var actBtn = e.target.closest('[data-act]');
+      if(actBtn){ e.stopPropagation(); if(actBtn.dataset.act==='edit') startEdit(item, name); else deleteCat(name); return; }
+      selectCat(name);
+    }
+
+    function selectCat(name){ if(!_catActive) return; _catActive.dataset.catValue = name; renderCatCell(_catActive); closeCatPicker(); }
+
+    function deleteCat(name){
+      var c = find(name); if(!c || c.preset) return;
+      CATS = CATS.filter(function(x){ return x.name!==name; });
+      document.querySelectorAll('td.col-category').forEach(function(cell){ if(cell.dataset.catValue===name){ cell.dataset.catValue=''; renderCatCell(cell); } });
+      renderCatList();
+    }
+
+    function startEdit(item, name){
+      var c = find(name); if(!c || c.preset) return;
+      item.innerHTML = '<input class="cat-edit-input" value="'+esc(name)+'">';
+      var inp = item.querySelector('.cat-edit-input'); inp.focus(); inp.select();
+      var done = false;
+      function commit(){ if(done) return; done=true; renameCat(name, inp.value); }
+      inp.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); commit(); } else if(e.key==='Escape'){ done=true; renderCatList(); } });
+      inp.addEventListener('blur', commit);
+    }
+
+    function renameCat(oldName, val){
+      var v = (val||'').trim();
+      var dup = false, n=v.toLowerCase();
+      for(var i=0;i<CATS.length;i++){ if(CATS[i].name.toLowerCase()===n && CATS[i].name!==oldName){ dup=true; break; } }
+      if(!v || dup){ renderCatList(); return; }
+      var c = find(oldName); if(c) c.name = v;
+      document.querySelectorAll('td.col-category').forEach(function(cell){ if(cell.dataset.catValue===oldName){ cell.dataset.catValue=v; renderCatCell(cell); } });
+      renderCatList();
+    }
+
+    window._catOpen = function(cell){
+      if(!_catPicker) _catPicker = createCatPicker();
+      _catActive = cell; renderCatList();
+      var rect = cell.getBoundingClientRect();
+      _catPicker.style.top = (rect.bottom + window.scrollY + 4) + 'px';
+      _catPicker.style.left = rect.left + 'px';
+      _catPicker.classList.add('open');
+      var inp = document.getElementById('catAddInput'); if(inp) inp.value='';
+    };
+
+    window._catSet = function(cell, name){
+      if(!cell) return;
+      if(name && !exists(name)) CATS.push({ name:name, preset:false });
+      cell.dataset.catValue = name || '';
+      renderCatCell(cell);
+    };
+
+    function closeCatPicker(){ if(_catPicker) _catPicker.classList.remove('open'); _catActive=null; }
+
+    function initCatCells(root){
+      (root||document).querySelectorAll('td.col-category').forEach(function(cell){ renderCatCell(cell); });
+    }
+
+    document.addEventListener('click', function(e){
+      if(!_catPicker || !_catPicker.classList.contains('open')) return;
+      if(_catPicker.contains(e.target) || e.target.closest('td.col-category')) return;
+      closeCatPicker();
+    });
+
+    var tbody = document.getElementById('programTableBody');
+    if(tbody){ new MutationObserver(function(muts){ muts.forEach(function(m){ m.addedNodes.forEach(function(node){ if(node.nodeType===1) initCatCells(node); }); }); }).observe(tbody, { childList:true }); }
+
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', function(){ initCatCells(); }); else initCatCells();
+  })();
+  </script>
+
+  <script>
+  /* ═══ Aspect Picker (multi-select) ═══ */
+  (function(){
+    var ASPECT_SECTIONS = [
+      { section: 'Kepemimpinan', items: ['LEADERSHIP','COMMUNICATION','TEAMWORK'] },
+      { section: 'Pengembangan Diri', items: ['PROBLEM SOLVING','CRITICAL THINKING','CREATIVITY','ANALYTICAL THINKING'] },
+      { section: 'Teknis', items: ['TIME MANAGEMENT','ADAPTABILITY','CUSTOMER FOCUS'] }
+    ];
+    var CHEV = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5" style="flex-shrink:0"><path d="M6 9l6 6 6-6"/></svg>';
+    var _aspPicker = null, _aspActive = null;
+
+    function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function getVals(cell){ return (cell.dataset.aspValue||'').split(',').map(function(s){return s.trim();}).filter(Boolean); }
+
+    function renderAspCell(cell){
+      var vals = getVals(cell);
+      var inner = vals.length
+        ? '<div class="asp-chips-wrap">'+vals.map(function(v){return '<span class="asp-chip">'+esc(v)+'</span>';}).join('')+'</div>'
+        : '<span class="asp-placeholder">Choose aspect</span>';
+      cell.innerHTML = '<div class="asp-cell" onclick="window._aspOpen(this.closest(\'.col-aspect\'))">'+inner+CHEV+'</div>';
+    }
+
+    function createAspPicker(){
+      var el = document.createElement('div');
+      el.id = 'aspPicker'; el.className = 'asp-picker';
+      el.innerHTML = '<input type="text" class="asp-search" id="aspSearch" placeholder="Search aspect..."><div class="asp-list" id="aspList"></div>';
+      document.body.appendChild(el);
+      el.querySelector('#aspSearch').addEventListener('input', function(){ renderAspList(this.value); });
+      el.querySelector('#aspSearch').addEventListener('click', function(e){ e.stopPropagation(); });
+      el.querySelector('#aspList').addEventListener('click', function(e){
+        var item = e.target.closest('.asp-item');
+        if(!item || !_aspActive) return;
+        var name = item.dataset.name;
+        var current = getVals(_aspActive);
+        var idx = current.indexOf(name);
+        if(idx === -1) current.push(name); else current.splice(idx, 1);
+        _aspActive.dataset.aspValue = current.join(',');
+        renderAspCell(_aspActive);
+        var s = document.getElementById('aspSearch');
+        renderAspList(s ? s.value : '');
+      });
+      el.addEventListener('click', function(e){ e.stopPropagation(); });
+      return el;
+    }
+
+    function renderAspList(query){
+      var list = document.getElementById('aspList'); if(!list) return;
+      var sel = _aspActive ? getVals(_aspActive) : [];
+      var q = (query || '').toLowerCase();
+      var html = '';
+      ASPECT_SECTIONS.forEach(function(sec){
+        var filtered = sec.items.filter(function(name){ return !q || name.toLowerCase().indexOf(q) !== -1; });
+        if(!filtered.length) return;
+        html += '<div class="asp-section-hd">'+esc(sec.section)+'</div>';
+        filtered.forEach(function(name){
+          var isSel = sel.indexOf(name) !== -1;
+          html += '<div class="asp-item'+(isSel?' sel':'')+'" data-name="'+esc(name)+'"><span class="asp-chip">'+esc(name)+'</span></div>';
+        });
+      });
+      list.innerHTML = html || '<div style="padding:10px 12px;font-size:12px;color:var(--text-faint);">No results</div>';
+    }
+
+    var _aspDocClose = null;
+    function closeAspPicker(){
+      if(_aspPicker) _aspPicker.classList.remove('open');
+      _aspActive = null;
+      var s = document.getElementById('aspSearch'); if(s) s.value = '';
+      if(_aspDocClose){ document.removeEventListener('click', _aspDocClose); _aspDocClose = null; }
+    }
+
+    window._aspOpen = function(cell){
+      if(!cell) return;
+      if(!_aspPicker) _aspPicker = createAspPicker();
+      if(_aspActive === cell && _aspPicker.classList.contains('open')){ closeAspPicker(); return; }
+      closeAspPicker();
+      _aspActive = cell;
+      var s = document.getElementById('aspSearch'); if(s) s.value = '';
+      renderAspList('');
+      var rect = cell.getBoundingClientRect();
+      var pickerH = 320;
+      var top = rect.bottom + 4;
+      var left = rect.left;
+      if(top + pickerH > window.innerHeight) top = rect.top - pickerH;
+      if(left + 220 > window.innerWidth) left = window.innerWidth - 224;
+      _aspPicker.style.top = top + 'px';
+      _aspPicker.style.left = left + 'px';
+      _aspPicker.classList.add('open');
+      setTimeout(function(){ _aspDocClose = function(){ closeAspPicker(); }; document.addEventListener('click', _aspDocClose); }, 0);
+      setTimeout(function(){ var s=document.getElementById('aspSearch'); if(s) s.focus(); }, 50);
+    };
+
+    window._aspSet = function(cell, vals){ if(!cell) return; cell.dataset.aspValue = Array.isArray(vals)?vals.join(','):(vals||''); renderAspCell(cell); };
+
+    function initAspCells(root){
+      (root||document).querySelectorAll('td.col-aspect').forEach(function(cell){
+        if(cell.dataset.aspInit) return;
+        cell.dataset.aspInit = '1';
+        renderAspCell(cell);
+      });
+    }
+
+    var tbody = document.getElementById('programTableBody');
+    if(tbody){ new MutationObserver(function(muts){ muts.forEach(function(m){ m.addedNodes.forEach(function(n){ if(n.nodeType===1) initAspCells(n); }); }); }).observe(tbody, { childList:true }); }
+
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', function(){ initAspCells(); }); else initAspCells();
+  })();
+  </script>
+
+  <script>
+  /* ═══ PIC Picker ═══ */
+  (function(){
+    var _picPicker = null, _picActive = null;
+
+    var PICS = [
+      { name: 'Metha',              pos: 'L&D Manager',      initials: 'M',  color: 'hsl(270,60%,42%)' },
+      { name: 'Ilyas Dirgantara',   pos: 'Product Manager',  initials: 'ID', color: '#6366f1' },
+      { name: 'Muhammad Multazam',  pos: 'HR Specialist',    initials: 'MM', color: '#10b981' },
+      { name: 'Adzon',              pos: 'Team Lead',        initials: 'AD', color: '#f59e0b' }
+    ];
+
+    function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function findPic(name){ return PICS.filter(function(p){ return p.name===name; })[0]||null; }
+    function colorFrom(name){
+      var hues=[210,190,340,160,30,270,50],h=0;
+      for(var i=0;i<name.length;i++) h+=name.charCodeAt(i);
+      return 'hsl('+hues[h%hues.length]+',60%,42%)';
+    }
+    function ini(name){ return name.split(' ').map(function(w){return w[0]||'';}).join('').slice(0,2).toUpperCase(); }
+
+    function createPicPicker(){
+      var el=document.createElement('div');
+      el.id='picPicker'; el.className='pcp-picker';
+      el.innerHTML='<input class="pcp-search" id="picSearchInput" placeholder="Search..."><div class="pcp-list" id="picList"></div>';
+      document.body.appendChild(el);
+      el.querySelector('#picSearchInput').addEventListener('input',function(){ renderPicList(this.value); });
+      return el;
+    }
+
+    function renderPicList(q){
+      var list=document.getElementById('picList');
+      var people=typeof _empAll!=='undefined'?_empAll:[];
+      var managerNames=['Gunawan Santoso','Dewi Kusuma'];
+      var qLow=(q||'').toLowerCase().trim();
+      function makeItem(name){
+        var bg=colorFrom(name),selected=_picActive&&_picActive.dataset.picName===name;
+        return '<div class="pcp-item'+(selected?' sel':'')+'" data-name="'+name+'">'+
+          '<div class="pcp-item-av" style="background:'+bg+'">'+ini(name)+'</div>'+
+          '<span class="pcp-item-name">'+name+'</span>'+
+          (selected?'<div class="pcp-item-check"></div>':'')+
+          '</div>';
+      }
+      var managers=managerNames.filter(function(n){ return !qLow||n.toLowerCase().indexOf(qLow)!==-1; });
+      var others=people.filter(function(p){ return managerNames.indexOf(p.name)===-1&&(!qLow||p.name.toLowerCase().indexOf(qLow)!==-1); });
+      var html='';
+      if(managers.length) html+='<div class="pcp-rec-head">Manager</div>'+managers.map(makeItem).join('');
+      if(others.length) html+='<div class="pcp-rec-divider"></div><div class="pcp-rec-head">Others</div>'+others.map(function(p){ return makeItem(p.name); }).join('');
+      if(!managers.length&&!others.length) html='<div class="pcp-no-result">No results</div>';
+      list.innerHTML=html;
+      list.querySelectorAll('.pcp-item').forEach(function(item){
+        item.addEventListener('click',function(){ selectPIC(this.dataset.name); });
+      });
+    }
+
+    function selectPIC(name){ if(!_picActive) return; _picActive.dataset.picName=name; renderPicCell(_picActive); closePicPicker(); }
+
+    function renderPicCell(cell){
+      var name=cell.dataset.picName||'';
+      var p=findPic(name);
+      if(!p){
+        cell.innerHTML='<div class="pic-cell" onclick="window._picOpen(this.closest(\'td.col-pic\'))"><span class="pic-placeholder">Choose PIC</span></div>';
+      } else {
+        cell.innerHTML='<div class="pic-cell" onclick="window._picOpen(this.closest(\'td.col-pic\'))">'+
+          '<div class="pic-selected">'+
+            '<div class="pic-av" style="background:'+p.color+'">'+esc(p.initials)+'</div>'+
+            '<div class="pic-info">'+
+              '<span class="pic-name">'+esc(p.name)+'</span>'+
+              '<span class="pic-pos">'+esc(p.pos)+'</span>'+
+            '</div>'+
+          '</div>'+
+        '</div>';
+      }
+    }
+
+    window._picOpen=function(cell){
+      if(!_picPicker) _picPicker=createPicPicker();
+      _picActive=cell;
+      renderPicList('');
+      var rect=cell.getBoundingClientRect();
+      _picPicker.style.top=(rect.bottom+window.scrollY+4)+'px';
+      _picPicker.style.left=rect.left+'px';
+      _picPicker.classList.add('open');
+      var inp=document.getElementById('picSearchInput');
+      if(inp){inp.value='';inp.focus();}
+    };
+
+    function closePicPicker(){ if(_picPicker) _picPicker.classList.remove('open'); _picActive=null; }
+
+    function initPicCells(root){
+      (root||document).querySelectorAll('td.col-pic').forEach(function(cell){ renderPicCell(cell); });
+    }
+
+    document.addEventListener('click',function(e){
+      if(!_picPicker||!_picPicker.classList.contains('open')) return;
+      if(_picPicker.contains(e.target)||e.target.closest('td.col-pic')) return;
+      closePicPicker();
+    });
+
+    var tbody=document.getElementById('programTableBody');
+    if(tbody){
+      new MutationObserver(function(muts){
+        muts.forEach(function(m){
+          m.addedNodes.forEach(function(node){
+            if(node.nodeType===1&&node.tagName==='TR'){
+              var c=node.querySelector('td.col-pic');
+              if(c){c.dataset.picName='';renderPicCell(c);}
+            }
+          });
+        });
+      }).observe(tbody,{childList:true});
+    }
+
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){initPicCells();}); else initPicCells();
+  })();
+  </script>
+
+  <!-- ═══ PARTICIPANT COLUMN (match create IDP) ═══ -->
+  <script>
+  (function(){
+    var PCP_EMP = (typeof _empAll !== 'undefined') ? _empAll : [];
+    var PHOTO_MAP = { 'Ulfa Irawan': 'assets/avatar-1.png', 'Budi Prasetyo': 'assets/avatar-2.png' };
+    var PALETTE = ['#4C6EF5','#7950F2','#E8590C','#0CA678','#1098AD','#F03E3E','#F76707','#9C36B5','#1971C2','#2F9E44'];
+    var _activeCell = null, _picker = null, _list = null, _search = null, _tooltip = null, _actions = null;
+
+    function initials(name){
+      var p = name.trim().split(/\s+/);
+      return ((p[0]||'')[0] + (p[1]||'')[0] || (p[0]||'?')[0]).toUpperCase();
+    }
+    function colorFor(name){
+      var s = 0; for (var i=0;i<name.length;i++) s += name.charCodeAt(i);
+      return PALETTE[s % PALETTE.length];
+    }
+    function avatarMarkup(name, avClass){
+      var photo = PHOTO_MAP[name];
+      if (photo) return '<span class="'+avClass+'" style="background-image:url(\''+photo+'\')"></span>';
+      return '<span class="'+avClass+'" style="background:'+colorFor(name)+'">'+initials(name)+'</span>';
+    }
+    function nikFor(name){
+      for (var i=0;i<PCP_EMP.length;i++) if (PCP_EMP[i].name === name) return PCP_EMP[i].nik || '';
+      return '';
+    }
+    function getNames(cell){ try { return JSON.parse(cell.dataset.participants || '[]'); } catch(e){ return []; } }
+    function setNames(cell, names){ cell.dataset.participants = JSON.stringify(names); }
+
+    function renderCell(cell){
+      var names = getNames(cell);
+      if (!names.length){ cell.innerHTML = '<span class="pcp-placeholder">Choose participant</span>'; return; }
+      var chevron = '<svg class="pcp-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>';
+      if (names.length === 1){
+        cell.innerHTML = '<span class="pcp-single">'+avatarMarkup(names[0], 'pcp-av')+'<span class="pcp-single-name">'+names[0]+'</span></span>'+chevron;
+        return;
+      }
+      var shown = names.slice(0,3);
+      var html = '<span class="pcp-avatars">';
+      shown.forEach(function(n){ html += avatarMarkup(n, 'pcp-av'); });
+      if (names.length > 3) html += '<span class="pcp-count">+'+(names.length-3)+'</span>';
+      html += '</span>'+chevron;
+      cell.innerHTML = html;
+    }
+
+    window.openParticipantPicker = function(e, cell){
+      e.stopPropagation();
+      _activeCell = cell;
+      _search.value = '';
+      renderList();
+      _picker.classList.add('open');
+      var r = cell.getBoundingClientRect();
+      var pw = 260, ph = _picker.offsetHeight || 280;
+      var left = Math.min(r.left, window.innerWidth - pw - 8);
+      var top = (r.bottom + ph + 8 > window.innerHeight) ? Math.max(8, r.top - ph - 4) : r.bottom + 4;
+      _picker.style.left = left + 'px';
+      _picker.style.top = top + 'px';
+      setTimeout(function(){ _search.focus(); }, 0);
+    };
+
+    function renderActions(){
+      if (!_actions || !_activeCell) return;
+      var sel = getNames(_activeCell);
+      _actions.innerHTML = '<button class="pcp-act-btn" data-action="select-all">Select All</button>' +
+        (sel.length > 0 ? '<button class="pcp-act-btn pcp-act-clear" data-action="clear-all">Clear All</button>' : '');
+    }
+
+    function renderList(){
+      var q = (_search.value || '').toLowerCase();
+      var sel = _activeCell ? getNames(_activeCell) : [];
+      renderActions();
+      var rows = PCP_EMP.filter(function(emp){
+        return emp.name.toLowerCase().indexOf(q) !== -1 || (emp.nik||'').toLowerCase().indexOf(q) !== -1;
+      });
+      if (!rows.length){ _list.innerHTML = '<div class="pcp-no-result">No results</div>'; return; }
+      _list.innerHTML = rows.map(function(emp){
+        var isSel = sel.indexOf(emp.name) !== -1;
+        return '<div class="pcp-item'+(isSel?' sel':'')+'" data-name="'+emp.name.replace(/"/g,'&quot;')+'" data-nik="'+(emp.nik||'')+'">'+
+          avatarMarkup(emp.name, 'pcp-item-av')+
+          '<span class="pcp-item-name">'+emp.name+' <span class="pcp-item-nik">('+(emp.nik||'')+')</span></span>'+
+          '<span class="pcp-item-check"></span></div>';
+      }).join('');
+    }
+
+    function toggleName(name){
+      if (!_activeCell) return;
+      var names = getNames(_activeCell);
+      var i = names.indexOf(name);
+      if (i === -1) names.push(name); else names.splice(i,1);
+      setNames(_activeCell, names);
+      renderCell(_activeCell);
+      renderList();
+    }
+
+    window.showPcpTooltip = function(cell){
+      var names = getNames(cell);
+      if (names.length < 2) return;
+      _tooltip.innerHTML = '<div class="pcp-tooltip-title">Participant ('+names.length+')</div>' +
+        names.map(function(n){ return '<div class="pcp-tt-item">'+avatarMarkup(n,'pcp-tt-av')+'<span>'+n+'</span></div>'; }).join('');
+      _tooltip.classList.add('open');
+      var r = cell.getBoundingClientRect();
+      var th = _tooltip.offsetHeight, tw = _tooltip.offsetWidth;
+      var left = Math.min(r.left, window.innerWidth - tw - 8);
+      var top = (r.top - th - 8 < 0) ? r.bottom + 8 : r.top - th - 8;
+      _tooltip.style.left = left + 'px';
+      _tooltip.style.top = top + 'px';
+    };
+    window.hidePcpTooltip = function(){ if (_tooltip) _tooltip.classList.remove('open'); };
+
+    function init(){
+      // shared picker
+      _picker = document.createElement('div');
+      _picker.className = 'pcp-picker';
+      _picker.id = 'participantPicker';
+      _picker.innerHTML = '<input class="pcp-search" id="pcpSearch" placeholder="Search employee" autocomplete="off"><div class="pcp-actions" id="pcpActions"></div><div class="pcp-list" id="pcpList"></div>';
+      document.body.appendChild(_picker);
+      _search = _picker.querySelector('#pcpSearch');
+      _list = _picker.querySelector('#pcpList');
+      _actions = _picker.querySelector('#pcpActions');
+      _search.addEventListener('input', renderList);
+      _actions.addEventListener('click', function(e){
+        var btn = e.target.closest('[data-action]');
+        if (!btn || !_activeCell) return;
+        var q = (_search.value || '').toLowerCase();
+        var filtered = PCP_EMP.filter(function(emp){ return emp.name.toLowerCase().indexOf(q) !== -1 || (emp.nik||'').toLowerCase().indexOf(q) !== -1; });
+        if (btn.dataset.action === 'select-all') setNames(_activeCell, filtered.map(function(emp){ return emp.name; }));
+        else if (btn.dataset.action === 'clear-all') setNames(_activeCell, []);
+        renderCell(_activeCell);
+        renderList();
+      });
+      _list.addEventListener('click', function(e){
+        var item = e.target.closest('.pcp-item');
+        if (item) toggleName(item.dataset.name);
+      });
+      _list.addEventListener('mouseover', function(e){
+        var item = e.target.closest('.pcp-item');
+        if (!item) return;
+        _tooltip.innerHTML =
+          '<div style="font-family:var(--font-title);font-size:12px;font-weight:700;margin-bottom:3px;">'+item.dataset.name+'</div>'+
+          '<div style="font-size:11px;opacity:0.75;">NIK: '+item.dataset.nik+'</div>';
+        _tooltip.classList.add('open');
+        var r = item.getBoundingClientRect();
+        var th = _tooltip.offsetHeight, tw = _tooltip.offsetWidth;
+        var top = r.top - th - 6;
+        if (top < 4) top = r.bottom + 6;
+        var left = Math.max(4, Math.min(r.left, window.innerWidth - tw - 4));
+        _tooltip.style.top = top + 'px';
+        _tooltip.style.left = left + 'px';
+      });
+      _list.addEventListener('mouseout', function(e){
+        if (!e.relatedTarget || !_list.contains(e.relatedTarget)) _tooltip.classList.remove('open');
+      });
+      // keep picker open on internal clicks (check/uncheck)
+      _picker.addEventListener('click', function(e){ e.stopPropagation(); });
+      // shared tooltip
+      _tooltip = document.createElement('div');
+      _tooltip.className = 'pcp-tooltip';
+      _tooltip.id = 'pcpTooltip';
+      document.body.appendChild(_tooltip);
+
+      // render existing cells
+      document.querySelectorAll('td.col-participant .participant-cell').forEach(function(cell){ renderCell(cell); });
+
+      // observe future rows
+      var tbody = document.getElementById('programTableBody');
+      if (tbody){
+        new MutationObserver(function(muts){
+          muts.forEach(function(m){
+            Array.prototype.forEach.call(m.addedNodes, function(node){
+              if (node.nodeType === 1 && node.tagName === 'TR'){
+                var cell = node.querySelector('.participant-cell');
+                if (cell) renderCell(cell);
+              }
+            });
+          });
+        }).observe(tbody, { childList: true });
+      }
+
+      // close picker on outside click
+      document.addEventListener('click', function(e){
+        if (e.target.closest('#participantPicker') || e.target.closest('.participant-cell')) return;
+        _picker.classList.remove('open');
+      });
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+  </script>
+
+  <script>
+  /* ═══ Goal Input Auto-Grow ═══ */
+  (function(){
+    function autoGrow(el){ if(!el) return; el.style.height='auto'; el.style.height=el.scrollHeight+'px'; }
+    function initGoals(root){ (root||document).querySelectorAll('td.col-goals textarea.goal-input').forEach(autoGrow); }
+    document.addEventListener('input', function(e){ if(e.target.closest('td.col-goals textarea.goal-input')) autoGrow(e.target); });
+    var tbody=document.getElementById('programTableBody');
+    if(tbody){ new MutationObserver(function(muts){ muts.forEach(function(m){ m.addedNodes.forEach(function(n){ if(n.nodeType===1) initGoals(n); }); }); }).observe(tbody,{childList:true}); }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){initGoals();}); else initGoals();
+  })();
+  </script>
+
+  <script>
+  // no past dates on start/end date inputs
+  (function(){
+    var t = new Date(), y = t.getFullYear(), m = String(t.getMonth()+1).padStart(2,'0'), d = String(t.getDate()).padStart(2,'0');
+    var minDate = y+'-'+m+'-'+d;
+    function applyMin(root){
+      (root||document).querySelectorAll('td.col-start-date input[type="date"],td.col-end-date input[type="date"]').forEach(function(inp){ inp.min = minDate; });
+    }
+    applyMin();
+    var tbody = document.getElementById('programTableBody');
+    if(tbody) new MutationObserver(function(){ applyMin(tbody); }).observe(tbody, { childList:true, subtree:true });
+  })();
+  </script>
+
+  <script>
+  (function(){
+    var _dirty = false;
+
+    function markDirty() {
+      if (_dirty) return;
+      _dirty = true;
+      var footer = document.getElementById('footerActions');
+      if (!footer) return;
+      footer.innerHTML =
+        '<button class="btn-reject-review" onclick="rejectIDP()">Reject</button>' +
+        '<button class="btn btn-submit" onclick="saveAndApprove()">Save and Approve</button>';
+    }
+    window.markDirty = markDirty;
+
+    window.cancelChanges = function() {
+      _dirty = false;
+      var footer = document.getElementById('footerActions');
+      if (!footer) return;
+      footer.innerHTML =
+        '<button class="btn-reject-review" onclick="rejectIDP()">Reject</button>' +
+        '<button class="btn-approve-review" onclick="approveIDP()">Approve</button>';
+    };
+
+    function startDetection() {
+      var table = document.querySelector('.program-table');
+      if (table) {
+        table.addEventListener('input', markDirty);
+        table.addEventListener('change', markDirty);
+      }
+      // Detect "Add Program" clicks
+      var addBtn = document.querySelector('.btn-add-program');
+      if (addBtn) addBtn.addEventListener('click', markDirty);
+
+      var tbody = document.getElementById('programTableBody');
+      if (tbody) {
+        // Only watch picker attribute changes — never fires during initial render
+        new MutationObserver(function(muts) {
+          for (var i = 0; i < muts.length; i++) {
+            if (muts[i].type === 'attributes') { markDirty(); return; }
+          }
+        }).observe(tbody, {
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['data-cat-value', 'data-asp-value', 'data-pic-name']
+        });
+      }
+    }
+
+    setTimeout(startDetection, 0);
+  })();
+  </script>
+
+  <!-- ═══ User Switcher ═══ -->
+  <style>
+    #user-switcher { position: fixed; bottom: 20px; left: 20px; z-index: 9999; }
+    #switcher-menu {
+      display: none; position: absolute; bottom: calc(100% + 8px); left: 0;
+      background: white; border: 1px solid var(--border); border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg); overflow: hidden; min-width: 150px;
+    }
+    .sw-option {
+      display: flex; align-items: center; gap: 8px; width: 100%;
+      padding: 9px 14px; background: none; border: none;
+      font-size: 12px; font-family: var(--font-body); color: var(--text-body);
+      cursor: pointer; text-align: left;
+    }
+    .sw-option:hover { background: var(--surface-sunken); }
+    .sw-option.sw-active { color: var(--primary); font-weight: 700; }
+    .sw-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--neutral-4); flex-shrink: 0; }
+    .sw-option.sw-active .sw-dot { background: var(--primary); }
+    #switcher-trigger {
+      display: flex; align-items: center; gap: 6px; padding: 6px 12px;
+      background: white; border: 1px solid var(--border); border-radius: var(--radius-pill);
+      font-size: 12px; font-family: var(--font-body); color: var(--text-muted);
+      cursor: pointer; box-shadow: var(--shadow-sm); white-space: nowrap;
+    }
+    #switcher-trigger:hover { border-color: var(--primary); color: var(--primary); }
+  </style>
+  <div id="user-switcher">
+    <div id="switcher-menu">
+      <button class="sw-option" onclick="swSwitch('Admin')"><span class="sw-dot"></span>Admin</button>
+      <button class="sw-option" onclick="swSwitch('Manager')"><span class="sw-dot"></span>Manager</button>
+      <button class="sw-option" onclick="swSwitch('Employee')"><span class="sw-dot"></span>Employee</button>
+    </div>
+    <button id="switcher-trigger" onclick="swToggle(event)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span id="sw-label">Admin</span>
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+  </div>
+  <script>
+    (function(){
+      var KEY='idp-role';
+      function cur(){ return localStorage.getItem(KEY)||'Admin'; }
+      function render(r){
+        document.getElementById('sw-label').textContent=r;
+        document.querySelectorAll('.sw-option').forEach(function(b){
+          b.classList.toggle('sw-active', b.textContent.trim()===r);
+        });
+      }
+      window.swToggle=function(e){ e.stopPropagation(); var m=document.getElementById('switcher-menu'); m.style.display=m.style.display==='block'?'none':'block'; };
+      window.swSwitch=function(r){
+        localStorage.setItem(KEY,r);
+        document.getElementById('switcher-menu').style.display='none';
+        if(r==='Employee') window.location.href='/detail-idp-employee.html';
+        else if(r==='Manager') window.location.href='/monitoring-manager.html';
+        else render(r);
+      };
+      document.addEventListener('click',function(e){ if(!document.getElementById('user-switcher').contains(e.target)) document.getElementById('switcher-menu').style.display='none'; });
+      render(cur());
+    })();
+  </script>
+
+  <script>
+  /* ═══ Attachment upload button wiring ═══ */
+  (function(){
+    var ACCEPT = '.jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx';
+    var _menu = null, _activeBtn = null, _activeInp = null;
+    _menu = document.createElement('div');
+    _menu.className = 'att-menu'; _menu.id = 'attMenu';
+    _menu.innerHTML =
+      '<div class="att-menu-item" id="attMenuView"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Open file</div>' +
+      '<div class="att-menu-item" id="attMenuChange"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>Change file</div>' +
+      '<div class="att-menu-item att-menu-item-danger" id="attMenuDelete"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>Delete file</div>';
+    document.body.appendChild(_menu);
+    document.getElementById('attMenuView').addEventListener('click', function(){
+      if (_activeBtn && _activeBtn._attFile) window.open(URL.createObjectURL(_activeBtn._attFile), '_blank');
+      _menu.classList.remove('open');
+    });
+    document.getElementById('attMenuChange').addEventListener('click', function(){
+      _menu.classList.remove('open');
+      if (_activeInp) _activeInp.click();
+    });
+    document.getElementById('attMenuDelete').addEventListener('click', function(){
+      if (_activeBtn) {
+        _activeBtn._attFile = null;
+        _activeBtn.querySelector('.att-label').textContent = 'Upload file';
+        _activeBtn.classList.remove('has-file');
+        if (_activeInp) _activeInp.value = '';
+      }
+      _menu.classList.remove('open');
+    });
+    document.addEventListener('click', function(e){ if (!_menu.contains(e.target)) _menu.classList.remove('open'); });
+    function showMenu(btn, inp) {
+      _activeBtn = btn; _activeInp = inp; _menu.classList.add('open');
+      var r = btn.getBoundingClientRect(), mh = _menu.offsetHeight || 80;
+      var top = r.bottom + 4;
+      if (top + mh > window.innerHeight) top = r.top - mh - 4;
+      _menu.style.top = top + 'px';
+      _menu.style.left = Math.max(4, Math.min(r.left, window.innerWidth - 150)) + 'px';
+    }
+    function wireAttBtn(btn) {
+      if (btn.dataset.attInit) return;
+      btn.dataset.attInit = '1';
+      var inp = btn.previousElementSibling;
+      if (!inp || !inp.classList.contains('att-input')) {
+        inp = document.createElement('input');
+        inp.type = 'file'; inp.accept = ACCEPT; inp.className = 'att-input'; inp.style.display = 'none';
+        btn.parentNode.insertBefore(inp, btn);
+      }
+      btn.addEventListener('click', function(e){
+        if (btn.classList.contains('has-file')) { e.stopPropagation(); showMenu(btn, inp); }
+        else inp.click();
+      });
+      inp.addEventListener('change', function(){
+        if (!inp.files || !inp.files[0]) return;
+        btn._attFile = inp.files[0];
+        btn.querySelector('.att-label').textContent = inp.files[0].name;
+        btn.classList.add('has-file');
+      });
+    }
+    function initAtt(root) {
+      (root||document).querySelectorAll('.att-btn').forEach(wireAttBtn);
+    }
+    initAtt();
+    var tbody = document.getElementById('programTableBody');
+    if (tbody) new MutationObserver(function(){ initAtt(tbody); }).observe(tbody, {childList:true, subtree:true});
+  })();
+  </script>
+</body>
+</html>
