@@ -9,12 +9,12 @@ interface MomentumEntry {
 }
 
 const RISING: MomentumEntry[] = [
-  { name: "Siti Rahayu",   initials: "SR", role: "Kepala Divisi Keuangan", trend: 12, weeks: [74, 80, 85, 89] },
-  { name: "Nurul Hidayah", initials: "NH", role: "Analis Data Senior",     trend: 8,  weeks: [70, 74, 77, 80] },
+  { name: "Jamal Musiala",   initials: "SR", role: "Kepala Divisi Keuangan", trend: 12, weeks: [74, 80, 85, 89] },
+  { name: "Erling Haaland", initials: "NH", role: "Analis Data Senior",     trend: 8,  weeks: [70, 74, 77, 80] },
 ];
 
 const DECLINING: MomentumEntry[] = [
-  { name: "Rizky Pratama", initials: "RP", role: "Manajer Pemasaran", trend: -15, weeks: [85, 80, 73, 68] },
+  { name: "Phil Foden", initials: "RP", role: "Manajer Pemasaran", trend: -15, weeks: [85, 80, 73, 68] },
 ];
 
 function MiniSparkline({ weeks, color }: { weeks: number[]; color: string }) {
@@ -64,7 +64,7 @@ function Section({ title, entries, up }: { title: string; entries: MomentumEntry
               display: "flex", alignItems: "center", justifyContent: "center",
               fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 10,
             }}>
-              {e.initials}
+              {e.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 11, color: "#495057" }}>

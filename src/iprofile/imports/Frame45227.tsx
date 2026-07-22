@@ -13,7 +13,7 @@ import { AddSuccessorsModal } from "../components/AddSuccessorsModal";
 import { useState, createContext, useContext, useRef, useEffect } from "react";
 import { candidates } from "@/data/dummyData";
 
-const ProfileContext = createContext({ name: "Hendra Wijaya", position: "Direktur Pengembangan Bisnis" });
+const ProfileContext = createContext({ name: "Julian Alvarez", position: "Direktur Pengembangan Bisnis" });
 
 function Frame151() {
   const { name, position } = useContext(ProfileContext);
@@ -1319,7 +1319,7 @@ function Frame41() {
         <p className="leading-[normal] whitespace-pre-wrap">Deleivery Manager</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#016699] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Hasbullah</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Valverde</p>
       </div>
     </div>
   );
@@ -1438,7 +1438,7 @@ function Frame44() {
         <p className="leading-[normal] whitespace-pre-wrap">Product Manager</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#016699] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Griezmann</p>
       </div>
     </div>
   );
@@ -1546,7 +1546,7 @@ function Frame48() {
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#016699] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Hengki</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Fernandez</p>
       </div>
     </div>
   );
@@ -1610,9 +1610,9 @@ function Frame46() {
   return (
     <>
       <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-full">
-        <div data-conn="career-structural" className="w-full"><CareerPlanAccordion label="Career Plan 1" position="Deleivery Manager" name="Hasbullah" percentage="94%" status="Ready" /></div>
-        <div data-conn="career-additional" className="w-full"><CareerPlanAccordion label="Career Plan 2" position="Product Manager" name="Gunawan" percentage="70%" status="need dev." showAddedTag={true} addedTagIcon="arrow-up-right" showDeleteIcon={true} /></div>
-        <div data-conn="career-additional" className="w-full"><CareerPlanAccordion label="Career Plan 3" position="Product Designer" name="Hengki" percentage="70%" status="need dev." showAddedTag={true} addedTagIcon="arrows-horizontal" showDeleteIcon={true} /></div>
+        <div data-conn="career-structural" className="w-full"><CareerPlanAccordion label="Career Plan 1" position="Deleivery Manager" name="Valverde" percentage="94%" status="Ready" /></div>
+        <div data-conn="career-additional" className="w-full"><CareerPlanAccordion label="Career Plan 2" position="Product Manager" name="Griezmann" percentage="70%" status="need dev." showAddedTag={true} addedTagIcon="arrow-up-right" showDeleteIcon={true} /></div>
+        <div data-conn="career-additional" className="w-full"><CareerPlanAccordion label="Career Plan 3" position="Product Designer" name="Fernandez" percentage="70%" status="need dev." showAddedTag={true} addedTagIcon="arrows-horizontal" showDeleteIcon={true} /></div>
         <button 
           className="block cursor-pointer overflow-clip relative shrink-0 size-[20px]" 
           data-name="plus"
@@ -1662,7 +1662,7 @@ function Frame51() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Shani Indira</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Vinicius Junior</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -1736,7 +1736,7 @@ function Frame53() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Freya</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Nico Williams</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -1789,7 +1789,7 @@ function Frame52() {
 function Frame61() {
   return (
     <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <SuccessorsAccordion name="Freya" position="Product Designer" percentage="84%" status="Ready" />
+      <SuccessorsAccordion name="Nico Williams" position="Product Designer" percentage="84%" status="Ready" />
     </div>
   );
 }
@@ -1810,7 +1810,7 @@ function Frame55() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Kathrina</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Hakimi</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -1863,7 +1863,7 @@ function Frame54() {
 function Frame62() {
   return (
     <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <SuccessorsAccordion name="Kathrina" position="Product Designer" percentage="84%" status="Ready" />
+      <SuccessorsAccordion name="Hakimi" position="Product Designer" percentage="84%" status="Ready" />
     </div>
   );
 }
@@ -1927,7 +1927,7 @@ function Frame131() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Samuel</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Son Heung-min</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Digital Marketing</p>
@@ -1980,7 +1980,7 @@ function Frame56() {
 function Frame63() {
   return (
     <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <SuccessorsAccordion name="Samuel" position="Digital Marketing" percentage="72%" status="Ready" photoType="man" />
+      <SuccessorsAccordion name="Son Heung-min" position="Digital Marketing" percentage="72%" status="Ready" photoType="man" />
     </div>
   );
 }
@@ -2053,7 +2053,7 @@ function Frame134() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Ibrahim</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Pulisic</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Digital Marketing</p>
@@ -2106,7 +2106,7 @@ function Frame65() {
 function Frame64() {
   return (
     <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <SuccessorsAccordion name="Ibrahim" position="Digital Marketing" percentage="72%" status="Ready" photoType="man" />
+      <SuccessorsAccordion name="Pulisic" position="Digital Marketing" percentage="72%" status="Ready" photoType="man" />
     </div>
   );
 }
@@ -2802,7 +2802,7 @@ function Frame106() {
         </div>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] w-[124.333px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Muhammad Mahmud</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Lautaro Martinez</p>
       </div>
     </div>
   );
@@ -2901,7 +2901,7 @@ function Frame109() {
         </div>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] w-[124.333px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Griezmann</p>
       </div>
     </div>
   );
@@ -3212,7 +3212,7 @@ function Frame8() {
           <p className="leading-[normal] whitespace-pre-wrap">Report to</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Product Lead (Burhan Gumilar)</p>
+          <p className="leading-[normal] whitespace-pre-wrap">Product Lead (Rodri)</p>
         </div>
       </div>
     </div>
@@ -3370,7 +3370,7 @@ export default function Frame120() {
   const id = searchParams.get("id");
   const candidate = id ? candidates.find(c => c.id === id) : null;
   const profileValue = {
-    name: candidate?.name ?? "Hendra Wijaya",
+    name: candidate?.name ?? "Julian Alvarez",
     position: candidate?.position ?? "Direktur Pengembangan Bisnis",
   };
   return (

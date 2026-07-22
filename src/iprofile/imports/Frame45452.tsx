@@ -102,7 +102,7 @@ function Frame7() {
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p>
-          <span className="leading-[normal]">{`: Muhammad Multazam `}</span>
+          <span className="leading-[normal]">{`: Bukayo Saka `}</span>
           <span className="leading-[normal] text-[#adb5bd]">(achanchill@email.com)</span>
         </p>
       </div>
@@ -181,7 +181,7 @@ function Frame30() {
     <div className="bg-white relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-full">
       <div className="content-stretch flex flex-col gap-[8px] items-start p-[16px] relative w-full">
         <div className="flex flex-col font-['Avenir:Black',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[20px] w-full">
-          <p className="leading-[normal] whitespace-pre-wrap">Ignatius Damarindro</p>
+          <p className="leading-[normal] whitespace-pre-wrap">Jude Bellingham</p>
         </div>
         <TeamCard />
       </div>

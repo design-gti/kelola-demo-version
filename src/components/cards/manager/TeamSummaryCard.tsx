@@ -4,21 +4,21 @@ import { useState } from "react";
 const WEEKLY = {
   completionRate: { thisWeek: 82, lastWeek: 74 },
   trendChanges: [
-    { name: "Siti Rahayu", direction: "up" as const, note: "Naik signifikan, konsisten 3 hari terakhir" },
-    { name: "Rizky Pratama", direction: "down" as const, note: "Turun dibanding minggu lalu" },
+    { name: "Jamal Musiala", direction: "up" as const, note: "Naik signifikan, konsisten 3 hari terakhir" },
+    { name: "Phil Foden", direction: "down" as const, note: "Turun dibanding minggu lalu" },
   ],
-  workload: { overload: ["Dewi Kusuma"], available: ["Budi Santoso", "Nurul Hidayah"] },
-  checkins: { done: 3, total: 6, missed: ["Rizky Pratama", "Fajar Nugroho", "Lina Marlina"] },
-  highlight: { name: "Siti Rahayu", reason: "Menyelesaikan 2 deliverable lebih cepat dari jadwal" },
-  urgent: "Lakukan cek-in dengan Rizky Pratama — tren menurun sudah 2 minggu berturut-turut.",
+  workload: { overload: ["Florian Wirtz"], available: ["Jude Bellingham", "Erling Haaland"] },
+  checkins: { done: 3, total: 6, missed: ["Phil Foden", "Christian Pulisic", "Bukayo Saka"] },
+  highlight: { name: "Jamal Musiala", reason: "Menyelesaikan 2 deliverable lebih cepat dari jadwal" },
+  urgent: "Lakukan cek-in dengan Phil Foden — tren menurun sudah 2 minggu berturut-turut.",
 };
 
 const MONTHLY = {
   healthScore: { label: "Perlu Perhatian", value: 62, color: "#fd9f28" },
-  ready: [{ name: "Siti Rahayu", note: "Performa konsisten naik, kapasitas masih tersedia" }],
-  intervention: [{ name: "Rizky Pratama", note: "Perlu pelibatan HR atau program pengembangan khusus" }],
+  ready: [{ name: "Jamal Musiala", note: "Performa konsisten naik, kapasitas masih tersedia" }],
+  intervention: [{ name: "Phil Foden", note: "Perlu pelibatan HR atau program pengembangan khusus" }],
   skillGap: "Analytical thinking dan problem solving konsisten di bawah rata-rata tim selama 3 minggu.",
-  recommendation: "Redistribusi beban kerja antara Dewi Kusuma dan Budi Santoso, dan jadwalkan sesi coaching untuk Rizky Pratama.",
+  recommendation: "Redistribusi beban kerja antara Florian Wirtz dan Jude Bellingham, dan jadwalkan sesi coaching untuk Phil Foden.",
 };
 
 function ChevronIcon({ open }: { open: boolean }) {

@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { candidates } from "@/data/dummyData";
-import { loadEmployeesFromCSV } from "../../vismap/data/csvLoader";
+import { loadEmployeesFromCanonical } from "../../vismap/data/canonicalAdapter";
 import type { Employee as CsvEmployee } from "../../vismap/data/orgChartData";
 
 interface TargetPosition {
@@ -124,7 +124,7 @@ export default function OverallScoreCard() {
   const pos = ALL_FLAT[selectedIdx];
 
   useEffect(() => {
-    loadEmployeesFromCSV().then(setCsvEmployees).catch(() => {});
+    loadEmployeesFromCanonical().then(setCsvEmployees).catch(() => {});
   }, []);
 
   // Close on outside click

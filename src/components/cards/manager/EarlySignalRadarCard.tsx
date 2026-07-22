@@ -9,20 +9,20 @@ interface Signal {
 
 const SIGNALS: Signal[] = [
   {
-    name: "Dewi Kusuma",
+    name: "Florian Wirtz",
     initials: "DK",
     reason: "Jam kerja efektif naik 35% di atas rata-rata dirinya 4 minggu terakhir",
     severity: "high",
   },
   {
-    name: "Rizky Pratama",
+    name: "Phil Foden",
     initials: "RP",
     reason: "Skor mood self-report turun signifikan dibanding 3 minggu sebelumnya",
     severity: "medium",
   },
 ];
 
-const SAFE = ["Budi Santoso", "Siti Rahayu", "Nurul Hidayah", "Maya Sari"];
+const SAFE = ["Jude Bellingham", "Jamal Musiala", "Erling Haaland", "Rodri"];
 
 const SEV_COLOR: Record<Signal["severity"], { bg: string; text: string; dot: string; label: string }> = {
   high:   { bg: "#fff0f0", text: "#dc3545", dot: "#dc3545", label: "Perhatian tinggi" },
@@ -64,7 +64,7 @@ export default function EarlySignalRadarCard() {
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 11,
                 }}>
-                  {s.initials}
+                  {s.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>

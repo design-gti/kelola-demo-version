@@ -9,12 +9,12 @@ interface WorkloadEntry {
 }
 
 const WORKLOAD: WorkloadEntry[] = [
-  { name: "Rizky Pratama",  initials: "RP", role: "Manajer Pemasaran",       tasks: 11, pct: 124 },
-  { name: "Budi Santoso",   initials: "BS", role: "Manajer Operasional",     tasks: 8,  pct: 95  },
-  { name: "Siti Rahayu",    initials: "SR", role: "Kepala Divisi Keuangan",  tasks: 7,  pct: 88  },
-  { name: "Nurul Hidayah",  initials: "NH", role: "Analis Data Senior",      tasks: 6,  pct: 82  },
-  { name: "Maya Sari",      initials: "MS", role: "Kepala Legal",            tasks: 4,  pct: 65  },
-  { name: "Dewi Kusuma",    initials: "DK", role: "HR Business Partner",     tasks: 3,  pct: 58  },
+  { name: "Phil Foden",  initials: "RP", role: "Manajer Pemasaran",       tasks: 11, pct: 124 },
+  { name: "Jude Bellingham",   initials: "BS", role: "Manajer Operasional",     tasks: 8,  pct: 95  },
+  { name: "Jamal Musiala",    initials: "SR", role: "Kepala Divisi Keuangan",  tasks: 7,  pct: 88  },
+  { name: "Erling Haaland",  initials: "NH", role: "Analis Data Senior",      tasks: 6,  pct: 82  },
+  { name: "Rodri",      initials: "MS", role: "Kepala Legal",            tasks: 4,  pct: 65  },
+  { name: "Florian Wirtz",    initials: "DK", role: "HR Business Partner",     tasks: 3,  pct: 58  },
 ];
 
 function barColor(pct: number) {
@@ -56,7 +56,7 @@ export default function WorkloadMapCard() {
                     display: "flex", alignItems: "center", justifyContent: "center",
                     fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 9,
                   }}>
-                    {e.initials}
+                    {e.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
                   </div>
                   <div style={{ minWidth: 0 }}>
                     <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 11, color: "#495057" }}>

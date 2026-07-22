@@ -27,20 +27,20 @@ const ALL_FILTERS: { label: string; value: IDPStatus | "All" }[] = [
 ];
 
 const IDP_DATA: IDPEntry[] = [
-  { id:1,  name:"Budi Santoso",     initials:"BS", position:"Manajer Operasional",           status:"In Progress", dueDate:"2026-07-15", aspect:"Kreativitas" },
-  { id:2,  name:"Siti Rahayu",      initials:"SR", position:"Kepala Divisi Keuangan",        status:"In Progress", dueDate:"2026-08-10", aspect:"Leadership" },
-  { id:3,  name:"Dewi Kusuma",      initials:"DK", position:"HR Business Partner",           status:"Need Review", dueDate:"2026-06-30", aspect:"Kemampuan Membaca Akhlak" },
-  { id:4,  name:"Rizky Pratama",    initials:"RP", position:"Manajer Pemasaran",             status:"Need Review", dueDate:"2026-07-05", aspect:"Logika berpikir" },
-  { id:5,  name:"Nurul Hidayah",    initials:"NH", position:"Analis Data Senior",            status:"In Progress", dueDate:"2026-09-01", aspect:"Analytical Thinking" },
-  { id:6,  name:"Maya Sari",        initials:"MS", position:"Kepala Legal",                  status:"Need Review", dueDate:"2026-07-20", aspect:"Kemampuan Membaca Akhlak" },
-  { id:7,  name:"Intan Permata",    initials:"IP", position:"Senior Finance Analyst",        status:"In Progress", dueDate:"2026-08-25", aspect:"Analytical Thinking" },
-  { id:8,  name:"Fajar Nugroho",    initials:"FN", position:"IT Security Lead",              status:"Expired",     dueDate:"2026-05-15", aspect:"Logika berpikir" },
-  { id:9,  name:"Eko Prasetyo",     initials:"EP", position:"VP Operasional",               status:"Expired",     dueDate:"2026-04-30", aspect:"Leadership" },
-  { id:10, name:"Lina Marlina",     initials:"LM", position:"Senior Marketing Manager",      status:"Need Review", dueDate:"2026-06-28", aspect:"Problem Solving" },
-  { id:11, name:"Putri Andini",     initials:"PA", position:"Manajer Kepatuhan",             status:"Need Review", dueDate:"2026-07-10", aspect:"Kreativitas" },
-  { id:12, name:"Agus Salim",       initials:"AS", position:"Kepala Riset & Inovasi",        status:"In Progress", dueDate:"2026-09-15", aspect:"Analytical Thinking" },
-  { id:13, name:"Bambang Sutrisno", initials:"BS", position:"Direktur Teknologi",            status:"Expired",     dueDate:"2026-05-31", aspect:"Problem Solving" },
-  { id:14, name:"Sri Mulyani",      initials:"SM", position:"Kepala Strategi Korporat",      status:"In Progress", dueDate:"2026-10-01", aspect:"Leadership" },
+  { id:1,  name:"Jude Bellingham",     initials:"BS", position:"Manajer Operasional",           status:"In Progress", dueDate:"2026-07-15", aspect:"Kreativitas" },
+  { id:2,  name:"Jamal Musiala",      initials:"SR", position:"Kepala Divisi Keuangan",        status:"In Progress", dueDate:"2026-08-10", aspect:"Leadership" },
+  { id:3,  name:"Florian Wirtz",      initials:"DK", position:"HR Business Partner",           status:"Need Review", dueDate:"2026-06-30", aspect:"Kemampuan Membaca Akhlak" },
+  { id:4,  name:"Phil Foden",    initials:"RP", position:"Manajer Pemasaran",             status:"Need Review", dueDate:"2026-07-05", aspect:"Logika berpikir" },
+  { id:5,  name:"Erling Haaland",    initials:"NH", position:"Analis Data Senior",            status:"In Progress", dueDate:"2026-09-01", aspect:"Analytical Thinking" },
+  { id:6,  name:"Rodri",        initials:"MS", position:"Kepala Legal",                  status:"Need Review", dueDate:"2026-07-20", aspect:"Kemampuan Membaca Akhlak" },
+  { id:7,  name:"Pedri",    initials:"IP", position:"Senior Finance Analyst",        status:"In Progress", dueDate:"2026-08-25", aspect:"Analytical Thinking" },
+  { id:8,  name:"Christian Pulisic",    initials:"FN", position:"IT Security Lead",              status:"Expired",     dueDate:"2026-05-15", aspect:"Logika berpikir" },
+  { id:9,  name:"Lautaro Martinez",     initials:"EP", position:"VP Operasional",               status:"Expired",     dueDate:"2026-04-30", aspect:"Leadership" },
+  { id:10, name:"Bukayo Saka",     initials:"LM", position:"Senior Marketing Manager",      status:"Need Review", dueDate:"2026-06-28", aspect:"Problem Solving" },
+  { id:11, name:"Enzo Fernandez",     initials:"PA", position:"Manajer Kepatuhan",             status:"Need Review", dueDate:"2026-07-10", aspect:"Kreativitas" },
+  { id:12, name:"Declan Rice",       initials:"AS", position:"Kepala Riset & Inovasi",        status:"In Progress", dueDate:"2026-09-15", aspect:"Analytical Thinking" },
+  { id:13, name:"Virgil van Dijk", initials:"BS", position:"Direktur Teknologi",            status:"Expired",     dueDate:"2026-05-31", aspect:"Problem Solving" },
+  { id:14, name:"Antoine Griezmann",      initials:"SM", position:"Kepala Strategi Korporat",      status:"In Progress", dueDate:"2026-10-01", aspect:"Leadership" },
 ];
 
 function formatDate(dateStr: string) {
@@ -144,7 +144,7 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
               {/* Employee */}
               <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
                 <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#e7f5ff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 9, color: "#016699" }}>
-                  {e.initials}
+                  {e.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
                 </div>
                 <div style={{ minWidth: 0 }}>
                   <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 10, color: "#212529", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.name}</div>

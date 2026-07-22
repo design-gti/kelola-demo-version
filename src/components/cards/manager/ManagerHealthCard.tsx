@@ -9,8 +9,8 @@ const MOOD_OPTIONS = [
   { value: 1, label: "Burnout",     emoji: "😫" },
 ];
 
-const CHECKIN_DONE   = ["Budi Santoso", "Siti Rahayu", "Dewi Kusuma", "Nurul Hidayah"];
-const CHECKIN_MISSED = ["Rizky Pratama", "Maya Sari"];
+const CHECKIN_DONE   = ["Jude Bellingham", "Jamal Musiala", "Florian Wirtz", "Erling Haaland"];
+const CHECKIN_MISSED = ["Phil Foden", "Rodri"];
 const WORK_HOURS     = 52;
 const NORMAL_HOURS   = 45;
 

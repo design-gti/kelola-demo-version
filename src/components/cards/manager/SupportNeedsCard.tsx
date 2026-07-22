@@ -12,14 +12,14 @@ interface SupportEntry {
 
 const SUPPORT: SupportEntry[] = [
   {
-    name: "Dewi Kusuma",
+    name: "Florian Wirtz",
     initials: "DK",
     role: "HR Business Partner",
     category: "workload",
     signal: "Pola kerja menunjukkan deviasi beban tinggi selama 3 minggu berturut-turut",
   },
   {
-    name: "Rizky Pratama",
+    name: "Phil Foden",
     initials: "RP",
     role: "Manajer Pemasaran",
     category: "career",
@@ -85,7 +85,7 @@ export default function SupportNeedsCard() {
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 10,
                 }}>
-                  {e.initials}
+                  {e.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 11, color: "#495057" }}>

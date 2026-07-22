@@ -19,23 +19,23 @@ interface CellData {
 
 const cells: CellData[] = [
   { count: 6,  label: "Need Coaching",    countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
-    names: ["Doni Setiawan", "Wahyu Hidayat", "Fitri Handayani", "Ratna Wulandari", "Agus Wahyono", "Citra Puspita"] },
+    names: ["Son Heung-min", "Achraf Hakimi", "Vinicius Junior", "Federico Valverde", "Cody Gakpo", "Alphonso Davies"] },
   { count: 8,  label: "Rising Star",      countColor: "#9abdfd",             bg: "#b1cfff", avatars: [av3, av1],
-    names: ["Budi Santoso", "Rizky Pratama", "Fajar Nugroho", "Lina Marlina", "Galih Permana", "Hana Kusuma", "Irfan Maulana", "Joko Susilo"] },
+    names: ["Jude Bellingham", "Phil Foden", "Christian Pulisic", "Bukayo Saka", "Nico Williams", "Jude Bellingham", "Rodri", "Erling Haaland"] },
   { count: 9,  label: "Star",             countColor: "#689eff",             bg: "#83b4ff", avatars: [av3, av2],
-    names: ["Siti Rahayu", "Intan Permata", "Eko Prasetyo", "Nurul Hidayah", "Ahmad Fauzi", "Teguh Prabowo", "Umi Salamah", "Vega Ardiansyah", "Naufal Rizki"] },
+    names: ["Jamal Musiala", "Pedri", "Lautaro Martinez", "Erling Haaland", "Kylian Mbappe", "Lautaro Martinez", "Federico Valverde", "Achraf Hakimi", "Florian Wirtz"] },
   { count: 3,  label: "Questionable Fit", countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4", avatars: [av1, av2],
-    names: ["Xenia Maharani", "Yusuf Hidayat", "Zara Pertiwi"] },
+    names: ["Bukayo Saka", "Son Heung-min", "Nico Williams"] },
   { count: 5,  label: "Contributor",      countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
-    names: ["Dewi Kusuma", "Maya Sari", "Putri Andini", "Lina Marlina", "Erfan Syahdani"] },
+    names: ["Florian Wirtz", "Rodri", "Enzo Fernandez", "Bukayo Saka", "Rafael Leao"] },
   { count: 7,  label: "Emerging Star",    countColor: "#9abdfd",             bg: "#b1cfff", avatars: [av1, av2],
-    names: ["Agus Salim", "Bambang Sutrisno", "Dewi Kusuma", "Intan Lestari", "Jefri Alibasa", "Kharisma Dewi", "Luthfi Hamdani"] },
+    names: ["Declan Rice", "Virgil van Dijk", "Florian Wirtz", "Pedri", "Phil Foden", "Jamal Musiala", "Declan Rice"] },
   { count: 1,  label: "Under Performer",  countColor: "rgba(222,53,11,0.4)", bg: "#ffb3b3", avatars: [av1, av2],
-    names: ["Mutiara Safitri"] },
+    names: ["Vinicius Junior"] },
   { count: 2,  label: "Specialist",       countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4", avatars: [av1, av2],
-    names: ["Wahyu Hidayat", "Ratna Wulandari"] },
+    names: ["Achraf Hakimi", "Federico Valverde"] },
   { count: 4,  label: "Expert",           countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
-    names: ["Hendra Wijaya", "Sri Mulyani", "Bambang Sutrisno", "Agus Salim"] },
+    names: ["Julian Alvarez", "Antoine Griezmann", "Virgil van Dijk", "Declan Rice"] },
 ];
 
 function AvatarStack({ avatars, names, count }: { avatars: string[]; names: string[]; count: number }) {

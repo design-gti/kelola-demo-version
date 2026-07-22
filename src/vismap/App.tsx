@@ -12,7 +12,7 @@ import SuccessionRiskModal from "./components/SuccessionRiskModal";
 import NeedDevelopModal from "./components/NeedDevelopModal";
 import { buildOrgChart, type Employee } from "./data/orgChartData";
 import { dataManager } from "./data/dataManager";
-import { loadEmployeesFromCSV } from "./data/csvLoader";
+import { loadEmployeesFromCanonical } from "./data/canonicalAdapter";
 import { ChevronDown, ChevronRight, ZoomIn, ZoomOut, Maximize2, Table as TableIcon, Network, Search, Settings, TrendingUp, Plus, Shuffle } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { Switch } from "./components/ui/switch";
@@ -596,7 +596,7 @@ export default function App() {
   // Load employees from CSV on mount (always fresh from file)
   useEffect(() => {
     setIsLoadingData(true);
-    loadEmployeesFromCSV()
+    loadEmployeesFromCanonical()
       .then(csvEmployees => {
         setEmployees(csvEmployees);
         const params = new URLSearchParams(window.location.search);
