@@ -1449,12 +1449,12 @@
     }
     
     var _empAll = [
-      {name:'Ulfa Irawan',nik:'100042'},
-      {name:'Imanuel Ibrahim',nik:'100127'},
-      {name:'Gunawan Santoso',nik:'100256'},
-      {name:'Budi Prasetyo',nik:'100034'},
-      {name:'Siti Rahayu',nik:'100189'},
-      {name:'Ahmad Fauzi',nik:'100312'}
+      {name:'Cody Gakpo',nik:'100042'},
+      {name:'Vinicius Junior',nik:'100127'},
+      {name:'Julian Alvarez',nik:'100256'},
+      {name:'Virgil van Dijk',nik:'100034'},
+      {name:'Jamal Musiala',nik:'100189'},
+      {name:'Kylian Mbappe',nik:'100312'}
     ];
 
     function renderEmpList(filter) {
@@ -2267,7 +2267,7 @@
   <script>
   (function(){
     var PCP_EMP = (typeof _empAll !== 'undefined') ? _empAll : [];
-    var PHOTO_MAP = { 'Ulfa Irawan': 'assets/avatar-1.png', 'Budi Prasetyo': 'assets/avatar-2.png' };
+    var PHOTO_MAP = { 'Cody Gakpo': 'assets/avatar-1.png', 'Virgil van Dijk': 'assets/avatar-2.png' };
     var PALETTE = ['#4C6EF5','#7950F2','#E8590C','#0CA678','#1098AD','#F03E3E','#F76707','#9C36B5','#1971C2','#2F9E44'];
     var _activeCell = null, _picker = null, _list = null, _search = null, _tooltip = null, _notesSvg = null, _actions = null;
 
@@ -2573,7 +2573,7 @@
     function renderPicList(q){
       var list=document.getElementById('picList');
       var people=typeof _empAll!=='undefined'?_empAll:[];
-      var managerNames=['Gunawan Santoso','Dewi Kusuma'];
+      var managerNames=['Julian Alvarez','Florian Wirtz'];
       var qLow=(q||'').toLowerCase().trim();
       function makeItem(name){
         var bg=colorFrom(name),selected=_picActive&&_picActive.dataset.picName===name;
@@ -3202,8 +3202,8 @@
   <script>
   (function(){
     var PICS = [
-      { name: 'Ilyas Dirgantara',  pos: 'Product Manager',  initials: 'ID', color: '#6366f1' },
-      { name: 'Muhammad Multazam', pos: 'HR Specialist',     initials: 'MM', color: '#10b981' },
+      { name: 'Son Heung-min',  pos: 'Product Manager',  initials: 'ID', color: '#6366f1' },
+      { name: 'Florian Wirtz', pos: 'HR Specialist',     initials: 'MM', color: '#10b981' },
       { name: 'Adzon',             pos: 'Team Lead',         initials: 'AD', color: '#f59e0b' }
     ];
     var _picPicker = null, _picActive = null;
