@@ -20,8 +20,8 @@ const NAV_ITEMS = [
   { label: "Vismap", href: "/vismap", icon: Network },
   { label: "IDP", href: "/idp", icon: FileText },
   { label: "iProfile", href: "/iprofile", icon: User },
-  { label: "Talent Mapping", href: "/talent-mapping", icon: Map, placeholder: true },
-  { label: "Team Profile", href: "/team-profile", icon: Users, placeholder: true },
+  { label: "Talent Mapping", href: "/talent-mapping", icon: Map },
+  { label: "Team Profile", href: "/team-profile", icon: Users },
 ];
 
 export default function Sidebar() {
