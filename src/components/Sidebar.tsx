@@ -82,7 +82,6 @@ export default function Sidebar() {
           overflow: "hidden",
           background: "none",
           border: "none",
-          borderBottom: "1px solid rgba(255,255,255,0.12)",
           cursor: "pointer",
           width: "100%",
           textAlign: "left",
@@ -108,7 +107,7 @@ export default function Sidebar() {
 
       {/* Nav */}
       <nav style={{ flex: 1, paddingTop: 8 }}>
-        {NAV_ITEMS.map(({ label, href, icon: Icon, placeholder }) => {
+        {NAV_ITEMS.map(({ label, href, icon: Icon }) => {
           const active = isActive(href);
           return (
             <Link
@@ -124,11 +123,9 @@ export default function Sidebar() {
                 textDecoration: "none",
                 background: active ? "rgba(255,255,255,0.15)" : "transparent",
                 borderLeft: active ? "3px solid #fff" : "3px solid transparent",
-                opacity: placeholder ? 0.45 : 1,
                 transition: "background 0.15s",
-                cursor: placeholder ? "default" : "pointer",
+                cursor: "pointer",
               }}
-              onClick={placeholder ? (e) => e.preventDefault() : undefined}
             >
               <Icon size={18} color="#fff" strokeWidth={1.8} style={{ flexShrink: 0 }} />
               {!collapsed && (

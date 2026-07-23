@@ -1,5 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import AppBreadcrumb, { type BreadcrumbItem } from "@/components/Breadcrumb";
 import EmployeeListTable from "./EmployeeListTable";
@@ -7,7 +8,7 @@ import type { IProfileEmployee } from "@/data/iprofileEmployees";
 
 const IProfileApp = dynamic(() => import("@/iprofile/imports/Frame45227"), { ssr: false });
 
-export default function IProfilePage() {
+function IProfilePageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const from = searchParams.get("from");
@@ -34,5 +35,13 @@ export default function IProfilePage() {
         {id ? <IProfileApp /> : <EmployeeListTable onSelect={handleSelect} />}
       </div>
     </div>
+  );
+}
+
+export default function IProfilePage() {
+  return (
+    <Suspense>
+      <IProfilePageInner />
+    </Suspense>
   );
 }

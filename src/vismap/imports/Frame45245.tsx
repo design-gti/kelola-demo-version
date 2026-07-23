@@ -1,8 +1,8 @@
 ﻿import svgPaths from "./svg-kurj1fg418";
-import imgEllipse255 from "/vismap-assets/9b63e5bd4e2520123fc46e943c3e0ee5a06a802c.png";
-import imgEllipse253 from "/vismap-assets/6c4e731f615cf4e33bd8da9bcd89ffb6f4da2277.png";
-import imgEllipse254 from "/vismap-assets/d79ed63fed6d449c3e1115d1c3c1d9c3c7f0d68b.png";
-import imgEllipse256 from "/vismap-assets/8deb217da5241e072e921070563e646d28359699.png";
+const imgEllipse255 = "/vismap-assets/9b63e5bd4e2520123fc46e943c3e0ee5a06a802c.png";
+const imgEllipse253 = "/vismap-assets/6c4e731f615cf4e33bd8da9bcd89ffb6f4da2277.png";
+const imgEllipse254 = "/vismap-assets/d79ed63fed6d449c3e1115d1c3c1d9c3c7f0d68b.png";
+const imgEllipse256 = "/vismap-assets/8deb217da5241e072e921070563e646d28359699.png";
 
 function Label() {
   return (

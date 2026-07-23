@@ -18,6 +18,9 @@ interface SuccessionChartProps {
     maritalStatus: boolean;
     performance: boolean;
     iq: boolean;
+    capability: boolean;
+    commitment: boolean;
+    contribution: boolean;
   };
   onEmployeeClick: (employee: Employee) => void;
 }

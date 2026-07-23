@@ -1,7 +1,7 @@
 ﻿import svgPaths from "./svg-bqjp15cxvt";
-import imgFreepikCandidImagePhotographyNaturalTexturesHighlyR505492 from "/vismap-assets/357a4778ac2f9fd7362876c3c713835a9e9fcab6.png";
-import imgPortraitSuccessfulBusinessWomanUsingDigitalTabletFrontModernOffice2 from "/vismap-assets/7d155afcea4f2b1e6b32eb88a344313d97b8f6a2.png";
-import imgFreepikTheStyleIsCandidImagePhotographyWithNatural52479 from "/vismap-assets/6f02d082c705f4920de8542ceb25e13d8dac0d49.png";
+const imgFreepikCandidImagePhotographyNaturalTexturesHighlyR505492 = "/vismap-assets/357a4778ac2f9fd7362876c3c713835a9e9fcab6.png";
+const imgPortraitSuccessfulBusinessWomanUsingDigitalTabletFrontModernOffice2 = "/vismap-assets/7d155afcea4f2b1e6b32eb88a344313d97b8f6a2.png";
+const imgFreepikTheStyleIsCandidImagePhotographyWithNatural52479 = "/vismap-assets/6f02d082c705f4920de8542ceb25e13d8dac0d49.png";
 import { imgFreepikCandidImagePhotographyNaturalTexturesHighlyR505491 } from "./svg-uixbi";
 
 function ChevronsRight() {

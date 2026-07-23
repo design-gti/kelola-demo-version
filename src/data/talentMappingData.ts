@@ -102,7 +102,7 @@ export function boxByOrder(cfg: TMConfig, order: number | null): BoxDef | null {
 }
 
 // spread a value to 0..100 within the metric's observed range (2..98 to keep off edges)
-function normalizer(vals: number[]) {
+function normalizer(vals: (number | null)[]) {
   const nums = vals.filter((n): n is number => n != null);
   const mn = Math.min(...nums), mx = Math.max(...nums);
   return (v: number | null) => (v == null || mx === mn ? null : 2 + ((v - mn) / (mx - mn)) * 96);

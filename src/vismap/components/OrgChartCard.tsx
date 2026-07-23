@@ -19,6 +19,7 @@ interface Employee {
   managerId?: string;
   readinessScore?: number;
   additionalSuccessors?: string[];
+  successorIds?: string[];
   reports?: Employee[];
 }
 

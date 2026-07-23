@@ -690,7 +690,10 @@ function EmployeeDetailContent({ employeeId, onBack, onShowIDPProgress, onCompar
     city: false,
     maritalStatus: false,
     performance: false,
-    iq: false
+    iq: false,
+    capability: false,
+    commitment: false,
+    contribution: false
   };
 
   // State for columns - 3 columns with cards
@@ -1175,11 +1178,11 @@ function EmployeeDetailContent({ employeeId, onBack, onShowIDPProgress, onCompar
                       </div>
                     </div>
                     <div className="content-stretch flex gap-[8px] items-center">
-                      <div className={`overflow-clip relative rounded-[4px] shrink-0 size-[20px] ${viewMode === 'radar' ? 'bg-[#e7f5ff]' : 'bg-[#f8f9fa]'} cursor-pointer`} onClick={() => setViewMode('radar')}>
+                      <div className={`overflow-clip relative rounded-[4px] shrink-0 size-[20px] ${(viewMode as string) === 'radar' ? 'bg-[#e7f5ff]' : 'bg-[#f8f9fa]'} cursor-pointer`} onClick={() => setViewMode('radar')}>
                         <div className="absolute inset-[12.5%_10.42%]">
-                          <div className="absolute inset-[-5%_-4.74%]" style={{ "--stroke-0": viewMode === 'radar' ? "rgba(1, 102, 153, 1)" : "rgba(206, 212, 218, 1)" } as React.CSSProperties}>
+                          <div className="absolute inset-[-5%_-4.74%]" style={{ "--stroke-0": (viewMode as string) === 'radar' ? "rgba(1, 102, 153, 1)" : "rgba(206, 212, 218, 1)" } as React.CSSProperties}>
                             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18 17">
-                              <path d={svgPaths.p4355100} stroke="var(--stroke-0)" strokeLinecap="round" strokeLinejoin="round" strokeOpacity={viewMode === 'radar' ? "1" : "0.854902"} strokeWidth="1.5" />
+                              <path d={svgPaths.p4355100} stroke="var(--stroke-0)" strokeLinecap="round" strokeLinejoin="round" strokeOpacity={(viewMode as string) === 'radar' ? "1" : "0.854902"} strokeWidth="1.5" />
                             </svg>
                           </div>
                         </div>
