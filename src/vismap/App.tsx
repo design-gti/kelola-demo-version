@@ -10,7 +10,7 @@ import TableView from "./components/TableView";
 import DataEditor from "./components/DataEditor";
 import SuccessionRiskModal from "./components/SuccessionRiskModal";
 import NeedDevelopModal from "./components/NeedDevelopModal";
-import { buildOrgChart, type Employee } from "./data/orgChartData";
+import { buildOrgChart, type Employee, type OrgChartNode } from "./data/orgChartData";
 import { dataManager } from "./data/dataManager";
 import { loadEmployeesFromCanonical } from "./data/canonicalAdapter";
 import { ChevronDown, ChevronRight, ZoomIn, ZoomOut, Maximize2, Table as TableIcon, Network, Search, Settings, TrendingUp, Plus, Shuffle } from "lucide-react";
@@ -28,7 +28,7 @@ import SimulationPanel, { type SimulationSwap } from "./components/SimulationPan
 
 
 interface OrgNodeProps {
-  employee: Employee & { reports: Employee[] };
+  employee: OrgChartNode;
   level: number;
   showHeatmap: boolean;
   heatmapStyle: 'gradient' | 'border' | 'glow';
@@ -275,10 +275,10 @@ function OrgNode({ employee, level, showHeatmap, heatmapStyle, heatmapMode, onEm
   const showHeatmapForThisCard = shouldShowHeatmapInV2Mode();
   
   // Determine if this is a successor/subordinate (not the manager itself) in V2 mode
-  const isSubordinateInV2Mode = heatmapMode === 'need-successors-copy' 
-    && selectedCardInV2Mode 
-    && employee.id !== selectedCardInV2Mode 
-    && (employee.managerId === selectedCardInV2Mode || allEmployees.find(emp => emp.id === selectedCardInV2Mode)?.additionalSuccessors?.includes(employee.id));
+  const isSubordinateInV2Mode = !!(heatmapMode === 'need-successors-copy'
+    && selectedCardInV2Mode
+    && employee.id !== selectedCardInV2Mode
+    && (employee.managerId === selectedCardInV2Mode || allEmployees.find(emp => emp.id === selectedCardInV2Mode)?.additionalSuccessors?.includes(employee.id)));
   
   // Handle card click in V2 mode
   const handleCardClick = () => {
@@ -751,14 +751,14 @@ export default function App() {
       const idxA = result.findIndex(e => e.id === swap.aId);
       const idxB = result.findIndex(e => e.id === swap.bId);
       if (idxA === -1 || idxB === -1) continue;
-      const a = result[idxA];
-      const b = result[idxB];
+      const a = result[idxA] as Record<string, unknown>;
+      const b = result[idxB] as Record<string, unknown>;
       // Swap only personal identity data — structure (position, jobTitle, managerId) stays fixed
       const personalFields = ['name', 'imageUrl', 'competencyScore', 'readinessScore', 'performanceRating', 'gender', 'city', 'maritalStatus', 'iq', 'capability', 'commitment', 'contribution'] as const;
       for (const field of personalFields) {
         const tmp = a[field];
-        (a as Record<string, unknown>)[field] = b[field];
-        (b as Record<string, unknown>)[field] = tmp;
+        a[field] = b[field];
+        b[field] = tmp;
       }
     }
     return result;

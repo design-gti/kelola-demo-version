@@ -32,23 +32,25 @@ export default function AppBreadcrumb({ items, noPadding }: { items: BreadcrumbI
         const isFirst = i === 0;
         const isLast = i === items.length - 1;
         const clickable = (item.href || item.onClick) && !isLast;
+        // Inner span (not a Mantine polymorphic prop) so the flex layout always applies —
+        // Mantine's own `style` merging on Anchor/button roots is unreliable.
+        const content = (
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, whiteSpace: "nowrap" }}>
+            {isFirst && <IconChevronLeft size={14} />}
+            {item.label}
+          </span>
+        );
+        if (clickable && item.href) {
+          return (
+            <Anchor key={i} component={Link} href={item.href} c="primary" fw={600} underline="never">
+              {content}
+            </Anchor>
+          );
+        }
         if (clickable) {
           return (
-            <Anchor
-              key={i}
-              component={item.href ? Link : "button"}
-              href={item.href}
-              onClick={item.onClick}
-              c="primary"
-              fw={600}
-              underline="never"
-            >
-              {/* Inner span (not a Mantine polymorphic prop) so the flex layout always
-                  applies — Mantine's own `style` merging on Anchor/button roots is unreliable. */}
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 4, whiteSpace: "nowrap" }}>
-                {isFirst && <IconChevronLeft size={14} />}
-                {item.label}
-              </span>
+            <Anchor key={i} component="button" onClick={item.onClick} c="primary" fw={600} underline="never">
+              {content}
             </Anchor>
           );
         }
