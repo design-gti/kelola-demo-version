@@ -1225,7 +1225,7 @@ export default function App() {
         className="fixed top-0 right-0 bg-white shadow-lg z-50 px-4 flex flex-col"
         style={{ left: "var(--sidebar-w, 220px)" }}
       >
-        <AppBreadcrumb noPadding items={[{ label: "Home", href: "/" }, { label: "Vismap" }]} />
+        <AppBreadcrumb noPadding items={[{ label: "Vismap" }]} />
         {/* Tab Filter row */}
         <div className="flex items-center justify-between py-2">
         <TabFilter activeTab={activeTab} onTabChange={(tab) => {

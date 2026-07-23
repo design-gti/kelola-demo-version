@@ -180,7 +180,7 @@ export default function TalentMappingPage() {
 
   return (
     <div style={{ fontFamily: FONT }}>
-      <AppBreadcrumb items={[{ label: "Home", href: "/" }, { label: "Talent Mapping" }]} />
+      <AppBreadcrumb items={[{ label: "Talent Mapping" }]} />
       <div style={{ padding: "12px 16px 40px" }}>
       <div style={{ display: "flex", gap: 24, borderBottom: "1px solid #e9ecef", marginBottom: 16 }}>
         {/* ponytail: Talent Readiness tab hidden for now — re-add ["TR", "Talent Readiness"] to show it */}

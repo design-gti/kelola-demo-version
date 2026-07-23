@@ -5,14 +5,14 @@ import { Suspense } from "react";
 function IDPFrame() {
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || "monitoring-admin.html";
-  const id = searchParams.get("id");
-  const name = searchParams.get("name");
-  const from = searchParams.get("from");
 
+  // Forward every query param except `page` itself straight through to the static
+  // IDP HTML (id/name/from for context, participants/aspect for the create-IDP
+  // prefill flow, etc.) — the static pages read whatever they need via location.search.
   const query = new URLSearchParams();
-  if (id) query.set("id", id);
-  if (name) query.set("name", name);
-  if (from) query.set("from", from);
+  searchParams.forEach((value, key) => {
+    if (key !== "page") query.set(key, value);
+  });
   const qs = query.toString();
 
   const src = `/idp-app/${page}${qs ? `?${qs}` : ""}`;

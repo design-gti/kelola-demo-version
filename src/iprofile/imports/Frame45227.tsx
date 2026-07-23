@@ -10,24 +10,32 @@ import { SuccessorsAccordion } from "../components/SuccessorsAccordion";
 import { CareerPlanAccordion } from "../components/CareerPlanAccordion";
 import { AddCareerPlanModal } from "../components/AddCareerPlanModal";
 import { AddSuccessorsModal } from "../components/AddSuccessorsModal";
-import { useState, createContext, useContext, useRef, useEffect } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { candidates } from "@/data/dummyData";
-
-const ProfileContext = createContext({ name: "Hendra Wijaya", position: "Direktur Pengembangan Bisnis" });
+import { iprofileEmployees } from "@/data/iprofileEmployees";
+import { ProfileContext } from "../lib/ProfileContext";
 
 function Frame151() {
-  const { name, position } = useContext(ProfileContext);
+  const { name, position, employeeId } = useContext(ProfileContext);
+  const photoKey = `employee-photo-${employeeId}`;
   const [photoSrc, setPhotoSrc] = useState<string>(
-    () => (typeof window !== 'undefined' && localStorage.getItem('iprofile-photo')) || '/iprofile-assets/profile-photo.png'
+    () => (typeof window !== 'undefined' && localStorage.getItem(photoKey)) || '/iprofile-assets/profile-photo.png'
   );
+
+  // Re-read when the viewed employee changes (e.g. navigating list → detail → list → another detail).
+  useEffect(() => {
+    const saved = localStorage.getItem(photoKey);
+    setPhotoSrc(saved || '/iprofile-assets/profile-photo.png');
+  }, [photoKey]);
 
   useEffect(() => {
     const handler = (e: Event) => {
-      setPhotoSrc((e as CustomEvent).detail);
+      const detail = (e as CustomEvent).detail as { employeeId: string; dataUrl: string };
+      if (detail.employeeId === employeeId) setPhotoSrc(detail.dataUrl);
     };
     window.addEventListener('profile-photo-changed', handler);
     return () => window.removeEventListener('profile-photo-changed', handler);
-  }, []);
+  }, [employeeId]);
 
   return (
     <div className="absolute left-[18px] top-[44px] w-[269px] h-[269px] overflow-hidden"
@@ -3369,9 +3377,13 @@ export default function Frame120() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const candidate = id ? candidates.find(c => c.id === id) : null;
+  const tdpEmployee = id ? iprofileEmployees.find(e => e.id === id) : null;
   const profileValue = {
-    name: candidate?.name ?? "Hendra Wijaya",
-    position: candidate?.position ?? "Direktur Pengembangan Bisnis",
+    name: candidate?.name ?? tdpEmployee?.name ?? "Hendra Wijaya",
+    position: candidate?.position ?? tdpEmployee?.position ?? "Direktur Pengembangan Bisnis",
+    // Shared with TDP's photo storage key (`employee-photo-<id>`) so an upload from
+    // either app shows up in the other — both run on the same origin.
+    employeeId: id ?? "default",
   };
   return (
     <ProfileContext.Provider value={profileValue}>
