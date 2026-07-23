@@ -16,12 +16,12 @@ import {
 
 const NAV_ITEMS = [
   { label: "Beranda", href: "/", icon: Home },
-  { label: "TDP", href: "/tdp-view", icon: BarChart2 },
-  { label: "Vismap", href: "/vismap", icon: Network },
-  { label: "IDP", href: "/idp", icon: FileText },
   { label: "iProfile", href: "/iprofile", icon: User },
+  { label: "Vismap", href: "/vismap", icon: Network },
+  { label: "TDP", href: "/tdp-view", icon: BarChart2 },
   { label: "Talent Mapping", href: "/talent-mapping", icon: Map },
   { label: "Team Profile", href: "/team-profile", icon: Users },
+  { label: "IDP", href: "/idp", icon: FileText },
 ];
 
 export default function Sidebar() {
