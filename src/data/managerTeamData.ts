@@ -18,17 +18,34 @@ export const managerAspects = [
   { label: "Problem Solving",          below: 1, meet: 3, exceed: 2 },
 ];
 
-// Employee mapping cells for 6-person team (9-box grid)
+// Employee mapping cells for the team (9-box grid). Labels/colors are layout config;
+// membership is DERIVED from the team via potential (rows) × performance (cols).
 // Cell order matches EmployeeMapping: Need Coaching, Rising Star, Star,
 // Questionable Fit, Contributor, Emerging Star, Under Performer, Specialist, Expert
-export const managerMappingCells = [
-  { count: 1, label: "Need Coaching",    countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [] as string[], names: ["Florian Wirtz"] },
-  { count: 2, label: "Rising Star",      countColor: "#9abdfd",             bg: "#b1cfff", avatars: [] as string[], names: ["Jude Bellingham", "Phil Foden"] },
-  { count: 1, label: "Star",             countColor: "#689eff",             bg: "#83b4ff", avatars: [] as string[], names: ["Rodri"] },
-  { count: 0, label: "Questionable Fit", countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4", avatars: [] as string[], names: [] },
-  { count: 2, label: "Contributor",      countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [] as string[], names: ["Jamal Musiala", "Erling Haaland"] },
-  { count: 0, label: "Emerging Star",    countColor: "#9abdfd",             bg: "#b1cfff", avatars: [] as string[], names: [] },
-  { count: 0, label: "Under Performer",  countColor: "rgba(222,53,11,0.4)", bg: "#ffb3b3", avatars: [] as string[], names: [] },
-  { count: 0, label: "Specialist",       countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4", avatars: [] as string[], names: [] },
-  { count: 0, label: "Expert",           countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [] as string[], names: [] },
+const CELL_META = [
+  { label: "Need Coaching",    countColor: "#bfd6ff",             bg: "#e8f1ff" },
+  { label: "Rising Star",      countColor: "#9abdfd",             bg: "#b1cfff" },
+  { label: "Star",             countColor: "#689eff",             bg: "#83b4ff" },
+  { label: "Questionable Fit", countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4" },
+  { label: "Contributor",      countColor: "#bfd6ff",             bg: "#e8f1ff" },
+  { label: "Emerging Star",    countColor: "#9abdfd",             bg: "#b1cfff" },
+  { label: "Under Performer",  countColor: "rgba(222,53,11,0.4)", bg: "#ffb3b3" },
+  { label: "Specialist",       countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4" },
+  { label: "Expert",           countColor: "#bfd6ff",             bg: "#e8f1ff" },
 ];
+
+// 9-box bucket index from potential (row: high=0,med=1,low=2) × performance (col: <70,<85,else)
+export function nineBoxIndex(c: Candidate): number {
+  const row = c.potential === "high" ? 0 : c.potential === "medium" ? 1 : 2;
+  const perf = c.performance_score ?? 0;
+  const col = perf < 70 ? 0 : perf < 85 ? 1 : 2;
+  return row * 3 + col;
+}
+
+export function buildMappingCells(team: Candidate[]) {
+  const buckets: string[][] = Array.from({ length: 9 }, () => []);
+  team.forEach(c => buckets[nineBoxIndex(c)].push(c.name));
+  return CELL_META.map((m, i) => ({ ...m, count: buckets[i].length, names: buckets[i], avatars: [] as string[] }));
+}
+
+export const managerMappingCells = buildMappingCells(managerTeam);

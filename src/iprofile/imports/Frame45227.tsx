@@ -1,9 +1,6 @@
 ﻿"use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import svgPaths from "./svg-djevy8uiqd";
-const imgImage96 = "/iprofile-assets/388adc9209c1e548d705450bad480024dd98f3b9.png";
-const imgPortraitSuccessfulBusinessWomanUsingDigitalTabletFrontModernOffice2 = "/iprofile-assets/7d155afcea4f2b1e6b32eb88a344313d97b8f6a2.png";
-const imgFreepikTheStyleIsCandidImagePhotographyWithNatural52479 = "/iprofile-assets/6f02d082c705f4920de8542ceb25e13d8dac0d49.png";
 import { ScoreAspectWithTabs } from "../components/ScoreAspectWithTabs";
 import { ProfileMoreMenu } from "../components/ProfileMoreMenu";
 import { SuccessorsAccordion } from "../components/SuccessorsAccordion";
@@ -12,8 +9,23 @@ import { AddCareerPlanModal } from "../components/AddCareerPlanModal";
 import { AddSuccessorsModal } from "../components/AddSuccessorsModal";
 import { useState, createContext, useContext, useRef, useEffect } from "react";
 import { candidates } from "@/data/dummyData";
+import { getParticipant, scoreOf } from "@/data/model/selectors";
 
-const ProfileContext = createContext({ name: "Julian Alvarez", position: "Direktur Pengembangan Bisnis" });
+type CareerPlan = { position: string; name: string; percentage: string; status: string };
+type Successor = { name: string; position: string; percentage: string; status: string };
+type CareerHistory = { title: string; period: string };
+type EmployeeBio = { nik: string; dob: string; gender: string; lastEducation: string; city: string; province: string; maritalStatus: string; reportTo: string; workStartDate: string; tenure: string; careerHistory: CareerHistory[] };
+type TeamRef = { name: string; role: string };
+type Extension = { performance: string; engagement: string; potency: string; height: number };
+type IdpHistoryItem = { competencies: string[]; pic: string; dateRange: string; status: string };
+type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean };
+type ScoreAspects = { competency: AspectItem[]; potency: AspectItem[] };
+type ProfileDetail = { careerPlans: CareerPlan[]; successors: Successor[]; scoreAspects: ScoreAspects; teams: TeamRef[]; bloodType: string; extension: Extension; idpHistory: IdpHistoryItem[]; employee: EmployeeBio };
+type ProfileCtxT = { name: string; position: string; personality: string; competencyMatch: string; iq: string; gtq: string; careerPlans: CareerPlan[]; successors: Successor[]; scoreAspects: ScoreAspects; teams: TeamRef[]; bloodType: string; extension: Extension; idpHistory: IdpHistoryItem[]; employee: EmployeeBio };
+const DEFAULT_EMP: EmployeeBio = { nik: "2349710001", dob: "12 Februari 1988", gender: "Laki-laki", lastEducation: "S2 Psychology UNPAD", city: "Surabaya", province: "Jawa Timur", maritalStatus: "Menikah", reportTo: "Product Lead (Rodri)", workStartDate: "September 2019", tenure: "4 thn, 4 bln", careerHistory: [] };
+const DEFAULT_EXT: Extension = { performance: "4.3", engagement: "4.3", potency: "86%", height: 172 };
+const EMPTY_ASPECTS: ScoreAspects = { competency: [], potency: [] };
+const ProfileContext = createContext<ProfileCtxT>({ name: "Julian Alvarez", position: "Direktur Pengembangan Bisnis", personality: "SC", competencyMatch: "4.5", iq: "120", gtq: "115", careerPlans: [], successors: [], scoreAspects: EMPTY_ASPECTS, teams: [], bloodType: "A", extension: DEFAULT_EXT, idpHistory: [], employee: DEFAULT_EMP });
 
 function Frame151() {
   const { name, position } = useContext(ProfileContext);
@@ -93,19 +105,21 @@ function Frame78() {
 }
 
 function Frame26() {
+  const { personality } = useContext(ProfileContext);
   return (
     <div className="bg-[#f8f9fa] h-[50px] leading-[0] overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-full whitespace-nowrap">
       <div className="-translate-y-1/2 absolute flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center left-[13px] text-[#495057] text-[10px] top-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">Personality</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Avenir:Heavy',sans-serif] justify-center left-[13px] not-italic text-[#016699] text-[14px] top-[34.5px]">
-        <p className="leading-[normal]">SC</p>
+        <p className="leading-[normal]">{personality}</p>
       </div>
     </div>
   );
 }
 
 function Frame102() {
+  const { iq, gtq } = useContext(ProfileContext);
   return (
     <div className="bg-[#f8f9fa] h-[50px] leading-[0] overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[135px] whitespace-nowrap">
       <div className="-translate-y-1/2 absolute flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center left-[13px] text-[#495057] text-[10px] top-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -114,9 +128,9 @@ function Frame102() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['Avenir:Heavy',sans-serif] justify-center left-[13px] not-italic text-[#016699] text-[0px] top-[34.5px]">
         <p>
           <span className="leading-[normal] text-[8px]">IQ:</span>
-          <span className="leading-[normal] text-[14px]">{`120 , `}</span>
+          <span className="leading-[normal] text-[14px]">{`${iq} , `}</span>
           <span className="leading-[normal] text-[8px]">GTQ:</span>
-          <span className="leading-[normal] text-[14px]">115</span>
+          <span className="leading-[normal] text-[14px]">{gtq}</span>
         </p>
       </div>
     </div>
@@ -124,13 +138,14 @@ function Frame102() {
 }
 
 function Frame25() {
+  const { competencyMatch } = useContext(ProfileContext);
   return (
     <div className="bg-[#f8f9fa] h-[50px] overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-full">
       <div className="-translate-y-1/2 absolute flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] left-[13px] text-[#495057] text-[10px] top-[12px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">Competency match</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] left-[15px] not-italic text-[#016699] text-[14px] top-[34.5px] whitespace-nowrap">
-        <p className="leading-[normal]">4.5</p>
+        <p className="leading-[normal]">{competencyMatch}</p>
       </div>
       <div className="absolute left-[36px] overflow-clip size-[10px] top-[21px]" data-name="arrow-up">
         <div className="absolute bottom-[20.83%] left-1/4 right-1/4 top-[20.83%]" data-name="Vector">
@@ -151,38 +166,6 @@ function Frame88() {
       <Frame26 />
       <Frame102 />
       <Frame25 />
-    </div>
-  );
-}
-
-function Frame74() {
-  const { position } = useContext(ProfileContext);
-  return (
-    <div className="content-stretch flex gap-[4px] h-[18px] items-center relative shrink-0 w-full">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal]">{position}</p>
-      </div>
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="chevron-down">
-        <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-          <div className="absolute inset-[-18.75%_-9.38%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9.5 5.5">
-              <path d={svgPaths.p14416700} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame144() {
-  const { name } = useContext(ProfileContext);
-  return (
-    <div className="-translate-x-1/2 absolute content-stretch flex flex-col items-start left-[calc(50%-0.17px)] top-[50.5px] w-[340px]">
-      <div className="flex flex-col font-['Open_Sans:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#016699] text-[20px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[99.58000183105469%] whitespace-pre-wrap">{name}</p>
-      </div>
-      <Frame74 />
     </div>
   );
 }
@@ -222,33 +205,6 @@ function Frame79() {
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-[336.333px]">
       <Frame83 />
       <Frame76 />
-    </div>
-  );
-}
-
-function Frame75() {
-  return (
-    <div className="content-stretch flex gap-[2px] items-center relative shrink-0 w-full">
-      <div className="flex-[1_0_0] min-h-px min-w-px relative rounded-tl-[4px] rounded-tr-[4px]" data-name="Tab button">
-        <div aria-hidden="true" className="absolute border-[#016699] border-b-2 border-solid inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]" />
-        <div className="flex flex-row items-center justify-center size-full">
-          <div className="content-stretch flex gap-[2px] items-center justify-center px-[16px] py-[8px] relative w-full">
-            <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#016699] text-[14px] text-center whitespace-nowrap">
-              <p className="leading-[normal]">Competency</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button className="cursor-pointer flex-[1_0_0] min-h-px min-w-px relative rounded-tl-[4px] rounded-tr-[4px]" data-name="Tab button">
-        <div aria-hidden="true" className="absolute border-[#dee2e6] border-b-2 border-solid inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]" />
-        <div className="flex flex-row items-center justify-center size-full">
-          <div className="content-stretch flex gap-[2px] items-center justify-center px-[16px] py-[8px] relative w-full">
-            <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] text-center whitespace-nowrap">
-              <p className="leading-[normal]">Potency</p>
-            </div>
-          </div>
-        </div>
-      </button>
     </div>
   );
 }
@@ -359,890 +315,9 @@ function Frame116() {
   );
 }
 
-function Frame10() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Logika Berpikir</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame125() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-center relative shrink-0 w-[231px]">
-      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#fff2e4] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#ca6f00] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            DEV.
-          </p>
-        </div>
-      </div>
-      <Frame10 />
-    </div>
-  );
-}
-
-function Frame12() {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <Frame125 />
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
-        <div className="absolute inset-[12.5%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
-              <path d={svgPaths.p11080840} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box1() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box2() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box3() {
-  return (
-    <div className="bg-[#d6e6ff] content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-      <div className="overflow-clip relative shrink-0 size-[18px]" data-name="check">
-        <div className="absolute inset-[29.17%_16.67%_29.17%_20.83%]" data-name="Vector">
-          <div className="absolute inset-[-10%_-6.67%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.75 9">
-              <path d="M0.75 4.5L4.5 8.25L12 0.75" id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box4() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box5() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Score() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] gap-[2px] items-start min-h-px min-w-px relative" data-name="Score">
-      <Box1 />
-      <Box2 />
-      <Box3 />
-      <Box4 />
-      <Box5 />
-    </div>
-  );
-}
-
-function Points() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-end relative shrink-0 w-full" data-name="Points">
-      <Score />
-    </div>
-  );
-}
-
-function Frame() {
-  return (
-    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
-      <Frame12 />
-      <Points />
-    </div>
-  );
-}
-
-function CardData() {
-  return (
-    <div className="bg-[#f8f9fa] relative rounded-[8px] shrink-0 w-full" data-name="Card Data">
-      <div className="flex flex-col justify-center size-full">
-        <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
-          <Frame />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame11() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Kemampuan verbal</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame126() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-center relative shrink-0 w-[231px]">
-      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#fff2e4] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#ca6f00] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            DEV.
-          </p>
-        </div>
-      </div>
-      <Frame11 />
-    </div>
-  );
-}
-
-function Frame13() {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <Frame126 />
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
-        <div className="absolute inset-[12.5%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
-              <path d={svgPaths.p11080840} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box6() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box7() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box8() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box9() {
-  return (
-    <div className="bg-[#d6e6ff] content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-      <div className="overflow-clip relative shrink-0 size-[18px]" data-name="check">
-        <div className="absolute inset-[29.17%_16.67%_29.17%_20.83%]" data-name="Vector">
-          <div className="absolute inset-[-10%_-6.67%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.75 9">
-              <path d="M0.75 4.5L4.5 8.25L12 0.75" id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box10() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Score1() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] gap-[2px] items-start min-h-px min-w-px relative" data-name="Score">
-      <Box6 />
-      <Box7 />
-      <Box8 />
-      <Box9 />
-      <Box10 />
-    </div>
-  );
-}
-
-function Points1() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-end relative shrink-0 w-full" data-name="Points">
-      <Score1 />
-    </div>
-  );
-}
-
-function Frame1() {
-  return (
-    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
-      <Frame13 />
-      <Points1 />
-    </div>
-  );
-}
-
-function CardData1() {
-  return (
-    <div className="bg-[#f8f9fa] relative rounded-[8px] shrink-0 w-full" data-name="Card Data">
-      <div className="flex flex-col justify-center size-full">
-        <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
-          <Frame1 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame15() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Daya Analisa</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame14() {
-  return (
-    <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-      <Frame15 />
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
-        <div className="absolute inset-[12.5%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
-              <path d={svgPaths.p11080840} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box11() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box12() {
-  return (
-    <div className="bg-white content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-      <div className="overflow-clip relative shrink-0 size-[18px]" data-name="check">
-        <div className="absolute inset-[29.17%_16.67%_29.17%_20.83%]" data-name="Vector">
-          <div className="absolute inset-[-10%_-6.67%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.75 9">
-              <path d="M0.75 4.5L4.5 8.25L12 0.75" id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box13() {
-  return (
-    <div className="bg-[#d6e6ff] flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box14() {
-  return (
-    <div className="bg-white content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box15() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Score2() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] gap-[2px] items-start min-h-px min-w-px relative" data-name="Score">
-      <Box11 />
-      <Box12 />
-      <Box13 />
-      <Box14 />
-      <Box15 />
-    </div>
-  );
-}
-
-function Points2() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-end relative shrink-0 w-full" data-name="Points">
-      <Score2 />
-    </div>
-  );
-}
-
-function Frame2() {
-  return (
-    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
-      <Frame14 />
-      <Points2 />
-    </div>
-  );
-}
-
-function CardData2() {
-  return (
-    <div className="bg-[#f8f9fa] relative rounded-[8px] shrink-0 w-full" data-name="Card Data">
-      <div className="flex flex-col justify-center size-full">
-        <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
-          <Frame2 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame142() {
-  return (
-    <div className="content-stretch flex flex-col gap-[10px] items-start relative shrink-0 w-full">
-      <CardData />
-      <CardData1 />
-      <CardData2 />
-    </div>
-  );
-}
-
-function Frame140() {
-  return (
-    <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic overflow-hidden relative shrink-0 text-[#495057] text-[12px] text-ellipsis w-full whitespace-nowrap">
-        <p className="leading-[normal] overflow-hidden">Category A</p>
-      </div>
-      <Frame142 />
-    </div>
-  );
-}
-
-function Frame17() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Fleksibilitas</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame16() {
-  return (
-    <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-      <Frame17 />
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
-        <div className="absolute inset-[12.5%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
-              <path d={svgPaths.p11080840} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box16() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box17() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box18() {
-  return (
-    <div className="bg-[#d6e6ff] flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box19() {
-  return (
-    <div className="bg-white content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-      <div className="overflow-clip relative shrink-0 size-[18px]" data-name="check">
-        <div className="absolute inset-[29.17%_16.67%_29.17%_20.83%]" data-name="Vector">
-          <div className="absolute inset-[-10%_-6.67%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.75 9">
-              <path d="M0.75 4.5L4.5 8.25L12 0.75" id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box20() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Score3() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] gap-[2px] items-start min-h-px min-w-px relative" data-name="Score">
-      <Box16 />
-      <Box17 />
-      <Box18 />
-      <Box19 />
-      <Box20 />
-    </div>
-  );
-}
-
-function Points3() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-end relative shrink-0 w-full" data-name="Points">
-      <Score3 />
-    </div>
-  );
-}
-
-function Frame3() {
-  return (
-    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
-      <Frame16 />
-      <Points3 />
-    </div>
-  );
-}
-
-function CardData3() {
-  return (
-    <div className="bg-[#f8f9fa] relative rounded-[8px] shrink-0 w-full" data-name="Card Data">
-      <div className="flex flex-col justify-center size-full">
-        <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
-          <Frame3 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame19() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Leadership</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame18() {
-  return (
-    <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-      <Frame19 />
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
-        <div className="absolute inset-[12.5%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
-              <path d={svgPaths.p11080840} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box21() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box22() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box23() {
-  return (
-    <div className="bg-[#d6e6ff] content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-      <div className="overflow-clip relative shrink-0 size-[18px]" data-name="check">
-        <div className="absolute inset-[29.17%_16.67%_29.17%_20.83%]" data-name="Vector">
-          <div className="absolute inset-[-10%_-6.67%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.75 9">
-              <path d="M0.75 4.5L4.5 8.25L12 0.75" id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box24() {
-  return (
-    <div className="bg-white content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box25() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Score4() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] gap-[2px] items-start min-h-px min-w-px relative" data-name="Score">
-      <Box21 />
-      <Box22 />
-      <Box23 />
-      <Box24 />
-      <Box25 />
-    </div>
-  );
-}
-
-function Points4() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-end relative shrink-0 w-full" data-name="Points">
-      <Score4 />
-    </div>
-  );
-}
-
-function Frame4() {
-  return (
-    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
-      <Frame18 />
-      <Points4 />
-    </div>
-  );
-}
-
-function Frame21() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Kerjasama</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame20() {
-  return (
-    <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-      <Frame21 />
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
-        <div className="absolute inset-[12.5%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
-              <path d={svgPaths.p11080840} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box26() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box27() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box28() {
-  return (
-    <div className="bg-[#d6e6ff] content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-      <div className="overflow-clip relative shrink-0 size-[18px]" data-name="check">
-        <div className="absolute inset-[29.17%_16.67%_29.17%_20.83%]" data-name="Vector">
-          <div className="absolute inset-[-10%_-6.67%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.75 9">
-              <path d="M0.75 4.5L4.5 8.25L12 0.75" id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box29() {
-  return (
-    <div className="bg-white content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box30() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Score5() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] gap-[2px] items-start min-h-px min-w-px relative" data-name="Score">
-      <Box26 />
-      <Box27 />
-      <Box28 />
-      <Box29 />
-      <Box30 />
-    </div>
-  );
-}
-
-function Points5() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-end relative shrink-0 w-full" data-name="Points">
-      <Score5 />
-    </div>
-  );
-}
-
-function Frame5() {
-  return (
-    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
-      <Frame20 />
-      <Points5 />
-    </div>
-  );
-}
-
-function Frame23() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Kemampuan Perencanaan</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame22() {
-  return (
-    <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-      <Frame23 />
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
-        <div className="absolute inset-[12.5%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
-              <path d={svgPaths.p11080840} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box31() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box32() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box33() {
-  return (
-    <div className="bg-[#d6e6ff] content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-      <div className="overflow-clip relative shrink-0 size-[18px]" data-name="check">
-        <div className="absolute inset-[29.17%_16.67%_29.17%_20.83%]" data-name="Vector">
-          <div className="absolute inset-[-10%_-6.67%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.75 9">
-              <path d="M0.75 4.5L4.5 8.25L12 0.75" id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Box34() {
-  return (
-    <div className="bg-white content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Box35() {
-  return (
-    <div className="bg-white flex-[1_0_0] h-[24px] min-h-px min-w-px relative rounded-[4px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Score6() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] gap-[2px] items-start min-h-px min-w-px relative" data-name="Score">
-      <Box31 />
-      <Box32 />
-      <Box33 />
-      <Box34 />
-      <Box35 />
-    </div>
-  );
-}
-
-function Points6() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-end relative shrink-0 w-full" data-name="Points">
-      <Score6 />
-    </div>
-  );
-}
-
-function Frame6() {
-  return (
-    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
-      <Frame22 />
-      <Points6 />
-    </div>
-  );
-}
-
-function Frame143() {
-  return (
-    <div className="content-stretch flex flex-col gap-[10px] items-start relative shrink-0 w-full">
-      <CardData3 />
-      <div className="bg-[#f8f9fa] relative rounded-[8px] shrink-0 w-full" data-name="Card Data">
-        <div className="flex flex-col justify-center size-full">
-          <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
-            <Frame4 />
-          </div>
-        </div>
-      </div>
-      <div className="bg-[#f8f9fa] relative rounded-[8px] shrink-0 w-full" data-name="Card Data">
-        <div className="flex flex-col justify-center size-full">
-          <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
-            <Frame5 />
-          </div>
-        </div>
-      </div>
-      <div className="bg-[#f8f9fa] relative rounded-[8px] shrink-0 w-full" data-name="Card Data">
-        <div className="flex flex-col justify-center size-full">
-          <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
-            <Frame6 />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame141() {
-  return (
-    <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic overflow-hidden relative shrink-0 text-[#495057] text-[12px] text-ellipsis w-full whitespace-nowrap">
-        <p className="leading-[normal] overflow-hidden">Uncategorized</p>
-      </div>
-      <Frame143 />
-    </div>
-  );
-}
-
-function Frame24() {
-  return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start overflow-clip relative shrink-0 w-full">
-      <Frame140 />
-      <Frame141 />
-    </div>
-  );
-}
 
 function Frame118() {
+  const { scoreAspects } = useContext(ProfileContext);
   return (
     <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-[368.333px]">
       <div className="bg-white overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Profile">
@@ -1267,11 +342,11 @@ function Frame118() {
         </div>
         <Frame88 />
       </div>
-      <ScoreAspectWithTabs 
+      <ScoreAspectWithTabs
         Frame79={Frame79}
         Frame153={Frame153}
         Frame116={Frame116}
-        Frame24={Frame24}
+        scoreAspects={scoreAspects}
       />
     </div>
   );
@@ -1312,307 +387,16 @@ function Frame80() {
   );
 }
 
-function Frame41() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#495057] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Deleivery Manager</p>
-      </div>
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#016699] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Valverde</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame122() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="overflow-clip relative shrink-0 size-[20px]" data-name="chevron-down">
-        <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-          <div className="absolute inset-[-15%_-7.5%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11.5 6.5">
-              <path d={svgPaths.p3d2c9380} id="Vector" stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame42() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] min-h-px min-w-px relative rounded-[8px]">
-      <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[8px]" />
-      <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex gap-[8px] items-center p-[8px] relative w-full">
-          <Frame41 />
-          <div className="content-stretch flex items-center justify-center relative shrink-0" data-name="Chip - DISC">
-            <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-                94%
-              </p>
-            </div>
-          </div>
-          <div className="content-stretch flex items-center relative shrink-0 w-[68px]" data-name="Chip - DISC">
-            <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Ready
-              </p>
-            </div>
-          </div>
-          <Frame122 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame57() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <Frame42 />
-    </div>
-  );
-}
-
-function ComponentCareerPlan() {
-  return (
-    <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full" data-name="Component Career plan">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal]">Career Plan 1</p>
-      </div>
-      <Frame57 />
-    </div>
-  );
-}
-
-function Frame148() {
-  return (
-    <div className="content-stretch flex gap-[6px] items-center relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal]">Career Plan 2</p>
-      </div>
-      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#e7f5ff] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <div className="overflow-clip relative shrink-0 size-[14px]" data-name="arrow-up-right">
-            <div className="absolute inset-[29.17%]" data-name="Vector">
-              <div className="absolute inset-[-12.86%]">
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 7.33333 7.33333">
-                  <path d={svgPaths.p52d7500} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#016699] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            Added
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame136() {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <Frame148 />
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="trash">
-        <div className="absolute inset-[12.5%_16.67%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%_-7.03%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.1667 13.5">
-              <path d={svgPaths.p49e8c00} id="Vector" stroke="var(--stroke-0, #DE350B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame44() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#495057] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Product Manager</p>
-      </div>
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#016699] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Griezmann</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame123() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <button className="block cursor-pointer overflow-clip relative shrink-0 size-[20px]" data-name="chevron-down">
-        <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-          <div className="absolute inset-[-15%_-7.5%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11.5 6.5">
-              <path d={svgPaths.p3d2c9380} id="Vector" stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </button>
-    </div>
-  );
-}
-
-function Frame43() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] min-h-px min-w-px relative rounded-[8px]">
-      <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[8px]" />
-      <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex gap-[8px] items-center p-[8px] relative w-full">
-          <Frame44 />
-          <div className="content-stretch flex items-center justify-center relative shrink-0" data-name="Chip - DISC">
-            <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-                70%
-              </p>
-            </div>
-          </div>
-          <div className="content-stretch flex items-center relative shrink-0 w-[68px]" data-name="Chip - DISC">
-            <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-                need dev.
-              </p>
-            </div>
-          </div>
-          <Frame123 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame58() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <Frame43 />
-    </div>
-  );
-}
-
-function Frame149() {
-  return (
-    <div className="content-stretch flex gap-[6px] items-center relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal]">Career Plan 2</p>
-      </div>
-      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#e7f5ff] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <div className="overflow-clip relative shrink-0 size-[14px]" data-name="arrows-horizontal">
-            <div className="absolute inset-[33.33%_12.5%]" data-name="Vector">
-              <div className="absolute inset-[-16.07%_-7.14%]">
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12 6.16667">
-                  <path d={svgPaths.p53b7280} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#016699] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            Added
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame137() {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <Frame149 />
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="trash">
-        <div className="absolute inset-[12.5%_16.67%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%_-7.03%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.1667 13.5">
-              <path d={svgPaths.p49e8c00} id="Vector" stroke="var(--stroke-0, #DE350B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame48() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#495057] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
-      </div>
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#016699] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Fernandez</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame124() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <button className="block cursor-pointer overflow-clip relative shrink-0 size-[20px]" data-name="chevron-down">
-        <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-          <div className="absolute inset-[-15%_-7.5%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11.5 6.5">
-              <path d={svgPaths.p3d2c9380} id="Vector" stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </button>
-    </div>
-  );
-}
-
-function Frame45() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] min-h-px min-w-px relative rounded-[8px]">
-      <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[8px]" />
-      <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex gap-[8px] items-center p-[8px] relative w-full">
-          <Frame48 />
-          <div className="content-stretch flex items-center justify-center relative shrink-0" data-name="Chip - DISC">
-            <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-                70%
-              </p>
-            </div>
-          </div>
-          <div className="content-stretch flex items-center relative shrink-0 w-[68px]" data-name="Chip - DISC">
-            <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-                need dev.
-              </p>
-            </div>
-          </div>
-          <Frame124 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame59() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <Frame45 />
-    </div>
-  );
-}
-
 function Frame46() {
+  const { careerPlans } = useContext(ProfileContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-full">
-        <div data-conn="career-structural" className="w-full"><CareerPlanAccordion label="Career Plan 1" position="Deleivery Manager" name="Valverde" percentage="94%" status="Ready" /></div>
-        <div data-conn="career-additional" className="w-full"><CareerPlanAccordion label="Career Plan 2" position="Product Manager" name="Griezmann" percentage="70%" status="need dev." showAddedTag={true} addedTagIcon="arrow-up-right" showDeleteIcon={true} /></div>
-        <div data-conn="career-additional" className="w-full"><CareerPlanAccordion label="Career Plan 3" position="Product Designer" name="Fernandez" percentage="70%" status="need dev." showAddedTag={true} addedTagIcon="arrows-horizontal" showDeleteIcon={true} /></div>
+        {careerPlans.map((cp, i) => (
+          <div key={i} data-conn={i === 0 ? "career-structural" : "career-additional"} className="w-full"><CareerPlanAccordion label={`Career Plan ${i + 1}`} position={cp.position} name={cp.name} percentage={cp.percentage} status={cp.status} showAddedTag={i > 0} addedTagIcon={i % 2 === 0 ? "arrow-up-right" : "arrows-horizontal"} showDeleteIcon={i > 0} /></div>
+        ))}
         <button 
           className="block cursor-pointer overflow-clip relative shrink-0 size-[20px]" 
           data-name="plus"
@@ -1646,506 +430,22 @@ function Frame145() {
   );
 }
 
-function Frame99() {
-  return (
-    <div className="bg-white overflow-clip relative rounded-[15px] shadow-[1px_1px_8px_0px_rgba(0,0,0,0.2)] shrink-0 size-[30px]">
-      <div className="absolute left-px size-[31px] top-0" data-name="portrait-successful-business-woman-using-digital-tablet-front-modern-office 2">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="" className="absolute h-[239.1%] left-[-51.94%] max-w-none top-[-24.12%] w-[159.36%]" src={imgPortraitSuccessfulBusinessWomanUsingDigitalTabletFrontModernOffice2} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame51() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Vinicius Junior</p>
-      </div>
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame127() {
-  return (
-    <button className="content-stretch cursor-pointer flex items-center relative shrink-0">
-      <div className="overflow-clip relative shrink-0 size-[20px]" data-name="chevron-down">
-        <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-          <div className="absolute inset-[-15%_-7.5%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11.5 6.5">
-              <path d={svgPaths.p3d2c9380} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </button>
-  );
-}
-
-function Frame50() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] min-h-px min-w-px relative rounded-[8px]">
-      <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[8px]" />
-      <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex gap-[8px] items-center p-[8px] relative w-full">
-          <Frame99 />
-          <Frame51 />
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            92%
-          </p>
-          <div className="content-stretch flex items-center relative shrink-0 w-[68px]" data-name="Chip - DISC">
-            <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Ready
-              </p>
-            </div>
-          </div>
-          <Frame127 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame60() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <SuccessorsAccordion />
-    </div>
-  );
-}
-
-function Frame100() {
-  return (
-    <div className="bg-white overflow-clip relative rounded-[15px] shadow-[1px_1px_8px_0px_rgba(0,0,0,0.2)] shrink-0 size-[30px]">
-      <div className="absolute left-px size-[31px] top-0" data-name="portrait-successful-business-woman-using-digital-tablet-front-modern-office 2">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="" className="absolute h-[239.1%] left-[-51.94%] max-w-none top-[-24.12%] w-[159.36%]" src={imgPortraitSuccessfulBusinessWomanUsingDigitalTabletFrontModernOffice2} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame53() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Nico Williams</p>
-      </div>
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame128() {
-  return (
-    <button className="content-stretch cursor-pointer flex items-center relative shrink-0">
-      <div className="overflow-clip relative shrink-0 size-[20px]" data-name="chevron-down">
-        <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-          <div className="absolute inset-[-15%_-7.5%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11.5 6.5">
-              <path d={svgPaths.p3d2c9380} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </button>
-  );
-}
-
-function Frame52() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] min-h-px min-w-px relative rounded-[8px]">
-      <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[8px]" />
-      <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex gap-[8px] items-center p-[8px] relative w-full">
-          <Frame100 />
-          <Frame53 />
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            84%
-          </p>
-          <div className="content-stretch flex items-center relative shrink-0 w-[68px]" data-name="Chip - DISC">
-            <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Ready
-              </p>
-            </div>
-          </div>
-          <Frame128 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame61() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <SuccessorsAccordion name="Nico Williams" position="Product Designer" percentage="84%" status="Ready" />
-    </div>
-  );
-}
-
-function Frame101() {
-  return (
-    <div className="bg-white overflow-clip relative rounded-[15px] shadow-[1px_1px_8px_0px_rgba(0,0,0,0.2)] shrink-0 size-[30px]">
-      <div className="absolute left-px size-[31px] top-0" data-name="portrait-successful-business-woman-using-digital-tablet-front-modern-office 2">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="" className="absolute h-[239.1%] left-[-51.94%] max-w-none top-[-24.12%] w-[159.36%]" src={imgPortraitSuccessfulBusinessWomanUsingDigitalTabletFrontModernOffice2} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame55() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Hakimi</p>
-      </div>
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame129() {
-  return (
-    <button className="content-stretch cursor-pointer flex items-center relative shrink-0">
-      <div className="overflow-clip relative shrink-0 size-[20px]" data-name="chevron-down">
-        <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-          <div className="absolute inset-[-15%_-7.5%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11.5 6.5">
-              <path d={svgPaths.p3d2c9380} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </button>
-  );
-}
-
-function Frame54() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] min-h-px min-w-px relative rounded-[8px]">
-      <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[8px]" />
-      <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex gap-[8px] items-center p-[8px] relative w-full">
-          <Frame101 />
-          <Frame55 />
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            84%
-          </p>
-          <div className="content-stretch flex items-center relative shrink-0 w-[68px]" data-name="Chip - DISC">
-            <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Ready
-              </p>
-            </div>
-          </div>
-          <Frame129 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame62() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <SuccessorsAccordion name="Hakimi" position="Product Designer" percentage="84%" status="Ready" />
-    </div>
-  );
-}
-
-function Frame150() {
-  return (
-    <div className="content-stretch flex gap-[6px] items-center relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal]">Successor 2</p>
-      </div>
-      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#e7f5ff] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <div className="overflow-clip relative shrink-0 size-[14px]" data-name="arrows-horizontal">
-            <div className="absolute inset-[33.33%_12.5%]" data-name="Vector">
-              <div className="absolute inset-[-16.07%_-7.14%]">
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12 6.16667">
-                  <path d={svgPaths.p53b7280} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#016699] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            Added
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame138() {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <Frame150 />
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="trash">
-        <div className="absolute inset-[12.5%_16.67%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%_-7.03%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.1667 13.5">
-              <path d={svgPaths.p49e8c00} id="Vector" stroke="var(--stroke-0, #DE350B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame130() {
-  return (
-    <div className="bg-white overflow-clip relative rounded-[15px] shadow-[1px_1px_8px_0px_rgba(0,0,0,0.2)] shrink-0 size-[30px]">
-      <div className="absolute h-[42px] left-[-3px] top-0 w-[32.667px]" data-name="freepik__the-style-is-candid-image-photography-with-natural__52479">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="" className="absolute left-0 max-w-none size-[113.05%] top-0" src={imgFreepikTheStyleIsCandidImagePhotographyWithNatural52479} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame131() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Son Heung-min</p>
-      </div>
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Digital Marketing</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame132() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="overflow-clip relative shrink-0 size-[20px]" data-name="chevron-down">
-        <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-          <div className="absolute inset-[-15%_-7.5%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11.5 6.5">
-              <path d={svgPaths.p3d2c9380} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame56() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] min-h-px min-w-px relative rounded-[8px]">
-      <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[8px]" />
-      <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex gap-[8px] items-center p-[8px] relative w-full">
-          <Frame130 />
-          <Frame131 />
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            72%
-          </p>
-          <div className="content-stretch flex items-center relative shrink-0 w-[68px]" data-name="Chip - DISC">
-            <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Ready
-              </p>
-            </div>
-          </div>
-          <Frame132 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame63() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <SuccessorsAccordion name="Son Heung-min" position="Digital Marketing" percentage="72%" status="Ready" photoType="man" />
-    </div>
-  );
-}
-
-function ComponentSuccessors() {
-  return (
-    <div className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full" data-name="Component successors">
-      <Frame138 />
-      <Frame63 />
-    </div>
-  );
-}
-
-function Frame152() {
-  return (
-    <div className="content-stretch flex gap-[6px] items-center relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal]">Successor 2</p>
-      </div>
-      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#e7f5ff] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <div className="overflow-clip relative shrink-0 size-[14px]" data-name="arrow-up-left">
-            <div className="absolute inset-[29.17%]" data-name="Vector">
-              <div className="absolute inset-[-12.86%]">
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 7.33333 7.33333">
-                  <path d={svgPaths.p28873c00} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#016699] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            Added
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame139() {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <Frame152 />
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="trash">
-        <div className="absolute inset-[12.5%_16.67%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%_-7.03%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.1667 13.5">
-              <path d={svgPaths.p49e8c00} id="Vector" stroke="var(--stroke-0, #DE350B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame133() {
-  return (
-    <div className="bg-white overflow-clip relative rounded-[15px] shadow-[1px_1px_8px_0px_rgba(0,0,0,0.2)] shrink-0 size-[30px]">
-      <div className="absolute h-[42px] left-[-3px] top-0 w-[32.667px]" data-name="freepik__the-style-is-candid-image-photography-with-natural__52479">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="" className="absolute left-0 max-w-none size-[113.05%] top-0" src={imgFreepikTheStyleIsCandidImagePhotographyWithNatural52479} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame134() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Pulisic</p>
-      </div>
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Digital Marketing</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame135() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="overflow-clip relative shrink-0 size-[20px]" data-name="chevron-down">
-        <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-          <div className="absolute inset-[-15%_-7.5%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11.5 6.5">
-              <path d={svgPaths.p3d2c9380} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame65() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] min-h-px min-w-px relative rounded-[8px]">
-      <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[8px]" />
-      <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex gap-[8px] items-center p-[8px] relative w-full">
-          <Frame133 />
-          <Frame134 />
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            72%
-          </p>
-          <div className="content-stretch flex items-center relative shrink-0 w-[68px]" data-name="Chip - DISC">
-            <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Ready
-              </p>
-            </div>
-          </div>
-          <Frame135 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame64() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0 w-full">
-      <SuccessorsAccordion name="Pulisic" position="Digital Marketing" percentage="72%" status="Ready" photoType="man" />
-    </div>
-  );
-}
-
-function ComponentSuccessors1() {
-  return (
-    <div className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full" data-name="Component successors">
-      <Frame139 />
-      <Frame64 />
-    </div>
-  );
-}
-
 function Frame49() {
+  const { successors } = useContext(ProfileContext);
   const [isAddSuccessorsModalOpen, setIsAddSuccessorsModalOpen] = useState(false);
 
   return (
     <>
       <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-full">
-        <div data-conn="succ-structural" className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full" data-name="Component successors">
-          <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-            <p className="leading-[normal] whitespace-pre-wrap">Successors 1</p>
+        {successors.map((sx, i) => (
+          <div key={i} data-conn="succ-structural" className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full" data-name="Component successors">
+            <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="leading-[normal] whitespace-pre-wrap">{`Successors ${i + 1}`}</p>
+            </div>
+            <div className="content-stretch flex items-center relative shrink-0 w-full"><SuccessorsAccordion name={sx.name} position={sx.position} percentage={sx.percentage} status={sx.status} photoType={i % 2 === 0 ? "woman" : "man"} /></div>
           </div>
-          <Frame60 />
-        </div>
-        <div data-conn="succ-structural" className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full" data-name="Component successors">
-          <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-            <p className="leading-[normal] whitespace-pre-wrap">Successors 2</p>
-          </div>
-          <Frame61 />
-        </div>
-        <div data-conn="succ-structural" className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full" data-name="Component successors">
-          <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-            <p className="leading-[normal] whitespace-pre-wrap">Successors 3</p>
-          </div>
-          <Frame62 />
-        </div>
-        <div data-conn="succ-additional" className="w-full"><ComponentSuccessors /></div>
-        <div data-conn="succ-additional" className="w-full"><ComponentSuccessors1 /></div>
+        ))}
+        {successors.length === 0 && <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: "#adb5bd", padding: "8px 0" }}>Belum ada suksesor.</div>}
         <button 
           onClick={() => setIsAddSuccessorsModalOpen(true)}
           className="overflow-clip relative shrink-0 size-[20px] cursor-pointer hover:opacity-70 transition-opacity" 
@@ -2317,74 +617,33 @@ function Frame117() {
   );
 }
 
-function Component6() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] h-[51.5px] min-h-px min-w-px relative rounded-[8px]" data-name="Component 132">
-      <div className="flex flex-col justify-center size-full">
-        <div className="content-stretch flex flex-col items-start justify-center leading-[0] px-[16px] py-[4px] relative size-full whitespace-nowrap">
-          <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[14px]">
-            <p className="leading-[normal] font-[Open_Sans] font-bold text-[12px]">Rising Project Team</p>
-          </div>
-          <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-            <p className="leading-[normal]">as Team Leader</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Component5() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] h-[51.5px] min-h-px min-w-px relative rounded-[8px]" data-name="Component 131">
-      <div className="flex flex-col justify-center size-full">
-        <div className="content-stretch flex flex-col items-start justify-center leading-[0] px-[16px] py-[4px] relative size-full whitespace-nowrap">
-          <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[14px]">
-            <p className="leading-[normal] font-[Open_Sans] text-[12px] font-bold">Product Team</p>
-          </div>
-          <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-            <p className="leading-[normal]">as Team member</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame89() {
-  return (
-    <div className="content-stretch flex gap-[16px] items-center relative shrink-0 w-full">
-      <Component6 />
-      <Component5 />
-    </div>
-  );
-}
-
-function Component4() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] h-[51.5px] min-h-px min-w-px relative rounded-[8px]" data-name="Component 130">
-      <div className="flex flex-col justify-center size-full">
-        <div className="content-stretch flex flex-col items-start justify-center leading-[0] px-[16px] py-[4px] relative size-full whitespace-nowrap">
-          <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[14px]">
-            <p className="leading-[normal] font-bold text-[12px] font-[Open_Sans]">Pegasus Team</p>
-          </div>
-          <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-            <p className="leading-[normal]">{`as  Team member`}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Frame33() {
+  const { bloodType } = useContext(ProfileContext);
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start leading-[0] relative shrink-0 text-white whitespace-nowrap">
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">Golongan Darah</p>
       </div>
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[14px]">
-        <p className="leading-[normal]">A</p>
+        <p className="leading-[normal]">{bloodType}</p>
+      </div>
+    </div>
+  );
+}
+
+// One team tile — data-driven replacement for the fixed Component4/5/6.
+function TeamTile({ name, role }: { name: string; role: string }) {
+  return (
+    <div className="bg-[#f8f9fa] flex-[1_0_0] h-[51.5px] min-h-px min-w-px relative rounded-[8px]" data-name="Team">
+      <div className="flex flex-col justify-center size-full">
+        <div className="content-stretch flex flex-col items-start justify-center leading-[0] px-[16px] py-[4px] relative size-full whitespace-nowrap">
+          <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[14px]">
+            <p className="leading-[normal] font-[Open_Sans] font-bold text-[12px]">{name}</p>
+          </div>
+          <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            <p className="leading-[normal]">{role}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -2402,20 +661,22 @@ function Frame66() {
   );
 }
 
-function Frame90() {
-  return (
-    <div className="content-stretch flex gap-[16px] items-center relative shrink-0 w-full">
-      <Component4 />
-      <Frame66 />
-    </div>
-  );
-}
-
 function Frame87() {
+  const { teams } = useContext(ProfileContext);
+  // team tiles + the blood-type tile as the final cell, laid out 2 per row
+  const cells = [
+    ...teams.map((t, i) => <TeamTile key={`t${i}`} name={t.name} role={t.role} />),
+    <Frame66 key="blood" />,
+  ];
+  const rows: React.ReactNode[][] = [];
+  for (let i = 0; i < cells.length; i += 2) rows.push(cells.slice(i, i + 2));
   return (
     <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full">
-      <Frame89 />
-      <Frame90 />
+      {rows.map((row, i) => (
+        <div key={i} className="content-stretch flex gap-[16px] items-center relative shrink-0 w-full">
+          {row}
+        </div>
+      ))}
     </div>
   );
 }
@@ -2460,13 +721,14 @@ function Frame91() {
 }
 
 function Frame34() {
+  const { extension } = useContext(ProfileContext);
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0">
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">Performance</p>
       </div>
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#016699] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">4.3</p>
+        <p className="leading-[normal]">{extension.performance}</p>
       </div>
       <div className="absolute flex items-center justify-center left-[21px] size-[10px] top-[20px]">
         <div className="flex-none rotate-180">
@@ -2496,13 +758,14 @@ function Component1() {
 }
 
 function Frame35() {
+  const { extension } = useContext(ProfileContext);
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0">
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">Engagement</p>
       </div>
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#016699] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">4.3</p>
+        <p className="leading-[normal]">{extension.engagement}</p>
       </div>
       <div className="absolute flex items-center justify-center left-[21px] size-[10px] top-[20px]">
         <div className="flex-none rotate-180">
@@ -2541,13 +804,14 @@ function Frame95() {
 }
 
 function Frame36() {
+  const { extension } = useContext(ProfileContext);
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start leading-[0] relative shrink-0 whitespace-nowrap">
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">Potency</p>
       </div>
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[14px]">
-        <p className="leading-[normal]">86%</p>
+        <p className="leading-[normal]">{extension.potency}</p>
       </div>
     </div>
   );
@@ -2562,6 +826,7 @@ function Component3() {
 }
 
 function Frame37() {
+  const { extension } = useContext(ProfileContext);
   return (
     <div className="content-stretch flex flex-col gap-[6px] items-start leading-[0] relative shrink-0 whitespace-nowrap">
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -2573,7 +838,7 @@ function Frame37() {
             Tinggi Badan
           </span>
           <span className="font-['Open_Sans:Regular',sans-serif] font-normal leading-[normal] text-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>{` `}</span>
-          <span className="leading-[normal] text-[14px]">172</span>
+          <span className="leading-[normal] text-[14px]">{extension.height}</span>
         </p>
       </div>
     </div>
@@ -2741,15 +1006,13 @@ function Frame97() {
 }
 
 function Frame104() {
-  const router = useRouter();
-  
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">IDP History</p>
       </div>
       <button 
-        onClick={() => { window.location.href = '/idp/create-idp-admin.html?from=iprofile'; }}
+        onClick={() => { window.location.href = '/idp-app/create-idp-admin.html?from=iprofile'; }}
         className="content-stretch flex gap-[8px] items-center px-[8px] py-[4px] relative rounded-[28px] shrink-0 cursor-pointer hover:bg-[#f5f5f5] transition-colors"
       >
         <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />
@@ -2768,189 +1031,56 @@ function Frame104() {
   );
 }
 
-function Frame146() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#e7f5ff] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#016699] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            Problem solving
-          </p>
-        </div>
-      </div>
-      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#e7f5ff] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#016699] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            critical thinking
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame106() {
-  return (
-    <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full">
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="user">
-        <div className="absolute bottom-[12.5%] left-1/4 right-1/4 top-[12.5%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%_-9.38%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9.5 13.5">
-              <path d={svgPaths.p31b1e080} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] w-[124.333px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Lautaro Martinez</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame107() {
-  return (
-    <div className="content-stretch flex gap-[8px] items-start relative shrink-0 w-full">
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="calendar-time">
-        <div className="absolute inset-[12.5%_8.33%_8.33%_12.5%]" data-name="Vector">
-          <div className="absolute inset-[-5.92%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 14.1667 14.1667">
-              <path d={svgPaths.p1d4d7580} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-[1_0_0] flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] min-h-px min-w-px relative text-[#495057] text-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Dec 5, 2024 - Mar 11, 2025</p>
-      </div>
-    </div>
-  );
-}
-
-function IdpList() {
+// One IDP-history card — data-driven replacement for the fixed IdpList/IdpList1.
+function IdpCard({ competencies, pic, dateRange, status }: { competencies: string[]; pic: string; dateRange: string; status: string }) {
   const router = useRouter();
-  
+  const done = status.toLowerCase() === "done";
   return (
-    <div 
-      className="bg-[#f8f9fa] content-stretch flex flex-col gap-[12px] items-start p-[16px] relative rounded-[8px] shrink-0 w-[336.333px] cursor-pointer transition-all hover:shadow-md" 
+    <div
+      className="bg-[#f8f9fa] content-stretch flex flex-col gap-[12px] items-start p-[16px] relative rounded-[8px] shrink-0 w-[336.333px] cursor-pointer transition-all hover:shadow-md"
       data-name="IDP List"
       onClick={() => router.push('/idp-monitoring')}
     >
-      <Frame146 />
-      <Frame106 />
-      <Frame107 />
-      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#fff2e4] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <div className="overflow-clip relative shrink-0 size-[14px]" data-name="progress">
-            <div className="absolute inset-[13.43%_12.51%_13.43%_13.02%]" data-name="Vector">
-              <div className="absolute inset-[-7.33%_-7.19%]">
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11.9269 11.7402">
-                  <path d={svgPaths.p15195200} id="Vector" stroke="var(--stroke-0, #FD9F28)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </svg>
-              </div>
+      <div className="content-start flex flex-wrap gap-[4px] items-start relative shrink-0 w-full">
+        {competencies.map((c, i) => (
+          <div key={i} className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
+            <div className="bg-[#e7f5ff] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
+              <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#016699] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>{c}</p>
             </div>
           </div>
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#fd9f28] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            in progress
-          </p>
-        </div>
+        ))}
       </div>
-    </div>
-  );
-}
-
-function Frame108() {
-  return (
-    <div className="content-start flex flex-wrap gap-[4px] items-start relative shrink-0 w-full">
-      <div className="content-stretch flex items-center justify-center relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#f8f9fa] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[800px]" />
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            strategic thinking
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame147() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#e7f5ff] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#016699] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            Startegic thinking
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame109() {
-  return (
-    <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full">
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="user">
-        <div className="absolute bottom-[12.5%] left-1/4 right-1/4 top-[12.5%]" data-name="Vector">
-          <div className="absolute inset-[-6.25%_-9.38%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9.5 13.5">
-              <path d={svgPaths.p31b1e080} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] w-[124.333px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Griezmann</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame110() {
-  return (
-    <div className="content-stretch flex gap-[8px] items-start relative shrink-0 w-full">
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="calendar-time">
-        <div className="absolute inset-[12.5%_8.33%_8.33%_12.5%]" data-name="Vector">
-          <div className="absolute inset-[-5.92%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 14.1667 14.1667">
-              <path d={svgPaths.p1d4d7580} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-[1_0_0] flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] min-h-px min-w-px relative text-[#495057] text-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Dec 5, 2024 - Mar 11, 2025</p>
-      </div>
-    </div>
-  );
-}
-
-function IdpList1() {
-  const router = useRouter();
-  
-  return (
-    <div 
-      className="bg-[#f8f9fa] content-stretch flex flex-col gap-[12px] items-start p-[16px] relative rounded-[8px] shrink-0 w-[336.333px] cursor-pointer transition-all hover:shadow-md" 
-      data-name="IDP List"
-      onClick={() => router.push('/idp-monitoring')}
-    >
-      <Frame108 />
-      <Frame147 />
-      <Frame109 />
-      <Frame110 />
-      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
-        <div className="bg-[#f2f9f7] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
-          <div className="overflow-clip relative shrink-0 size-[14px]" data-name="check">
-            <div className="absolute inset-[22.92%_16.67%_27.08%_12.5%]" data-name="Vector">
-              <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9.91667 7">
-                <path clipRule="evenodd" d={svgPaths.p2eda3e00} fill="var(--fill-0, #00875A)" fillRule="evenodd" id="Vector" />
+      <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full">
+        <div className="overflow-clip relative shrink-0 size-[16px]" data-name="user">
+          <div className="absolute bottom-[12.5%] left-1/4 right-1/4 top-[12.5%]" data-name="Vector">
+            <div className="absolute inset-[-6.25%_-9.38%]">
+              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9.5 13.5">
+                <path d={svgPaths.p31b1e080} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
               </svg>
             </div>
           </div>
-          <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#00875a] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>
-            done
-          </p>
+        </div>
+        <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] w-[124.333px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          <p className="leading-[normal] whitespace-pre-wrap">{pic}</p>
+        </div>
+      </div>
+      <div className="content-stretch flex gap-[8px] items-start relative shrink-0 w-full">
+        <div className="overflow-clip relative shrink-0 size-[16px]" data-name="calendar-time">
+          <div className="absolute inset-[12.5%_8.33%_8.33%_12.5%]" data-name="Vector">
+            <div className="absolute inset-[-5.92%]">
+              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 14.1667 14.1667">
+                <path d={svgPaths.p1d4d7580} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-[1_0_0] flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] min-h-px min-w-px relative text-[#495057] text-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          <p className="leading-[normal] whitespace-pre-wrap">{dateRange}</p>
+        </div>
+      </div>
+      <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
+        <div className={`${done ? 'bg-[#f2f9f7]' : 'bg-[#fff2e4]'} content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0`} data-name="Chip">
+          <p className={`font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 ${done ? 'text-[#00875a]' : 'text-[#fd9f28]'} text-[10px] uppercase`} style={{ fontVariationSettings: "'wdth' 100" }}>{status}</p>
         </div>
       </div>
     </div>
@@ -2958,10 +1088,12 @@ function IdpList1() {
 }
 
 function Frame105() {
+  const { idpHistory } = useContext(ProfileContext);
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-[336.333px]">
-      <IdpList />
-      <IdpList1 />
+      {idpHistory.map((h, i) => (
+        <IdpCard key={i} competencies={h.competencies} pic={h.pic} dateRange={h.dateRange} status={h.status} />
+      ))}
     </div>
   );
 }
@@ -3025,6 +1157,7 @@ function Frame114() {
 }
 
 function Frame7() {
+  const { employee } = useContext(ProfileContext);
   return (
     <div className="relative shrink-0 w-full">
       <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
@@ -3033,7 +1166,7 @@ function Frame7() {
           <p className="leading-[normal] whitespace-pre-wrap">NIK</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">2349710001</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{employee.nik}</p>
         </div>
       </div>
     </div>
@@ -3057,6 +1190,7 @@ function Frame28() {
 }
 
 function Frame30() {
+  const { employee } = useContext(ProfileContext);
   return (
     <div className="relative shrink-0 w-full">
       <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
@@ -3065,7 +1199,7 @@ function Frame30() {
           <p className="leading-[normal] whitespace-pre-wrap">Date of Birth</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">12 Februari 1988</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{employee.dob}</p>
         </div>
       </div>
     </div>
@@ -3089,6 +1223,7 @@ function Frame29() {
 }
 
 function Frame31() {
+  const { employee } = useContext(ProfileContext);
   return (
     <div className="relative shrink-0 w-full">
       <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
@@ -3097,7 +1232,7 @@ function Frame31() {
           <p className="leading-[normal] whitespace-pre-wrap">Gender</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Laki-laki</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{employee.gender}</p>
         </div>
       </div>
     </div>
@@ -3105,6 +1240,7 @@ function Frame31() {
 }
 
 function Frame32() {
+  const { employee } = useContext(ProfileContext);
   return (
     <div className="relative shrink-0 w-full">
       <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
@@ -3113,7 +1249,7 @@ function Frame32() {
           <p className="leading-[normal] whitespace-pre-wrap">Last Education</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">S2 Psychology UNPAD</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{employee.lastEducation}</p>
         </div>
       </div>
     </div>
@@ -3121,6 +1257,7 @@ function Frame32() {
 }
 
 function Frame38() {
+  const { employee } = useContext(ProfileContext);
   return (
     <div className="relative shrink-0 w-full">
       <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
@@ -3129,7 +1266,7 @@ function Frame38() {
           <p className="leading-[normal] whitespace-pre-wrap">City Domicile</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Surabaya</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{employee.city}</p>
         </div>
       </div>
     </div>
@@ -3137,6 +1274,7 @@ function Frame38() {
 }
 
 function Frame39() {
+  const { employee } = useContext(ProfileContext);
   return (
     <div className="relative shrink-0 w-full">
       <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
@@ -3145,7 +1283,7 @@ function Frame39() {
           <p className="leading-[normal] whitespace-pre-wrap">Province Domicile</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Jawa Timur</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{employee.province}</p>
         </div>
       </div>
     </div>
@@ -3153,6 +1291,7 @@ function Frame39() {
 }
 
 function Frame40() {
+  const { employee } = useContext(ProfileContext);
   return (
     <div className="relative shrink-0 w-full">
       <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
@@ -3160,7 +1299,7 @@ function Frame40() {
           <p className="leading-[normal] whitespace-pre-wrap">Marital Status</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Menikah</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{employee.maritalStatus}</p>
         </div>
       </div>
     </div>
@@ -3204,6 +1343,7 @@ function Frame115() {
 }
 
 function Frame8() {
+  const { employee } = useContext(ProfileContext);
   return (
     <div className="relative shrink-0 w-full">
       <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
@@ -3212,70 +1352,24 @@ function Frame8() {
           <p className="leading-[normal] whitespace-pre-wrap">Report to</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Product Lead (Rodri)</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{employee.reportTo}</p>
         </div>
       </div>
     </div>
   );
 }
 
-function Frame70() {
+// A labelled key/value row inside the Employee Data card.
+function EmpDataRow({ label, value, border = true }: { label: string; value: string; border?: boolean }) {
   return (
     <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
+      {border && <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />}
       <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
         <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Work start date</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{label}</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">September 2019</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame71() {
-  return (
-    <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Tenure</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">4 thn, 4 bln</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame72() {
-  return (
-    <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Career History</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Product Head | Jul 2021 - Current</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame73() {
-  return (
-    <div className="relative shrink-0 w-full">
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 text-white w-[117px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Career History</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-[#495057] text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">{`Product Designer | Sept 2019 - Jul  2021 `}</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{value}</p>
         </div>
       </div>
     </div>
@@ -3283,14 +1377,17 @@ function Frame73() {
 }
 
 function Frame68() {
+  const { employee } = useContext(ProfileContext);
+  const hist = employee.careerHistory;
   return (
     <div className="content-stretch flex flex-col gap-[2px] items-start py-[4px] relative shrink-0 w-full">
       <Frame115 />
       <Frame8 />
-      <Frame70 />
-      <Frame71 />
-      <Frame72 />
-      <Frame73 />
+      <EmpDataRow label="Work start date" value={employee.workStartDate} />
+      <EmpDataRow label="Tenure" value={employee.tenure} />
+      {hist.map((h, i) => (
+        <EmpDataRow key={i} label="Career History" value={`${h.title} | ${h.period}`} border={i < hist.length - 1} />
+      ))}
     </div>
   );
 }
@@ -3369,9 +1466,30 @@ export default function Frame120() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const candidate = id ? candidates.find(c => c.id === id) : null;
-  const profileValue = {
+  const participant = id ? getParticipant(id) : null;
+  const comp = id ? scoreOf(id, "competency") : null;
+  // Load per-participant profile detail from the editable JSON at runtime
+  // (public/data/iprofile-data.json) — no rebuild needed to change it.
+  const [iprofileData, setIprofileData] = useState<Record<string, ProfileDetail>>({});
+  useEffect(() => {
+    fetch("/data/iprofile-data.json").then(r => r.json()).then(setIprofileData).catch(() => {});
+  }, []);
+  const detail = id ? iprofileData[id] ?? null : null;
+  const profileValue: ProfileCtxT = {
     name: candidate?.name ?? "Julian Alvarez",
     position: candidate?.position ?? "Direktur Pengembangan Bisnis",
+    personality: participant?.disc ?? "SC",
+    competencyMatch: comp != null ? (comp / 20).toFixed(1) : "4.5",
+    iq: comp != null ? String(Math.round(95 + comp / 4)) : "120",
+    gtq: comp != null ? String(Math.round(90 + comp / 4)) : "115",
+    careerPlans: detail?.careerPlans ?? [],
+    successors: detail?.successors ?? [],
+    scoreAspects: detail?.scoreAspects ?? EMPTY_ASPECTS,
+    teams: detail?.teams ?? [],
+    bloodType: detail?.bloodType ?? "A",
+    extension: detail?.extension ?? DEFAULT_EXT,
+    idpHistory: detail?.idpHistory ?? [],
+    employee: detail?.employee ?? DEFAULT_EMP,
   };
   return (
     <ProfileContext.Provider value={profileValue}>

@@ -1561,58 +1561,8 @@
       window.location.href = 'monitoring-admin.html';
     }
     
-    var _empAll = [
-      {name:'Cody Gakpo',nik:'100042'},
-      {name:'Vinicius Junior',nik:'100127'},
-      {name:'Julian Alvarez',nik:'100256'},
-      {name:'Virgil van Dijk',nik:'100034'},
-      {name:'Jamal Musiala',nik:'100189'},
-      {name:'Kylian Mbappe',nik:'100312'},
-      {name:'Florian Wirtz',nik:'100078'},
-      {name:'Declan Rice',nik:'100423'},
-      {name:'Erling Haaland',nik:'100156'},
-      {name:'Julian Alvarez',nik:'100089'},
-      {name:'Lautaro Martinez',nik:'100711'},
-      {name:'Christian Pulisic',nik:'100234'},
-      {name:'Antoine Griezmann',nik:'100567'},
-      {name:'Virgil van Dijk',nik:'100123'},
-      {name:'Vinicius Junior',nik:'100345'},
-      {name:'Phil Foden',nik:'100678'},
-      {name:'Mega Wulandari',nik:'100901'},
-      {name:'Jude Bellingham',nik:'101023'},
-      {name:'Nurul Hidayah',nik:'101145'},
-      {name:'Cody Gakpo',nik:'101267'},
-      {name:'Lestari Ningrum',nik:'101389'},
-      {name:'Antoine Griezmann',nik:'101411'},
-      {name:'Rodri',nik:'101533'},
-      {name:'Muhammad Iqbal',nik:'101655'},
-      {name:'Enzo Fernandez',nik:'101777'},
-      {name:'Achraf Hakimi',nik:'101899'},
-      {name:'Rafael Leao',nik:'101921'},
-      {name:'Rodri',nik:'102043'},
-      {name:'Erling Haaland',nik:'102165'},
-      {name:'Phil Foden',nik:'102287'},
-      {name:'Putra Wijaya',nik:'102309'},
-      {name:'Florian Wirtz',nik:'102431'},
-      {name:'Jamal Musiala',nik:'102553'},
-      {name:'Alphonso Davies',nik:'102675'},
-      {name:'Alphonso Davies',nik:'102797'},
-      {name:'Declan Rice',nik:'102819'},
-      {name:'Lautaro Martinez',nik:'102941'},
-      {name:'Nita Sari',nik:'103063'},
-      {name:'Achraf Hakimi',nik:'103185'},
-      {name:'Federico Valverde',nik:'103207'},
-      {name:'Nico Williams',nik:'103329'},
-      {name:'Maya Kusumawati',nik:'103451'},
-      {name:'Kylian Mbappe',nik:'103573'},
-      {name:'Putri Maharani',nik:'103695'},
-      {name:'Antoine Griezmann',nik:'103717'},
-      {name:'Enzo Fernandez',nik:'103839'},
-      {name:'Kylian Mbappe',nik:'103961'},
-      {name:'Jude Bellingham',nik:'104083'},
-      {name:'Christian Pulisic',nik:'104105'},
-      {name:'Pedri',nik:'104227'}
-    ];
+    var _empAll = [];
+    fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(d){ _empAll.push.apply(_empAll, d.participantPool||[]); }).catch(function(e){console.error('idp-data.json',e);});
 
     function renderEmpList(filter) {
       var list = document.getElementById('empList');
@@ -2685,8 +2635,8 @@
       window.swSwitch=function(r){
         localStorage.setItem(KEY,r);
         document.getElementById('switcher-menu').style.display='none';
-        if(r==='Employee') window.location.href='/detail-idp-employee.html';
-        else if(r==='Manager') window.location.href='/monitoring-manager.html';
+        if(r==='Employee') window.location.href='/idp-app/detail-idp-employee.html';
+        else if(r==='Manager') window.location.href='/idp-app/monitoring-manager.html';
         else render(r);
       };
       document.addEventListener('click',function(e){ if(!document.getElementById('user-switcher').contains(e.target)) document.getElementById('switcher-menu').style.display='none'; });

@@ -1629,14 +1629,8 @@
       window.location.href = 'monitoring-manager.html';
     }
     
-    var _empAll = [
-      {name:'Cody Gakpo',nik:'100042'},
-      {name:'Vinicius Junior',nik:'100127'},
-      {name:'Julian Alvarez',nik:'100256'},
-      {name:'Virgil van Dijk',nik:'100034'},
-      {name:'Jamal Musiala',nik:'100189'},
-      {name:'Kylian Mbappe',nik:'100312'}
-    ];
+    var _empAll = [];
+    fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(d){ _empAll.push.apply(_empAll, d.participantPool||[]); }).catch(function(e){console.error('idp-data.json',e);});
 
     function renderEmpList(filter) {
       var list = document.getElementById('empList');
@@ -2714,8 +2708,8 @@
       window.swSwitch=function(r){
         localStorage.setItem(KEY,r);
         document.getElementById('switcher-menu').style.display='none';
-        if(r==='Employee') window.location.href='/detail-idp-employee.html';
-        else if(r==='Admin') window.location.href='/monitoring-admin.html';
+        if(r==='Employee') window.location.href='/idp-app/detail-idp-employee.html';
+        else if(r==='Admin') window.location.href='/idp-app/monitoring-admin.html';
         else render(r);
       };
       document.addEventListener('click',function(e){ if(!document.getElementById('user-switcher').contains(e.target)) document.getElementById('switcher-menu').style.display='none'; });

@@ -1,21 +1,21 @@
 "use client";
+import { managerTeam } from "@/data/managerTeamData";
 
 interface WorkloadEntry {
   name: string;
-  initials: string;
   role: string;
   tasks: number;
   pct: number;
 }
 
-const WORKLOAD: WorkloadEntry[] = [
-  { name: "Phil Foden",  initials: "RP", role: "Manajer Pemasaran",       tasks: 11, pct: 124 },
-  { name: "Jude Bellingham",   initials: "BS", role: "Manajer Operasional",     tasks: 8,  pct: 95  },
-  { name: "Jamal Musiala",    initials: "SR", role: "Kepala Divisi Keuangan",  tasks: 7,  pct: 88  },
-  { name: "Erling Haaland",  initials: "NH", role: "Analis Data Senior",      tasks: 6,  pct: 82  },
-  { name: "Rodri",      initials: "MS", role: "Kepala Legal",            tasks: 4,  pct: 65  },
-  { name: "Florian Wirtz",    initials: "DK", role: "HR Business Partner",     tasks: 3,  pct: 58  },
+// name/role from canonical team; task counts & utilization % are demo values by seniority.
+const DEMO = [
+  { tasks: 11, pct: 124 }, { tasks: 8, pct: 95 }, { tasks: 7, pct: 88 },
+  { tasks: 6, pct: 82 }, { tasks: 4, pct: 65 }, { tasks: 3, pct: 58 },
 ];
+const WORKLOAD: WorkloadEntry[] = managerTeam.map((c, i) => ({
+  name: c.name, role: c.position, ...DEMO[i % DEMO.length],
+}));
 
 function barColor(pct: number) {
   if (pct > 110) return "#dc3545";

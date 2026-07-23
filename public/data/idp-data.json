@@ -1,0 +1,1398 @@
+{
+  "employees": [
+    {
+      "id": 0,
+      "name": "Cody Gakpo",
+      "role": "Talent Acquisition Lead",
+      "dept": "SDM",
+      "avatar": "assets/avatar-1.png",
+      "programs": 4,
+      "statuses": [],
+      "idps": [
+        {
+          "program": "Sales Excellence & Multi-Skill Development Program 2025",
+          "aspects": [
+            "TEAMWORK (2→4)",
+            "COMMUNICATION (1→3)",
+            "LEADERSHIP (2→4)",
+            "CRITICAL THINKING (1→3)",
+            "PROBLEM SOLVING (2→5)"
+          ],
+          "pics": [
+            {
+              "name": "Florian Wirtz",
+              "initials": "FW",
+              "color": "#0EA5E9"
+            },
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            },
+            {
+              "name": "Bukayo Saka",
+              "initials": "BS",
+              "color": "#10B981"
+            },
+            {
+              "name": "Antoine Griezmann",
+              "initials": "AG",
+              "color": "#F59E0B"
+            }
+          ],
+          "period": "Jan 15 - Feb 28, 2025",
+          "statusLabel": "PENDING",
+          "statusCls": "status-need-review",
+          "progress": {
+            "done": 0,
+            "total": 5
+          },
+          "vendor": "Revou",
+          "category": "TRAINING",
+          "aspectLabel": "TEAMWORK",
+          "developmentGoals": "Memperkuat kolaborasi & dinamika tim"
+        },
+        {
+          "program": "Communication Skills Accelerator",
+          "aspects": [
+            "COMMUNICATION (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Florian Wirtz",
+              "initials": "FW",
+              "color": "#0EA5E9"
+            }
+          ],
+          "period": "Mar 1 - Apr 15, 2025",
+          "statusLabel": "IN PROGRESS",
+          "statusCls": "status-in-progress",
+          "progress": {
+            "done": 2,
+            "total": 4
+          },
+          "vendor": "Coursera",
+          "category": "TRAINING",
+          "aspectLabel": "COMMUNICATION",
+          "developmentGoals": "Meningkatkan kemampuan komunikasi & penyampaian ide"
+        },
+        {
+          "program": "Leadership Fundamentals Workshop",
+          "aspects": [
+            "LEADERSHIP (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Aug 1 - Sep 15, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Prakerja",
+          "category": "TRAINING",
+          "aspectLabel": "LEADERSHIP",
+          "developmentGoals": "Mengembangkan kepemimpinan & pengambilan keputusan"
+        },
+        {
+          "program": "Problem Solving & Analytical Thinking",
+          "aspects": [
+            "PROBLEM SOLVING (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "May 1 - Jun 30, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Skilltup Academy",
+          "category": "TRAINING",
+          "aspectLabel": "PROBLEM SOLVING",
+          "developmentGoals": "Menguasai teknik identifikasi & pemecahan masalah"
+        }
+      ],
+      "nik": "2349700015",
+      "email": "cody.gakpo@talentlytica.com"
+    },
+    {
+      "id": 1,
+      "name": "Rafael Leao",
+      "role": "Senior Marketing Manager",
+      "dept": "Pemasaran",
+      "avatar": "assets/avatar-1.png",
+      "programs": 4,
+      "statuses": [],
+      "idps": [
+        {
+          "program": "Leadership Development Track Q1 2025",
+          "aspects": [
+            "LEADERSHIP (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Florian Wirtz",
+              "initials": "FW",
+              "color": "#0EA5E9"
+            }
+          ],
+          "period": "Feb 1 - Mar 15, 2025",
+          "statusLabel": "IN PROGRESS",
+          "statusCls": "status-in-progress",
+          "progress": {
+            "done": 1,
+            "total": 3
+          },
+          "vendor": "Internal L&D",
+          "category": "TRAINING",
+          "aspectLabel": "LEADERSHIP",
+          "developmentGoals": "Mengembangkan kepemimpinan & pengambilan keputusan"
+        },
+        {
+          "program": "Effective Communication for Designers",
+          "aspects": [
+            "COMMUNICATION (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Florian Wirtz",
+              "initials": "FW",
+              "color": "#0EA5E9"
+            }
+          ],
+          "period": "Mar 20 - Apr 30, 2025",
+          "statusLabel": "IN PROGRESS",
+          "statusCls": "status-in-progress",
+          "progress": {
+            "done": 2,
+            "total": 4
+          },
+          "vendor": "Revou",
+          "category": "TRAINING",
+          "aspectLabel": "COMMUNICATION",
+          "developmentGoals": "Meningkatkan kemampuan komunikasi & penyampaian ide"
+        },
+        {
+          "program": "Team Collaboration Enhancement Program",
+          "aspects": [
+            "TEAMWORK (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Nov 1 - Dec 15, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 4,
+            "total": 4
+          },
+          "vendor": "Coursera",
+          "category": "TRAINING",
+          "aspectLabel": "TEAMWORK",
+          "developmentGoals": "Memperkuat kolaborasi & dinamika tim"
+        },
+        {
+          "program": "Critical Thinking in Product Design",
+          "aspects": [
+            "CRITICAL THINKING (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Jul 1 - Aug 31, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Prakerja",
+          "category": "TRAINING",
+          "aspectLabel": "CRITICAL THINKING",
+          "developmentGoals": "Mempertajam analisis & berpikir kritis"
+        }
+      ],
+      "nik": "2349700022",
+      "email": "rafael.leao@talentlytica.com"
+    },
+    {
+      "id": 2,
+      "name": "Jude Bellingham",
+      "role": "Head of Engineering",
+      "dept": "Teknologi",
+      "avatar": "assets/avatar-2.png",
+      "programs": 3,
+      "statuses": [],
+      "idps": [
+        {
+          "program": "Leadership Excellence Program",
+          "aspects": [
+            "LEADERSHIP (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Jan 1 - Feb 28, 2025",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 4,
+            "total": 4
+          },
+          "vendor": "Skilltup Academy",
+          "category": "TRAINING",
+          "aspectLabel": "LEADERSHIP",
+          "developmentGoals": "Mengembangkan kepemimpinan & pengambilan keputusan"
+        },
+        {
+          "program": "Team Dynamics & Collaboration",
+          "aspects": [
+            "TEAMWORK (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Oct 1 - Nov 30, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Internal L&D",
+          "category": "TRAINING",
+          "aspectLabel": "TEAMWORK",
+          "developmentGoals": "Memperkuat kolaborasi & dinamika tim"
+        },
+        {
+          "program": "Business Communication Skills Development",
+          "aspects": [
+            "COMMUNICATION (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Jul 1 - Aug 31, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Revou",
+          "category": "TRAINING",
+          "aspectLabel": "COMMUNICATION",
+          "developmentGoals": "Meningkatkan kemampuan komunikasi & penyampaian ide"
+        }
+      ],
+      "nik": "2349700001",
+      "email": "jude.bellingham@talentlytica.com"
+    },
+    {
+      "id": 3,
+      "name": "Son Heung-min",
+      "role": "Operations Analyst",
+      "dept": "Operasional",
+      "avatar": "assets/avatar-2.png",
+      "programs": 3,
+      "statuses": [],
+      "idps": [
+        {
+          "program": "Tech Leadership Program Q1 2025",
+          "aspects": [
+            "LEADERSHIP (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Florian Wirtz",
+              "initials": "FW",
+              "color": "#0EA5E9"
+            }
+          ],
+          "period": "Feb 1 - Mar 31, 2025",
+          "statusLabel": "PENDING",
+          "statusCls": "status-need-review",
+          "progress": {
+            "done": 0,
+            "total": 3
+          },
+          "vendor": "Coursera",
+          "category": "TRAINING",
+          "aspectLabel": "LEADERSHIP",
+          "developmentGoals": "Mengembangkan kepemimpinan & pengambilan keputusan"
+        },
+        {
+          "program": "Advanced Problem Solving for Engineers",
+          "aspects": [
+            "PROBLEM SOLVING (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Florian Wirtz",
+              "initials": "FW",
+              "color": "#0EA5E9"
+            }
+          ],
+          "period": "Oct 1 - Nov 30, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 4,
+            "total": 4
+          },
+          "vendor": "Prakerja",
+          "category": "TRAINING",
+          "aspectLabel": "PROBLEM SOLVING",
+          "developmentGoals": "Menguasai teknik identifikasi & pemecahan masalah"
+        },
+        {
+          "program": "Engineering Team Synergy",
+          "aspects": [
+            "TEAMWORK (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Jul 1 - Aug 31, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Skilltup Academy",
+          "category": "TRAINING",
+          "aspectLabel": "TEAMWORK",
+          "developmentGoals": "Memperkuat kolaborasi & dinamika tim"
+        }
+      ],
+      "nik": "2349700020",
+      "email": "son.heungmin@talentlytica.com"
+    },
+    {
+      "id": 4,
+      "name": "Achraf Hakimi",
+      "role": "Supply Chain Lead",
+      "dept": "Operasional",
+      "avatar": "assets/avatar-1.png",
+      "programs": 3,
+      "statuses": [],
+      "idps": [
+        {
+          "program": "Communication for Technical Teams",
+          "aspects": [
+            "COMMUNICATION (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Mar 1 - Apr 30, 2025",
+          "statusLabel": "IN PROGRESS",
+          "statusCls": "status-in-progress",
+          "progress": {
+            "done": 2,
+            "total": 5
+          },
+          "vendor": "Internal L&D",
+          "category": "TRAINING",
+          "aspectLabel": "COMMUNICATION",
+          "developmentGoals": "Meningkatkan kemampuan komunikasi & penyampaian ide"
+        },
+        {
+          "program": "Engineering Leadership Development",
+          "aspects": [
+            "LEADERSHIP (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Nov 1 - Dec 31, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Revou",
+          "category": "TRAINING",
+          "aspectLabel": "LEADERSHIP",
+          "developmentGoals": "Mengembangkan kepemimpinan & pengambilan keputusan"
+        },
+        {
+          "program": "Critical Thinking & Innovation Workshop",
+          "aspects": [
+            "CRITICAL THINKING (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Aug 1 - Sep 30, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 4,
+            "total": 4
+          },
+          "vendor": "Coursera",
+          "category": "TRAINING",
+          "aspectLabel": "CRITICAL THINKING",
+          "developmentGoals": "Mempertajam analisis & berpikir kritis"
+        }
+      ],
+      "nik": "2349700019",
+      "email": "achraf.hakimi@talentlytica.com"
+    },
+    {
+      "id": 5,
+      "name": "Julian Alvarez",
+      "role": "Operations Manager",
+      "dept": "Operasional",
+      "avatar": "assets/avatar-2.png",
+      "programs": 3,
+      "statuses": [],
+      "idps": [
+        {
+          "program": "Teamwork & Collaboration Bootcamp",
+          "aspects": [
+            "TEAMWORK (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Florian Wirtz",
+              "initials": "FW",
+              "color": "#0EA5E9"
+            }
+          ],
+          "period": "Jan 1 - Feb 28, 2025",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 4,
+            "total": 4
+          },
+          "vendor": "Prakerja",
+          "category": "TRAINING",
+          "aspectLabel": "TEAMWORK",
+          "developmentGoals": "Memperkuat kolaborasi & dinamika tim"
+        },
+        {
+          "program": "Technical Communication Fundamentals",
+          "aspects": [
+            "COMMUNICATION (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Florian Wirtz",
+              "initials": "FW",
+              "color": "#0EA5E9"
+            }
+          ],
+          "period": "Sep 1 - Oct 31, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Skilltup Academy",
+          "category": "TRAINING",
+          "aspectLabel": "COMMUNICATION",
+          "developmentGoals": "Meningkatkan kemampuan komunikasi & penyampaian ide"
+        },
+        {
+          "program": "Leadership in Software Development",
+          "aspects": [
+            "LEADERSHIP (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "May 1 - Jun 30, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 4,
+            "total": 4
+          },
+          "vendor": "Internal L&D",
+          "category": "TRAINING",
+          "aspectLabel": "LEADERSHIP",
+          "developmentGoals": "Mengembangkan kepemimpinan & pengambilan keputusan"
+        }
+      ],
+      "nik": "2349700018",
+      "email": "julian.alvarez@talentlytica.com"
+    },
+    {
+      "id": 6,
+      "name": "Nico Williams",
+      "role": "Growth Marketing Lead",
+      "dept": "Pemasaran",
+      "avatar": "assets/avatar-1.png",
+      "programs": 3,
+      "statuses": [],
+      "idps": [
+        {
+          "program": "Problem Solving Excellence",
+          "aspects": [
+            "PROBLEM SOLVING (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Feb 1 - Mar 31, 2025",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Revou",
+          "category": "TRAINING",
+          "aspectLabel": "PROBLEM SOLVING",
+          "developmentGoals": "Menguasai teknik identifikasi & pemecahan masalah"
+        },
+        {
+          "program": "Critical Thinking Workshop Series",
+          "aspects": [
+            "CRITICAL THINKING (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Oct 1 - Nov 30, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 4,
+            "total": 4
+          },
+          "vendor": "Coursera",
+          "category": "TRAINING",
+          "aspectLabel": "CRITICAL THINKING",
+          "developmentGoals": "Mempertajam analisis & berpikir kritis"
+        },
+        {
+          "program": "Engineering Leadership Track",
+          "aspects": [
+            "LEADERSHIP (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Florian Wirtz",
+              "initials": "FW",
+              "color": "#0EA5E9"
+            }
+          ],
+          "period": "Jun 1 - Jul 31, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Prakerja",
+          "category": "TRAINING",
+          "aspectLabel": "LEADERSHIP",
+          "developmentGoals": "Mengembangkan kepemimpinan & pengambilan keputusan"
+        }
+      ],
+      "nik": "2349700024",
+      "email": "nico.williams@talentlytica.com"
+    },
+    {
+      "id": 7,
+      "name": "Bukayo Saka",
+      "role": "Brand Manager",
+      "dept": "Pemasaran",
+      "avatar": "assets/avatar-2.png",
+      "programs": 3,
+      "statuses": [],
+      "idps": [
+        {
+          "program": "Product Leadership Development Program 2025",
+          "aspects": [
+            "LEADERSHIP (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Florian Wirtz",
+              "initials": "FW",
+              "color": "#0EA5E9"
+            }
+          ],
+          "period": "Mar 1 - Apr 30, 2025",
+          "statusLabel": "IN PROGRESS",
+          "statusCls": "status-in-progress",
+          "progress": {
+            "done": 1,
+            "total": 4
+          },
+          "vendor": "Skilltup Academy",
+          "category": "TRAINING",
+          "aspectLabel": "LEADERSHIP",
+          "developmentGoals": "Mengembangkan kepemimpinan & pengambilan keputusan"
+        },
+        {
+          "program": "Stakeholder Communication Mastery",
+          "aspects": [
+            "COMMUNICATION (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Nov 1 - Dec 31, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Internal L&D",
+          "category": "TRAINING",
+          "aspectLabel": "COMMUNICATION",
+          "developmentGoals": "Meningkatkan kemampuan komunikasi & penyampaian ide"
+        },
+        {
+          "program": "Strategic Problem Solving for Product Managers",
+          "aspects": [
+            "PROBLEM SOLVING (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Jul 1 - Aug 31, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 4,
+            "total": 4
+          },
+          "vendor": "Revou",
+          "category": "TRAINING",
+          "aspectLabel": "PROBLEM SOLVING",
+          "developmentGoals": "Menguasai teknik identifikasi & pemecahan masalah"
+        }
+      ],
+      "nik": "2349700023",
+      "email": "bukayo.saka@talentlytica.com"
+    },
+    {
+      "id": 8,
+      "name": "Vinicius Junior",
+      "role": "Head of Marketing",
+      "dept": "Pemasaran",
+      "avatar": "assets/avatar-2.png",
+      "programs": 3,
+      "statuses": [],
+      "idps": [
+        {
+          "program": "Team Building & Collaboration",
+          "aspects": [
+            "TEAMWORK (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Florian Wirtz",
+              "initials": "FW",
+              "color": "#0EA5E9"
+            }
+          ],
+          "period": "Jan 1 - Feb 28, 2025",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Coursera",
+          "category": "TRAINING",
+          "aspectLabel": "TEAMWORK",
+          "developmentGoals": "Memperkuat kolaborasi & dinamika tim"
+        },
+        {
+          "program": "Product Leadership Excellence",
+          "aspects": [
+            "LEADERSHIP (2→4)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "Sep 1 - Oct 31, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 4,
+            "total": 4
+          },
+          "vendor": "Prakerja",
+          "category": "TRAINING",
+          "aspectLabel": "LEADERSHIP",
+          "developmentGoals": "Mengembangkan kepemimpinan & pengambilan keputusan"
+        },
+        {
+          "program": "Critical Thinking for Product Managers",
+          "aspects": [
+            "CRITICAL THINKING (1→3)"
+          ],
+          "pics": [
+            {
+              "name": "Jamal Musiala",
+              "initials": "JM",
+              "color": "#8B5CF6"
+            }
+          ],
+          "period": "May 1 - Jun 30, 2024",
+          "statusLabel": "DONE",
+          "statusCls": "status-done",
+          "progress": {
+            "done": 3,
+            "total": 3
+          },
+          "vendor": "Skilltup Academy",
+          "category": "TRAINING",
+          "aspectLabel": "CRITICAL THINKING",
+          "developmentGoals": "Mempertajam analisis & berpikir kritis"
+        }
+      ],
+      "nik": "2349700021",
+      "email": "vinicius.junior@talentlytica.com"
+    }
+  ],
+  "participantPool": [
+    {
+      "name": "Jude Bellingham",
+      "nik": "2349700001",
+      "email": "jude.bellingham@talentlytica.com"
+    },
+    {
+      "name": "Jamal Musiala",
+      "nik": "2349700002",
+      "email": "jamal.musiala@talentlytica.com"
+    },
+    {
+      "name": "Florian Wirtz",
+      "nik": "2349700003",
+      "email": "florian.wirtz@talentlytica.com"
+    },
+    {
+      "name": "Phil Foden",
+      "nik": "2349700004",
+      "email": "phil.foden@talentlytica.com"
+    },
+    {
+      "name": "Kylian Mbappe",
+      "nik": "2349700005",
+      "email": "kylian.mbappe@talentlytica.com"
+    },
+    {
+      "name": "Erling Haaland",
+      "nik": "2349700006",
+      "email": "erling.haaland@talentlytica.com"
+    },
+    {
+      "name": "Rodri",
+      "nik": "2349700007",
+      "email": "rodri@talentlytica.com"
+    },
+    {
+      "name": "Virgil van Dijk",
+      "nik": "2349700008",
+      "email": "virgil.van.dijk@talentlytica.com"
+    },
+    {
+      "name": "Pedri",
+      "nik": "2349700009",
+      "email": "pedri@talentlytica.com"
+    },
+    {
+      "name": "Federico Valverde",
+      "nik": "2349700010",
+      "email": "federico.valverde@talentlytica.com"
+    },
+    {
+      "name": "Enzo Fernandez",
+      "nik": "2349700011",
+      "email": "enzo.fernandez@talentlytica.com"
+    },
+    {
+      "name": "Antoine Griezmann",
+      "nik": "2349700012",
+      "email": "antoine.griezmann@talentlytica.com"
+    },
+    {
+      "name": "Christian Pulisic",
+      "nik": "2349700013",
+      "email": "christian.pulisic@talentlytica.com"
+    },
+    {
+      "name": "Declan Rice",
+      "nik": "2349700014",
+      "email": "declan.rice@talentlytica.com"
+    },
+    {
+      "name": "Cody Gakpo",
+      "nik": "2349700015",
+      "email": "cody.gakpo@talentlytica.com"
+    },
+    {
+      "name": "Alphonso Davies",
+      "nik": "2349700016",
+      "email": "alphonso.davies@talentlytica.com"
+    },
+    {
+      "name": "Lautaro Martinez",
+      "nik": "2349700017",
+      "email": "lautaro.martinez@talentlytica.com"
+    },
+    {
+      "name": "Julian Alvarez",
+      "nik": "2349700018",
+      "email": "julian.alvarez@talentlytica.com"
+    },
+    {
+      "name": "Achraf Hakimi",
+      "nik": "2349700019",
+      "email": "achraf.hakimi@talentlytica.com"
+    },
+    {
+      "name": "Son Heung-min",
+      "nik": "2349700020",
+      "email": "son.heungmin@talentlytica.com"
+    },
+    {
+      "name": "Vinicius Junior",
+      "nik": "2349700021",
+      "email": "vinicius.junior@talentlytica.com"
+    },
+    {
+      "name": "Rafael Leao",
+      "nik": "2349700022",
+      "email": "rafael.leao@talentlytica.com"
+    },
+    {
+      "name": "Bukayo Saka",
+      "nik": "2349700023",
+      "email": "bukayo.saka@talentlytica.com"
+    },
+    {
+      "name": "Nico Williams",
+      "nik": "2349700024",
+      "email": "nico.williams@talentlytica.com"
+    }
+  ],
+  "aspects": [
+    {
+      "name": "Leadership",
+      "count": 5,
+      "total": 8,
+      "pct": 63,
+      "employees": [
+        "Cody Gakpo",
+        "Son Heung-min",
+        "Achraf Hakimi",
+        "Julian Alvarez",
+        "Vinicius Junior"
+      ]
+    },
+    {
+      "name": "Communication",
+      "count": 4,
+      "total": 8,
+      "pct": 50,
+      "employees": [
+        "Rafael Leao",
+        "Jude Bellingham",
+        "Bukayo Saka",
+        "Nico Williams"
+      ]
+    },
+    {
+      "name": "Problem Solving",
+      "count": 3,
+      "total": 8,
+      "pct": 38,
+      "employees": [
+        "Cody Gakpo",
+        "Achraf Hakimi",
+        "Son Heung-min"
+      ]
+    },
+    {
+      "name": "Critical Thinking",
+      "count": 3,
+      "total": 8,
+      "pct": 38,
+      "employees": [
+        "Jude Bellingham",
+        "Julian Alvarez",
+        "Bukayo Saka"
+      ]
+    },
+    {
+      "name": "Teamwork",
+      "count": 3,
+      "total": 8,
+      "pct": 38,
+      "employees": [
+        "Rafael Leao",
+        "Vinicius Junior",
+        "Nico Williams"
+      ]
+    },
+    {
+      "name": "Time Management",
+      "count": 2,
+      "total": 8,
+      "pct": 25,
+      "employees": [
+        "Cody Gakpo",
+        "Rafael Leao"
+      ]
+    },
+    {
+      "name": "Adaptability",
+      "count": 2,
+      "total": 8,
+      "pct": 25,
+      "employees": [
+        "Achraf Hakimi",
+        "Son Heung-min"
+      ]
+    },
+    {
+      "name": "Emotional Intelligence",
+      "count": 2,
+      "total": 8,
+      "pct": 25,
+      "employees": [
+        "Julian Alvarez",
+        "Bukayo Saka"
+      ]
+    },
+    {
+      "name": "Creativity",
+      "count": 2,
+      "total": 8,
+      "pct": 25,
+      "employees": [
+        "Jude Bellingham",
+        "Nico Williams"
+      ]
+    },
+    {
+      "name": "Decision Making",
+      "count": 1,
+      "total": 8,
+      "pct": 13,
+      "employees": [
+        "Vinicius Junior"
+      ]
+    },
+    {
+      "name": "Conflict Resolution",
+      "count": 1,
+      "total": 8,
+      "pct": 13,
+      "employees": [
+        "Cody Gakpo"
+      ]
+    },
+    {
+      "name": "Negotiation",
+      "count": 1,
+      "total": 8,
+      "pct": 13,
+      "employees": [
+        "Rafael Leao"
+      ]
+    },
+    {
+      "name": "Presentation Skills",
+      "count": 1,
+      "total": 8,
+      "pct": 13,
+      "employees": [
+        "Son Heung-min"
+      ]
+    },
+    {
+      "name": "Delegation",
+      "count": 1,
+      "total": 8,
+      "pct": 13,
+      "employees": [
+        "Achraf Hakimi"
+      ]
+    },
+    {
+      "name": "Coaching",
+      "count": 1,
+      "total": 8,
+      "pct": 13,
+      "employees": [
+        "Julian Alvarez"
+      ]
+    }
+  ],
+  "notifications": [
+    {
+      "title": "IDP Review Required",
+      "desc": "A new IDP submitted by Kylian Mbappe for Florian Wirtz is waiting for your review.",
+      "tags": [
+        {
+          "label": "NEED REVIEW",
+          "cls": "status-chip status-need-review"
+        }
+      ],
+      "quote": "Please review and approve the development plan to continue the process.",
+      "time": "1 day ago",
+      "unread": true
+    },
+    {
+      "title": "New Comment on Development Program",
+      "desc": "<strong>Virgil van Dijk</strong> commented on the development program \"Leadership Workshop 2026\".",
+      "tags": [],
+      "quote": "Tolong atur jadwal dengan saya besok senin, cari jam kosong",
+      "time": "1 day ago",
+      "unread": true
+    },
+    {
+      "title": "IDP Approved",
+      "desc": "The IDP you submitted for Florian Wirtz has been reviewed and approved by Admin.",
+      "tags": [
+        {
+          "label": "LEADERSHIP",
+          "cls": "aspect-chip"
+        }
+      ],
+      "quote": "The employee can now begin the development activities as planned.",
+      "time": "1 day ago",
+      "unread": true
+    },
+    {
+      "title": "New IDP Assignment for your Team Member",
+      "desc": "You have been assigned as the PIC for an IDP created for Florian Wirtz.",
+      "tags": [
+        {
+          "label": "CRITICAL THINKING",
+          "cls": "aspect-chip"
+        }
+      ],
+      "quote": "Please review the assigned IDP and support the employee's development journey.",
+      "time": "1 day ago",
+      "unread": true
+    },
+    {
+      "title": "IDP Submission Rejected",
+      "desc": "The IDP you submitted for Florian Wirtz was not approved by Admin.",
+      "tags": [
+        {
+          "label": "COMMUNICATION",
+          "cls": "aspect-chip"
+        }
+      ],
+      "quote": "Please review the provided comments and submit a revised development plan.",
+      "time": "1 day ago",
+      "unread": true
+    },
+    {
+      "title": "New IDP Assigned",
+      "desc": "You have been assigned an IDP by Florian Wirtz",
+      "tags": [
+        {
+          "label": "CRITICAL THINKING",
+          "cls": "aspect-chip"
+        },
+        {
+          "label": "LEADERSHIP",
+          "cls": "aspect-chip"
+        }
+      ],
+      "quote": "Please review your IDP and begin your development activities accordingly.",
+      "time": "1 day ago",
+      "unread": true
+    }
+  ],
+  "reviews": [
+    {
+      "reqby": {
+        "name": "Rodri",
+        "role": "VP Corporate Strategy",
+        "color": "#4C6EF5"
+      },
+      "participants": [
+        "Lautaro Martinez",
+        "Pedri"
+      ],
+      "aspects": [
+        "Leadership Development"
+      ],
+      "pics": [
+        "Rafael Leao",
+        "Son Heung-min"
+      ],
+      "date": "2026-06-08"
+    },
+    {
+      "reqby": {
+        "name": "Jude Bellingham",
+        "role": "Head of Engineering",
+        "color": "#10b981"
+      },
+      "participants": [
+        "Jamal Musiala",
+        "Lautaro Martinez",
+        "Son Heung-min"
+      ],
+      "aspects": [
+        "Leadership Development"
+      ],
+      "pics": [
+        "Son Heung-min",
+        "Florian Wirtz",
+        "Bukayo Saka"
+      ],
+      "date": "2026-06-05"
+    },
+    {
+      "reqby": {
+        "name": "Jude Bellingham",
+        "role": "Head of Engineering",
+        "color": "#10b981"
+      },
+      "participants": [
+        "Jamal Musiala",
+        "Lautaro Martinez",
+        "Pedri",
+        "Son Heung-min",
+        "Federico Valverde"
+      ],
+      "aspects": [
+        "Collaboration",
+        "Leadership Development",
+        "Technical Skills"
+      ],
+      "pics": [
+        "Phil Foden",
+        "Rafael Leao",
+        "Son Heung-min",
+        "Bukayo Saka"
+      ],
+      "date": "2026-06-04"
+    }
+  ],
+  "comments": [
+    {
+      "name": "Florian Wirtz",
+      "initials": "FW",
+      "color": "",
+      "time": "Apr 20, 2026, 11:39 AM",
+      "text": "tolong sekali lage cek dokumentasinya dan lampirkan kembali"
+    },
+    {
+      "name": "Kylian Mbappe",
+      "initials": "KM",
+      "color": "#B0B1B2",
+      "time": "Apr 20, 2026, 11:39 AM",
+      "text": "dokumentasi trainingnya kah Pak?"
+    },
+    {
+      "name": "Florian Wirtz",
+      "initials": "FW",
+      "color": "",
+      "time": "Apr 20, 2026, 11:40 AM",
+      "text": "Iya"
+    },
+    {
+      "name": "Kylian Mbappe",
+      "initials": "KM",
+      "color": "#B0B1B2",
+      "time": "Apr 20, 2026, 11:41 AM",
+      "text": "Baik Pak, saya lampirkan kembali"
+    }
+  ],
+  "changeHistory": {
+    "Root Cause Analysis Training": [
+      {
+        "date": "20 Apr 2026",
+        "time": "11:40",
+        "by": "Florian Wirtz",
+        "field": "End Date",
+        "from": "10 Sep 2024",
+        "to": "12 Sep 2024"
+      },
+      {
+        "date": "18 Apr 2026",
+        "time": "09:15",
+        "by": "Achan",
+        "field": "PIC Check",
+        "from": "Unchecked",
+        "to": "Checked"
+      },
+      {
+        "date": "14 Apr 2026",
+        "time": "14:30",
+        "by": "Florian Wirtz",
+        "field": "Attachment",
+        "from": "-",
+        "to": "training_doc.pdf"
+      }
+    ],
+    "Analytical Thinking Workshop": [
+      {
+        "date": "19 Apr 2026",
+        "time": "10:00",
+        "by": "Achan",
+        "field": "PIC Check",
+        "from": "Unchecked",
+        "to": "Checked"
+      },
+      {
+        "date": "16 Apr 2026",
+        "time": "13:20",
+        "by": "Florian Wirtz",
+        "field": "Notes",
+        "from": "-",
+        "to": "Perlu follow-up hasil workshop"
+      }
+    ],
+    "Root Cause Practice Session": [
+      {
+        "date": "17 Apr 2026",
+        "time": "11:00",
+        "by": "Florian Wirtz",
+        "field": "End Date",
+        "from": "12 Sep 2024",
+        "to": "14 Sep 2024"
+      }
+    ],
+    "Group Case Study Discussion": [],
+    "Solution Experiment & Iteration Task": [
+      {
+        "date": "21 Apr 2026",
+        "time": "08:30",
+        "by": "Vinicius Junior",
+        "field": "End Date",
+        "from": "18 Sep 2024",
+        "to": "20 Sep 2024"
+      },
+      {
+        "date": "17 Apr 2026",
+        "time": "13:00",
+        "by": "Florian Wirtz",
+        "field": "Notes",
+        "from": "-",
+        "to": "Perlu review ulang hasil eksperimen"
+      },
+      {
+        "date": "15 Apr 2026",
+        "time": "10:45",
+        "by": "Vinicius Junior",
+        "field": "Attachment",
+        "from": "-",
+        "to": "experiment_results.xlsx"
+      }
+    ],
+    "Leadership Communication Workshop": [
+      {
+        "date": "22 Apr 2026",
+        "time": "16:00",
+        "by": "Vinicius Junior",
+        "field": "End Date",
+        "from": "22 Sep 2024",
+        "to": "25 Sep 2024"
+      },
+      {
+        "date": "22 Apr 2026",
+        "time": "16:05",
+        "by": "Vinicius Junior",
+        "field": "PIC Check",
+        "from": "Unchecked",
+        "to": "Checked"
+      },
+      {
+        "date": "18 Apr 2026",
+        "time": "11:00",
+        "by": "Florian Wirtz",
+        "field": "Attachment",
+        "from": "-",
+        "to": "workshop_material.pptx"
+      }
+    ]
+  }
+}

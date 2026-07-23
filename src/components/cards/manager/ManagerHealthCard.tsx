@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { managerTeam } from "@/data/managerTeamData";
 
 const MOOD_OPTIONS = [
   { value: 5, label: "Sangat baik", emoji: "😊" },
@@ -9,8 +10,9 @@ const MOOD_OPTIONS = [
   { value: 1, label: "Burnout",     emoji: "😫" },
 ];
 
-const CHECKIN_DONE   = ["Jude Bellingham", "Jamal Musiala", "Florian Wirtz", "Erling Haaland"];
-const CHECKIN_MISSED = ["Phil Foden", "Rodri"];
+// canonical team members split into done/missed (demo split)
+const CHECKIN_DONE   = [0, 1, 2, 4].map(i => managerTeam[i].name);
+const CHECKIN_MISSED = [3, 5].map(i => managerTeam[i].name);
 const WORK_HOURS     = 52;
 const NORMAL_HOURS   = 45;
 

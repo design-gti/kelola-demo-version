@@ -1,27 +1,26 @@
 "use client";
+import { managerTeam } from "@/data/managerTeamData";
 
 type SupportCategory = "skill-gap" | "workload" | "career";
 
 interface SupportEntry {
   name: string;
-  initials: string;
   role: string;
   category: SupportCategory;
   signal: string;
 }
 
+// name/role from canonical team; category/signal are demo.
 const SUPPORT: SupportEntry[] = [
   {
-    name: "Florian Wirtz",
-    initials: "DK",
-    role: "HR Business Partner",
+    name: managerTeam[2].name,
+    role: managerTeam[2].position,
     category: "workload",
     signal: "Pola kerja menunjukkan deviasi beban tinggi selama 3 minggu berturut-turut",
   },
   {
-    name: "Phil Foden",
-    initials: "RP",
-    role: "Manajer Pemasaran",
+    name: managerTeam[3].name,
+    role: managerTeam[3].position,
     category: "career",
     signal: "Momentum performa menurun dan skor mood turun — mungkin perlu diskusi arah karier",
   },

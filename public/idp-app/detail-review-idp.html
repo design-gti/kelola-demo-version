@@ -1699,58 +1699,8 @@
       window.location.href = 'review-idp-list.html';
     }
     
-    var _empAll = [
-      {name:'Cody Gakpo',nik:'100042',email:'ulfa@email.com'},
-      {name:'Vinicius Junior',nik:'100127',email:'imanuel@email.com'},
-      {name:'Julian Alvarez',nik:'100256',email:'gunawan@email.com'},
-      {name:'Virgil van Dijk',nik:'100034',email:'budi@email.com'},
-      {name:'Jamal Musiala',nik:'100189',email:'siti@email.com'},
-      {name:'Kylian Mbappe',nik:'100312',email:'ahmad@email.com'},
-      {name:'Florian Wirtz',nik:'100078',email:'dewi@email.com'},
-      {name:'Declan Rice',nik:'100423',email:'eko@email.com'},
-      {name:'Erling Haaland',nik:'100156',email:'rina@email.com'},
-      {name:'Julian Alvarez',nik:'100089',email:'hendra@email.com'},
-      {name:'Lautaro Martinez',nik:'100711',email:'yulia@email.com'},
-      {name:'Christian Pulisic',nik:'100234',email:'doni@email.com'},
-      {name:'Antoine Griezmann',nik:'100567',email:'sri@email.com'},
-      {name:'Virgil van Dijk',nik:'100123',email:'bambang@email.com'},
-      {name:'Vinicius Junior',nik:'100345',email:'fitri@email.com'},
-      {name:'Phil Foden',nik:'100678',email:'rizky@email.com'},
-      {name:'Mega Wulandari',nik:'100901',email:'mega@email.com'},
-      {name:'Jude Bellingham',nik:'101023',email:'agus@email.com'},
-      {name:'Nurul Hidayah',nik:'101145',email:'nurul@email.com'},
-      {name:'Cody Gakpo',nik:'101267',email:'fajar@email.com'},
-      {name:'Lestari Ningrum',nik:'101389',email:'lestari@email.com'},
-      {name:'Antoine Griezmann',nik:'101411',email:'surya@email.com'},
-      {name:'Rodri',nik:'101533',email:'rini@email.com'},
-      {name:'Muhammad Iqbal',nik:'101655',email:'iqbal@email.com'},
-      {name:'Enzo Fernandez',nik:'101777',email:'dian@email.com'},
-      {name:'Achraf Hakimi',nik:'101899',email:'wahyu@email.com'},
-      {name:'Rafael Leao',nik:'101921',email:'indah@email.com'},
-      {name:'Rodri',nik:'102043',email:'bagas@email.com'},
-      {name:'Erling Haaland',nik:'102165',email:'ayu@email.com'},
-      {name:'Phil Foden',nik:'102287',email:'reza@email.com'},
-      {name:'Putra Wijaya',nik:'102309',email:'putra@email.com'},
-      {name:'Florian Wirtz',nik:'102431',email:'anisa@email.com'},
-      {name:'Jamal Musiala',nik:'102553',email:'andi@email.com'},
-      {name:'Alphonso Davies',nik:'102675',email:'yuli@email.com'},
-      {name:'Alphonso Davies',nik:'102797',email:'farhan@email.com'},
-      {name:'Declan Rice',nik:'102819',email:'tika@email.com'},
-      {name:'Lautaro Martinez',nik:'102941',email:'galuh@email.com'},
-      {name:'Nita Sari',nik:'103063',email:'nita@email.com'},
-      {name:'Achraf Hakimi',nik:'103185',email:'ilham@email.com'},
-      {name:'Federico Valverde',nik:'103207',email:'sari@email.com'},
-      {name:'Nico Williams',nik:'103329',email:'kevin@email.com'},
-      {name:'Maya Kusumawati',nik:'103451',email:'maya@email.com'},
-      {name:'Kylian Mbappe',nik:'103573',email:'arif@email.com'},
-      {name:'Putri Maharani',nik:'103695',email:'putri@email.com'},
-      {name:'Antoine Griezmann',nik:'103717',email:'dimas@email.com'},
-      {name:'Enzo Fernandez',nik:'103839',email:'silvia@email.com'},
-      {name:'Kylian Mbappe',nik:'103961',email:'ridwan@email.com'},
-      {name:'Jude Bellingham',nik:'104083',email:'laila@email.com'},
-      {name:'Christian Pulisic',nik:'104105',email:'teguh@email.com'},
-      {name:'Pedri',nik:'104227',email:'citra@email.com'}
-    ];
+    var _empAll = [];
+    fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(d){ _empAll.push.apply(_empAll, d.participantPool||[]); }).catch(function(e){console.error('idp-data.json',e);});
 
     function renderEmpList(filter) {
       var list = document.getElementById('empList');
@@ -3457,8 +3407,8 @@
       window.swSwitch=function(r){
         localStorage.setItem(KEY,r);
         document.getElementById('switcher-menu').style.display='none';
-        if(r==='Employee') window.location.href='/detail-idp-employee.html';
-        else if(r==='Manager') window.location.href='/monitoring-manager.html';
+        if(r==='Employee') window.location.href='/idp-app/detail-idp-employee.html';
+        else if(r==='Manager') window.location.href='/idp-app/monitoring-manager.html';
         else render(r);
       };
       document.addEventListener('click',function(e){ if(!document.getElementById('user-switcher').contains(e.target)) document.getElementById('switcher-menu').style.display='none'; });

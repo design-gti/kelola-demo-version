@@ -1,28 +1,27 @@
 "use client";
+import { managerTeam } from "@/data/managerTeamData";
 
 interface Signal {
   name: string;
-  initials: string;
   reason: string;
   severity: "high" | "medium";
 }
 
+// names from canonical team; reasons/severity are demo signals.
 const SIGNALS: Signal[] = [
   {
-    name: "Florian Wirtz",
-    initials: "DK",
+    name: managerTeam[2].name,
     reason: "Jam kerja efektif naik 35% di atas rata-rata dirinya 4 minggu terakhir",
     severity: "high",
   },
   {
-    name: "Phil Foden",
-    initials: "RP",
+    name: managerTeam[3].name,
     reason: "Skor mood self-report turun signifikan dibanding 3 minggu sebelumnya",
     severity: "medium",
   },
 ];
 
-const SAFE = ["Jude Bellingham", "Jamal Musiala", "Erling Haaland", "Rodri"];
+const SAFE = [0, 1, 4, 5].map(i => managerTeam[i].name);
 
 const SEV_COLOR: Record<Signal["severity"], { bg: string; text: string; dot: string; label: string }> = {
   high:   { bg: "#fff0f0", text: "#dc3545", dot: "#dc3545", label: "Perhatian tinggi" },

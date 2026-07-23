@@ -1,6 +1,6 @@
 // Back-compat adapter (PGS-1133 / E1): `candidates` kini DIDERIVE dari canonical store.
 // Interface `Candidate` dipertahankan agar 11 komponen card lama tetap jalan tanpa diubah.
-import { allParticipants, positionOf, scoreOf, assignmentsOf, successorsOf } from "./model/selectors";
+import { allParticipants, positionOf, scoreOf, assignmentsOf, successorsOf, nameOf } from "./model/selectors";
 
 export interface Candidate {
   id: string;
@@ -87,19 +87,20 @@ export const syncSystems: SyncSystem[] = [
   { id: "s5", name: "Talent Analytics", lastSync: new Date(Date.now() - 70 * 60 * 60 * 1000).toISOString(), status: "warning", dataType: "Analitik Talenta" },
 ];
 
+// Names in descriptions derive from candidateId via nameOf() so they never drift from canonical.
 export const activityLog: ActivityEntry[] = [
-  { id: "al1", type: "assessment_completed", description: "Penilaian leadership selesai untuk Jude Bellingham", actor: "Sistem Assessment", timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString(), candidateId: "p01" },
-  { id: "al2", type: "data_updated", description: "Profil Kylian Mbappe diperbarui", actor: "Admin SDM", timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), candidateId: "p05" },
+  { id: "al1", type: "assessment_completed", description: `Penilaian leadership selesai untuk ${nameOf("p01")}`, actor: "Sistem Assessment", timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString(), candidateId: "p01" },
+  { id: "al2", type: "data_updated", description: `Profil ${nameOf("p05")} diperbarui`, actor: "Admin SDM", timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), candidateId: "p05" },
   { id: "al3", type: "sync_event", description: "Sinkronisasi HRIS berhasil — 24 data diperbarui", actor: "Sistem HRIS", timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString() },
-  { id: "al4", type: "idp_action", description: "Rencana pengembangan Jamal Musiala telah disetujui", actor: "Manajer Langsung", timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(), candidateId: "p02" },
-  { id: "al5", type: "assessment_completed", description: "Competency test selesai untuk Rodri", actor: "Sistem Assessment", timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), candidateId: "p07" },
-  { id: "al6", type: "data_updated", description: "Skor kepemimpinan Virgil van Dijk diperbarui", actor: "Admin SDM", timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(), candidateId: "p08" },
+  { id: "al4", type: "idp_action", description: `Rencana pengembangan ${nameOf("p02")} telah disetujui`, actor: "Manajer Langsung", timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(), candidateId: "p02" },
+  { id: "al5", type: "assessment_completed", description: `Competency test selesai untuk ${nameOf("p07")}`, actor: "Sistem Assessment", timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), candidateId: "p07" },
+  { id: "al6", type: "data_updated", description: `Skor kepemimpinan ${nameOf("p08")} diperbarui`, actor: "Admin SDM", timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(), candidateId: "p08" },
   { id: "al7", type: "alert_triggered", description: "3 posisi kritis tanpa kandidat suksesor teridentifikasi", actor: "Sistem", timestamp: new Date(Date.now() - 10 * 60 * 60 * 1000).toISOString() },
-  { id: "al8", type: "idp_action", description: "Target pengembangan Q3 ditetapkan untuk Lautaro Martinez", actor: "HR Business Partner", timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(), candidateId: "p17" },
+  { id: "al8", type: "idp_action", description: `Target pengembangan Q3 ditetapkan untuk ${nameOf("p17")}`, actor: "HR Business Partner", timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(), candidateId: "p17" },
   { id: "al9", type: "sync_event", description: "Assessment Engine gagal sinkronisasi — timeout", actor: "Sistem", timestamp: new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString() },
-  { id: "al10", type: "assessment_completed", description: "360° feedback selesai untuk Vinicius Junior", actor: "Tim Penilai", timestamp: new Date(Date.now() - 14 * 60 * 60 * 1000).toISOString(), candidateId: "p21" },
+  { id: "al10", type: "assessment_completed", description: `360° feedback selesai untuk ${nameOf("p21")}`, actor: "Tim Penilai", timestamp: new Date(Date.now() - 14 * 60 * 60 * 1000).toISOString(), candidateId: "p21" },
   { id: "al11", type: "data_updated", description: "Data succession planning diperbarui untuk posisi CEO", actor: "Admin SDM", timestamp: new Date(Date.now() - 16 * 60 * 60 * 1000).toISOString() },
-  { id: "al12", type: "idp_action", description: "Program mentoring dimulai untuk Declan Rice", actor: "HR Business Partner", timestamp: new Date(Date.now() - 18 * 60 * 60 * 1000).toISOString(), candidateId: "p14" },
+  { id: "al12", type: "idp_action", description: `Program mentoring dimulai untuk ${nameOf("p14")}`, actor: "HR Business Partner", timestamp: new Date(Date.now() - 18 * 60 * 60 * 1000).toISOString(), candidateId: "p14" },
 ];
 
 export const recentlyViewed: string[] = ["p05", "p01", "p17", "p21", "p07"];

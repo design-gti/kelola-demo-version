@@ -1,20 +1,21 @@
 "use client";
+import { managerTeam } from "@/data/managerTeamData";
 
 interface MomentumEntry {
   name: string;
-  initials: string;
   role: string;
   trend: number; // positive = up, negative = down
   weeks: number[]; // last 4 weeks completion rate %
 }
 
+// name/role from canonical team members; trend/weeks are demo values.
 const RISING: MomentumEntry[] = [
-  { name: "Jamal Musiala",   initials: "SR", role: "Kepala Divisi Keuangan", trend: 12, weeks: [74, 80, 85, 89] },
-  { name: "Erling Haaland", initials: "NH", role: "Analis Data Senior",     trend: 8,  weeks: [70, 74, 77, 80] },
+  { name: managerTeam[1].name, role: managerTeam[1].position, trend: 12, weeks: [74, 80, 85, 89] },
+  { name: managerTeam[4].name, role: managerTeam[4].position, trend: 8,  weeks: [70, 74, 77, 80] },
 ];
 
 const DECLINING: MomentumEntry[] = [
-  { name: "Phil Foden", initials: "RP", role: "Manajer Pemasaran", trend: -15, weeks: [85, 80, 73, 68] },
+  { name: managerTeam[3].name, role: managerTeam[3].position, trend: -15, weeks: [85, 80, 73, 68] },
 ];
 
 function MiniSparkline({ weeks, color }: { weeks: number[]; color: string }) {

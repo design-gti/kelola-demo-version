@@ -2,6 +2,8 @@
 import { useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import TextButton from "@/components/ui/TextButton";
+import { candidates } from "@/data/dummyData";
+import { buildMappingCells } from "@/data/managerTeamData";
 
 const av1 = "https://www.figma.com/api/mcp/asset/8ea64e6d-47b2-4170-9dab-1496e1e87b25";
 const av2 = "https://www.figma.com/api/mcp/asset/e67df370-f1b5-4b8a-b619-cb35470142c8";
@@ -17,26 +19,13 @@ interface CellData {
   names: string[];
 }
 
-const cells: CellData[] = [
-  { count: 6,  label: "Need Coaching",    countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
-    names: ["Son Heung-min", "Achraf Hakimi", "Vinicius Junior", "Federico Valverde", "Cody Gakpo", "Alphonso Davies"] },
-  { count: 8,  label: "Rising Star",      countColor: "#9abdfd",             bg: "#b1cfff", avatars: [av3, av1],
-    names: ["Jude Bellingham", "Phil Foden", "Christian Pulisic", "Bukayo Saka", "Nico Williams", "Jude Bellingham", "Rodri", "Erling Haaland"] },
-  { count: 9,  label: "Star",             countColor: "#689eff",             bg: "#83b4ff", avatars: [av3, av2],
-    names: ["Jamal Musiala", "Pedri", "Lautaro Martinez", "Erling Haaland", "Kylian Mbappe", "Lautaro Martinez", "Federico Valverde", "Achraf Hakimi", "Florian Wirtz"] },
-  { count: 3,  label: "Questionable Fit", countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4", avatars: [av1, av2],
-    names: ["Bukayo Saka", "Son Heung-min", "Nico Williams"] },
-  { count: 5,  label: "Contributor",      countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
-    names: ["Florian Wirtz", "Rodri", "Enzo Fernandez", "Bukayo Saka", "Rafael Leao"] },
-  { count: 7,  label: "Emerging Star",    countColor: "#9abdfd",             bg: "#b1cfff", avatars: [av1, av2],
-    names: ["Declan Rice", "Virgil van Dijk", "Florian Wirtz", "Pedri", "Phil Foden", "Jamal Musiala", "Declan Rice"] },
-  { count: 1,  label: "Under Performer",  countColor: "rgba(222,53,11,0.4)", bg: "#ffb3b3", avatars: [av1, av2],
-    names: ["Vinicius Junior"] },
-  { count: 2,  label: "Specialist",       countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4", avatars: [av1, av2],
-    names: ["Achraf Hakimi", "Federico Valverde"] },
-  { count: 4,  label: "Expert",           countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
-    names: ["Julian Alvarez", "Antoine Griezmann", "Virgil van Dijk", "Declan Rice"] },
-];
+// Cells derived from canonical candidates (potential × performance). Labels/colors from
+// shared CELL_META; avatars are decorative (shown only for non-empty cells).
+const AV = [av1, av2, av3];
+const cells: CellData[] = buildMappingCells(candidates).map(c => ({
+  ...c,
+  avatars: c.count > 0 ? AV.slice(0, Math.min(2, c.count)) : [],
+}));
 
 function AvatarStack({ avatars, names, count }: { avatars: string[]; names: string[]; count: number }) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
