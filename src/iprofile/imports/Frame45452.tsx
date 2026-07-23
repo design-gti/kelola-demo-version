@@ -1,4 +1,5 @@
 ﻿"use client";
+import { useRouter } from "next/navigation";
 import svgPaths from "./svg-gaydkiee4v";
 
 function Frame41() {
@@ -9,7 +10,7 @@ function Frame41() {
       <button 
         className="block overflow-clip relative shrink-0 size-[16px] cursor-pointer" 
         data-name="arrow-left"
-        onClick={() => navigate('/')}
+        onClick={() => router.push('/')}
       >
         <div className="absolute bottom-1/4 left-[20.83%] right-[20.83%] top-1/4" data-name="Vector">
           <div className="absolute inset-[-9.38%_-8.04%]">

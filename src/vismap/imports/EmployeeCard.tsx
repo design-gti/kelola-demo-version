@@ -1,6 +1,6 @@
 ﻿import svgPaths from "./svg-mk5wxcpy2w";
-import imgImage97 from "/vismap-assets/a2f85aa2f73e8672a6dd24aece1f60f6084f89b9.png";
-import imgFreepikCandidImagePhotographyNaturalTexturesHighlyR252222 from "/vismap-assets/b90511f0e984f750f7b958a9773b993fe7272010.png";
+const imgImage97 = "/vismap-assets/a2f85aa2f73e8672a6dd24aece1f60f6084f89b9.png";
+const imgFreepikCandidImagePhotographyNaturalTexturesHighlyR252222 = "/vismap-assets/b90511f0e984f750f7b958a9773b993fe7272010.png";
 
 function Frame3435() {
   return (

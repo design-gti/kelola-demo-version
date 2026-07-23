@@ -314,9 +314,18 @@ export default function AspectDevelopmentPanel({ aspects, onGenerateIDP, onQuick
               </button>
 
               {/* Continue Button */}
-              <button 
+              <button
                 className="bg-[#016699] relative rounded-[28px] shrink-0 w-full hover:bg-[#015580] transition-colors hidden"
-                onClick={onGenerateIDP}
+                onClick={() => {
+                  if (onGenerateIDP) {
+                    onGenerateIDP({
+                      selectedAspects: Array.from(selectedAspects),
+                      developmentGoals,
+                      programType,
+                      programDetails
+                    });
+                  }
+                }}
               >
                 <div className="flex flex-row items-center justify-center size-full">
                   <div className="box-border content-stretch flex gap-[8px] items-center justify-center px-[12px] py-[8px] relative w-full">
