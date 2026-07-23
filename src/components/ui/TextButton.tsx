@@ -1,4 +1,5 @@
 import { MouseEvent, ReactNode } from "react";
+import { Button } from "@mantine/core";
 
 interface TextButtonProps {
   children: ReactNode;
@@ -8,20 +9,17 @@ interface TextButtonProps {
 
 export default function TextButton({ children, onClick, fontSize = 11 }: TextButtonProps) {
   return (
-    <button
+    <Button
       onClick={onClick}
-      style={{
-        fontSize,
-        color: "#016699",
-        background: "none",
-        border: "none",
-        cursor: "pointer",
-        fontFamily: "'Open Sans', sans-serif",
-        padding: 0,
-        lineHeight: 1,
+      variant="subtle"
+      color="primary"
+      size="compact-xs"
+      radius="xl"
+      styles={{
+        label: { fontSize, fontFamily: "'Open Sans', sans-serif" },
       }}
     >
       {children}
-    </button>
+    </Button>
   );
 }

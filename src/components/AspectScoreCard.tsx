@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
+import { Paper, Select, Button, TextInput, Avatar, Checkbox as MantineCheckbox, Text } from "@mantine/core";
+import { IconSearch, IconPlus } from "@tabler/icons-react";
 
 const aspects = [
   { label: "Kreativitas",              below: 0,   meet: 276, exceed: 63  },
@@ -129,14 +131,6 @@ interface TooltipState { rowLabel: string; label: string; pct: number; x: number
 interface Employee { id: number; name: string; position: string; dept: string; }
 interface ModalState { rowLabel: string; label: string; employees: Employee[]; }
 
-function ChevronDown({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
-      <path d="M4 6l4 4 4-4" stroke="#495057" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 interface BarSegmentProps {
   pct: number; background: string; label: string; rowLabel: string;
   onEnter: (rowLabel: string, label: string, pct: number, e: React.MouseEvent) => void;
@@ -211,29 +205,29 @@ function IDPModal({ modal, onClose }: { modal: ModalState; onClose: () => void }
           </div>
           {/* Search + bulk button row */}
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <div style={{ flex: 1, position: "relative" }}>
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "#adb5bd" }}>
-                <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-              <input
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                placeholder="Search employee..."
-                style={{ width: "100%", paddingLeft: 28, paddingRight: 10, height: 32, borderRadius: 9999, border: "1px solid #dee2e6", fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: "#495057", outline: "none", boxSizing: "border-box" }}
-              />
-            </div>
+            <TextInput
+              value={search}
+              onChange={e => setSearch(e.currentTarget.value)}
+              placeholder="Search employee..."
+              radius="xl"
+              size="xs"
+              leftSection={<IconSearch size={12} />}
+              style={{ flex: 1 }}
+            />
             <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: "#6c757d", flexShrink: 0 }}>
               {filtered.length} employees
             </span>
             {selected.size > 1 && (
-              <button
+              <Button
                 onClick={() => window.location.href = '/idp/create-idp-admin.html'}
-                style={{ background: "#016699", color: "#fff", border: "none", borderRadius: 9999, padding: "6px 14px", fontFamily: "'Open Sans', sans-serif", fontSize: 11, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}
+                color="primary"
+                radius="xl"
+                size="compact-sm"
+                leftSection={<IconPlus size={11} />}
+                style={{ flexShrink: 0 }}
               >
-                <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
                 Create IDP ({selected.size})
-              </button>
+              </Button>
             )}
           </div>
         </div>
@@ -256,19 +250,25 @@ function IDPModal({ modal, onClose }: { modal: ModalState; onClose: () => void }
               onClick={() => toggle(emp.id)}
             >
               <Checkbox checked={selected.has(emp.id)} />
-              <div style={{ width: 30, height: 30, borderRadius: "50%", background: "#e7f5ff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 11, color: "#016699" }}>
-                {emp.name.split(" ").map((w: string) => w[0]).slice(0, 2).join("")}
-              </div>
+              <Avatar size={30} radius="xl" style={{ flexShrink: 0, background: "#e7f5ff" }}>
+                <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 11, color: "#016699" }}>
+                  {emp.name.split(" ").map((w: string) => w[0]).slice(0, 2).join("")}
+                </span>
+              </Avatar>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 11, color: "#212529", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{emp.name}</div>
                 <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 10, color: "#6c757d" }}>{emp.position} · {emp.dept}</div>
               </div>
-              <button
+              <Button
                 onClick={e => { e.stopPropagation(); window.location.href = '/idp/create-idp-admin.html'; }}
-                style={{ background: "none", border: "1px solid #016699", borderRadius: 9999, padding: "4px 12px", fontFamily: "'Open Sans', sans-serif", fontSize: 10, fontWeight: 700, color: "#016699", cursor: "pointer", flexShrink: 0, whiteSpace: "nowrap" }}
+                variant="outline"
+                color="primary"
+                radius="xl"
+                size="compact-xs"
+                style={{ flexShrink: 0, whiteSpace: "nowrap" }}
               >
                 Create IDP
-              </button>
+              </Button>
             </div>
           ))}
         </div>
@@ -280,14 +280,15 @@ function IDPModal({ modal, onClose }: { modal: ModalState; onClose: () => void }
 
 function Checkbox({ checked, indeterminate }: { checked: boolean; indeterminate?: boolean }) {
   return (
-    <div style={{ width: 16, height: 16, borderRadius: 4, border: `2px solid ${checked || indeterminate ? "#016699" : "#dee2e6"}`, background: checked ? "#016699" : "#fff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-      {checked && (
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-      )}
-      {indeterminate && !checked && (
-        <div style={{ width: 8, height: 2, background: "#016699", borderRadius: 1 }} />
-      )}
-    </div>
+    <MantineCheckbox
+      checked={checked}
+      indeterminate={indeterminate}
+      readOnly
+      color="primary"
+      size="xs"
+      radius={4}
+      style={{ flexShrink: 0, pointerEvents: "none" }}
+    />
   );
 }
 
@@ -316,17 +317,23 @@ export default function AspectScoreCard({ title = "Percentage of Aspect Score", 
   };
 
   return (
-    <div className="bg-white rounded-[8px] p-[16px] flex flex-col gap-[8px] w-full h-full" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
+    <Paper radius={8} p={16} w="100%" h="100%" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", display: "flex", flexDirection: "column", gap: 8 }}>
       {/* Header */}
       <div className="flex items-center justify-between gap-2">
-        <p className="text-[#495057] text-[12px] flex-1 min-w-0" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700 }}>
+        <Text c="#495057" size="sm" fw={700} style={{ flex: 1, minWidth: 0, fontFamily: "'Open Sans', sans-serif" }}>
           {title}
-        </p>
+        </Text>
         {!hideDeptFilter && (
-          <div className="bg-white flex items-center gap-[8px] px-[12px] flex-shrink-0 w-[141px]" style={{ borderRadius: 9999, height: 32, border: "1px solid #dee2e6" }}>
-            <span className="flex-1 text-[#495057] text-[12px] truncate" style={{ fontFamily: "'Open Sans', sans-serif" }}>All Department</span>
-            <ChevronDown size={16} />
-          </div>
+          <Select
+            data={["All Department"]}
+            defaultValue="All Department"
+            radius="xl"
+            size="xs"
+            w={141}
+            allowDeselect={false}
+            comboboxProps={{ withinPortal: true }}
+            style={{ flexShrink: 0 }}
+          />
         )}
       </div>
 
@@ -385,6 +392,6 @@ export default function AspectScoreCard({ title = "Percentage of Aspect Score", 
       </div>
 
       {modal && <IDPModal modal={modal} onClose={() => setModal(null)} />}
-    </div>
+    </Paper>
   );
 }

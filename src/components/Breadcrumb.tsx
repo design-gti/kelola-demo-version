@@ -1,0 +1,58 @@
+"use client";
+import Link from "next/link";
+import { Breadcrumbs, Anchor, Text } from "@mantine/core";
+import { IconChevronLeft } from "@tabler/icons-react";
+
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+  /** For in-page state transitions (e.g. detail→list) instead of a real route change. */
+  onClick?: () => void;
+}
+
+/**
+ * Shared Prodigy breadcrumb: "‹ Home / Section / Current". Last item is never a link.
+ * Pass `noPadding` when the parent container already provides its own padding
+ * (e.g. Vismap's fixed top bar), to avoid doubling up horizontal spacing.
+ */
+export default function AppBreadcrumb({ items, noPadding }: { items: BreadcrumbItem[]; noPadding?: boolean }) {
+  return (
+    <Breadcrumbs
+      separator="/"
+      separatorMargin={6}
+      style={{
+        fontFamily: "'Open Sans', sans-serif",
+        fontSize: 12,
+        padding: noPadding ? "10px 0 0" : "10px 16px 0",
+      }}
+    >
+      {items.map((item, i) => {
+        const isFirst = i === 0;
+        const isLast = i === items.length - 1;
+        const clickable = (item.href || item.onClick) && !isLast;
+        if (clickable) {
+          return (
+            <Anchor
+              key={i}
+              component={item.href ? Link : "button"}
+              href={item.href}
+              onClick={item.onClick}
+              c="primary"
+              fw={600}
+              underline="never"
+              style={{ display: "flex", alignItems: "center", gap: 4, background: "none", border: "none", padding: 0, cursor: "pointer" }}
+            >
+              {isFirst && <IconChevronLeft size={14} />}
+              {item.label}
+            </Anchor>
+          );
+        }
+        return (
+          <Text key={i} c={isLast ? "#495057" : "primary"} fw={600}>
+            {item.label}
+          </Text>
+        );
+      })}
+    </Breadcrumbs>
+  );
+}

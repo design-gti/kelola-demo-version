@@ -14,6 +14,7 @@ import { buildOrgChart, type Employee } from "./data/orgChartData";
 import { dataManager } from "./data/dataManager";
 import { loadEmployeesFromCSV } from "./data/csvLoader";
 import { ChevronDown, ChevronRight, ZoomIn, ZoomOut, Maximize2, Table as TableIcon, Network, Search, Settings, TrendingUp, Plus, Shuffle } from "lucide-react";
+import AppBreadcrumb from "@/components/Breadcrumb";
 import { Button } from "./components/ui/button";
 import { Switch } from "./components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
@@ -1224,15 +1225,7 @@ export default function App() {
         className="fixed top-0 right-0 bg-white shadow-lg z-50 px-4 flex flex-col"
         style={{ left: "var(--sidebar-w, 220px)" }}
       >
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-1.5 pt-2 pb-1 text-[12px] font-['Open_Sans',_sans-serif]">
-          <a href="/" style={{ display: "flex", alignItems: "center", gap: 3, color: "#016699", fontWeight: 600, textDecoration: "none" }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-            Home
-          </a>
-          <span style={{ color: "#adb5bd" }}>/</span>
-          <span style={{ color: "#495057", fontWeight: 600 }}>Vismap</span>
-        </div>
+        <AppBreadcrumb noPadding items={[{ label: "Home", href: "/" }, { label: "Vismap" }]} />
         {/* Tab Filter row */}
         <div className="flex items-center justify-between py-2">
         <TabFilter activeTab={activeTab} onTabChange={(tab) => {
