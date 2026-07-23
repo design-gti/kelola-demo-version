@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { Paper, TextInput, Button, Text } from "@mantine/core";
+import { IconSearch } from "@tabler/icons-react";
 import { candidates, recentlyViewed, Candidate } from "@/data/dummyData";
 
 export default function QuickProfileAccessCard({ employees }: { employees?: Candidate[] } = {}) {
@@ -17,24 +19,23 @@ export default function QuickProfileAccessCard({ employees }: { employees?: Cand
       : recentlyViewed.map(id => candidates.find(c => c.id === id)).filter(Boolean).slice(0, 5) as typeof candidates;
 
   return (
-    <div className="bg-white rounded-[12px] p-[16px] w-full" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
-      <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12, color: "#495057", marginBottom: 12 }}>
+    <Paper radius={12} p={16} w="100%" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
+      <Text fw={700} size="sm" c="#495057" mb={12} style={{ fontFamily: "'Open Sans', sans-serif" }}>
         Quick Profile Access
-      </div>
-      <input
+      </Text>
+      <TextInput
         value={searchQuery}
-        onChange={e => setSearchQuery(e.target.value)}
+        onChange={e => setSearchQuery(e.currentTarget.value)}
         placeholder="Cari nama atau jabatan..."
-        style={{
-          width: "100%", padding: "0 12px", borderRadius: 9999, border: "1px solid #dee2e6",
-          height: 32, fontSize: 10, fontFamily: "'Open Sans', sans-serif", color: "#495057",
-          outline: "none", boxSizing: "border-box", marginBottom: 10,
-        }}
+        radius="xl"
+        size="xs"
+        leftSection={<IconSearch size={14} />}
+        mb={10}
       />
       {!searchQuery && (
-        <div style={{ fontSize: 10, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", marginBottom: 8 }}>
+        <Text size="xs" c="#adb5bd" mb={8} style={{ fontFamily: "Open Sans, sans-serif" }}>
           Terakhir dilihat
-        </div>
+        </Text>
       )}
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         {results.map(c => (
@@ -43,15 +44,24 @@ export default function QuickProfileAccessCard({ employees }: { employees?: Cand
               <div style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>{c.name}</div>
               <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>{c.position}</div>
             </div>
-            <Link href={`/iprofile?id=${c.id}`} style={{ fontSize: 11, color: "#016699", fontFamily: "Open Sans, sans-serif", cursor: "pointer", textDecoration: "none" }}>Lihat</Link>
+            <Button
+              component={Link}
+              href={`/iprofile?id=${c.id}`}
+              variant="subtle"
+              color="primary"
+              size="compact-xs"
+              styles={{ label: { fontSize: 11, fontFamily: "Open Sans, sans-serif" } }}
+            >
+              Lihat
+            </Button>
           </div>
         ))}
         {results.length === 0 && (
-          <div style={{ fontSize: 10, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", textAlign: "center", padding: "12px 0" }}>
+          <Text size="xs" c="#adb5bd" ta="center" py={12} style={{ fontFamily: "Open Sans, sans-serif" }}>
             Tidak ditemukan
-          </div>
+          </Text>
         )}
       </div>
-    </div>
+    </Paper>
   );
 }

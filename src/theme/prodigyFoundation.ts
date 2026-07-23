@@ -1,4 +1,4 @@
-import { createTheme, type MantineColorsTuple } from "@mantine/core";
+import { createTheme, defaultVariantColorsResolver, type MantineColorsTuple, type VariantColorsResolver } from "@mantine/core";
 
 /**
  * Foundation-level theme mirroring @talentlytica/prodigy's `kelolaTheme`
@@ -38,9 +38,25 @@ const tertiary: MantineColorsTuple = [
 
 const FONT = 'Avenir, "Avenir Next", "Open Sans", sans-serif';
 
+/**
+ * Mantine's default resolver picks a near-black shade for "subtle"/"light"
+ * text color on some hue orderings. Prodigy's real `kelolaTheme` fixes this by
+ * forcing subtle-variant text to shade 5 (the brand color) — replicated here
+ * since we can't import the real theme (see note above).
+ */
+const variantColorResolver: VariantColorsResolver = (input) => {
+  const resolved = defaultVariantColorsResolver(input);
+  if (input.variant === "subtle" || input.variant === "light" || input.variant === "transparent") {
+    const color = input.color || input.theme.primaryColor;
+    return { ...resolved, color: `var(--mantine-color-${color}-5)` };
+  }
+  return resolved;
+};
+
 export const prodigyFoundationTheme = createTheme({
   primaryColor: "primary",
   primaryShade: 5,
+  variantColorResolver,
   colors: { primary, secondary, success, error, neutral, tertiary },
   black: "#495057",
   white: "#FFFFFF",
@@ -77,4 +93,15 @@ export const prodigyFoundationTheme = createTheme({
   defaultGradient: { from: "#2F95DE", to: "#016699", deg: 186 },
   cursorType: "pointer",
   other: { appBackground: "#F7F7F7" },
+
+  /**
+   * Plain nested config (no `Component.extend()` call) — safe under Turbopack.
+   * Replicates Prodigy's Button label weight, lost when we dropped `kelolaTheme`'s
+   * own `.extend()`-based component overrides to avoid the module-eval crash.
+   */
+  components: {
+    Button: {
+      styles: { label: { fontWeight: 700 } },
+    },
+  },
 });

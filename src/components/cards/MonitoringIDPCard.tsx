@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { Paper, SegmentedControl, TextInput, Avatar, Badge, Text } from "@mantine/core";
+import { IconSearch } from "@tabler/icons-react";
 
 type IDPStatus = "In Progress" | "Expired" | "Need Review";
 
@@ -73,46 +75,46 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
   };
 
   return (
-    <div className="bg-white rounded-[12px] p-[16px] w-full flex flex-col gap-[12px]" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
+    <Paper radius={12} p={16} w="100%" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", display: "flex", flexDirection: "column", gap: 12 }}>
       {/* Header */}
       <div className="flex items-center justify-between">
-        <p style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12, color: "#495057" }}>
+        <Text fw={700} size="sm" c="#495057" style={{ fontFamily: "'Open Sans', sans-serif" }}>
           Monitoring IDP
-        </p>
-        <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 10, color: "#adb5bd" }}>
+        </Text>
+        <Text size="xs" c="#adb5bd" style={{ fontFamily: "'Open Sans', sans-serif" }}>
           {SOURCE.length} total IDP
-        </span>
+        </Text>
       </div>
 
       {/* Filter tabs with counts */}
-      <div style={{ display: "flex", gap: 4, background: "#f8f9fa", borderRadius: 8, padding: 4 }}>
-        {ALL_FILTERS.map(f => {
+      <SegmentedControl
+        fullWidth
+        value={filter}
+        onChange={(v) => setFilter(v as IDPStatus | "All")}
+        color="#fff"
+        size="xs"
+        data={ALL_FILTERS.map(f => {
           const count = f.value === "All" ? SOURCE.length : counts[f.value as IDPStatus];
-          return (
-            <button
-              key={f.value}
-              onClick={() => setFilter(f.value)}
-              style={{ flex: 1, border: "none", borderRadius: 6, padding: "5px 4px", fontFamily: "'Open Sans', sans-serif", fontSize: 10, fontWeight: filter === f.value ? 700 : 400, color: filter === f.value ? "#016699" : "#6c757d", background: filter === f.value ? "#fff" : "transparent", cursor: "pointer", boxShadow: filter === f.value ? "0 1px 3px rgba(0,0,0,0.08)" : "none", transition: "all 0.15s", whiteSpace: "nowrap" }}
-            >
-              {f.label} <span style={{ fontSize: 9, opacity: 0.8 }}>({count})</span>
-            </button>
-          );
+          return {
+            value: f.value,
+            label: (
+              <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 10, whiteSpace: "nowrap", color: filter === f.value ? "#016699" : "#6c757d", fontWeight: filter === f.value ? 700 : 400 }}>
+                {f.label} <span style={{ fontSize: 9, opacity: 0.8 }}>({count})</span>
+              </span>
+            ),
+          };
         })}
-      </div>
+      />
 
       {/* Search */}
-      <div style={{ position: "relative" }}>
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "#adb5bd" }}>
-          <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5"/>
-          <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        </svg>
-        <input
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          placeholder="Search employee or aspect..."
-          style={{ width: "100%", paddingLeft: 28, paddingRight: 10, height: 30, borderRadius: 9999, border: "1px solid #dee2e6", fontFamily: "'Open Sans', sans-serif", fontSize: 10, color: "#495057", outline: "none", boxSizing: "border-box" }}
-        />
-      </div>
+      <TextInput
+        value={search}
+        onChange={e => setSearch(e.currentTarget.value)}
+        placeholder="Search employee or aspect..."
+        radius="xl"
+        size="xs"
+        leftSection={<IconSearch size={12} />}
+      />
 
       {/* Table header */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 100px 90px", gap: 8, padding: "0 4px" }}>
@@ -136,16 +138,16 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
               style={{ display: "grid", gridTemplateColumns: "1fr 100px 90px", gap: 8, alignItems: "center", padding: "8px 8px", borderRadius: 8, background: "#f8f9fa", cursor: "pointer", transition: "background 0.15s, box-shadow 0.15s" }}
               onClick={() => {
                 const page = e.status === "Need Review" ? "detail-review-idp.html" : "detail-idp-manager.html";
-                window.location.href = `/idp/${page}?id=${encodeURIComponent(e.id)}&name=${encodeURIComponent(e.name)}`;
+                window.location.href = `/idp?page=${page}&id=${encodeURIComponent(e.id)}&name=${encodeURIComponent(e.name)}`;
               }}
               onMouseEnter={e2 => { (e2.currentTarget as HTMLDivElement).style.background = "#e9ecef"; (e2.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)"; }}
               onMouseLeave={e2 => { (e2.currentTarget as HTMLDivElement).style.background = "#f8f9fa"; (e2.currentTarget as HTMLDivElement).style.boxShadow = "none"; }}
             >
               {/* Employee */}
               <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
-                <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#e7f5ff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 9, color: "#016699" }}>
-                  {e.initials}
-                </div>
+                <Avatar size={28} radius="xl" style={{ flexShrink: 0, background: "#e7f5ff" }}>
+                  <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 9, color: "#016699" }}>{e.initials}</span>
+                </Avatar>
                 <div style={{ minWidth: 0 }}>
                   <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 10, color: "#212529", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.name}</div>
                   <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 9, color: "#6c757d", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.aspect}</div>
@@ -153,10 +155,14 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
               </div>
 
               {/* Status badge */}
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 4, background: cfg.bg, borderRadius: 20, padding: "3px 8px", width: "fit-content" }}>
-                <div style={{ width: 6, height: 6, borderRadius: "50%", background: cfg.dot, flexShrink: 0 }} />
-                <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 9, fontWeight: 600, color: cfg.text, whiteSpace: "nowrap" }}>{e.status}</span>
-              </div>
+              <Badge
+                variant="light"
+                radius="xl"
+                leftSection={<div style={{ width: 6, height: 6, borderRadius: "50%", background: cfg.dot }} />}
+                style={{ background: cfg.bg, color: cfg.text, textTransform: "none", fontWeight: 600, fontSize: 9, width: "fit-content", fontFamily: "'Open Sans', sans-serif" }}
+              >
+                {e.status}
+              </Badge>
 
               {/* Due date */}
               <div style={{ display: "flex", flexDirection: "column" }}>
@@ -171,6 +177,6 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
           );
         })}
       </div>
-    </div>
+    </Paper>
   );
 }

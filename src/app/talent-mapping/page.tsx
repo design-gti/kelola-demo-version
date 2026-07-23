@@ -1,5 +1,8 @@
 "use client";
 import { useMemo, useState } from "react";
+import { Paper, Badge, Avatar as MantineAvatar, Select, Pagination, Text } from "@mantine/core";
+import { IconArrowUpRight } from "@tabler/icons-react";
+import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
 import DonutChart from "@/components/talent/DonutChart";
 import { TI_CONFIG, TR_CONFIG, TI_POINTS, TR_POINTS, donutTags, boxByOrder, resolveColor, TMConfig, TMPoint } from "@/data/talentMappingData";
@@ -17,17 +20,21 @@ function darker(token: string) {
 
 function OutlinePill({ color, children }: { color: string; children: React.ReactNode }) {
   return (
-    <span style={{ fontSize: 9, fontFamily: FONT, fontWeight: 700, color, border: `1px solid ${color}`, background: "#fff", padding: "2px 8px", borderRadius: 9999, whiteSpace: "nowrap", textTransform: "uppercase" }}>
+    <Badge
+      variant="outline"
+      radius="xl"
+      style={{ fontSize: 9, fontFamily: FONT, color, borderColor: color, background: "#fff", whiteSpace: "nowrap" }}
+    >
       {children}
-    </span>
+    </Badge>
   );
 }
 
 function Avatar({ name }: { name: string }) {
   return (
-    <div style={{ width: 28, height: 28, borderRadius: "50%", flexShrink: 0, background: "#e6f3f8", color: ACCENT, fontFamily: FONT, fontWeight: 700, fontSize: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
-      {initials(name)}
-    </div>
+    <MantineAvatar radius="xl" size={28} style={{ flexShrink: 0, background: "#e6f3f8" }}>
+      <span style={{ color: ACCENT, fontFamily: FONT, fontWeight: 700, fontSize: 10 }}>{initials(name)}</span>
+    </MantineAvatar>
   );
 }
 
@@ -53,7 +60,7 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
   // curPage clamps to pageCount, so a shrinking filter can't strand you on an empty page
 
   return (
-    <div style={{ background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: "16px 8px", fontFamily: FONT, fontSize: 12 }}>
+    <Paper radius={12} style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: "16px 8px", fontFamily: FONT, fontSize: 12 }}>
       <div style={{ display: "grid", gridTemplateColumns: cols, gap: 12, padding: "0 12px 10px", borderBottom: "1px solid #e9ecef" }}>
         {isTI
           ? <><HeaderCell>Position</HeaderCell><HeaderCell>Employee</HeaderCell><HeaderCell>Performance (X)</HeaderCell><HeaderCell>Potency (Y)</HeaderCell><HeaderCell>Box Category</HeaderCell><HeaderCell>HAV status</HeaderCell><HeaderCell>Action</HeaderCell></>
@@ -75,7 +82,7 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
                 <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
                 <span>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</span>
                 <span>{box?.tag === "talent" ? <OutlinePill color="#00875A">Talent</OutlinePill> : <OutlinePill color="#F28700">Non Talent</OutlinePill>}</span>
-                <span style={{ color: ACCENT, cursor: "pointer" }}>↗</span>
+                <span style={{ color: ACCENT, cursor: "pointer", display: "inline-flex" }}><IconArrowUpRight size={16} /></span>
               </>
             ) : (
               <>
@@ -85,7 +92,7 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
                 <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
                 <span>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</span>
                 <Cell muted>-</Cell>
-                <span style={{ color: ACCENT, cursor: "pointer" }}>↗</span>
+                <span style={{ color: ACCENT, cursor: "pointer", display: "inline-flex" }}><IconArrowUpRight size={16} /></span>
               </>
             )}
           </div>
@@ -95,25 +102,23 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
       {points.length > 0 && (
         <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "14px 12px 4px", flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, color: "#6c757d" }}>
-            <span>Limit :</span>
-            <select value={limit} onChange={e => { setLimit(Number(e.target.value)); setPage(1); }} style={{ padding: "4px 8px", borderRadius: 6, border: "1px solid #e9ecef", fontFamily: FONT, fontSize: 12, color: "#495057", cursor: "pointer" }}>
-              {[10, 25, 50].map(n => <option key={n} value={n}>{n}</option>)}
-            </select>
+            <Text size="sm" c="#6c757d">Limit :</Text>
+            <Select
+              data={["10", "25", "50"]}
+              value={String(limit)}
+              onChange={(v) => { if (v) { setLimit(Number(v)); setPage(1); } }}
+              radius="xl"
+              size="xs"
+              w={72}
+              allowDeselect={false}
+              comboboxProps={{ withinPortal: true }}
+            />
           </div>
-          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={curPage <= 1}
-            style={{ border: "1px solid #e9ecef", background: "#fff", borderRadius: 6, padding: "4px 10px", cursor: curPage <= 1 ? "default" : "pointer", color: curPage <= 1 ? "#ced4da" : "#495057", fontFamily: FONT }}>‹</button>
-          {Array.from({ length: pageCount }, (_, i) => i + 1).map(n => (
-            <button key={n} onClick={() => setPage(n)} style={{
-              border: "none", borderRadius: 6, width: 28, height: 28, cursor: "pointer", fontFamily: FONT, fontWeight: 600,
-              background: n === curPage ? ACCENT : "transparent", color: n === curPage ? "#fff" : "#6c757d",
-            }}>{n}</button>
-          ))}
-          <button onClick={() => setPage(p => Math.min(pageCount, p + 1))} disabled={curPage >= pageCount}
-            style={{ border: "1px solid #e9ecef", background: "#fff", borderRadius: 6, padding: "4px 10px", cursor: curPage >= pageCount ? "default" : "pointer", color: curPage >= pageCount ? "#ced4da" : "#495057", fontFamily: FONT }}>›</button>
-          <span style={{ color: "#adb5bd", marginLeft: "auto" }}>Total Data : {points.length}</span>
+          <Pagination value={curPage} onChange={setPage} total={pageCount} color="primary" radius="xl" size="sm" />
+          <Text c="#adb5bd" ml="auto">Total Data : {points.length}</Text>
         </div>
       )}
-    </div>
+    </Paper>
   );
 }
 
@@ -174,8 +179,9 @@ export default function TalentMappingPage() {
   const points = tab === "TI" ? TI_POINTS : TR_POINTS;
 
   return (
-    <div style={{ padding: "16px 16px 40px", fontFamily: FONT }}>
-      <div style={{ fontSize: 13, color: "#6c757d", marginBottom: 12 }}>Talent Mapping</div>
+    <div style={{ fontFamily: FONT }}>
+      <AppBreadcrumb items={[{ label: "Home", href: "/" }, { label: "Talent Mapping" }]} />
+      <div style={{ padding: "12px 16px 40px" }}>
       <div style={{ display: "flex", gap: 24, borderBottom: "1px solid #e9ecef", marginBottom: 16 }}>
         {/* ponytail: Talent Readiness tab hidden for now — re-add ["TR", "Talent Readiness"] to show it */}
         {([["TI", "Human Asset Value"]] as const).map(([id, label]) => (
@@ -187,6 +193,7 @@ export default function TalentMappingPage() {
         ))}
       </div>
       <Panel key={tab} config={config} points={points} />
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { Paper, Badge, Progress, TextInput } from "@mantine/core";
 import { candidates } from "@/data/dummyData";
 import { loadEmployeesFromCSV } from "../../vismap/data/csvLoader";
 import type { Employee as CsvEmployee } from "../../vismap/data/orgChartData";
@@ -108,9 +109,13 @@ function ChevronDown({ size = 14 }: { size?: number }) {
 
 function TagBadge({ label, color, bg }: { label: string; color: string; bg: string }) {
   return (
-    <span style={{ fontSize: 8, background: bg, color, borderRadius: 4, padding: '1px 5px', fontWeight: 700, flexShrink: 0 }}>
+    <Badge
+      variant="light"
+      radius={4}
+      style={{ fontSize: 8, background: bg, color, padding: "1px 5px", fontWeight: 700, flexShrink: 0, textTransform: "none", height: "auto", lineHeight: 1.4 }}
+    >
       {label}
-    </span>
+    </Badge>
   );
 }
 
@@ -193,7 +198,7 @@ export default function OverallScoreCard() {
   };
 
   return (
-    <div className="bg-white rounded-[12px] p-[16px] w-full" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
+    <Paper radius={12} p={16} w="100%" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
       {/* Header */}
       <div style={{ marginBottom: 12 }}>
         <div style={{ marginBottom: 8 }}>
@@ -241,17 +246,14 @@ export default function OverallScoreCard() {
             }}>
               {/* Search */}
               <div style={{ padding: "8px 10px", borderBottom: "1px solid #f0f0f0" }}>
-                <input
+                <TextInput
+                  data-autofocus
                   autoFocus
                   value={search}
-                  onChange={e => setSearch(e.target.value)}
+                  onChange={e => setSearch(e.currentTarget.value)}
                   placeholder="Cari posisi..."
-                  style={{
-                    width: "100%", border: "1px solid #dee2e6", borderRadius: 9999,
-                    height: 28, padding: "0 10px", fontSize: 10,
-                    fontFamily: "'Open Sans', sans-serif", color: "#495057",
-                    outline: "none", boxSizing: "border-box",
-                  }}
+                  radius="xl"
+                  size="xs"
                 />
               </div>
 
@@ -328,7 +330,7 @@ export default function OverallScoreCard() {
           </div>
         )}
       </div>
-    </div>
+    </Paper>
   );
 }
 
@@ -354,18 +356,20 @@ function CandidateRow({ c, isSuccessor }: { c: { id: string; name: string; posit
           <span style={{ fontSize: 10, color: "#adb5bd", fontFamily: "'Open Sans', sans-serif" }}>Kecocokan</span>
           <span style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: barColor }}>{c.match}%</span>
         </div>
-        <div style={{ height: 4, background: "#e0e0e0", borderRadius: 2 }}>
-          <div style={{ height: "100%", width: `${c.match}%`, background: barColor, borderRadius: 2 }} />
-        </div>
+        <Progress value={c.match} size={4} radius={2} styles={{ section: { background: barColor } }} />
       </div>
       <div style={{ textAlign: "center" }}>
-        <span style={{
-          fontSize: 10, padding: "3px 8px", borderRadius: 10, fontFamily: "'Open Sans', sans-serif",
-          background: recommended ? "rgba(1,102,153,0.12)" : "rgba(173,181,189,0.15)",
-          color: recommended ? "#016699" : "#6c757d",
-        }}>
+        <Badge
+          variant="light"
+          radius="xl"
+          style={{
+            fontSize: 10, padding: "3px 8px", fontFamily: "'Open Sans', sans-serif", textTransform: "none", fontWeight: 400,
+            background: recommended ? "rgba(1,102,153,0.12)" : "rgba(173,181,189,0.15)",
+            color: recommended ? "#016699" : "#6c757d",
+          }}
+        >
           {recommended ? "Disarankan" : "Perlu Evaluasi"}
-        </span>
+        </Badge>
       </div>
     </div>
   );

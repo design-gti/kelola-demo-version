@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Switch, CloseButton } from "@mantine/core";
 import { CardConfig } from "@/hooks/useDashboardConfig";
 
 interface Props {
@@ -103,12 +104,7 @@ export default function SettingsPanel({ open, onClose, cards, onToggle, renderCa
             <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 16, color: "#495057" }}>
               Konfigurasi Dashboard
             </span>
-            <button
-              onClick={onClose}
-              style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: "#adb5bd", fontSize: 20, lineHeight: 1 }}
-            >
-              ✕
-            </button>
+            <CloseButton onClick={onClose} size="md" c="#adb5bd" />
           </div>
           <p style={{ fontFamily: "Open Sans, sans-serif", fontSize: 12, color: "#adb5bd", marginTop: 6 }}>
             Aktifkan card yang ingin ditampilkan di dashboard
@@ -142,21 +138,7 @@ export default function SettingsPanel({ open, onClose, cards, onToggle, renderCa
                     {card.description}
                   </div>
                 </div>
-                <button
-                  disabled
-                  style={{
-                    width: 44, height: 24, borderRadius: 12,
-                    background: "#016699", border: "none",
-                    position: "relative", flexShrink: 0,
-                    opacity: 0.4, cursor: "not-allowed",
-                  }}
-                >
-                  <span style={{
-                    position: "absolute", top: 2, left: 22,
-                    width: 20, height: 20, borderRadius: "50%",
-                    background: "#fff", boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
-                  }} />
-                </button>
+                <Switch checked disabled color="primary" size="md" style={{ flexShrink: 0 }} />
               </div>
             );
           })}
@@ -184,23 +166,13 @@ export default function SettingsPanel({ open, onClose, cards, onToggle, renderCa
                   {card.description}
                 </div>
               </div>
-              <button
-                onClick={() => onToggle(card.id)}
-                style={{
-                  width: 44, height: 24, borderRadius: 12,
-                  background: card.enabled ? "#016699" : "#dee2e6",
-                  border: "none", cursor: "pointer",
-                  position: "relative", transition: "background 0.2s", flexShrink: 0,
-                }}
-              >
-                <span style={{
-                  position: "absolute", top: 2,
-                  left: card.enabled ? 22 : 2,
-                  width: 20, height: 20, borderRadius: "50%",
-                  background: "#fff", transition: "left 0.2s",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
-                }} />
-              </button>
+              <Switch
+                checked={card.enabled}
+                onChange={() => onToggle(card.id)}
+                color="primary"
+                size="md"
+                style={{ flexShrink: 0 }}
+              />
             </div>
           ))}
         </div>

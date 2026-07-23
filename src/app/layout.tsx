@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "@mantine/core/styles.css";
 import "./globals.css";
-import { MantineProvider, ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
-import { prodigyFoundationTheme } from "@/theme/prodigyFoundation";
+import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
+import AppMantineProvider from "@/components/AppMantineProvider";
 import Sidebar from "@/components/Sidebar";
 
 const openSans = Open_Sans({
@@ -28,7 +28,7 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body className="min-h-screen bg-[#f8f9fa]">
-        <MantineProvider theme={prodigyFoundationTheme}>
+        <AppMantineProvider>
           <Sidebar />
           <main
             style={{
@@ -40,7 +40,7 @@ export default function RootLayout({
           >
             {children}
           </main>
-        </MantineProvider>
+        </AppMantineProvider>
       </body>
     </html>
   );

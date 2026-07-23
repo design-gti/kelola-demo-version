@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Progress } from "@mantine/core";
 import { candidates, Candidate } from "@/data/dummyData";
 import TextButton from "@/components/ui/TextButton";
 
@@ -114,9 +115,7 @@ export default function ProfileCompletion({ employees }: { employees?: Candidate
         </p>
         <div className="flex items-center gap-[8px]">
           <div className="flex items-center gap-[3px]">
-            <div className="relative w-[71px] h-[8px] bg-[#e8e8e8] rounded-[4px]">
-              <div className="absolute left-0 top-0 h-full rounded-[4px] bg-[#016699]" style={{ width: `${pct}%` }} />
-            </div>
+            <Progress value={pct} color="primary" size={8} radius={4} w={71} />
             <span className="text-[#495057] text-[10px] whitespace-nowrap"
               style={{ fontFamily: "'Open Sans', sans-serif" }}>
               {pct}%
@@ -138,7 +137,7 @@ export default function ProfileCompletion({ employees }: { employees?: Candidate
               <>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <SectionLabel>No Data</SectionLabel>
-                  <TextButton onClick={() => window.open("/tdp?tab=table", "_blank")}>
+                  <TextButton onClick={() => { window.location.href = "/tdp-view?tab=table"; }}>
                     Lihat Semua
                   </TextButton>
                 </div>
