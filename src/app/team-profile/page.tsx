@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { teams, teamMembers, teamAverages, teamMember, discProfile, predictionLabel, DISC_GUIDANCE, Team, TeamMember, Personality } from "@/data/teamsData";
 import DiscRadar, { DISCTypes } from "@/components/team/DiscRadar";
+import AppBreadcrumb from "@/components/Breadcrumb";
 
 const DISC_AXES: Personality[] = ["Driver", "Persuader", "Mediator", "Analyzer"];
 
@@ -233,9 +234,15 @@ function TeamDetail({ team, onBack }: { team: Team; onBack: () => void }) {
 
   return (
     <div style={{ padding: "16px 16px 40px", fontFamily: FONT }}>
-      <button onClick={onBack} style={{ background: "none", border: "none", cursor: "pointer", color: ACCENT, fontSize: 12, fontFamily: FONT, fontWeight: 600, display: "flex", alignItems: "center", gap: 4, marginBottom: 12 }}>
-        ‹ List Team <span style={{ color: "#adb5bd", fontWeight: 400 }}>/ Team Profile</span>
-      </button>
+      <div style={{ marginBottom: 12 }}>
+        <AppBreadcrumb
+          noPadding
+          items={[
+            { label: "List Team", onClick: onBack },
+            { label: "Team Profile" },
+          ]}
+        />
+      </div>
 
       {/* Header card */}
       <div style={{ background: "#fff", borderRadius: 12, padding: 20, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", marginBottom: 16 }}>
@@ -325,9 +332,9 @@ export default function TeamProfilePage() {
   const shown = teams.filter(t => t.name.toLowerCase().includes(query.toLowerCase()));
 
   return (
-    <div style={{ padding: "16px 16px 40px", fontFamily: FONT }}>
-      <div style={{ fontSize: 13, color: "#6c757d", marginBottom: 12 }}>Teams</div>
-
+    <div style={{ fontFamily: FONT }}>
+      <AppBreadcrumb items={[{ label: "Team Profile" }]} />
+      <div style={{ padding: "12px 16px 40px" }}>
       {/* Tabs */}
       <div style={{ display: "flex", gap: 24, borderBottom: "1px solid #e9ecef", marginBottom: 16 }}>
         {(["my", "all"] as const).map(t => (
@@ -368,6 +375,7 @@ export default function TeamProfilePage() {
           )}
         </>
       )}
+      </div>
     </div>
   );
 }

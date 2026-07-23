@@ -12,6 +12,8 @@
     "prebuild": "node scripts/seed.mjs && node scripts/gen-iprofile.mjs && node scripts/align-idp-data.mjs && node scripts/gen-tdp-data.mjs"
   },
   "dependencies": {
+    "@mantine/core": "^9.4.2",
+    "@mantine/hooks": "^9.4.2",
     "@radix-ui/react-accordion": "^1.2.14",
     "@radix-ui/react-alert-dialog": "^1.1.17",
     "@radix-ui/react-aspect-ratio": "^1.1.10",
@@ -38,6 +40,8 @@
     "@radix-ui/react-toggle": "^1.1.12",
     "@radix-ui/react-toggle-group": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.10",
+    "@tabler/icons-react": "^3.45.0",
+    "@talentlytica/prodigy": "^1.2.0",
     "apexcharts": "^5.15.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

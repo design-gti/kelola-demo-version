@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Paper, ActionIcon } from "@mantine/core";
 
 function ListIcon() {
   return (
@@ -47,8 +48,8 @@ function InsightCard({ title, main, sub, extra, accent, icon, buttons }: {
   accent: string; icon: React.ReactNode; buttons: React.ReactNode;
 }) {
   return (
-    <div className="bg-white rounded-[8px] p-[14px] flex gap-[12px] items-center"
-      style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
+    <Paper radius={8} p={14}
+      style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", display: "flex", gap: 12, alignItems: "center" }}>
       <div style={{ width: 40, height: 40, borderRadius: 10, background: accent + "18", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: accent }}>
         {icon}
       </div>
@@ -61,7 +62,7 @@ function InsightCard({ title, main, sub, extra, accent, icon, buttons }: {
         <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 10, color: "#adb5bd" }}>{extra}</p>
       </div>
       <div className="flex-shrink-0">{buttons}</div>
-    </div>
+    </Paper>
   );
 }
 
@@ -111,9 +112,9 @@ export default function BannerInsight({ layers = DEFAULT_LAYERS, hideSuccession 
             title="Succession Risk" main="12" sub="/21" extra="Position need successor"
             accent="#016699" icon={<SuccessionIcon />}
             buttons={
-              <button className="w-[28px] h-[28px] bg-white rounded-full flex items-center justify-center" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
+              <ActionIcon variant="white" radius="xl" size={28} aria-label="Lihat daftar" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
                 <ListIcon />
-              </button>
+              </ActionIcon>
             }
           />
           <InsightCard
@@ -121,8 +122,8 @@ export default function BannerInsight({ layers = DEFAULT_LAYERS, hideSuccession 
             accent="#e07b00" icon={<DevelopmentIcon />}
             buttons={
               <div className="flex flex-col gap-2">
-                <button className="w-[28px] h-[28px] bg-white rounded-full flex items-center justify-center" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}><ListIcon /></button>
-                <button className="w-[28px] h-[28px] bg-white rounded-full flex items-center justify-center" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}><TableIcon /></button>
+                <ActionIcon variant="white" radius="xl" size={28} aria-label="Lihat daftar" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}><ListIcon /></ActionIcon>
+                <ActionIcon variant="white" radius="xl" size={28} aria-label="Lihat tabel" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}><TableIcon /></ActionIcon>
               </div>
             }
           />
@@ -137,8 +138,8 @@ export default function BannerInsight({ layers = DEFAULT_LAYERS, hideSuccession 
             accent="#e07b00" icon={<DevelopmentIcon />}
             buttons={
               <div className="flex flex-col gap-2">
-                <button className="w-[28px] h-[28px] bg-white rounded-full flex items-center justify-center" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}><ListIcon /></button>
-                <button className="w-[28px] h-[28px] bg-white rounded-full flex items-center justify-center" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}><TableIcon /></button>
+                <ActionIcon variant="white" radius="xl" size={28} aria-label="Lihat daftar" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}><ListIcon /></ActionIcon>
+                <ActionIcon variant="white" radius="xl" size={28} aria-label="Lihat tabel" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}><TableIcon /></ActionIcon>
               </div>
             }
           />

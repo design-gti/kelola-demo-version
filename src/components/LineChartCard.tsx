@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useRef, useEffect, useState, useId, useCallback } from "react";
 import type { ApexOptions } from "apexcharts";
+import { Paper, Select, Text } from "@mantine/core";
 
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -14,14 +15,6 @@ interface LineChartCardProps {
   areaColor: string;
   lineColor: string;
   hideDeptFilter?: boolean;
-}
-
-function ChevronDown() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <path d="M5 7.5l5 5 5-5" stroke="#495057" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
 }
 
 export default function LineChartCard({ title, value, chipColor, data, areaColor, lineColor, hideDeptFilter }: LineChartCardProps) {
@@ -197,21 +190,22 @@ export default function LineChartCard({ title, value, chipColor, data, areaColor
   };
 
   return (
-    <div className="bg-white rounded-[12px] p-[16px] flex flex-col gap-[8px] w-full"
-      style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", minHeight: 280 }}>
+    <Paper radius={12} p={16} w="100%"
+      style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", minHeight: 280, display: "flex", flexDirection: "column", gap: 8 }}>
       <div className="flex items-center justify-between gap-2">
-        <p className="text-[#495057] text-[12px] flex-1"
-          style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700 }}>
+        <Text c="#495057" size="sm" fw={700} style={{ flex: 1, fontFamily: "'Open Sans', sans-serif" }}>
           {title}
-        </p>
+        </Text>
         {!hideDeptFilter && (
-          <div className="bg-white flex items-center gap-[8px] px-[12px] flex-shrink-0 w-[141px]"
-            style={{ borderRadius: 9999, height: 32, border: "1px solid #dee2e6" }}>
-            <span className="flex-1 text-[#495057] text-[12px] truncate" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-              All Department
-            </span>
-            <ChevronDown />
-          </div>
+          <Select
+            data={["All Department"]}
+            defaultValue="All Department"
+            radius="xl"
+            size="xs"
+            w={141}
+            allowDeselect={false}
+            comboboxProps={{ withinPortal: true }}
+          />
         )}
       </div>
 
@@ -232,6 +226,6 @@ export default function LineChartCard({ title, value, chipColor, data, areaColor
           </div>
         )}
       </div>
-    </div>
+    </Paper>
   );
 }

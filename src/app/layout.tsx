@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
+import "@mantine/core/styles.css";
 import "./globals.css";
+import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
+import AppMantineProvider from "@/components/AppMantineProvider";
 import Sidebar from "@/components/Sidebar";
 
 const openSans = Open_Sans({
@@ -20,19 +23,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={openSans.variable}>
+    <html lang="en" {...mantineHtmlProps} className={openSans.variable}>
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body className="min-h-screen bg-[#f8f9fa]">
-        <Sidebar />
-        <main
-          style={{
-            minWidth: 0,
-            minHeight: "100vh",
-            marginLeft: "var(--sidebar-w, 220px)",
-            transition: "margin-left 0.22s ease",
-          }}
-        >
-          {children}
-        </main>
+        <AppMantineProvider>
+          <Sidebar />
+          <main
+            style={{
+              minWidth: 0,
+              minHeight: "100vh",
+              marginLeft: "var(--sidebar-w, 220px)",
+              transition: "margin-left 0.22s ease",
+            }}
+          >
+            {children}
+          </main>
+        </AppMantineProvider>
       </body>
     </html>
   );

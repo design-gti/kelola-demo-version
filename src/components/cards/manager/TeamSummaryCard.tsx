@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Paper, SegmentedControl, Badge as MantineBadge, Text } from "@mantine/core";
 import { managerTeam } from "@/data/managerTeamData";
 
 // Names keyed to canonical team members (order = MANAGER_TEAM_IDS). Narrative/numbers are demo.
@@ -36,9 +37,13 @@ function ChevronIcon({ open }: { open: boolean }) {
 
 function Badge({ color, bg, children }: { color: string; bg: string; children: React.ReactNode }) {
   return (
-    <span style={{ fontSize: 9, fontFamily: "Open Sans, sans-serif", fontWeight: 600, color, background: bg, padding: "2px 7px", borderRadius: 9999, whiteSpace: "nowrap" }}>
+    <MantineBadge
+      variant="light"
+      radius="xl"
+      style={{ fontSize: 9, fontFamily: "Open Sans, sans-serif", fontWeight: 600, color, background: bg, padding: "2px 7px", whiteSpace: "nowrap", textTransform: "none" }}
+    >
       {children}
-    </span>
+    </MantineBadge>
   );
 }
 
@@ -59,26 +64,22 @@ export default function TeamSummaryCard() {
   const delta = w.completionRate.thisWeek - w.completionRate.lastWeek;
 
   return (
-    <div className="bg-white rounded-[12px] p-[16px] w-full" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
+    <Paper radius={12} p={16} w="100%" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
       {/* Header */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-        <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12, color: "#495057" }}>
+        <Text fw={700} size="sm" c="#495057" style={{ fontFamily: "'Open Sans', sans-serif" }}>
           Ringkasan Tim
-        </span>
-        <div style={{ display: "flex", background: "#f1f3f5", borderRadius: 8, padding: 2, gap: 2 }}>
-          {(["weekly", "monthly"] as const).map(t => (
-            <button key={t} onClick={() => { setTab(t); setOpen(false); }} style={{
-              fontSize: 10, fontFamily: "Open Sans, sans-serif", fontWeight: 600,
-              padding: "3px 10px", borderRadius: 6, border: "none", cursor: "pointer",
-              background: tab === t ? "#fff" : "transparent",
-              color: tab === t ? "#016699" : "#adb5bd",
-              boxShadow: tab === t ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
-              transition: "all 0.15s",
-            }}>
-              {t === "weekly" ? "Mingguan" : "Bulanan"}
-            </button>
-          ))}
-        </div>
+        </Text>
+        <SegmentedControl
+          value={tab}
+          onChange={(v) => { setTab(v as "weekly" | "monthly"); setOpen(false); }}
+          color="#fff"
+          size="xs"
+          data={[
+            { value: "weekly", label: "Mingguan" },
+            { value: "monthly", label: "Bulanan" },
+          ]}
+        />
       </div>
 
       {tab === "weekly" ? (
@@ -223,6 +224,6 @@ export default function TeamSummaryCard() {
           </div>
         </>
       )}
-    </div>
+    </Paper>
   );
 }

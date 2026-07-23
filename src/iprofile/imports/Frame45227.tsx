@@ -21,25 +21,33 @@ type IdpHistoryItem = { competencies: string[]; pic: string; dateRange: string; 
 type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean };
 type ScoreAspects = { competency: AspectItem[]; potency: AspectItem[] };
 type ProfileDetail = { careerPlans: CareerPlan[]; successors: Successor[]; scoreAspects: ScoreAspects; teams: TeamRef[]; bloodType: string; extension: Extension; idpHistory: IdpHistoryItem[]; employee: EmployeeBio };
-type ProfileCtxT = { name: string; position: string; personality: string; competencyMatch: string; iq: string; gtq: string; careerPlans: CareerPlan[]; successors: Successor[]; scoreAspects: ScoreAspects; teams: TeamRef[]; bloodType: string; extension: Extension; idpHistory: IdpHistoryItem[]; employee: EmployeeBio };
+type ProfileCtxT = { name: string; position: string; employeeId: string; personality: string; competencyMatch: string; iq: string; gtq: string; careerPlans: CareerPlan[]; successors: Successor[]; scoreAspects: ScoreAspects; teams: TeamRef[]; bloodType: string; extension: Extension; idpHistory: IdpHistoryItem[]; employee: EmployeeBio };
 const DEFAULT_EMP: EmployeeBio = { nik: "2349710001", dob: "12 Februari 1988", gender: "Laki-laki", lastEducation: "S2 Psychology UNPAD", city: "Surabaya", province: "Jawa Timur", maritalStatus: "Menikah", reportTo: "Product Lead (Rodri)", workStartDate: "September 2019", tenure: "4 thn, 4 bln", careerHistory: [] };
 const DEFAULT_EXT: Extension = { performance: "4.3", engagement: "4.3", potency: "86%", height: 172 };
 const EMPTY_ASPECTS: ScoreAspects = { competency: [], potency: [] };
-const ProfileContext = createContext<ProfileCtxT>({ name: "Julian Alvarez", position: "Direktur Pengembangan Bisnis", personality: "SC", competencyMatch: "4.5", iq: "120", gtq: "115", careerPlans: [], successors: [], scoreAspects: EMPTY_ASPECTS, teams: [], bloodType: "A", extension: DEFAULT_EXT, idpHistory: [], employee: DEFAULT_EMP });
+const ProfileContext = createContext<ProfileCtxT>({ name: "Julian Alvarez", position: "Direktur Pengembangan Bisnis", employeeId: "default", personality: "SC", competencyMatch: "4.5", iq: "120", gtq: "115", careerPlans: [], successors: [], scoreAspects: EMPTY_ASPECTS, teams: [], bloodType: "A", extension: DEFAULT_EXT, idpHistory: [], employee: DEFAULT_EMP });
 
 function Frame151() {
-  const { name, position } = useContext(ProfileContext);
+  const { name, position, employeeId } = useContext(ProfileContext);
+  const photoKey = `employee-photo-${employeeId}`;
   const [photoSrc, setPhotoSrc] = useState<string>(
-    () => (typeof window !== 'undefined' && localStorage.getItem('iprofile-photo')) || '/iprofile-assets/profile-photo.png'
+    () => (typeof window !== 'undefined' && localStorage.getItem(photoKey)) || '/iprofile-assets/profile-photo.png'
   );
+
+  // Re-read when the viewed employee changes (e.g. navigating list → detail → list → another detail).
+  useEffect(() => {
+    const saved = localStorage.getItem(photoKey);
+    setPhotoSrc(saved || '/iprofile-assets/profile-photo.png');
+  }, [photoKey]);
 
   useEffect(() => {
     const handler = (e: Event) => {
-      setPhotoSrc((e as CustomEvent).detail);
+      const detail = (e as CustomEvent).detail as { employeeId: string; dataUrl: string };
+      if (detail.employeeId === employeeId) setPhotoSrc(detail.dataUrl);
     };
     window.addEventListener('profile-photo-changed', handler);
     return () => window.removeEventListener('profile-photo-changed', handler);
-  }, []);
+  }, [employeeId]);
 
   return (
     <div className="absolute left-[18px] top-[44px] w-[269px] h-[269px] overflow-hidden"
@@ -1478,6 +1486,7 @@ export default function Frame120() {
   const profileValue: ProfileCtxT = {
     name: candidate?.name ?? "Julian Alvarez",
     position: candidate?.position ?? "Direktur Pengembangan Bisnis",
+    employeeId: id ?? "default", // shared photo storage key with TDP
     personality: participant?.disc ?? "SC",
     competencyMatch: comp != null ? (comp / 20).toFixed(1) : "4.5",
     iq: comp != null ? String(Math.round(95 + comp / 4)) : "120",

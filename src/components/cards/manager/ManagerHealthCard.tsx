@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Paper, Badge, Button, Text } from "@mantine/core";
 import { managerTeam } from "@/data/managerTeamData";
 
 const MOOD_OPTIONS = [
@@ -24,18 +25,18 @@ export default function ManagerHealthCard() {
   const missedAlert = CHECKIN_MISSED.length > 0;
 
   return (
-    <div className="bg-white rounded-[12px] p-[16px] w-full" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
+    <Paper radius={12} p={16} w="100%" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-        <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12, color: "#495057" }}>
+        <Text fw={700} size="sm" c="#495057" style={{ fontFamily: "'Open Sans', sans-serif" }}>
           Kesehatan Manager
-        </span>
-        <span style={{
-          fontSize: 9, padding: "2px 8px", borderRadius: 9999,
-          background: "#f0f0f0", color: "#6c757d",
-          fontFamily: "Open Sans, sans-serif",
-        }}>
+        </Text>
+        <Badge
+          variant="light"
+          radius="xl"
+          style={{ fontSize: 9, background: "#f0f0f0", color: "#6c757d", fontFamily: "Open Sans, sans-serif", textTransform: "none", fontWeight: 400 }}
+        >
           Privat · hanya kamu yang lihat
-        </span>
+        </Badge>
       </div>
 
       {/* Mood self-report */}
@@ -45,20 +46,20 @@ export default function ManagerHealthCard() {
         </div>
         <div style={{ display: "flex", gap: 6 }}>
           {MOOD_OPTIONS.map(m => (
-            <button
+            <Button
               key={m.value}
               onClick={() => setMood(m.value)}
               title={m.label}
+              variant={mood === m.value ? "filled" : "subtle"}
+              color="primary"
+              radius={8}
               style={{
-                flex: 1, height: 34, borderRadius: 8, border: "none", cursor: "pointer",
-                fontSize: 16,
-                background: mood === m.value ? "#016699" : "#fff",
+                flex: 1, height: 34, padding: 0, fontSize: 16,
                 boxShadow: mood === m.value ? "0 2px 6px rgba(1,102,153,0.3)" : "0 1px 3px rgba(0,0,0,0.08)",
-                transition: "all 0.15s",
               }}
             >
               {m.emoji}
-            </button>
+            </Button>
           ))}
         </div>
         {mood !== null && (
@@ -110,18 +111,14 @@ export default function ManagerHealthCard() {
             </p>
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
               {CHECKIN_MISSED.map(name => (
-                <span key={name} style={{
-                  fontSize: 10, padding: "2px 8px", borderRadius: 9999,
-                  background: "#dc354520", color: "#dc3545",
-                  fontFamily: "Open Sans, sans-serif",
-                }}>
+                <Badge key={name} variant="light" radius="xl" style={{ fontSize: 10, background: "#dc354520", color: "#dc3545", fontFamily: "Open Sans, sans-serif", textTransform: "none", fontWeight: 400 }}>
                   {name}
-                </span>
+                </Badge>
               ))}
             </div>
           </>
         )}
       </div>
-    </div>
+    </Paper>
   );
 }

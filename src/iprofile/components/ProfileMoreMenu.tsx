@@ -1,11 +1,12 @@
 ﻿"use client";
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import svgPaths from '../imports/svg-djevy8uiqd';
-
-export const PROFILE_PHOTO_KEY = 'iprofile-photo';
+import { ProfileContext } from '../lib/ProfileContext';
 
 export function ProfileMoreMenu() {
+  const { employeeId } = useContext(ProfileContext);
+  const photoKey = `employee-photo-${employeeId}`;
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -19,8 +20,8 @@ export function ProfileMoreMenu() {
     const reader = new FileReader();
     reader.onload = (ev) => {
       const dataUrl = ev.target?.result as string;
-      localStorage.setItem(PROFILE_PHOTO_KEY, dataUrl);
-      window.dispatchEvent(new CustomEvent('profile-photo-changed', { detail: dataUrl }));
+      localStorage.setItem(photoKey, dataUrl);
+      window.dispatchEvent(new CustomEvent('profile-photo-changed', { detail: { employeeId, dataUrl } }));
     };
     reader.readAsDataURL(file);
     e.target.value = '';
@@ -111,7 +112,7 @@ export function ProfileMoreMenu() {
             <button
               onClick={() => {
                 setIsOpen(false);
-                const photo = localStorage.getItem(PROFILE_PHOTO_KEY) || '/iprofile-assets/profile-photo.png';
+                const photo = localStorage.getItem(photoKey) || '/iprofile-assets/profile-photo.png';
                 setViewPhoto(photo);
               }}
               className="w-full px-[16px] py-[12px] text-left font-['Open_Sans:Regular',sans-serif] text-[12px] text-[#495057] hover:bg-[#f8f9fa] transition-colors cursor-pointer"

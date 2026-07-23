@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Paper, Button, Avatar, Text } from "@mantine/core";
 import { activityLog } from "@/data/dummyData";
 import { timeAgo } from "@/utils/timeAgo";
 
@@ -36,36 +37,33 @@ export default function ActivityLogCard() {
   const filtered = activityLog.filter(e => activeFilter === null || e.type === activeFilter);
 
   return (
-    <div className="bg-white rounded-[12px] p-[16px] w-full" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
-      <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12, color: "#495057", marginBottom: 10 }}>
+    <Paper radius={12} p={16} w="100%" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
+      <Text fw={700} size="sm" c="#495057" mb={10} style={{ fontFamily: "'Open Sans', sans-serif" }}>
         Activity Log
-      </div>
+      </Text>
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
         {FILTERS.map(f => (
-          <button
+          <Button
             key={String(f.value)}
             onClick={() => setActiveFilter(f.value)}
-            style={{
-              fontSize: 10, padding: "3px 10px", borderRadius: 20, cursor: "pointer", fontFamily: "Open Sans, sans-serif",
-              background: activeFilter === f.value ? "#016699" : "#f0f0f0",
-              color: activeFilter === f.value ? "#fff" : "#495057",
-              border: "none",
-            }}
+            variant={activeFilter === f.value ? "filled" : "subtle"}
+            color="primary"
+            size="compact-xs"
+            radius="xl"
+            styles={{ label: { fontFamily: "Open Sans, sans-serif" } }}
           >
             {f.label}
-          </button>
+          </Button>
         ))}
       </div>
       <div className="card-scroll" style={{ display: "flex", flexDirection: "column", gap: 8, maxHeight: 320, overflowY: "auto" }}>
         {filtered.map(entry => (
           <div key={entry.id} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-            <div style={{
-              width: 24, height: 24, borderRadius: "50%", background: TYPE_COLORS[entry.type],
-              display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-              fontSize: 10, color: "#fff", fontWeight: 700, fontFamily: "'Open Sans', sans-serif",
-            }}>
-              {TYPE_ICONS[entry.type]}
-            </div>
+            <Avatar size={24} radius="xl" style={{ flexShrink: 0, background: TYPE_COLORS[entry.type] }}>
+              <span style={{ fontSize: 10, color: "#fff", fontWeight: 700, fontFamily: "'Open Sans', sans-serif" }}>
+                {TYPE_ICONS[entry.type]}
+              </span>
+            </Avatar>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#495057", lineHeight: 1.4 }}>{entry.description}</div>
               <div style={{ fontSize: 10, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", marginTop: 2 }}>
@@ -75,6 +73,6 @@ export default function ActivityLogCard() {
           </div>
         ))}
       </div>
-    </div>
+    </Paper>
   );
 }

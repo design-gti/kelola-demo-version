@@ -1,41 +1,37 @@
 "use client";
 import dynamic from "next/dynamic";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import AppBreadcrumb, { type BreadcrumbItem } from "@/components/Breadcrumb";
+import EmployeeListTable from "./EmployeeListTable";
+import type { IProfileEmployee } from "@/data/iprofileEmployees";
 
 const IProfileApp = dynamic(() => import("@/iprofile/imports/Frame45227"), { ssr: false });
 
 export default function IProfilePage() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const from = searchParams.get("from");
+  const id = searchParams.get("id");
+
+  const fromQuery = from ? `?from=${from}` : "";
+
+  const fromItems: BreadcrumbItem[] = [];
+  if (from === "tdp") fromItems.push({ label: "TDP", href: "/tdp-view" });
+  if (from === "vismap") fromItems.push({ label: "Vismap", href: "/vismap" });
+
+  const items: BreadcrumbItem[] = id
+    ? [...fromItems, { label: "Employee List", onClick: () => router.push(`/iprofile${fromQuery}`) }, { label: "iProfile" }]
+    : [...fromItems, { label: "iProfile" }];
+
+  const handleSelect = (employee: IProfileEmployee) => {
+    router.push(`/iprofile?id=${employee.id}${from ? `&from=${from}` : ""}`);
+  };
 
   return (
     <div style={{ width: "100%", minHeight: "100vh", background: "#f8f9fa" }}>
-      {/* Breadcrumb */}
-      <div style={{ padding: "10px 16px 0", display: "flex", alignItems: "center", gap: 6, fontFamily: "'Open Sans', sans-serif", fontSize: 12 }}>
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 4, color: "#016699", fontWeight: 600, textDecoration: "none" }}>
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-            <path d="M10 12L6 8l4-4" stroke="#016699" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          Home
-        </Link>
-        <span style={{ color: "#adb5bd" }}>/</span>
-        {from === "tdp" && (
-          <>
-            <Link href="/tdp" style={{ color: "#016699", fontWeight: 600, textDecoration: "none" }}>TDP</Link>
-            <span style={{ color: "#adb5bd" }}>/</span>
-          </>
-        )}
-        {from === "vismap" && (
-          <>
-            <Link href="/vismap" style={{ color: "#016699", fontWeight: 600, textDecoration: "none" }}>Vismap</Link>
-            <span style={{ color: "#adb5bd" }}>/</span>
-          </>
-        )}
-        <span style={{ color: "#495057", fontWeight: 600 }}>iProfile</span>
-      </div>
+      <AppBreadcrumb items={items} />
       <div style={{ padding: "12px 16px 40px" }}>
-        <IProfileApp />
+        {id ? <IProfileApp /> : <EmployeeListTable onSelect={handleSelect} />}
       </div>
     </div>
   );

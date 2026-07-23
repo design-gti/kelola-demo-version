@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
+import { ActionIcon, SegmentedControl } from "@mantine/core";
+import { IconSettings } from "@tabler/icons-react";
 import TopHeading from "@/components/TopHeading";
 import BannerInsight from "@/components/BannerInsight";
 import DraggableCardWrapper from "@/components/DraggableCardWrapper";
@@ -293,53 +295,38 @@ export default function Home() {
         document.body
       )}
 
-      <button
+      <ActionIcon
         onClick={() => setSettingsOpen(true)}
+        variant="filled"
+        color="primary"
+        radius="xl"
+        size={40}
+        aria-label="Pengaturan dashboard"
         style={{
           position: "fixed", right: 24, top: 16, zIndex: 30,
-          background: "#016699", color: "#fff", border: "none",
-          borderRadius: "50%", width: 40, height: 40, cursor: "pointer",
-          display: "flex", alignItems: "center", justifyContent: "center",
           boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
         }}
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-        </svg>
-      </button>
+        <IconSettings size={20} stroke={2} />
+      </ActionIcon>
 
       {/* Role switcher — bottom-left */}
-      <div style={{
-        position: "fixed", left: 20, bottom: 20, zIndex: 50,
-        display: "flex", alignItems: "center", gap: 0,
-        background: "#fff", borderRadius: 9999,
-        boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
-        border: "1px solid #e9ecef",
-        overflow: "hidden",
-        fontFamily: "'Open Sans', sans-serif",
-        fontSize: 11,
-      }}>
-        {(["hr", "manager"] as UserRole[]).map(role => (
-          <button
-            key={role}
-            onClick={() => setUserRole(role)}
-            style={{
-              padding: "7px 14px",
-              border: "none",
-              cursor: "pointer",
-              fontWeight: userRole === role ? 700 : 400,
-              fontFamily: "inherit",
-              fontSize: "inherit",
-              background: userRole === role ? "#016699" : "transparent",
-              color: userRole === role ? "#fff" : "#6c757d",
-              transition: "background 0.15s, color 0.15s",
-            }}
-          >
-            {role === "hr" ? "HR" : "Manager"}
-          </button>
-        ))}
-      </div>
+      <SegmentedControl
+        value={userRole}
+        onChange={(v) => setUserRole(v as UserRole)}
+        color="primary"
+        radius="xl"
+        size="xs"
+        data={[
+          { label: "HR", value: "hr" },
+          { label: "Manager", value: "manager" },
+        ]}
+        style={{
+          position: "fixed", left: 20, bottom: 20, zIndex: 50,
+          boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
+          border: "1px solid #e9ecef",
+        }}
+      />
 
       <SettingsPanel
         open={settingsOpen}

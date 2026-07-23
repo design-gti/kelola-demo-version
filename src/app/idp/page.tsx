@@ -2,24 +2,17 @@
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
-// Whitelist of embeddable IDP pages so a bad ?page= can't point the iframe elsewhere.
-const IDP_PAGES = new Set([
-  "monitoring-admin.html", "monitoring-manager.html",
-  "detail-idp-admin.html", "detail-idp-manager.html", "detail-idp-employee.html",
-  "review-idp-list.html", "detail-review-idp.html",
-  "create-idp-admin.html", "create-idp-manager.html",
-]);
-
 function IDPFrame() {
   const searchParams = useSearchParams();
-  const pageParam = searchParams.get("page");
-  const page = pageParam && IDP_PAGES.has(pageParam) ? pageParam : "monitoring-admin.html";
+  const page = searchParams.get("page") || "monitoring-admin.html";
 
+  // Forward every query param except `page` itself straight through to the static
+  // IDP HTML (id/name/from for context, participants/aspect for the create-IDP
+  // prefill flow, etc.) — the static pages read whatever they need via location.search.
   const query = new URLSearchParams();
-  const id = searchParams.get("id");
-  const name = searchParams.get("name");
-  if (id) query.set("id", id);
-  if (name) query.set("name", name);
+  searchParams.forEach((value, key) => {
+    if (key !== "page") query.set(key, value);
+  });
   const qs = query.toString();
 
   const src = `/idp-app/${page}${qs ? `?${qs}` : ""}`;
@@ -35,7 +28,7 @@ function IDPFrame() {
 
 export default function IDPPage() {
   return (
-    <Suspense fallback={null}>
+    <Suspense>
       <IDPFrame />
     </Suspense>
   );
