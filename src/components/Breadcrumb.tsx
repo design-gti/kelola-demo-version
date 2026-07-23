@@ -24,6 +24,8 @@ export default function AppBreadcrumb({ items, noPadding }: { items: BreadcrumbI
         fontFamily: "'Open Sans', sans-serif",
         fontSize: 12,
         padding: noPadding ? "10px 0 0" : "10px 16px 0",
+        flexWrap: "nowrap",
+        alignItems: "center",
       }}
     >
       {items.map((item, i) => {
@@ -40,15 +42,18 @@ export default function AppBreadcrumb({ items, noPadding }: { items: BreadcrumbI
               c="primary"
               fw={600}
               underline="never"
-              style={{ display: "flex", alignItems: "center", gap: 4, background: "none", border: "none", padding: 0, cursor: "pointer" }}
             >
-              {isFirst && <IconChevronLeft size={14} />}
-              {item.label}
+              {/* Inner span (not a Mantine polymorphic prop) so the flex layout always
+                  applies — Mantine's own `style` merging on Anchor/button roots is unreliable. */}
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 4, whiteSpace: "nowrap" }}>
+                {isFirst && <IconChevronLeft size={14} />}
+                {item.label}
+              </span>
             </Anchor>
           );
         }
         return (
-          <Text key={i} c={isLast ? "#495057" : "primary"} fw={600}>
+          <Text key={i} c={isLast ? "#495057" : "primary"} fw={600} style={{ whiteSpace: "nowrap" }}>
             {item.label}
           </Text>
         );

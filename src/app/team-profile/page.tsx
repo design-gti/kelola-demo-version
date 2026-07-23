@@ -238,7 +238,6 @@ function TeamDetail({ team, onBack }: { team: Team; onBack: () => void }) {
         <AppBreadcrumb
           noPadding
           items={[
-            { label: "Home", href: "/" },
             { label: "List Team", onClick: onBack },
             { label: "Team Profile" },
           ]}
@@ -334,7 +333,7 @@ export default function TeamProfilePage() {
 
   return (
     <div style={{ fontFamily: FONT }}>
-      <AppBreadcrumb items={[{ label: "Home", href: "/" }, { label: "Team Profile" }]} />
+      <AppBreadcrumb items={[{ label: "Team Profile" }]} />
       <div style={{ padding: "12px 16px 40px" }}>
       {/* Tabs */}
       <div style={{ display: "flex", gap: 24, borderBottom: "1px solid #e9ecef", marginBottom: 16 }}>
