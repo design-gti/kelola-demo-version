@@ -924,16 +924,16 @@
     <div class="info-card" style="padding:12px 16px;margin-bottom:16px;">
       <div class="info-employee-row">
         <!-- Left: avatar + name + position -->
-        <div class="info-avatar">UI</div>
+        <div class="info-avatar" id="d-avatar">UI</div>
         <div class="info-identity">
-          <span class="info-title" style="margin-bottom:2px;font-size:16px;">Ulfa Irawan</span>
-          <div class="info-position">Product Designer · Engineering</div>
+          <span class="info-title" id="d-name" style="margin-bottom:2px;font-size:16px;">—</span>
+          <div class="info-position" id="d-name-pos">—</div>
         </div>
 
         <!-- Right: status + progress (top), period (bottom) -->
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-left:auto;flex-shrink:0;">
           <div style="display:flex;align-items:center;gap:8px;">
-            <span class="status-chip status-in-progress">In Progress</span>
+            <span class="status-chip status-in-progress" id="d-status">In Progress</span>
             <div style="display:flex;align-items:center;gap:6px;">
               <div class="progress-bar" style="width:72px;margin-top:0;">
                 <div id="progress-fill" class="progress-fill" style="width:0%;background:var(--primary);"></div>
@@ -941,7 +941,7 @@
               <span id="progress-count" style="font-family:var(--font-body);font-size:11px;font-weight:700;color:var(--primary);">0/0</span>
             </div>
           </div>
-          <span class="info-position">12/09/2024 – 17/09/2024</span>
+          <span class="info-position" id="d-period">12/09/2024 – 17/09/2024</span>
         </div>
       </div>
     </div>
@@ -965,134 +965,7 @@
               <th class="col-employee-check">Employee Check</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Program 1 -->
-            <tr data-program="program-1">
-              <td class="col-program">
-                <div class="program-name">
-                  <button class="expand-toggle" data-program="program-1" onclick="toggleSubprograms(this)">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                  </button>
-                  <input type="checkbox" class="checkbox">
-                  <span>Root Cause Analysis Training</span>
-                  <button class="external-link-btn" data-tooltip="Open in side panel" onclick="openDetailPanel(this, 'Root Cause Analysis Training', 'Revou', 'TRAINING', 'COMMUNICATION', 'Mengembangkan kemampuan analytical thinking dan problem-solving', '12/09/2024 - 12/09/2024', 'Muhammad Multazam', 'Achan')">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9.9974 2.6665V13.3332M2.66406 3.99984C2.66406 3.64622 2.80454 3.30708 3.05459 3.05703C3.30464 2.80698 3.64377 2.6665 3.9974 2.6665H11.9974C12.351 2.6665 12.6902 2.80698 12.9402 3.05703C13.1903 3.30708 13.3307 3.64622 13.3307 3.99984V11.9998C13.3307 12.3535 13.1903 12.6926 12.9402 12.9426C12.6902 13.1927 12.351 13.3332 11.9974 13.3332H3.9974C3.64377 13.3332 3.30464 13.1927 3.05459 12.9426C2.80454 12.6926 2.66406 12.3535 2.66406 11.9998V3.99984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>Open</span>
-                  </button>
-                </div>
-              </td>
-              <td class="col-vendor">Revou</td>
-              <td class="col-category">
-                <span class="category-badge training">TRAINING</span>
-              </td>
-              <td class="col-aspect">
-                <span class="aspect-chip">COMMUNICATION</span>
-              </td>
-              <td class="col-goals">Mengembangkan kemampuan a...</td>
-              <td class="col-start-date"><input type="date" value="2024-09-12" readonly style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none; pointer-events: none;"></td>
-              <td class="col-end-date"><input type="date" class="editable-date" value="2024-09-12" data-original="2024-09-12" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" oninput="markDirty(this)"></td>
-              <td class="col-pic">
-                <div class="pic-cell">
-                  <div class="pic-avatar"></div>
-                  <span class="pic-name">Muhammad Multazam</span>
-                </div>
-              </td>
-              <td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>
-              <td class="col-notes">
-                <svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg>
-              </td>
-
-              <td class="col-employee-check"><input type="checkbox" class="checkbox" checked></td>
-
-            </tr>
-
-            <!-- Program 1 - Sub 1 -->
-            <tr class="subprogram-row" data-parent="program-1">
-              <td class="col-program subprogram-program-cell">
-                <div class="program-name">
-                  <input type="checkbox" class="checkbox">
-                  <span>Analytical Thinking Workshop</span>
-                  <button class="external-link-btn" data-tooltip="Open in side panel" onclick="openDetailPanel(this, 'Analytical Thinking Workshop', 'Revou', 'TRAINING', 'PROBLEM SOLVING', 'Memahami teknik analisis dan identifikasi masalah secara sistematis', '12/09/2024 - 13/09/2024', 'Muhammad Multazam', 'Achan')">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9.9974 2.6665V13.3332M2.66406 3.99984C2.66406 3.64622 2.80454 3.30708 3.05459 3.05703C3.30464 2.80698 3.64377 2.6665 3.9974 2.6665H11.9974C12.351 2.6665 12.6902 2.80698 12.9402 3.05703C13.1903 3.30708 13.3307 3.64622 13.3307 3.99984V11.9998C13.3307 12.3535 13.1903 12.6926 12.9402 12.9426C12.6902 13.1927 12.351 13.3332 11.9974 13.3332H3.9974C3.64377 13.3332 3.30464 13.1927 3.05459 12.9426C2.80454 12.6926 2.66406 12.3535 2.66406 11.9998V3.99984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>Open</span>
-                  </button>
-                </div>
-              </td>
-              <td class="col-vendor">Revou</td>
-              <td class="col-category"><span class="category-badge training">TRAINING</span></td>
-              <td class="col-aspect"><span class="aspect-chip">PROBLEM SOLVING</span></td>
-              <td class="col-goals">Teknik analisis dan identifikasi...</td>
-              <td class="col-start-date"><input type="date" value="2024-09-12" readonly style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none; pointer-events: none;"></td>
-              <td class="col-end-date"><input type="date" class="editable-date" value="2024-09-13" data-original="2024-09-13" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" oninput="markDirty(this)"></td>
-              <td class="col-pic"><div class="pic-cell"><div class="pic-avatar"></div><span class="pic-name">Muhammad Multazam</span></div></td>
-              <td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>
-              <td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
-
-              <td class="col-employee-check"><input type="checkbox" class="checkbox" checked></td>
-
-            </tr>
-
-            <!-- Program 1 - Sub 2 -->
-            <tr class="subprogram-row" data-parent="program-1">
-              <td class="col-program subprogram-program-cell">
-                <div class="program-name">
-                  <input type="checkbox" class="checkbox">
-                  <span>Root Cause Practice Session</span>
-                  <button class="external-link-btn" data-tooltip="Open in side panel" onclick="openDetailPanel(this, 'Root Cause Practice Session', 'Revou', 'TRAINING', 'CRITICAL THINKING', 'Berlatih mengidentifikasi akar masalah pada studi kasus nyata', '14/09/2024 - 14/09/2024', 'Achan', 'Achan')">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9.9974 2.6665V13.3332M2.66406 3.99984C2.66406 3.64622 2.80454 3.30708 3.05459 3.05703C3.30464 2.80698 3.64377 2.6665 3.9974 2.6665H11.9974C12.351 2.6665 12.6902 2.80698 12.9402 3.05703C13.1903 3.30708 13.3307 3.64622 13.3307 3.99984V11.9998C13.3307 12.3535 13.1903 12.6926 12.9402 12.9426C12.6902 13.1927 12.351 13.3332 11.9974 13.3332H3.9974C3.64377 13.3332 3.30464 13.1927 3.05459 12.9426C2.80454 12.6926 2.66406 12.3535 2.66406 11.9998V3.99984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>Open</span>
-                  </button>
-                </div>
-              </td>
-              <td class="col-vendor">Revou</td>
-              <td class="col-category"><span class="category-badge training">TRAINING</span></td>
-              <td class="col-aspect"><span class="aspect-chip">CRITICAL THINKING</span></td>
-              <td class="col-goals">Identifikasi akar masalah pada kasus...</td>
-              <td class="col-start-date"><input type="date" value="2024-09-14" readonly style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none; pointer-events: none;"></td>
-              <td class="col-end-date"><input type="date" class="editable-date" value="2024-09-14" data-original="2024-09-14" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" oninput="markDirty(this)"></td>
-              <td class="col-pic"><div class="pic-cell"><div class="pic-avatar"></div><span class="pic-name">Achan</span></div></td>
-              <td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>
-              <td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
-
-              <td class="col-employee-check"><input type="checkbox" class="checkbox"></td>
-
-            </tr>
-
-            <!-- Program 1 - Sub 3 -->
-            <tr class="subprogram-row" data-parent="program-1">
-              <td class="col-program subprogram-program-cell">
-                <div class="program-name">
-                  <input type="checkbox" class="checkbox">
-                  <span>Group Case Study Discussion</span>
-                  <button class="external-link-btn" data-tooltip="Open in side panel" onclick="openDetailPanel(this, 'Group Case Study Discussion', 'Revou', 'TRAINING', 'TEAMWORK', 'Diskusi kasus bersama tim untuk memperkuat pemahaman analisis', '15/09/2024 - 15/09/2024', 'Achan', 'Achan')">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9.9974 2.6665V13.3332M2.66406 3.99984C2.66406 3.64622 2.80454 3.30708 3.05459 3.05703C3.30464 2.80698 3.64377 2.6665 3.9974 2.6665H11.9974C12.351 2.6665 12.6902 2.80698 12.9402 3.05703C13.1903 3.30708 13.3307 3.64622 13.3307 3.99984V11.9998C13.3307 12.3535 13.1903 12.6926 12.9402 12.9426C12.6902 13.1927 12.351 13.3332 11.9974 13.3332H3.9974C3.64377 13.3332 3.30464 13.1927 3.05459 12.9426C2.80454 12.6926 2.66406 12.3535 2.66406 11.9998V3.99984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>Open</span>
-                  </button>
-                </div>
-              </td>
-              <td class="col-vendor">Revou</td>
-              <td class="col-category"><span class="category-badge training">TRAINING</span></td>
-              <td class="col-aspect"><span class="aspect-chip">TEAMWORK</span></td>
-              <td class="col-goals">Diskusi kasus tim dan penguatan analisis...</td>
-              <td class="col-start-date"><input type="date" value="2024-09-15" readonly style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none; pointer-events: none;"></td>
-              <td class="col-end-date"><input type="date" class="editable-date" value="2024-09-15" data-original="2024-09-15" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" oninput="markDirty(this)"></td>
-              <td class="col-pic"><div class="pic-cell"><div class="pic-avatar"></div><span class="pic-name">Achan</span></div></td>
-              <td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>
-              <td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>
-
-              <td class="col-employee-check"><input type="checkbox" class="checkbox"></td>
-
-            </tr>
-
-          </tbody>
+          <tbody id="idp-programs-body"></tbody>
         </table>
       </div>
 
@@ -1136,7 +1009,7 @@
 
     updateProgress();
 
-    var CURRENT_MANAGER = 'Muhammad Multazam';
+    var CURRENT_MANAGER = 'Florian Wirtz';
 
     document.querySelectorAll('.monitoring-table tbody tr').forEach(function(row) {
       var picNameEl = row.querySelector('.col-pic .pic-name');
@@ -1283,48 +1156,7 @@
 
       <div class="detail-comments">
         <div class="detail-comments-title">Comment</div>
-        <div id="commentsList" style="margin-bottom: 12px;">
-          <div class="comment-item">
-            <div class="comment-avatar">MM</div>
-            <div class="comment-content">
-              <div class="comment-header">
-                <span class="comment-name">Muhammad Multazam</span>
-                <span class="comment-time">Apr 20, 2026, 11:39 AM</span>
-              </div>
-              <div class="comment-text">tolong sekali lage cek dokumentasinya dan lampirkan kembali</div>
-            </div>
-          </div>
-          <div class="comment-item">
-            <div class="comment-avatar" style="background: #B0B1B2; color: var(--text-body);">IB</div>
-            <div class="comment-content">
-              <div class="comment-header">
-                <span class="comment-name">Ibrahim</span>
-                <span class="comment-time">Apr 20, 2026, 11:39 AM</span>
-              </div>
-              <div class="comment-text">dokumentasi trainingnya kah Pak?</div>
-            </div>
-          </div>
-          <div class="comment-item">
-            <div class="comment-avatar">MM</div>
-            <div class="comment-content">
-              <div class="comment-header">
-                <span class="comment-name">Muhammad Multazam</span>
-                <span class="comment-time">Apr 20, 2026, 11:40 AM</span>
-              </div>
-              <div class="comment-text">Iya</div>
-            </div>
-          </div>
-          <div class="comment-item">
-            <div class="comment-avatar" style="background: #B0B1B2; color: var(--text-body);">IB</div>
-            <div class="comment-content">
-              <div class="comment-header">
-                <span class="comment-name">Ibrahim</span>
-                <span class="comment-time">Apr 20, 2026, 11:40 AM</span>
-              </div>
-              <div class="comment-text">Oke akan saya update</div>
-            </div>
-          </div>
-        </div>
+        <div id="commentsList" style="margin-bottom: 12px;"></div>
       </div>
     </div>
 
@@ -1528,8 +1360,8 @@
       window.swSwitch=function(r){
         localStorage.setItem(KEY,r);
         document.getElementById('switcher-menu').style.display='none';
-        if(r==='Employee') window.location.href='/detail-idp-employee.html';
-        else if(r==='Admin') window.location.href='/detail-idp-admin.html';
+        if(r==='Employee') window.location.href='/idp-app/detail-idp-employee.html';
+        else if(r==='Admin') window.location.href='/idp-app/detail-idp-admin.html';
         else render(r);
       };
       document.addEventListener('click',function(e){ if(!document.getElementById('user-switcher').contains(e.target)) document.getElementById('switcher-menu').style.display='none'; });
@@ -1613,6 +1445,64 @@
       }
       document.querySelectorAll('.att-btn').forEach(wireAttBtn);
     })();
+  </script>
+
+  <script>
+    function _escC(s){ return (s==null?'':String(s)).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+    function renderComments(items){
+      var el=document.getElementById('commentsList'); if(!el||!items) return;
+      el.innerHTML=items.map(function(c){
+        var av=c.color?'<div class="comment-avatar" style="background: '+_escC(c.color)+'; color: var(--text-body);">'+_escC(c.initials||'')+'</div>':'<div class="comment-avatar">'+_escC(c.initials||'')+'</div>';
+        return '<div class="comment-item">'+av+'<div class="comment-content"><div class="comment-header"><span class="comment-name">'+_escC(c.name)+'</span><span class="comment-time">'+_escC(c.time||'')+'</span></div><div class="comment-text">'+_escC(c.text||'')+'</div></div></div>';
+      }).join('');
+    }
+    fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(d){ renderComments(d.comments||[]); }).catch(function(e){console.error('idp-data.json',e);});
+  </script>
+
+  <script>
+  (function(){
+    function esc(s){ return (s==null?'':String(s)).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+    function initials(n){ var p=(n||'').trim().split(/\s+/); return ((p[0]||'?')[0]+((p[1]||'')[0]||'')).toUpperCase(); }
+    var _MON={Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
+    function pad(n){return String(n).padStart(2,'0');}
+    function parsePeriod(p){var m=(p||'').match(/^(\w+)\s+(\d+)\s*[-\u2013]\s*(\w+)\s+(\d+),\s*(\d{4})$/);if(m){var y=m[5];return [pad(m[2])+'/'+_MON[m[1]]+'/'+y,pad(m[4])+'/'+_MON[m[3]]+'/'+y];}return [p||'',''];}
+    function iso(dmy){var a=(dmy||'').split('/');return a.length===3?a[2]+'-'+a[1]+'-'+a[0]:'';}
+    var _ATT='<td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>';
+    var _NOTES='<td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>';
+    function rowCommon(idp){
+      var pe=parsePeriod(idp.period); var pic=(idp.pics&&idp.pics[0])||{name:'-'}; var ck=idp.statusLabel==='DONE'?' checked':'';
+      var cat=(idp.category||'').toLowerCase();
+      return { pe:pe, pic:pic, ck:ck,
+        program:'<td class="col-program"><div class="program-name"><input type="checkbox" class="checkbox"'+ck+'><span>'+esc(idp.program)+'</span></div></td>',
+        vendor:'<td class="col-vendor">'+esc(idp.vendor)+'</td>',
+        category:'<td class="col-category"><span class="category-badge '+esc(cat)+'">'+esc(idp.category)+'</span></td>',
+        aspect:'<td class="col-aspect"><span class="aspect-chip">'+esc(idp.aspectLabel)+'</span></td>',
+        goals:'<td class="col-goals">'+esc(idp.developmentGoals)+'</td>',
+        start:'<td class="col-start-date"><input type="date" value="'+iso(pe[0])+'" readonly style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;pointer-events:none;"></td>',
+        end:'<td class="col-end-date"><input type="date" value="'+iso(pe[1])+'" readonly style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;pointer-events:none;"></td>',
+        picCell:'<td class="col-pic"><div class="pic-cell"><div class="pic-avatar"></div><span class="pic-name">'+esc(pic.name)+'</span></div></td>'
+      };
+    }
+    function periodRange(idps){ var ds=[]; idps.forEach(function(i){var pe=parsePeriod(i.period); if(pe[0])ds.push(pe[0]); if(pe[1])ds.push(pe[1]);}); ds.sort(function(a,b){return iso(a)<iso(b)?-1:1;}); return ds.length?(ds[0]+' \u2013 '+ds[ds.length-1]):''; }
+    function pickEmp(root){ var params=new URLSearchParams(location.search); var id=params.get('id'); var emps=root.employees||root; var emp=null; if(id!=null){ emp=emps.find(function(e){return String(e.id)===String(id);}); } return emp||emps[0]; }
+    fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(root){
+      var emp=pickEmp(root); if(!emp) return;
+      var set=function(id,v){var e=document.getElementById(id); if(e) e.textContent=v;};
+      set('d-avatar',initials(emp.name)); set('d-name',emp.name); set('d-name-pos',(emp.role||'')+' \u00b7 '+(emp.dept||''));
+      set('d-period',periodRange(emp.idps||[])||'-');
+      var allDone=(emp.idps||[]).every(function(i){return i.statusLabel==='DONE';});
+      var st=document.getElementById('d-status'); if(st){ st.textContent=allDone?'Done':'In Progress'; st.className='status-chip '+(allDone?'status-done':'status-in-progress'); }
+      var body=document.getElementById('idp-programs-body'); if(!body) return;
+      body.innerHTML=(emp.idps||[]).map(function(idp){ var c=rowCommon(idp);
+        return '<tr>'+c.program+c.vendor+c.category+c.aspect+c.goals+c.start+c.end+c.picCell+_ATT+_NOTES+'<td class="col-employee-check"><input type="checkbox" class="checkbox"'+c.ck+' disabled></td></tr>';
+      }).join('');
+      // re-bind progress + manager checkbox rules on the freshly rendered rows
+      if(typeof updateProgress==='function'){
+        document.querySelectorAll('.col-employee-check .checkbox').forEach(function(cb){ cb.addEventListener('change',updateProgress); cb.disabled=true; });
+        updateProgress();
+      }
+    }).catch(function(e){console.error('idp-data.json',e);});
+  })();
   </script>
 </body>
 </html>

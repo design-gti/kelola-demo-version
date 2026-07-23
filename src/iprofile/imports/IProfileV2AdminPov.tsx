@@ -167,7 +167,7 @@ function Frame144() {
   return (
     <div className="-translate-x-1/2 absolute content-stretch flex flex-col items-start left-[calc(50%-0.17px)] top-[50.5px] w-[340px]">
       <div className="flex flex-col font-['Open_Sans:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#016699] text-[20px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[99.58000183105469%] whitespace-pre-wrap">Ignatius Damarindro</p>
+        <p className="leading-[99.58000183105469%] whitespace-pre-wrap">Jude Bellingham</p>
       </div>
       <Frame74 />
     </div>
@@ -1327,7 +1327,7 @@ function Frame41() {
         <p className="leading-[normal] whitespace-pre-wrap">Deleivery Manager</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#016699] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Hasbullah</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Valverde</p>
       </div>
     </div>
   );
@@ -1446,7 +1446,7 @@ function Frame44() {
         <p className="leading-[normal] whitespace-pre-wrap">Product Manager</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#016699] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Griezmann</p>
       </div>
     </div>
   );
@@ -1554,7 +1554,7 @@ function Frame48() {
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#016699] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Hengki</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Fernandez</p>
       </div>
     </div>
   );
@@ -1643,7 +1643,7 @@ function Frame145() {
       <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[8px]" />
       <div className="content-stretch flex flex-col items-start px-[8px] py-[4px] relative size-full">
         <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] text-center whitespace-nowrap">
-          <p className="leading-[normal]">Ignatius Damarindro</p>
+          <p className="leading-[normal]">Jude Bellingham</p>
         </div>
       </div>
     </div>
@@ -1666,7 +1666,7 @@ function Frame51() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Shani Indira</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Vinicius Junior</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -1740,7 +1740,7 @@ function Frame53() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Freya</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Nico Williams</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -1814,7 +1814,7 @@ function Frame55() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Kathrina</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Hakimi</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -1931,7 +1931,7 @@ function Frame131() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Samuel</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Son Heung-min</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Digital Marketing</p>
@@ -2057,7 +2057,7 @@ function Frame134() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Ibrahim</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Pulisic</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Digital Marketing</p>
@@ -2731,7 +2731,7 @@ function Frame106() {
         </div>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] w-[124.333px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Muhammad Mahmud</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Lautaro Martinez</p>
       </div>
     </div>
   );
@@ -2824,7 +2824,7 @@ function Frame109() {
         </div>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] w-[124.333px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Griezmann</p>
       </div>
     </div>
   );
@@ -3129,7 +3129,7 @@ function Frame8() {
           <p className="leading-[normal] whitespace-pre-wrap">Report to</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Product Lead (Burhan Gumilar)</p>
+          <p className="leading-[normal] whitespace-pre-wrap">Product Lead (Rodri)</p>
         </div>
       </div>
     </div>

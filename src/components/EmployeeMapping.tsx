@@ -2,6 +2,8 @@
 import { useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import TextButton from "@/components/ui/TextButton";
+import { candidates } from "@/data/dummyData";
+import { buildMappingCells } from "@/data/managerTeamData";
 
 const av1 = "https://www.figma.com/api/mcp/asset/8ea64e6d-47b2-4170-9dab-1496e1e87b25";
 const av2 = "https://www.figma.com/api/mcp/asset/e67df370-f1b5-4b8a-b619-cb35470142c8";
@@ -17,26 +19,13 @@ interface CellData {
   names: string[];
 }
 
-const cells: CellData[] = [
-  { count: 6,  label: "Need Coaching",    countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
-    names: ["Doni Setiawan", "Wahyu Hidayat", "Fitri Handayani", "Ratna Wulandari", "Agus Wahyono", "Citra Puspita"] },
-  { count: 8,  label: "Rising Star",      countColor: "#9abdfd",             bg: "#b1cfff", avatars: [av3, av1],
-    names: ["Budi Santoso", "Rizky Pratama", "Fajar Nugroho", "Lina Marlina", "Galih Permana", "Hana Kusuma", "Irfan Maulana", "Joko Susilo"] },
-  { count: 9,  label: "Star",             countColor: "#689eff",             bg: "#83b4ff", avatars: [av3, av2],
-    names: ["Siti Rahayu", "Intan Permata", "Eko Prasetyo", "Nurul Hidayah", "Ahmad Fauzi", "Teguh Prabowo", "Umi Salamah", "Vega Ardiansyah", "Naufal Rizki"] },
-  { count: 3,  label: "Questionable Fit", countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4", avatars: [av1, av2],
-    names: ["Xenia Maharani", "Yusuf Hidayat", "Zara Pertiwi"] },
-  { count: 5,  label: "Contributor",      countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
-    names: ["Dewi Kusuma", "Maya Sari", "Putri Andini", "Lina Marlina", "Erfan Syahdani"] },
-  { count: 7,  label: "Emerging Star",    countColor: "#9abdfd",             bg: "#b1cfff", avatars: [av1, av2],
-    names: ["Agus Salim", "Bambang Sutrisno", "Dewi Kusuma", "Intan Lestari", "Jefri Alibasa", "Kharisma Dewi", "Luthfi Hamdani"] },
-  { count: 1,  label: "Under Performer",  countColor: "rgba(222,53,11,0.4)", bg: "#ffb3b3", avatars: [av1, av2],
-    names: ["Mutiara Safitri"] },
-  { count: 2,  label: "Specialist",       countColor: "rgba(222,53,11,0.2)", bg: "#ffe4e4", avatars: [av1, av2],
-    names: ["Wahyu Hidayat", "Ratna Wulandari"] },
-  { count: 4,  label: "Expert",           countColor: "#bfd6ff",             bg: "#e8f1ff", avatars: [av1, av2],
-    names: ["Hendra Wijaya", "Sri Mulyani", "Bambang Sutrisno", "Agus Salim"] },
-];
+// Cells derived from canonical candidates (potential × performance). Labels/colors from
+// shared CELL_META; avatars are decorative (shown only for non-empty cells).
+const AV = [av1, av2, av3];
+const cells: CellData[] = buildMappingCells(candidates).map(c => ({
+  ...c,
+  avatars: c.count > 0 ? AV.slice(0, Math.min(2, c.count)) : [],
+}));
 
 function AvatarStack({ avatars, names, count }: { avatars: string[]; names: string[]; count: number }) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);

@@ -521,23 +521,7 @@
   
   <script>
     /* ── ASPECT GAPS DATA ── */
-    var ASPECTS = [
-      { name: 'Leadership',             count: 5, total: 8, pct: 63, employees: ['Ulfa Irawan','Esther Howard','Cameron Williamson','Brooklyn Simmons','Guy Hawkins'] },
-      { name: 'Communication',          count: 4, total: 8, pct: 50, employees: ['Jane Cooper','Wade Warren','Jenny Wilson','Leslie Alexander'] },
-      { name: 'Problem Solving',        count: 3, total: 8, pct: 38, employees: ['Ulfa Irawan','Cameron Williamson','Esther Howard'] },
-      { name: 'Critical Thinking',      count: 3, total: 8, pct: 38, employees: ['Wade Warren','Brooklyn Simmons','Jenny Wilson'] },
-      { name: 'Teamwork',               count: 3, total: 8, pct: 38, employees: ['Jane Cooper','Guy Hawkins','Leslie Alexander'] },
-      { name: 'Time Management',        count: 2, total: 8, pct: 25, employees: ['Ulfa Irawan','Jane Cooper'] },
-      { name: 'Adaptability',           count: 2, total: 8, pct: 25, employees: ['Cameron Williamson','Esther Howard'] },
-      { name: 'Emotional Intelligence', count: 2, total: 8, pct: 25, employees: ['Brooklyn Simmons','Jenny Wilson'] },
-      { name: 'Creativity',             count: 2, total: 8, pct: 25, employees: ['Wade Warren','Leslie Alexander'] },
-      { name: 'Decision Making',        count: 1, total: 8, pct: 13, employees: ['Guy Hawkins'] },
-      { name: 'Conflict Resolution',    count: 1, total: 8, pct: 13, employees: ['Ulfa Irawan'] },
-      { name: 'Negotiation',            count: 1, total: 8, pct: 13, employees: ['Jane Cooper'] },
-      { name: 'Presentation Skills',    count: 1, total: 8, pct: 13, employees: ['Esther Howard'] },
-      { name: 'Delegation',             count: 1, total: 8, pct: 13, employees: ['Cameron Williamson'] },
-      { name: 'Coaching',               count: 1, total: 8, pct: 13, employees: ['Brooklyn Simmons'] }
-    ];
+    var ASPECTS = [];
 
     function renderAspectViews() {
       var g = document.getElementById('ag-grid-5');
@@ -557,79 +541,14 @@
     }
 
 
-    var EMPLOYEES = [
-      { id:0, name:'Ulfa Irawan', role:'Sales Executive', dept:'Sales Executive', avatar:'assets/avatar-1.png', programs:4,
-        statuses:[],
-        idps:[
-          {program:'Sales Excellence & Multi-Skill Development Program 2025',aspects:['TEAMWORK (2→4)','COMMUNICATION (1→3)','LEADERSHIP (2→4)','CRITICAL THINKING (1→3)','PROBLEM SOLVING (2→5)'],pics:[{name:'Muhammad Multazam',initials:'MM',color:'#0EA5E9'},{name:'Metha Sari',initials:'ME',color:'#8B5CF6'},{name:'Indra Budiman',initials:'IB',color:'#10B981'},{name:'Reza Ahmad',initials:'RA',color:'#F59E0B'}],period:'Jan 15 - Feb 28, 2025',statusLabel:'PENDING',statusCls:'status-need-review',progress:{done:0,total:5}},
-          {program:'Communication Skills Accelerator',aspects:['COMMUNICATION (1→3)'],pics:[{name:'Muhammad Multazam',initials:'MM',color:'#0EA5E9'}],period:'Mar 1 - Apr 15, 2025',statusLabel:'IN PROGRESS',statusCls:'status-in-progress',progress:{done:2,total:4}},
-          {program:'Leadership Fundamentals Workshop',aspects:['LEADERSHIP (2→4)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Aug 1 - Sep 15, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}},
-          {program:'Problem Solving & Analytical Thinking',aspects:['PROBLEM SOLVING (1→3)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'May 1 - Jun 30, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}}
-        ]},
-      { id:1, name:'Jane Cooper', role:'Product Designer', dept:'Sales Executive', avatar:'assets/avatar-1.png', programs:4,
-        statuses:[],
-        idps:[
-          {program:'Leadership Development Track Q1 2025',aspects:['LEADERSHIP (1→3)'],pics:[{name:'Muhammad Multazam',initials:'MM',color:'#0EA5E9'}],period:'Feb 1 - Mar 15, 2025',statusLabel:'IN PROGRESS',statusCls:'status-in-progress',progress:{done:1,total:3}},
-          {program:'Effective Communication for Designers',aspects:['COMMUNICATION (2→4)'],pics:[{name:'Muhammad Multazam',initials:'MM',color:'#0EA5E9'}],period:'Mar 20 - Apr 30, 2025',statusLabel:'IN PROGRESS',statusCls:'status-in-progress',progress:{done:2,total:4}},
-          {program:'Team Collaboration Enhancement Program',aspects:['TEAMWORK (2→4)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Nov 1 - Dec 15, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:4,total:4}},
-          {program:'Critical Thinking in Product Design',aspects:['CRITICAL THINKING (1→3)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Jul 1 - Aug 31, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}}
-        ]},
-      { id:2, name:'Wade Warren', role:'Product Designer', dept:'Sales Executive', avatar:'assets/avatar-2.png', programs:3,
-        statuses:[],
-        idps:[
-          {program:'Leadership Excellence Program',aspects:['LEADERSHIP (2→4)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Jan 1 - Feb 28, 2025',statusLabel:'DONE',statusCls:'status-done',progress:{done:4,total:4}},
-          {program:'Team Dynamics & Collaboration',aspects:['TEAMWORK (1→3)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Oct 1 - Nov 30, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}},
-          {program:'Business Communication Skills Development',aspects:['COMMUNICATION (2→4)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Jul 1 - Aug 31, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}}
-        ]},
-      { id:3, name:'Esther Howard', role:'Software Engineer', dept:'Engineer', avatar:'assets/avatar-2.png', programs:3,
-        statuses:[],
-        idps:[
-          {program:'Tech Leadership Program Q1 2025',aspects:['LEADERSHIP (1→3)'],pics:[{name:'Muhammad Multazam',initials:'MM',color:'#0EA5E9'}],period:'Feb 1 - Mar 31, 2025',statusLabel:'PENDING',statusCls:'status-need-review',progress:{done:0,total:3}},
-          {program:'Advanced Problem Solving for Engineers',aspects:['PROBLEM SOLVING (2→4)'],pics:[{name:'Muhammad Multazam',initials:'MM',color:'#0EA5E9'}],period:'Oct 1 - Nov 30, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:4,total:4}},
-          {program:'Engineering Team Synergy',aspects:['TEAMWORK (1→3)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Jul 1 - Aug 31, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}}
-        ]},
-      { id:4, name:'Cameron Williamson', role:'Software Engineer', dept:'Engineer', avatar:'assets/avatar-1.png', programs:3,
-        statuses:[],
-        idps:[
-          {program:'Communication for Technical Teams',aspects:['COMMUNICATION (2→4)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Mar 1 - Apr 30, 2025',statusLabel:'IN PROGRESS',statusCls:'status-in-progress',progress:{done:2,total:5}},
-          {program:'Engineering Leadership Development',aspects:['LEADERSHIP (1→3)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Nov 1 - Dec 31, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}},
-          {program:'Critical Thinking & Innovation Workshop',aspects:['CRITICAL THINKING (2→4)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Aug 1 - Sep 30, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:4,total:4}}
-        ]},
-      { id:5, name:'Brooklyn Simmons', role:'Software Engineer', dept:'Engineer', avatar:'assets/avatar-2.png', programs:3,
-        statuses:[],
-        idps:[
-          {program:'Teamwork & Collaboration Bootcamp',aspects:['TEAMWORK (2→4)'],pics:[{name:'Muhammad Multazam',initials:'MM',color:'#0EA5E9'}],period:'Jan 1 - Feb 28, 2025',statusLabel:'DONE',statusCls:'status-done',progress:{done:4,total:4}},
-          {program:'Technical Communication Fundamentals',aspects:['COMMUNICATION (1→3)'],pics:[{name:'Muhammad Multazam',initials:'MM',color:'#0EA5E9'}],period:'Sep 1 - Oct 31, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}},
-          {program:'Leadership in Software Development',aspects:['LEADERSHIP (2→4)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'May 1 - Jun 30, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:4,total:4}}
-        ]},
-      { id:6, name:'Leslie Alexander', role:'Software Engineer', dept:'Engineer', avatar:'assets/avatar-1.png', programs:3,
-        statuses:[],
-        idps:[
-          {program:'Problem Solving Excellence',aspects:['PROBLEM SOLVING (1→3)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Feb 1 - Mar 31, 2025',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}},
-          {program:'Critical Thinking Workshop Series',aspects:['CRITICAL THINKING (2→4)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Oct 1 - Nov 30, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:4,total:4}},
-          {program:'Engineering Leadership Track',aspects:['LEADERSHIP (1→3)'],pics:[{name:'Muhammad Multazam',initials:'MM',color:'#0EA5E9'}],period:'Jun 1 - Jul 31, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}}
-        ]},
-      { id:7, name:'Jenny Wilson', role:'Product Manager', dept:'Product', avatar:'assets/avatar-2.png', programs:3,
-        statuses:[],
-        idps:[
-          {program:'Product Leadership Development Program 2025',aspects:['LEADERSHIP (2→4)'],pics:[{name:'Muhammad Multazam',initials:'MM',color:'#0EA5E9'}],period:'Mar 1 - Apr 30, 2025',statusLabel:'IN PROGRESS',statusCls:'status-in-progress',progress:{done:1,total:4}},
-          {program:'Stakeholder Communication Mastery',aspects:['COMMUNICATION (1→3)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Nov 1 - Dec 31, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}},
-          {program:'Strategic Problem Solving for Product Managers',aspects:['PROBLEM SOLVING (2→4)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Jul 1 - Aug 31, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:4,total:4}}
-        ]},
-      { id:8, name:'Guy Hawkins', role:'Product Manager', dept:'Product', avatar:'assets/avatar-2.png', programs:3,
-        statuses:[],
-        idps:[
-          {program:'Team Building & Collaboration',aspects:['TEAMWORK (1→3)'],pics:[{name:'Muhammad Multazam',initials:'MM',color:'#0EA5E9'}],period:'Jan 1 - Feb 28, 2025',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}},
-          {program:'Product Leadership Excellence',aspects:['LEADERSHIP (2→4)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'Sep 1 - Oct 31, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:4,total:4}},
-          {program:'Critical Thinking for Product Managers',aspects:['CRITICAL THINKING (1→3)'],pics:[{name:'Metha Sari',initials:'ME',color:'#8B5CF6'}],period:'May 1 - Jun 30, 2024',statusLabel:'DONE',statusCls:'status-done',progress:{done:3,total:3}}
-        ]}
-    ];
-    // Derive table status counts from each employee's IDP history so chips always match the panel
-    EMPLOYEES.forEach(function(emp){ emp.statuses=emp.idps.map(function(idp){ return {label:idp.statusLabel,cls:idp.statusCls}; }); });
+    var EMPLOYEES = [];
     var _selectedRow = null;
+    var _currentEmpId = null;
+    function openIdpDetail(){ if(_currentEmpId!=null) window.location.href='detail-idp-admin.html?id='+_currentEmpId; }
     function openPanelById(id, row) {
       var emp = EMPLOYEES.find(function(e){ return e.id === id; });
       if (!emp) return;
+      _currentEmpId = emp.id;
       if (_selectedRow) _selectedRow.classList.remove('row-selected');
       _selectedRow = row; row.classList.add('row-selected');
       document.getElementById('panel-avatar').src = emp.avatar;
@@ -817,7 +736,15 @@
         chip.textContent=key+': '+(counts[key]||0);
       });
     }
-    document.addEventListener('DOMContentLoaded', function(){ renderCfTable(); updateInsightCounts(); renderAspectViews(); });
+    document.addEventListener('DOMContentLoaded', function(){
+      renderAspectViews();
+      fetch('/data/idp-data.json').then(function(r){ return r.json(); }).then(function(data){
+        EMPLOYEES = data.employees || [];
+        ASPECTS = data.aspects || []; NOTIFICATIONS = data.notifications || []; renderAspectViews();
+        EMPLOYEES.forEach(function(emp){ emp.statuses = emp.idps.map(function(idp){ return {label:idp.statusLabel,cls:idp.statusCls}; }); });
+        renderCfTable(); updateInsightCounts();
+      }).catch(function(e){ console.error('Failed to load idp-data.json', e); });
+    });
 
     function _buildIdpCard(idp) {
       var programRow = '<div class="panel-card-row"><span class="panel-card-label">Program:</span>'
@@ -869,7 +796,7 @@
         + '<span class="panel-progress-count '+clrCls+'">'+prog.done+'/'+prog.total+'</span>'
         + '</div></div>';
 
-      return '<div class="panel-idp-card" onclick="window.location.href=\'detail-idp-admin.html\'">'
+      return '<div class="panel-idp-card" onclick="openIdpDetail()">'
         + programRow + aspectRow + picRow + periodRow + statusRow + '</div>';
     }
 
@@ -994,7 +921,7 @@
       <button class="panel-footer-btn" type="button" onclick="closePanel()"><span>Close Profile</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
-      <button class="panel-footer-btn link" type="button"><span>Full Profile Page</span>
+      <button class="panel-footer-btn link" type="button" onclick="openIdpDetail()"><span>Full Profile Page</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       </button>
     </div>
@@ -1017,14 +944,7 @@
     </div>
   </div>
   <script>
-    var NOTIFICATIONS = [
-      { title: 'IDP Review Required', desc: 'A new IDP submitted by Ahmad Fauzi for Muhammad Multazam is waiting for your review.', tags: [{label:'NEED REVIEW', cls:'status-chip status-need-review'}], quote: 'Please review and approve the development plan to continue the process.', time: '1 day ago', unread: true },
-      { title: 'New Comment on Development Program', desc: '<strong>Sarah Wijaya</strong> commented on the development program "Leadership Workshop 2026".', tags: [], quote: 'Tolong atur jadwal dengan saya besok senin, cari jam kosong', time: '1 day ago', unread: true },
-      { title: 'IDP Approved', desc: 'The IDP you submitted for Muhammad Multazam has been reviewed and approved by Admin.', tags: [{label:'LEADERSHIP', cls:'aspect-chip'}], quote: 'The employee can now begin the development activities as planned.', time: '1 day ago', unread: true },
-      { title: 'New IDP Assignment for your Team Member', desc: 'You have been assigned as the PIC for an IDP created for Muhammad Multazam.', tags: [{label:'CRITICAL THINKING', cls:'aspect-chip'}], quote: "Please review the assigned IDP and support the employee's development journey.", time: '1 day ago', unread: true },
-      { title: 'IDP Submission Rejected', desc: 'The IDP you submitted for Muhammad Multazam was not approved by Admin.', tags: [{label:'COMMUNICATION', cls:'aspect-chip'}], quote: 'Please review the provided comments and submit a revised development plan.', time: '1 day ago', unread: true },
-      { title: 'New IDP Assigned', desc: 'You have been assigned an IDP by Muhammad Multazam', tags: [{label:'CRITICAL THINKING', cls:'aspect-chip'},{label:'LEADERSHIP', cls:'aspect-chip'}], quote: 'Please review your IDP and begin your development activities accordingly.', time: '1 day ago', unread: true }
-    ];
+    var NOTIFICATIONS = [];
 
     function renderNotifications() {
       var list = document.getElementById('notif-list');
@@ -1103,8 +1023,8 @@
       window.swSwitch=function(r){
         localStorage.setItem(KEY,r);
         document.getElementById('switcher-menu').style.display='none';
-        if(r==='Employee') window.location.href='/detail-idp-employee.html';
-        else if(r==='Manager') window.location.href='/monitoring-manager.html';
+        if(r==='Employee') window.location.href='/idp-app/detail-idp-employee.html';
+        else if(r==='Manager') window.location.href='/idp-app/monitoring-manager.html';
         else render(r);
       };
       document.addEventListener('click',function(e){ if(!document.getElementById('user-switcher').contains(e.target)) document.getElementById('switcher-menu').style.display='none'; });

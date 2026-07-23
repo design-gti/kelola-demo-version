@@ -1,27 +1,26 @@
 "use client";
+import { managerTeam } from "@/data/managerTeamData";
 
 type SupportCategory = "skill-gap" | "workload" | "career";
 
 interface SupportEntry {
   name: string;
-  initials: string;
   role: string;
   category: SupportCategory;
   signal: string;
 }
 
+// name/role from canonical team; category/signal are demo.
 const SUPPORT: SupportEntry[] = [
   {
-    name: "Dewi Kusuma",
-    initials: "DK",
-    role: "HR Business Partner",
+    name: managerTeam[2].name,
+    role: managerTeam[2].position,
     category: "workload",
     signal: "Pola kerja menunjukkan deviasi beban tinggi selama 3 minggu berturut-turut",
   },
   {
-    name: "Rizky Pratama",
-    initials: "RP",
-    role: "Manajer Pemasaran",
+    name: managerTeam[3].name,
+    role: managerTeam[3].position,
     category: "career",
     signal: "Momentum performa menurun dan skor mood turun — mungkin perlu diskusi arah karier",
   },
@@ -85,7 +84,7 @@ export default function SupportNeedsCard() {
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 10,
                 }}>
-                  {e.initials}
+                  {e.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 11, color: "#495057" }}>

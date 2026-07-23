@@ -3,58 +3,50 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Paper, Badge, Progress, TextInput } from "@mantine/core";
 import { candidates } from "@/data/dummyData";
-import { loadEmployeesFromCSV } from "../../vismap/data/csvLoader";
+import { loadEmployeesFromCanonical } from "../../vismap/data/canonicalAdapter";
 import type { Employee as CsvEmployee } from "../../vismap/data/orgChartData";
 
 interface TargetPosition {
   label: string;
   critical?: boolean;
-  successorIds: string[];
-  successorScoreOverride?: Record<string, number>;
   weights: { behavioral: number; performance: number; leadership: number; technical: number };
 }
 
+// ponytail: dropped hardcoded successorIds/scoreOverride (used dead "cNN" ids that never matched
+// canonical "pNN"). Successors are now the top matches by computed score — always canonical-derived.
+const SUCCESSOR_COUNT = 4;
+
 const CRITICAL_POSITIONS: TargetPosition[] = [
-  { label: "CEO",                  critical: true, successorIds: ["c20","c13","c19","c2","c17"],
-    successorScoreOverride: { c20: 55, c13: 52, c19: 48, c2: 44, c17: 41 },
-    weights: { behavioral: 0.20, performance: 0.25, leadership: 0.45, technical: 0.10 } },
-  { label: "Chief People Officer", critical: true, successorIds: ["c12","c4","c16","c8"],
-    successorScoreOverride: { c12: 57, c4: 53, c16: 48, c8: 42 },
-    weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
-  { label: "HR Operations Lead",   critical: true, successorIds: ["c4","c12","c16"],
-    successorScoreOverride: { c4: 59, c12: 54, c16: 47 },
-    weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
-  { label: "Product Manager Lead", critical: true, successorIds: ["c7","c17","c19","c5"],
-    successorScoreOverride: { c7: 56, c17: 51, c19: 46, c5: 40 },
-    weights: { behavioral: 0.20, performance: 0.30, leadership: 0.25, technical: 0.25 } },
-  { label: "Research Lead",        critical: true, successorIds: ["c17","c6","c3","c11"],
-    successorScoreOverride: { c17: 58, c6: 52, c3: 47, c11: 43 },
-    weights: { behavioral: 0.15, performance: 0.25, leadership: 0.20, technical: 0.40 } },
+  { label: "CEO",                  critical: true, weights: { behavioral: 0.20, performance: 0.25, leadership: 0.45, technical: 0.10 } },
+  { label: "Chief People Officer", critical: true, weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
+  { label: "HR Operations Lead",   critical: true, weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
+  { label: "Product Manager Lead", critical: true, weights: { behavioral: 0.20, performance: 0.30, leadership: 0.25, technical: 0.25 } },
+  { label: "Research Lead",        critical: true, weights: { behavioral: 0.15, performance: 0.25, leadership: 0.20, technical: 0.40 } },
 ];
 
 const ALL_POSITIONS: TargetPosition[] = [
-  { label: "Chief Technology Officer",   successorIds: ["c19","c17","c11","c3"],    weights: { behavioral: 0.15, performance: 0.30, leadership: 0.25, technical: 0.30 } },
-  { label: "Chief Marketing Officer",    successorIds: ["c5","c14","c7","c20"],     weights: { behavioral: 0.25, performance: 0.35, leadership: 0.30, technical: 0.10 } },
-  { label: "Chief Product Officer",      successorIds: ["c7","c17","c20","c13"],    weights: { behavioral: 0.20, performance: 0.30, leadership: 0.30, technical: 0.20 } },
-  { label: "Product Manager",            successorIds: ["c5","c15","c7","c1"],      weights: { behavioral: 0.20, performance: 0.35, leadership: 0.20, technical: 0.25 } },
-  { label: "Product Designer Lead",      successorIds: ["c6","c14","c5","c3"],      weights: { behavioral: 0.25, performance: 0.30, leadership: 0.20, technical: 0.25 } },
-  { label: "Product Designer",           successorIds: ["c6","c3","c14","c15"],     weights: { behavioral: 0.25, performance: 0.30, leadership: 0.10, technical: 0.35 } },
-  { label: "Frontend Lead",              successorIds: ["c3","c11","c19","c6"],     weights: { behavioral: 0.15, performance: 0.25, leadership: 0.20, technical: 0.40 } },
-  { label: "Frontend Developer",         successorIds: ["c3","c11","c6","c15"],     weights: { behavioral: 0.15, performance: 0.20, leadership: 0.10, technical: 0.55 } },
-  { label: "Backend Lead",               successorIds: ["c19","c11","c3","c17"],    weights: { behavioral: 0.15, performance: 0.25, leadership: 0.20, technical: 0.40 } },
-  { label: "Backend Developer",          successorIds: ["c11","c3","c19","c6"],     weights: { behavioral: 0.15, performance: 0.20, leadership: 0.10, technical: 0.55 } },
-  { label: "UX Researcher",              successorIds: ["c6","c14","c4","c15"],     weights: { behavioral: 0.30, performance: 0.25, leadership: 0.10, technical: 0.35 } },
-  { label: "QA Lead",                    successorIds: ["c11","c3","c6","c15"],     weights: { behavioral: 0.20, performance: 0.25, leadership: 0.20, technical: 0.35 } },
-  { label: "Sales Lead",                 successorIds: ["c5","c14","c1","c13"],     weights: { behavioral: 0.30, performance: 0.40, leadership: 0.20, technical: 0.10 } },
-  { label: "Sales Executive",            successorIds: ["c5","c14","c15","c1"],     weights: { behavioral: 0.30, performance: 0.40, leadership: 0.15, technical: 0.15 } },
-  { label: "Digital Marketing Lead",     successorIds: ["c14","c5","c6","c20"],     weights: { behavioral: 0.25, performance: 0.35, leadership: 0.25, technical: 0.15 } },
-  { label: "Digital Marketing Specialist", successorIds: ["c14","c5","c15","c6"], weights: { behavioral: 0.25, performance: 0.35, leadership: 0.10, technical: 0.30 } },
-  { label: "Partnership Lead",           successorIds: ["c7","c20","c13","c2"],     weights: { behavioral: 0.30, performance: 0.30, leadership: 0.30, technical: 0.10 } },
-  { label: "Partnership Executive",      successorIds: ["c5","c14","c7","c15"],     weights: { behavioral: 0.30, performance: 0.35, leadership: 0.20, technical: 0.15 } },
-  { label: "Recruiter",                  successorIds: ["c4","c12","c16","c8"],     weights: { behavioral: 0.45, performance: 0.25, leadership: 0.15, technical: 0.15 } },
-  { label: "Recruitment Lead",           successorIds: ["c12","c4","c16","c8"],     weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
-  { label: "People Development Lead",    successorIds: ["c4","c12","c16","c20"],    weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
-  { label: "HR Staff",                   successorIds: ["c4","c12","c16"],          weights: { behavioral: 0.40, performance: 0.25, leadership: 0.15, technical: 0.20 } },
+  { label: "Chief Technology Officer",   weights: { behavioral: 0.15, performance: 0.30, leadership: 0.25, technical: 0.30 } },
+  { label: "Chief Marketing Officer",    weights: { behavioral: 0.25, performance: 0.35, leadership: 0.30, technical: 0.10 } },
+  { label: "Chief Product Officer",      weights: { behavioral: 0.20, performance: 0.30, leadership: 0.30, technical: 0.20 } },
+  { label: "Product Manager",            weights: { behavioral: 0.20, performance: 0.35, leadership: 0.20, technical: 0.25 } },
+  { label: "Product Designer Lead",      weights: { behavioral: 0.25, performance: 0.30, leadership: 0.20, technical: 0.25 } },
+  { label: "Product Designer",           weights: { behavioral: 0.25, performance: 0.30, leadership: 0.10, technical: 0.35 } },
+  { label: "Frontend Lead",              weights: { behavioral: 0.15, performance: 0.25, leadership: 0.20, technical: 0.40 } },
+  { label: "Frontend Developer",         weights: { behavioral: 0.15, performance: 0.20, leadership: 0.10, technical: 0.55 } },
+  { label: "Backend Lead",               weights: { behavioral: 0.15, performance: 0.25, leadership: 0.20, technical: 0.40 } },
+  { label: "Backend Developer",          weights: { behavioral: 0.15, performance: 0.20, leadership: 0.10, technical: 0.55 } },
+  { label: "UX Researcher",              weights: { behavioral: 0.30, performance: 0.25, leadership: 0.10, technical: 0.35 } },
+  { label: "QA Lead",                    weights: { behavioral: 0.20, performance: 0.25, leadership: 0.20, technical: 0.35 } },
+  { label: "Sales Lead",                 weights: { behavioral: 0.30, performance: 0.40, leadership: 0.20, technical: 0.10 } },
+  { label: "Sales Executive",            weights: { behavioral: 0.30, performance: 0.40, leadership: 0.15, technical: 0.15 } },
+  { label: "Digital Marketing Lead",     weights: { behavioral: 0.25, performance: 0.35, leadership: 0.25, technical: 0.15 } },
+  { label: "Digital Marketing Specialist", weights: { behavioral: 0.25, performance: 0.35, leadership: 0.10, technical: 0.30 } },
+  { label: "Partnership Lead",           weights: { behavioral: 0.30, performance: 0.30, leadership: 0.30, technical: 0.10 } },
+  { label: "Partnership Executive",      weights: { behavioral: 0.30, performance: 0.35, leadership: 0.20, technical: 0.15 } },
+  { label: "Recruiter",                  weights: { behavioral: 0.45, performance: 0.25, leadership: 0.15, technical: 0.15 } },
+  { label: "Recruitment Lead",           weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
+  { label: "People Development Lead",    weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
+  { label: "HR Staff",                   weights: { behavioral: 0.40, performance: 0.25, leadership: 0.15, technical: 0.20 } },
 ];
 
 const ALL_FLAT = [...CRITICAL_POSITIONS, ...ALL_POSITIONS];
@@ -129,7 +121,7 @@ export default function OverallScoreCard() {
   const pos = ALL_FLAT[selectedIdx];
 
   useEffect(() => {
-    loadEmployeesFromCSV().then(setCsvEmployees).catch(() => {});
+    loadEmployeesFromCanonical().then(setCsvEmployees).catch(() => {});
   }, []);
 
   // Close on outside click
@@ -157,9 +149,7 @@ export default function OverallScoreCard() {
     )
     .sort((a, b) => tagSortWeight(a.tags) - tagSortWeight(b.tags));
 
-  // Scoring logic (unchanged)
-  const successorIds = new Set(pos.successorIds);
-  const override = pos.successorScoreOverride ?? {};
+  // Scoring logic — match computed from canonical scores × position weights
   const scored = candidates.map(c => {
     const beh  = c.behavioral_score  ?? 0;
     const perf = c.performance_score ?? 0;
@@ -172,13 +162,14 @@ export default function OverallScoreCard() {
       tech * pos.weights.technical
     );
     const incomplete = c.behavioral_score === null || c.performance_score === null;
-    const finalMatch = override[c.id] !== undefined ? override[c.id] : match;
-    return { ...c, match: finalMatch, incomplete };
+    return { ...c, match, incomplete };
   }).sort((a, b) => b.match - a.match);
 
   const targetLevel = getTargetLevel(pos.label);
 
-  const successorCands = scored.filter(c => successorIds.has(c.id));
+  // Top matches become the successor shortlist; the rest are grouped by level.
+  const successorCands = scored.slice(0, SUCCESSOR_COUNT);
+  const successorIds = new Set(successorCands.map(c => c.id));
   const otherCands = scored.filter(c => !successorIds.has(c.id) && getCandidateLevel(c.position) >= targetLevel);
 
   // Group others by level
@@ -346,7 +337,7 @@ function CandidateRow({ c, isSuccessor }: { c: { id: string; name: string; posit
     }}>
       <div>
         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-          <Link href="/iprofile" style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#016699", textDecoration: "none", cursor: "pointer" }}>{c.name}</Link>
+          <Link href={`/iprofile?id=${c.id}`} style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#016699", textDecoration: "none", cursor: "pointer" }}>{c.name}</Link>
           {c.incomplete && <span style={{ fontSize: 9, color: "#fd9f28" }}>data tidak lengkap</span>}
         </div>
         <div style={{ fontSize: 9, fontFamily: "'Open Sans', sans-serif", color: "#adb5bd" }}>{c.position}</div>

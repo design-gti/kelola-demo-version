@@ -14,7 +14,7 @@ interface SuccessorsAccordionProps {
 }
 
 export function SuccessorsAccordion({
-  name = "Shani Indira",
+  name = "Vinicius Junior",
   position = "Product Designer",
   percentage = "92%",
   status = "Ready",

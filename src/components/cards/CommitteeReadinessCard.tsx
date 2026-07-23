@@ -1,11 +1,11 @@
 "use client";
 import { candidates } from "@/data/dummyData";
 
-const EVENT_DATE = "2026-07-21";
-const TODAY = "2026-06-25";
+// Committee event date (editable config). Countdown computes against the real current date.
+const EVENT_DATE = "2026-08-15";
 
-function daysRemaining(target: string, from: string): number {
-  return Math.ceil((new Date(target).getTime() - new Date(from).getTime()) / 86400000);
+function daysRemaining(target: string): number {
+  return Math.ceil((new Date(target).getTime() - Date.now()) / 86400000);
 }
 
 interface Dimension {
@@ -40,7 +40,7 @@ export default function CommitteeReadinessCard() {
 
   const completeDimensions = dimensions.filter(d => d.status === "complete").length;
   const overallPct = Math.round((completeDimensions / 4) * 100);
-  const days = daysRemaining(EVENT_DATE, TODAY);
+  const days = daysRemaining(EVENT_DATE);
 
   const statusColor: Record<string, string> = { missing: "#dc3545", partial: "#fd9f28", complete: "#28a745" };
   const statusLabel: Record<string, string> = { missing: "Belum Ada", partial: "Parsial", complete: "Lengkap" };

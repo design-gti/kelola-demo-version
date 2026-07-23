@@ -20,7 +20,7 @@ export default function ComponentSuccessors() {
             </div>
             <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
               <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-                <p className="leading-[normal] whitespace-pre-wrap">Shani Indira</p>
+                <p className="leading-[normal] whitespace-pre-wrap">Vinicius Junior</p>
               </div>
               <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
                 <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>

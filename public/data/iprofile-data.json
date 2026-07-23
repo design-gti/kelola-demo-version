@@ -1,0 +1,5468 @@
+{
+  "p01": {
+    "careerPlans": [
+      {
+        "position": "Chief Executive Officer",
+        "name": "Kylian Mbappe",
+        "percentage": "96%",
+        "status": "Ready"
+      },
+      {
+        "position": "Senior Head of Engineering",
+        "name": "Jude Bellingham",
+        "percentage": "84%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Phil Foden",
+        "position": "Backend Lead",
+        "percentage": "88%",
+        "status": "Ready"
+      },
+      {
+        "name": "Jamal Musiala",
+        "position": "Senior Engineer",
+        "percentage": "85%",
+        "status": "need dev."
+      },
+      {
+        "name": "Florian Wirtz",
+        "position": "Frontend Lead",
+        "percentage": "79%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Teknologi Team",
+        "role": "as Team Leader"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "A",
+    "extension": {
+      "performance": "4.5",
+      "engagement": "4.3",
+      "potency": "92%",
+      "height": 165
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "Problem solving",
+          "critical thinking"
+        ],
+        "pic": "Phil Foden",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "strategic thinking"
+        ],
+        "pic": "Kylian Mbappe",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700001",
+      "dob": "1 Jan 1990",
+      "gender": "Perempuan",
+      "lastEducation": "S1 Teknik Informatika",
+      "city": "Jakarta",
+      "province": "DKI Jakarta",
+      "maritalStatus": "Menikah",
+      "reportTo": "Kylian Mbappe (Chief Executive Officer)",
+      "workStartDate": "Jan 2024",
+      "tenure": "2 thn, 0 bln",
+      "careerHistory": [
+        {
+          "title": "Head of Engineering",
+          "period": "Jul 2026 - Current"
+        },
+        {
+          "title": "Junior Head of Engineering",
+          "period": "Jan 2024 - Jul 2026"
+        }
+      ]
+    }
+  },
+  "p02": {
+    "careerPlans": [
+      {
+        "position": "Head of Engineering",
+        "name": "Jude Bellingham",
+        "percentage": "85%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior Senior Engineer",
+        "name": "Jamal Musiala",
+        "percentage": "73%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Jude Bellingham",
+        "position": "Head of Engineering",
+        "percentage": "96%",
+        "status": "Ready"
+      },
+      {
+        "name": "Phil Foden",
+        "position": "Backend Lead",
+        "percentage": "88%",
+        "status": "Ready"
+      },
+      {
+        "name": "Florian Wirtz",
+        "position": "Frontend Lead",
+        "percentage": "79%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Teknologi Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "B",
+    "extension": {
+      "performance": "4.4",
+      "engagement": "4.0",
+      "potency": "72%",
+      "height": 166
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "critical thinking",
+          "strategic thinking"
+        ],
+        "pic": "Jude Bellingham",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "communication"
+        ],
+        "pic": "Jude Bellingham",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700002",
+      "dob": "2 Feb 1991",
+      "gender": "Laki-laki",
+      "lastEducation": "S1 Manajemen",
+      "city": "Surabaya",
+      "province": "Jawa Timur",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Jude Bellingham (Head of Engineering)",
+      "workStartDate": "Feb 2023",
+      "tenure": "3 thn, 1 bln",
+      "careerHistory": [
+        {
+          "title": "Senior Engineer",
+          "period": "Jul 2025 - Current"
+        },
+        {
+          "title": "Junior Senior Engineer",
+          "period": "Feb 2023 - Jul 2025"
+        }
+      ]
+    }
+  },
+  "p03": {
+    "careerPlans": [
+      {
+        "position": "Head of Engineering",
+        "name": "Jude Bellingham",
+        "percentage": "79%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior Frontend Lead",
+        "name": "Florian Wirtz",
+        "percentage": "67%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Jude Bellingham",
+        "position": "Head of Engineering",
+        "percentage": "96%",
+        "status": "Ready"
+      },
+      {
+        "name": "Phil Foden",
+        "position": "Backend Lead",
+        "percentage": "88%",
+        "status": "Ready"
+      },
+      {
+        "name": "Jamal Musiala",
+        "position": "Senior Engineer",
+        "percentage": "85%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Teknologi Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "AB",
+    "extension": {
+      "performance": "4.1",
+      "engagement": "3.5",
+      "potency": "60%",
+      "height": 167
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "strategic thinking",
+          "communication"
+        ],
+        "pic": "Jude Bellingham",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "leadership"
+        ],
+        "pic": "Jude Bellingham",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700003",
+      "dob": "3 Mar 1992",
+      "gender": "Laki-laki",
+      "lastEducation": "S2 Business Administration",
+      "city": "Bandung",
+      "province": "Jawa Barat",
+      "maritalStatus": "Menikah",
+      "reportTo": "Jude Bellingham (Head of Engineering)",
+      "workStartDate": "Mar 2022",
+      "tenure": "4 thn, 2 bln",
+      "careerHistory": [
+        {
+          "title": "Frontend Lead",
+          "period": "Jul 2024 - Current"
+        },
+        {
+          "title": "Junior Frontend Lead",
+          "period": "Mar 2022 - Jul 2024"
+        }
+      ]
+    }
+  },
+  "p04": {
+    "careerPlans": [
+      {
+        "position": "Head of Engineering",
+        "name": "Jude Bellingham",
+        "percentage": "88%",
+        "status": "Ready"
+      },
+      {
+        "position": "Senior Backend Lead",
+        "name": "Phil Foden",
+        "percentage": "76%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Jude Bellingham",
+        "position": "Head of Engineering",
+        "percentage": "96%",
+        "status": "Ready"
+      },
+      {
+        "name": "Jamal Musiala",
+        "position": "Senior Engineer",
+        "percentage": "85%",
+        "status": "need dev."
+      },
+      {
+        "name": "Florian Wirtz",
+        "position": "Frontend Lead",
+        "percentage": "79%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Teknologi Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "O",
+    "extension": {
+      "performance": "3.9",
+      "engagement": "4.1",
+      "potency": "84%",
+      "height": 168
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "communication",
+          "leadership"
+        ],
+        "pic": "Jude Bellingham",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "analytical thinking"
+        ],
+        "pic": "Jude Bellingham",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700004",
+      "dob": "4 Apr 1993",
+      "gender": "Perempuan",
+      "lastEducation": "S1 Psikologi",
+      "city": "Medan",
+      "province": "Sumatera Utara",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Jude Bellingham (Head of Engineering)",
+      "workStartDate": "Apr 2021",
+      "tenure": "5 thn, 3 bln",
+      "careerHistory": [
+        {
+          "title": "Backend Lead",
+          "period": "Jul 2023 - Current"
+        },
+        {
+          "title": "Junior Backend Lead",
+          "period": "Apr 2021 - Jul 2023"
+        }
+      ]
+    }
+  },
+  "p05": {
+    "careerPlans": [
+      {
+        "position": "Senior Chief Executive Officer",
+        "name": "Kylian Mbappe",
+        "percentage": "86%",
+        "status": "Ready"
+      }
+    ],
+    "successors": [
+      {
+        "name": "Rodri",
+        "position": "VP Corporate Strategy",
+        "percentage": "94%",
+        "status": "Ready"
+      },
+      {
+        "name": "Erling Haaland",
+        "position": "Chief Strategy Officer",
+        "percentage": "90%",
+        "status": "Ready"
+      },
+      {
+        "name": "Virgil van Dijk",
+        "position": "Head of Governance",
+        "percentage": "89%",
+        "status": "Ready"
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Strategi Team",
+        "role": "as Team Leader"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "A",
+    "extension": {
+      "performance": "4.8",
+      "engagement": "4.6",
+      "potency": "95%",
+      "height": 169
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "leadership",
+          "analytical thinking"
+        ],
+        "pic": "Rodri",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "planning"
+        ],
+        "pic": "Erling Haaland",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700005",
+      "dob": "5 Mei 1994",
+      "gender": "Laki-laki",
+      "lastEducation": "S2 Data Science",
+      "city": "Semarang",
+      "province": "Jawa Tengah",
+      "maritalStatus": "Menikah",
+      "reportTo": "-",
+      "workStartDate": "Mei 2020",
+      "tenure": "6 thn, 4 bln",
+      "careerHistory": [
+        {
+          "title": "Chief Executive Officer",
+          "period": "Jul 2022 - Current"
+        },
+        {
+          "title": "Junior Chief Executive Officer",
+          "period": "Mei 2020 - Jul 2022"
+        }
+      ]
+    }
+  },
+  "p06": {
+    "careerPlans": [
+      {
+        "position": "Chief Executive Officer",
+        "name": "Kylian Mbappe",
+        "percentage": "90%",
+        "status": "Ready"
+      },
+      {
+        "position": "Senior Chief Strategy Officer",
+        "name": "Erling Haaland",
+        "percentage": "78%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Kylian Mbappe",
+        "position": "Chief Executive Officer",
+        "percentage": "98%",
+        "status": "Ready"
+      },
+      {
+        "name": "Rodri",
+        "position": "VP Corporate Strategy",
+        "percentage": "94%",
+        "status": "Ready"
+      },
+      {
+        "name": "Virgil van Dijk",
+        "position": "Head of Governance",
+        "percentage": "89%",
+        "status": "Ready"
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Strategi Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "B",
+    "extension": {
+      "performance": "4.6",
+      "engagement": "4.0",
+      "potency": "70%",
+      "height": 170
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "analytical thinking",
+          "planning"
+        ],
+        "pic": "Kylian Mbappe",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "collaboration"
+        ],
+        "pic": "Kylian Mbappe",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700006",
+      "dob": "6 Jun 1995",
+      "gender": "Laki-laki",
+      "lastEducation": "S1 Akuntansi",
+      "city": "Makassar",
+      "province": "Sulawesi Selatan",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Kylian Mbappe (Chief Executive Officer)",
+      "workStartDate": "Jun 2019",
+      "tenure": "7 thn, 5 bln",
+      "careerHistory": [
+        {
+          "title": "Chief Strategy Officer",
+          "period": "Jul 2021 - Current"
+        },
+        {
+          "title": "Junior Chief Strategy Officer",
+          "period": "Jun 2019 - Jul 2021"
+        }
+      ]
+    }
+  },
+  "p07": {
+    "careerPlans": [
+      {
+        "position": "Chief Executive Officer",
+        "name": "Kylian Mbappe",
+        "percentage": "94%",
+        "status": "Ready"
+      },
+      {
+        "position": "Senior VP Corporate Strategy",
+        "name": "Rodri",
+        "percentage": "82%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Kylian Mbappe",
+        "position": "Chief Executive Officer",
+        "percentage": "98%",
+        "status": "Ready"
+      },
+      {
+        "name": "Erling Haaland",
+        "position": "Chief Strategy Officer",
+        "percentage": "90%",
+        "status": "Ready"
+      },
+      {
+        "name": "Virgil van Dijk",
+        "position": "Head of Governance",
+        "percentage": "89%",
+        "status": "Ready"
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Strategi Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "AB",
+    "extension": {
+      "performance": "4.3",
+      "engagement": "4.3",
+      "potency": "88%",
+      "height": 171
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "planning",
+          "collaboration"
+        ],
+        "pic": "Kylian Mbappe",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "Problem solving"
+        ],
+        "pic": "Kylian Mbappe",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700007",
+      "dob": "7 Jul 1996",
+      "gender": "Perempuan",
+      "lastEducation": "S1 Teknik Informatika",
+      "city": "Jakarta",
+      "province": "DKI Jakarta",
+      "maritalStatus": "Menikah",
+      "reportTo": "Kylian Mbappe (Chief Executive Officer)",
+      "workStartDate": "Jul 2018",
+      "tenure": "8 thn, 6 bln",
+      "careerHistory": [
+        {
+          "title": "VP Corporate Strategy",
+          "period": "Jul 2020 - Current"
+        },
+        {
+          "title": "Junior VP Corporate Strategy",
+          "period": "Jul 2018 - Jul 2020"
+        }
+      ]
+    }
+  },
+  "p08": {
+    "careerPlans": [
+      {
+        "position": "Chief Executive Officer",
+        "name": "Kylian Mbappe",
+        "percentage": "89%",
+        "status": "Ready"
+      },
+      {
+        "position": "Senior Head of Governance",
+        "name": "Virgil van Dijk",
+        "percentage": "77%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Kylian Mbappe",
+        "position": "Chief Executive Officer",
+        "percentage": "98%",
+        "status": "Ready"
+      },
+      {
+        "name": "Rodri",
+        "position": "VP Corporate Strategy",
+        "percentage": "94%",
+        "status": "Ready"
+      },
+      {
+        "name": "Erling Haaland",
+        "position": "Chief Strategy Officer",
+        "percentage": "90%",
+        "status": "Ready"
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Strategi Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "O",
+    "extension": {
+      "performance": "4.0",
+      "engagement": "4.2",
+      "potency": "90%",
+      "height": 172
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "collaboration",
+          "Problem solving"
+        ],
+        "pic": "Kylian Mbappe",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "critical thinking"
+        ],
+        "pic": "Kylian Mbappe",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700008",
+      "dob": "8 Agu 1997",
+      "gender": "Laki-laki",
+      "lastEducation": "S1 Manajemen",
+      "city": "Surabaya",
+      "province": "Jawa Timur",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Kylian Mbappe (Chief Executive Officer)",
+      "workStartDate": "Agu 2017",
+      "tenure": "9 thn, 7 bln",
+      "careerHistory": [
+        {
+          "title": "Head of Governance",
+          "period": "Jul 2019 - Current"
+        },
+        {
+          "title": "Junior Head of Governance",
+          "period": "Agu 2017 - Jul 2019"
+        }
+      ]
+    }
+  },
+  "p09": {
+    "careerPlans": [
+      {
+        "position": "Chief Executive Officer",
+        "name": "Kylian Mbappe",
+        "percentage": "80%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior Head of Finance",
+        "name": "Pedri",
+        "percentage": "68%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Antoine Griezmann",
+        "position": "Controller",
+        "percentage": "92%",
+        "status": "Ready"
+      },
+      {
+        "name": "Federico Valverde",
+        "position": "Senior Finance Analyst",
+        "percentage": "86%",
+        "status": "Ready"
+      },
+      {
+        "name": "Enzo Fernandez",
+        "position": "Finance Analyst",
+        "percentage": "66%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Keuangan Team",
+        "role": "as Team Leader"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "A",
+    "extension": {
+      "performance": "4.2",
+      "engagement": "3.9",
+      "potency": "66%",
+      "height": 173
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "Problem solving",
+          "critical thinking"
+        ],
+        "pic": "Antoine Griezmann",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "strategic thinking"
+        ],
+        "pic": "Kylian Mbappe",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700009",
+      "dob": "9 Sep 1998",
+      "gender": "Laki-laki",
+      "lastEducation": "S2 Business Administration",
+      "city": "Bandung",
+      "province": "Jawa Barat",
+      "maritalStatus": "Menikah",
+      "reportTo": "Kylian Mbappe (Chief Executive Officer)",
+      "workStartDate": "Sep 2016",
+      "tenure": "10 thn, 8 bln",
+      "careerHistory": [
+        {
+          "title": "Head of Finance",
+          "period": "Jul 2018 - Current"
+        },
+        {
+          "title": "Junior Head of Finance",
+          "period": "Sep 2016 - Jul 2018"
+        }
+      ]
+    }
+  },
+  "p10": {
+    "careerPlans": [
+      {
+        "position": "Head of Finance",
+        "name": "Pedri",
+        "percentage": "86%",
+        "status": "Ready"
+      },
+      {
+        "position": "Senior Senior Finance Analyst",
+        "name": "Federico Valverde",
+        "percentage": "74%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Antoine Griezmann",
+        "position": "Controller",
+        "percentage": "92%",
+        "status": "Ready"
+      },
+      {
+        "name": "Pedri",
+        "position": "Head of Finance",
+        "percentage": "80%",
+        "status": "need dev."
+      },
+      {
+        "name": "Enzo Fernandez",
+        "position": "Finance Analyst",
+        "percentage": "66%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Keuangan Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "B",
+    "extension": {
+      "performance": "3.8",
+      "engagement": "4.0",
+      "potency": "74%",
+      "height": 174
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "critical thinking",
+          "strategic thinking"
+        ],
+        "pic": "Antoine Griezmann",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "communication"
+        ],
+        "pic": "Pedri",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700010",
+      "dob": "10 Okt 1999",
+      "gender": "Perempuan",
+      "lastEducation": "S1 Psikologi",
+      "city": "Medan",
+      "province": "Sumatera Utara",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Pedri (Head of Finance)",
+      "workStartDate": "Okt 2015",
+      "tenure": "11 thn, 9 bln",
+      "careerHistory": [
+        {
+          "title": "Senior Finance Analyst",
+          "period": "Jul 2017 - Current"
+        },
+        {
+          "title": "Junior Senior Finance Analyst",
+          "period": "Okt 2015 - Jul 2017"
+        }
+      ]
+    }
+  },
+  "p11": {
+    "careerPlans": [
+      {
+        "position": "Head of Finance",
+        "name": "Pedri",
+        "percentage": "66%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior Finance Analyst",
+        "name": "Enzo Fernandez",
+        "percentage": "54%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Antoine Griezmann",
+        "position": "Controller",
+        "percentage": "92%",
+        "status": "Ready"
+      },
+      {
+        "name": "Federico Valverde",
+        "position": "Senior Finance Analyst",
+        "percentage": "86%",
+        "status": "Ready"
+      },
+      {
+        "name": "Pedri",
+        "position": "Head of Finance",
+        "percentage": "80%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Keuangan Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "AB",
+    "extension": {
+      "performance": "3.5",
+      "engagement": "3.1",
+      "potency": "58%",
+      "height": 175
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "strategic thinking",
+          "communication"
+        ],
+        "pic": "Antoine Griezmann",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "leadership"
+        ],
+        "pic": "Pedri",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700011",
+      "dob": "11 Nov 1990",
+      "gender": "Laki-laki",
+      "lastEducation": "S2 Data Science",
+      "city": "Semarang",
+      "province": "Jawa Tengah",
+      "maritalStatus": "Menikah",
+      "reportTo": "Pedri (Head of Finance)",
+      "workStartDate": "Nov 2014",
+      "tenure": "12 thn, 10 bln",
+      "careerHistory": [
+        {
+          "title": "Finance Analyst",
+          "period": "Jul 2016 - Current"
+        },
+        {
+          "title": "Junior Finance Analyst",
+          "period": "Nov 2014 - Jul 2016"
+        }
+      ]
+    }
+  },
+  "p12": {
+    "careerPlans": [
+      {
+        "position": "Head of Finance",
+        "name": "Pedri",
+        "percentage": "92%",
+        "status": "Ready"
+      },
+      {
+        "position": "Senior Controller",
+        "name": "Antoine Griezmann",
+        "percentage": "80%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Federico Valverde",
+        "position": "Senior Finance Analyst",
+        "percentage": "86%",
+        "status": "Ready"
+      },
+      {
+        "name": "Pedri",
+        "position": "Head of Finance",
+        "percentage": "80%",
+        "status": "need dev."
+      },
+      {
+        "name": "Enzo Fernandez",
+        "position": "Finance Analyst",
+        "percentage": "66%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Keuangan Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "O",
+    "extension": {
+      "performance": "4.4",
+      "engagement": "4.2",
+      "potency": "80%",
+      "height": 176
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "communication",
+          "leadership"
+        ],
+        "pic": "Federico Valverde",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "analytical thinking"
+        ],
+        "pic": "Pedri",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700012",
+      "dob": "12 Des 1991",
+      "gender": "Laki-laki",
+      "lastEducation": "S1 Akuntansi",
+      "city": "Makassar",
+      "province": "Sulawesi Selatan",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Pedri (Head of Finance)",
+      "workStartDate": "Des 2013",
+      "tenure": "13 thn, 11 bln",
+      "careerHistory": [
+        {
+          "title": "Controller",
+          "period": "Jul 2015 - Current"
+        },
+        {
+          "title": "Junior Controller",
+          "period": "Des 2013 - Jul 2015"
+        }
+      ]
+    }
+  },
+  "p13": {
+    "careerPlans": [
+      {
+        "position": "Chief Executive Officer",
+        "name": "Kylian Mbappe",
+        "percentage": "74%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior HR Business Partner",
+        "name": "Christian Pulisic",
+        "percentage": "62%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Declan Rice",
+        "position": "HR Manager",
+        "percentage": "88%",
+        "status": "Ready"
+      },
+      {
+        "name": "Alphonso Davies",
+        "position": "People Ops Specialist",
+        "percentage": "80%",
+        "status": "need dev."
+      },
+      {
+        "name": "Cody Gakpo",
+        "position": "Talent Acquisition Lead",
+        "percentage": "64%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "SDM Team",
+        "role": "as Team Leader"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "A",
+    "extension": {
+      "performance": "3.6",
+      "engagement": "4.0",
+      "potency": "68%",
+      "height": 177
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "leadership",
+          "analytical thinking"
+        ],
+        "pic": "Declan Rice",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "planning"
+        ],
+        "pic": "Kylian Mbappe",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700013",
+      "dob": "13 Jan 1992",
+      "gender": "Perempuan",
+      "lastEducation": "S1 Teknik Informatika",
+      "city": "Jakarta",
+      "province": "DKI Jakarta",
+      "maritalStatus": "Menikah",
+      "reportTo": "Kylian Mbappe (Chief Executive Officer)",
+      "workStartDate": "Jan 2024",
+      "tenure": "2 thn, 0 bln",
+      "careerHistory": [
+        {
+          "title": "HR Business Partner",
+          "period": "Jul 2026 - Current"
+        },
+        {
+          "title": "Junior HR Business Partner",
+          "period": "Jan 2024 - Jul 2026"
+        }
+      ]
+    }
+  },
+  "p14": {
+    "careerPlans": [
+      {
+        "position": "HR Business Partner",
+        "name": "Christian Pulisic",
+        "percentage": "88%",
+        "status": "Ready"
+      },
+      {
+        "position": "Senior HR Manager",
+        "name": "Declan Rice",
+        "percentage": "76%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Alphonso Davies",
+        "position": "People Ops Specialist",
+        "percentage": "80%",
+        "status": "need dev."
+      },
+      {
+        "name": "Christian Pulisic",
+        "position": "HR Business Partner",
+        "percentage": "74%",
+        "status": "need dev."
+      },
+      {
+        "name": "Cody Gakpo",
+        "position": "Talent Acquisition Lead",
+        "percentage": "64%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "SDM Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "B",
+    "extension": {
+      "performance": "4.1",
+      "engagement": "4.3",
+      "potency": "86%",
+      "height": 178
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "analytical thinking",
+          "planning"
+        ],
+        "pic": "Alphonso Davies",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "collaboration"
+        ],
+        "pic": "Christian Pulisic",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700014",
+      "dob": "14 Feb 1993",
+      "gender": "Laki-laki",
+      "lastEducation": "S1 Manajemen",
+      "city": "Surabaya",
+      "province": "Jawa Timur",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Christian Pulisic (HR Business Partner)",
+      "workStartDate": "Feb 2023",
+      "tenure": "3 thn, 1 bln",
+      "careerHistory": [
+        {
+          "title": "HR Manager",
+          "period": "Jul 2025 - Current"
+        },
+        {
+          "title": "Junior HR Manager",
+          "period": "Feb 2023 - Jul 2025"
+        }
+      ]
+    }
+  },
+  "p15": {
+    "careerPlans": [
+      {
+        "position": "HR Business Partner",
+        "name": "Christian Pulisic",
+        "percentage": "64%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior Talent Acquisition Lead",
+        "name": "Cody Gakpo",
+        "percentage": "52%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Declan Rice",
+        "position": "HR Manager",
+        "percentage": "88%",
+        "status": "Ready"
+      },
+      {
+        "name": "Alphonso Davies",
+        "position": "People Ops Specialist",
+        "percentage": "80%",
+        "status": "need dev."
+      },
+      {
+        "name": "Christian Pulisic",
+        "position": "HR Business Partner",
+        "percentage": "74%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "SDM Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "AB",
+    "extension": {
+      "performance": "3.0",
+      "engagement": "3.0",
+      "potency": "62%",
+      "height": 179
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "planning",
+          "collaboration"
+        ],
+        "pic": "Declan Rice",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "Problem solving"
+        ],
+        "pic": "Christian Pulisic",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700015",
+      "dob": "15 Mar 1994",
+      "gender": "Laki-laki",
+      "lastEducation": "S2 Business Administration",
+      "city": "Bandung",
+      "province": "Jawa Barat",
+      "maritalStatus": "Menikah",
+      "reportTo": "Christian Pulisic (HR Business Partner)",
+      "workStartDate": "Mar 2022",
+      "tenure": "4 thn, 2 bln",
+      "careerHistory": [
+        {
+          "title": "Talent Acquisition Lead",
+          "period": "Jul 2024 - Current"
+        },
+        {
+          "title": "Junior Talent Acquisition Lead",
+          "period": "Mar 2022 - Jul 2024"
+        }
+      ]
+    }
+  },
+  "p16": {
+    "careerPlans": [
+      {
+        "position": "HR Business Partner",
+        "name": "Christian Pulisic",
+        "percentage": "80%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior People Ops Specialist",
+        "name": "Alphonso Davies",
+        "percentage": "68%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Declan Rice",
+        "position": "HR Manager",
+        "percentage": "88%",
+        "status": "Ready"
+      },
+      {
+        "name": "Christian Pulisic",
+        "position": "HR Business Partner",
+        "percentage": "74%",
+        "status": "need dev."
+      },
+      {
+        "name": "Cody Gakpo",
+        "position": "Talent Acquisition Lead",
+        "percentage": "64%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "SDM Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "O",
+    "extension": {
+      "performance": "3.3",
+      "engagement": "3.9",
+      "potency": "90%",
+      "height": 180
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "collaboration",
+          "Problem solving"
+        ],
+        "pic": "Declan Rice",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "critical thinking"
+        ],
+        "pic": "Christian Pulisic",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700016",
+      "dob": "16 Apr 1995",
+      "gender": "Perempuan",
+      "lastEducation": "S1 Psikologi",
+      "city": "Medan",
+      "province": "Sumatera Utara",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Christian Pulisic (HR Business Partner)",
+      "workStartDate": "Apr 2021",
+      "tenure": "5 thn, 3 bln",
+      "careerHistory": [
+        {
+          "title": "People Ops Specialist",
+          "period": "Jul 2023 - Current"
+        },
+        {
+          "title": "Junior People Ops Specialist",
+          "period": "Apr 2021 - Jul 2023"
+        }
+      ]
+    }
+  },
+  "p17": {
+    "careerPlans": [
+      {
+        "position": "Chief Executive Officer",
+        "name": "Kylian Mbappe",
+        "percentage": "93%",
+        "status": "Ready"
+      },
+      {
+        "position": "Senior VP Operations",
+        "name": "Lautaro Martinez",
+        "percentage": "81%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Achraf Hakimi",
+        "position": "Supply Chain Lead",
+        "percentage": "83%",
+        "status": "need dev."
+      },
+      {
+        "name": "Julian Alvarez",
+        "position": "Operations Manager",
+        "percentage": "79%",
+        "status": "need dev."
+      },
+      {
+        "name": "Son Heung-min",
+        "position": "Operations Analyst",
+        "percentage": "76%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Operasional Team",
+        "role": "as Team Leader"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "A",
+    "extension": {
+      "performance": "4.7",
+      "engagement": "4.3",
+      "potency": "84%",
+      "height": 181
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "Problem solving",
+          "critical thinking"
+        ],
+        "pic": "Achraf Hakimi",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "strategic thinking"
+        ],
+        "pic": "Kylian Mbappe",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700017",
+      "dob": "17 Mei 1996",
+      "gender": "Laki-laki",
+      "lastEducation": "S2 Data Science",
+      "city": "Semarang",
+      "province": "Jawa Tengah",
+      "maritalStatus": "Menikah",
+      "reportTo": "Kylian Mbappe (Chief Executive Officer)",
+      "workStartDate": "Mei 2020",
+      "tenure": "6 thn, 4 bln",
+      "careerHistory": [
+        {
+          "title": "VP Operations",
+          "period": "Jul 2022 - Current"
+        },
+        {
+          "title": "Junior VP Operations",
+          "period": "Mei 2020 - Jul 2022"
+        }
+      ]
+    }
+  },
+  "p18": {
+    "careerPlans": [
+      {
+        "position": "VP Operations",
+        "name": "Lautaro Martinez",
+        "percentage": "79%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior Operations Manager",
+        "name": "Julian Alvarez",
+        "percentage": "67%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Lautaro Martinez",
+        "position": "VP Operations",
+        "percentage": "93%",
+        "status": "Ready"
+      },
+      {
+        "name": "Achraf Hakimi",
+        "position": "Supply Chain Lead",
+        "percentage": "83%",
+        "status": "need dev."
+      },
+      {
+        "name": "Son Heung-min",
+        "position": "Operations Analyst",
+        "percentage": "76%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Operasional Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "B",
+    "extension": {
+      "performance": "4.0",
+      "engagement": "3.7",
+      "potency": "64%",
+      "height": 182
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "critical thinking",
+          "strategic thinking"
+        ],
+        "pic": "Lautaro Martinez",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "communication"
+        ],
+        "pic": "Lautaro Martinez",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700018",
+      "dob": "18 Jun 1997",
+      "gender": "Laki-laki",
+      "lastEducation": "S1 Akuntansi",
+      "city": "Makassar",
+      "province": "Sulawesi Selatan",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Lautaro Martinez (VP Operations)",
+      "workStartDate": "Jun 2019",
+      "tenure": "7 thn, 5 bln",
+      "careerHistory": [
+        {
+          "title": "Operations Manager",
+          "period": "Jul 2021 - Current"
+        },
+        {
+          "title": "Junior Operations Manager",
+          "period": "Jun 2019 - Jul 2021"
+        }
+      ]
+    }
+  },
+  "p19": {
+    "careerPlans": [
+      {
+        "position": "VP Operations",
+        "name": "Lautaro Martinez",
+        "percentage": "83%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior Supply Chain Lead",
+        "name": "Achraf Hakimi",
+        "percentage": "71%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Lautaro Martinez",
+        "position": "VP Operations",
+        "percentage": "93%",
+        "status": "Ready"
+      },
+      {
+        "name": "Julian Alvarez",
+        "position": "Operations Manager",
+        "percentage": "79%",
+        "status": "need dev."
+      },
+      {
+        "name": "Son Heung-min",
+        "position": "Operations Analyst",
+        "percentage": "76%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Operasional Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "AB",
+    "extension": {
+      "performance": "3.7",
+      "engagement": "3.6",
+      "potency": "78%",
+      "height": 183
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "strategic thinking",
+          "communication"
+        ],
+        "pic": "Lautaro Martinez",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "leadership"
+        ],
+        "pic": "Lautaro Martinez",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700019",
+      "dob": "19 Jul 1998",
+      "gender": "Perempuan",
+      "lastEducation": "S1 Teknik Informatika",
+      "city": "Jakarta",
+      "province": "DKI Jakarta",
+      "maritalStatus": "Menikah",
+      "reportTo": "Lautaro Martinez (VP Operations)",
+      "workStartDate": "Jul 2018",
+      "tenure": "8 thn, 6 bln",
+      "careerHistory": [
+        {
+          "title": "Supply Chain Lead",
+          "period": "Jul 2020 - Current"
+        },
+        {
+          "title": "Junior Supply Chain Lead",
+          "period": "Jul 2018 - Jul 2020"
+        }
+      ]
+    }
+  },
+  "p20": {
+    "careerPlans": [
+      {
+        "position": "VP Operations",
+        "name": "Lautaro Martinez",
+        "percentage": "76%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior Operations Analyst",
+        "name": "Son Heung-min",
+        "percentage": "64%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Lautaro Martinez",
+        "position": "VP Operations",
+        "percentage": "93%",
+        "status": "Ready"
+      },
+      {
+        "name": "Achraf Hakimi",
+        "position": "Supply Chain Lead",
+        "percentage": "83%",
+        "status": "need dev."
+      },
+      {
+        "name": "Julian Alvarez",
+        "position": "Operations Manager",
+        "percentage": "79%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Operasional Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "O",
+    "extension": {
+      "performance": "4.3",
+      "engagement": "3.6",
+      "potency": "58%",
+      "height": 184
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "communication",
+          "leadership"
+        ],
+        "pic": "Lautaro Martinez",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "analytical thinking"
+        ],
+        "pic": "Lautaro Martinez",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700020",
+      "dob": "20 Agu 1999",
+      "gender": "Laki-laki",
+      "lastEducation": "S1 Manajemen",
+      "city": "Surabaya",
+      "province": "Jawa Timur",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Lautaro Martinez (VP Operations)",
+      "workStartDate": "Agu 2017",
+      "tenure": "9 thn, 7 bln",
+      "careerHistory": [
+        {
+          "title": "Operations Analyst",
+          "period": "Jul 2019 - Current"
+        },
+        {
+          "title": "Junior Operations Analyst",
+          "period": "Agu 2017 - Jul 2019"
+        }
+      ]
+    }
+  },
+  "p21": {
+    "careerPlans": [
+      {
+        "position": "Chief Executive Officer",
+        "name": "Kylian Mbappe",
+        "percentage": "94%",
+        "status": "Ready"
+      },
+      {
+        "position": "Senior Head of Marketing",
+        "name": "Vinicius Junior",
+        "percentage": "82%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Bukayo Saka",
+        "position": "Brand Manager",
+        "percentage": "90%",
+        "status": "Ready"
+      },
+      {
+        "name": "Nico Williams",
+        "position": "Growth Marketing Lead",
+        "percentage": "72%",
+        "status": "need dev."
+      },
+      {
+        "name": "Rafael Leao",
+        "position": "Senior Marketing Manager",
+        "percentage": "62%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Pemasaran Team",
+        "role": "as Team Leader"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "A",
+    "extension": {
+      "performance": "4.5",
+      "engagement": "4.4",
+      "potency": "82%",
+      "height": 165
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "leadership",
+          "analytical thinking"
+        ],
+        "pic": "Bukayo Saka",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "planning"
+        ],
+        "pic": "Kylian Mbappe",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700021",
+      "dob": "21 Sep 1990",
+      "gender": "Laki-laki",
+      "lastEducation": "S2 Business Administration",
+      "city": "Bandung",
+      "province": "Jawa Barat",
+      "maritalStatus": "Menikah",
+      "reportTo": "Kylian Mbappe (Chief Executive Officer)",
+      "workStartDate": "Sep 2016",
+      "tenure": "10 thn, 8 bln",
+      "careerHistory": [
+        {
+          "title": "Head of Marketing",
+          "period": "Jul 2018 - Current"
+        },
+        {
+          "title": "Junior Head of Marketing",
+          "period": "Sep 2016 - Jul 2018"
+        }
+      ]
+    }
+  },
+  "p22": {
+    "careerPlans": [
+      {
+        "position": "Head of Marketing",
+        "name": "Vinicius Junior",
+        "percentage": "62%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior Senior Marketing Manager",
+        "name": "Rafael Leao",
+        "percentage": "50%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Vinicius Junior",
+        "position": "Head of Marketing",
+        "percentage": "94%",
+        "status": "Ready"
+      },
+      {
+        "name": "Bukayo Saka",
+        "position": "Brand Manager",
+        "percentage": "90%",
+        "status": "Ready"
+      },
+      {
+        "name": "Nico Williams",
+        "position": "Growth Marketing Lead",
+        "percentage": "72%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 3,
+          "dev": true
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 2,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Pemasaran Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "B",
+    "extension": {
+      "performance": "3.4",
+      "engagement": "3.0",
+      "potency": "55%",
+      "height": 166
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "analytical thinking",
+          "planning"
+        ],
+        "pic": "Vinicius Junior",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "collaboration"
+        ],
+        "pic": "Vinicius Junior",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700022",
+      "dob": "22 Okt 1991",
+      "gender": "Perempuan",
+      "lastEducation": "S1 Psikologi",
+      "city": "Medan",
+      "province": "Sumatera Utara",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Vinicius Junior (Head of Marketing)",
+      "workStartDate": "Okt 2015",
+      "tenure": "11 thn, 9 bln",
+      "careerHistory": [
+        {
+          "title": "Senior Marketing Manager",
+          "period": "Jul 2017 - Current"
+        },
+        {
+          "title": "Junior Senior Marketing Manager",
+          "period": "Okt 2015 - Jul 2017"
+        }
+      ]
+    }
+  },
+  "p23": {
+    "careerPlans": [
+      {
+        "position": "Head of Marketing",
+        "name": "Vinicius Junior",
+        "percentage": "90%",
+        "status": "Ready"
+      },
+      {
+        "position": "Senior Brand Manager",
+        "name": "Bukayo Saka",
+        "percentage": "78%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Vinicius Junior",
+        "position": "Head of Marketing",
+        "percentage": "94%",
+        "status": "Ready"
+      },
+      {
+        "name": "Nico Williams",
+        "position": "Growth Marketing Lead",
+        "percentage": "72%",
+        "status": "need dev."
+      },
+      {
+        "name": "Rafael Leao",
+        "position": "Senior Marketing Manager",
+        "percentage": "62%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Pemasaran Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Rising Project Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "AB",
+    "extension": {
+      "performance": "4.2",
+      "engagement": "4.3",
+      "potency": "88%",
+      "height": 167
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "planning",
+          "collaboration"
+        ],
+        "pic": "Vinicius Junior",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "Problem solving"
+        ],
+        "pic": "Vinicius Junior",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700023",
+      "dob": "23 Nov 1992",
+      "gender": "Laki-laki",
+      "lastEducation": "S2 Data Science",
+      "city": "Semarang",
+      "province": "Jawa Tengah",
+      "maritalStatus": "Menikah",
+      "reportTo": "Vinicius Junior (Head of Marketing)",
+      "workStartDate": "Nov 2014",
+      "tenure": "12 thn, 10 bln",
+      "careerHistory": [
+        {
+          "title": "Brand Manager",
+          "period": "Jul 2016 - Current"
+        },
+        {
+          "title": "Junior Brand Manager",
+          "period": "Nov 2014 - Jul 2016"
+        }
+      ]
+    }
+  },
+  "p24": {
+    "careerPlans": [
+      {
+        "position": "Head of Marketing",
+        "name": "Vinicius Junior",
+        "percentage": "72%",
+        "status": "need dev."
+      },
+      {
+        "position": "Senior Growth Marketing Lead",
+        "name": "Nico Williams",
+        "percentage": "60%",
+        "status": "need dev."
+      }
+    ],
+    "successors": [
+      {
+        "name": "Vinicius Junior",
+        "position": "Head of Marketing",
+        "percentage": "94%",
+        "status": "Ready"
+      },
+      {
+        "name": "Bukayo Saka",
+        "position": "Brand Manager",
+        "percentage": "90%",
+        "status": "Ready"
+      },
+      {
+        "name": "Rafael Leao",
+        "position": "Senior Marketing Manager",
+        "percentage": "62%",
+        "status": "need dev."
+      }
+    ],
+    "scoreAspects": {
+      "competency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        }
+      ],
+      "potency": [
+        {
+          "label": "Logika Berpikir",
+          "category": "Category A",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Numerikal",
+          "category": "Category A",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan verbal",
+          "category": "Category A",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        },
+        {
+          "label": "Daya Analisa",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Fleksibilitas",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Leadership",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Keterampilan Interpersonal",
+          "category": "Uncategorized",
+          "score": 5,
+          "standardScore": 4,
+          "dev": false
+        },
+        {
+          "label": "Kerjasama",
+          "category": "Uncategorized",
+          "score": 4,
+          "standardScore": 3,
+          "dev": false
+        },
+        {
+          "label": "Kemampuan Perencanaan",
+          "category": "Uncategorized",
+          "score": 3,
+          "standardScore": 4,
+          "dev": true
+        }
+      ]
+    },
+    "teams": [
+      {
+        "name": "Pemasaran Team",
+        "role": "as Team member"
+      },
+      {
+        "name": "Pegasus Team",
+        "role": "as Team member"
+      }
+    ],
+    "bloodType": "O",
+    "extension": {
+      "performance": "2.9",
+      "engagement": "3.7",
+      "potency": "70%",
+      "height": 168
+    },
+    "idpHistory": [
+      {
+        "competencies": [
+          "collaboration",
+          "Problem solving"
+        ],
+        "pic": "Vinicius Junior",
+        "dateRange": "Dec 5, 2024 - Mar 11, 2025",
+        "status": "in progress"
+      },
+      {
+        "competencies": [
+          "critical thinking"
+        ],
+        "pic": "Vinicius Junior",
+        "dateRange": "Jul 1, 2024 - Nov 30, 2024",
+        "status": "done"
+      }
+    ],
+    "employee": {
+      "nik": "2349700024",
+      "dob": "24 Des 1993",
+      "gender": "Laki-laki",
+      "lastEducation": "S1 Akuntansi",
+      "city": "Makassar",
+      "province": "Sulawesi Selatan",
+      "maritalStatus": "Belum Menikah",
+      "reportTo": "Vinicius Junior (Head of Marketing)",
+      "workStartDate": "Des 2013",
+      "tenure": "13 thn, 11 bln",
+      "careerHistory": [
+        {
+          "title": "Growth Marketing Lead",
+          "period": "Jul 2015 - Current"
+        },
+        {
+          "title": "Junior Growth Marketing Lead",
+          "period": "Des 2013 - Jul 2015"
+        }
+      ]
+    }
+  }
+}

@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Paper, SegmentedControl, TextInput, Avatar, Badge, Text } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
-type IDPStatus = "In Progress" | "Expired" | "Need Review";
+type IDPStatus = "In Progress" | "Expired" | "Need Review" | "Completed";
 
 interface IDPEntry {
   id: number;
@@ -19,46 +20,73 @@ const STATUS_CONFIG: Record<IDPStatus, { bg: string; text: string; dot: string }
   "In Progress": { bg: "#e7f5ff", text: "#0c6192", dot: "#68b1ff" },
   "Expired":     { bg: "#fff0f0", text: "#c0392b", dot: "#e74c3c" },
   "Need Review": { bg: "#fff8e6", text: "#856404", dot: "#fd9f28" },
+  "Completed":   { bg: "#e6f7ed", text: "#1a7a43", dot: "#2ea865" },
 };
 
 const ALL_FILTERS: { label: string; value: IDPStatus | "All" }[] = [
   { label: "All",         value: "All" },
   { label: "Need Review", value: "Need Review" },
   { label: "In Progress", value: "In Progress" },
-  { label: "Expired",     value: "Expired" },
+  { label: "Completed",   value: "Completed" },
 ];
 
-const IDP_DATA: IDPEntry[] = [
-  { id:1,  name:"Budi Santoso",     initials:"BS", position:"Manajer Operasional",           status:"In Progress", dueDate:"2026-07-15", aspect:"Kreativitas" },
-  { id:2,  name:"Siti Rahayu",      initials:"SR", position:"Kepala Divisi Keuangan",        status:"In Progress", dueDate:"2026-08-10", aspect:"Leadership" },
-  { id:3,  name:"Dewi Kusuma",      initials:"DK", position:"HR Business Partner",           status:"Need Review", dueDate:"2026-06-30", aspect:"Kemampuan Membaca Akhlak" },
-  { id:4,  name:"Rizky Pratama",    initials:"RP", position:"Manajer Pemasaran",             status:"Need Review", dueDate:"2026-07-05", aspect:"Logika berpikir" },
-  { id:5,  name:"Nurul Hidayah",    initials:"NH", position:"Analis Data Senior",            status:"In Progress", dueDate:"2026-09-01", aspect:"Analytical Thinking" },
-  { id:6,  name:"Maya Sari",        initials:"MS", position:"Kepala Legal",                  status:"Need Review", dueDate:"2026-07-20", aspect:"Kemampuan Membaca Akhlak" },
-  { id:7,  name:"Intan Permata",    initials:"IP", position:"Senior Finance Analyst",        status:"In Progress", dueDate:"2026-08-25", aspect:"Analytical Thinking" },
-  { id:8,  name:"Fajar Nugroho",    initials:"FN", position:"IT Security Lead",              status:"Expired",     dueDate:"2026-05-15", aspect:"Logika berpikir" },
-  { id:9,  name:"Eko Prasetyo",     initials:"EP", position:"VP Operasional",               status:"Expired",     dueDate:"2026-04-30", aspect:"Leadership" },
-  { id:10, name:"Lina Marlina",     initials:"LM", position:"Senior Marketing Manager",      status:"Need Review", dueDate:"2026-06-28", aspect:"Problem Solving" },
-  { id:11, name:"Putri Andini",     initials:"PA", position:"Manajer Kepatuhan",             status:"Need Review", dueDate:"2026-07-10", aspect:"Kreativitas" },
-  { id:12, name:"Agus Salim",       initials:"AS", position:"Kepala Riset & Inovasi",        status:"In Progress", dueDate:"2026-09-15", aspect:"Analytical Thinking" },
-  { id:13, name:"Bambang Sutrisno", initials:"BS", position:"Direktur Teknologi",            status:"Expired",     dueDate:"2026-05-31", aspect:"Problem Solving" },
-  { id:14, name:"Sri Mulyani",      initials:"SM", position:"Kepala Strategi Korporat",      status:"In Progress", dueDate:"2026-10-01", aspect:"Leadership" },
-];
+// Shape of the shared IDP source (public/data/idp-data.json) — same file the IDP
+// module reads, so home Monitoring IDP mirrors it exactly and every row opens the
+// correct person's detail (matched by employee id).
+interface IdpProgram { statusLabel: string; period: string; aspectLabel: string }
+interface IdpEmployee { id: number; name: string; role: string; idps: IdpProgram[] }
+
+// "Jan 15 - Feb 28, 2025" / "Dec 5, 2024 - Mar 11, 2025" → ISO end date
+function periodEnd(period: string): string {
+  const end = (period || "").split(" - ")[1] ?? period;
+  const d = new Date(end);
+  return isNaN(d.getTime()) ? "" : d.toISOString().slice(0, 10);
+}
+function statusOf(idps: IdpProgram[]): IDPStatus {
+  const labels = idps.map(i => (i.statusLabel || "").toUpperCase());
+  if (labels.includes("PENDING")) return "Need Review";
+  if (labels.includes("IN PROGRESS")) return "In Progress";
+  return "Completed";
+}
+function toEntries(employees: IdpEmployee[]): IDPEntry[] {
+  return employees.map(e => {
+    const active = e.idps.find(i => (i.statusLabel || "").toUpperCase() !== "DONE") ?? e.idps[0];
+    return {
+      id: e.id,
+      name: e.name,
+      initials: e.name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase(),
+      position: e.role,
+      status: statusOf(e.idps),
+      dueDate: active ? periodEnd(active.period) : "",
+      aspect: active?.aspectLabel ?? "",
+    };
+  });
+}
 
 function formatDate(dateStr: string) {
+  if (!dateStr) return "-";
   const d = new Date(dateStr);
-  return d.toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" });
+  return isNaN(d.getTime()) ? "-" : d.toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" });
 }
 
 function isOverdue(dateStr: string) {
-  return new Date(dateStr) < new Date();
+  return !!dateStr && new Date(dateStr) < new Date();
 }
 
 export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number } = {}) {
+  const router = useRouter();
   const [filter, setFilter] = useState<IDPStatus | "All">("All");
   const [search, setSearch] = useState("");
+  const [entries, setEntries] = useState<IDPEntry[]>([]);
 
-  const SOURCE = maxEntries ? IDP_DATA.slice(0, maxEntries) : IDP_DATA;
+  useEffect(() => {
+    fetch("/data/idp-data.json")
+      .then(r => r.json())
+      .then((d: { employees: IdpEmployee[] }) => setEntries(toEntries(d.employees ?? [])))
+      .catch(() => {});
+  }, []);
+
+  const SOURCE = maxEntries ? entries.slice(0, maxEntries) : entries;
 
   const filtered = SOURCE.filter(e => {
     const matchStatus = filter === "All" || e.status === filter;
@@ -67,12 +95,6 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
       e.aspect.toLowerCase().includes(search.toLowerCase());
     return matchStatus && matchSearch;
   });
-
-  const counts = {
-    "In Progress": SOURCE.filter(e => e.status === "In Progress").length,
-    "Expired":     SOURCE.filter(e => e.status === "Expired").length,
-    "Need Review": SOURCE.filter(e => e.status === "Need Review").length,
-  };
 
   return (
     <Paper radius={12} p={16} w="100%" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", display: "flex", flexDirection: "column", gap: 12 }}>
@@ -94,7 +116,7 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
         color="#fff"
         size="xs"
         data={ALL_FILTERS.map(f => {
-          const count = f.value === "All" ? SOURCE.length : counts[f.value as IDPStatus];
+          const count = f.value === "All" ? SOURCE.length : SOURCE.filter(e => e.status === f.value).length;
           return {
             value: f.value,
             label: (
@@ -137,8 +159,7 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
               className="group/row"
               style={{ display: "grid", gridTemplateColumns: "1fr 100px 90px", gap: 8, alignItems: "center", padding: "8px 8px", borderRadius: 8, background: "#f8f9fa", cursor: "pointer", transition: "background 0.15s, box-shadow 0.15s" }}
               onClick={() => {
-                const page = e.status === "Need Review" ? "detail-review-idp.html" : "detail-idp-manager.html";
-                window.location.href = `/idp?page=${page}&id=${encodeURIComponent(e.id)}&name=${encodeURIComponent(e.name)}`;
+                router.push(`/idp?page=detail-idp-manager.html&id=${encodeURIComponent(e.id)}&name=${encodeURIComponent(e.name)}`);
               }}
               onMouseEnter={e2 => { (e2.currentTarget as HTMLDivElement).style.background = "#e9ecef"; (e2.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)"; }}
               onMouseLeave={e2 => { (e2.currentTarget as HTMLDivElement).style.background = "#f8f9fa"; (e2.currentTarget as HTMLDivElement).style.boxShadow = "none"; }}

@@ -59,7 +59,7 @@ function Frame1() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan Wicaksono</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Kylian Mbappe</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -116,7 +116,7 @@ function Frame4() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan Wicaksono</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Kylian Mbappe</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -173,7 +173,7 @@ function Frame6() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan Wicaksono</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Kylian Mbappe</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -230,7 +230,7 @@ function Frame8() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan Wicaksono</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Kylian Mbappe</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -287,7 +287,7 @@ function Frame10() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan Wicaksono</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Kylian Mbappe</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -344,7 +344,7 @@ function Frame12() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan Wicaksono</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Kylian Mbappe</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -401,7 +401,7 @@ function Frame14() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan Wicaksono</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Kylian Mbappe</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -458,7 +458,7 @@ function Frame16() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan Wicaksono</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Kylian Mbappe</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -515,7 +515,7 @@ function Frame18() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan Wicaksono</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Kylian Mbappe</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>
@@ -559,7 +559,7 @@ function Frame48() {
 function Frame55() {
   return (
     <div className="bg-white overflow-clip relative shrink-0 size-[30px]">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%-0.5px)] size-[35px] top-[calc(50%-0.5px)]" data-name="Dimas Eka">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%-0.5px)] size-[35px] top-[calc(50%-0.5px)]" data-name="Pedri">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <img alt="" className="absolute h-[170.3%] left-0 max-w-none top-[-28.84%] w-[113.59%]" src={imgDimasEka} />
         </div>
@@ -572,7 +572,7 @@ function Frame22() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[0] min-h-px min-w-px relative">
       <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center not-italic relative shrink-0 text-[#016699] text-[12px] w-full">
-        <p className="leading-[normal] whitespace-pre-wrap">Dimas Eka</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Pedri</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal] whitespace-pre-wrap">Product Designer</p>

@@ -1,28 +1,27 @@
 "use client";
+import { managerTeam } from "@/data/managerTeamData";
 
 interface Signal {
   name: string;
-  initials: string;
   reason: string;
   severity: "high" | "medium";
 }
 
+// names from canonical team; reasons/severity are demo signals.
 const SIGNALS: Signal[] = [
   {
-    name: "Dewi Kusuma",
-    initials: "DK",
+    name: managerTeam[2].name,
     reason: "Jam kerja efektif naik 35% di atas rata-rata dirinya 4 minggu terakhir",
     severity: "high",
   },
   {
-    name: "Rizky Pratama",
-    initials: "RP",
+    name: managerTeam[3].name,
     reason: "Skor mood self-report turun signifikan dibanding 3 minggu sebelumnya",
     severity: "medium",
   },
 ];
 
-const SAFE = ["Budi Santoso", "Siti Rahayu", "Nurul Hidayah", "Maya Sari"];
+const SAFE = [0, 1, 4, 5].map(i => managerTeam[i].name);
 
 const SEV_COLOR: Record<Signal["severity"], { bg: string; text: string; dot: string; label: string }> = {
   high:   { bg: "#fff0f0", text: "#dc3545", dot: "#dc3545", label: "Perhatian tinggi" },
@@ -64,7 +63,7 @@ export default function EarlySignalRadarCard() {
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 11,
                 }}>
-                  {s.initials}
+                  {s.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>

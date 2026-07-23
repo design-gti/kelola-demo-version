@@ -3,6 +3,8 @@ import { useState, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { Paper, Select, Button, TextInput, Avatar, Checkbox as MantineCheckbox, Text } from "@mantine/core";
 import { IconSearch, IconPlus } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+import { candidates } from "@/data/dummyData";
 
 const aspects = [
   { label: "Kreativitas",              below: 0,   meet: 276, exceed: 63  },
@@ -13,93 +15,20 @@ const aspects = [
   { label: "Problem Solving",          below: 202, meet: 101, exceed: 36  },
 ];
 
-const TOTAL_EMP = 150;
-
-// Deterministic dummy employee pool
-const FIRST_NAMES = [
-  "Adi","Budi","Citra","Dian","Eko","Fitri","Galih","Hana","Irwan","Joko",
-  "Kartika","Lina","Maman","Nina","Oki","Pandu","Qori","Rendi","Siti","Tri",
-  "Umar","Vina","Wahyu","Xena","Yoga","Zahra","Agus","Bella","Candra","Dewi",
-  "Endra","Fajar","Gina","Hendra","Indra","Juliana","Krisna","Laila","Mirza","Nadia",
-  "Omar","Prima","Raka","Salma","Tegar","Ulfa","Viko","Winda","Yusuf","Zulfa",
-  "Arief","Bayu","Cici","Deni","Erna","Farel","Gita","Haris","Ika","Jihan",
-  "Kevin","Lusi","Mario","Niko","Olga","Putu","Rini","Sandi","Tiara","Ulfah",
-  "Veri","Wawan","Yanti","Zaki","Andra","Bonita","Chandra","Dika","Elin","Fian",
-  "Gilang","Hesty","Imam","Jenny","Kukuh","Leni","Mira","Nanda","Okky","Putri",
-  "Rizal","Siska","Toni","Uli","Vera","Wisnu","Yogi","Zena","Abdi","Bunga",
-  "Cahya","Dedi","Evi","Febri","Ganda","Heri","Isti","Jafar","Kiki","Laras",
-  "Miko","Nabil","Ovi","Pram","Rina","Sugeng","Tutik","Umi","Vani","Wenti",
-  "Yosef","Zidan","Alfan","Besse","Ciko","Darto","Elsa","Fikri","Guntur","Hilda",
-  "Ibnu","Jeni","Karim","Luki","Meri","Nela","Omen","Panji","Reza","Seno",
-  "Tika","Udin","Vinny","Wahid","Yasmin","Zola","Akbar","Bintang","Coco","Dila",
-];
-
-const LAST_NAMES = [
-  "Santoso","Dewi","Fauzi","Lestari","Wijaya","Prasetyo","Mulyani","Kusuma","Susilo","Sari",
-  "Wulandari","Marliana","Suparman","Agustina","Firdaus","Wirawan","Pratiwi","Setiawan","Rahma","Handoko",
-  "Hakim","Rosyada","Hidayat","Putri","Pratama","Amalia","Setiawan","Kurnia","Gunawan","Safitri",
-  "Budiman","Nugraha","Sari","Gunawan","Safitri","Pranoto","Hapsari","Wahyudi","Purwanto","Hartono",
-  "Rahayu","Saputra","Wibowo","Permata","Nugroho","Arifin","Kurniawan","Purnama","Hadi","Anggraini",
-];
-
-const POSITIONS = [
-  "Staff","Junior Analyst","Senior Analyst","Team Lead","Specialist","Senior Specialist",
-  "Manager","Senior Manager","Admin","Coordinator","Supervisor","Officer","Consultant",
-  "Engineer","Senior Engineer","Associate","Executive","Advisor","Trainer","Developer",
-];
-
-const DEPTS = ["HR","Finance","Operations","Engineering","Marketing","Sales","Strategy","PMO","L&D","BI","Design","Legal"];
-
-// Candidates from dummyData (name, position, department)
-const CANDIDATES_POOL = [
-  { name: "Budi Santoso",     position: "Manajer Operasional",          dept: "Operasional" },
-  { name: "Siti Rahayu",      position: "Kepala Divisi Keuangan",       dept: "Keuangan" },
-  { name: "Ahmad Fauzi",      position: "Senior Engineer",              dept: "Teknologi" },
-  { name: "Dewi Kusuma",      position: "HR Business Partner",          dept: "SDM" },
-  { name: "Rizky Pratama",    position: "Manajer Pemasaran",            dept: "Pemasaran" },
-  { name: "Nurul Hidayah",    position: "Analis Data Senior",           dept: "Teknologi" },
-  { name: "Hendra Wijaya",    position: "Direktur Pengembangan Bisnis", dept: "Strategi" },
-  { name: "Maya Sari",        position: "Kepala Legal",                 dept: "Hukum" },
-  { name: "Doni Setiawan",    position: "Manajer Rantai Pasok",         dept: "Operasional" },
-  { name: "Intan Permata",    position: "Senior Finance Analyst",       dept: "Keuangan" },
-  { name: "Fajar Nugroho",    position: "IT Security Lead",             dept: "Teknologi" },
-  { name: "Ratna Wulandari",  position: "Manajer SDM",                  dept: "SDM" },
-  { name: "Eko Prasetyo",     position: "VP Operasional",               dept: "Operasional" },
-  { name: "Lina Marlina",     position: "Senior Marketing Manager",     dept: "Pemasaran" },
-  { name: "Wahyu Hidayat",    position: "Business Analyst",             dept: "Strategi" },
-  { name: "Putri Andini",     position: "Manajer Kepatuhan",            dept: "Hukum" },
-  { name: "Agus Salim",       position: "Kepala Riset & Inovasi",       dept: "Teknologi" },
-  { name: "Fitri Handayani",  position: "Controller Keuangan",          dept: "Keuangan" },
-  { name: "Bambang Sutrisno", position: "Direktur Teknologi",           dept: "Teknologi" },
-  { name: "Sri Mulyani",      position: "Kepala Strategi Korporat",     dept: "Strategi" },
-];
+// Employee pool = canonical candidates (single source of truth).
+const POOL = candidates.map((c, i) => ({ id: i + 1, name: c.name, position: c.position, dept: c.department }));
+const TOTAL_EMP = POOL.length;
 
 function generateEmployee(seed: number): { id: number; name: string; position: string; dept: string } {
-  // Use real candidate for first 20 seeds
-  if (seed >= 1 && seed <= CANDIDATES_POOL.length) {
-    const c = CANDIDATES_POOL[seed - 1];
-    return { id: seed, name: c.name, position: c.position, dept: c.dept };
-  }
-  // Generate fictional for the rest
-  const h = (n: number) => ((n * 1664525 + 1013904223) & 0x7fffffff);
-  const s1 = h(seed);
-  const s2 = h(s1);
-  const s3 = h(s2);
-  const s4 = h(s3);
-  const first = FIRST_NAMES[s1 % FIRST_NAMES.length];
-  const last  = LAST_NAMES[s2 % LAST_NAMES.length];
-  const pos   = POSITIONS[s3 % POSITIONS.length];
-  const dept  = DEPTS[s4 % DEPTS.length];
-  return { id: seed, name: `${first} ${last}`, position: pos, dept };
+  return POOL[(seed - 1) % POOL.length];
 }
 
 // Build employee list per aspect per segment
 function buildEmployeeData() {
-  // Pre-assign each of the 150 employees a unique id
+  // One entry per canonical participant
   const allEmployees = Array.from({ length: TOTAL_EMP }, (_, i) => generateEmployee(i + 1));
 
   const result: Record<string, Record<string, typeof allEmployees>> = {};
-  let cursor = 0;
 
   for (const a of aspects) {
     const total = a.below + a.meet + a.exceed || 339;
@@ -152,6 +81,7 @@ function BarSegment({ pct, background, label, rowLabel, onEnter, onLeave, onClic
 }
 
 function IDPModal({ modal, onClose }: { modal: ModalState; onClose: () => void }) {
+  const router = useRouter();
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const [search, setSearch] = useState("");
   const color = getColor(modal.label);
@@ -219,7 +149,7 @@ function IDPModal({ modal, onClose }: { modal: ModalState; onClose: () => void }
             </span>
             {selected.size > 1 && (
               <Button
-                onClick={() => window.location.href = '/idp/create-idp-admin.html'}
+                onClick={() => router.push('/idp?page=create-idp-admin.html')}
                 color="primary"
                 radius="xl"
                 size="compact-sm"
@@ -260,7 +190,7 @@ function IDPModal({ modal, onClose }: { modal: ModalState; onClose: () => void }
                 <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 10, color: "#6c757d" }}>{emp.position} · {emp.dept}</div>
               </div>
               <Button
-                onClick={e => { e.stopPropagation(); window.location.href = '/idp/create-idp-admin.html'; }}
+                onClick={e => { e.stopPropagation(); router.push('/idp?page=create-idp-admin.html'); }}
                 variant="outline"
                 color="primary"
                 radius="xl"

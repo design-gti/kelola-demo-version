@@ -5,14 +5,23 @@ import svgPathsPotency from '../imports/svg-87qx2z9isd';
 
 type TabType = 'competency' | 'potency';
 
+export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean };
+
 interface ScoreAspectProps {
   Frame79: React.ComponentType;
   Frame153: React.ComponentType;
   Frame116: React.ComponentType;
-  Frame24: React.ComponentType;
+  scoreAspects: { competency: AspectItem[]; potency: AspectItem[] };
 }
 
-export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, Frame24 }: ScoreAspectProps) {
+// Group aspects by their category, preserving first-seen order.
+function byCategory(items: AspectItem[]): [string, AspectItem[]][] {
+  const map = new Map<string, AspectItem[]>();
+  items.forEach((it) => { (map.get(it.category) ?? map.set(it.category, []).get(it.category)!).push(it); });
+  return [...map.entries()];
+}
+
+export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects }: ScoreAspectProps) {
   const [activeTab, setActiveTab] = useState<TabType>('competency');
 
   return (
@@ -72,13 +81,13 @@ export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, Frame24 }: Sc
         <>
           <Frame153 />
           <Frame116 />
-          <Frame24 />
+          <CompetencyContent items={scoreAspects.competency} />
         </>
       ) : (
         <>
           <PotencyControls />
           <PotencyFilter />
-          <PotencyContent />
+          <PotencyContent items={scoreAspects.potency} />
         </>
       )}
       
@@ -174,36 +183,113 @@ function PotencyFilter() {
   );
 }
 
-// Potency Content Component
-function PotencyContent() {
+// Category section wrapper — shared by both tabs.
+function CategorySection({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
+      <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center leading-[0] not-italic overflow-hidden relative shrink-0 text-[#495057] text-[12px] text-ellipsis w-full whitespace-nowrap">
+        <p className="leading-[normal] overflow-hidden">{title}</p>
+      </div>
+      <div className="content-stretch flex flex-col gap-[10px] items-start relative shrink-0 w-full">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// Potency Content Component (data-driven)
+function PotencyContent({ items }: { items: AspectItem[] }) {
   return (
     <div className="content-stretch flex flex-col gap-[16px] items-start overflow-clip relative shrink-0 w-full">
-      {/* Category A */}
-      <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
-        <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center leading-[0] not-italic overflow-hidden relative shrink-0 text-[#495057] text-[12px] text-ellipsis w-full whitespace-nowrap">
-          <p className="leading-[normal] overflow-hidden">Category A</p>
-        </div>
-        <div className="content-stretch flex flex-col gap-[10px] items-start relative shrink-0 w-full">
-          <PotencyCard title="Logika Berpikir" score={4} standardScore={3} />
-          <PotencyCard title="Kemampuan Numerikal" score={3} standardScore={4} />
-          <PotencyCard title="Kemampuan verbal" score={4} standardScore={3} />
-        </div>
-      </div>
+      {byCategory(items).map(([cat, group]) => (
+        <CategorySection key={cat} title={cat}>
+          {group.map((a, i) => (
+            <PotencyCard key={i} title={a.label} score={a.score} standardScore={a.standardScore} />
+          ))}
+        </CategorySection>
+      ))}
+    </div>
+  );
+}
 
-      {/* Uncategorized */}
-      <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
-        <div className="flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center leading-[0] not-italic overflow-hidden relative shrink-0 text-[#495057] text-[12px] text-ellipsis w-full whitespace-nowrap">
-          <p className="leading-[normal] overflow-hidden">Uncategorized</p>
-        </div>
-        <div className="content-stretch flex flex-col gap-[10px] items-start relative shrink-0 w-full">
-          <PotencyCard title="Daya Analisa" score={3} standardScore={3} />
-          <PotencyCard title="Fleksibilitas" score={4} standardScore={3} />
-          <PotencyCard title="Leadership" score={4} standardScore={3} />
-          <PotencyCard title="Keterampilan Interpersonal" score={4} standardScore={3} />
-          <PotencyCard title="Kerjasama" score={4} standardScore={3} />
-          <PotencyCard title="Kemampuan Perencanaan" score={4} standardScore={3} />
+// Competency Content Component (data-driven)
+function CompetencyContent({ items }: { items: AspectItem[] }) {
+  return (
+    <div className="content-stretch flex flex-col gap-[16px] items-start overflow-clip relative shrink-0 w-full">
+      {byCategory(items).map(([cat, group]) => (
+        <CategorySection key={cat} title={cat}>
+          {group.map((a, i) => (
+            <CompetencyCard key={i} title={a.label} score={a.score} standardScore={a.standardScore} dev={a.dev} />
+          ))}
+        </CategorySection>
+      ))}
+    </div>
+  );
+}
+
+// Competency Card — label (+ DEV chip) and a 5-box score row.
+function CompetencyCard({ title, score, standardScore, dev }: { title: string; score: number; standardScore: number; dev: boolean }) {
+  return (
+    <div className="bg-[#f8f9fa] relative rounded-[8px] shrink-0 w-full" data-name="Card Data">
+      <div className="flex flex-col justify-center size-full">
+        <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
+          <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+            <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
+              <div className="content-stretch flex gap-[4px] items-center relative shrink-0 w-[231px]">
+                {dev && (
+                  <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
+                    <div className="bg-[#fff2e4] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
+                      <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#ca6f00] text-[10px] uppercase" style={{ fontVariationSettings: "'wdth' 100" }}>DEV.</p>
+                    </div>
+                  </div>
+                )}
+                <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="leading-[normal] whitespace-pre-wrap">{title}</p>
+                </div>
+              </div>
+              <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
+                <div className="absolute inset-[12.5%]" data-name="Vector">
+                  <div className="absolute inset-[-6.25%]">
+                    <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
+                      <path d={svgPathsPotency.p11080840} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="content-stretch flex gap-[4px] items-end relative shrink-0 w-full" data-name="Points">
+              <div className="content-stretch flex flex-[1_0_0] gap-[2px] items-start min-h-px min-w-px relative" data-name="Score">
+                {[1, 2, 3, 4, 5].map((index) => (
+                  <CompetencyScoreBox key={index} position={index} score={score} standardScore={standardScore} />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+// Competency Score Box — blue box marks the market standard, a check marks the score.
+function CompetencyScoreBox({ position, score, standardScore }: { position: number; score: number; standardScore: number }) {
+  const isScore = position === score;
+  const isStandard = position === standardScore;
+  const bg = isStandard ? "bg-[#d6e6ff]" : "bg-white";
+  return (
+    <div className={`${bg} content-stretch flex flex-[1_0_0] h-[24px] items-center justify-center min-h-px min-w-px relative rounded-[4px]`} data-name="Box">
+      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
+      {isScore && (
+        <div className="overflow-clip relative shrink-0 size-[18px]" data-name="check">
+          <div className="absolute inset-[29.17%_16.67%_29.17%_20.83%]" data-name="Vector">
+            <div className="absolute inset-[-10%_-6.67%]">
+              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.75 9">
+                <path d="M0.75 4.5L4.5 8.25L12 0.75" id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

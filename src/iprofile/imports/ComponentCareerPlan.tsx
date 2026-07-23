@@ -50,7 +50,7 @@ function Frame9() {
         <p className="leading-[normal] whitespace-pre-wrap">Product Manager</p>
       </div>
       <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#016699] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal] whitespace-pre-wrap">Gunawan</p>
+        <p className="leading-[normal] whitespace-pre-wrap">Griezmann</p>
       </div>
     </div>
   );

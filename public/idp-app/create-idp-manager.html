@@ -1629,14 +1629,8 @@
       window.location.href = 'monitoring-manager.html';
     }
     
-    var _empAll = [
-      {name:'Ulfa Irawan',nik:'100042'},
-      {name:'Imanuel Ibrahim',nik:'100127'},
-      {name:'Gunawan Santoso',nik:'100256'},
-      {name:'Budi Prasetyo',nik:'100034'},
-      {name:'Siti Rahayu',nik:'100189'},
-      {name:'Ahmad Fauzi',nik:'100312'}
-    ];
+    var _empAll = [];
+    fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(d){ _empAll.push.apply(_empAll, d.participantPool||[]); }).catch(function(e){console.error('idp-data.json',e);});
 
     function renderEmpList(filter) {
       var list = document.getElementById('empList');
@@ -2173,43 +2167,43 @@
     var _drafts = [
       {
         id: 'd1',
-        employees: ['Ulfa Irawan'],
+        employees: ['Cody Gakpo'],
         savedAt: '8 Jul 2026, 10:42',
         programs: ['Communication Workshop', 'Leadership Essentials'],
         detail: [
-          { name: 'Communication Workshop', vendor: 'Prasetiya Mulya', category: 'TRAINING', aspect: 'COMMUNICATION', goals: 'Meningkatkan kemampuan presentasi dan komunikasi lintas tim', startDate: '2026-08-01', endDate: '2026-08-15', pic: 'Muhammad Multazam', participants: ['Ulfa Irawan'] },
-          { name: 'Leadership Essentials',  vendor: 'PPM Manajemen',   category: 'TRAINING', aspect: 'LEADERSHIP',    goals: 'Membangun kompetensi kepemimpinan dasar',              startDate: '2026-09-01', endDate: '2026-09-30', pic: 'Muhammad Multazam', participants: ['Ulfa Irawan'] }
+          { name: 'Communication Workshop', vendor: 'Prasetiya Mulya', category: 'TRAINING', aspect: 'COMMUNICATION', goals: 'Meningkatkan kemampuan presentasi dan komunikasi lintas tim', startDate: '2026-08-01', endDate: '2026-08-15', pic: 'Florian Wirtz', participants: ['Cody Gakpo'] },
+          { name: 'Leadership Essentials',  vendor: 'PPM Manajemen',   category: 'TRAINING', aspect: 'LEADERSHIP',    goals: 'Membangun kompetensi kepemimpinan dasar',              startDate: '2026-09-01', endDate: '2026-09-30', pic: 'Florian Wirtz', participants: ['Cody Gakpo'] }
         ]
       },
       {
         id: 'd2',
-        employees: ['Budi Prasetyo', 'Siti Rahayu'],
+        employees: ['Virgil van Dijk', 'Jamal Musiala'],
         savedAt: '7 Jul 2026, 16:15',
         programs: ['Problem Solving Bootcamp'],
         detail: [
-          { name: 'Problem Solving Bootcamp', vendor: 'SWA Institute', category: 'WORKSHOP', aspect: 'PROBLEM SOLVING', goals: 'Melatih kemampuan analisis dan pemecahan masalah secara sistematis', startDate: '2026-08-15', endDate: '2026-08-20', pic: 'Ilyas Dirgantara', participants: ['Budi Prasetyo', 'Siti Rahayu'] }
+          { name: 'Problem Solving Bootcamp', vendor: 'SWA Institute', category: 'WORKSHOP', aspect: 'PROBLEM SOLVING', goals: 'Melatih kemampuan analisis dan pemecahan masalah secara sistematis', startDate: '2026-08-15', endDate: '2026-08-20', pic: 'Son Heung-min', participants: ['Virgil van Dijk', 'Jamal Musiala'] }
         ]
       },
       {
         id: 'd3',
-        employees: ['Imanuel Ibrahim'],
+        employees: ['Vinicius Junior'],
         savedAt: '5 Jul 2026, 09:00',
         programs: ['Teamwork & Collaboration', 'Critical Thinking 101', 'Data Analysis Basics'],
         detail: [
-          { name: 'Teamwork & Collaboration', vendor: 'Prasetiya Mulya', category: 'WORKSHOP',   aspect: 'TEAMWORK',         goals: 'Memperkuat kolaborasi dan sinergi antar anggota tim',  startDate: '2026-07-20', endDate: '2026-07-25', pic: 'Muhammad Multazam', participants: ['Imanuel Ibrahim'] },
-          { name: 'Critical Thinking 101',    vendor: 'Coursera',        category: 'E-LEARNING', aspect: 'CRITICAL THINKING', goals: 'Mengembangkan pola pikir kritis dalam pengambilan keputusan', startDate: '2026-08-01', endDate: '2026-08-31', pic: 'Muhammad Multazam', participants: ['Imanuel Ibrahim'] },
-          { name: 'Data Analysis Basics',     vendor: 'Dicoding',        category: 'E-LEARNING', aspect: 'CRITICAL THINKING', goals: 'Memahami dasar-dasar analisis data untuk kebutuhan pekerjaan', startDate: '2026-08-15', endDate: '2026-09-15', pic: 'Adzon',             participants: ['Imanuel Ibrahim'] }
+          { name: 'Teamwork & Collaboration', vendor: 'Prasetiya Mulya', category: 'WORKSHOP',   aspect: 'TEAMWORK',         goals: 'Memperkuat kolaborasi dan sinergi antar anggota tim',  startDate: '2026-07-20', endDate: '2026-07-25', pic: 'Florian Wirtz', participants: ['Vinicius Junior'] },
+          { name: 'Critical Thinking 101',    vendor: 'Coursera',        category: 'E-LEARNING', aspect: 'CRITICAL THINKING', goals: 'Mengembangkan pola pikir kritis dalam pengambilan keputusan', startDate: '2026-08-01', endDate: '2026-08-31', pic: 'Florian Wirtz', participants: ['Vinicius Junior'] },
+          { name: 'Data Analysis Basics',     vendor: 'Dicoding',        category: 'E-LEARNING', aspect: 'CRITICAL THINKING', goals: 'Memahami dasar-dasar analisis data untuk kebutuhan pekerjaan', startDate: '2026-08-15', endDate: '2026-09-15', pic: 'Adzon',             participants: ['Vinicius Junior'] }
         ]
       }
     ];
 
     var _empColorMap = {
-      'Ulfa Irawan':     '#0EA5E9',
-      'Imanuel Ibrahim': '#8B5CF6',
-      'Gunawan Santoso': '#10B981',
-      'Budi Prasetyo':   '#F59E0B',
-      'Siti Rahayu':     '#EC4899',
-      'Ahmad Fauzi':     '#6366F1'
+      'Cody Gakpo':     '#0EA5E9',
+      'Vinicius Junior': '#8B5CF6',
+      'Julian Alvarez': '#10B981',
+      'Virgil van Dijk':   '#F59E0B',
+      'Jamal Musiala':     '#EC4899',
+      'Kylian Mbappe':     '#6366F1'
     };
     function _initials(name) {
       return name.split(' ').map(function(w){ return w[0]||''; }).join('').slice(0,2).toUpperCase();
@@ -2714,8 +2708,8 @@
       window.swSwitch=function(r){
         localStorage.setItem(KEY,r);
         document.getElementById('switcher-menu').style.display='none';
-        if(r==='Employee') window.location.href='/detail-idp-employee.html';
-        else if(r==='Admin') window.location.href='/monitoring-admin.html';
+        if(r==='Employee') window.location.href='/idp-app/detail-idp-employee.html';
+        else if(r==='Admin') window.location.href='/idp-app/monitoring-admin.html';
         else render(r);
       };
       document.addEventListener('click',function(e){ if(!document.getElementById('user-switcher').contains(e.target)) document.getElementById('switcher-menu').style.display='none'; });
@@ -2727,7 +2721,7 @@
   <script>
   (function(){
     var PCP_EMP = (typeof _empAll !== 'undefined') ? _empAll : [];
-    var PHOTO_MAP = { 'Ulfa Irawan': 'assets/avatar-1.png', 'Budi Prasetyo': 'assets/avatar-2.png' };
+    var PHOTO_MAP = { 'Cody Gakpo': 'assets/avatar-1.png', 'Virgil van Dijk': 'assets/avatar-2.png' };
     var PALETTE = ['#4C6EF5','#7950F2','#E8590C','#0CA678','#1098AD','#F03E3E','#F76707','#9C36B5','#1971C2','#2F9E44'];
     var _activeCell = null, _picker = null, _list = null, _search = null, _tooltip = null, _notesSvg = null, _actions = null;
 
@@ -3034,7 +3028,7 @@
     function renderPicList(q){
       var list=document.getElementById('picList');
       var people=typeof _empAll!=='undefined'?_empAll:[];
-      var managerNames=['Gunawan Santoso','Dewi Kusuma'];
+      var managerNames=['Julian Alvarez','Florian Wirtz'];
       var qLow=(q||'').toLowerCase().trim();
       function makeItem(name){
         var bg=colorFrom(name),selected=_picActive&&_picActive.dataset.picName===name;
@@ -3663,8 +3657,8 @@
   <script>
   (function(){
     var PICS = [
-      { name: 'Ilyas Dirgantara',  pos: 'Product Manager',  initials: 'ID', color: '#6366f1' },
-      { name: 'Muhammad Multazam', pos: 'HR Specialist',     initials: 'MM', color: '#10b981' },
+      { name: 'Son Heung-min',  pos: 'Product Manager',  initials: 'ID', color: '#6366f1' },
+      { name: 'Florian Wirtz', pos: 'HR Specialist',     initials: 'MM', color: '#10b981' },
       { name: 'Adzon',             pos: 'Team Lead',         initials: 'AD', color: '#f59e0b' }
     ];
     var _picPicker = null, _picActive = null;

@@ -1,25 +1,29 @@
 "use client";
 import { useState } from "react";
 import { Paper, SegmentedControl, Badge as MantineBadge, Text } from "@mantine/core";
+import { managerTeam } from "@/data/managerTeamData";
+
+// Names keyed to canonical team members (order = MANAGER_TEAM_IDS). Narrative/numbers are demo.
+const T = managerTeam.map(c => c.name); // [0]lead …[5]
 
 const WEEKLY = {
   completionRate: { thisWeek: 82, lastWeek: 74 },
   trendChanges: [
-    { name: "Siti Rahayu", direction: "up" as const, note: "Naik signifikan, konsisten 3 hari terakhir" },
-    { name: "Rizky Pratama", direction: "down" as const, note: "Turun dibanding minggu lalu" },
+    { name: T[1], direction: "up" as const, note: "Naik signifikan, konsisten 3 hari terakhir" },
+    { name: T[3], direction: "down" as const, note: "Turun dibanding minggu lalu" },
   ],
-  workload: { overload: ["Dewi Kusuma"], available: ["Budi Santoso", "Nurul Hidayah"] },
-  checkins: { done: 3, total: 6, missed: ["Rizky Pratama", "Fajar Nugroho", "Lina Marlina"] },
-  highlight: { name: "Siti Rahayu", reason: "Menyelesaikan 2 deliverable lebih cepat dari jadwal" },
-  urgent: "Lakukan cek-in dengan Rizky Pratama — tren menurun sudah 2 minggu berturut-turut.",
+  workload: { overload: [T[2]], available: [T[0], T[4]] },
+  checkins: { done: 3, total: T.length, missed: [T[3], T[5], T[2]] },
+  highlight: { name: T[1], reason: "Menyelesaikan 2 deliverable lebih cepat dari jadwal" },
+  urgent: `Lakukan cek-in dengan ${T[3]} — tren menurun sudah 2 minggu berturut-turut.`,
 };
 
 const MONTHLY = {
   healthScore: { label: "Perlu Perhatian", value: 62, color: "#fd9f28" },
-  ready: [{ name: "Siti Rahayu", note: "Performa konsisten naik, kapasitas masih tersedia" }],
-  intervention: [{ name: "Rizky Pratama", note: "Perlu pelibatan HR atau program pengembangan khusus" }],
+  ready: [{ name: T[1], note: "Performa konsisten naik, kapasitas masih tersedia" }],
+  intervention: [{ name: T[3], note: "Perlu pelibatan HR atau program pengembangan khusus" }],
   skillGap: "Analytical thinking dan problem solving konsisten di bawah rata-rata tim selama 3 minggu.",
-  recommendation: "Redistribusi beban kerja antara Dewi Kusuma dan Budi Santoso, dan jadwalkan sesi coaching untuk Rizky Pratama.",
+  recommendation: `Redistribusi beban kerja antara ${T[2]} dan ${T[0]}, dan jadwalkan sesi coaching untuk ${T[3]}.`,
 };
 
 function ChevronIcon({ open }: { open: boolean }) {
