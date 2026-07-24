@@ -42,6 +42,7 @@ export default function Screener() {
             <Button
               onClick={() => setViewMode('review')}
               variant={viewMode === 'review' ? 'default' : 'outline'}
+              size="sm"
               className={viewMode === 'review' ? '' : 'text-[#016699] border-[#016699]'}
             >
               Compare
@@ -49,6 +50,7 @@ export default function Screener() {
             <Button
               onClick={() => setViewMode('table')}
               variant={viewMode === 'table' ? 'default' : 'outline'}
+              size="sm"
               className={viewMode === 'table' ? '' : 'text-[#016699] border-[#016699]'}
             >
               Table
