@@ -4,6 +4,7 @@ import { useNavigate, NavLink, useLocation } from 'react-router';
 import { mockEmployees, Employee } from '../data/mockEmployees';
 import { tdpEmployees, CSV_RAW_HEADERS } from '../data/tdpEmployees';
 import { getProfileUrl } from '../data/profileLinks';
+import { Badge as ProdigyBadge } from '@talentlytica/prodigy';
 import * as XLSX from 'xlsx';
 import {
   Filter,
@@ -2498,15 +2499,17 @@ export default function TableScreener({ onToolbarRender, onSharedToolbarRender, 
           {/* Filter Button */}
           <Button
             variant="outline"
+            size="sm"
             onClick={() => setIsFilterDialogOpen(true)}
             className="flex items-center gap-2 rounded-full"
+            style={{ fontWeight: 700 }}
           >
             <Filter className="w-4 h-4" style={{ color: '#016699' }} />
             Filters
             {hasActiveFilters && (
-              <span className="ml-1 px-2 py-0.5 bg-[#016699] text-white text-xs rounded-full">
+              <ProdigyBadge color="info" size="xs" ml={4}>
                 Active
-              </span>
+              </ProdigyBadge>
             )}
           </Button>
 
@@ -2514,7 +2517,7 @@ export default function TableScreener({ onToolbarRender, onSharedToolbarRender, 
           {/* Preset Manager */}
           <Popover open={isPresetPopoverOpen} onOpenChange={(open) => { setIsPresetPopoverOpen(open); if (!open) setPresetSearch(''); }}>
             <PopoverTrigger asChild>
-              <Button variant="outline" className="flex items-center gap-2 rounded-full">
+              <Button variant="outline" size="sm" className="flex items-center gap-2 rounded-full" style={{ fontWeight: 700 }}>
                 <Bookmark className="w-4 h-4" style={{ color: '#016699' }} />
                 Presets
               </Button>

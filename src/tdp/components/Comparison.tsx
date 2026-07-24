@@ -6,6 +6,7 @@ import { loadEmployeeDraftEmployees } from '../data/employeeDraft';
 import { CSV_RAW_HEADERS } from '../data/tdpEmployees';
 import { ColumnConfig } from '../data/columnDefinitions';
 import { getProfileUrl } from '../data/profileLinks';
+import { Pagination } from '@mantine/core';
 import {
   X,
   Users,
@@ -247,6 +248,11 @@ interface ComparisonProps {
   onPinnedIdsChange?: (ids: string[]) => void;
 }
 
+// pid = canonical p-id from the raw CSV row, used to deep-link into /iprofile
+const getIProfilePid = (emp: Employee) =>
+  (emp.csvFields?.['Employee ID'] || '').trim()
+    || ('p' + String(emp.id).replace(/\D/g, '').slice(-2).padStart(2, '0'));
+
 export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, onPinnedIdsChange }: ComparisonProps = {}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [comparisonEmployees, setComparisonEmployees] = useState<Employee[]>([]);
@@ -344,7 +350,9 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
     onToolbarRender(
       <Button
         variant="outline"
+        size="sm"
         className="flex items-center gap-2 rounded-full"
+        style={{ fontWeight: 700 }}
         onClick={() => setIsColumnsDialogOpen(true)}
       >
         <Columns3 className="w-4 h-4" style={{ color: '#016699' }} />
@@ -390,32 +398,8 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
   const scrollListenerCleanupRef = useRef<(() => void) | null>(null);
 
-  // Floating pagination: appears when scrolling down, hides when scrolling up.
-  const [showFloatingPagination, setShowFloatingPagination] = useState(false);
-  const lastScrollPosRef = useRef<Map<EventTarget, number>>(new Map());
-
-  useEffect(() => {
-    const handleScroll = (e: Event) => {
-      const target = e.target as EventTarget | null;
-      if (!target) return;
-      // Get current scroll position from the actual scrolling element
-      const el = (target as Document).scrollingElement || (target as HTMLElement);
-      const currentTop =
-        target instanceof Document
-          ? (target.scrollingElement?.scrollTop ?? window.scrollY)
-          : (el as HTMLElement).scrollTop;
-      const last = lastScrollPosRef.current.get(target) ?? 0;
-      const delta = currentTop - last;
-      // Ignore tiny jitter; require ≥4px movement to flip
-      if (Math.abs(delta) >= 4) {
-        if (delta > 0) setShowFloatingPagination(true);   // scrolling down
-        else setShowFloatingPagination(false);            // scrolling up
-        lastScrollPosRef.current.set(target, currentTop);
-      }
-    };
-    document.addEventListener('scroll', handleScroll, { capture: true, passive: true });
-    return () => document.removeEventListener('scroll', handleScroll, { capture: true });
-  }, []);
+  // Floating pagination: always visible, no need to scroll first.
+  const showFloatingPagination = true;
 
   const setSentinel = (el: HTMLDivElement | null) => {
     // Clean up previous listener
@@ -593,6 +577,13 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
     if (currentPage >= totalPages) setCurrentPage(Math.max(0, totalPages - 1));
   }, [totalPages, currentPage]);
 
+  // Slide direction for the page-change carousel animation
+  const [slideDir, setSlideDir] = useState<'next' | 'prev'>('next');
+  const goToPage = (nextIndex: number) => {
+    setSlideDir(nextIndex > safePage ? 'next' : 'prev');
+    setCurrentPage(nextIndex);
+  };
+
   // ── Card drag handlers ────────────────────────────────────────────────────
   const handleCardDragStart = (e: React.DragEvent, id: string) => {
     setDragCardId(id);
@@ -737,9 +728,10 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
       {/* Sticky employee name bar — fixed to viewport so it doesn't scroll away */}
       {displayEmployees.length > 0 && (
         <div
-          className="fixed left-0 right-0 z-[9999] bg-white border-b border-gray-200 px-6 py-2"
+          className="fixed right-0 z-[9999] bg-white border-b border-gray-200 px-6 py-2"
           style={{
             top: 0,
+            left: 'var(--sidebar-w, 220px)',
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
             transform: showStickyBar ? 'translateY(0)' : 'translateY(-100%)',
             transition: 'transform 0.25s ease',
@@ -856,10 +848,16 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
           });
 
           const FIXED_COLS = 4; // Always 4 columns — empty slots stay visible
-          const gridStyle = { gridTemplateColumns: `repeat(${FIXED_COLS}, 1fr)` };
+          const gridStyle = { gridTemplateColumns: `repeat(${FIXED_COLS}, minmax(0, 1fr))` };
 
           return (
-            <div className="relative">
+            <div
+              key={safePage}
+              className={`relative animate-in duration-300 ease-out fill-mode-both ${
+                slideDir === 'next' ? 'slide-in-from-right-12' : 'slide-in-from-left-12'
+              }`}
+              style={{ willChange: 'transform', backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
+            >
               {/* Column-strip backgrounds — card visual per column */}
               <div
                 className="absolute inset-0 grid pointer-events-none"
@@ -947,11 +945,23 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
 
                         {/* Photo — aspect-square ensures 1:1 ratio at any card width */}
                         <div className="relative aspect-square overflow-hidden">
+                          {/* Layer 1 — background biru, 65% tinggi dari bawah */}
+                          <div className="absolute bottom-0 left-0 right-0" style={{ height: '65%', background: '#197fc9', borderRadius: '8px 164px 0 0' }} />
+
+                          {/* Layer 2 — foto */}
                           <img src={employee.photo} alt={employee.name} className="absolute inset-0 w-full h-full object-cover" onError={(e) => { e.currentTarget.src = '/avatars/male.jpg'; e.currentTarget.onerror = null; }} />
+
+                          {/* Layer 3 — gradient hitam */}
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
                           <div className="absolute bottom-6 left-6 right-6">
-                            <h2 className="text-base font-bold text-white mb-0.5 truncate">{employee.name}</h2>
+                            <h2
+                              className="text-base font-bold text-white mb-0.5 truncate hover:underline cursor-pointer"
+                              onClick={(e) => { e.stopPropagation(); window.location.href = `/iprofile?id=${encodeURIComponent(getIProfilePid(employee))}`; }}
+                              title="Go to iProfile"
+                            >
+                              {employee.name}
+                            </h2>
                             <p className="text-white/80 text-xs font-medium truncate">{employee.role}</p>
                             {employee.usia && <p className="text-white/80 text-sm mt-1">{employee.usia} Tahun</p>}
                           </div>
@@ -1122,18 +1132,16 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
                   );
                 })}
 
-                {/* ── ROW: Go to Profile + Create IDP ── */}
+                {/* ── ROW: Create IDP (Go to Profile removed — name click already opens iProfile) ── */}
                 {pagedEmployees.map(emp => {
-                  // Native embed (no iframe): navigate the host Next app to our local
-                  // iProfile / IDP routes. pid = canonical p-id from the raw CSV row.
-                  const pid = (emp.csvFields?.['Employee ID'] || '').trim()
-                    || ('p' + String(emp.id).replace(/\D/g, '').slice(-2).padStart(2, '0'));
-                  const btnClass = 'flex-1 text-center rounded-full py-2 transition-colors text-xs font-bold border border-[#016699] text-[#016699] hover:bg-[#e7f5ff]';
-                  const btnStyle = { fontFamily: 'Avenir, "Avenir Next", "Open Sans", sans-serif' };
+                  const btnClass = 'flex-1 text-xs border-[#016699] text-[#016699] hover:bg-[#e7f5ff] hover:text-[#016699]';
+                  // Inline fontWeight needed: a global `button { font-weight: ... }` reset in
+                  // vismap/styles/globals.css (imported app-wide) beats the DS Button's own
+                  // `.font-bold` utility in the cascade. Inline style always wins.
+                  const btnStyle = { fontWeight: 700 as const };
                   return (
                     <div key={`actions-${emp.id}`} className="px-4 pb-4 pt-2 flex gap-2">
-                      <button className={btnClass} style={btnStyle} onClick={() => { window.location.href = `/iprofile?id=${encodeURIComponent(pid)}`; }}>Go to Profile</button>
-                      <button className={btnClass} style={btnStyle} onClick={() => { window.location.href = `/idp?page=create-idp-admin.html&name=${encodeURIComponent(emp.name || '')}`; }}>Create IDP</button>
+                      <Button variant="outline" size="sm" className={btnClass} style={btnStyle} onClick={() => { window.location.href = `/idp?page=create-idp-admin.html&name=${encodeURIComponent(emp.name || '')}`; }}>Create IDP</Button>
                     </div>
                   );
                 })}
@@ -1163,39 +1171,15 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
             className="flex items-center gap-3 bg-white border border-gray-200 rounded-full px-4 py-2"
             style={{ boxShadow: '0 6px 20px rgba(0,0,0,0.12)' }}
           >
-            <button
-              onClick={() => setCurrentPage(p => Math.max(0, p - 1))}
-              disabled={safePage === 0}
-              className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-              title="Previous page"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-
-            <div className="flex items-center gap-1.5">
-              {Array.from({ length: totalPages }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentPage(i)}
-                  className={`min-w-[32px] h-8 px-2 rounded-full text-xs font-semibold transition-colors ${
-                    i === safePage
-                      ? 'bg-[#016699] text-white'
-                      : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  {i + 1}
-                </button>
-              ))}
-            </div>
-
-            <button
-              onClick={() => setCurrentPage(p => Math.min(totalPages - 1, p + 1))}
-              disabled={safePage >= totalPages - 1}
-              className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-              title="Next page"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
+            <Pagination
+              total={totalPages}
+              value={safePage + 1}
+              onChange={(p) => goToPage(p - 1)}
+              radius="xl"
+              size="sm"
+              color="#016699"
+              getItemProps={() => ({ style: { fontFamily: 'inherit' } })}
+            />
 
             <span className="text-xs text-gray-500 pl-1 pr-1">
               {safePage * CARDS_PER_PAGE + 1}–

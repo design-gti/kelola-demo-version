@@ -137,7 +137,7 @@ export default function Root() {
 
       {/* Main Content */}
       <div className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain">
-        <main className="py-8">
+        <main className="pt-0 pb-8">
           <Outlet context={{ onAddDecision: handleOpenAddDecision }} />
         </main>
       </div>
