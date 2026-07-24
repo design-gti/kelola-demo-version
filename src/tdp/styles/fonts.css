@@ -1,0 +1,11 @@
+
+/*
+ * Kelola Design System — Font Stack
+ * Display / titles / buttons : Avenir, Avenir Next, Open Sans, sans-serif
+ * Body / inputs / paragraphs : "Open Sans", sans-serif
+ * Avenir is a system font on macOS/iOS; on other OSes Open Sans is the fallback.
+ */
+:root {
+  --font-display: Avenir, 'Avenir Next', 'Open Sans', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+}

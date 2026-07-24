@@ -123,6 +123,51 @@ export const CANONICAL: CanonicalData = {
       "id": "pos-p24",
       "title": "Growth Marketing Lead",
       "department": "Pemasaran"
+    },
+    {
+      "id": "pos-p25",
+      "title": "Senior Brand Strategist",
+      "department": "Pemasaran"
+    },
+    {
+      "id": "pos-p26",
+      "title": "Chief Revenue Officer",
+      "department": "Strategi"
+    },
+    {
+      "id": "pos-p27",
+      "title": "Creative Director",
+      "department": "Pemasaran"
+    },
+    {
+      "id": "pos-p28",
+      "title": "Principal Engineer",
+      "department": "Teknologi"
+    },
+    {
+      "id": "pos-p29",
+      "title": "Operations Strategist",
+      "department": "Operasional"
+    },
+    {
+      "id": "pos-p30",
+      "title": "Growth Marketing Manager",
+      "department": "Pemasaran"
+    },
+    {
+      "id": "pos-p31",
+      "title": "Senior Finance Manager",
+      "department": "Keuangan"
+    },
+    {
+      "id": "pos-p32",
+      "title": "Supply Chain Manager",
+      "department": "Operasional"
+    },
+    {
+      "id": "pos-p33",
+      "title": "Digital Content Specialist",
+      "department": "Pemasaran"
     }
   ],
   "teams": [
@@ -432,6 +477,105 @@ export const CANONICAL: CanonicalData = {
       "successorForId": null,
       "disc": "SC",
       "potential": "medium",
+      "photoUrl": null
+    },
+    {
+      "id": "p25",
+      "name": "Lionel Messi",
+      "positionId": "pos-p25",
+      "teamId": "SNM",
+      "managerId": "p21",
+      "successorForId": null,
+      "disc": "I",
+      "potential": "high",
+      "photoUrl": null
+    },
+    {
+      "id": "p26",
+      "name": "Cristiano Ronaldo",
+      "positionId": "pos-p26",
+      "teamId": "EXE",
+      "managerId": "p05",
+      "successorForId": null,
+      "disc": "D",
+      "potential": "high",
+      "photoUrl": null
+    },
+    {
+      "id": "p27",
+      "name": "Neymar Jr",
+      "positionId": "pos-p27",
+      "teamId": "SNM",
+      "managerId": "p21",
+      "successorForId": null,
+      "disc": "I",
+      "potential": "medium",
+      "photoUrl": null
+    },
+    {
+      "id": "p28",
+      "name": "Kevin De Bruyne",
+      "positionId": "pos-p28",
+      "teamId": "ENG",
+      "managerId": "p01",
+      "successorForId": null,
+      "disc": "C",
+      "potential": "high",
+      "photoUrl": null
+    },
+    {
+      "id": "p29",
+      "name": "Luka Modric",
+      "positionId": "pos-p29",
+      "teamId": "OPS",
+      "managerId": "p17",
+      "successorForId": null,
+      "disc": "S",
+      "potential": "high",
+      "photoUrl": null
+    },
+    {
+      "id": "p30",
+      "name": "Mohamed Salah",
+      "positionId": "pos-p30",
+      "teamId": "SNM",
+      "managerId": "p21",
+      "successorForId": null,
+      "disc": "D",
+      "potential": "high",
+      "photoUrl": null
+    },
+    {
+      "id": "p31",
+      "name": "Harry Kane",
+      "positionId": "pos-p31",
+      "teamId": "FIN",
+      "managerId": "p09",
+      "successorForId": null,
+      "disc": "D",
+      "potential": "high",
+      "photoUrl": null
+    },
+    {
+      "id": "p32",
+      "name": "Robert Lewandowski",
+      "positionId": "pos-p32",
+      "teamId": "OPS",
+      "managerId": "p17",
+      "successorForId": null,
+      "disc": "C",
+      "potential": "medium",
+      "photoUrl": null
+    },
+    {
+      "id": "p33",
+      "name": "Lamine Yamal",
+      "positionId": "pos-p33",
+      "teamId": "SNM",
+      "managerId": "p21",
+      "successorForId": null,
+      "disc": "I",
+      "potential": "high",
       "photoUrl": null
     }
   ],
@@ -1275,6 +1419,321 @@ export const CANONICAL: CanonicalData = {
       "participantId": "p24",
       "kind": "engagement",
       "value": 74
+    },
+    {
+      "participantId": "p25",
+      "kind": "behavioral",
+      "value": 90
+    },
+    {
+      "participantId": "p25",
+      "kind": "technical",
+      "value": 82
+    },
+    {
+      "participantId": "p25",
+      "kind": "performance",
+      "value": 95
+    },
+    {
+      "participantId": "p25",
+      "kind": "leadership",
+      "value": 88
+    },
+    {
+      "participantId": "p25",
+      "kind": "competency",
+      "value": 94
+    },
+    {
+      "participantId": "p25",
+      "kind": "prediction",
+      "value": 93
+    },
+    {
+      "participantId": "p25",
+      "kind": "engagement",
+      "value": 92
+    },
+    {
+      "participantId": "p26",
+      "kind": "behavioral",
+      "value": 88
+    },
+    {
+      "participantId": "p26",
+      "kind": "technical",
+      "value": 80
+    },
+    {
+      "participantId": "p26",
+      "kind": "performance",
+      "value": 96
+    },
+    {
+      "participantId": "p26",
+      "kind": "leadership",
+      "value": 92
+    },
+    {
+      "participantId": "p26",
+      "kind": "competency",
+      "value": 95
+    },
+    {
+      "participantId": "p26",
+      "kind": "prediction",
+      "value": 95
+    },
+    {
+      "participantId": "p26",
+      "kind": "engagement",
+      "value": 90
+    },
+    {
+      "participantId": "p27",
+      "kind": "behavioral",
+      "value": 84
+    },
+    {
+      "participantId": "p27",
+      "kind": "technical",
+      "value": 78
+    },
+    {
+      "participantId": "p27",
+      "kind": "performance",
+      "value": 86
+    },
+    {
+      "participantId": "p27",
+      "kind": "leadership",
+      "value": 80
+    },
+    {
+      "participantId": "p27",
+      "kind": "competency",
+      "value": 85
+    },
+    {
+      "participantId": "p27",
+      "kind": "prediction",
+      "value": 82
+    },
+    {
+      "participantId": "p27",
+      "kind": "engagement",
+      "value": 84
+    },
+    {
+      "participantId": "p28",
+      "kind": "behavioral",
+      "value": 86
+    },
+    {
+      "participantId": "p28",
+      "kind": "technical",
+      "value": 94
+    },
+    {
+      "participantId": "p28",
+      "kind": "performance",
+      "value": 92
+    },
+    {
+      "participantId": "p28",
+      "kind": "leadership",
+      "value": 84
+    },
+    {
+      "participantId": "p28",
+      "kind": "competency",
+      "value": 93
+    },
+    {
+      "participantId": "p28",
+      "kind": "prediction",
+      "value": 91
+    },
+    {
+      "participantId": "p28",
+      "kind": "engagement",
+      "value": 88
+    },
+    {
+      "participantId": "p29",
+      "kind": "behavioral",
+      "value": 88
+    },
+    {
+      "participantId": "p29",
+      "kind": "technical",
+      "value": 85
+    },
+    {
+      "participantId": "p29",
+      "kind": "performance",
+      "value": 90
+    },
+    {
+      "participantId": "p29",
+      "kind": "leadership",
+      "value": 86
+    },
+    {
+      "participantId": "p29",
+      "kind": "competency",
+      "value": 91
+    },
+    {
+      "participantId": "p29",
+      "kind": "prediction",
+      "value": 90
+    },
+    {
+      "participantId": "p29",
+      "kind": "engagement",
+      "value": 89
+    },
+    {
+      "participantId": "p30",
+      "kind": "behavioral",
+      "value": 85
+    },
+    {
+      "participantId": "p30",
+      "kind": "technical",
+      "value": 80
+    },
+    {
+      "participantId": "p30",
+      "kind": "performance",
+      "value": 93
+    },
+    {
+      "participantId": "p30",
+      "kind": "leadership",
+      "value": 82
+    },
+    {
+      "participantId": "p30",
+      "kind": "competency",
+      "value": 90
+    },
+    {
+      "participantId": "p30",
+      "kind": "prediction",
+      "value": 89
+    },
+    {
+      "participantId": "p30",
+      "kind": "engagement",
+      "value": 90
+    },
+    {
+      "participantId": "p31",
+      "kind": "behavioral",
+      "value": 84
+    },
+    {
+      "participantId": "p31",
+      "kind": "technical",
+      "value": 86
+    },
+    {
+      "participantId": "p31",
+      "kind": "performance",
+      "value": 91
+    },
+    {
+      "participantId": "p31",
+      "kind": "leadership",
+      "value": 85
+    },
+    {
+      "participantId": "p31",
+      "kind": "competency",
+      "value": 90
+    },
+    {
+      "participantId": "p31",
+      "kind": "prediction",
+      "value": 88
+    },
+    {
+      "participantId": "p31",
+      "kind": "engagement",
+      "value": 87
+    },
+    {
+      "participantId": "p32",
+      "kind": "behavioral",
+      "value": 82
+    },
+    {
+      "participantId": "p32",
+      "kind": "technical",
+      "value": 84
+    },
+    {
+      "participantId": "p32",
+      "kind": "performance",
+      "value": 88
+    },
+    {
+      "participantId": "p32",
+      "kind": "leadership",
+      "value": 80
+    },
+    {
+      "participantId": "p32",
+      "kind": "competency",
+      "value": 86
+    },
+    {
+      "participantId": "p32",
+      "kind": "prediction",
+      "value": 84
+    },
+    {
+      "participantId": "p32",
+      "kind": "engagement",
+      "value": 83
+    },
+    {
+      "participantId": "p33",
+      "kind": "behavioral",
+      "value": 86
+    },
+    {
+      "participantId": "p33",
+      "kind": "technical",
+      "value": 80
+    },
+    {
+      "participantId": "p33",
+      "kind": "performance",
+      "value": 88
+    },
+    {
+      "participantId": "p33",
+      "kind": "leadership",
+      "value": 80
+    },
+    {
+      "participantId": "p33",
+      "kind": "competency",
+      "value": 89
+    },
+    {
+      "participantId": "p33",
+      "kind": "prediction",
+      "value": 87
+    },
+    {
+      "participantId": "p33",
+      "kind": "engagement",
+      "value": 88
     }
   ],
   "assignments": [

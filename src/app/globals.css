@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import "tailwindcss";
+@import "tw-animate-css";
 @import "../vismap/styles/default_theme.css";
 @import "../vismap/styles/globals.css";
+@import "../tdp/styles/fonts.css";
+@import "../tdp/styles/theme.css";
+@import "react-day-picker/dist/style.css";
+
 
 html, body {
   margin: 0;
