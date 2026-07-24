@@ -1,0 +1,466 @@
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   Kelola Design System — CSS Variables
+   Source: DESIGN_SYSTEM.md (Mantine v7.17 tokens mapped to CSS vars)
+   ============================================================ */
+.tdp-root {
+  --font-size: 16px;
+
+  /* --- Surfaces & Layout ----------------------------------- */
+  --background: #F7F7F7;        /* App background (not white) */
+  --foreground: #495057;        /* Body text — neutral.7 (avoids true black) */
+  --card: #FFFFFF;              /* Cards, modals — neutral.0 */
+  --card-foreground: #495057;
+  --popover: #FFFFFF;
+  --popover-foreground: #495057;
+
+  /* --- Brand Colors ---------------------------------------- */
+  --primary: #016699;           /* primary.5 */
+  --primary-foreground: #ffffff;
+  --secondary: #FD9F28;         /* secondary.5 */
+  --secondary-foreground: #ffffff;
+
+  /* --- Semantic Colors ------------------------------------- */
+  --destructive: #DE350B;       /* error.5 */
+  --destructive-foreground: #ffffff;
+  --success: #00875A;           /* success.5 */
+  --success-foreground: #ffffff;
+  --warning: #FF8918;           /* warning.5 */
+  --warning-foreground: #ffffff;
+  --info: #30E5FD;              /* info.5 */
+  --info-foreground: #ffffff;
+
+  /* --- Neutral / Muted ------------------------------------- */
+  --muted: #F8F9FA;             /* neutral.1 — surface contrast / zebra rows */
+  --muted-foreground: #868E96;  /* neutral.6 — input descriptions, muted text */
+  --accent: #E7F5FF;            /* primary.1 */
+  --accent-foreground: #016699;
+
+  /* --- Borders & Inputs ------------------------------------ */
+  --border: #DEE2E6;            /* neutral.3 */
+  --input: transparent;
+  --input-background: #FFFFFF;  /* neutral.0 — inputs sit on white */
+  --switch-background: #CED4DA; /* neutral.4 */
+  --ring: #016699;
+
+  /* --- Typography weights ---------------------------------- */
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+
+  /* --- Radius ---------------------------------------------- */
+  --radius: 0.5rem;             /* 8px — card default */
+  --radius-pill: 9999px;        /* buttons are pill-shaped */
+
+  /* --- Shadows --------------------------------------------- */
+  --shadow-card: 2px 4px 20px 0px rgba(0, 0, 0, 0.07);
+  --shadow-floating: 0px 0px 24px 0px rgba(0, 0, 0, 0.16);
+  --shadow-heavy: 3.72px 5.58px 27.9px 0px rgba(0, 0, 0, 0.45);
+
+  /* --- Gradient -------------------------------------------- */
+  --gradient-primary: linear-gradient(185.52deg, #2F95DE 1.4%, #016699 60.56%);
+
+  /* --- Charts ---------------------------------------------- */
+  --chart-1: #016699;           /* primary */
+  --chart-2: #FD9F28;           /* secondary */
+  --chart-3: #00875A;           /* success */
+  --chart-4: #FF8918;           /* warning */
+  --chart-5: #30E5FD;           /* info */
+
+  /* --- Sidebar --------------------------------------------- */
+  --sidebar: #016699;           /* dark primary sidebar */
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #016699;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #005079;    /* primary.6 — hover state */
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #005079;
+  --sidebar-ring: #016699;
+
+  /* --- Full Color Palette (0–9 steps) ---------------------- */
+  /* primary */
+  --color-primary-0: #F9FAFB;
+  --color-primary-1: #E7F5FF;
+  --color-primary-2: #D6E6FF;
+  --color-primary-3: #A4C7FF;
+  --color-primary-4: #2F95DE;
+  --color-primary-5: #016699;
+  --color-primary-6: #005079;
+  --color-primary-7: #002E4A;
+  --color-primary-8: #01293D;
+  --color-primary-9: #001925;
+  /* secondary */
+  --color-secondary-0: #FFF2E4;
+  --color-secondary-1: #FFE3C5;
+  --color-secondary-2: #FFD399;
+  --color-secondary-3: #FFBB65;
+  --color-secondary-4: #FDA637;
+  --color-secondary-5: #FD9F28;
+  --color-secondary-6: #F28700;
+  --color-secondary-7: #E27E00;
+  --color-secondary-8: #CA6F00;
+  --color-secondary-9: #854800;
+  /* error */
+  --color-error-0: #FDF5F3;
+  --color-error-1: #FADFD8;
+  --color-error-2: #FFD3D3;
+  --color-error-3: #F6A5A6;
+  --color-error-4: #EF7476;
+  --color-error-5: #DE350B;
+  --color-error-6: #E01419;
+  --color-error-7: #CB1418;
+  --color-error-8: #B60C14;
+  --color-error-9: #650009;
+  /* success */
+  --color-success-0: #F2F9F7;
+  --color-success-1: #E0EFEB;
+  --color-success-2: #ACEECA;
+  --color-success-3: #80E5AD;
+  --color-success-4: #5BDD94;
+  --color-success-5: #00875A;
+  --color-success-6: #00714C;
+  --color-success-7: #006241;
+  --color-success-8: #005035;
+  --color-success-9: #003F2A;
+  /* warning */
+  --color-warning-0: #FFF4E0;
+  --color-warning-1: #FFE6CB;
+  --color-warning-2: #FFCC99;
+  --color-warning-3: #FFB063;
+  --color-warning-4: #FF9836;
+  --color-warning-5: #FF8918;
+  --color-warning-6: #FF8105;
+  --color-warning-7: #E46E00;
+  --color-warning-8: #CB6200;
+  --color-warning-9: #B15200;
+  /* neutral */
+  --color-neutral-0: #FFFFFF;
+  --color-neutral-1: #F8F9FA;
+  --color-neutral-2: #E9ECEF;
+  --color-neutral-3: #DEE2E6;
+  --color-neutral-4: #CED4DA;
+  --color-neutral-5: #ADB5BD;
+  --color-neutral-6: #868E96;
+  --color-neutral-7: #495057;
+  --color-neutral-8: #343A40;
+  --color-neutral-9: #212529;
+}
+
+.tdp-root.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  /* Core surfaces */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* Brand */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  /* Semantic */
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  /* Neutral */
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+
+  /* Charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 4px);    /* 4px */
+  --radius-md: calc(var(--radius) - 2px);    /* 6px */
+  --radius-lg: var(--radius);                /* 8px — card default */
+  --radius-xl: calc(var(--radius) + 4px);    /* 12px */
+  --radius-pill: var(--radius-pill);         /* 9999px — buttons */
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  .tdp-root, .tdp-root * {
+    @apply border-border outline-ring/50;
+  }
+
+  .tdp-root {
+    font-size: var(--font-size);
+    font-family: var(--font-body);
+  }
+
+  .tdp-root {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  /**
+   * Kelola Design System — Base typography for HTML elements.
+   * Display elements (h1-h4, button) use Avenir; body/inputs use Open Sans.
+   * These are in @layer base so Tailwind utility classes override them.
+   */
+
+  .tdp-root h1 {
+    /* .font-heading equivalent: 20px / 800 / Avenir */
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 27.32px;
+  }
+
+  .tdp-root h2 {
+    /* .font-subheading equivalent: 16px / 700 / Avenir */
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 21.86px;
+  }
+
+  .tdp-root h3 {
+    /* .font-title equivalent: 14px / 700 / Avenir */
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 19.12px;
+  }
+
+  .tdp-root h4 {
+    /* .font-subtitle equivalent: 12px / 700 / Avenir */
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16.39px;
+  }
+
+  .tdp-root label {
+    /* .font-subtitle: 12px / 700 / Avenir — input labels */
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16.39px;
+  }
+
+  .tdp-root button {
+    /* .font-title: 14px / 700 / Avenir — button label default */
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 19.12px;
+  }
+
+  .tdp-root input, .tdp-root textarea, .tdp-root select {
+    /* .font-body: 12px / 400 / Open Sans — inputs */
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16.34px;
+  }
+
+  /* Custom Scrollbar Styling - Thin and Transparent */
+  .tdp-root, .tdp-root * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  }
+
+  .tdp-root *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .tdp-root *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .tdp-root *::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+  }
+
+  .tdp-root *::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .tdp-root.dark *::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .tdp-root.dark *::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .tdp-root.dark * {
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+}
+
+/* ============================================================
+   Kelola Design System — Typography Utility Classes
+   Use these classes anywhere in JSX to apply the type scale.
+   ============================================================ */
+@layer utilities {
+  /* Page headers */
+  .font-heading {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 27.32px;
+  }
+
+  /* Section headers */
+  .font-subheading {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 21.86px;
+  }
+
+  /* Card titles, modal titles, nav labels, button labels */
+  .font-title {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 19.12px;
+  }
+
+  /* Input labels */
+  .font-subtitle {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16.39px;
+  }
+
+  /* Body copy */
+  .font-paragraph {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19.07px;
+  }
+
+  /* Default running text, input descriptions, error messages */
+  .font-body {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16.34px;
+  }
+
+  /* Small uppercase-style labels */
+  .font-label {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 13.62px;
+  }
+
+  /* Captions, helper text, divider labels */
+  .font-caption {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 16.34px;
+  }
+
+  /* Bold modifier — add alongside .font-paragraph / .font-body / .font-caption */
+  .font-paragraph.bold,
+  .font-body.bold,
+  .font-caption.bold {
+    font-weight: 700;
+  }
+
+  /* ---- Shadow utilities ---- */
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-floating {
+    box-shadow: var(--shadow-floating);
+  }
+
+  .shadow-heavy {
+    box-shadow: var(--shadow-heavy);
+  }
+
+  /* ---- Gradient utility ---- */
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  /* ---- Semantic color bg utilities (for badges, pills, alert boxes) ---- */
+  .bg-error-0   { background-color: var(--color-error-0); }
+  .bg-success-0 { background-color: var(--color-success-0); }
+  .bg-warning-0 { background-color: var(--color-warning-0); }
+  .bg-info-0    { background-color: var(--color-info-0, #E0FFFF); }
+  .bg-primary-1 { background-color: var(--color-primary-1); }
+
+  .text-error   { color: var(--color-error-5); }
+  .text-success { color: var(--color-success-5); }
+  .text-warning { color: var(--color-warning-5); }
+  .text-info    { color: var(--color-info-5, #30E5FD); }
+}

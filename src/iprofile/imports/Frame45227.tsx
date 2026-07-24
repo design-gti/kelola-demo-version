@@ -12,7 +12,7 @@ import { candidates } from "@/data/dummyData";
 import { getParticipant, scoreOf } from "@/data/model/selectors";
 
 type CareerPlan = { position: string; name: string; percentage: string; status: string };
-type Successor = { name: string; position: string; percentage: string; status: string };
+type Successor = { id?: string; name: string; position: string; percentage: string; status: string };
 type CareerHistory = { title: string; period: string };
 type EmployeeBio = { nik: string; dob: string; gender: string; lastEducation: string; city: string; province: string; maritalStatus: string; reportTo: string; workStartDate: string; tenure: string; careerHistory: CareerHistory[] };
 type TeamRef = { name: string; role: string };
@@ -30,15 +30,17 @@ const ProfileContext = createContext<ProfileCtxT>({ name: "Julian Alvarez", posi
 function Frame151() {
   const { name, position, employeeId } = useContext(ProfileContext);
   const photoKey = `employee-photo-${employeeId}`;
+  // Per-person WC photo keyed by canonical p-id; falls back to the generic photo.
+  const defaultPhoto = /^p\d+$/i.test(employeeId) ? `/avatars/photo_wc2026/${employeeId.toLowerCase()}.png` : '/iprofile-assets/profile-photo.png';
   const [photoSrc, setPhotoSrc] = useState<string>(
-    () => (typeof window !== 'undefined' && localStorage.getItem(photoKey)) || '/iprofile-assets/profile-photo.png'
+    () => (typeof window !== 'undefined' && localStorage.getItem(photoKey)) || defaultPhoto
   );
 
   // Re-read when the viewed employee changes (e.g. navigating list → detail → list → another detail).
   useEffect(() => {
     const saved = localStorage.getItem(photoKey);
-    setPhotoSrc(saved || '/iprofile-assets/profile-photo.png');
-  }, [photoKey]);
+    setPhotoSrc(saved || defaultPhoto);
+  }, [photoKey, defaultPhoto]);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -57,7 +59,7 @@ function Frame151() {
       <div className="absolute bottom-0 left-0 right-0 rounded-[8px]" style={{ height: "75%", background: "#197fc9" }} />
 
       {/* Layer 2 — foto PNG tanpa background */}
-      <img alt="" className="absolute inset-0 w-full h-full object-cover object-top" src={photoSrc} />
+      <img alt="" className="absolute inset-0 w-full h-full object-cover object-top" src={photoSrc} onError={(e) => { const t = e.currentTarget as HTMLImageElement; t.src = '/iprofile-assets/profile-photo.png'; t.onerror = null; }} />
 
       {/* Layer 3 — gradient hitam, 1/2 tinggi dari bawah */}
       <div className="absolute bottom-0 left-0 right-0" style={{ height: "50%", background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.82))" }} />
@@ -450,7 +452,7 @@ function Frame49() {
             <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
               <p className="leading-[normal] whitespace-pre-wrap">{`Successors ${i + 1}`}</p>
             </div>
-            <div className="content-stretch flex items-center relative shrink-0 w-full"><SuccessorsAccordion name={sx.name} position={sx.position} percentage={sx.percentage} status={sx.status} photoType={i % 2 === 0 ? "woman" : "man"} /></div>
+            <div className="content-stretch flex items-center relative shrink-0 w-full"><SuccessorsAccordion name={sx.name} position={sx.position} percentage={sx.percentage} status={sx.status} photoType={i % 2 === 0 ? "woman" : "man"} photoUrl={sx.id ? `/avatars/photo_wc2026/${sx.id}.png` : undefined} /></div>
           </div>
         ))}
         {successors.length === 0 && <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: "#adb5bd", padding: "8px 0" }}>Belum ada suksesor.</div>}

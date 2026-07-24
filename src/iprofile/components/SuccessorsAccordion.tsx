@@ -11,6 +11,7 @@ interface SuccessorsAccordionProps {
   percentage?: string;
   status?: string;
   photoType?: 'woman' | 'man';
+  photoUrl?: string;
 }
 
 export function SuccessorsAccordion({
@@ -18,11 +19,21 @@ export function SuccessorsAccordion({
   position = "Product Designer",
   percentage = "92%",
   status = "Ready",
-  photoType = 'woman'
+  photoType = 'woman',
+  photoUrl
 }: SuccessorsAccordionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const renderPhoto = () => {
+    if (photoUrl) {
+      const fallback = photoType === 'man' ? imgFreepikTheStyleIsCandidImagePhotographyWithNatural52479 : imgPortraitSuccessfulBusinessWomanUsingDigitalTabletFrontModernOffice2;
+      return (
+        <div className="bg-white overflow-clip relative rounded-[15px] shadow-[1px_1px_8px_0px_rgba(0,0,0,0.2)] shrink-0 size-[30px]">
+          <img alt="" className="absolute inset-0 w-full h-full object-cover object-top" src={photoUrl}
+            onError={(e) => { const t = e.currentTarget as HTMLImageElement; t.src = fallback; t.onerror = null; }} />
+        </div>
+      );
+    }
     if (photoType === 'man') {
       return (
         <div className="bg-white overflow-clip relative rounded-[15px] shadow-[1px_1px_8px_0px_rgba(0,0,0,0.2)] shrink-0 size-[30px]">

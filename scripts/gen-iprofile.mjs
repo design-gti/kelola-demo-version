@@ -46,7 +46,7 @@ rows.forEach((r, idx) => {
   const successors = teamMates
     .sort((a, b) => comp(b) - comp(a))
     .slice(0, 3)
-    .map(s => ({ name: s.name, position: s.position, percentage: comp(s) + "%", status: status(comp(s)) }));
+    .map(s => ({ id: s.id, name: s.name, position: s.position, percentage: comp(s) + "%", status: status(comp(s)) }));
   // career plans: target = manager's role (move up), + a "Senior <role>" step
   const careerPlans = [];
   const mgr = r.manager_id ? byId[r.manager_id] : null;
