@@ -1,8 +1,8 @@
 "use client";
 import { useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Paper, Badge, Avatar as MantineAvatar, Select, Pagination, Text } from "@mantine/core";
-import { IconArrowUpRight } from "@tabler/icons-react";
+import { Paper, Badge, Avatar as MantineAvatar, Select, Pagination, Text, Button } from "@mantine/core";
+import { IconArrowUpRight, IconSettings, IconFilter } from "@tabler/icons-react";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
 import DonutChart from "@/components/talent/DonutChart";
@@ -144,11 +144,17 @@ function Panel({ config, points, onSettings }: { config: TMConfig; points: TMPoi
                 </select>
               </div>
             ) : (
-              <button style={{ background: "none", border: "none", cursor: "pointer", color: ACCENT, fontFamily: FONT, fontSize: 12, fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
-                <span>▽</span> Filter
-              </button>
+              <Button
+                variant="subtle"
+                color="primary"
+                size="compact-sm"
+                leftSection={<IconFilter size={14} />}
+                styles={{ root: { fontFamily: FONT, fontSize: 12, fontWeight: 600, color: ACCENT, paddingLeft: 0 } }}
+              >
+                Filter
+              </Button>
             )}
-            <span onClick={onSettings} title="Setting Talent Identification" style={{ color: "#adb5bd", cursor: "pointer" }}>⚙</span>
+            <IconSettings onClick={onSettings} title="Setting Talent Identification" size={16} style={{ color: "#adb5bd", cursor: "pointer" }} />
           </div>
           <div style={{ display: "flex", justifyContent: "center", paddingTop: 8 }}>
             <TMTRBox config={config} points={points} selectedBox={selectedBox} onBoxClick={setSelectedBox} />

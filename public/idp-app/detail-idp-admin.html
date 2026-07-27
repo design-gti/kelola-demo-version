@@ -1744,6 +1744,7 @@
     function initials(n){return (n||'').split(' ').slice(0,2).map(function(w){return w[0]||'';}).join('').toUpperCase();}
     function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
     var id=parseInt(new URLSearchParams(location.search).get('id'));
+    var nameParam=new URLSearchParams(location.search).get('name');
     var _currentEmpIdps=[];
     window.openProgramDetailFromRow=function(btn){
       var idx=parseInt(btn.getAttribute('data-idx'),10);
@@ -1755,7 +1756,10 @@
     }
     fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(list){
       var _emps=list.employees||list; _historyData=list.changeHistory||{}; renderComments(list.comments||[]);
-      var emp=_emps.find(function(e){return e.id===id;})||_emps[0]; if(!emp) return;
+      var emp=_emps.find(function(e){return e.id===id;})
+        || (nameParam && _emps.find(function(e){return e.name===nameParam;}))
+        || _emps[0];
+      if(!emp) return;
       _currentEmpIdps=emp.idps;
       var set=function(el,v){var e=document.getElementById(el); if(e) e.textContent=v;};
       set('d-avatar',initials(emp.name)); set('d-name',emp.name); set('d-name-pos',emp.role+' \u00b7 '+emp.dept);
