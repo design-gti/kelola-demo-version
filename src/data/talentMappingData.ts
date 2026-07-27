@@ -1,4 +1,4 @@
-import { candidates } from "./dummyData";
+import { candidates, Candidate } from "./dummyData";
 import { mantineColor } from "@/components/team/mantineColor";
 
 // Resolve a Mantine color token ("error.3") to hex, using the ported palette.
@@ -8,135 +8,232 @@ export function resolveColor(token: string): string {
 }
 
 export interface BoxDef {
-  order: number;      // 1..9
+  order: number;
   label: string;
   color: string;      // mantine token
   tag: "talent" | null;
 }
 
-export interface AxisRange { label: string; color: string } // LOW / MID / HIGH
+// A criteria band on an axis. min is derived (prev band max + 0.01); max is editable.
+export interface AxisBand { label: string; min: number; max: number; color: string }
+// Back-compat alias — TMTRBox only reads {label,color}.
+export type AxisRange = AxisBand;
+
+// Which candidate metric feeds an axis.
+export type MetricKey = "performance_score" | "leadership_score" | "technical_score" | "behavioral_score";
+export const METRICS: { key: MetricKey; label: string }[] = [
+  { key: "performance_score", label: "Performance" },
+  { key: "leadership_score", label: "Potency" },
+  { key: "technical_score", label: "Competency" },
+  { key: "behavioral_score", label: "Behavioral" },
+];
+export const metricLabel = (k: MetricKey) => METRICS.find(m => m.key === k)?.label ?? k;
 
 export interface TMConfig {
   id: "TI" | "TR";
-  name: string;         // tab name (donut uses "Distribusi {name}")
-  tabLabel: string;     // shown in tab bar
-  sumbuX: string;       // x axis label
-  sumbuY: string;       // y axis label
-  boxes: BoxDef[];      // order 1..9
-  ordering: number[][]; // rows top→bottom of box orders
-  rangesX: AxisRange[]; // left→right
-  rangesY: AxisRange[]; // bottom→top
-  unit: string;         // "Positions" | "Employees"
+  name: string;
+  tabLabel: string;
+  unit: string;
+  layout: string;            // layout id (9box, 12box-3x4, ...)
+  sumbuX: string;            // display label
+  sumbuY: string;
+  sumbuXKey: MetricKey;
+  sumbuYKey: MetricKey;
+  boxes: BoxDef[];
+  ordering: number[][];      // rows top→bottom of box orders
+  rangesX: AxisBand[];       // left→right (bands, ascending)
+  rangesY: AxisBand[];       // bottom→top
 }
 
 export interface TMPoint {
   employeeId: string;
   name: string;
   positionTitle: string;
-  rawX: number | null;   // shown in table
+  rawX: number | null;
   rawY: number | null;
-  x: number | null;      // 0..100 plot position
+  x: number | null;          // 0..100 plot position
   y: number | null;
-  order: number | null;  // box order, null = no data
+  order: number | null;      // box order, null = no data
 }
 
-const RANGES: AxisRange[] = [
-  { label: "LOW", color: "error.3" },
-  { label: "MID", color: "secondary.3" },
-  { label: "HIGH", color: "success.3" },
+// ---------------------------------------------------------------------------
+// Layout registry — the 4 matrix templates captured from kelola-app.
+// ---------------------------------------------------------------------------
+const RED = "error.2", ORG = "secondary.0", BLU = "primary.2", BLU3 = "primary.3";
+const bandColor = (i: number, n: number) => (i === 0 ? "error.3" : i === n - 1 ? "success.3" : "secondary.3");
+
+function mkBands(specs: { label: string; max: number }[]): AxisBand[] {
+  return specs.map((s, i) => ({
+    label: s.label,
+    max: s.max,
+    min: i === 0 ? 0 : specs[i - 1].max + 0.01,
+    color: bandColor(i, specs.length),
+  }));
+}
+
+const B3 = [{ label: "LOW", max: 70 }, { label: "MID", max: 90 }, { label: "HIGH", max: 100 }];
+const B4_UNEVEN = [{ label: "LOW", max: 70 }, { label: "MIDLOW", max: 80 }, { label: "MIDHIGH", max: 90 }, { label: "HIGH", max: 100 }];
+const B4_EVEN = [{ label: "LOW", max: 25 }, { label: "MIDLOW", max: 50 }, { label: "MIDHIGH", max: 75 }, { label: "HIGH", max: 100 }];
+
+interface LayoutDef {
+  id: string; label: string; recommended?: boolean;
+  ordering: number[][];
+  x: { label: string; max: number }[];
+  y: { label: string; max: number }[];
+  boxes: BoxDef[];
+}
+
+export const LAYOUTS: LayoutDef[] = [
+  {
+    id: "9box", label: "9Box(3x3)", recommended: true,
+    ordering: [[6, 8, 9], [3, 5, 7], [1, 2, 4]], x: B3, y: B3,
+    boxes: [
+      { order: 1, label: "Under Performer", color: "error.3", tag: null },
+      { order: 2, label: "Questionable Fit", color: "error.2", tag: null },
+      { order: 3, label: "Specialist", color: "error.2", tag: null },
+      { order: 4, label: "Needs Coaching", color: ORG, tag: null },
+      { order: 5, label: "Contributor", color: ORG, tag: null },
+      { order: 6, label: "Expert", color: ORG, tag: null },
+      { order: 7, label: "Rising Star", color: BLU, tag: "talent" },
+      { order: 8, label: "Emerging Star", color: BLU, tag: "talent" },
+      { order: 9, label: "Star", color: BLU3, tag: "talent" },
+    ],
+  },
+  {
+    id: "12box-3x4", label: "12Box(3x4)",
+    ordering: [[9, 11, 12], [6, 8, 10], [3, 5, 7], [1, 2, 4]], x: B3, y: B4_EVEN,
+    boxes: box12_3x4(),
+  },
+  {
+    id: "12box-3x4-asim", label: "12Box(3x4) asimetris",
+    ordering: [[9, 11, 12], [6, 8, 10], [3, 5, 7], [1, 2, 4]], x: B3, y: B4_UNEVEN,
+    boxes: box12_3x4(),
+  },
+  {
+    id: "12box-4x3", label: "12Box(4x3)",
+    ordering: [[6, 9, 11, 12], [3, 5, 8, 10], [1, 2, 4, 7]], x: B4_UNEVEN, y: B3,
+    boxes: [
+      { order: 1, label: "Dead Wood", color: RED, tag: null },
+      { order: 2, label: "Minimal Contributor", color: RED, tag: null },
+      { order: 3, label: "Unfit Employee", color: RED, tag: null },
+      { order: 4, label: "Contributor", color: ORG, tag: null },
+      { order: 5, label: "Candidate", color: ORG, tag: null },
+      { order: 6, label: "Most UnFit Employee", color: ORG, tag: null },
+      { order: 7, label: "Maximal Contributor", color: ORG, tag: null },
+      { order: 8, label: "Potential Candidate", color: BLU, tag: "talent" },
+      { order: 9, label: "Raw Diamond", color: BLU, tag: "talent" },
+      { order: 10, label: "Rising Star", color: BLU, tag: "talent" },
+      { order: 11, label: "Future Star", color: BLU, tag: "talent" },
+      { order: 12, label: "Star", color: BLU3, tag: "talent" },
+    ],
+  },
 ];
 
-// combination "x-y" (1-indexed thirds) → box order, from kelola-app 9Box(3x3) template
-const COMBO_ORDER: Record<string, number> = {
-  "1-1": 1, "2-1": 2, "1-2": 3, "3-1": 4, "2-2": 5, "1-3": 6, "3-2": 7, "2-3": 8, "3-3": 9,
-};
+function box12_3x4(): BoxDef[] {
+  return [
+    { order: 1, label: "Under performer", color: RED, tag: null },
+    { order: 2, label: "Questionable Fit", color: RED, tag: null },
+    { order: 3, label: "Problem Employee", color: RED, tag: null },
+    { order: 4, label: "Needs Coaching", color: ORG, tag: null },
+    { order: 5, label: "Contributor", color: ORG, tag: null },
+    { order: 6, label: "Unfit Employee", color: ORG, tag: null },
+    { order: 7, label: "Top Performer", color: ORG, tag: null },
+    { order: 8, label: "Candidate", color: ORG, tag: null },
+    { order: 9, label: "Most UnFit Employee", color: ORG, tag: null },
+    { order: 10, label: "Rising Star", color: BLU, tag: "talent" },
+    { order: 11, label: "Emerging Star", color: BLU, tag: "talent" },
+    { order: 12, label: "Star", color: BLU3, tag: "talent" },
+  ];
+}
 
-export const TI_CONFIG: TMConfig = {
-  id: "TI",
-  name: "Talent Identification",
-  tabLabel: "Human Asset Value",
-  sumbuX: "Performance",
-  sumbuY: "Potency",
-  unit: "Positions",
-  ordering: [[6, 8, 9], [3, 5, 7], [1, 2, 4]],
-  rangesX: RANGES,
-  rangesY: RANGES,
-  boxes: [
-    { order: 1, label: "Under Performer", color: "error.3", tag: null },
-    { order: 2, label: "Questionable Fit", color: "error.2", tag: null },
-    { order: 3, label: "Specialist", color: "error.2", tag: null },
-    { order: 4, label: "Needs Coaching", color: "secondary.0", tag: null },
-    { order: 5, label: "Contributor", color: "secondary.0", tag: null },
-    { order: 6, label: "Expert", color: "secondary.0", tag: null },
-    { order: 7, label: "Rising Star", color: "primary.2", tag: "talent" },
-    { order: 8, label: "Emerging Star", color: "primary.2", tag: "talent" },
-    { order: 9, label: "Star", color: "primary.3", tag: "talent" },
-  ],
-};
+export const getLayout = (id: string) => LAYOUTS.find(l => l.id === id) ?? LAYOUTS[0];
 
-export const TR_CONFIG: TMConfig = {
-  id: "TR",
-  name: "Talent Readiness",
-  tabLabel: "Talent Readiness",
-  sumbuX: "Competency",
-  sumbuY: "Potency",
-  unit: "Employees",
-  ordering: [[6, 8, 9], [3, 5, 7], [1, 2, 4]],
-  rangesX: RANGES,
-  rangesY: RANGES,
-  boxes: [
-    { order: 1, label: "Need Development", color: "error.2", tag: null },
-    { order: 2, label: "Need Development", color: "error.2", tag: null },
-    { order: 3, label: "Need Development", color: "error.2", tag: null },
-    { order: 4, label: "Solid Performer", color: "secondary.0", tag: null },
-    { order: 5, label: "Need Development", color: "error.2", tag: null },
-    { order: 6, label: "Development Priority", color: "primary.2", tag: null },
-    { order: 7, label: "Solid Performer", color: "secondary.0", tag: null },
-    { order: 8, label: "Development Priority", color: "primary.2", tag: null },
-    { order: 9, label: "Ready for bigger role", color: "primary.3", tag: null },
-  ],
-};
+// Build a TMConfig from a layout id (deep-copied so callers can freely mutate).
+export function makeConfig(layoutId: string, overrides?: Partial<Pick<TMConfig, "sumbuXKey" | "sumbuYKey">>): TMConfig {
+  const L = getLayout(layoutId);
+  const xKey = overrides?.sumbuXKey ?? "performance_score";
+  const yKey = overrides?.sumbuYKey ?? "leadership_score";
+  return {
+    id: "TI", name: "Talent Identification", tabLabel: "Human Asset Value", unit: "Positions",
+    layout: L.id,
+    sumbuX: metricLabel(xKey), sumbuY: metricLabel(yKey),
+    sumbuXKey: xKey, sumbuYKey: yKey,
+    ordering: L.ordering.map(r => [...r]),
+    rangesX: mkBands(L.x), rangesY: mkBands(L.y),
+    boxes: L.boxes.map(b => ({ ...b })),
+  };
+}
 
 export function boxByOrder(cfg: TMConfig, order: number | null): BoxDef | null {
   return order == null ? null : cfg.boxes.find(b => b.order === order) ?? null;
 }
 
-// spread a value to 0..100 within the metric's observed range (2..98 to keep off edges)
-function normalizer(vals: (number | null)[]) {
-  const nums = vals.filter((n): n is number => n != null);
-  const mn = Math.min(...nums), mx = Math.max(...nums);
-  return (v: number | null) => (v == null || mx === mn ? null : 2 + ((v - mn) / (mx - mn)) * 96);
+// ---------------------------------------------------------------------------
+// Placement engine — RAW value → band index → box order, using configured bands.
+// ---------------------------------------------------------------------------
+export function bandIndex(v: number, bands: AxisBand[]): number {
+  for (let i = 0; i < bands.length; i++) if (v <= bands[i].max) return i;
+  return bands.length - 1;
+}
+// plot position 0..100 within the (equal-width) cell for this band
+function plotPos(v: number, bands: AxisBand[]): number {
+  const i = bandIndex(v, bands);
+  const span = bands[i].max - bands[i].min;
+  const frac = span > 0 ? Math.min(1, Math.max(0, (v - bands[i].min) / span)) : 0.5;
+  return ((i + frac) / bands.length) * 100;
 }
 
-const third = (p: number) => (p <= 33.33 ? 1 : p <= 66.66 ? 2 : 3);
+function orderFor(cfg: TMConfig, rawX: number, rawY: number): number {
+  const xi = bandIndex(rawX, cfg.rangesX);
+  const yi = bandIndex(rawY, cfg.rangesY);
+  const rowFromTop = cfg.rangesY.length - 1 - yi;   // ordering rows are top→bottom (highest Y first)
+  return cfg.ordering[rowFromTop][xi];
+}
 
-// TI (Human Asset Value): Performance (X) × Potency (Y) from the 20 candidates.
-const normPerf = normalizer(candidates.map(c => c.performance_score));
-const normPot = normalizer(candidates.map(c => c.leadership_score));
+const val = (c: Candidate, key: MetricKey): number | null => c[key];
 
-export const TI_POINTS: TMPoint[] = candidates.map(c => {
-  const x = normPerf(c.performance_score);
-  const y = normPot(c.leadership_score);
-  const order = x != null && y != null ? COMBO_ORDER[`${third(x)}-${third(y)}`] : null;
-  return {
-    employeeId: c.id,
-    name: c.name,
-    positionTitle: c.position,
-    rawX: c.performance_score,
-    rawY: c.leadership_score,
-    x, y, order,
-  };
-});
+export function computePoints(cfg: TMConfig): TMPoint[] {
+  return candidates.map(c => {
+    const rawX = val(c, cfg.sumbuXKey);
+    const rawY = val(c, cfg.sumbuYKey);
+    const has = rawX != null && rawY != null;
+    return {
+      employeeId: c.id,
+      name: c.name,
+      positionTitle: c.position,
+      rawX, rawY,
+      x: has ? plotPos(rawX!, cfg.rangesX) : null,
+      y: has ? plotPos(rawY!, cfg.rangesY) : null,
+      order: has ? orderFor(cfg, rawX!, rawY!) : null,
+    };
+  });
+}
 
-// TR (Talent Readiness): empty until a Job Target is picked — mirrors kelola-app default.
+// Default 9box config + its points (kept for back-compat imports).
+export const TI_CONFIG: TMConfig = makeConfig("9box");
+export const TI_POINTS: TMPoint[] = computePoints(TI_CONFIG);
+
+// TR (Talent Readiness): Competency × Potency, empty until a Job Target is picked.
+export const TR_CONFIG: TMConfig = {
+  ...makeConfig("9box", { sumbuXKey: "technical_score", sumbuYKey: "leadership_score" }),
+  id: "TR", name: "Talent Readiness", tabLabel: "Talent Readiness", unit: "Employees",
+  boxes: [
+    { order: 1, label: "Need Development", color: "error.2", tag: null },
+    { order: 2, label: "Need Development", color: "error.2", tag: null },
+    { order: 3, label: "Need Development", color: "error.2", tag: null },
+    { order: 4, label: "Solid Performer", color: ORG, tag: null },
+    { order: 5, label: "Need Development", color: "error.2", tag: null },
+    { order: 6, label: "Development Priority", color: BLU, tag: null },
+    { order: 7, label: "Solid Performer", color: ORG, tag: null },
+    { order: 8, label: "Development Priority", color: BLU, tag: null },
+    { order: 9, label: "Ready for bigger role", color: BLU3, tag: null },
+  ],
+};
 export const TR_POINTS: TMPoint[] = [];
 
 // Donut tags (kelola-app quirk: TI reuses tenure labels for talent/non/no-data counts).
 export function donutTags(cfg: TMConfig, points: TMPoint[]) {
-  const isTalent = (p: TMPoint) => {
-    const b = boxByOrder(cfg, p.order);
-    return b?.tag === "talent";
-  };
+  const isTalent = (p: TMPoint) => boxByOrder(cfg, p.order)?.tag === "talent";
   if (cfg.id === "TI") {
     return [
       { name: "<2 Years", value: points.filter(isTalent).length, color: "primary" },
