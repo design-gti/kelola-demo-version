@@ -1,11 +1,13 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Paper, Badge, Avatar as MantineAvatar, Select, Pagination, Text } from "@mantine/core";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
 import DonutChart from "@/components/talent/DonutChart";
-import { TI_CONFIG, TR_CONFIG, TI_POINTS, TR_POINTS, donutTags, boxByOrder, resolveColor, TMConfig, TMPoint } from "@/data/talentMappingData";
+import { TI_CONFIG, TR_CONFIG, TR_POINTS, donutTags, boxByOrder, resolveColor, computePoints, TMConfig, TMPoint } from "@/data/talentMappingData";
+import { getEffectiveTIConfig, TM_CONFIG_EVENT } from "@/data/talentMappingConfig";
 
 const FONT = "'Open Sans', sans-serif";
 const ACCENT = "#016699";
@@ -50,6 +52,7 @@ function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean 
 }
 
 function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] }) {
+  const router = useRouter();
   const isTI = config.id === "TI";
   const cols = isTI ? TI_COLS : TR_COLS;
   const [limit, setLimit] = useState(10);
@@ -82,7 +85,7 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
                 <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
                 <span>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</span>
                 <span>{box?.tag === "talent" ? <OutlinePill color="#00875A">Talent</OutlinePill> : <OutlinePill color="#F28700">Non Talent</OutlinePill>}</span>
-                <span style={{ color: ACCENT, cursor: "pointer", display: "inline-flex" }}><IconArrowUpRight size={16} /></span>
+                <span role="button" title="Buka iProfile" onClick={() => router.push(`/iprofile?id=${encodeURIComponent(p.employeeId)}&from=talent-mapping`)} style={{ color: ACCENT, cursor: "pointer", display: "inline-flex" }}><IconArrowUpRight size={16} /></span>
               </>
             ) : (
               <>
@@ -92,7 +95,7 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
                 <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
                 <span>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</span>
                 <Cell muted>-</Cell>
-                <span style={{ color: ACCENT, cursor: "pointer", display: "inline-flex" }}><IconArrowUpRight size={16} /></span>
+                <span role="button" title="Buka iProfile" onClick={() => router.push(`/iprofile?id=${encodeURIComponent(p.employeeId)}&from=talent-mapping`)} style={{ color: ACCENT, cursor: "pointer", display: "inline-flex" }}><IconArrowUpRight size={16} /></span>
               </>
             )}
           </div>
@@ -122,7 +125,7 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
   );
 }
 
-function Panel({ config, points }: { config: TMConfig; points: TMPoint[] }) {
+function Panel({ config, points, onSettings }: { config: TMConfig; points: TMPoint[]; onSettings?: () => void }) {
   const [selectedBox, setSelectedBox] = useState<number | null>(null);
   const tags = useMemo(() => donutTags(config, points), [config, points]);
   const tableRows = selectedBox != null ? points.filter(p => p.order === selectedBox) : points;
@@ -145,7 +148,7 @@ function Panel({ config, points }: { config: TMConfig; points: TMPoint[] }) {
                 <span>▽</span> Filter
               </button>
             )}
-            <span style={{ color: "#adb5bd", cursor: "pointer" }}>⚙</span>
+            <span onClick={onSettings} title="Setting Talent Identification" style={{ color: "#adb5bd", cursor: "pointer" }}>⚙</span>
           </div>
           <div style={{ display: "flex", justifyContent: "center", paddingTop: 8 }}>
             <TMTRBox config={config} points={points} selectedBox={selectedBox} onBoxClick={setSelectedBox} />
@@ -174,9 +177,20 @@ function Panel({ config, points }: { config: TMConfig; points: TMPoint[] }) {
 }
 
 export default function TalentMappingPage() {
+  const router = useRouter();
   const [tab, setTab] = useState<"TI" | "TR">("TI");
-  const config = tab === "TI" ? TI_CONFIG : TR_CONFIG;
-  const points = tab === "TI" ? TI_POINTS : TR_POINTS;
+  // Effective TI config from localStorage (init with 9box default for stable SSR/hydration).
+  const [tiConfig, setTiConfig] = useState<TMConfig>(TI_CONFIG);
+  useEffect(() => {
+    const reload = () => setTiConfig(getEffectiveTIConfig());
+    reload();
+    window.addEventListener(TM_CONFIG_EVENT, reload);
+    window.addEventListener("focus", reload);
+    return () => { window.removeEventListener(TM_CONFIG_EVENT, reload); window.removeEventListener("focus", reload); };
+  }, []);
+
+  const config = tab === "TI" ? tiConfig : TR_CONFIG;
+  const points = useMemo(() => (tab === "TI" ? computePoints(tiConfig) : TR_POINTS), [tab, tiConfig]);
 
   return (
     <div style={{ fontFamily: FONT }}>
@@ -192,7 +206,7 @@ export default function TalentMappingPage() {
           }}>{label}</button>
         ))}
       </div>
-      <Panel key={tab} config={config} points={points} />
+      <Panel key={tab} config={config} points={points} onSettings={() => router.push("/talent-mapping/config")} />
       </div>
     </div>
   );
