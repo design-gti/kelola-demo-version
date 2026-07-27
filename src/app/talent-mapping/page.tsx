@@ -32,9 +32,14 @@ function OutlinePill({ color, children }: { color: string; children: React.React
   );
 }
 
-function Avatar({ name }: { name: string }) {
+function Avatar({ name, employeeId }: { name: string; employeeId?: string }) {
   return (
-    <MantineAvatar radius="xl" size={28} style={{ flexShrink: 0, background: "#e6f3f8" }}>
+    <MantineAvatar
+      radius="xl"
+      size={28}
+      src={employeeId ? `/avatars/photo_wc2026/${employeeId}.png` : null}
+      style={{ flexShrink: 0, background: "#e6f3f8" }}
+    >
       <span style={{ color: ACCENT, fontFamily: FONT, fontWeight: 700, fontSize: 10 }}>{initials(name)}</span>
     </MantineAvatar>
   );
@@ -80,7 +85,7 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
             {isTI ? (
               <>
                 <Cell>{p.positionTitle}</Cell>
-                <span style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}><Avatar name={p.name} /><span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span></span>
+                <span style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}><Avatar name={p.name} employeeId={p.employeeId} /><span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span></span>
                 <Cell muted={p.rawX == null}>{p.rawX ?? "{No data}"}</Cell>
                 <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
                 <span>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</span>
@@ -89,7 +94,7 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
               </>
             ) : (
               <>
-                <span style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}><Avatar name={p.name} /><span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span></span>
+                <span style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}><Avatar name={p.name} employeeId={p.employeeId} /><span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span></span>
                 <Cell>{p.positionTitle}</Cell>
                 <Cell muted={p.rawX == null}>{p.rawX != null ? `${p.rawX}%` : "{No data}"}</Cell>
                 <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
