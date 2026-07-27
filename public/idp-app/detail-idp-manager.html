@@ -115,7 +115,7 @@
     }
 
     .info-employee-row { display: flex; align-items: center; gap: 12px; }
-    .info-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: #fff; font-family: var(--font-title); font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .info-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
     .info-identity { flex: 1; }
     .info-position { font-family: var(--font-body); font-size: 12px; color: var(--text-faint); }
     .status-chip { display: inline-block; padding: 2px 8px; border-radius: 800px; font-family: var(--font-body); font-size: 10px; font-weight: 700; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
@@ -924,7 +924,7 @@
     <div class="info-card" style="padding:12px 16px;margin-bottom:16px;">
       <div class="info-employee-row">
         <!-- Left: avatar + name + position -->
-        <div class="info-avatar" id="d-avatar">UI</div>
+        <img class="info-avatar" id="d-avatar" src="" alt="" onerror="this.onerror=null;this.src='/avatars/male.jpg';">
         <div class="info-identity">
           <span class="info-title" id="d-name" style="margin-bottom:2px;font-size:16px;">—</span>
           <div class="info-position" id="d-name-pos">—</div>
@@ -1534,7 +1534,8 @@
     fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(root){
       var emp=pickEmp(root); if(!emp) return;
       var set=function(id,v){var e=document.getElementById(id); if(e) e.textContent=v;};
-      set('d-avatar',initials(emp.name)); set('d-name',emp.name); set('d-name-pos',(emp.role||'')+' \u00b7 '+(emp.dept||''));
+      var avatarEl=document.getElementById('d-avatar'); if(avatarEl && emp.avatar) avatarEl.src=emp.avatar;
+      set('d-name',emp.name); set('d-name-pos',(emp.role||'')+' \u00b7 '+(emp.dept||''));
       set('d-period',periodRange(emp.idps||[])||'-');
       var allDone=(emp.idps||[]).every(function(i){return i.statusLabel==='DONE';});
       var st=document.getElementById('d-status'); if(st){ st.textContent=allDone?'Done':'In Progress'; st.className='status-chip '+(allDone?'status-done':'status-in-progress'); }
