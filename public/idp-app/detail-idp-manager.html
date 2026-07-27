@@ -1051,10 +1051,11 @@
       document.querySelectorAll('.editable-date').forEach(function(inp) { inp.setAttribute('min', today); });
     })();
 
-    (function() {
+    function wireProgramTooltips(root) {
       var tip = document.getElementById('program-tooltip');
       var hideTimer;
-      document.querySelectorAll('.external-link-btn[data-tooltip]').forEach(function(btn) {
+      (root || document).querySelectorAll('.external-link-btn[data-tooltip]:not([data-tooltip-wired])').forEach(function(btn) {
+        btn.setAttribute('data-tooltip-wired', '1');
         btn.addEventListener('mouseenter', function() {
           clearTimeout(hideTimer);
           tip.textContent = btn.getAttribute('data-tooltip');
@@ -1072,7 +1073,8 @@
           hideTimer = setTimeout(function() { tip.classList.remove('visible'); }, 80);
         });
       });
-    })();
+    }
+    wireProgramTooltips();
   </script>
 
   <!-- Detail Panel -->
@@ -1148,9 +1150,16 @@
       </div>
 
       <div class="detail-field">
+        <div class="detail-label">PIC Check</div>
+        <div class="detail-value">
+          <input type="checkbox" class="checkbox" id="panelPicCheck" onchange="if(_panelSourceRow) _panelSourceRow.setAttribute('data-pic-check', this.checked ? '1' : '0');">
+        </div>
+      </div>
+
+      <div class="detail-field">
         <div class="detail-label">Employee Check</div>
         <div class="detail-value">
-          <input type="checkbox" class="checkbox" id="panelEmpCheck" onchange="syncPanelCheckToRow('employee-check', this)">
+          <input type="checkbox" class="checkbox" id="panelEmpCheck" onchange="syncPanelCheckToRow('employee-check', this)" disabled>
         </div>
       </div>
 
@@ -1172,12 +1181,27 @@
   </div>
 
   <script>
-    function openDetailPanel(btn, title, vendor, category, aspect, goals, dueDate, pic, picShort) {
+    function openDetailPanel(btn, title, vendor, category, aspect, goals, dueDate, pic, picShort, picColor) {
       document.getElementById('panelTitle').textContent = title;
       document.getElementById('panelVendor').textContent = vendor;
       document.getElementById('panelGoals').textContent = goals;
       document.getElementById('panelDueDate').textContent = dueDate;
       document.getElementById('panelPIC').textContent = pic;
+
+      const picAvatar = document.querySelector('.detail-panel-content .pic-avatar');
+      if (picAvatar) {
+        picAvatar.textContent = picShort || '';
+        picAvatar.style.background = picColor || '#94A3B8';
+        picAvatar.style.color = '#fff';
+        picAvatar.style.display = 'flex';
+        picAvatar.style.alignItems = 'center';
+        picAvatar.style.justifyContent = 'center';
+        picAvatar.style.width = '22px';
+        picAvatar.style.height = '22px';
+        picAvatar.style.fontSize = '10px';
+        picAvatar.style.fontWeight = '700';
+        picAvatar.style.flexShrink = '0';
+      }
 
       const categoryChip = document.getElementById('panelCategory');
       categoryChip.textContent = category;
@@ -1193,6 +1217,15 @@
       const empCheck = _panelSourceRow.querySelector('.col-employee-check .checkbox');
       const empCheckEl = document.getElementById('panelEmpCheck');
       if (empCheckEl && empCheck) empCheckEl.checked = empCheck.checked;
+
+      // PIC Check has no table column (manager-only field) — persisted on the row's dataset
+      const picCheckEl = document.getElementById('panelPicCheck');
+      if (picCheckEl) {
+        if (!_panelSourceRow.hasAttribute('data-pic-check')) {
+          _panelSourceRow.setAttribute('data-pic-check', empCheck && empCheck.checked ? '1' : '0');
+        }
+        picCheckEl.checked = _panelSourceRow.getAttribute('data-pic-check') === '1';
+      }
 
       // Sync notes button state
       var notesSvg = _panelSourceRow.querySelector('.col-notes .notes-icon');
@@ -1469,11 +1502,24 @@
     function iso(dmy){var a=(dmy||'').split('/');return a.length===3?a[2]+'-'+a[1]+'-'+a[0]:'';}
     var _ATT='<td class="col-attachment"><div class="att-cell"><input type="file" class="att-input" style="display:none"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>';
     var _NOTES='<td class="col-notes"><svg class="notes-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="openNotesModal(this)"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="11" y2="16"/></svg></td>';
-    function rowCommon(idp){
+    var _currentEmpIdps=[];
+    window.openProgramDetailFromRow=function(btn){
+      var idx=parseInt(btn.getAttribute('data-idx'),10);
+      var idp=_currentEmpIdps[idx]; if(!idp) return;
+      var pe=parsePeriod(idp.period);
+      var pic=(idp.pics&&idp.pics[0])||{name:'-',color:'#94A3B8'};
+      var due=(pe[0]&&pe[1])?(pe[0]+' - '+pe[1]):(pe[0]||'-');
+      openDetailPanel(btn, idp.program, idp.vendor, idp.category, idp.aspectLabel, idp.developmentGoals, due, pic.name, initials(pic.name), pic.color);
+    };
+    function rowCommon(idp, idx){
       var pe=parsePeriod(idp.period); var pic=(idp.pics&&idp.pics[0])||{name:'-'}; var ck=idp.statusLabel==='DONE'?' checked':'';
       var cat=(idp.category||'').toLowerCase();
       return { pe:pe, pic:pic, ck:ck,
-        program:'<td class="col-program"><div class="program-name"><input type="checkbox" class="checkbox"'+ck+'><span>'+esc(idp.program)+'</span></div></td>',
+        program:'<td class="col-program"><div class="program-name"><input type="checkbox" class="checkbox"'+ck+'><span>'+esc(idp.program)+'</span>'+
+          '<button type="button" class="external-link-btn" data-tooltip="Open in side panel" data-idx="'+idx+'" onclick="openProgramDetailFromRow(this)">'+
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'+
+          '</button>'+
+        '</div></td>',
         vendor:'<td class="col-vendor">'+esc(idp.vendor)+'</td>',
         category:'<td class="col-category"><span class="category-badge '+esc(cat)+'">'+esc(idp.category)+'</span></td>',
         aspect:'<td class="col-aspect"><span class="aspect-chip">'+esc(idp.aspectLabel)+'</span></td>',
@@ -1493,9 +1539,11 @@
       var allDone=(emp.idps||[]).every(function(i){return i.statusLabel==='DONE';});
       var st=document.getElementById('d-status'); if(st){ st.textContent=allDone?'Done':'In Progress'; st.className='status-chip '+(allDone?'status-done':'status-in-progress'); }
       var body=document.getElementById('idp-programs-body'); if(!body) return;
-      body.innerHTML=(emp.idps||[]).map(function(idp){ var c=rowCommon(idp);
+      _currentEmpIdps=emp.idps||[];
+      body.innerHTML=(emp.idps||[]).map(function(idp, idx){ var c=rowCommon(idp, idx);
         return '<tr>'+c.program+c.vendor+c.category+c.aspect+c.goals+c.start+c.end+c.picCell+_ATT+_NOTES+'<td class="col-employee-check"><input type="checkbox" class="checkbox"'+c.ck+' disabled></td></tr>';
       }).join('');
+      wireProgramTooltips(body);
       // re-bind progress + manager checkbox rules on the freshly rendered rows
       if(typeof updateProgress==='function'){
         document.querySelectorAll('.col-employee-check .checkbox').forEach(function(cb){ cb.addEventListener('change',updateProgress); cb.disabled=true; });
