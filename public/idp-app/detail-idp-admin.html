@@ -1283,14 +1283,14 @@
       <div class="detail-field">
         <div class="detail-label">PIC Check</div>
         <div class="detail-value">
-          <input type="checkbox" class="checkbox" id="panelPicCheck" onchange="syncPanelCheckToRow('pic-check', this)">
+          <input type="checkbox" class="checkbox" id="panelPicCheck" onchange="syncPanelCheckToRow('pic-check', this)" disabled>
         </div>
       </div>
 
       <div class="detail-field">
         <div class="detail-label">Employee Check</div>
         <div class="detail-value">
-          <input type="checkbox" class="checkbox" id="panelEmpCheck" onchange="syncPanelCheckToRow('employee-check', this)">
+          <input type="checkbox" class="checkbox" id="panelEmpCheck" onchange="syncPanelCheckToRow('employee-check', this)" disabled>
         </div>
       </div>
 
@@ -1365,7 +1365,7 @@
       });
     }
 
-    function openDetailPanel(btn, title, vendor, category, aspect, goals, dueDate, pic, picShort) {
+    function openDetailPanel(btn, title, vendor, category, aspect, goals, dueDate, pic, picShort, picColor) {
       switchPanelTab('detail');
       populateHistory(title);
       document.getElementById('panelTitle').textContent = title;
@@ -1373,6 +1373,21 @@
       document.getElementById('panelGoals').textContent = goals;
       document.getElementById('panelDueDate').textContent = dueDate;
       document.getElementById('panelPIC').textContent = pic;
+
+      const picAvatar = document.querySelector('#panelDetailContent .pic-avatar');
+      if (picAvatar) {
+        picAvatar.textContent = picShort || '';
+        picAvatar.style.background = picColor || '#94A3B8';
+        picAvatar.style.color = '#fff';
+        picAvatar.style.display = 'flex';
+        picAvatar.style.alignItems = 'center';
+        picAvatar.style.justifyContent = 'center';
+        picAvatar.style.width = '22px';
+        picAvatar.style.height = '22px';
+        picAvatar.style.fontSize = '10px';
+        picAvatar.style.fontWeight = '700';
+        picAvatar.style.flexShrink = '0';
+      }
 
       const categoryChip = document.getElementById('panelCategory');
       categoryChip.textContent = category;
@@ -1692,10 +1707,11 @@
 
   <div id="program-tooltip"></div>
   <script>
-    (function() {
+    function wireProgramTooltips(root) {
       var tip = document.getElementById('program-tooltip');
       var hideTimer;
-      document.querySelectorAll('.external-link-btn[data-tooltip]').forEach(function(btn) {
+      (root || document).querySelectorAll('.external-link-btn[data-tooltip]:not([data-tooltip-wired])').forEach(function(btn) {
+        btn.setAttribute('data-tooltip-wired', '1');
         btn.addEventListener('mouseenter', function() {
           clearTimeout(hideTimer);
           var text = btn.getAttribute('data-tooltip');
@@ -1715,7 +1731,8 @@
           hideTimer = setTimeout(function() { tip.classList.remove('visible'); }, 80);
         });
       });
-    })();
+    }
+    wireProgramTooltips();
   </script>
 
   <script>
@@ -1727,9 +1744,19 @@
     function initials(n){return (n||'').split(' ').slice(0,2).map(function(w){return w[0]||'';}).join('').toUpperCase();}
     function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
     var id=parseInt(new URLSearchParams(location.search).get('id'));
+    var _currentEmpIdps=[];
+    window.openProgramDetailFromRow=function(btn){
+      var idx=parseInt(btn.getAttribute('data-idx'),10);
+      var idp=_currentEmpIdps[idx]; if(!idp) return;
+      var pe=parsePeriod(idp.period);
+      var pic=(idp.pics&&idp.pics[0])||{name:'-',color:'#94A3B8'};
+      var due=(pe[0]&&pe[1])?(pe[0]+' - '+pe[1]):(pe[0]||'-');
+      openDetailPanel(btn, idp.program, idp.vendor, idp.category, idp.aspectLabel, idp.developmentGoals, due, pic.name, initials(pic.name), pic.color);
+    }
     fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(list){
       var _emps=list.employees||list; _historyData=list.changeHistory||{}; renderComments(list.comments||[]);
       var emp=_emps.find(function(e){return e.id===id;})||_emps[0]; if(!emp) return;
+      _currentEmpIdps=emp.idps;
       var set=function(el,v){var e=document.getElementById(el); if(e) e.textContent=v;};
       set('d-avatar',initials(emp.name)); set('d-name',emp.name); set('d-name-pos',emp.role+' \u00b7 '+emp.dept);
       var done=0,total=0; emp.idps.forEach(function(i){done+=(i.progress&&i.progress.done)||0; total+=(i.progress&&i.progress.total)||0;});
@@ -1739,11 +1766,15 @@
       var st=document.getElementById('d-status'); if(st){st.textContent=allDone?'Done':'In Progress'; st.className='status-chip '+(allDone?'status-done':'status-in-progress');}
       var ds=[]; emp.idps.forEach(function(i){var pe=parsePeriod(i.period); if(pe[0])ds.push(pe[0]); if(pe[1])ds.push(pe[1]);}); ds.sort(function(a,b){return iso(a)<iso(b)?-1:1;}); if(ds.length) set('d-period',ds[0]+' 2013 '+ds[ds.length-1]);
       var body=document.getElementById('idp-programs-body'); if(!body) return;
-      body.innerHTML=emp.idps.map(function(idp){
+      body.innerHTML=emp.idps.map(function(idp, idx){
         var pe=parsePeriod(idp.period); var pic=(idp.pics&&idp.pics[0])||{name:'-',color:'#94A3B8'};
         var ck=idp.statusLabel==='DONE'?' checked':'';
         return '<tr>'+
-          '<td class="col-program"><div style="display:flex;align-items:center;gap:8px;padding-left:4px;"><span>'+esc(idp.program)+'</span></div></td>'+
+          '<td class="col-program"><div style="display:flex;align-items:center;gap:8px;padding-left:4px;"><span>'+esc(idp.program)+'</span>'+
+            '<button type="button" class="external-link-btn" data-tooltip="Open in side panel" data-idx="'+idx+'" onclick="openProgramDetailFromRow(this)">'+
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'+
+            '</button>'+
+          '</div></td>'+
           '<td class="col-vendor">'+esc(idp.vendor)+'</td>'+
           '<td class="col-category"><span class="category-badge training">'+esc(idp.category)+'</span></td>'+
           '<td class="col-aspect"><span class="aspect-chip">'+esc(idp.aspectLabel)+'</span></td>'+
@@ -1757,6 +1788,7 @@
           '<td class="col-pic-check"><input type="checkbox" class="checkbox"'+ck+' disabled></td>'+
         '</tr>';
       }).join('');
+      wireProgramTooltips(body);
     }).catch(function(e){console.error('Failed to load idp-data.json',e);});
   })();
   </script>
