@@ -24,7 +24,7 @@ const DEFAULT_CARDS: CardConfig[] = [
   { id: "quick-profile-access",     label: "Quick Profile Access",            description: "Akses cepat profil kandidat",                        colSpan: 4,  enabled: true,  col: 2 },
   { id: "sync-status",              label: "Sync Status",                     description: "Status sinkronisasi sistem terintegrasi",            colSpan: 4,  enabled: false, col: 1 },
   { id: "activity-log",             label: "Activity Log",                    description: "Log aktivitas terbaru di sistem",                    colSpan: 4,  enabled: false, col: 2 },
-  { id: "employee-mapping",         label: "Employee Mapping",                description: "Pemetaan posisi dan distribusi karyawan",             colSpan: 4,  enabled: false, col: 2 },
+  { id: "employee-mapping",         label: "Talent Mapping",                  description: "Distribusi talent 9box (Performance × Potency)",       colSpan: 4,  enabled: false, col: 2 },
   { id: "aspect-score",             label: "Aspect Score",                    description: "Skor per aspek penilaian talent",                     colSpan: 4,  enabled: true,  col: 2 },
   { id: "monitoring-idp",           label: "Monitoring IDP",                  description: "Status dan due date IDP per karyawan",               colSpan: 4,  enabled: true,  col: 1 },
 ];

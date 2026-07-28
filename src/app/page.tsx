@@ -103,7 +103,7 @@ export default function Home() {
       case "performance-chart":      return <LineChartCard title={isManager ? "Team Avg. Performance Score" : "Avg. Performance Score"} value="3.18" chipColor="#016699" data={performanceData} areaColor="#016699" lineColor="#016699" hideDeptFilter={isManager} />;
       case "engagement-chart":       return <LineChartCard title={isManager ? "Team Avg. Engagement Score"  : "Avg. Engagement Score"}  value="3.18" chipColor="#fd9f28" data={engagementData}  areaColor="#fd9f28" lineColor="#fd9f28" hideDeptFilter={isManager} />;
       case "aspect-score":           return <AspectScoreCard title={isManager ? "Team Aspect Score Percentage" : "Percentage of Aspect Score"} hideDeptFilter={isManager} customAspects={isManager ? managerAspects : undefined} />;
-      case "employee-mapping":       return <EmployeeMapping title={isManager ? "Team Mapping" : "Employee Mapping"} customCells={isManager ? managerMappingCells : undefined} />;
+      case "employee-mapping":       return <EmployeeMapping title={isManager ? "Team Mapping" : "Talent Mapping"} customCells={isManager ? managerMappingCells : undefined} />;
       case "committee-readiness":    return <CommitteeReadinessCard />;
       case "critical-position-risk": return <CriticalPositionRiskCard />;
       case "profile-completeness":   return <ProfileCompletenessTrackerCard title={isManager ? "Team Profile Completeness Tracker" : "Profile Completeness Tracker"} employees={isManager ? managerTeam : undefined} />;
