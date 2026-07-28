@@ -1,7 +1,7 @@
 "use client";
 // Self-contained port of kelola-app Components/Organisme/Chart/TMTRBox — 9-box grid
 // with axis ranges and plotted employee bubbles (grouped + overlap-resolved).
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { TMConfig, TMPoint, boxByOrder, resolveColor } from "@/data/talentMappingData";
 import { mantineColor } from "@/components/team/mantineColor";
 
@@ -89,6 +89,8 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
   const outbox = size * -0.01;
   const threshold = (SIZE_AVATAR / size) * 100;
   const nodes = useMemo(() => resolveOverlaps(groupPoints(points, threshold, outbox), size, outbox), [points, threshold, size, outbox]);
+  // Clicking a bubble opens a small table of the people at that coordinate.
+  const [popover, setPopover] = useState<{ group: TMPoint[]; x: number; y: number } | null>(null);
 
   return (
     <div style={{ position: "relative", width: size + 50, height: size + 50, fontFamily: FONT }}>
@@ -138,7 +140,8 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
             const cs = outside ? SIZE_AVATAR : groupCircleSize(g.length);
             return (
               <div key={i} title={g.map(p => p.name).join(", ")}
-                style={{ position: "absolute", bottom: `${y}%`, left: `${x}%`, transform: "translate(-50%,50%)", width: cs, height: cs, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: outside ? 10 : groupFontSize(g.length, cs), fontWeight: 700, zIndex: outside ? 10 : 100 }}>
+                onClick={(e) => { e.stopPropagation(); setPopover({ group: g, x, y }); }}
+                style={{ position: "absolute", bottom: `${y}%`, left: `${x}%`, transform: "translate(-50%,50%)", width: cs, height: cs, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: outside ? 10 : groupFontSize(g.length, cs), fontWeight: 700, zIndex: outside ? 10 : 100, cursor: "pointer" }}>
                 {g.length}
               </div>
             );
@@ -146,7 +149,8 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
           const p = g[0];
           return (
             <div key={i} title={p.name}
-              style={{ position: "absolute", bottom: `${p.y ?? outbox}%`, left: `${p.x ?? outbox}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 700, zIndex: 100, overflow: "hidden" }}>
+              onClick={(e) => { e.stopPropagation(); setPopover({ group: g, x: p.x ?? outbox, y: p.y ?? outbox }); }}
+              style={{ position: "absolute", bottom: `${p.y ?? outbox}%`, left: `${p.x ?? outbox}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 700, zIndex: 100, overflow: "hidden", cursor: "pointer" }}>
               <span>{initials(p.name)}</span>
               {p.employeeId && (
                 <img
@@ -159,6 +163,34 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
             </div>
           );
         })}
+
+        {/* Coordinate detail table (click a bubble) */}
+        {popover && (
+          <>
+            <div onClick={() => setPopover(null)} style={{ position: "absolute", inset: 0, zIndex: 200 }} />
+            <div onClick={(e) => e.stopPropagation()}
+              style={{ position: "absolute", bottom: `${popover.y}%`, left: `${popover.x}%`, transform: "translate(10px, 50%)", zIndex: 300, background: "#fff", borderRadius: 8, boxShadow: "0 6px 20px rgba(0,0,0,0.18)", border: "1px solid #e9ecef", minWidth: 220, maxWidth: 280, overflow: "hidden", fontFamily: FONT }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 58px 58px", gap: 4, padding: "8px 10px", borderBottom: "1px solid #e9ecef", fontSize: 9.5, fontWeight: 700, color: "#adb5bd", textTransform: "uppercase" }}>
+                <span>Employee</span><span style={{ textAlign: "right" }}>{config.sumbuX}</span><span style={{ textAlign: "right" }}>{config.sumbuY}</span>
+              </div>
+              <div style={{ maxHeight: 176, overflowY: "auto" }}>
+                {popover.group.map((p) => (
+                  <div key={p.employeeId} style={{ display: "grid", gridTemplateColumns: "1fr 58px 58px", gap: 4, alignItems: "center", padding: "6px 10px", fontSize: 11, color: "#495057" }}>
+                    <span style={{ display: "flex", alignItems: "center", gap: 6, minWidth: 0 }}>
+                      <span style={{ width: 22, height: 22, borderRadius: "50%", background: NODE_BG, color: "#fff", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 8, fontWeight: 700, overflow: "hidden", position: "relative" }}>
+                        <span>{initials(p.name)}</span>
+                        {p.employeeId && <img src={`/avatars/photo_wc2026/${p.employeeId}.png`} alt="" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} />}
+                      </span>
+                      <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span>
+                    </span>
+                    <span style={{ textAlign: "right" }}>{p.rawX ?? "-"}</span>
+                    <span style={{ textAlign: "right" }}>{p.rawY ?? "-"}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       {/* X axis (ranges + label) */}

@@ -454,29 +454,44 @@ function OrgNode({ employee, level, showHeatmap, heatmapStyle, heatmapMode, onEm
   );
 }
 
-export default function App() {
+// Map a ?tab= param value to Vismap's tab/heatmap/mode state.
+function resolveTabState(param: string | null): {
+  tab: string;
+  heatmap: boolean;
+  mode: 'performance' | 'need-develop' | 'need-successors-copy';
+} {
+  if (param === 'succession-risk' || param === 'need-successors-copy') {
+    return { tab: 'need-successors-copy', heatmap: true, mode: 'need-successors-copy' };
+  }
+  if (param === 'need-develop' || param === 'need-development') {
+    return { tab: 'need-develop', heatmap: true, mode: 'need-develop' };
+  }
+  return { tab: 'all', heatmap: false, mode: 'performance' };
+}
+
+export default function App({ initialTab }: { initialTab?: string } = {}) {
   const [zoom, setZoom] = useState(45);
   const [position, setPosition] = useState({ x: 0, y: 150 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  // Read initial tab from URL query param (e.g. ?tab=succession-risk).
-  // Lets embedders open the iframe directly on a specific tab.
-  const initialTabState = (() => {
-    if (typeof window === 'undefined') return { tab: 'all', heatmap: false, mode: 'performance' as const };
-    const param = new URLSearchParams(window.location.search).get('tab');
-    if (param === 'succession-risk' || param === 'need-successors-copy') {
-      return { tab: 'need-successors-copy', heatmap: true, mode: 'need-successors-copy' as const };
-    }
-    if (param === 'need-develop' || param === 'need-development') {
-      return { tab: 'need-develop', heatmap: true, mode: 'need-develop' as const };
-    }
-    return { tab: 'all', heatmap: false, mode: 'performance' as const };
-  })();
+  // Resolve the active tab from the ?tab= query param (or a passed initialTab).
+  // Lets Home/embedders open Vismap directly on a specific tab.
+  const initialTabState = resolveTabState(
+    initialTab ?? (typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('tab'))
+  );
   const [showHeatmap, setShowHeatmap] = useState(initialTabState.heatmap);
   const heatmapStyle = 'glow' as const; // Always use glow effect
   const [heatmapMode, setHeatmapMode] = useState<'performance' | 'successor-risk' | 'need-successors' | 'need-develop' | 'need-successors-copy'>(initialTabState.mode);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
   const [activeTab, setActiveTab] = useState(initialTabState.tab);
+  // React to initialTab changes (client-side nav from Home doesn't remount).
+  useEffect(() => {
+    if (initialTab == null) return;
+    const s = resolveTabState(initialTab);
+    setActiveTab(s.tab);
+    setShowHeatmap(s.heatmap);
+    setHeatmapMode(s.mode);
+  }, [initialTab]);
   const [selectedCardInV2Mode, setSelectedCardInV2Mode] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'chart' | 'table'>('chart');
   const [isDataEditorOpen, setIsDataEditorOpen] = useState(false);

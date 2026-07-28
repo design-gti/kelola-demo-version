@@ -49,6 +49,7 @@ export interface TMPoint {
   employeeId: string;
   name: string;
   positionTitle: string;
+  team: string;
   rawX: number | null;
   rawY: number | null;
   x: number | null;          // 0..100 plot position
@@ -201,6 +202,7 @@ export function computePoints(cfg: TMConfig): TMPoint[] {
       employeeId: c.id,
       name: c.name,
       positionTitle: c.position,
+      team: c.department,
       rawX, rawY,
       x: has ? plotPos(rawX!, cfg.rangesX) : null,
       y: has ? plotPos(rawY!, cfg.rangesY) : null,

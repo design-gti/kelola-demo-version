@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Paper, Badge, Avatar as MantineAvatar, Select, Pagination, Text, Button } from "@mantine/core";
+import { Paper, Badge, Avatar as MantineAvatar, Select, Pagination, Text, Button, Modal, Checkbox, ScrollArea } from "@mantine/core";
 import { IconArrowUpRight, IconSettings, IconFilter } from "@tabler/icons-react";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
@@ -132,8 +132,36 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
 
 function Panel({ config, points, onSettings }: { config: TMConfig; points: TMPoint[]; onSettings?: () => void }) {
   const [selectedBox, setSelectedBox] = useState<number | null>(null);
-  const tags = useMemo(() => donutTags(config, points), [config, points]);
-  const tableRows = selectedBox != null ? points.filter(p => p.order === selectedBox) : points;
+  // Filter (by team & job) — applied values + modal draft.
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [teams, setTeams] = useState<string[]>([]);
+  const [jobs, setJobs] = useState<string[]>([]);
+  const [draftTeams, setDraftTeams] = useState<string[]>([]);
+  const [draftJobs, setDraftJobs] = useState<string[]>([]);
+
+  const allTeams = useMemo(() => Array.from(new Set(points.map(p => p.team).filter(Boolean))).sort(), [points]);
+  const allJobs = useMemo(() => Array.from(new Set(points.map(p => p.positionTitle).filter(Boolean))).sort(), [points]);
+
+  const filtered = useMemo(() => points.filter(p =>
+    (teams.length === 0 || teams.includes(p.team)) &&
+    (jobs.length === 0 || jobs.includes(p.positionTitle))
+  ), [points, teams, jobs]);
+  const activeCount = teams.length + jobs.length;
+
+  const tags = useMemo(() => donutTags(config, filtered), [config, filtered]);
+  const tableRows = selectedBox != null ? filtered.filter(p => p.order === selectedBox) : filtered;
+
+  const openFilter = () => { setDraftTeams(teams); setDraftJobs(jobs); setFilterOpen(true); };
+  const applyFilter = () => { setTeams(draftTeams); setJobs(draftJobs); setSelectedBox(null); setFilterOpen(false); };
+  const toggle = (arr: string[], v: string) => arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v];
+  const clearAll = () => { setTeams([]); setJobs([]); setSelectedBox(null); };
+
+  // Active-filter chips: >3 of a kind collapses to a single "N Team/Job" chip (mirrors kelola-app).
+  const chips: { label: string; onRemove: () => void }[] = [];
+  if (teams.length > 3) chips.push({ label: `${teams.length} Team`, onRemove: () => setTeams([]) });
+  else teams.forEach(t => chips.push({ label: `Team: ${t}`, onRemove: () => setTeams(prev => prev.filter(x => x !== t)) }));
+  if (jobs.length > 3) chips.push({ label: `${jobs.length} Job`, onRemove: () => setJobs([]) });
+  else jobs.forEach(j => chips.push({ label: `Job: ${j}`, onRemove: () => setJobs(prev => prev.filter(x => x !== j)) }));
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -153,7 +181,9 @@ function Panel({ config, points, onSettings }: { config: TMConfig; points: TMPoi
                 variant="subtle"
                 color="primary"
                 size="compact-sm"
+                onClick={openFilter}
                 leftSection={<IconFilter size={14} />}
+                rightSection={activeCount > 0 ? <Badge size="xs" circle color="primary">{activeCount}</Badge> : null}
                 styles={{ root: { fontFamily: FONT, fontSize: 12, fontWeight: 600, color: ACCENT, paddingLeft: 0 } }}
               >
                 Filter
@@ -161,15 +191,26 @@ function Panel({ config, points, onSettings }: { config: TMConfig; points: TMPoi
             )}
             <IconSettings onClick={onSettings} title="Setting Talent Identification" size={16} style={{ color: "#adb5bd", cursor: "pointer" }} />
           </div>
+          {chips.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              {chips.map((c, i) => (
+                <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#e6f3f8", color: ACCENT, borderRadius: 999, padding: "3px 10px", fontSize: 11, fontFamily: FONT }}>
+                  {c.label}
+                  <span role="button" title="Hapus filter" onClick={c.onRemove} style={{ cursor: "pointer", display: "inline-flex", opacity: 0.7 }}>✕</span>
+                </span>
+              ))}
+              <span role="button" onClick={clearAll} style={{ color: ACCENT, fontSize: 11, fontWeight: 700, fontFamily: FONT, cursor: "pointer" }}>Clear All</span>
+            </div>
+          )}
           <div style={{ display: "flex", justifyContent: "center", paddingTop: 8 }}>
-            <TMTRBox config={config} points={points} selectedBox={selectedBox} onBoxClick={setSelectedBox} />
+            <TMTRBox config={config} points={filtered} selectedBox={selectedBox} onBoxClick={setSelectedBox} />
           </div>
         </div>
 
         {/* Donut card */}
         <div style={{ flex: "1 1 320px", background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
           <div style={{ fontFamily: FONT, fontWeight: 700, fontSize: 13, color: "#495057", textAlign: "center" }}>Distribusi {config.name}</div>
-          <DonutChart data={tags} centerLabel={`${points.length} ${config.unit}`} />
+          <DonutChart data={tags} centerLabel={`${filtered.length} ${config.unit}`} />
           <div style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%", maxWidth: 250 }}>
             {tags.map((t, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: FONT, fontSize: 12, color: "#495057" }}>
@@ -183,6 +224,36 @@ function Panel({ config, points, onSettings }: { config: TMConfig; points: TMPoi
       </div>
 
       <TablePanel config={config} points={tableRows} />
+
+      <Modal opened={filterOpen} onClose={() => setFilterOpen(false)} title={<Text fw={700} c="#212529">Filter</Text>} size="lg" centered radius={12}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, fontFamily: FONT }}>
+          <div>
+            <Text fw={700} size="sm" c="#495057" mb={10}>Teams</Text>
+            <ScrollArea.Autosize mah={260}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {allTeams.map(t => (
+                  <Checkbox key={t} label={t} checked={draftTeams.includes(t)} onChange={() => setDraftTeams(prev => toggle(prev, t))} color="primary" size="sm" />
+                ))}
+                {allTeams.length === 0 && <Text size="xs" c="#adb5bd">Tidak ada team.</Text>}
+              </div>
+            </ScrollArea.Autosize>
+          </div>
+          <div>
+            <Text fw={700} size="sm" c="#495057" mb={10}>Jobs</Text>
+            <ScrollArea.Autosize mah={260}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {allJobs.map(j => (
+                  <Checkbox key={j} label={j} checked={draftJobs.includes(j)} onChange={() => setDraftJobs(prev => toggle(prev, j))} color="primary" size="sm" />
+                ))}
+              </div>
+            </ScrollArea.Autosize>
+          </div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 20 }}>
+          <Button variant="outline" color="primary" radius="xl" onClick={() => setFilterOpen(false)}>Cancel</Button>
+          <Button color="primary" radius="xl" onClick={applyFilter}>Save</Button>
+        </div>
+      </Modal>
     </div>
   );
 }
