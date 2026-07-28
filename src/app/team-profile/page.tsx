@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { teams, teamMembers, teamAverages, teamMember, discProfile, predictionLabel, DISC_GUIDANCE, Team, TeamMember, Personality } from "@/data/teamsData";
+import { teams, teamMembers, teamAverages, teamMember, teamArchetype, discProfile, predictionLabel, DISC_GUIDANCE, Team, TeamMember, Personality } from "@/data/teamsData";
 import DiscRadar, { DISCTypes } from "@/components/team/DiscRadar";
 import AppBreadcrumb from "@/components/Breadcrumb";
 
@@ -56,17 +56,34 @@ function TypeBadge({ type }: { type: Team["type"] }) {
   return (
     <span style={{
       fontSize: 9, fontFamily: FONT, fontWeight: 700, letterSpacing: "0.5px",
-      color: "#6c757d", textTransform: "uppercase",
+      color: "#6c757d", textTransform: "uppercase", background: "#f1f3f5",
+      padding: "3px 8px", borderRadius: 9999, whiteSpace: "nowrap",
     }}>
       {type}
     </span>
   );
 }
 
+// Team archetype block (icon + name + traits), shared by card & detail header.
+function TeamTypeBlock({ team }: { team: Team }) {
+  const a = teamArchetype(team);
+  const iconSrc = a ? `/team-types/team-type-${a.icon}.svg` : "/team-types/question-mark.svg";
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 12, background: "#f8f9fa", borderRadius: 8, padding: "10px 12px", minWidth: 0 }}>
+      <img src={iconSrc} alt="" width={34} height={34} style={{ flexShrink: 0, objectFit: "contain" }} />
+      <div style={{ minWidth: 0 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: a ? "#495057" : "#adb5bd", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+          {a ? a.name : "[Unidentified]"}
+        </div>
+        {a && <div style={{ fontSize: 11, color: "#adb5bd", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.traits}</div>}
+      </div>
+    </div>
+  );
+}
+
 // ── team card (All Teams grid) ───────────────────────────────────────────────
 function TeamCard({ team, onOpen }: { team: Team; onOpen: () => void }) {
   const members = teamMembers(team);
-  const leader = team.leaderId ? teamMember(team.leaderId) : null;
   return (
     <button
       onClick={onOpen}
@@ -82,14 +99,7 @@ function TeamCard({ team, onOpen }: { team: Team; onOpen: () => void }) {
         <TypeBadge type={team.type} />
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: 10, background: "#f8f9fa", borderRadius: 8, padding: "8px 10px" }}>
-        {leader ? <Avatar name={leader.name} id={leader.id} size={30} /> : (
-          <div style={{ width: 30, height: 30, borderRadius: "50%", background: "#e9ecef", color: "#adb5bd", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>?</div>
-        )}
-        <span style={{ fontSize: 12, fontWeight: 600, color: leader ? "#495057" : "#adb5bd" }}>
-          {leader ? leader.name : "[Unidentified]"}
-        </span>
-      </div>
+      <TeamTypeBlock team={team} />
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <span style={{ fontSize: 11, color: "#adb5bd" }}>{members.length} members</span>
@@ -280,6 +290,9 @@ function TeamDetail({ team, onBack }: { team: Team; onBack: () => void }) {
             <div style={{ fontSize: 10, color: "#adb5bd", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>Report to</div>
             <div style={{ fontSize: 12, fontWeight: 600, color: team.reportTo ? "#495057" : "#adb5bd" }}>{team.reportTo ?? "-"}</div>
           </div>
+        </div>
+        <div style={{ marginBottom: 12 }}>
+          <TeamTypeBlock team={team} />
         </div>
         <div style={{ display: "flex", gap: 12 }}>
           <div style={{ flex: 1, background: "#f8f9fa", borderRadius: 8, padding: "12px 16px" }}>
