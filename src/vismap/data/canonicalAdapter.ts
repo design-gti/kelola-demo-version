@@ -7,14 +7,22 @@ import { store } from "@/data/model/store";
 export function buildCanonicalEmployees(): Employee[] {
   const parts = store.participants;
 
-  // successorIds[X] = peserta yang menjadi suksesor UNTUK X
+  // successorIds[X] = suksesor UNTUK posisi X. Seed successorForId terlalu jarang
+  // (hanya 3 total), jadi pool suksesi = bawahan langsung (managerId) — konsisten
+  // dengan node yang tersorot di bawah tiap manajer. Suksesor eksplisit tetap
+  // dipakai kalau ada, digabung tanpa duplikat.
   const succ = new Map<string, string[]>();
+  const addSucc = (forId: string, id: string) => {
+    const arr = succ.get(forId) ?? succ.set(forId, []).get(forId)!;
+    if (!arr.includes(id)) arr.push(id);
+  };
   for (const p of parts) {
-    if (p.successorForId) {
-      const arr = succ.get(p.successorForId) ?? succ.set(p.successorForId, []).get(p.successorForId)!;
-      arr.push(p.id);
-    }
+    if (p.successorForId) addSucc(p.successorForId, p.id);
+    if (p.managerId) addSucc(p.managerId, p.id);
   }
+  // urutkan suksesor tiap posisi berdasarkan readiness (prediction) desc
+  const readinessOf = (id: string) => store.score(id, "prediction") ?? store.score(id, "competency") ?? 0;
+  for (const [, ids] of succ) ids.sort((a, b) => readinessOf(b) - readinessOf(a));
 
   // rank by competency desc
   const ranked = [...parts].sort((a, b) => (store.score(b.id, "competency") ?? 0) - (store.score(a.id, "competency") ?? 0));

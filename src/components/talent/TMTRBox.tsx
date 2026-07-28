@@ -1,7 +1,7 @@
 "use client";
 // Self-contained port of kelola-app Components/Organisme/Chart/TMTRBox — 9-box grid
 // with axis ranges and plotted employee bubbles (grouped + overlap-resolved).
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { TMConfig, TMPoint, boxByOrder, resolveColor } from "@/data/talentMappingData";
 import { mantineColor } from "@/components/team/mantineColor";
 
@@ -91,6 +91,16 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
   const nodes = useMemo(() => resolveOverlaps(groupPoints(points, threshold, outbox), size, outbox), [points, threshold, size, outbox]);
   // Clicking a bubble opens a small table of the people at that coordinate.
   const [popover, setPopover] = useState<{ group: TMPoint[]; x: number; y: number } | null>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  // Close the popover on any click outside of it (donut, table, filter, page, …).
+  useEffect(() => {
+    if (!popover) return;
+    const onDown = (e: MouseEvent) => {
+      if (!popoverRef.current?.contains(e.target as Node)) setPopover(null);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [popover]);
 
   return (
     <div style={{ position: "relative", width: size + 50, height: size + 50, fontFamily: FONT }}>
@@ -167,9 +177,8 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
         {/* Coordinate detail table (click a bubble) */}
         {popover && (
           <>
-            <div onClick={() => setPopover(null)} style={{ position: "absolute", inset: 0, zIndex: 200 }} />
-            <div onClick={(e) => e.stopPropagation()}
-              style={{ position: "absolute", bottom: `${popover.y}%`, left: `${popover.x}%`, transform: "translate(10px, 50%)", zIndex: 300, background: "#fff", borderRadius: 8, boxShadow: "0 6px 20px rgba(0,0,0,0.18)", border: "1px solid #e9ecef", minWidth: 220, maxWidth: 280, overflow: "hidden", fontFamily: FONT }}>
+            <div ref={popoverRef} onClick={(e) => e.stopPropagation()}
+              style={{ position: "absolute", bottom: `${popover.y}%`, left: `${popover.x}%`, transform: "translate(10px, 50%)", zIndex: 300, background: "#fff", borderRadius: 8, boxShadow: "0 6px 20px rgba(0,0,0,0.18)", border: "1px solid #e9ecef", minWidth: 300, maxWidth: 400, overflow: "hidden", fontFamily: FONT }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 58px 58px", gap: 4, padding: "8px 10px", borderBottom: "1px solid #e9ecef", fontSize: 9.5, fontWeight: 700, color: "#adb5bd", textTransform: "uppercase" }}>
                 <span>Employee</span><span style={{ textAlign: "right" }}>{config.sumbuX}</span><span style={{ textAlign: "right" }}>{config.sumbuY}</span>
               </div>
