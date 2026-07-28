@@ -770,8 +770,12 @@ export default function SuccessionPanel({ employee, onClose, onCompare, onIDPDia
   const allSuccessors = [...primarySuccessors, ...additionalSuccessors];
 
   const handleCompareClick = () => {
-    // Navigate to parent window (break out of iframe)
-    window.top!.location.href = 'http://dsn.kelola.app/tdp';
+    // Pin the selected employee + successors in TDP's Compare view (shared_pinned,
+    // keyed by TDP employee id EMP0NN — canonical p-id pNN → EMP0NN), then open TDP.
+    const toTdpId = (id: string) => 'EMP' + String(id).replace(/\D/g, '').padStart(3, '0');
+    const ids = [employee, ...allSuccessors].map(e => toTdpId(e.id));
+    try { localStorage.setItem('shared_pinned', JSON.stringify(Array.from(new Set(ids)))); } catch { /* ignore */ }
+    (window.top ?? window)!.location.href = '/tdp-view';
   };
 
   const handleNavigateToEmployeeProfile = (employeeId: string) => {
