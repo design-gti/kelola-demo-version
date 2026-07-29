@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Paper, Button, Avatar, Text } from "@mantine/core";
-import { activityLog } from "@/data/dummyData";
+import type { ActivityEntry } from "@/data/dummyData";
 import { timeAgo } from "@/utils/timeAgo";
 
 type FilterType = null | "data_updated" | "assessment_completed" | "idp_action" | "sync_event" | "alert_triggered";
@@ -31,7 +31,7 @@ const TYPE_ICONS: Record<string, string> = {
   alert_triggered: "!",
 };
 
-export default function ActivityLogCard() {
+export default function ActivityLogCard({ activityLog }: { activityLog: ActivityEntry[] }) {
   const [activeFilter, setActiveFilter] = useState<FilterType>(null);
 
   const filtered = activityLog.filter(e => activeFilter === null || e.type === activeFilter);

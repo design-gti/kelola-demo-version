@@ -1,5 +1,5 @@
 "use client";
-import { candidates, Candidate } from "@/data/dummyData";
+import type { Candidate } from "@/data/dummyData";
 import TextButton from "@/components/ui/TextButton";
 
 const FIELDS = [
@@ -11,10 +11,8 @@ const FIELDS = [
   { key: "hasHRIS", label: "HRIS" },
 ] as const;
 
-export default function ProfileCompletenessTrackerCard({ title = "Profile Completeness Tracker", employees }: { title?: string; employees?: Candidate[] } = {}) {
-  const pool = employees ?? candidates;
-
-  const scored = pool.map(c => {
+export default function ProfileCompletenessTrackerCard({ title = "Profile Completeness Tracker", employees }: { title?: string; employees: Candidate[] }) {
+  const scored = employees.map(c => {
     const filledCount = FIELDS.filter(f => {
       const val = c[f.key as keyof typeof c];
       return val !== null && val !== false;

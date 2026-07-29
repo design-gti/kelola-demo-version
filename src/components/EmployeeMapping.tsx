@@ -3,12 +3,10 @@ import { useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import TextButton from "@/components/ui/TextButton";
-import { TI_CONFIG, computePoints, boxByOrder, resolveColor } from "@/data/talentMappingData";
-import { mantineColor } from "@/components/team/mantineColor";
 
 const avOverlay = "https://www.figma.com/api/mcp/asset/2719dfbb-ac03-4588-a503-9dbbccb2baa9";
 
-interface CellData {
+export interface CellData {
   count: number;
   label: string;
   countColor: string;
@@ -16,30 +14,6 @@ interface CellData {
   avatars: string[];
   names: string[];
 }
-
-const darker = (token: string) => mantineColor[token.split(".")[0]]?.[6] ?? "#495057";
-
-// Ninebox cells from the SAME source as the Talent Mapping page (TI 9box: Performance × Potency).
-// ordering rows are top→bottom, so flattening gives cells in grid render order.
-function buildTalentCells(): CellData[] {
-  const points = computePoints(TI_CONFIG);
-  const byOrder = new Map<number, typeof points>();
-  points.forEach(p => { if (p.order != null) (byOrder.get(p.order) ?? byOrder.set(p.order, []).get(p.order)!).push(p); });
-  return TI_CONFIG.ordering.flat().map(order => {
-    const box = boxByOrder(TI_CONFIG, order)!;
-    const members = byOrder.get(order) ?? [];
-    return {
-      count: members.length,
-      label: box.label,
-      countColor: darker(box.color),
-      bg: resolveColor(box.color),
-      avatars: members.slice(0, 2).map(m => `/avatars/photo_wc2026/${m.employeeId}.png`),
-      names: members.map(m => m.name),
-    };
-  });
-}
-
-const cells: CellData[] = buildTalentCells();
 
 function AvatarStack({ avatars, names, count }: { avatars: string[]; names: string[]; count: number }) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
@@ -134,12 +108,19 @@ function GridCell({ cell, rowIdx, colIdx }: { cell: CellData; rowIdx: number; co
   );
 }
 
-export default function EmployeeMapping({ title = "Talent Mapping", customCells }: { title?: string; customCells?: typeof cells } = {}) {
+export default function EmployeeMapping({
+  title = "Talent Mapping",
+  cells: cellData,
+  axisX = "Performance",
+  axisY = "Potency",
+}: {
+  title?: string;
+  /** Always computed server-side (src/lib/data/talentMapping.ts's getTalentMappingCells) — never candidates data directly in this client component. */
+  cells: CellData[];
+  axisX?: string;
+  axisY?: string;
+}) {
   const router = useRouter();
-  const cellData = customCells ?? cells;
-  // Default (Talent Mapping) uses TI axes; manager custom view keeps Competency × Performance.
-  const axisX = customCells ? "Performance" : TI_CONFIG.sumbuX;
-  const axisY = customCells ? "Competency" : TI_CONFIG.sumbuY;
   return (
     <div className="bg-white rounded-[8px] p-[16px] flex flex-col gap-[16px] w-full h-full"
       style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>

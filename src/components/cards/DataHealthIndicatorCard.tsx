@@ -1,5 +1,5 @@
 "use client";
-import { candidates, syncSystems, Candidate } from "@/data/dummyData";
+import type { Candidate, SyncSystem } from "@/data/dummyData";
 
 function mean(arr: number[]): number {
   return arr.reduce((a, b) => a + b, 0) / arr.length;
@@ -9,9 +9,8 @@ function stddev(arr: number[], avg: number): number {
   return Math.sqrt(arr.reduce((a, b) => a + Math.pow(b - avg, 2), 0) / arr.length);
 }
 
-export default function DataHealthIndicatorCard({ employees }: { employees?: Candidate[] } = {}) {
-  const pool = employees ?? candidates;
-  const scores = pool.map(c => c.behavioral_score).filter((s): s is number => s !== null);
+export default function DataHealthIndicatorCard({ employees, syncSystems }: { employees: Candidate[]; syncSystems: SyncSystem[] }) {
+  const scores = employees.map(c => c.behavioral_score).filter((s): s is number => s !== null);
   const avg = mean(scores);
   const sd = stddev(scores, avg);
   const outliers = scores.filter(s => s > avg + 2 * sd || s < avg - 2 * sd).length;

@@ -9,9 +9,19 @@
     "lint": "eslint",
     "seed": "node scripts/seed.mjs && node scripts/gen-iprofile.mjs && node scripts/align-idp-data.mjs && node scripts/gen-tdp-data.mjs",
     "predev": "node scripts/seed.mjs && node scripts/gen-iprofile.mjs && node scripts/align-idp-data.mjs && node scripts/gen-tdp-data.mjs",
-    "prebuild": "node scripts/seed.mjs && node scripts/gen-iprofile.mjs && node scripts/align-idp-data.mjs && node scripts/gen-tdp-data.mjs"
+    "prebuild": "node scripts/seed.mjs && node scripts/gen-iprofile.mjs && node scripts/align-idp-data.mjs && node scripts/gen-tdp-data.mjs",
+    "test": "vitest run",
+    "eval:assistant": "vitest run --config vitest.eval.config.ts",
+    "postinstall": "patch-package"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.57.0",
+    "@copilotkit/react-core": "^1.63.3-canary.rc-1",
+    "@copilotkit/react-ui": "^1.63.3-canary.rc-1",
+    "@copilotkit/runtime": "^1.63.3-canary.rc-1",
+    "@google/generative-ai": "^0.24.1",
+    "@langchain/google-gauth": "^2.2.0",
+    "@langchain/openai": "^1.5.5",
     "@mantine/core": "^9.4.2",
     "@mantine/hooks": "^9.4.2",
     "@radix-ui/react-accordion": "^1.2.14",
@@ -48,6 +58,7 @@
     "cmdk": "^1.1.1",
     "date-fns": "^4.4.0",
     "embla-carousel-react": "^8.6.0",
+    "groq-sdk": "^0.37.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^1.21.0",
     "motion": "^12.42.0",
@@ -69,7 +80,8 @@
     "tailwind-merge": "^3.6.0",
     "tw-animate-css": "^1.4.0",
     "vaul": "^1.1.2",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -78,7 +90,10 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "openai": "^6.49.0",
+    "patch-package": "^8.0.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^2.1.9"
   }
 }

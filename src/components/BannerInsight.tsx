@@ -1,20 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Paper, ActionIcon } from "@mantine/core";
 import { useRouter } from "next/navigation";
-import { buildCanonicalEmployees } from "@/vismap/data/canonicalAdapter";
-
-// Same employees + red threshold (≤65) as Vismap's Succession Risk / Need Develop modals.
-function useInsightCounts() {
-  return useMemo(() => {
-    const emps = buildCanonicalEmployees();
-    const total = emps.length;
-    const succession = emps.filter(e => (e.readinessScore ?? e.competencyScore) <= 65).length;
-    const needDev = emps.filter(e => (e.competencyScore ?? 0) <= 65).length;
-    return { total, succession, needDev };
-  }, []);
-}
 
 function ListIcon() {
   return (
@@ -88,11 +76,18 @@ const DEFAULT_LAYERS = [
 interface BannerInsightProps {
   layers?: { src: string; depth: number }[];
   hideSuccession?: boolean;
+  /** Always compute via src/lib/data — never hardcode. */
+  successionRisk: { atRisk: number; total: number };
+  needDevelopment: { count: number; total: number };
 }
 
-export default function BannerInsight({ layers = DEFAULT_LAYERS, hideSuccession = false }: BannerInsightProps) {
+export default function BannerInsight({
+  layers = DEFAULT_LAYERS,
+  hideSuccession = false,
+  successionRisk,
+  needDevelopment,
+}: BannerInsightProps) {
   const router = useRouter();
-  const { total, succession, needDev } = useInsightCounts();
   const containerRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -124,7 +119,7 @@ export default function BannerInsight({ layers = DEFAULT_LAYERS, hideSuccession 
       {!hideSuccession && (
         <div className="absolute right-0 top-0 h-full flex flex-col justify-center gap-[10px] z-20 pr-[4px]" style={{ width: 293 }}>
           <InsightCard
-            title="Succession Risk" main={String(succession)} sub={`/${total}`} extra="Position need successor"
+            title="Succession Risk" main={String(successionRisk.atRisk)} sub={`/${successionRisk.total}`} extra="Position need successor"
             accent="#016699" icon={<SuccessionIcon />}
             onClick={() => router.push("/vismap?tab=succession-risk")}
             buttons={
@@ -134,7 +129,7 @@ export default function BannerInsight({ layers = DEFAULT_LAYERS, hideSuccession 
             }
           />
           <InsightCard
-            title="Need Development" main={String(needDev)} sub={`/${total}`} extra="Employees need development"
+            title="Need Development" main={String(needDevelopment.count)} sub={`/${needDevelopment.total}`} extra="Employees need development"
             accent="#e07b00" icon={<DevelopmentIcon />}
             onClick={() => router.push("/vismap?tab=need-develop")}
             buttons={
@@ -151,7 +146,7 @@ export default function BannerInsight({ layers = DEFAULT_LAYERS, hideSuccession 
       {hideSuccession && (
         <div className="absolute z-20" style={{ bottom: 16, right: 16, width: 289 }}>
           <InsightCard
-            title="Need Development" main={String(needDev)} sub={`/${total}`} extra="Employees need development"
+            title="Need Development" main={String(needDevelopment.count)} sub={`/${needDevelopment.total}`} extra="Employees need development"
             accent="#e07b00" icon={<DevelopmentIcon />}
             onClick={() => router.push("/vismap?tab=need-develop")}
             buttons={

@@ -7,25 +7,24 @@ import { SuccessorsAccordion } from "../components/SuccessorsAccordion";
 import { CareerPlanAccordion } from "../components/CareerPlanAccordion";
 import { AddCareerPlanModal } from "../components/AddCareerPlanModal";
 import { AddSuccessorsModal } from "../components/AddSuccessorsModal";
-import { useState, createContext, useContext, useRef, useEffect } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { candidates } from "@/data/dummyData";
 import { getParticipant, scoreOf } from "@/data/model/selectors";
+import {
+  ProfileContext,
+  DEFAULT_EMP,
+  DEFAULT_EXT,
+  EMPTY_ASPECTS,
+  type ProfileContextValue as ProfileCtxT,
+  type CareerPlan,
+  type Successor,
+  type TeamRef,
+  type Extension,
+  type IdpHistoryItem,
+  type ScoreAspects,
+} from "../lib/ProfileContext";
 
-type CareerPlan = { position: string; name: string; percentage: string; status: string };
-type Successor = { id?: string; name: string; position: string; percentage: string; status: string };
-type CareerHistory = { title: string; period: string };
-type EmployeeBio = { nik: string; dob: string; gender: string; lastEducation: string; city: string; province: string; maritalStatus: string; reportTo: string; workStartDate: string; tenure: string; careerHistory: CareerHistory[] };
-type TeamRef = { name: string; role: string };
-type Extension = { performance: string; engagement: string; potency: string; height: number };
-type IdpHistoryItem = { competencies: string[]; pic: string; dateRange: string; status: string };
-type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean };
-type ScoreAspects = { competency: AspectItem[]; potency: AspectItem[] };
-type ProfileDetail = { careerPlans: CareerPlan[]; successors: Successor[]; scoreAspects: ScoreAspects; teams: TeamRef[]; bloodType: string; extension: Extension; idpHistory: IdpHistoryItem[]; employee: EmployeeBio };
-type ProfileCtxT = { name: string; position: string; employeeId: string; personality: string; competencyMatch: string; iq: string; gtq: string; careerPlans: CareerPlan[]; successors: Successor[]; scoreAspects: ScoreAspects; teams: TeamRef[]; bloodType: string; extension: Extension; idpHistory: IdpHistoryItem[]; employee: EmployeeBio };
-const DEFAULT_EMP: EmployeeBio = { nik: "2349710001", dob: "12 Februari 1988", gender: "Laki-laki", lastEducation: "S2 Psychology UNPAD", city: "Surabaya", province: "Jawa Timur", maritalStatus: "Menikah", reportTo: "Product Lead (Rodri)", workStartDate: "September 2019", tenure: "4 thn, 4 bln", careerHistory: [] };
-const DEFAULT_EXT: Extension = { performance: "4.3", engagement: "4.3", potency: "86%", height: 172 };
-const EMPTY_ASPECTS: ScoreAspects = { competency: [], potency: [] };
-const ProfileContext = createContext<ProfileCtxT>({ name: "Julian Alvarez", position: "Direktur Pengembangan Bisnis", employeeId: "default", personality: "SC", competencyMatch: "4.5", iq: "120", gtq: "115", careerPlans: [], successors: [], scoreAspects: EMPTY_ASPECTS, teams: [], bloodType: "A", extension: DEFAULT_EXT, idpHistory: [], employee: DEFAULT_EMP });
+type ProfileDetail = { careerPlans: CareerPlan[]; successors: Successor[]; scoreAspects: ScoreAspects; teams: TeamRef[]; bloodType: string; extension: Extension; idpHistory: IdpHistoryItem[]; employee: ProfileCtxT["employee"] };
 
 function Frame151() {
   const { name, position, employeeId } = useContext(ProfileContext);
