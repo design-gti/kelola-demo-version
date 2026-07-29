@@ -154,7 +154,7 @@ export async function getAgentIdpStatusView(_session: SessionContext) {
  */
 export function getAgentTalentMappingView(session: SessionContext) {
   const pool = poolForSession(session);
-  const points = getTalentIdentificationPoints(pool);
+  const points = getTalentIdentificationPoints(TI_CONFIG, pool);
   const distribution = TI_CONFIG.boxes.map(box => ({
     order: box.order,
     label: box.label,

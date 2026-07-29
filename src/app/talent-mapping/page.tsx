@@ -1,4 +1,5 @@
 import { getTalentIdentificationPoints, getTalentReadinessPoints } from "@/lib/data/talentMapping";
+import { getEffectiveTIConfigServer } from "@/lib/data/talentMappingConfig";
 import TalentMappingClient from "./TalentMappingClient";
 
 export default async function TalentMappingPage({
@@ -9,8 +10,9 @@ export default async function TalentMappingPage({
   const { box } = await searchParams;
   const initialBox = box ? Number(box) : null;
 
-  const tiPoints = getTalentIdentificationPoints();
+  const tiConfig = await getEffectiveTIConfigServer();
+  const tiPoints = getTalentIdentificationPoints(tiConfig);
   const trPoints = getTalentReadinessPoints();
 
-  return <TalentMappingClient tiPoints={tiPoints} trPoints={trPoints} initialBox={initialBox} />;
+  return <TalentMappingClient tiConfig={tiConfig} tiPoints={tiPoints} trPoints={trPoints} initialBox={initialBox} />;
 }

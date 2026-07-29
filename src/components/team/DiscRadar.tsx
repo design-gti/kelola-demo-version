@@ -11,7 +11,7 @@ export type DISCTypes =
   | "S" | "SI" | "SID" | "SIC" | "SC" | "SCI" | "SCD" | "SD" | "SDC" | "SDI"
   | "C" | "CS" | "CSI" | "CSD" | "CD" | "CDI" | "CDS" | "CI" | "CIS" | "CID";
 
-export type RadarDataT = { name: string; DISC?: DISCTypes };
+export type RadarDataT = { name: string; DISC?: DISCTypes; photo?: string };
 
 type PropsDISCRadarT = {
   datas: RadarDataT[];
@@ -99,6 +99,7 @@ const DISCRadar = ({ datas, colors = ["error", "primary", "success", "secondary"
     }
 
     const av = size * 0.12;
+    const single = data.length === 1 ? data[0] : null;
     return (
       <div
         key={DISCvalue}
@@ -108,9 +109,21 @@ const DISCRadar = ({ datas, colors = ["error", "primary", "success", "secondary"
           background: avatarColor, color: "#fff", opacity: 0.8, zIndex: 2,
           display: "flex", alignItems: "center", justifyContent: "center",
           fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: av * 0.42,
+          overflow: "hidden",
         }}
       >
-        {data.length > 1 ? data.length : getInitial(data[0].name)}
+        {/* Initials/count fallback rendered underneath; the photo (if any) covers it
+            and is hidden on load failure via plain DOM manipulation (no state needed
+            since this is a plain function called during render, not a component). */}
+        <span>{data.length > 1 ? data.length : getInitial(data[0].name)}</span>
+        {single?.photo && (
+          <img
+            src={single.photo}
+            alt=""
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
+          />
+        )}
       </div>
     );
   };

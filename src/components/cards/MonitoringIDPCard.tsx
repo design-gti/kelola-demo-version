@@ -10,6 +10,7 @@ interface IDPEntry {
   id: number;
   name: string;
   initials: string;
+  avatar?: string;
   position: string;
   status: IDPStatus;
   dueDate: string;
@@ -34,7 +35,7 @@ const ALL_FILTERS: { label: string; value: IDPStatus | "All" }[] = [
 // module reads, so home Monitoring IDP mirrors it exactly and every row opens the
 // correct person's detail (matched by employee id).
 interface IdpProgram { statusLabel: string; period: string; aspectLabel: string }
-interface IdpEmployee { id: number; name: string; role: string; idps: IdpProgram[] }
+interface IdpEmployee { id: number; name: string; role: string; avatar?: string; idps: IdpProgram[] }
 
 // "Jan 15 - Feb 28, 2025" / "Dec 5, 2024 - Mar 11, 2025" → ISO end date
 function periodEnd(period: string): string {
@@ -55,6 +56,7 @@ function toEntries(employees: IdpEmployee[]): IDPEntry[] {
       id: e.id,
       name: e.name,
       initials: e.name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase(),
+      avatar: e.avatar,
       position: e.role,
       status: statusOf(e.idps),
       dueDate: active ? periodEnd(active.period) : "",
@@ -166,7 +168,7 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
             >
               {/* Employee */}
               <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
-                <Avatar size={28} radius="xl" style={{ flexShrink: 0, background: "#e7f5ff" }}>
+                <Avatar size={28} radius="xl" src={e.avatar} style={{ flexShrink: 0, background: "#e7f5ff" }}>
                   <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 9, color: "#016699" }}>{e.initials}</span>
                 </Avatar>
                 <div style={{ minWidth: 0 }}>

@@ -1021,7 +1021,7 @@ function Frame104() {
         <p className="leading-[normal]">IDP History</p>
       </div>
       <button 
-        onClick={() => { window.location.href = '/idp-app/create-idp-admin.html?from=iprofile'; }}
+        onClick={() => { window.location.href = '/idp?page=create-idp-admin.html&from=iprofile'; }}
         className="content-stretch flex gap-[8px] items-center px-[8px] py-[4px] relative rounded-[28px] shrink-0 cursor-pointer hover:bg-[#f5f5f5] transition-colors"
       >
         <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />
@@ -1043,12 +1043,13 @@ function Frame104() {
 // One IDP-history card — data-driven replacement for the fixed IdpList/IdpList1.
 function IdpCard({ competencies, pic, dateRange, status }: { competencies: string[]; pic: string; dateRange: string; status: string }) {
   const router = useRouter();
+  const { name: employeeName } = useContext(ProfileContext);
   const done = status.toLowerCase() === "done";
   return (
     <div
       className="bg-[#f8f9fa] content-stretch flex flex-col gap-[12px] items-start p-[16px] relative rounded-[8px] shrink-0 w-[336.333px] cursor-pointer transition-all hover:shadow-md"
       data-name="IDP List"
-      onClick={() => router.push('/idp-monitoring')}
+      onClick={() => router.push(`/idp?page=detail-idp-admin.html&name=${encodeURIComponent(employeeName)}`)}
     >
       <div className="content-start flex flex-wrap gap-[4px] items-start relative shrink-0 w-full">
         {competencies.map((c, i) => (
