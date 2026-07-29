@@ -2,7 +2,7 @@
 // Self-contained port of kelola-app Components/Organisme/Chart/TMTRBox — 9-box grid
 // with axis ranges and plotted employee bubbles (grouped + overlap-resolved).
 import React, { useMemo } from "react";
-import { TMConfig, TMPoint, boxByOrder, resolveColor } from "@/data/talentMappingData";
+import { TMConfig, TMPoint, boxByOrder, resolveColor } from "@/data/talentMappingShared";
 import { mantineColor } from "@/components/team/mantineColor";
 
 const FONT = "'Open Sans', sans-serif";

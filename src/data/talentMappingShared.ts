@@ -1,4 +1,7 @@
-import { candidates } from "./dummyData";
+// Client-safe half of the old talentMappingData.ts: box/axis config and pure
+// display-mapping logic, none of which touches the candidates fixture. Safe
+// to import directly from "use client" components. Per-employee plot points
+// live in src/lib/data/talentMapping.ts (server-only).
 import { mantineColor } from "@/components/team/mantineColor";
 
 // Resolve a Mantine color token ("error.3") to hex, using the ported palette.
@@ -45,11 +48,6 @@ const RANGES: AxisRange[] = [
   { label: "MID", color: "secondary.3" },
   { label: "HIGH", color: "success.3" },
 ];
-
-// combination "x-y" (1-indexed thirds) → box order, from kelola-app 9Box(3x3) template
-const COMBO_ORDER: Record<string, number> = {
-  "1-1": 1, "2-1": 2, "1-2": 3, "3-1": 4, "2-2": 5, "1-3": 6, "3-2": 7, "2-3": 8, "3-3": 9,
-};
 
 export const TI_CONFIG: TMConfig = {
   id: "TI",
@@ -100,36 +98,6 @@ export const TR_CONFIG: TMConfig = {
 export function boxByOrder(cfg: TMConfig, order: number | null): BoxDef | null {
   return order == null ? null : cfg.boxes.find(b => b.order === order) ?? null;
 }
-
-// spread a value to 0..100 within the metric's observed range (2..98 to keep off edges)
-function normalizer(vals: (number | null)[]) {
-  const nums = vals.filter((n): n is number => n != null);
-  const mn = Math.min(...nums), mx = Math.max(...nums);
-  return (v: number | null) => (v == null || mx === mn ? null : 2 + ((v - mn) / (mx - mn)) * 96);
-}
-
-const third = (p: number) => (p <= 33.33 ? 1 : p <= 66.66 ? 2 : 3);
-
-// TI (Human Asset Value): Performance (X) × Potency (Y) from the 20 candidates.
-const normPerf = normalizer(candidates.map(c => c.performance_score));
-const normPot = normalizer(candidates.map(c => c.leadership_score));
-
-export const TI_POINTS: TMPoint[] = candidates.map(c => {
-  const x = normPerf(c.performance_score);
-  const y = normPot(c.leadership_score);
-  const order = x != null && y != null ? COMBO_ORDER[`${third(x)}-${third(y)}`] : null;
-  return {
-    employeeId: c.id,
-    name: c.name,
-    positionTitle: c.position,
-    rawX: c.performance_score,
-    rawY: c.leadership_score,
-    x, y, order,
-  };
-});
-
-// TR (Talent Readiness): empty until a Job Target is picked — mirrors kelola-app default.
-export const TR_POINTS: TMPoint[] = [];
 
 // Donut tags (kelola-app quirk: TI reuses tenure labels for talent/non/no-data counts).
 export function donutTags(cfg: TMConfig, points: TMPoint[]) {

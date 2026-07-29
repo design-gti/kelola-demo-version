@@ -3,20 +3,17 @@ import { useState } from "react";
 import Link from "next/link";
 import { Paper, TextInput, Button, Text } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import { candidates, recentlyViewed, Candidate } from "@/data/dummyData";
+import type { Candidate } from "@/data/dummyData";
 
-export default function QuickProfileAccessCard({ employees }: { employees?: Candidate[] } = {}) {
+export default function QuickProfileAccessCard({ employees, defaultResults }: { employees: Candidate[]; defaultResults: Candidate[] }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const pool = employees ?? candidates;
 
   const results = searchQuery.trim()
-    ? pool.filter(c =>
+    ? employees.filter(c =>
         c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         c.position.toLowerCase().includes(searchQuery.toLowerCase())
       ).slice(0, 5)
-    : employees
-      ? pool.slice(0, 5)
-      : recentlyViewed.map(id => candidates.find(c => c.id === id)).filter(Boolean).slice(0, 5) as typeof candidates;
+    : defaultResults.slice(0, 5);
 
   return (
     <Paper radius={12} p={16} w="100%" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>

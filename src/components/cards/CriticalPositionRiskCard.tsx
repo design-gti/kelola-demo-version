@@ -1,25 +1,13 @@
 "use client";
-import { criticalPositions } from "@/data/dummyData";
+import type { SuccessionRiskPosition, SuccessionStatus } from "@/lib/data/types";
 
-type RiskStatus = "no-candidate" | "weak" | "ready";
-
-export default function CriticalPositionRiskCard() {
-  const positions = criticalPositions.map(pos => {
-    let status: RiskStatus;
-    if (pos.successors.length === 0) {
-      status = "no-candidate";
-    } else if (pos.successors.some(s => s.readiness_gap > 25)) {
-      status = "weak";
-    } else {
-      status = "ready";
-    }
-    return { ...pos, status };
-  }).sort((a, b) => {
-    const order: Record<RiskStatus, number> = { "no-candidate": 0, weak: 1, ready: 2 };
+export default function CriticalPositionRiskCard({ positions: rawPositions }: { positions: SuccessionRiskPosition[] }) {
+  const positions = [...rawPositions].sort((a, b) => {
+    const order: Record<SuccessionStatus, number> = { "no-candidate": 0, weak: 1, ready: 2 };
     return order[a.status] - order[b.status];
   });
 
-  const statusConfig: Record<RiskStatus, { label: string; color: string; bg: string }> = {
+  const statusConfig: Record<SuccessionStatus, { label: string; color: string; bg: string }> = {
     "no-candidate": { label: "Tanpa Kandidat", color: "#dc3545", bg: "#dc354520" },
     weak: { label: "Lemah", color: "#fd9f28", bg: "#fd9f2820" },
     ready: { label: "Siap", color: "#28a745", bg: "#28a74520" },
@@ -33,9 +21,9 @@ export default function CriticalPositionRiskCard() {
       <div className="card-scroll" style={{ display: "flex", flexDirection: "column", gap: 8, maxHeight: 320, overflowY: "auto" }}>
         {positions.map(pos => {
           const cfg = statusConfig[pos.status];
-          const maxGap = pos.successors.length > 0 ? Math.max(...pos.successors.map(s => s.readiness_gap)) : null;
+          const maxGap = pos.successors.length > 0 ? Math.max(...pos.successors.map(s => s.readinessGap)) : null;
           return (
-            <div key={pos.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 10px", borderRadius: 8, background: "#f8f9fa" }}>
+            <div key={pos.positionId} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 10px", borderRadius: 8, background: "#f8f9fa" }}>
               <div>
                 <div style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>{pos.title}</div>
                 <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>{pos.department}</div>

@@ -10,7 +10,7 @@ const av2 = "https://www.figma.com/api/mcp/asset/e67df370-f1b5-4b8a-b619-cb35470
 const av3 = "https://www.figma.com/api/mcp/asset/dc938b95-9aaf-413d-b182-bc2ce9ac3400";
 const avOverlay = "https://www.figma.com/api/mcp/asset/2719dfbb-ac03-4588-a503-9dbbccb2baa9";
 
-interface CellData {
+export interface CellData {
   count: number;
   label: string;
   countColor: string;

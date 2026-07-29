@@ -1,9 +1,9 @@
 "use client";
 import { Paper, Badge, Button, Text } from "@mantine/core";
-import { syncSystems } from "@/data/dummyData";
+import type { SyncSystem } from "@/data/dummyData";
 import { timeAgo } from "@/utils/timeAgo";
 
-export default function SyncStatusCard() {
+export default function SyncStatusCard({ syncSystems }: { syncSystems: SyncSystem[] }) {
   const statusConfig: Record<string, { label: string; color: string }> = {
     success: { label: "Terhubung", color: "#28a745" },
     warning: { label: "Stale", color: "#fd9f28" },
