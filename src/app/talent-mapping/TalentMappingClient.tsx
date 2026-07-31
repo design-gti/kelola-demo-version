@@ -1,12 +1,16 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Paper, Badge, Avatar as MantineAvatar, Select, Pagination, Text, Button, Modal, Checkbox, ScrollArea } from "@mantine/core";
 import { IconArrowUpRight, IconSettings, IconFilter } from "@tabler/icons-react";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
 import DonutChart from "@/components/talent/DonutChart";
+import { matchesFuzzy } from "@/lib/data/textMatch";
 import { TR_CONFIG, donutTags, boxByOrder, resolveColor, TMConfig, TMPoint } from "@/data/talentMappingShared";
+
+/** How long the deep-link highlight (colored outline + auto-scroll) stays visible before fading — mirrors Vismap's OrgChartCard highlight timing. */
+const HIGHLIGHT_DURATION_MS = 3000;
 
 const FONT = "'Open Sans', sans-serif";
 const ACCENT = "#016699";
@@ -55,16 +59,28 @@ function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean 
   return <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: muted ? "#ced4da" : "#495057" }}>{children}</span>;
 }
 
-function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] }) {
+function TablePanel({ config, points, highlightId }: { config: TMConfig; points: TMPoint[]; highlightId?: string | null }) {
   const router = useRouter();
   const isTI = config.id === "TI";
   const cols = isTI ? TI_COLS : TR_COLS;
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const pageCount = Math.max(1, Math.ceil(points.length / limit));
-  const curPage = Math.min(page, pageCount);
+  // Derived, not stateful: while a highlight is active, force whichever page
+  // actually contains it — otherwise a deep link to someone past the first
+  // page's `limit` rows would never scroll into view. Falls back to normal
+  // pagination once the highlight clears (or never matched anyone).
+  const highlightGlobalIndex = highlightId ? points.findIndex(p => p.employeeId === highlightId) : -1;
+  const curPage = highlightGlobalIndex !== -1 ? Math.floor(highlightGlobalIndex / limit) + 1 : Math.min(page, pageCount);
   const pageRows = points.slice((curPage - 1) * limit, curPage * limit);
   // curPage clamps to pageCount, so a shrinking filter can't strand you on an empty page
+
+  const highlightIndex = highlightId ? pageRows.findIndex(p => p.employeeId === highlightId) : -1;
+  const rowRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (highlightIndex === -1) return;
+    rowRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [highlightIndex]);
 
   return (
     <Paper radius={12} style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: "16px 8px", fontFamily: FONT, fontSize: 12 }}>
@@ -76,11 +92,24 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
       {points.length === 0 && (
         <div style={{ padding: "40px 0", textAlign: "center", color: "#adb5bd" }}>Tidak ada data.</div>
       )}
-      {pageRows.map(p => {
+      {pageRows.map((p, i) => {
         const box = boxByOrder(config, p.order);
         const boxColor = box ? darker(box.color) : "#adb5bd";
+        const isHighlighted = i === highlightIndex;
         return (
-          <div key={p.employeeId} style={{ display: "grid", gridTemplateColumns: cols, gap: 12, alignItems: "center", padding: "12px", borderBottom: "1px solid #f0f0f0" }}>
+          <div
+            key={p.employeeId}
+            ref={isHighlighted ? rowRef : undefined}
+            style={{
+              display: "grid", gridTemplateColumns: cols, gap: 12, alignItems: "center", padding: "12px", borderBottom: "1px solid #f0f0f0",
+              ...(isHighlighted && {
+                background: "#e6f3f8",
+                borderRadius: 8,
+                boxShadow: `0 0 0 2px ${ACCENT}, 0 0 16px rgba(1,102,153,0.35)`,
+                transition: "background 0.3s, box-shadow 0.3s",
+              }),
+            }}
+          >
             {isTI ? (
               <>
                 <Cell>{p.positionTitle}</Cell>
@@ -129,14 +158,43 @@ function TablePanel({ config, points }: { config: TMConfig; points: TMPoint[] })
   );
 }
 
-function Panel({ config, points, initialBox = null, onSettings }: { config: TMConfig; points: TMPoint[]; initialBox?: number | null; onSettings?: () => void }) {
-  const [selectedBox, setSelectedBox] = useState<number | null>(initialBox);
+function Panel({
+  config,
+  points,
+  initialBox = null,
+  initialHighlight = null,
+  onSettings,
+}: {
+  config: TMConfig;
+  points: TMPoint[];
+  initialBox?: number | null;
+  initialHighlight?: string | null;
+  onSettings?: () => void;
+}) {
+  // Deep-link highlight: resolve the name/id once against the initial data
+  // (lazy useState initializers, computed only on mount — not an effect,
+  // since deriving state from a prop synchronously in an effect body is a
+  // React anti-pattern/lint error). Auto-selects that employee's box so the
+  // row is actually visible; the highlight itself fades after a few seconds
+  // via the timer effect below — same convention as Vismap's OrgChartCard
+  // highlight ring.
+  const resolveHighlightMatch = () =>
+    initialHighlight ? points.find(p => p.employeeId === initialHighlight || matchesFuzzy(p.name, initialHighlight)) : undefined;
+  const [selectedBox, setSelectedBox] = useState<number | null>(() => initialBox ?? resolveHighlightMatch()?.order ?? null);
   // Filter (by team & job) — applied values + modal draft.
   const [filterOpen, setFilterOpen] = useState(false);
   const [teams, setTeams] = useState<string[]>([]);
   const [jobs, setJobs] = useState<string[]>([]);
   const [draftTeams, setDraftTeams] = useState<string[]>([]);
   const [draftJobs, setDraftJobs] = useState<string[]>([]);
+
+  const [highlightId, setHighlightId] = useState<string | null>(() => resolveHighlightMatch()?.employeeId ?? null);
+  useEffect(() => {
+    if (!highlightId) return;
+    const timer = setTimeout(() => setHighlightId(null), HIGHLIGHT_DURATION_MS);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fade whichever highlight resolved at mount; not meant to restart on every re-render
+  }, []);
 
   const allTeams = useMemo(() => Array.from(new Set(points.map(p => p.team).filter(Boolean))).sort(), [points]);
   const allJobs = useMemo(() => Array.from(new Set(points.map(p => p.positionTitle).filter(Boolean))).sort(), [points]);
@@ -222,7 +280,7 @@ function Panel({ config, points, initialBox = null, onSettings }: { config: TMCo
         </div>
       </div>
 
-      <TablePanel config={config} points={tableRows} />
+      <TablePanel config={config} points={tableRows} highlightId={highlightId} />
 
       <Modal opened={filterOpen} onClose={() => setFilterOpen(false)} title={<Text fw={700} c="#212529">Filter</Text>} size="lg" centered radius={12}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, fontFamily: FONT }}>
@@ -262,11 +320,13 @@ export default function TalentMappingClient({
   tiPoints,
   trPoints,
   initialBox,
+  initialHighlight,
 }: {
   tiConfig: TMConfig;
   tiPoints: TMPoint[];
   trPoints: TMPoint[];
   initialBox: number | null;
+  initialHighlight: string | null;
 }) {
   const router = useRouter();
   const [tab, setTab] = useState<"TI" | "TR">("TI");
@@ -287,7 +347,14 @@ export default function TalentMappingClient({
           }}>{label}</button>
         ))}
       </div>
-      <Panel key={tab} config={config} points={points} initialBox={initialBox} onSettings={tab === "TI" ? () => router.push("/talent-mapping/config") : undefined} />
+      <Panel
+        key={tab}
+        config={config}
+        points={points}
+        initialBox={initialBox}
+        initialHighlight={initialHighlight}
+        onSettings={tab === "TI" ? () => router.push("/talent-mapping/config") : undefined}
+      />
       </div>
     </div>
   );

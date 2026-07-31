@@ -4,6 +4,8 @@ export interface AgentAuditEvent {
   sessionRole: SessionRole;
   action: string;
   detail?: Record<string, unknown>;
+  /** Correlates a "question" event with the tool-call events triggered by the same request — see route.ts. */
+  requestId?: string;
   timestamp: string;
 }
 

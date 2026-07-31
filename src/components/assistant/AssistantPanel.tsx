@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import type { Message } from "@copilotkit/shared";
 import { CopilotChat } from "@copilotkit/react-ui";
 import "@copilotkit/react-ui/styles.css";
 import { useOnboarding } from "@/hooks/useOnboarding";
@@ -31,10 +32,42 @@ export default function AssistantPanel({
 }) {
   const [tab, setTab] = useState<"chat" | "insights">("chat");
   const { ready, needsRoleChoice, chooseRole, pagesIntroduced, markPageIntroduced } = useOnboarding();
+  // Tracks the most recent question the user actually typed, for pairing with
+  // whichever answer gets rated below. Deliberately NOT sourced from
+  // useCopilotChat()'s `visibleMessages` — verified live that it's undefined
+  // at runtime in this exact @copilotkit package version (another of this
+  // version's OSS hooks that's declared in its types but not actually wired
+  // up under the hood; see llmClients.ts and CopilotChat's `instructions`
+  // prop for the same class of issue found earlier). onSubmitMessage gives
+  // the raw text directly and is confirmed to actually fire.
+  const lastQuestionRef = useRef<string | null>(null);
 
   const selectTab = (t: "chat" | "insights") => {
     setTab(t);
     if (t === "insights") onOpenInsightsTab();
+  };
+
+  // CopilotChat's own onThumbsUp/onThumbsDown only update local React state
+  // (see the library's handleThumbsUp/handleThumbsDown) — nothing survives a
+  // reload unless something actually persists it. Pairs the rated answer with
+  // whatever question preceded it and logs both server-side via /api/feedback,
+  // so a thumbs-up/down becomes a real, durable signal (see route.ts's
+  // comment) instead of a click that quietly does nothing. Best-effort: if the
+  // user rates an older message after asking something new in between, this
+  // pairs it with the wrong (more recent) question — acceptable for how this
+  // feature is actually used (rating the reply you just got), not worth the
+  // extra complexity of tracking per-message question history for the rare
+  // out-of-order case.
+  const sendFeedback = (rating: "up" | "down", message: Message) => {
+    const answer = typeof message.content === "string" ? message.content : "";
+
+    fetch("/api/feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question: lastQuestionRef.current, answer, rating }),
+    }).catch(() => {
+      // Best-effort only — a failed feedback log must never surface as a user-facing error.
+    });
   };
 
   return (
@@ -104,6 +137,9 @@ export default function AssistantPanel({
             <CopilotChat
               className="kelola-assistant-chat"
               instructions={ASSISTANT_INSTRUCTIONS}
+              onSubmitMessage={text => { lastQuestionRef.current = text; }}
+              onThumbsUp={message => sendFeedback("up", message)}
+              onThumbsDown={message => sendFeedback("down", message)}
               labels={{
                 initial: "Halo! Saya asisten Kelola. Ada yang bisa saya bantu?",
                 title: "Asisten Kelola",

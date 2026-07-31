@@ -1,8 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { discProfile, predictionLabel, DISC_GUIDANCE, type Personality, type Team, type TeamMember } from "@/data/teamsData";
 import DiscRadar, { DISCTypes } from "@/components/team/DiscRadar";
 import AppBreadcrumb from "@/components/Breadcrumb";
+import { matchesFuzzy } from "@/lib/data/textMatch";
+
+/** How long the deep-link highlight (colored outline + auto-scroll) stays visible before fading — mirrors Vismap's OrgChartCard highlight timing. */
+const HIGHLIGHT_DURATION_MS = 3000;
 
 /** A team with its member/leader/average data already resolved server-side. */
 export interface ResolvedTeam {
@@ -132,13 +136,22 @@ function HeaderCell({ children, align = "left" }: { children: React.ReactNode; a
   );
 }
 
-function MemberRow({ m }: { m: TeamMember }) {
+function MemberRow({ m, highlighted, rowRef }: { m: TeamMember; highlighted?: boolean; rowRef?: React.RefObject<HTMLDivElement | null> }) {
   const badge = matchBadge(m.competencyMatch);
   return (
-    <div style={{
-      display: "grid", gridTemplateColumns: COLS, alignItems: "center", gap: 12,
-      padding: "12px 16px", borderBottom: "1px solid #f0f0f0", fontFamily: FONT, fontSize: 12, color: "#495057",
-    }}>
+    <div
+      ref={rowRef}
+      style={{
+        display: "grid", gridTemplateColumns: COLS, alignItems: "center", gap: 12,
+        padding: "12px 16px", borderBottom: "1px solid #f0f0f0", fontFamily: FONT, fontSize: 12, color: "#495057",
+        ...(highlighted && {
+          background: "#e6f3f8",
+          borderRadius: 8,
+          boxShadow: `0 0 0 2px ${ACCENT}, 0 0 16px rgba(1,102,153,0.35)`,
+          transition: "background 0.3s, box-shadow 0.3s",
+        }),
+      }}
+    >
       <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
         <Avatar name={m.name} id={m.id} size={30} />
         <span style={{ fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{m.name}</span>
@@ -242,9 +255,39 @@ function InteractionPanel({ members }: { members: TeamMember[] }) {
   );
 }
 
-function TeamDetail({ resolved, onBack, initialTab = "overview" }: { resolved: ResolvedTeam; onBack: () => void; initialTab?: "overview" | "interaction" }) {
-  const [tab, setTab] = useState<"overview" | "interaction">(initialTab);
+function TeamDetail({
+  resolved,
+  onBack,
+  initialTab = "overview",
+  initialHighlight = null,
+}: {
+  resolved: ResolvedTeam;
+  onBack: () => void;
+  initialTab?: "overview" | "interaction";
+  initialHighlight?: string | null;
+}) {
   const { team, members, leader, avg } = resolved;
+  // A highlight target only makes sense on the Overview member list — force
+  // that tab regardless of initialTab when one is given.
+  const [tab, setTab] = useState<"overview" | "interaction">(initialHighlight ? "overview" : initialTab);
+
+  // Lazy initializer (computed once on mount), not an effect — deriving state
+  // from a prop synchronously inside an effect body is a React lint error.
+  const [highlightId, setHighlightId] = useState<string | null>(() =>
+    initialHighlight ? members.find(m => m.id === initialHighlight || matchesFuzzy(m.name, initialHighlight))?.id ?? null : null
+  );
+  useEffect(() => {
+    if (!highlightId) return;
+    const timer = setTimeout(() => setHighlightId(null), HIGHLIGHT_DURATION_MS);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fade whichever highlight resolved at mount; not meant to restart on every re-render
+  }, []);
+
+  const highlightRowRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!highlightId) return;
+    highlightRowRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [highlightId]);
 
   return (
     <div style={{ padding: "16px 16px 40px", fontFamily: FONT }}>
@@ -325,7 +368,14 @@ function TeamDetail({ resolved, onBack, initialTab = "overview" }: { resolved: R
               <HeaderCell>Latest Performance</HeaderCell>
               <HeaderCell>Latest Engagement</HeaderCell>
             </div>
-            {members.map(m => <MemberRow key={m.id} m={m} />)}
+            {members.map(m => (
+              <MemberRow
+                key={m.id}
+                m={m}
+                highlighted={m.id === highlightId}
+                rowRef={m.id === highlightId ? highlightRowRef : undefined}
+              />
+            ))}
           </div>
         ) : (
           <InteractionPanel members={members} />
@@ -340,10 +390,12 @@ export default function TeamProfileClient({
   resolvedTeams,
   initialSelectedTeamId,
   initialTab,
+  initialHighlight,
 }: {
   resolvedTeams: ResolvedTeam[];
   initialSelectedTeamId: string | null;
   initialTab: "overview" | "interaction";
+  initialHighlight: string | null;
 }) {
   const [tab, setTab] = useState<"my" | "all">("all");
   const [selected, setSelected] = useState<ResolvedTeam | null>(
@@ -351,7 +403,16 @@ export default function TeamProfileClient({
   );
   const [query, setQuery] = useState("");
 
-  if (selected) return <TeamDetail resolved={selected} onBack={() => setSelected(null)} initialTab={initialTab} />;
+  if (selected) {
+    return (
+      <TeamDetail
+        resolved={selected}
+        onBack={() => setSelected(null)}
+        initialTab={initialTab}
+        initialHighlight={initialHighlight}
+      />
+    );
+  }
 
   const shown = resolvedTeams.filter(rt => rt.team.name.toLowerCase().includes(query.toLowerCase()));
 

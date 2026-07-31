@@ -12,6 +12,7 @@
     "prebuild": "node scripts/seed.mjs && node scripts/gen-iprofile.mjs && node scripts/align-idp-data.mjs && node scripts/gen-tdp-data.mjs",
     "test": "vitest run",
     "eval:assistant": "vitest run --config vitest.eval.config.ts",
+    "eval:harvest": "node scripts/harvest-questions.mjs",
     "postinstall": "patch-package"
   },
   "dependencies": {

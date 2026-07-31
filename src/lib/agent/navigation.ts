@@ -51,17 +51,19 @@ export function employeeProfileUrl(opts: { candidateId: string; from?: "tdp" | "
   return `/iprofile?${params.toString()}`;
 }
 
-export function talentMappingUrl(opts: { box?: number } = {}): string {
+export function talentMappingUrl(opts: { box?: number; highlight?: string } = {}): string {
   const params = new URLSearchParams();
   if (opts.box != null) params.set("box", String(opts.box));
+  if (opts.highlight) params.set("highlight", opts.highlight);
   const qs = params.toString();
   return `/talent-mapping${qs ? `?${qs}` : ""}`;
 }
 
-export function teamProfileUrl(opts: { teamId?: string; tab?: "overview" | "interaction" } = {}): string {
+export function teamProfileUrl(opts: { teamId?: string; tab?: "overview" | "interaction"; highlight?: string } = {}): string {
   const params = new URLSearchParams();
   if (opts.teamId) params.set("team", opts.teamId);
   if (opts.tab) params.set("tab", opts.tab);
+  if (opts.highlight) params.set("highlight", opts.highlight);
   const qs = params.toString();
   return `/team-profile${qs ? `?${qs}` : ""}`;
 }

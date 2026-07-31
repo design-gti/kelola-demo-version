@@ -39,7 +39,15 @@ describe("navigation URL builders", () => {
     expect(talentMappingUrl()).toBe("/talent-mapping");
   });
 
+  it("builds a talent-mapping highlight deep link", () => {
+    expect(talentMappingUrl({ highlight: "Kylian Mbappe" })).toBe("/talent-mapping?highlight=Kylian+Mbappe");
+  });
+
   it("builds the team-profile team+tab deep link verified live in Phase 0", () => {
     expect(teamProfileUrl({ teamId: "t1", tab: "interaction" })).toBe("/team-profile?team=t1&tab=interaction");
+  });
+
+  it("builds a team-profile highlight deep link", () => {
+    expect(teamProfileUrl({ teamId: "t1", highlight: "Son Heung-min" })).toBe("/team-profile?team=t1&highlight=Son+Heung-min");
   });
 });

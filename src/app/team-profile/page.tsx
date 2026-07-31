@@ -4,9 +4,9 @@ import TeamProfileClient from "./TeamProfileClient";
 export default async function TeamProfilePage({
   searchParams,
 }: {
-  searchParams: Promise<{ team?: string; tab?: string }>;
+  searchParams: Promise<{ team?: string; tab?: string; highlight?: string }>;
 }) {
-  const { team: teamParam, tab: tabParam } = await searchParams;
+  const { team: teamParam, tab: tabParam, highlight } = await searchParams;
 
   const resolvedTeams = teams.map(team => ({
     team,
@@ -22,6 +22,7 @@ export default async function TeamProfilePage({
       resolvedTeams={resolvedTeams}
       initialSelectedTeamId={teamParam ?? null}
       initialTab={initialTab}
+      initialHighlight={highlight ?? null}
     />
   );
 }
