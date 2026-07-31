@@ -61,6 +61,56 @@ async function runOpenAITurn(question: string, actions: BackendAction[]) {
   return { trace, finalText: "[max tool-call iterations reached without a final answer]" };
 }
 
+async function runDeepSeekTurn(question: string, actions: BackendAction[]) {
+  const client = new OpenAI({ apiKey: process.env.DEEPSEEK_API_KEY, baseURL: "https://api.deepseek.com" });
+  const actionByName = new Map(actions.map(a => [a.name, a]));
+  const tools: OpenAI.Chat.ChatCompletionTool[] = actions.map(a => ({
+    type: "function",
+    function: { name: a.name, description: a.description, parameters: toInputSchema(a.parameters) },
+  }));
+
+  const trace: ToolTrace[] = [];
+  const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
+    { role: "system", content: ASSISTANT_INSTRUCTIONS },
+    { role: "user", content: question },
+  ];
+
+  for (let iteration = 0; iteration < MAX_TOOL_ITERATIONS; iteration++) {
+    // DeepSeek-specific request field, not in the openai SDK's TS types (it's
+    // a DeepSeek extension to the otherwise-classic Chat Completions shape).
+    // Disabled here deliberately: this app's tool-calling is simple lookups,
+    // not multi-step reasoning, and enabling thinking mode would additionally
+    // require round-tripping reasoning_content back on every later turn
+    // (a DeepSeek-only requirement with no OpenAI/Anthropic equivalent) for
+    // no benefit here.
+    const response = await client.chat.completions.create({
+      model: "deepseek-v4-flash",
+      messages,
+      tools,
+      thinking: { type: "disabled" },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any);
+    const choice = response.choices[0];
+    messages.push(choice.message);
+
+    const toolCalls = choice.message.tool_calls;
+    if (!toolCalls?.length) {
+      return { trace, finalText: choice.message.content ?? "" };
+    }
+
+    for (const call of toolCalls) {
+      if (call.type !== "function") continue; // this app never defines custom (non-function) tools
+      const action = actionByName.get(call.function.name);
+      const input = JSON.parse(call.function.arguments || "{}");
+      const output = action ? await action.handler(input) : { error: `Unknown tool: ${call.function.name}` };
+      trace.push({ name: call.function.name, input, output });
+      messages.push({ role: "tool", tool_call_id: call.id, content: JSON.stringify(output) });
+    }
+  }
+
+  return { trace, finalText: "[max tool-call iterations reached without a final answer]" };
+}
+
 async function runAnthropicTurn(question: string, actions: BackendAction[]) {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const actionByName = new Map(actions.map(a => [a.name, a]));
@@ -109,14 +159,17 @@ async function runAnthropicTurn(question: string, actions: BackendAction[]) {
 /**
  * Runs one user question through the real tool-calling loop — same system
  * instructions, same backend action handlers, and same provider branching
- * (LLM_PROVIDER env var) as production (/api/copilotkit), just driven
- * directly via the provider SDK instead of CopilotRuntime's wire protocol,
- * so this can run headless in a script instead of needing a browser. Always
- * mirrors route.ts's own condition — if that ever changes, update both.
+ * (LLM_PROVIDER env var) as production (/api/copilotkit) for "anthropic"/
+ * "openai", plus "deepseek" as an eval-only cost-comparison candidate not
+ * yet wired into route.ts — just driven directly via the provider SDK
+ * instead of CopilotRuntime's wire protocol, so this can run headless in a
+ * script instead of needing a browser.
  */
 export async function runAssistantTurn(
   question: string,
   actions: BackendAction[]
 ): Promise<{ trace: ToolTrace[]; finalText: string }> {
-  return process.env.LLM_PROVIDER === "openai" ? runOpenAITurn(question, actions) : runAnthropicTurn(question, actions);
+  if (process.env.LLM_PROVIDER === "openai") return runOpenAITurn(question, actions);
+  if (process.env.LLM_PROVIDER === "deepseek") return runDeepSeekTurn(question, actions);
+  return runAnthropicTurn(question, actions);
 }
