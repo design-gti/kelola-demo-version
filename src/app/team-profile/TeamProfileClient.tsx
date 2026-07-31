@@ -26,14 +26,23 @@ function initials(name: string) {
   return name.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase();
 }
 
-function Avatar({ name, size = 32 }: { name: string; size?: number }) {
+function Avatar({ name, size = 32, id }: { name: string; size?: number; id?: string }) {
   return (
     <div style={{
       width: size, height: size, borderRadius: "50%", flexShrink: 0,
       background: "#e6f3f8", color: ACCENT, fontFamily: FONT, fontWeight: 700,
       fontSize: size * 0.36, display: "flex", alignItems: "center", justifyContent: "center",
+      overflow: "hidden", position: "relative",
     }}>
-      {initials(name)}
+      <span>{initials(name)}</span>
+      {id && (
+        <img
+          src={`/avatars/photo_wc2026/${id}.png`}
+          alt=""
+          onError={(e) => { e.currentTarget.style.display = "none"; }}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
+        />
+      )}
     </div>
   );
 }
@@ -85,7 +94,7 @@ function TeamCard({ resolved, onOpen }: { resolved: ResolvedTeam; onOpen: () => 
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: 10, background: "#f8f9fa", borderRadius: 8, padding: "8px 10px" }}>
-        {leader ? <Avatar name={leader.name} size={30} /> : (
+        {leader ? <Avatar name={leader.name} id={leader.id} size={30} /> : (
           <div style={{ width: 30, height: 30, borderRadius: "50%", background: "#e9ecef", color: "#adb5bd", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>?</div>
         )}
         <span style={{ fontSize: 12, fontWeight: 600, color: leader ? "#495057" : "#adb5bd" }}>
@@ -98,7 +107,7 @@ function TeamCard({ resolved, onOpen }: { resolved: ResolvedTeam; onOpen: () => 
         <div style={{ display: "flex" }}>
           {members.slice(0, 4).map((m, i) => (
             <div key={m.id} style={{ marginLeft: i === 0 ? 0 : -8, border: "2px solid #fff", borderRadius: "50%" }}>
-              <Avatar name={m.name} size={24} />
+              <Avatar name={m.name} id={m.id} size={24} />
             </div>
           ))}
           {members.length > 4 && (
@@ -144,7 +153,7 @@ function MemberRow({ m, highlighted, rowRef }: { m: TeamMember; highlighted?: bo
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
-        <Avatar name={m.name} size={30} />
+        <Avatar name={m.name} id={m.id} size={30} />
         <span style={{ fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{m.name}</span>
       </div>
       <span style={{ color: "#6c757d", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{m.position}</span>
@@ -302,7 +311,7 @@ function TeamDetail({
             dimmed
             horizontalText
             colors={["primary", "primary", "primary", "primary"]}
-            datas={members.map(m => ({ name: m.name, DISC: m.disc as DISCTypes }))}
+            datas={members.map(m => ({ name: m.name, DISC: m.disc as DISCTypes, photo: `/avatars/photo_wc2026/${m.id}.png` }))}
           />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>

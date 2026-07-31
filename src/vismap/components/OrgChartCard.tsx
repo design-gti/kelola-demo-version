@@ -286,7 +286,7 @@ function EmployeFoto({ name, imageUrl, showChairIcon, position, showSwapped, job
         </div>
       )}
       {!showSwapped && (
-        <div className="absolute bg-gradient-to-b bottom-[-0.35px] from-[3.968%] from-[rgba(2,2,2,0)] h-[33.351px] left-[calc(50%+0.026px)] mix-blend-multiply to-[148.41%] to-[rgba(0,0,0,0.48)] translate-x-[-50%] w-full" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent" />
       )}
       {showSwapped ? (
         <>

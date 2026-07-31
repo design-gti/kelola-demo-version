@@ -17,7 +17,7 @@ import {
 const NAV_ITEMS = [
   { label: "Beranda", href: "/", icon: Home },
   { label: "iProfile", href: "/iprofile", icon: User },
-  { label: "Vismap", href: "/vismap", icon: Network },
+  { label: "Visibility Map", href: "/vismap", icon: Network },
   { label: "TDP", href: "/tdp-view", icon: BarChart2 },
   { label: "Talent Mapping", href: "/talent-mapping", icon: Map },
   { label: "Team Profile", href: "/team-profile", icon: Users },
