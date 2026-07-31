@@ -52,7 +52,7 @@ const COVERED_CSV_HEADERS = new Set<string>([
 
 function clusterFromCsvHeader(h: string): ColumnConfig['cluster'] | undefined {
   if (h.startsWith('[KOMPETENSI]')) return 'aspect';
-  if (h.startsWith('[HEROES]')) return 'commitment' as ColumnConfig['cluster'];
+  if (h.startsWith('[ENGAGEMENT]')) return 'commitment' as ColumnConfig['cluster'];
   if (h.startsWith('[LEADERSHIP PROFILE]')) return 'contribution' as ColumnConfig['cluster'];
   if (h === 'Capability' || h === 'IQ') return 'competency' as ColumnConfig['cluster'];
   if (h === 'Commitment') return 'commitment' as ColumnConfig['cluster'];
@@ -171,10 +171,10 @@ function get3CScores(employee: Employee): {
     ? Math.round((kompetensiVals.reduce((s, v) => s + v, 0) / kompetensiVals.length) * 20)
     : 0;
 
-  // Commitment = avg of [HEROES] fields (exclude presen_kecocokan/hasil_rekomendasi)
+  // Commitment = avg of [ENGAGEMENT] fields (exclude presen_kecocokan/hasil_rekomendasi)
   const heroesVals = Object.entries(fields)
-    .filter(([k]) => k.startsWith('[HEROES]') &&
-      k !== '[HEROES] presen_kecocokan' && k !== '[HEROES] hasil_rekomendasi')
+    .filter(([k]) => k.startsWith('[ENGAGEMENT]') &&
+      k !== '[ENGAGEMENT] presen_kecocokan' && k !== '[ENGAGEMENT] hasil_rekomendasi')
     .map(([, v]) => parseFloat(v))
     .filter((n) => !isNaN(n));
   const commitment = heroesVals.length > 0
@@ -987,7 +987,7 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
                             <div className="rounded-[8px] px-3 py-3 text-center"
                               style={{ background: '#fff', boxShadow: '2px 4px 20px 0px #00000012' }}>
                               <div style={{ fontSize: 10, color: '#868e96', fontFamily: '"Open Sans", sans-serif', marginBottom: 4 }}>
-                                {CSV_CLUSTER_NAMES['commitment'] ?? 'Heroes'}
+                                {CSV_CLUSTER_NAMES['commitment'] ?? 'Engagement'}
                               </div>
                               <div style={{ fontSize: 12, fontWeight: 700, color: '#016699', fontFamily: '"Open Sans", sans-serif', lineHeight: 1.2 }}>
                                 {scores3C.commitment}
