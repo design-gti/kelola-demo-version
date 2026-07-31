@@ -40,3 +40,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# scripts/harvest-questions.mjs output — real captured user questions/feedback, not a fixture
+/scripts/eval/harvested-questions.json
+/scripts/eval/harvested-feedback.json

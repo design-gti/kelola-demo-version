@@ -34,6 +34,15 @@ html, body {
   flex: 1 1 0% !important;
   min-height: 0 !important;
   height: 100% !important;
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+/* CopilotChat always renders its "Powered by CopilotKit" footer unless a
+   Cloud publicApiKey is set (see PoweredByTag in @copilotkit/react-ui) — this
+   app self-hosts via CopilotRuntime with no publicApiKey, so there's no
+   supported prop to turn it off. Hide it here instead. */
+.kelola-assistant-chat .poweredBy {
+  display: none !important;
 }
 
 /* Thin subtle scrollbar for card interiors */

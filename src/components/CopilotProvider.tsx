@@ -333,6 +333,13 @@ function MiniBarChart({ data, color = "#016699" }: { data: Array<{ label: string
  */
 function DataToolCards() {
   const router = useRouter();
+  // Prefetches the route's JS as soon as the card renders (well before the
+  // user clicks), then returns the click handler — cuts the multi-second
+  // first-navigation delay Next.js dev mode otherwise shows on a cold route.
+  const goTo = (href: string) => {
+    router.prefetch(href);
+    return () => router.push(href);
+  };
 
   useRenderToolCall({
     name: "getSuccessionRiskSummary",
@@ -369,7 +376,10 @@ function DataToolCards() {
             ))}
           </ul>
           <AsOfCaption asOf={data.asOf} />
-          <button style={DATA_CARD_BUTTON_STYLE} onClick={() => router.push(vismapUrl({ tab: "succession-risk" }))}>
+          <button
+            style={DATA_CARD_BUTTON_STYLE}
+            onClick={goTo(vismapUrl({ tab: "succession-risk", highlight: data.atRisk[0]?.title }))}
+          >
             Lihat di Vismap →
           </button>
         </div>
@@ -392,7 +402,7 @@ function DataToolCards() {
           <strong>{data.needingDevelopmentCount} dari {data.total} karyawan</strong> butuh development.
           {data.names.length > 0 && <div style={{ marginTop: 6 }}>{data.names.join(", ")}</div>}
           <AsOfCaption asOf={data.asOf} />
-          <button style={DATA_CARD_BUTTON_STYLE} onClick={() => router.push(vismapUrl({ tab: "need-develop" }))}>
+          <button style={DATA_CARD_BUTTON_STYLE} onClick={goTo(vismapUrl({ tab: "need-develop" }))}>
             Lihat di Vismap →
           </button>
         </div>
@@ -420,7 +430,7 @@ function DataToolCards() {
             <div style={{ marginTop: 4 }}>Perlu diperbarui: {data.stale.map(d => `${d.field} (${d.count})`).join(", ")}</div>
           )}
           <AsOfCaption asOf={data.asOf} />
-          <button style={DATA_CARD_BUTTON_STYLE} onClick={() => router.push("/")}>
+          <button style={DATA_CARD_BUTTON_STYLE} onClick={goTo("/")}>
             Lihat di Dashboard →
           </button>
         </div>
@@ -461,7 +471,7 @@ function DataToolCards() {
           )}
           <button
             style={DATA_CARD_BUTTON_STYLE}
-            onClick={() => router.push(employeeProfileUrl({ candidateId: data.candidateId ?? args.candidateId }))}
+            onClick={goTo(employeeProfileUrl({ candidateId: data.candidateId ?? args.candidateId }))}
           >
             Lihat Profil →
           </button>
@@ -493,9 +503,9 @@ function DataToolCards() {
           ))}
           <button
             style={DATA_CARD_BUTTON_STYLE}
-            onClick={() => router.push(employeeProfileUrl({ candidateId: data.matches[0].candidateId }))}
+            onClick={goTo(vismapUrl({ highlight: data.matches[0].name }))}
           >
-            Lihat Profil →
+            Lihat di Vismap →
           </button>
         </div>
       );
@@ -523,7 +533,7 @@ function DataToolCards() {
             <div style={{ marginTop: 6 }}>{data.overdue.slice(0, 3).map(o => o.name).join(", ")}{data.overdue.length > 3 ? ` dan ${data.overdue.length - 3} lainnya` : ""}</div>
           )}
           <AsOfCaption asOf={data.asOf} />
-          <button style={DATA_CARD_BUTTON_STYLE} onClick={() => router.push("/#dashboard-card-monitoring-idp")}>
+          <button style={DATA_CARD_BUTTON_STYLE} onClick={goTo("/#dashboard-card-monitoring-idp")}>
             Lihat Monitoring IDP →
           </button>
         </div>
@@ -548,7 +558,7 @@ function DataToolCards() {
           <MiniBarChart data={chartData} />
           {data.noData > 0 && <div style={{ marginTop: 6, color: "#868e96" }}>{data.noData} karyawan belum punya data lengkap untuk dipetakan.</div>}
           <AsOfCaption asOf={data.asOf} />
-          <button style={DATA_CARD_BUTTON_STYLE} onClick={() => router.push(talentMappingUrl())}>
+          <button style={DATA_CARD_BUTTON_STYLE} onClick={goTo(talentMappingUrl())}>
             Lihat di Talent Mapping →
           </button>
         </div>
@@ -582,7 +592,10 @@ function DataToolCards() {
             Performa: <strong>{data.avgPerformanceBand ?? "belum ada data"}</strong> · Engagement: <strong>{data.avgEngagementBand ?? "belum ada data"}</strong>
           </div>
           {chartData.length > 0 && <MiniBarChart data={chartData} color="#7048e8" />}
-          <button style={DATA_CARD_BUTTON_STYLE} onClick={() => router.push(teamProfileUrl({ teamId: data.teamId }))}>
+          <button
+            style={DATA_CARD_BUTTON_STYLE}
+            onClick={goTo(teamProfileUrl({ teamId: data.teamId, highlight: data.leaderName ?? undefined }))}
+          >
             Lihat Team Profile →
           </button>
         </div>
@@ -620,7 +633,7 @@ function DataToolCards() {
             ))}
           </ul>
           <AsOfCaption asOf={data.asOf} />
-          <button style={DATA_CARD_BUTTON_STYLE} onClick={() => router.push("/")}>
+          <button style={DATA_CARD_BUTTON_STYLE} onClick={goTo("/")}>
             Lihat di Dashboard →
           </button>
         </div>
@@ -661,8 +674,11 @@ function DataToolCards() {
             <div style={{ marginTop: 6, color: "#868e96" }}>{data.excludedNoData} karyawan dikecualikan karena belum ada data {metricLabel.toLowerCase()}.</div>
           )}
           <AsOfCaption asOf={data.asOf} />
-          <button style={DATA_CARD_BUTTON_STYLE} onClick={() => router.push(talentMappingUrl())}>
-            Lihat di Talent Mapping →
+          <button
+            style={DATA_CARD_BUTTON_STYLE}
+            onClick={goTo(vismapUrl({ highlight: data.ranked[0].person.name }))}
+          >
+            Lihat {data.ranked[0].person.name} di Vismap →
           </button>
         </div>
       );
@@ -703,7 +719,7 @@ function DataToolCards() {
               <span style={{ color: "#868e96" }}>Tidak ada direct report.</span>
             )}
           </div>
-          <button style={DATA_CARD_BUTTON_STYLE} onClick={() => router.push(vismapUrl({ highlight: data.person!.name }))}>
+          <button style={DATA_CARD_BUTTON_STYLE} onClick={goTo(vismapUrl({ highlight: data.person!.name }))}>
             Lihat di Vismap →
           </button>
         </div>
@@ -734,7 +750,7 @@ function DataToolCards() {
             Peringkat <strong>#{data.rank}</strong> dari {data.total} karyawan, berdasarkan {metricLabel.toLowerCase()}.
           </div>
           <AsOfCaption asOf={data.asOf} />
-          <button style={DATA_CARD_BUTTON_STYLE} onClick={() => router.push(employeeProfileUrl({ candidateId: data.person.candidateId }))}>
+          <button style={DATA_CARD_BUTTON_STYLE} onClick={goTo(employeeProfileUrl({ candidateId: data.person.candidateId }))}>
             Lihat Profil →
           </button>
         </div>
