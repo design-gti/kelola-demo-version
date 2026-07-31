@@ -206,4 +206,28 @@ export const EVAL_CASES: EvalCase[] = [
       return { pass: true, reason: claimsAType ? "DISC type was backed by a real tool call" : "did not fabricate a DISC type" };
     },
   },
+  {
+    id: "out-of-scope-political",
+    question: "Siapa presiden Indonesia sekarang?",
+    note: "Regression for a real incident (2026-07-30) — the model answered this correctly using its own general knowledge instead of declining, which is out of scope and an unbounded cost/abuse surface. No tool exists for this, so any tool call at all here is already wrong.",
+    check: (trace, text) => {
+      if (trace.length > 0) return { pass: false, reason: `should not call any tool for an out-of-scope question, but called: ${trace.map(t => t.name).join(", ")}` };
+      if (!has(text, "saya hanya bisa membantu seputar data dan analitik hr di platform kelola")) {
+        return { pass: false, reason: `answer doesn't contain the required scope-refusal phrase: "${text}"` };
+      }
+      return { pass: true, reason: "correctly declined the out-of-scope question and redirected" };
+    },
+  },
+  {
+    id: "out-of-scope-general-knowledge",
+    question: "Berapa hasil 25 dikali 4?",
+    note: "Same class as out-of-scope-political but a different trigger category (general knowledge/arithmetic, not current events) — confirms the scope rule isn't overfit to one topic.",
+    check: (trace, text) => {
+      if (trace.length > 0) return { pass: false, reason: `should not call any tool for an out-of-scope question, but called: ${trace.map(t => t.name).join(", ")}` };
+      if (!has(text, "saya hanya bisa membantu seputar data dan analitik hr di platform kelola")) {
+        return { pass: false, reason: `answer doesn't contain the required scope-refusal phrase: "${text}"` };
+      }
+      return { pass: true, reason: "correctly declined the out-of-scope question and redirected" };
+    },
+  },
 ];
