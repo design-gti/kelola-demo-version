@@ -6,50 +6,27 @@ import { candidates } from "@/data/dummyData";
 import { loadEmployeesFromCanonical } from "../../vismap/data/canonicalAdapter";
 import type { Employee as CsvEmployee } from "../../vismap/data/orgChartData";
 
-interface TargetPosition {
-  label: string;
-  critical?: boolean;
-  weights: { behavioral: number; performance: number; leadership: number; technical: number };
-}
-
 // ponytail: dropped hardcoded successorIds/scoreOverride (used dead "cNN" ids that never matched
 // canonical "pNN"). Successors are now the top matches by computed score — always canonical-derived.
 const SUCCESSOR_COUNT = 4;
 
-const CRITICAL_POSITIONS: TargetPosition[] = [
-  { label: "CEO",                  critical: true, weights: { behavioral: 0.20, performance: 0.25, leadership: 0.45, technical: 0.10 } },
-  { label: "Chief People Officer", critical: true, weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
-  { label: "HR Operations Lead",   critical: true, weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
-  { label: "Product Manager Lead", critical: true, weights: { behavioral: 0.20, performance: 0.30, leadership: 0.25, technical: 0.25 } },
-  { label: "Research Lead",        critical: true, weights: { behavioral: 0.15, performance: 0.25, leadership: 0.20, technical: 0.40 } },
-];
+type Weights = { behavioral: number; performance: number; leadership: number; technical: number };
+const W = (behavioral: number, performance: number, leadership: number, technical: number): Weights =>
+  ({ behavioral, performance, leadership, technical });
 
-const ALL_POSITIONS: TargetPosition[] = [
-  { label: "Chief Technology Officer",   weights: { behavioral: 0.15, performance: 0.30, leadership: 0.25, technical: 0.30 } },
-  { label: "Chief Marketing Officer",    weights: { behavioral: 0.25, performance: 0.35, leadership: 0.30, technical: 0.10 } },
-  { label: "Chief Product Officer",      weights: { behavioral: 0.20, performance: 0.30, leadership: 0.30, technical: 0.20 } },
-  { label: "Product Manager",            weights: { behavioral: 0.20, performance: 0.35, leadership: 0.20, technical: 0.25 } },
-  { label: "Product Designer Lead",      weights: { behavioral: 0.25, performance: 0.30, leadership: 0.20, technical: 0.25 } },
-  { label: "Product Designer",           weights: { behavioral: 0.25, performance: 0.30, leadership: 0.10, technical: 0.35 } },
-  { label: "Frontend Lead",              weights: { behavioral: 0.15, performance: 0.25, leadership: 0.20, technical: 0.40 } },
-  { label: "Frontend Developer",         weights: { behavioral: 0.15, performance: 0.20, leadership: 0.10, technical: 0.55 } },
-  { label: "Backend Lead",               weights: { behavioral: 0.15, performance: 0.25, leadership: 0.20, technical: 0.40 } },
-  { label: "Backend Developer",          weights: { behavioral: 0.15, performance: 0.20, leadership: 0.10, technical: 0.55 } },
-  { label: "UX Researcher",              weights: { behavioral: 0.30, performance: 0.25, leadership: 0.10, technical: 0.35 } },
-  { label: "QA Lead",                    weights: { behavioral: 0.20, performance: 0.25, leadership: 0.20, technical: 0.35 } },
-  { label: "Sales Lead",                 weights: { behavioral: 0.30, performance: 0.40, leadership: 0.20, technical: 0.10 } },
-  { label: "Sales Executive",            weights: { behavioral: 0.30, performance: 0.40, leadership: 0.15, technical: 0.15 } },
-  { label: "Digital Marketing Lead",     weights: { behavioral: 0.25, performance: 0.35, leadership: 0.25, technical: 0.15 } },
-  { label: "Digital Marketing Specialist", weights: { behavioral: 0.25, performance: 0.35, leadership: 0.10, technical: 0.30 } },
-  { label: "Partnership Lead",           weights: { behavioral: 0.30, performance: 0.30, leadership: 0.30, technical: 0.10 } },
-  { label: "Partnership Executive",      weights: { behavioral: 0.30, performance: 0.35, leadership: 0.20, technical: 0.15 } },
-  { label: "Recruiter",                  weights: { behavioral: 0.45, performance: 0.25, leadership: 0.15, technical: 0.15 } },
-  { label: "Recruitment Lead",           weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
-  { label: "People Development Lead",    weights: { behavioral: 0.40, performance: 0.25, leadership: 0.25, technical: 0.10 } },
-  { label: "HR Staff",                   weights: { behavioral: 0.40, performance: 0.25, leadership: 0.15, technical: 0.20 } },
-];
-
-const ALL_FLAT = [...CRITICAL_POSITIONS, ...ALL_POSITIONS];
+// Weight profile derived from a CANONICAL position title (dropdown positions vary per seed,
+// so we key on the title's keywords instead of a fixed label table that never matches).
+function weightsFor(label: string): Weights {
+  const l = label.toLowerCase();
+  if (l.includes("chief executive") || l === "ceo") return W(0.20, 0.25, 0.45, 0.10);
+  if (l.includes("chief") || l.includes("director") || l.startsWith("vp") || l.includes("head of") || l.includes("president")) return W(0.20, 0.30, 0.30, 0.20);
+  if (l.includes("hr") || l.includes("people") || l.includes("recruit") || l.includes("talent")) return W(0.40, 0.25, 0.25, 0.10);
+  if (l.includes("sales") || l.includes("marketing") || l.includes("brand") || l.includes("growth")) return W(0.30, 0.40, 0.20, 0.10);
+  if (l.includes("engineer") || l.includes("developer") || l.includes("technical") || l.includes("data") || l.includes("architect")) return W(0.15, 0.25, 0.20, 0.40);
+  if (l.includes("finance") || l.includes("controller") || l.includes("account") || l.includes("analyst")) return W(0.15, 0.35, 0.20, 0.30);
+  if (l.includes("lead") || l.includes("manager") || l.includes("principal") || l.includes("senior")) return W(0.20, 0.30, 0.30, 0.20);
+  return W(0.25, 0.30, 0.25, 0.20);
+}
 
 // Compute tags from CSV employee data (same logic as SimulationPanel)
 function positionTags(emp: CsvEmployee, allEmployees: CsvEmployee[]) {
@@ -72,9 +49,9 @@ function tagSortWeight(tags: { vacant?: boolean; risk?: boolean; critical?: bool
 // Level of a target position label (for filtering candidates)
 function getTargetLevel(label: string): number {
   const l = label.toLowerCase();
-  if (l === 'ceo') return 1;
-  if (l.startsWith('chief')) return 2;
-  if (l.includes('lead') || l.includes('director')) return 3;
+  if (l === 'ceo' || l.includes('chief executive')) return 1;
+  if (l.startsWith('chief') || l.startsWith('vp') || l.includes('director') || l.includes('head of')) return 2;
+  if (l.includes('lead') || l.includes('manager') || l.includes('principal') || l.includes('senior')) return 3;
   return 4;
 }
 
@@ -112,13 +89,18 @@ function TagBadge({ label, color, bg }: { label: string; color: string; bg: stri
 }
 
 export default function OverallScoreCard() {
-  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [selectedLabel, setSelectedLabel] = useState<string | null>(null);
   const [open, setOpen]               = useState(false);
   const [search, setSearch]           = useState("");
   const [csvEmployees, setCsvEmployees] = useState<CsvEmployee[]>([]);
   const dropdownRef                   = useRef<HTMLDivElement>(null);
 
-  const pos = ALL_FLAT[selectedIdx];
+  // Default target = the canonical CEO-ish position (falls back to the first loaded one).
+  const defaultLabel =
+    csvEmployees.find(e => e.position.toLowerCase().includes("chief executive"))?.position ??
+    csvEmployees[0]?.position ?? "CEO";
+  const posLabel = selectedLabel ?? defaultLabel;
+  const pos = { label: posLabel, weights: weightsFor(posLabel) };
 
   useEffect(() => {
     loadEmployeesFromCanonical().then(setCsvEmployees).catch(() => {});
@@ -182,8 +164,7 @@ export default function OverallScoreCard() {
   const sortedLevels = Array.from(levelGroups.keys()).sort((a, b) => a - b);
 
   const selectPos = (label: string) => {
-    const idx = ALL_FLAT.findIndex(p => p.label === label);
-    if (idx !== -1) setSelectedIdx(idx);
+    setSelectedLabel(label);
     setOpen(false);
     setSearch("");
   };
@@ -216,7 +197,7 @@ export default function OverallScoreCard() {
             <span style={{ fontWeight: 600, color: "#016699" }}>{pos.label}</span>
             {(() => {
               const csvEmp = csvEmployees.find(e => e.position === pos.label);
-              const tags = csvEmp ? positionTags(csvEmp, csvEmployees) : { critical: pos.critical, vacant: false, risk: false };
+              const tags = csvEmp ? positionTags(csvEmp, csvEmployees) : { critical: false, vacant: false, risk: false };
               return (
                 <>
                   {tags.vacant && <TagBadge label="Vacant" color="#6c757d" bg="rgba(108,117,125,0.12)" />}

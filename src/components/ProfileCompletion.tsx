@@ -1,63 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Progress } from "@mantine/core";
-import { candidates, Candidate } from "@/data/dummyData";
+import type { ProfileCompletionSummary, GroupedFieldEntry } from "@/lib/data/types";
 import TextButton from "@/components/ui/TextButton";
-
-const FIELDS = [
-  { key: "behavioral_score",  label: "Behavioral score"  },
-  { key: "technical_score",   label: "Technical score"   },
-  { key: "performance_score", label: "Performance score" },
-  { key: "photo",             label: "Foto profil"       },
-] as const;
-
-const TODAY = new Date("2026-07-02");
-const ONE_YEAR_AGO = new Date(TODAY);
-ONE_YEAR_AGO.setFullYear(TODAY.getFullYear() - 1);
-
-function isStale(date?: string) {
-  if (!date) return false;
-  return new Date(date) < ONE_YEAR_AGO;
-}
-
-interface GroupedEntry { fieldLabel: string; count: number; names: string[] }
-
-function buildSections(pool: Candidate[]) {
-  const noDataMap   = new Map<string, GroupedEntry>();
-  const staleMap    = new Map<string, GroupedEntry>();
-
-  pool.forEach(c => {
-    FIELDS.forEach(({ key, label }) => {
-      const val = c[key as keyof typeof c];
-      const missing = val === null || val === undefined || val === false;
-
-      if (missing) {
-        const e = noDataMap.get(key) ?? { fieldLabel: label, count: 0, names: [] };
-        e.count++; e.names.push(c.name);
-        noDataMap.set(key, e);
-      } else if (isStale(c.dataLastUpdated)) {
-        const e = staleMap.get(key) ?? { fieldLabel: label, count: 0, names: [] };
-        e.count++; e.names.push(c.name);
-        staleMap.set(key, e);
-      }
-    });
-  });
-
-  return {
-    noData: Array.from(noDataMap.values()),
-    stale:  Array.from(staleMap.values()),
-  };
-}
-
-function calcPct(pool: Candidate[]): number {
-  if (pool.length === 0) return 0;
-  const keys = FIELDS.map(f => f.key);
-  const filled = pool.reduce((sum, c) => sum + keys.filter(k => {
-    const v = c[k as keyof typeof c];
-    return v !== null && v !== undefined && v !== false;
-  }).length, 0);
-  return Math.round((filled / (pool.length * keys.length)) * 100);
-}
 
 function SectionLabel({ children }: { children: string }) {
   return (
@@ -71,7 +16,7 @@ function SectionLabel({ children }: { children: string }) {
   );
 }
 
-function AlertRow({ entry }: { entry: GroupedEntry }) {
+function AlertRow({ entry }: { entry: GroupedFieldEntry }) {
   return (
     <div style={{ padding: "8px 10px", borderRadius: 8, background: "#f8f9fa" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -89,11 +34,9 @@ function AlertRow({ entry }: { entry: GroupedEntry }) {
   );
 }
 
-export default function ProfileCompletion({ employees }: { employees?: Candidate[] } = {}) {
+export default function ProfileCompletion({ completion }: { completion: ProfileCompletionSummary }) {
   const [open, setOpen] = useState(false);
-  const pool   = employees ?? candidates;
-  const pct    = employees ? calcPct(pool) : 78;
-  const { noData, stale } = buildSections(pool);
+  const { pct, noData, stale } = completion;
 
   return (
     <div className="bg-white w-full card-pulse-alert"

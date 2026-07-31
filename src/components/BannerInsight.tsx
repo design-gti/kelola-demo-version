@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Paper, ActionIcon } from "@mantine/core";
+import { useRouter } from "next/navigation";
 
 function ListIcon() {
   return (
@@ -43,13 +44,13 @@ function DevelopmentIcon() {
   );
 }
 
-function InsightCard({ title, main, sub, extra, accent, icon, buttons }: {
+function InsightCard({ title, main, sub, extra, accent, icon, buttons, onClick }: {
   title: string; main: string; sub: string; extra: string;
-  accent: string; icon: React.ReactNode; buttons: React.ReactNode;
+  accent: string; icon: React.ReactNode; buttons: React.ReactNode; onClick?: () => void;
 }) {
   return (
-    <Paper radius={8} p={14}
-      style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", display: "flex", gap: 12, alignItems: "center" }}>
+    <Paper radius={8} p={14} onClick={onClick}
+      style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", display: "flex", gap: 12, alignItems: "center", cursor: onClick ? "pointer" : undefined }}>
       <div style={{ width: 40, height: 40, borderRadius: 10, background: accent + "18", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: accent }}>
         {icon}
       </div>
@@ -75,9 +76,18 @@ const DEFAULT_LAYERS = [
 interface BannerInsightProps {
   layers?: { src: string; depth: number }[];
   hideSuccession?: boolean;
+  /** Always compute via src/lib/data — never hardcode. */
+  successionRisk: { atRisk: number; total: number };
+  needDevelopment: { count: number; total: number };
 }
 
-export default function BannerInsight({ layers = DEFAULT_LAYERS, hideSuccession = false }: BannerInsightProps) {
+export default function BannerInsight({
+  layers = DEFAULT_LAYERS,
+  hideSuccession = false,
+  successionRisk,
+  needDevelopment,
+}: BannerInsightProps) {
+  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -109,8 +119,9 @@ export default function BannerInsight({ layers = DEFAULT_LAYERS, hideSuccession 
       {!hideSuccession && (
         <div className="absolute right-0 top-0 h-full flex flex-col justify-center gap-[10px] z-20 pr-[4px]" style={{ width: 293 }}>
           <InsightCard
-            title="Succession Risk" main="12" sub="/21" extra="Position need successor"
+            title="Succession Risk" main={String(successionRisk.atRisk)} sub={`/${successionRisk.total}`} extra="Position need successor"
             accent="#016699" icon={<SuccessionIcon />}
+            onClick={() => router.push("/vismap?tab=succession-risk")}
             buttons={
               <ActionIcon variant="white" radius="xl" size={28} aria-label="Lihat daftar" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
                 <ListIcon />
@@ -118,8 +129,9 @@ export default function BannerInsight({ layers = DEFAULT_LAYERS, hideSuccession 
             }
           />
           <InsightCard
-            title="Need Development" main="43" sub="/97" extra="Employees need development"
+            title="Need Development" main={String(needDevelopment.count)} sub={`/${needDevelopment.total}`} extra="Employees need development"
             accent="#e07b00" icon={<DevelopmentIcon />}
+            onClick={() => router.push("/vismap?tab=need-develop")}
             buttons={
               <div className="flex flex-col gap-2">
                 <ActionIcon variant="white" radius="xl" size={28} aria-label="Lihat daftar" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}><ListIcon /></ActionIcon>
@@ -134,8 +146,9 @@ export default function BannerInsight({ layers = DEFAULT_LAYERS, hideSuccession 
       {hideSuccession && (
         <div className="absolute z-20" style={{ bottom: 16, right: 16, width: 289 }}>
           <InsightCard
-            title="Need Development" main="43" sub="/97" extra="Employees need development"
+            title="Need Development" main={String(needDevelopment.count)} sub={`/${needDevelopment.total}`} extra="Employees need development"
             accent="#e07b00" icon={<DevelopmentIcon />}
+            onClick={() => router.push("/vismap?tab=need-develop")}
             buttons={
               <div className="flex flex-col gap-2">
                 <ActionIcon variant="white" radius="xl" size={28} aria-label="Lihat daftar" style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}><ListIcon /></ActionIcon>

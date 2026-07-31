@@ -6,7 +6,7 @@ import AppBreadcrumb from "@/components/Breadcrumb";
 import {
   LAYOUTS, METRICS, makeConfig, boxByOrder, resolveColor, metricLabel,
   TMConfig, MetricKey, AxisBand,
-} from "@/data/talentMappingData";
+} from "@/data/talentMappingShared";
 import { getEffectiveTIConfig, saveTIConfig } from "@/data/talentMappingConfig";
 
 const FONT = "'Open Sans', sans-serif";

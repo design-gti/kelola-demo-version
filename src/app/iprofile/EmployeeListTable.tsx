@@ -1,8 +1,9 @@
 "use client";
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Paper, TextInput, Select, Pagination, Text } from "@mantine/core";
 import { IconSearch, IconArrowUpRight, IconChevronUp, IconChevronDown, IconSelector } from "@tabler/icons-react";
-import { iprofileEmployees, type IProfileEmployee } from "@/data/iprofileEmployees";
+import type { IProfileEmployee } from "@/data/iprofileEmployees";
 
 const FONT = "'Open Sans', sans-serif";
 const ACCENT = "#016699";
@@ -60,7 +61,11 @@ function HeaderCell({
 
 const COLS = "0.5fr 2fr 2.2fr 2fr 1.2fr 0.8fr";
 
-export default function EmployeeListTable({ onSelect }: { onSelect: (employee: IProfileEmployee) => void }) {
+export default function EmployeeListTable({ employees, from }: { employees: IProfileEmployee[]; from?: string }) {
+  const router = useRouter();
+  const onSelect = (employee: IProfileEmployee) => {
+    router.push(`/iprofile?id=${employee.id}${from ? `&from=${from}` : ""}`);
+  };
   const [keyword, setKeyword] = useState("");
   const [sortKey, setSortKey] = useState<SortKey | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
@@ -70,13 +75,13 @@ export default function EmployeeListTable({ onSelect }: { onSelect: (employee: I
   const filtered = useMemo(() => {
     const term = keyword.trim().toLowerCase();
     const rows = term
-      ? iprofileEmployees.filter(
+      ? employees.filter(
           (e) =>
             e.name.toLowerCase().includes(term) ||
             e.email.toLowerCase().includes(term) ||
             e.position.toLowerCase().includes(term)
         )
-      : iprofileEmployees;
+      : employees;
 
     if (!sortKey) return rows;
     const sorted = [...rows].sort((a, b) => {
@@ -87,7 +92,7 @@ export default function EmployeeListTable({ onSelect }: { onSelect: (employee: I
       return 0;
     });
     return sorted;
-  }, [keyword, sortKey, sortDir]);
+  }, [employees, keyword, sortKey, sortDir]);
 
   const pageCount = Math.max(1, Math.ceil(filtered.length / limit));
   const curPage = Math.min(page, pageCount);

@@ -1,16 +1,12 @@
 "use client";
 import { useState, useRef } from "react";
 import { createPortal } from "react-dom";
+import { useRouter } from "next/navigation";
 import TextButton from "@/components/ui/TextButton";
-import { candidates } from "@/data/dummyData";
-import { buildMappingCells } from "@/data/managerTeamData";
 
-const av1 = "https://www.figma.com/api/mcp/asset/8ea64e6d-47b2-4170-9dab-1496e1e87b25";
-const av2 = "https://www.figma.com/api/mcp/asset/e67df370-f1b5-4b8a-b619-cb35470142c8";
-const av3 = "https://www.figma.com/api/mcp/asset/dc938b95-9aaf-413d-b182-bc2ce9ac3400";
 const avOverlay = "https://www.figma.com/api/mcp/asset/2719dfbb-ac03-4588-a503-9dbbccb2baa9";
 
-interface CellData {
+export interface CellData {
   count: number;
   label: string;
   countColor: string;
@@ -18,14 +14,6 @@ interface CellData {
   avatars: string[];
   names: string[];
 }
-
-// Cells derived from canonical candidates (potential × performance). Labels/colors from
-// shared CELL_META; avatars are decorative (shown only for non-empty cells).
-const AV = [av1, av2, av3];
-const cells: CellData[] = buildMappingCells(candidates).map(c => ({
-  ...c,
-  avatars: c.count > 0 ? AV.slice(0, Math.min(2, c.count)) : [],
-}));
 
 function AvatarStack({ avatars, names, count }: { avatars: string[]; names: string[]; count: number }) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
@@ -46,9 +34,9 @@ function AvatarStack({ avatars, names, count }: { avatars: string[]; names: stri
         onMouseLeave={() => setPos(null)}
       >
         {avatars.map((src, i) => (
-          <div key={i} className="w-[22px] h-[22px] rounded-full overflow-hidden border-2 border-white flex-shrink-0"
+          <div key={i} className="w-[22px] h-[22px] rounded-full overflow-hidden border-2 border-white flex-shrink-0 bg-[#e6f3f8]"
             style={{ marginRight: "-4px", zIndex: avatars.length - i }}>
-            <img src={src} alt="" className="w-full h-full object-cover" />
+            <img src={src} alt="" className="w-full h-full object-cover" onError={(e) => { e.currentTarget.style.display = "none"; }} />
           </div>
         ))}
         {extra > 0 && (
@@ -120,8 +108,19 @@ function GridCell({ cell, rowIdx, colIdx }: { cell: CellData; rowIdx: number; co
   );
 }
 
-export default function EmployeeMapping({ title = "Employee Mapping", customCells }: { title?: string; customCells?: typeof cells } = {}) {
-  const cellData = customCells ?? cells;
+export default function EmployeeMapping({
+  title = "Talent Mapping",
+  cells: cellData,
+  axisX = "Performance",
+  axisY = "Potency",
+}: {
+  title?: string;
+  /** Always computed server-side (src/lib/data/talentMapping.ts's getTalentMappingCells) — never candidates data directly in this client component. */
+  cells: CellData[];
+  axisX?: string;
+  axisY?: string;
+}) {
+  const router = useRouter();
   return (
     <div className="bg-white rounded-[8px] p-[16px] flex flex-col gap-[16px] w-full h-full"
       style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
@@ -131,7 +130,7 @@ export default function EmployeeMapping({ title = "Employee Mapping", customCell
           style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700 }}>
           {title}
         </p>
-        <TextButton>See Detail</TextButton>
+        <TextButton onClick={() => router.push("/talent-mapping")}>See Detail</TextButton>
       </div>
 
       {/* Matrix */}
@@ -140,7 +139,7 @@ export default function EmployeeMapping({ title = "Employee Mapping", customCell
         <div className="flex items-center justify-center w-[18px] flex-shrink-0">
           <div className="text-[#58595b] text-[10px] whitespace-nowrap"
             style={{ fontFamily: "'Open Sans', sans-serif", writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
-            Competency
+            {axisY}
           </div>
         </div>
 
@@ -153,7 +152,7 @@ export default function EmployeeMapping({ title = "Employee Mapping", customCell
           </div>
           <div className="h-px bg-[#adb5bd] mt-[2px]" />
           <p className="text-[#58595b] text-[10px] text-center mt-[2px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-            Performance
+            {axisX}
           </p>
         </div>
       </div>

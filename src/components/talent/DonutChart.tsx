@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { resolveColor } from "@/data/talentMappingData";
+import { resolveColor } from "@/data/talentMappingShared";
 
 const FONT = "'Open Sans', sans-serif";
 

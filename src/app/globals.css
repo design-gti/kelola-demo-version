@@ -26,6 +26,16 @@ html, body {
   animation: pulse-alert 2.4s ease-in-out infinite;
 }
 
+/* CopilotChat's own root class defaults to content-based height (no
+   flex-grow), so it keeps growing with every message instead of filling the
+   panel's flex column — the inner message list never gets a bounded height
+   to scroll within. Force it to fill its flex parent instead. */
+.kelola-assistant-chat.copilotKitChat {
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
 /* Thin subtle scrollbar for card interiors */
 .card-scroll {
   scrollbar-width: thin;

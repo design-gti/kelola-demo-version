@@ -1,9 +1,17 @@
 // Effective Talent Identification config: 9box default merged with the user's saved
 // overrides (layout + metrics + band thresholds + box labels/tags) from localStorage.
 // The Setting page writes here; the Talent Mapping page reads getEffectiveTIConfig().
-import { TMConfig, makeConfig } from "./talentMappingData";
+//
+// Also mirrors the save into a plain cookie (same JSON, same key minus casing —
+// see COOKIE below) so the Server Component at src/app/talent-mapping/page.tsx
+// can read the user's choice via src/lib/data/talentMappingConfig.ts's
+// getEffectiveTIConfigServer() — localStorage doesn't exist on the server.
+// Keep the cookie name in sync with TM_CONFIG_COOKIE in that file by hand;
+// they can't share an import across the client/server module boundary.
+import { TMConfig, makeConfig } from "./talentMappingShared";
 
 const KEY = "tm-config-TI";
+const COOKIE = "tm-config-ti";
 export const TM_CONFIG_EVENT = "tm-config-changed";
 
 type Saved = Pick<TMConfig, "layout" | "sumbuX" | "sumbuY" | "sumbuXKey" | "sumbuYKey" | "rangesX" | "rangesY" | "boxes">;
@@ -38,12 +46,15 @@ export function saveTIConfig(cfg: TMConfig): void {
     sumbuXKey: cfg.sumbuXKey, sumbuYKey: cfg.sumbuYKey,
     rangesX: cfg.rangesX, rangesY: cfg.rangesY, boxes: cfg.boxes,
   };
-  localStorage.setItem(KEY, JSON.stringify(s));
+  const json = JSON.stringify(s);
+  localStorage.setItem(KEY, json);
+  document.cookie = `${COOKIE}=${encodeURIComponent(json)}; path=/; max-age=${60 * 60 * 24 * 180}; SameSite=Lax`;
   window.dispatchEvent(new Event(TM_CONFIG_EVENT));
 }
 
 export function resetTIConfig(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(KEY);
+  document.cookie = `${COOKIE}=; path=/; max-age=0`;
   window.dispatchEvent(new Event(TM_CONFIG_EVENT));
 }

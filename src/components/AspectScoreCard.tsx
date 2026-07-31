@@ -4,51 +4,74 @@ import { createPortal } from "react-dom";
 import { Paper, Select, Button, TextInput, Avatar, Checkbox as MantineCheckbox, Text } from "@mantine/core";
 import { IconSearch, IconPlus } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
-import { candidates } from "@/data/dummyData";
+import { store } from "@/data/model/store";
+import type { ScoreKind } from "@/data/model/types";
 
-const aspects = [
-  { label: "Kreativitas",              below: 0,   meet: 276, exceed: 63  },
-  { label: "Leadership",               below: 166, meet: 109, exceed: 64  },
-  { label: "Kemampuan Membaca Akhlak", below: 79,  meet: 176, exceed: 84  },
-  { label: "Analytical Thinking",      below: 52,  meet: 152, exceed: 155 },
-  { label: "Logika berpikir",          below: 100, meet: 159, exceed: 85  },
-  { label: "Problem Solving",          below: 202, meet: 101, exceed: 36  },
+// 6 UI aspects → canonical score kinds (single source of truth = store).
+const ASPECTS: { label: string; kind: ScoreKind }[] = [
+  { label: "Kreativitas",              kind: "behavioral" },
+  { label: "Leadership",               kind: "leadership" },
+  { label: "Kemampuan Membaca Akhlak", kind: "engagement" },
+  { label: "Analytical Thinking",      kind: "technical" },
+  { label: "Logika berpikir",          kind: "competency" },
+  { label: "Problem Solving",          kind: "performance" },
 ];
 
-// Employee pool = canonical candidates (single source of truth).
-const POOL = candidates.map((c, i) => ({ id: i + 1, name: c.name, position: c.position, dept: c.department }));
-const TOTAL_EMP = POOL.length;
-
-function generateEmployee(seed: number): { id: number; name: string; position: string; dept: string } {
-  return POOL[(seed - 1) % POOL.length];
+// Score band thresholds (0–100): <70 Below, 70–84 Meet, ≥85 Exceed.
+function band(score: number): "Below Standard" | "Meet Standard" | "Exceed Standard" {
+  if (score < 70) return "Below Standard";
+  if (score < 85) return "Meet Standard";
+  return "Exceed Standard";
 }
 
-// Build employee list per aspect per segment
-function buildEmployeeData() {
-  // One entry per canonical participant
-  const allEmployees = Array.from({ length: TOTAL_EMP }, (_, i) => generateEmployee(i + 1));
+type AspectRow = { label: string; below: number; meet: number; exceed: number };
+type BandData = Record<string, Record<string, Employee[]>>;
 
-  const result: Record<string, Record<string, typeof allEmployees>> = {};
+// Team options for the filter (id null = all teams).
+const TEAM_OPTIONS = [{ id: null as string | null, name: "All Team" }, ...store.teams.map(t => ({ id: t.id, name: t.name }))];
 
-  for (const a of aspects) {
-    const total = a.below + a.meet + a.exceed || 339;
-    const belowN  = Math.round((a.below  / total) * TOTAL_EMP);
-    const exceedN = Math.round((a.exceed / total) * TOTAL_EMP);
-    const meetN   = TOTAL_EMP - belowN - exceedN;
-
-    // Each aspect shuffles the pool differently using a simple rotation
-    const offset = aspects.indexOf(a) * 37;
-    const rotated = [...allEmployees.slice(offset % TOTAL_EMP), ...allEmployees.slice(0, offset % TOTAL_EMP)];
-
-    result[a.label] = {};
-    if (belowN > 0)  result[a.label]["Below Standard"]  = rotated.slice(0, belowN);
-    if (meetN > 0)   result[a.label]["Meet Standard"]   = rotated.slice(belowN, belowN + meetN);
-    if (exceedN > 0) result[a.label]["Exceed Standard"] = rotated.slice(belowN + meetN, belowN + meetN + exceedN);
+// Compute per-aspect band counts + per-band member lists for a team (null = all).
+function computeAspects(teamId: string | null): { aspects: AspectRow[]; data: BandData } {
+  const parts = teamId ? store.membersOf(teamId) : store.participants;
+  const aspects: AspectRow[] = [];
+  const data: BandData = {};
+  for (const a of ASPECTS) {
+    const counts = { "Below Standard": 0, "Meet Standard": 0, "Exceed Standard": 0 };
+    const lists: Record<string, Employee[]> = {};
+    for (const p of parts) {
+      const s = store.score(p.id, a.kind);
+      if (s == null) continue;
+      const b = band(s);
+      counts[b]++;
+      const pos = store.position(p.positionId);
+      (lists[b] ??= []).push({ id: Number(p.id.replace(/\D/g, "")) || 0, name: p.name, position: pos?.title ?? "", dept: pos?.department ?? "" });
+    }
+    aspects.push({ label: a.label, below: counts["Below Standard"], meet: counts["Meet Standard"], exceed: counts["Exceed Standard"] });
+    data[a.label] = lists;
   }
-  return result;
+  return { aspects, data };
 }
 
-const employeeData = buildEmployeeData();
+// Custom (manager) aspects only carry counts — sample real members proportionally so the modal still works.
+function sampleBands(rows: AspectRow[]): BandData {
+  const pool: Employee[] = store.participants.map(p => {
+    const pos = store.position(p.positionId);
+    return { id: Number(p.id.replace(/\D/g, "")) || 0, name: p.name, position: pos?.title ?? "", dept: pos?.department ?? "" };
+  });
+  const data: BandData = {};
+  rows.forEach((a, i) => {
+    const total = a.below + a.meet + a.exceed || 1;
+    const belowN = Math.round((a.below / total) * pool.length);
+    const exceedN = Math.round((a.exceed / total) * pool.length);
+    const rot = [...pool.slice((i * 37) % pool.length), ...pool.slice(0, (i * 37) % pool.length)];
+    data[a.label] = {
+      "Below Standard": rot.slice(0, belowN),
+      "Meet Standard": rot.slice(belowN, pool.length - exceedN),
+      "Exceed Standard": rot.slice(pool.length - exceedN),
+    };
+  });
+  return data;
+}
 
 function getColor(label: string) {
   if (label === "Below Standard")  return { bg: "#fff3cd", text: "#856404", dot: "#c1d8fc" };
@@ -229,10 +252,14 @@ interface AspectScoreCardProps {
 }
 
 export default function AspectScoreCard({ title = "Percentage of Aspect Score", hideDeptFilter, customAspects }: AspectScoreCardProps = {}) {
-  const aspectData = customAspects ?? aspects;
-  const totalEmp = customAspects ? customAspects[0].below + customAspects[0].meet + customAspects[0].exceed : TOTAL_EMP;
+  const [teamId, setTeamId] = useState<string | null>(null);
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
   const [modal, setModal] = useState<ModalState | null>(null);
+
+  const { aspects: aspectData, data: employeeData } = useMemo(
+    () => customAspects ? { aspects: customAspects, data: sampleBands(customAspects) } : computeAspects(teamId),
+    [customAspects, teamId],
+  );
 
   const showTooltip = (rowLabel: string, label: string, pct: number, e: React.MouseEvent) => {
     const rect = (e.target as HTMLElement).getBoundingClientRect();
@@ -255,11 +282,12 @@ export default function AspectScoreCard({ title = "Percentage of Aspect Score", 
         </Text>
         {!hideDeptFilter && (
           <Select
-            data={["All Department"]}
-            defaultValue="All Department"
+            data={TEAM_OPTIONS.map(t => t.name)}
+            value={TEAM_OPTIONS.find(t => t.id === teamId)!.name}
+            onChange={(name) => setTeamId(TEAM_OPTIONS.find(t => t.name === name)?.id ?? null)}
             radius="xl"
             size="xs"
-            w={141}
+            w={160}
             allowDeselect={false}
             comboboxProps={{ withinPortal: true }}
             style={{ flexShrink: 0 }}

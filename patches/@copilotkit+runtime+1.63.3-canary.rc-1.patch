@@ -1,0 +1,48 @@
+diff --git a/node_modules/@copilotkit/runtime/dist/lib/runtime/copilot-runtime.cjs b/node_modules/@copilotkit/runtime/dist/lib/runtime/copilot-runtime.cjs
+index 6bef2d2..f7d2ef6 100644
+--- a/node_modules/@copilotkit/runtime/dist/lib/runtime/copilot-runtime.cjs
++++ b/node_modules/@copilotkit/runtime/dist/lib/runtime/copilot-runtime.cjs
+@@ -82,8 +82,8 @@ var CopilotRuntime = class {
+ 			if (isAgentsListEmpty && (!hasServiceAdapter || !serviceAdapterCanBeUsedForAgent)) throw new _copilotkit_shared.CopilotKitMisuseError({ message: "No default agent provided. Please provide a default agent in the runtime config." });
+ 			if (isAgentsListEmpty) {
+ 				const languageModel = serviceAdapter.getLanguageModel?.();
+-				if (languageModel) agentsList.default = new require_index.BuiltInAgent({ model: languageModel });
+-				else if (serviceAdapter.provider && serviceAdapter.model) agentsList.default = new require_index.BuiltInAgent({ model: `${serviceAdapter.provider}/${serviceAdapter.model}` });
++				if (languageModel) agentsList.default = new require_index.BuiltInAgent({ model: languageModel, maxSteps: 10 });
++				else if (serviceAdapter.provider && serviceAdapter.model) agentsList.default = new require_index.BuiltInAgent({ model: `${serviceAdapter.provider}/${serviceAdapter.model}`, maxSteps: 10 });
+ 				else throw new _copilotkit_shared.CopilotKitMisuseError({ message: `Service adapter "${serviceAdapter.name ?? "unknown"}" does not provide model information. When using adapters like LangChainAdapter without an explicit agents list, please provide a default agent in the runtime config. Example:\n  new CopilotRuntime({\n    agents: { default: new BuiltInAgent({ model: "openai/gpt-4o" }) }\n  })` });
+ 			}
+ 			const actions = this.params?.actions;
+@@ -104,7 +104,7 @@ var CopilotRuntime = class {
+ 				name: action.name,
+ 				description: action.description || "",
+ 				parameters: zodSchema,
+-				execute: () => Promise.resolve()
++				execute: (args) => action.handler(args)
+ 			};
+ 		});
+ 	}
+diff --git a/node_modules/@copilotkit/runtime/dist/lib/runtime/copilot-runtime.mjs b/node_modules/@copilotkit/runtime/dist/lib/runtime/copilot-runtime.mjs
+index f9b1eac..9729bc5 100644
+--- a/node_modules/@copilotkit/runtime/dist/lib/runtime/copilot-runtime.mjs
++++ b/node_modules/@copilotkit/runtime/dist/lib/runtime/copilot-runtime.mjs
+@@ -81,8 +81,8 @@ var CopilotRuntime = class {
+ 			if (isAgentsListEmpty && (!hasServiceAdapter || !serviceAdapterCanBeUsedForAgent)) throw new CopilotKitMisuseError({ message: "No default agent provided. Please provide a default agent in the runtime config." });
+ 			if (isAgentsListEmpty) {
+ 				const languageModel = serviceAdapter.getLanguageModel?.();
+-				if (languageModel) agentsList.default = new BuiltInAgent({ model: languageModel });
+-				else if (serviceAdapter.provider && serviceAdapter.model) agentsList.default = new BuiltInAgent({ model: `${serviceAdapter.provider}/${serviceAdapter.model}` });
++				if (languageModel) agentsList.default = new BuiltInAgent({ model: languageModel, maxSteps: 10 });
++				else if (serviceAdapter.provider && serviceAdapter.model) agentsList.default = new BuiltInAgent({ model: `${serviceAdapter.provider}/${serviceAdapter.model}`, maxSteps: 10 });
+ 				else throw new CopilotKitMisuseError({ message: `Service adapter "${serviceAdapter.name ?? "unknown"}" does not provide model information. When using adapters like LangChainAdapter without an explicit agents list, please provide a default agent in the runtime config. Example:\n  new CopilotRuntime({\n    agents: { default: new BuiltInAgent({ model: "openai/gpt-4o" }) }\n  })` });
+ 			}
+ 			const actions = this.params?.actions;
+@@ -103,7 +103,7 @@ var CopilotRuntime = class {
+ 				name: action.name,
+ 				description: action.description || "",
+ 				parameters: zodSchema,
+-				execute: () => Promise.resolve()
++				execute: (args) => action.handler(args)
+ 			};
+ 		});
+ 	}

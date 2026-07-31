@@ -1,4 +1,8 @@
-import { candidates, Candidate } from "./dummyData";
+// Client-safe half of the old talentMappingData.ts: box/axis/layout config and
+// pure display-mapping logic (including the band placement engine below), none
+// of which touches the candidates fixture. Safe to import directly from
+// "use client" components. Per-employee plot points (which do read candidates)
+// live in src/lib/data/talentMapping.ts (server-only).
 import { mantineColor } from "@/components/team/mantineColor";
 
 // Resolve a Mantine color token ("error.3") to hex, using the ported palette.
@@ -49,6 +53,7 @@ export interface TMPoint {
   employeeId: string;
   name: string;
   positionTitle: string;
+  team: string;
   rawX: number | null;
   rawY: number | null;
   x: number | null;          // 0..100 plot position
@@ -169,49 +174,34 @@ export function boxByOrder(cfg: TMConfig, order: number | null): BoxDef | null {
 }
 
 // ---------------------------------------------------------------------------
-// Placement engine — RAW value → band index → box order, using configured bands.
+// Placement engine — RAW value → band index → box order, using configured
+// bands. Pure functions (numbers in, numbers out) — safe here since they
+// never touch the candidates fixture. Exported for src/lib/data/talentMapping.ts
+// (server-only), which supplies the actual per-employee raw values.
 // ---------------------------------------------------------------------------
 export function bandIndex(v: number, bands: AxisBand[]): number {
   for (let i = 0; i < bands.length; i++) if (v <= bands[i].max) return i;
   return bands.length - 1;
 }
 // plot position 0..100 within the (equal-width) cell for this band
-function plotPos(v: number, bands: AxisBand[]): number {
+export function plotPos(v: number, bands: AxisBand[]): number {
   const i = bandIndex(v, bands);
   const span = bands[i].max - bands[i].min;
   const frac = span > 0 ? Math.min(1, Math.max(0, (v - bands[i].min) / span)) : 0.5;
   return ((i + frac) / bands.length) * 100;
 }
 
-function orderFor(cfg: TMConfig, rawX: number, rawY: number): number {
+export function orderFor(cfg: TMConfig, rawX: number, rawY: number): number {
   const xi = bandIndex(rawX, cfg.rangesX);
   const yi = bandIndex(rawY, cfg.rangesY);
   const rowFromTop = cfg.rangesY.length - 1 - yi;   // ordering rows are top→bottom (highest Y first)
   return cfg.ordering[rowFromTop][xi];
 }
 
-const val = (c: Candidate, key: MetricKey): number | null => c[key];
-
-export function computePoints(cfg: TMConfig): TMPoint[] {
-  return candidates.map(c => {
-    const rawX = val(c, cfg.sumbuXKey);
-    const rawY = val(c, cfg.sumbuYKey);
-    const has = rawX != null && rawY != null;
-    return {
-      employeeId: c.id,
-      name: c.name,
-      positionTitle: c.position,
-      rawX, rawY,
-      x: has ? plotPos(rawX!, cfg.rangesX) : null,
-      y: has ? plotPos(rawY!, cfg.rangesY) : null,
-      order: has ? orderFor(cfg, rawX!, rawY!) : null,
-    };
-  });
-}
-
-// Default 9box config + its points (kept for back-compat imports).
+// Default 9box config (client-safe — no per-employee data). Actual plot
+// points for a config are computed server-side; see
+// src/lib/data/talentMapping.ts's getTalentIdentificationPoints().
 export const TI_CONFIG: TMConfig = makeConfig("9box");
-export const TI_POINTS: TMPoint[] = computePoints(TI_CONFIG);
 
 // TR (Talent Readiness): Competency × Potency, empty until a Job Target is picked.
 export const TR_CONFIG: TMConfig = {
@@ -229,8 +219,6 @@ export const TR_CONFIG: TMConfig = {
     { order: 9, label: "Ready for bigger role", color: BLU3, tag: null },
   ],
 };
-export const TR_POINTS: TMPoint[] = [];
-
 // Donut tags (kelola-app quirk: TI reuses tenure labels for talent/non/no-data counts).
 export function donutTags(cfg: TMConfig, points: TMPoint[]) {
   const isTalent = (p: TMPoint) => boxByOrder(cfg, p.order)?.tag === "talent";

@@ -43,11 +43,14 @@ function fixPerson(obj, roleFromCanon = false) {
   if (roleFromCanon && cr && "role" in obj) obj.role = cr.position;
 }
 
-// employees: role/dept/email/nik from canonical; fix pic identities
+// employees: role/dept/email/nik/avatar from canonical; fix pic identities
 (d.employees || []).forEach(e => {
   e.name = fixName(e.name);
   const cr = byName.get(e.name);
-  if (cr) { e.role = cr.position; e.dept = cr.department; e.email = emailOf(e.name); e.nik = nikOf(e.name); }
+  if (cr) {
+    e.role = cr.position; e.dept = cr.department; e.email = emailOf(e.name); e.nik = nikOf(e.name);
+    if ("avatar" in e && cr.id) e.avatar = `/avatars/photo_wc2026/${cr.id.toLowerCase()}.png`;
+  }
   (e.idps || []).forEach(idp => (idp.pics || []).forEach(p => fixPerson(p)));
 });
 

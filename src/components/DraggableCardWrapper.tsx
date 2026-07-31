@@ -14,7 +14,7 @@ const DraggableCardWrapper = forwardRef<HTMLDivElement, Props>(function Draggabl
   ref
 ) {
   return (
-    <div ref={ref} style={{ position: "relative" }}>
+    <div ref={ref} id={`dashboard-card-${id}`} style={{ position: "relative" }}>
       {/* Insert line — before */}
       {showInsertLine === "before" && (
         <div style={{

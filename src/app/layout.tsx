@@ -4,6 +4,7 @@ import "@mantine/core/styles.css";
 import "./globals.css";
 import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 import AppMantineProvider from "@/components/AppMantineProvider";
+import CopilotProvider from "@/components/CopilotProvider";
 import Sidebar from "@/components/Sidebar";
 
 const openSans = Open_Sans({
@@ -29,17 +30,19 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-[#f8f9fa]">
         <AppMantineProvider>
-          <Sidebar />
-          <main
-            style={{
-              minWidth: 0,
-              minHeight: "100vh",
-              marginLeft: "var(--sidebar-w, 220px)",
-              transition: "margin-left 0.22s ease",
-            }}
-          >
-            {children}
-          </main>
+          <CopilotProvider>
+            <Sidebar />
+            <main
+              style={{
+                minWidth: 0,
+                minHeight: "100vh",
+                marginLeft: "var(--sidebar-w, 220px)",
+                transition: "margin-left 0.22s ease",
+              }}
+            >
+              {children}
+            </main>
+          </CopilotProvider>
         </AppMantineProvider>
       </body>
     </html>
