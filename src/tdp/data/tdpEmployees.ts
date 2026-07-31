@@ -287,13 +287,13 @@ function rowToEmployee(row: Record<string, string>): Employee {
 
   // --- Derive scores from grouped columns when direct columns are empty ---
   // The IASS CSV leaves Score/Capability/Commitment/Performance/Readiness empty
-  // for most rows; the real signal is in [KOMPETENSI] / [HEROES] / [LEADERSHIP PROFILE]
-  // groups (1-5 scale per item) and [HEROES] presen_kecocokan (0-1 fit ratio).
+  // for most rows; the real signal is in [KOMPETENSI] / [ENGAGEMENT] / [LEADERSHIP PROFILE]
+  // groups (1-5 scale per item) and [ENGAGEMENT] presen_kecocokan (0-1 fit ratio).
   // Columns to exclude from 1–5 scale averages (percentage/ratio columns)
   const EXCLUDE_FROM_AVG = new Set([
     '[KOMPETENSI] Persentase Kecocokan',
-    '[HEROES] presen_kecocokan',
-    '[HEROES] hasil_rekomendasi',
+    '[ENGAGEMENT] presen_kecocokan',
+    '[ENGAGEMENT] hasil_rekomendasi',
   ]);
 
   const groupAverage = (prefix: string): number | undefined => {
@@ -306,18 +306,18 @@ function rowToEmployee(row: Record<string, string>): Employee {
   };
 
   const kompetensiAvg = groupAverage('[KOMPETENSI]');         // 1-5
-  const heroesAvg = groupAverage('[HEROES]');                 // 1-5 (presen_kecocokan 0-1 also included; filtered below)
+  const heroesAvg = groupAverage('[ENGAGEMENT]');                 // 1-5 (presen_kecocokan 0-1 also included; filtered below)
   // Recompute heroes avg excluding presen_kecocokan / hasil_rekomendasi (non 1-5 items)
   const heroesItems = Object.keys(row)
-    .filter((k) => k.startsWith('[HEROES]') && k !== '[HEROES] presen_kecocokan' && k !== '[HEROES] hasil_rekomendasi')
+    .filter((k) => k.startsWith('[ENGAGEMENT]') && k !== '[ENGAGEMENT] presen_kecocokan' && k !== '[ENGAGEMENT] hasil_rekomendasi')
     .map((k) => parseNumber(row[k]))
     .filter((v): v is number => typeof v === 'number');
   const heroesCleanAvg = heroesItems.length > 0
     ? heroesItems.reduce((s, v) => s + v, 0) / heroesItems.length
     : heroesAvg;
   const leadershipAvg = groupAverage('[LEADERSHIP PROFILE]'); // 1-5
-  const presenKecocokan = parseNumber(row['[HEROES] presen_kecocokan']); // 0-1
-  const hasilRekomendasi = (row['[HEROES] hasil_rekomendasi'] || '').trim();
+  const presenKecocokan = parseNumber(row['[ENGAGEMENT] presen_kecocokan']); // 0-1
+  const hasilRekomendasi = (row['[ENGAGEMENT] hasil_rekomendasi'] || '').trim();
 
   // Convert 1-5 averages → 0-100 scores so the UI's percent-based widgets work.
   const to100 = (v: number | undefined) =>

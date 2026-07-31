@@ -1,6 +1,6 @@
 // Generate public/data/tdp-employees.csv from canonical participants.csv, in the
 // FULL schema expected by the Prodigy-design TDP app (tdp-prototype feat/tdp-prodigy-wc,
-// based on tdp-mvp) — including [KOMPETENSI] (18), [HEROES] (12), [LEADERSHIP PROFILE]
+// based on tdp-mvp) — including [KOMPETENSI] (18), [ENGAGEMENT] (12), [LEADERSHIP PROFILE]
 // (9) and [LEADERSHIP STYLE] groups — so the Compare cards show Heroes + Leadership
 // Style and the Table shows all competency columns. Values are WC-derived (no IAS).
 // The TDP app fetches this at runtime, so editing participants.csv + re-running seed
@@ -75,7 +75,7 @@ const HEADERS = [
   "Personality (DISC)", "Leadership Type", "Score", "Readiness", "IQ", "Capability",
   "Commitment", "Contribution", "Performance",
   ...KOMPETENSI.map(k => `[KOMPETENSI] ${k}`), "[KOMPETENSI] Persentase Kecocokan",
-  ...HEROES.map(k => `[HEROES] ${k}`), "[HEROES] presen_kecocokan", "[HEROES] hasil_rekomendasi",
+  ...HEROES.map(k => `[ENGAGEMENT] ${k}`), "[ENGAGEMENT] presen_kecocokan", "[ENGAGEMENT] hasil_rekomendasi",
   ...LEAD_PROFILE.map(k => `[LEADERSHIP PROFILE] ${k}`),
   "[LEADERSHIP STYLE] Team Role 1", "[LEADERSHIP STYLE] Team Role 2", "[LEADERSHIP STYLE] Leadership Style",
   "[LEADERSHIP STYLE] Subordinate Style", "[LEADERSHIP STYLE] Social Style",
@@ -125,8 +125,8 @@ rows.forEach((r, i) => {
     "Contribution": num(r.engagement),
     "Performance": num(r.performance),
     "[KOMPETENSI] Persentase Kecocokan": `${comp}%`,
-    "[HEROES] presen_kecocokan": (clamp(comp, 0, 100) / 100).toFixed(4),
-    "[HEROES] hasil_rekomendasi": comp > 85 ? "Sangat Disarankan" : comp > 70 ? "Disarankan" : "Dipertimbangkan",
+    "[ENGAGEMENT] presen_kecocokan": (clamp(comp, 0, 100) / 100).toFixed(4),
+    "[ENGAGEMENT] hasil_rekomendasi": comp > 85 ? "Sangat Disarankan" : comp > 70 ? "Disarankan" : "Dipertimbangkan",
     "[LEADERSHIP STYLE] Team Role 1": BELBIN[i % BELBIN.length],
     "[LEADERSHIP STYLE] Team Role 2": BELBIN[(i + 3) % BELBIN.length],
     "[LEADERSHIP STYLE] Leadership Style": STYLES[(discIdx(r.disc) + Math.floor(comp / 25)) % STYLES.length],
@@ -136,7 +136,7 @@ rows.forEach((r, i) => {
     "Tim": `Tim ${r.department}`,
   };
   KOMPETENSI.forEach((k, j) => { rec[`[KOMPETENSI] ${k}`] = vary(kBase, j, i); });
-  HEROES.forEach((k, j) => { rec[`[HEROES] ${k}`] = vary(hBase, j, i + 2); });
+  HEROES.forEach((k, j) => { rec[`[ENGAGEMENT] ${k}`] = vary(hBase, j, i + 2); });
   LEAD_PROFILE.forEach((k, j) => { rec[`[LEADERSHIP PROFILE] ${k}`] = vary(lBase, j, i + 5); });
 
   out.push(HEADERS.map(h => { const v = String(rec[h] ?? ""); return /[",]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v; }).join(","));

@@ -258,7 +258,7 @@ const COVERED_CSV_HEADERS = new Set<string>([
 // Map a raw CSV header → cluster used by VisibleColumnsDialog.
 // Mirrors the CSV's own column-grouping:
 //   [KOMPETENSI]  → aspect (sub-section under Capability)
-//   [HEROES]      → commitment
+//   [ENGAGEMENT]      → commitment
 //   [LEADERSHIP PROFILE] → contribution
 //   Capability, IQ → capability (uses 'competency' cluster, main Capability section)
 //   Commitment    → commitment (main section, not aspect)
@@ -268,7 +268,7 @@ const COVERED_CSV_HEADERS = new Set<string>([
 //   everything else → basic
 function clusterFromCsvHeader(h: string): ColumnConfig['cluster'] | undefined {
   if (h.startsWith('[KOMPETENSI]')) return 'aspect';
-  if (h.startsWith('[HEROES]')) return 'commitment' as ColumnConfig['cluster'];
+  if (h.startsWith('[ENGAGEMENT]')) return 'commitment' as ColumnConfig['cluster'];
   if (h.startsWith('[LEADERSHIP PROFILE]')) return 'contribution' as ColumnConfig['cluster'];
   if (h === 'Capability' || h === 'IQ') return 'competency' as ColumnConfig['cluster'];
   if (h === 'Commitment') return 'commitment' as ColumnConfig['cluster'];
@@ -385,7 +385,7 @@ const CLUSTER_CATEGORIES = [
     totalScoreKey: 'competencyScore' as const,
   },
   {
-    // CSV bracket group: [HEROES] (or whatever maps to 'commitment')
+    // CSV bracket group: [ENGAGEMENT] (or whatever maps to 'commitment')
     name: CSV_CLUSTER_NAMES['commitment'] ?? 'COMMITMENT',
     columns: ['engagementScore'],
     totalScoreKey: 'commitmentScore' as const
