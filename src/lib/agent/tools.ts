@@ -50,14 +50,17 @@ export interface BackendAction {
  * CopilotProvider.tsx instead, since only the browser has a router/DOM —
  * out of scope for this factory and for the eval harness.
  */
-export function buildBackendActions(session: SessionContext): BackendAction[] {
+export function buildBackendActions(session: SessionContext, requestId?: string): BackendAction[] {
+  const log = (action: string, detail?: Record<string, unknown>) =>
+    logAgentEvent({ sessionRole: session.role, action, detail, requestId });
+
   return [
     {
       name: "getSuccessionRiskSummary",
       description: "Summarize which critical positions lack a ready, tracked successor.",
       parameters: [],
       handler: async () => {
-        logAgentEvent({ sessionRole: session.role, action: "getSuccessionRiskSummary" });
+        log("getSuccessionRiskSummary");
         return getAgentSuccessionRiskView(session);
       },
     },
@@ -66,7 +69,7 @@ export function buildBackendActions(session: SessionContext): BackendAction[] {
       description: "Count and list (by name only, no raw scores) employees needing development within the caller's scope.",
       parameters: [],
       handler: async () => {
-        logAgentEvent({ sessionRole: session.role, action: "getEmployeesNeedingDevelopment" });
+        log("getEmployeesNeedingDevelopment");
         return getAgentDevelopmentView(session);
       },
     },
@@ -75,7 +78,7 @@ export function buildBackendActions(session: SessionContext): BackendAction[] {
       description: "Get the profile data completion percentage and which fields are missing or stale, scoped to the caller's role.",
       parameters: [],
       handler: async () => {
-        logAgentEvent({ sessionRole: session.role, action: "getProfileCompletionSummary" });
+        log("getProfileCompletionSummary");
         return getAgentProfileCompletionView(session);
       },
     },
@@ -86,7 +89,7 @@ export function buildBackendActions(session: SessionContext): BackendAction[] {
         { name: "candidateId", type: "string", description: "The candidate id, e.g. \"p01\"", required: true },
       ] as const,
       handler: async (args: { candidateId: string }) => {
-        logAgentEvent({ sessionRole: session.role, action: "getEmployeePersonality", detail: { candidateId: args.candidateId } });
+        log("getEmployeePersonality", { candidateId: args.candidateId });
         return getAgentPersonalityView(session, args.candidateId) ?? { visible: false, reason: "Employee not found." };
       },
     },
@@ -97,7 +100,7 @@ export function buildBackendActions(session: SessionContext): BackendAction[] {
         { name: "query", type: "string", description: "Position title or acronym, e.g. \"CEO\" or \"Head of Engineering\"", required: true },
       ] as const,
       handler: async (args: { query: string }) => {
-        logAgentEvent({ sessionRole: session.role, action: "getPositionHolder", detail: { query: args.query } });
+        log("getPositionHolder", { query: args.query });
         return getAgentPositionHolderView(session, args.query);
       },
     },
@@ -106,7 +109,7 @@ export function buildBackendActions(session: SessionContext): BackendAction[] {
       description: "Summarize Individual Development Plan (IDP) status across employees: counts by status (In Progress/Expired/Need Review/Completed) and who's overdue.",
       parameters: [],
       handler: async () => {
-        logAgentEvent({ sessionRole: session.role, action: "getIdpStatus" });
+        log("getIdpStatus");
         return getAgentIdpStatusView(session);
       },
     },
@@ -115,7 +118,7 @@ export function buildBackendActions(session: SessionContext): BackendAction[] {
       description: "Get the Talent Mapping 9-box distribution (Performance × Potency) — how many employees fall into each box, e.g. Star, Rising Star, Under Performer.",
       parameters: [],
       handler: async () => {
-        logAgentEvent({ sessionRole: session.role, action: "getTalentMapping" });
+        log("getTalentMapping");
         return getAgentTalentMappingView(session);
       },
     },
@@ -126,7 +129,7 @@ export function buildBackendActions(session: SessionContext): BackendAction[] {
         { name: "query", type: "string", description: "Team name or partial name, e.g. \"Engineering\"", required: true },
       ] as const,
       handler: async (args: { query: string }) => {
-        logAgentEvent({ sessionRole: session.role, action: "getTeamOverview", detail: { query: args.query } });
+        log("getTeamOverview", { query: args.query });
         return getAgentTeamOverviewView(session, args.query) ?? { visible: false, reason: "Team not found." };
       },
     },
@@ -135,7 +138,7 @@ export function buildBackendActions(session: SessionContext): BackendAction[] {
       description: "Get which profile fields are missing, grouped by urgency (Critical/High/Normal) and how many employees are affected.",
       parameters: [],
       handler: async () => {
-        logAgentEvent({ sessionRole: session.role, action: "getDataQualityAlerts" });
+        log("getDataQualityAlerts");
         return getAgentDataQualityView(session);
       },
     },
@@ -148,7 +151,7 @@ export function buildBackendActions(session: SessionContext): BackendAction[] {
         { name: "count", type: "number", description: "How many to return; defaults to 5", required: false },
       ] as const,
       handler: async (args: { metric: string; direction?: string; count?: number }) => {
-        logAgentEvent({ sessionRole: session.role, action: "getRankedEmployees", detail: args });
+        log("getRankedEmployees", args);
         const metric = toScoreMetric(args.metric);
         const direction = args.direction === "bottom" ? "bottom" : "top";
         return getAgentRankedEmployeesView(session, metric, direction, args.count ?? 5);
@@ -161,7 +164,7 @@ export function buildBackendActions(session: SessionContext): BackendAction[] {
         { name: "query", type: "string", description: "Employee name or partial name, e.g. \"Kylian Mbappe\"", required: true },
       ] as const,
       handler: async (args: { query: string }) => {
-        logAgentEvent({ sessionRole: session.role, action: "getOrgHierarchy", detail: { query: args.query } });
+        log("getOrgHierarchy", { query: args.query });
         return getAgentOrgHierarchyView(session, args.query);
       },
     },
@@ -173,7 +176,7 @@ export function buildBackendActions(session: SessionContext): BackendAction[] {
         { name: "metric", type: "string", description: "One of: behavioral, technical, performance, leadership, competency, prediction, engagement", required: true },
       ] as const,
       handler: async (args: { name: string; metric: string }) => {
-        logAgentEvent({ sessionRole: session.role, action: "getEmployeeRank", detail: args });
+        log("getEmployeeRank", args);
         const metric = toScoreMetric(args.metric);
         return getAgentEmployeeRankView(session, args.name, metric) ?? { visible: false, reason: "Employee not found, or no measured value for that metric." };
       },
