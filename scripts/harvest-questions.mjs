@@ -74,6 +74,20 @@ function correlateByRequest(events) {
   return [...byRequest.values()].filter(e => e.question);
 }
 
+// RFC4180-ish: quote a field only when it contains a comma, quote, or
+// newline, doubling any internal quotes — so this opens cleanly in Excel/
+// Google Sheets without a separate JSON->CSV conversion step.
+function csvField(value) {
+  const s = value == null ? "" : String(value);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function feedbackToCsv(feedback) {
+  const header = ["timestamp", "rating", "question", "answer"];
+  const rows = feedback.map(f => [f.timestamp, f.rating, f.question, f.answer]);
+  return [header, ...rows].map(row => row.map(csvField).join(",")).join("\n") + "\n";
+}
+
 function clusterByQuestion(entries) {
   const clusters = new Map();
   for (const { question, tools } of entries) {
@@ -154,6 +168,10 @@ function main() {
     const feedbackOutPath = fileURLToPath(new URL("./eval/harvested-feedback.json", import.meta.url));
     writeFileSync(feedbackOutPath, JSON.stringify(feedback, null, 2));
     console.log(`Full feedback data written to ${feedbackOutPath}`);
+
+    const feedbackCsvPath = fileURLToPath(new URL("./eval/harvested-feedback.csv", import.meta.url));
+    writeFileSync(feedbackCsvPath, feedbackToCsv(feedback));
+    console.log(`Feedback recap (rating, question, answer, timestamp) written to ${feedbackCsvPath} — open directly in Excel/Google Sheets`);
   }
 
   console.log(
