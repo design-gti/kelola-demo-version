@@ -1,4 +1,4 @@
-import { teams, teamMember, teamMembers, teamAverages } from "@/data/teamsData";
+import { teams, teamMember, teamMembers, teamAverages, teamArchetype, structuralTeamRecommendations } from "@/data/teamsData";
 import TeamProfileClient from "./TeamProfileClient";
 
 export default async function TeamProfilePage({
@@ -13,6 +13,7 @@ export default async function TeamProfilePage({
     members: teamMembers(team),
     leader: team.leaderId ? teamMember(team.leaderId) : null,
     avg: teamAverages(team),
+    archetype: teamArchetype(team),
   }));
 
   const initialTab: "overview" | "interaction" = tabParam === "interaction" ? "interaction" : "overview";
@@ -23,6 +24,7 @@ export default async function TeamProfilePage({
       initialSelectedTeamId={teamParam ?? null}
       initialTab={initialTab}
       initialHighlight={highlight ?? null}
+      recommendations={structuralTeamRecommendations()}
     />
   );
 }

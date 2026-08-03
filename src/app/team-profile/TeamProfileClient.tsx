@@ -1,9 +1,16 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { discProfile, predictionLabel, DISC_GUIDANCE, type Personality, type Team, type TeamMember } from "@/data/teamsData";
+import { useRouter } from "next/navigation";
+import { archetypeIconSrc, discProfile, predictionLabel, DISC_GUIDANCE, type Personality, type StructuralTeamRecommendation, type Team, type TeamArchetype, type TeamMember } from "@/data/teamsData";
 import DiscRadar, { DISCTypes } from "@/components/team/DiscRadar";
+import TeamTypeDetail from "@/components/team/TeamTypeDetail";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import { matchesFuzzy } from "@/lib/data/textMatch";
+import { ActionIcon, Button, Checkbox, Modal, TextInput, Tooltip } from "@talentlytica/prodigy";
+// Prodigy ships no layout primitives, so Group (which its Button docs tell us to
+// use for spacing instead of manual margins) comes straight from Mantine.
+import { Group } from "@mantine/core";
+import { IconFileSearch, IconSearch, IconSparkles } from "@tabler/icons-react";
 
 /** How long the deep-link highlight (colored outline + auto-scroll) stays visible before fading — mirrors Vismap's OrgChartCard highlight timing. */
 const HIGHLIGHT_DURATION_MS = 3000;
@@ -14,6 +21,8 @@ export interface ResolvedTeam {
   members: TeamMember[];
   leader: TeamMember | null;
   avg: { performance: number | null; engagement: number | null };
+  /** DISC blend of this team's members → named team type. Null when the team has no members. */
+  archetype: TeamArchetype | null;
 }
 
 const DISC_AXES: Personality[] = ["Driver", "Persuader", "Mediator", "Analyzer"];
@@ -75,9 +84,67 @@ function TypeBadge({ type }: { type: ResolvedTeam["team"]["type"] }) {
   );
 }
 
+/** One structural-team suggestion inside the "Rekomendasi Tim Struktural" modal. */
+function RecommendationCard({ rec, checked, onToggle }: {
+  rec: StructuralTeamRecommendation;
+  checked: boolean;
+  onToggle: () => void;
+}) {
+  const shownIds = rec.memberIds.slice(0, 4);
+  const overflow = rec.memberIds.length - shownIds.length;
+  return (
+    <div style={{
+      border: "1px solid #e9ecef", borderRadius: 12, padding: 16, background: "#fff",
+      display: "flex", flexDirection: "column", gap: 12,
+    }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+        <Checkbox
+          checked={checked}
+          onChange={onToggle}
+          size="xs"
+          label={<span style={{ fontFamily: FONT, fontSize: 14, fontWeight: 700, color: ACCENT }}>{rec.name}</span>}
+        />
+        <TypeBadge type="STRUCTURAL" />
+      </div>
+
+      {rec.archetype && (
+        <div style={{ background: "#f8f9fa", borderRadius: 8, padding: 12, display: "flex", alignItems: "center", gap: 12 }}>
+          <img src={archetypeIconSrc(rec.archetype.icon)} alt="" width={32} height={32} style={{ flexShrink: 0 }} />
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#212529" }}>{rec.archetype.name}</div>
+            <div style={{ fontSize: 11, color: "#6c757d", marginTop: 2 }}>{rec.archetype.traits}</div>
+          </div>
+        </div>
+      )}
+
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+        <span style={{ fontSize: 11, color: "#adb5bd" }}>
+          <span style={{ fontWeight: 700, color: "#495057" }}>{rec.leaderName}</span> + {rec.memberIds.length} members
+        </span>
+        <div style={{ display: "flex" }}>
+          {shownIds.map((id, i) => (
+            <div key={id} style={{ marginLeft: i === 0 ? 0 : -8, border: "2px solid #fff", borderRadius: "50%" }}>
+              <Avatar name={rec.memberNames[i]} id={id} size={24} />
+            </div>
+          ))}
+          {overflow > 0 && (
+            <div style={{
+              marginLeft: -8, width: 24, height: 24, borderRadius: "50%", border: "2px solid #fff",
+              background: "#495057", color: "#fff", fontSize: 9, fontWeight: 700,
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}>
+              +{overflow}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── team card (All Teams grid) ───────────────────────────────────────────────
 function TeamCard({ resolved, onOpen }: { resolved: ResolvedTeam; onOpen: () => void }) {
-  const { team, members, leader } = resolved;
+  const { team, members, archetype } = resolved;
   return (
     <button
       onClick={onOpen}
@@ -93,13 +160,30 @@ function TeamCard({ resolved, onOpen }: { resolved: ResolvedTeam; onOpen: () => 
         <TypeBadge type={team.type} />
       </div>
 
+      {/* Team type (DISC blend of the members), not the leader. */}
       <div style={{ display: "flex", alignItems: "center", gap: 10, background: "#f8f9fa", borderRadius: 8, padding: "8px 10px" }}>
-        {leader ? <Avatar name={leader.name} id={leader.id} size={30} /> : (
-          <div style={{ width: 30, height: 30, borderRadius: "50%", background: "#e9ecef", color: "#adb5bd", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>?</div>
+        {archetype ? (
+          <>
+            <div style={{
+              width: 36, height: 36, borderRadius: "50%", background: "#fff", flexShrink: 0,
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}>
+              <img src={archetypeIconSrc(archetype.icon)} alt="" width={22} height={22} />
+            </div>
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "#212529" }}>{archetype.name}</div>
+              <div style={{ fontSize: 11, color: "#6c757d", marginTop: 2 }}>{archetype.traits}</div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div style={{
+              width: 36, height: 36, borderRadius: "50%", background: "#e9ecef", color: "#adb5bd", flexShrink: 0,
+              display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14,
+            }}>?</div>
+            <span style={{ fontSize: 12, fontWeight: 600, color: "#adb5bd" }}>Tipe belum tersedia</span>
+          </>
         )}
-        <span style={{ fontSize: 12, fontWeight: 600, color: leader ? "#495057" : "#adb5bd" }}>
-          {leader ? leader.name : "[Unidentified]"}
-        </span>
       </div>
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -266,7 +350,8 @@ function TeamDetail({
   initialTab?: "overview" | "interaction";
   initialHighlight?: string | null;
 }) {
-  const { team, members, leader, avg } = resolved;
+  const { team, members, leader, avg, archetype } = resolved;
+  const [typeOpen, setTypeOpen] = useState(false);
   // A highlight target only makes sense on the Overview member list — force
   // that tab regardless of initialTab when one is given.
   const [tab, setTab] = useState<"overview" | "interaction">(initialHighlight ? "overview" : initialTab);
@@ -329,6 +414,49 @@ function TeamDetail({
             <div style={{ fontSize: 12, fontWeight: 600, color: team.reportTo ? "#495057" : "#adb5bd" }}>{team.reportTo ?? "-"}</div>
           </div>
         </div>
+        {/* Team type — DISC blend of the members (see teamsData's ARCHETYPES). */}
+        {archetype && (
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12,
+            background: "#f8f9fa", borderRadius: 8, padding: "12px 16px", marginBottom: 12,
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
+              <div style={{
+                width: 36, height: 36, borderRadius: "50%", background: "#fff", flexShrink: 0,
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <img src={archetypeIconSrc(archetype.icon)} alt="" width={22} height={22} />
+              </div>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "#212529" }}>{archetype.name}</div>
+                <div style={{ fontSize: 11, color: "#6c757d", marginTop: 2 }}>{archetype.traits}</div>
+              </div>
+            </div>
+            <Tooltip label="Detail Tipe Team" withArrow>
+              <ActionIcon
+                variant="filled"
+                radius="xl"
+                size={32}
+                aria-label="Detail Tipe Team"
+                onClick={() => setTypeOpen(true)}
+              >
+                <IconFileSearch size={16} />
+              </ActionIcon>
+            </Tooltip>
+
+            <Modal
+              opened={typeOpen}
+              onClose={() => setTypeOpen(false)}
+              centered
+              radius="md"
+              size="820px"
+              title="Detail Tipe Team"
+            >
+              <TeamTypeDetail archetype={archetype} />
+            </Modal>
+          </div>
+        )}
+
         <div style={{ display: "flex", gap: 12 }}>
           <div style={{ flex: 1, background: "#f8f9fa", borderRadius: 8, padding: "12px 16px" }}>
             <div style={{ fontSize: 10, color: "#adb5bd", fontWeight: 600 }}>Avg. Member&apos;s Performance</div>
@@ -391,17 +519,31 @@ export default function TeamProfileClient({
   initialSelectedTeamId,
   initialTab,
   initialHighlight,
+  recommendations,
 }: {
   resolvedTeams: ResolvedTeam[];
   initialSelectedTeamId: string | null;
   initialTab: "overview" | "interaction";
   initialHighlight: string | null;
+  recommendations: StructuralTeamRecommendation[];
 }) {
+  const router = useRouter();
   const [tab, setTab] = useState<"my" | "all">("all");
   const [selected, setSelected] = useState<ResolvedTeam | null>(
     initialSelectedTeamId ? resolvedTeams.find(rt => rt.team.id === initialSelectedTeamId) ?? null : null
   );
   const [query, setQuery] = useState("");
+  const [recOpen, setRecOpen] = useState(false);
+  const [pickedRecs, setPickedRecs] = useState<Set<string>>(new Set());
+
+  function toggleRec(leaderId: string) {
+    setPickedRecs(prev => {
+      const next = new Set(prev);
+      if (next.has(leaderId)) next.delete(leaderId);
+      else next.add(leaderId);
+      return next;
+    });
+  }
 
   if (selected) {
     return (
@@ -441,17 +583,34 @@ export default function TeamProfileClient({
         </div>
       ) : (
         <>
-          <div style={{ marginBottom: 16 }}>
-            <input
+          <Group justify="space-between" gap={12} mb={16}>
+            <TextInput
               value={query}
-              onChange={e => setQuery(e.target.value)}
+              onChange={e => setQuery(e.currentTarget.value)}
               placeholder="Search Team"
-              style={{
-                width: 260, maxWidth: "100%", padding: "8px 12px", borderRadius: 8,
-                border: "1px solid #e9ecef", fontFamily: FONT, fontSize: 12, color: "#495057", outline: "none",
-              }}
+              radius="xl"
+              size="xs"
+              leftSection={<IconSearch size={14} />}
+              style={{ width: 260, maxWidth: "100%" }}
             />
-          </div>
+            <Group gap={16}>
+              <Button
+                variant="subtle"
+                size="xs"
+                radius="xl"
+                rightSection={<IconSparkles size={14} />}
+                onClick={() => setRecOpen(true)}
+              >
+                Recommended Team
+              </Button>
+              <Button variant="outline" size="xs" radius="xl" onClick={() => router.push("/team-profile/team-type")}>
+                Team Type
+              </Button>
+              <Button size="xs" radius="xl" onClick={() => router.push("/team-profile/create")}>
+                Create Team
+              </Button>
+            </Group>
+          </Group>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 16 }}>
             {shown.map(rt => <TeamCard key={rt.team.id} resolved={rt} onOpen={() => setSelected(rt)} />)}
           </div>
@@ -461,6 +620,48 @@ export default function TeamProfileClient({
         </>
       )}
       </div>
+
+      {/* Structural team recommendations — derived from the Job & Position
+          "position" → "report to" mapping that Visibility Map also draws. */}
+      <Modal
+        opened={recOpen}
+        onClose={() => setRecOpen(false)}
+        centered
+        radius="md"
+        size="1100px"
+        title={<span style={{ fontFamily: FONT, fontSize: 15, fontWeight: 700, color: "#212529" }}>Rekomendasi Tim Struktural</span>}
+      >
+        <div style={{ fontFamily: FONT }}>
+          <p style={{ margin: "0 0 16px", fontSize: 12, color: "#6c757d" }}>
+            Rekomendasi Tim ini dihasilkan dari Struktural yang sudah Anda mapping antara &ldquo;posisi&rdquo; dan &ldquo;report to&rdquo; di Job &amp; Position
+          </p>
+
+          {recommendations.length === 0 ? (
+            <div style={{ padding: "48px 0", textAlign: "center", fontSize: 12, color: "#adb5bd", lineHeight: 1.7 }}>
+              Belum ada rekomendasi tim baru.<br />
+              Setiap atasan pada struktur Job &amp; Position sudah memimpin tim yang terdaftar.
+            </div>
+          ) : (
+            <>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
+                {recommendations.map(rec => (
+                  <RecommendationCard
+                    key={rec.leaderId}
+                    rec={rec}
+                    checked={pickedRecs.has(rec.leaderId)}
+                    onToggle={() => toggleRec(rec.leaderId)}
+                  />
+                ))}
+              </div>
+              <Group justify="flex-end" mt={20}>
+                <Button size="xs" radius="xl" disabled={pickedRecs.size === 0}>
+                  Create Team
+                </Button>
+              </Group>
+            </>
+          )}
+        </div>
+      </Modal>
     </div>
   );
 }
