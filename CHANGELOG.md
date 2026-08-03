@@ -30,8 +30,20 @@ this — read that before extending any of the below.
   button doesn't just land on a tab, it highlights the specific
   employee/position/team row with a glowing outline (auto-fades after 3s).
   Extended from Vismap's existing mechanism to new equivalents in Talent
-  Mapping (row-level, since the 9-box grid isn't reliably targetable) and
-  Team Profile.
+  Mapping (row-level, since the 9-box grid isn't reliably targetable), Team
+  Profile, and IDP monitoring (deep-links to the specific overdue
+  employee's row in `monitoring-admin.html`, auto-opening their IDP detail
+  panel via the existing `openPanelById` mechanism instead of just landing
+  on the page).
+- **Chat crash recovery** (`ChatErrorBoundary.tsx`) — a render-time error
+  inside the assistant chat (e.g. a malformed tool-result card) no longer
+  takes down the whole dashboard; the panel shows a "Mulai percakapan baru"
+  recovery button instead. Deliberately not exposed as a general-purpose
+  "clear chat" button — see docs/agentic-assistant.md for why every OSS
+  path to actually resetting chat history in this exact CopilotKit version
+  is either type-stripped or Enterprise-licensed, and why remounting on
+  crash is an acceptable last resort but remounting on demand is not (it
+  duplicates the last exchange instead of clearing it).
 - **Governed data foundation** (`src/lib/data/`) — real computed metrics
   (succession risk, profile completion, rankings, org hierarchy) replacing
   several previously-hardcoded dashboard numbers; a `getToday()` clock
@@ -110,6 +122,26 @@ this — read that before extending any of the below.
   from a previously-fetched list instead of calling the dedicated
   single-person tool; position/team name lookups failing on
   singular/plural or hyphen/space mismatches.
+- The IDP-overdue insight card and `getIdpStatus`'s "Lihat Monitoring IDP"
+  button doing nothing on click — both pointed at
+  `/#dashboard-card-monitoring-idp`, a hash anchor with no scroll-to-hash
+  implementation anywhere in the app (and a target card that's hidden by
+  default for the Manager role). Fixed by pointing both at the real `/idp`
+  route via the existing `idpUrl()` helper instead. While auditing this
+  class of bug: `MonitoringIDPCard.tsx` was building its own IDP link as a
+  raw template string instead of using `idpUrl()`, and `idpUrl()`'s own
+  comment (and the `openIDP` tool description shown to the LLM) misnamed
+  which static pages actually honor `id`/`name` — both corrected.
+- `CommitteeReadinessCard` and `OverallScoreCard` always reading the full,
+  unscoped `candidates` list directly from `@/data/dummyData`, so a Manager
+  viewing Home saw committee-readiness and overall-score numbers for the
+  whole company instead of their own team. Both now take `candidates` as a
+  prop, fed from `HomeClient`'s already-role-scoped `pool`.
+- 5 eval cases (`idp-status`, `talent-mapping`, `data-quality`,
+  `profile-completion`, `development-needed`) that only asserted a tool was
+  called, not that its result or the assistant's answer was actually
+  correct — strengthened to assert real values against the current fixture
+  data (e.g. exact overdue count, exact 9-box distribution).
 
 ### Changed
 
