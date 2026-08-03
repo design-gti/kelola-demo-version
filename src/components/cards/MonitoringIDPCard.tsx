@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Paper, SegmentedControl, TextInput, Avatar, Badge, Text } from "@mantine/core";
-import { IconSearch } from "@tabler/icons-react";
+import { ActionIcon, Indicator, Menu, Paper, TextInput, Avatar, Badge, Text, Tooltip } from "@mantine/core";
+import { IconCheck, IconFilter, IconSearch } from "@tabler/icons-react";
 import { idpUrl } from "@/lib/agent/navigation";
 import { getToday } from "@/lib/data/clock";
 
@@ -116,35 +116,53 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
         </Text>
       </div>
 
-      {/* Filter tabs with counts */}
-      <SegmentedControl
-        fullWidth
-        value={filter}
-        onChange={(v) => setFilter(v as IDPStatus | "All")}
-        color="#fff"
-        size="xs"
-        data={ALL_FILTERS.map(f => {
-          const count = f.value === "All" ? SOURCE.length : SOURCE.filter(e => e.status === f.value).length;
-          return {
-            value: f.value,
-            label: (
-              <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 10, whiteSpace: "nowrap", color: filter === f.value ? "#016699" : "#6c757d", fontWeight: filter === f.value ? 700 : 400 }}>
-                {f.label} <span style={{ fontSize: 9, opacity: 0.8 }}>({count})</span>
-              </span>
-            ),
-          };
-        })}
-      />
+      {/* Search + status filter — the filter lives in a menu so the card header
+          stays compact instead of spending a full row on tabs. */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <TextInput
+          value={search}
+          onChange={e => setSearch(e.currentTarget.value)}
+          placeholder="Search employee or aspect..."
+          radius="xl"
+          size="xs"
+          leftSection={<IconSearch size={12} />}
+          style={{ flex: 1, minWidth: 0 }}
+        />
 
-      {/* Search */}
-      <TextInput
-        value={search}
-        onChange={e => setSearch(e.currentTarget.value)}
-        placeholder="Search employee or aspect..."
-        radius="xl"
-        size="xs"
-        leftSection={<IconSearch size={12} />}
-      />
+        <Menu shadow="md" width={190} position="bottom-end" withinPortal>
+          <Menu.Target>
+            <Tooltip label={filter === "All" ? "Filter status" : `Filter: ${filter}`} withArrow>
+              {/* Dot marks an active filter, so a narrowed list is never mistaken for empty data. */}
+              <Indicator disabled={filter === "All"} color="#016699" size={7} offset={4}>
+                <ActionIcon variant="default" radius="xl" size={28} aria-label="Filter status">
+                  <IconFilter size={14} color={filter === "All" ? "#6c757d" : "#016699"} />
+                </ActionIcon>
+              </Indicator>
+            </Tooltip>
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Label style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 10 }}>Status</Menu.Label>
+            {ALL_FILTERS.map(f => {
+              const count = f.value === "All" ? SOURCE.length : SOURCE.filter(e => e.status === f.value).length;
+              const active = filter === f.value;
+              return (
+                <Menu.Item
+                  key={f.value}
+                  onClick={() => setFilter(f.value as IDPStatus | "All")}
+                  leftSection={<IconCheck size={12} style={{ opacity: active ? 1 : 0 }} />}
+                  style={{
+                    fontFamily: "'Open Sans', sans-serif", fontSize: 12,
+                    fontWeight: active ? 700 : 400,
+                    color: active ? "#016699" : "#495057",
+                  }}
+                >
+                  {f.label} <span style={{ fontSize: 10, color: "#adb5bd" }}>({count})</span>
+                </Menu.Item>
+              );
+            })}
+          </Menu.Dropdown>
+        </Menu>
+      </div>
 
       {/* Table header */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 100px 90px", gap: 8, padding: "0 4px" }}>
@@ -180,7 +198,7 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
                   <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 9, color: "#016699" }}>{e.initials}</span>
                 </Avatar>
                 <div style={{ minWidth: 0 }}>
-                  <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 10, color: "#212529", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.name}</div>
+                  <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12, color: "#212529", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.name}</div>
                   <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 9, color: "#6c757d", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.aspect}</div>
                 </div>
               </div>
@@ -197,7 +215,7 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
 
               {/* Due date */}
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 9, fontWeight: 600, color: overdue ? "#c0392b" : "#495057" }}>
+                <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 12, fontWeight: 600, color: overdue ? "#c0392b" : "#495057" }}>
                   {formatDate(e.dueDate)}
                 </span>
                 {overdue && (

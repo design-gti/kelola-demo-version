@@ -54,11 +54,11 @@ export default function SupportNeedsCard() {
         <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12, color: "#495057" }}>
           Kebutuhan Support
         </span>
-        <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>
+        <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>
           {SUPPORT.length} anggota
         </span>
       </div>
-      <p style={{ margin: "0 0 14px", fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#adb5bd", lineHeight: 1.5 }}>
+      <p style={{ margin: "0 0 14px", fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#adb5bd", lineHeight: 1.5 }}>
         Sinyal awal — konfirmasi melalui percakapan langsung
       </p>
 
@@ -82,7 +82,7 @@ export default function SupportNeedsCard() {
                   width: 28, height: 28, borderRadius: "50%", flexShrink: 0,
                   background: cfg.color + "25", color: cfg.color,
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 10,
+                  fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12,
                 }}>
                   {e.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
                 </div>

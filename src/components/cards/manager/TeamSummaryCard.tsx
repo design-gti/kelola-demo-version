@@ -51,7 +51,7 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 4, padding: "8px 0", borderBottom: "1px solid #f0f0f0" }}>
       <span style={{ fontSize: 9, fontFamily: "Open Sans, sans-serif", fontWeight: 700, color: "#adb5bd", textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</span>
-      <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#495057", lineHeight: 1.5 }}>{children}</div>
+      <div style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#495057", lineHeight: 1.5 }}>{children}</div>
     </div>
   );
 }
@@ -90,7 +90,7 @@ export default function TeamSummaryCard() {
               <div style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Open Sans', sans-serif", color: "#016699" }}>
                 {w.completionRate.thisWeek}%
               </div>
-              <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#495057", fontWeight: 600, marginTop: 1 }}>Completion Rate</div>
+              <div style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#495057", fontWeight: 600, marginTop: 1 }}>Completion Rate</div>
               <div style={{ fontSize: 9, fontFamily: "Open Sans, sans-serif", color: delta >= 0 ? "#28a745" : "#dc3545", marginTop: 2 }}>
                 {delta >= 0 ? "▲" : "▼"} {Math.abs(delta)}% vs minggu lalu
               </div>
@@ -99,7 +99,7 @@ export default function TeamSummaryCard() {
               <div style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Open Sans', sans-serif", color: w.checkins.done < w.checkins.total / 2 ? "#fd9f28" : "#495057" }}>
                 {w.checkins.done}/{w.checkins.total}
               </div>
-              <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#495057", fontWeight: 600, marginTop: 1 }}>Sesi Check-in</div>
+              <div style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#495057", fontWeight: 600, marginTop: 1 }}>Sesi Check-in</div>
               <div style={{ fontSize: 9, fontFamily: "Open Sans, sans-serif", color: "#adb5bd", marginTop: 2 }}>minggu ini</div>
             </div>
           </div>
@@ -109,7 +109,7 @@ export default function TeamSummaryCard() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fd9f28" strokeWidth="2.5" style={{ flexShrink: 0, marginTop: 1 }}>
               <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
             </svg>
-            <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#856404", lineHeight: 1.5 }}>
+            <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#856404", lineHeight: 1.5 }}>
               {w.urgent}
             </span>
           </div>
@@ -118,7 +118,7 @@ export default function TeamSummaryCard() {
             width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
             background: "none", border: "none", cursor: "pointer", padding: "4px 0",
           }}>
-            <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#016699", fontWeight: 600 }}>
+            <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#016699", fontWeight: 600 }}>
               {open ? "Tutup detail" : "Lihat lebih lanjut"}
             </span>
             <ChevronIcon open={open} />
@@ -132,7 +132,7 @@ export default function TeamSummaryCard() {
                     <Badge color={t.direction === "up" ? "#28a745" : "#dc3545"} bg={t.direction === "up" ? "#e9f7ef" : "#fff0f0"}>
                       {t.direction === "up" ? "▲" : "▼"} {t.name}
                     </Badge>
-                    <span style={{ fontSize: 10, color: "#6c757d", fontFamily: "Open Sans, sans-serif" }}>{t.note}</span>
+                    <span style={{ fontSize: 12, color: "#6c757d", fontFamily: "Open Sans, sans-serif" }}>{t.note}</span>
                   </div>
                 ))}
               </Row>
@@ -165,7 +165,7 @@ export default function TeamSummaryCard() {
               <div style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Open Sans', sans-serif", color: m.healthScore.color }}>
                 {m.healthScore.value}
               </div>
-              <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#495057", fontWeight: 600, marginTop: 1 }}>Health Score Tim</div>
+              <div style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#495057", fontWeight: 600, marginTop: 1 }}>Health Score Tim</div>
               <div style={{ marginTop: 4 }}>
                 <Badge color="#856404" bg="#fff3cd">{m.healthScore.label}</Badge>
               </div>
@@ -174,7 +174,7 @@ export default function TeamSummaryCard() {
               <div style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Open Sans', sans-serif", color: "#28a745" }}>
                 {m.ready.length}
               </div>
-              <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#495057", fontWeight: 600, marginTop: 1 }}>Siap Naik Level</div>
+              <div style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#495057", fontWeight: 600, marginTop: 1 }}>Siap Naik Level</div>
               <div style={{ fontSize: 9, fontFamily: "Open Sans, sans-serif", color: "#28a745", marginTop: 2 }}>
                 {m.ready.map(r => r.name).join(", ")}
               </div>
@@ -186,7 +186,7 @@ export default function TeamSummaryCard() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#016699" strokeWidth="2.5" style={{ flexShrink: 0, marginTop: 1 }}>
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#016699", lineHeight: 1.5 }}>
+            <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#016699", lineHeight: 1.5 }}>
               {m.recommendation}
             </span>
           </div>
@@ -195,7 +195,7 @@ export default function TeamSummaryCard() {
             width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
             background: "none", border: "none", cursor: "pointer", padding: "4px 0",
           }}>
-            <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#016699", fontWeight: 600 }}>
+            <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#016699", fontWeight: 600 }}>
               {open ? "Tutup detail" : "Lihat lebih lanjut"}
             </span>
             <ChevronIcon open={open} />

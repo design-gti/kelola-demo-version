@@ -188,7 +188,7 @@ export default function OverallScoreCard({ candidates }: { candidates: Candidate
               display: "flex", alignItems: "center", gap: 6,
               background: "#fff", border: "1px solid #dee2e6",
               borderRadius: 9999, height: 32, padding: "0 12px",
-              cursor: "pointer", fontSize: 10,
+              cursor: "pointer", fontSize: 12,
               fontFamily: "'Open Sans', sans-serif", color: "#495057",
               whiteSpace: "nowrap",
             }}
@@ -231,7 +231,7 @@ export default function OverallScoreCard({ candidates }: { candidates: Candidate
 
               <div className="card-scroll" style={{ maxHeight: 240, overflowY: "auto" }}>
                 {filteredPositions.length === 0 && (
-                  <div style={{ padding: "12px 14px", fontSize: 10, color: "#adb5bd", fontFamily: "'Open Sans', sans-serif", textAlign: "center" }}>
+                  <div style={{ padding: "12px 14px", fontSize: 12, color: "#adb5bd", fontFamily: "'Open Sans', sans-serif", textAlign: "center" }}>
                     Posisi tidak ditemukan
                   </div>
                 )}
@@ -249,7 +249,7 @@ export default function OverallScoreCard({ candidates }: { candidates: Candidate
                     onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = emp.position === pos.label ? "rgba(1,102,153,0.05)" : "transparent"; }}
                   >
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: "#495057", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: "#495057", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                         {emp.position}
                       </div>
                       <div style={{ fontSize: 9, color: "#adb5bd", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
@@ -297,7 +297,7 @@ export default function OverallScoreCard({ candidates }: { candidates: Candidate
         ))}
 
         {successorCands.length === 0 && sortedLevels.length === 0 && (
-          <div style={{ padding: "12px", textAlign: "center", fontSize: 10, color: "#adb5bd", fontFamily: "'Open Sans', sans-serif" }}>
+          <div style={{ padding: "12px", textAlign: "center", fontSize: 12, color: "#adb5bd", fontFamily: "'Open Sans', sans-serif" }}>
             Tidak ada kandidat untuk posisi ini
           </div>
         )}
@@ -318,15 +318,15 @@ function CandidateRow({ c, isSuccessor }: { c: { id: string; name: string; posit
     }}>
       <div>
         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-          <Link href={`/iprofile?id=${c.id}`} style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#016699", textDecoration: "none", cursor: "pointer" }}>{c.name}</Link>
+          <Link href={`/iprofile?id=${c.id}`} style={{ fontSize: 12, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#016699", textDecoration: "none", cursor: "pointer" }}>{c.name}</Link>
           {c.incomplete && <span style={{ fontSize: 9, color: "#fd9f28" }}>data tidak lengkap</span>}
         </div>
         <div style={{ fontSize: 9, fontFamily: "'Open Sans', sans-serif", color: "#adb5bd" }}>{c.position}</div>
       </div>
       <div>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-          <span style={{ fontSize: 10, color: "#adb5bd", fontFamily: "'Open Sans', sans-serif" }}>Kecocokan</span>
-          <span style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: barColor }}>{c.match}%</span>
+          <span style={{ fontSize: 12, color: "#adb5bd", fontFamily: "'Open Sans', sans-serif" }}>Kecocokan</span>
+          <span style={{ fontSize: 12, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: barColor }}>{c.match}%</span>
         </div>
         <Progress value={c.match} size={4} radius={2} styles={{ section: { background: barColor } }} />
       </div>
@@ -335,7 +335,7 @@ function CandidateRow({ c, isSuccessor }: { c: { id: string; name: string; posit
           variant="light"
           radius="xl"
           style={{
-            fontSize: 10, padding: "3px 8px", fontFamily: "'Open Sans', sans-serif", textTransform: "none", fontWeight: 400,
+            fontSize: 12, padding: "3px 8px", fontFamily: "'Open Sans', sans-serif", textTransform: "none", fontWeight: 400,
             background: recommended ? "rgba(1,102,153,0.12)" : "rgba(173,181,189,0.15)",
             color: recommended ? "#016699" : "#6c757d",
           }}

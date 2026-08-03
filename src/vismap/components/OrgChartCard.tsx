@@ -205,14 +205,16 @@ function AdditionalInfo({ label, value }: { label: string; value: string | numbe
 function VariableScore({ position, jobTitle, competencyScore, successors, visibleColumns, gender, city, maritalStatus, performance, iq, capability, commitment, contribution, readySuccessorsCount, name, showSwapped }: { position: string; jobTitle: string; competencyScore: number; successors: number; visibleColumns?: { gender: boolean; city: boolean; maritalStatus: boolean; performance: boolean; iq: boolean; capability: boolean; commitment: boolean; contribution: boolean; }; gender?: string; city?: string; maritalStatus?: string; performance?: number; iq?: number; capability?: number; commitment?: number; contribution?: number; readySuccessorsCount: number; name?: string; showSwapped?: boolean; }) {
   const additionalFields = [];
 
-  if (visibleColumns?.gender && gender) {
-    additionalFields.push({ label: 'Gender', value: gender });
+  // Jatuh ke '-' seperti kolom skor di bawah: kalau dicentang tapi datanya kosong,
+  // barisnya tetap muncul — jangan diam-diam hilang seolah Apply-nya tidak jalan.
+  if (visibleColumns?.gender) {
+    additionalFields.push({ label: 'Gender', value: gender ?? '-' });
   }
-  if (visibleColumns?.city && city) {
-    additionalFields.push({ label: 'City', value: city });
+  if (visibleColumns?.city) {
+    additionalFields.push({ label: 'City', value: city ?? '-' });
   }
-  if (visibleColumns?.maritalStatus && maritalStatus) {
-    additionalFields.push({ label: 'Marital Status', value: maritalStatus });
+  if (visibleColumns?.maritalStatus) {
+    additionalFields.push({ label: 'Marital Status', value: maritalStatus ?? '-' });
   }
   if (visibleColumns?.performance) {
     additionalFields.push({ label: 'Performance', value: performance ?? '-' });
@@ -526,9 +528,9 @@ export default function OrgChartCard({ name, position, jobTitle, competencyScore
 
   // Calculate dynamic height based on visible additional fields
   const additionalFieldsCount = [
-    visibleColumns?.gender && gender,
-    visibleColumns?.city && city,
-    visibleColumns?.maritalStatus && maritalStatus,
+    visibleColumns?.gender,
+    visibleColumns?.city,
+    visibleColumns?.maritalStatus,
     visibleColumns?.performance,
     visibleColumns?.iq,
     visibleColumns?.capability,

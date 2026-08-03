@@ -41,7 +41,7 @@ export default function ManagerHealthCard() {
 
       {/* Mood self-report */}
       <div style={{ background: "#f8f9fa", borderRadius: 10, padding: "12px 14px", marginBottom: 10 }}>
-        <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 10, color: "#495057", marginBottom: 8 }}>
+        <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12, color: "#495057", marginBottom: 8 }}>
           Bagaimana kondisimu hari ini?
         </div>
         <div style={{ display: "flex", gap: 6 }}>
@@ -63,7 +63,7 @@ export default function ManagerHealthCard() {
           ))}
         </div>
         {mood !== null && (
-          <p style={{ margin: "8px 0 0", fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#016699", textAlign: "center" }}>
+          <p style={{ margin: "8px 0 0", fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#016699", textAlign: "center" }}>
             {MOOD_OPTIONS.find(m => m.value === mood)?.label} — terima kasih sudah check-in!
           </p>
         )}
@@ -84,7 +84,7 @@ export default function ManagerHealthCard() {
           </span>
         </div>
         {hoursAlert && (
-          <p style={{ margin: "4px 0 0", fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#856404", lineHeight: 1.5 }}>
+          <p style={{ margin: "4px 0 0", fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#856404", lineHeight: 1.5 }}>
             {WORK_HOURS - NORMAL_HOURS} jam di atas standar normal. Pastikan ada waktu istirahat yang cukup.
           </p>
         )}
@@ -106,12 +106,12 @@ export default function ManagerHealthCard() {
         </div>
         {missedAlert && (
           <>
-            <p style={{ margin: "0 0 6px", fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#6c757d" }}>
+            <p style={{ margin: "0 0 6px", fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#6c757d" }}>
               Belum check-in dalam 2 minggu terakhir:
             </p>
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
               {CHECKIN_MISSED.map(name => (
-                <Badge key={name} variant="light" radius="xl" style={{ fontSize: 10, background: "#dc354520", color: "#dc3545", fontFamily: "Open Sans, sans-serif", textTransform: "none", fontWeight: 400 }}>
+                <Badge key={name} variant="light" radius="xl" style={{ fontSize: 12, background: "#dc354520", color: "#dc3545", fontFamily: "Open Sans, sans-serif", textTransform: "none", fontWeight: 400 }}>
                   {name}
                 </Badge>
               ))}

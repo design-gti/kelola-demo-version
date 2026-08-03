@@ -51,20 +51,20 @@ export default function CommitteeReadinessCard({ candidates }: { candidates: Can
         <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12, color: "#495057" }}>
           Committee Readiness
         </span>
-        <span style={{ background: "#fff3cd", color: "#856404", fontSize: 10, fontFamily: "Open Sans, sans-serif", padding: "2px 8px", borderRadius: 6 }}>
+        <span style={{ background: "#fff3cd", color: "#856404", fontSize: 12, fontFamily: "Open Sans, sans-serif", padding: "2px 8px", borderRadius: 6 }}>
           {days} hari lagi · {EVENT_DATE}
         </span>
       </div>
 
       <div style={{ marginBottom: 16 }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-          <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#495057" }}>Kesiapan Keseluruhan</span>
-          <span style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#016699" }}>{overallPct}%</span>
+          <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#495057" }}>Kesiapan Keseluruhan</span>
+          <span style={{ fontSize: 12, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#016699" }}>{overallPct}%</span>
         </div>
         <div style={{ height: 8, background: "#f0f0f0", borderRadius: 4 }}>
           <div style={{ height: "100%", width: `${overallPct}%`, background: "#016699", borderRadius: 4, transition: "width 0.3s" }} />
         </div>
-        <div style={{ fontSize: 10, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", marginTop: 4 }}>
+        <div style={{ fontSize: 12, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", marginTop: 4 }}>
           {successionCandidates.length} kandidat succession
         </div>
       </div>
@@ -73,9 +73,9 @@ export default function CommitteeReadinessCard({ candidates }: { candidates: Can
         {sorted.map(dim => (
           <div key={dim.key}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#495057" }}>{dim.label}</span>
+              <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#495057" }}>{dim.label}</span>
               <span style={{
-                fontSize: 10, padding: "1px 8px", borderRadius: 10, fontFamily: "Open Sans, sans-serif",
+                fontSize: 12, padding: "1px 8px", borderRadius: 10, fontFamily: "Open Sans, sans-serif",
                 background: statusColor[dim.status] + "20", color: statusColor[dim.status]
               }}>
                 {statusLabel[dim.status]} {dim.status !== "missing" ? `(${dim.filled}/${dim.total})` : ""}
