@@ -1,5 +1,5 @@
 "use client";
-import { candidates } from "@/data/dummyData";
+import type { Candidate } from "@/data/dummyData";
 
 // Committee event date (editable config). Countdown computes against the real current date.
 const EVENT_DATE = "2026-08-15";
@@ -16,7 +16,7 @@ interface Dimension {
   status: "missing" | "partial" | "complete";
 }
 
-export default function CommitteeReadinessCard() {
+export default function CommitteeReadinessCard({ candidates }: { candidates: Candidate[] }) {
   const successionCandidates = candidates.filter(c => c.isSuccession);
   const total = successionCandidates.length;
 
