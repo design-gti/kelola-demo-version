@@ -1,7 +1,7 @@
 import type { SessionContext } from "@/lib/session";
 import { getToday } from "@/lib/data/clock";
 import { getIdpStatusSummary } from "@/lib/data/idp";
-import { tdpUrl, vismapUrl } from "./navigation";
+import { idpUrl, tdpUrl, vismapUrl } from "./navigation";
 import { getAgentProfileCompletionView, getAgentSuccessionRiskView } from "./mediation";
 import type { Insight } from "./insights";
 
@@ -26,7 +26,7 @@ async function getIdpOverdueInsight(today: Date): Promise<Insight | null> {
       computedAt: summary.asOf,
       basis: 'IDP dengan status bukan "Expired" dan due date sudah lewat dari hari ini',
     },
-    navigationTarget: { href: "/#dashboard-card-monitoring-idp", label: "Lihat Monitoring IDP" },
+    navigationTarget: { href: idpUrl({ id: String(overdue[0].id) }), label: "Lihat Monitoring IDP" },
   };
 }
 

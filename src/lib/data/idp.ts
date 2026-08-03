@@ -63,7 +63,7 @@ export function isOverdue(dateStr: string, today: Date): boolean {
 export interface IdpStatusSummary {
   total: number;
   byStatus: Record<IdpStatus, number>;
-  overdue: { name: string; position: string; aspect: string; dueDate: string }[];
+  overdue: { id: number; name: string; position: string; aspect: string; dueDate: string }[];
   asOf: string;
 }
 
@@ -75,7 +75,7 @@ export async function getIdpStatusSummary(): Promise<IdpStatusSummary> {
 
   const overdue = entries
     .filter(e => e.status !== "Expired" && isOverdue(e.dueDate, today))
-    .map(e => ({ name: e.name, position: e.position, aspect: e.aspect, dueDate: e.dueDate }));
+    .map(e => ({ id: e.id, name: e.name, position: e.position, aspect: e.aspect, dueDate: e.dueDate }));
 
   return { total: entries.length, byStatus, overdue, asOf: today.toISOString() };
 }

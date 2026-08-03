@@ -83,11 +83,11 @@ function NavigationActions() {
   useFrontendTool({
     name: "openIDP",
     description:
-      "Open the IDP (Individual Development Plan) section. Most IDP pages only respect the `page` parameter (which static page to show); id/name are honored only by the create-idp pages. Only call this when the user's own message explicitly asks to open/see IDP — never automatically after answering a data question.",
+      "Open the IDP (Individual Development Plan) section. Most IDP pages only respect the `page` parameter (which static page to show); id/name are only honored by the detail-idp-* pages. Only call this when the user's own message explicitly asks to open/see IDP — never automatically after answering a data question.",
     parameters: [
-      { name: "page", type: "string", description: "Static IDP page filename, e.g. \"detail-review-idp.html\"", required: false },
-      { name: "id", type: "string", description: "Candidate id, only honored by create-idp pages", required: false },
-      { name: "name", type: "string", description: "Candidate name, only honored by create-idp pages", required: false },
+      { name: "page", type: "string", description: "Static IDP page filename, e.g. \"detail-idp-manager.html\"", required: false },
+      { name: "id", type: "string", description: "Candidate id, only honored by the detail-idp-* pages", required: false },
+      { name: "name", type: "string", description: "Candidate name, only honored by detail-idp-admin.html", required: false },
     ] as const,
     handler: async (args) => {
       const href = idpUrl(args);
@@ -191,7 +191,7 @@ interface PositionHolderResult {
 interface IdpStatusResult {
   total: number;
   byStatus: Record<"In Progress" | "Expired" | "Need Review" | "Completed", number>;
-  overdue: Array<{ name: string; position: string; aspect: string; dueDate: string }>;
+  overdue: Array<{ id: number; name: string; position: string; aspect: string; dueDate: string }>;
   asOf: string;
 }
 
@@ -533,7 +533,10 @@ function DataToolCards() {
             <div style={{ marginTop: 6 }}>{data.overdue.slice(0, 3).map(o => o.name).join(", ")}{data.overdue.length > 3 ? ` dan ${data.overdue.length - 3} lainnya` : ""}</div>
           )}
           <AsOfCaption asOf={data.asOf} />
-          <button style={DATA_CARD_BUTTON_STYLE} onClick={goTo("/#dashboard-card-monitoring-idp")}>
+          <button
+            style={DATA_CARD_BUTTON_STYLE}
+            onClick={goTo(idpUrl(data.overdue.length > 0 ? { id: String(data.overdue[0].id) } : {}))}
+          >
             Lihat Monitoring IDP →
           </button>
         </div>
