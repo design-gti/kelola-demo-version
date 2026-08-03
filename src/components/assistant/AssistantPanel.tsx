@@ -6,6 +6,7 @@ import "@copilotkit/react-ui/styles.css";
 import { useOnboarding } from "@/hooks/useOnboarding";
 import { ASSISTANT_INSTRUCTIONS } from "@/lib/agent/instructions";
 import type { Insight } from "@/lib/agent/insights";
+import ChatErrorBoundary from "./ChatErrorBoundary";
 import InsightsTab from "./InsightsTab";
 import OnboardingGate from "./OnboardingGate";
 import PageIntroBanner from "./PageIntroBanner";
@@ -41,6 +42,23 @@ export default function AssistantPanel({
   // prop for the same class of issue found earlier). onSubmitMessage gives
   // the raw text directly and is confirmed to actually fire.
   const lastQuestionRef = useRef<string | null>(null);
+  // Bumped only by the crash-recovery path below (ChatErrorBoundary's
+  // onRetry) — NOT exposed as a user-facing "clear chat" button. Verified
+  // live that remounting <CopilotChat/> via a key change does NOT give a
+  // clean slate in this exact package version: the message history lives in
+  // the CopilotKit provider above it, and remounting duplicates the last
+  // exchange's text instead of clearing it (reproduced reliably, unrelated
+  // to any other state). The one API that does expose a real setMessages(),
+  // useCopilotChatHeadless_c(), is gated behind a CopilotKit Cloud license
+  // key — it renders a license-nag banner instead of working, confirmed
+  // live. No working "clear chat" mechanism exists in this package version;
+  // remounting is kept only as a last-resort crash escape, where a duplicated
+  // exchange is still strictly better than a permanently crashed panel.
+  const [chatKey, setChatKey] = useState(0);
+  const recoverFromCrash = () => {
+    lastQuestionRef.current = null;
+    setChatKey(k => k + 1);
+  };
 
   const selectTab = (t: "chat" | "insights") => {
     setTab(t);
@@ -134,19 +152,22 @@ export default function AssistantPanel({
         ) : (
           <>
             <PageIntroBanner pagesIntroduced={pagesIntroduced} onIntroduced={markPageIntroduced} />
-            <CopilotChat
-              className="kelola-assistant-chat"
-              instructions={ASSISTANT_INSTRUCTIONS}
-              onSubmitMessage={text => { lastQuestionRef.current = text; }}
-              onThumbsUp={message => sendFeedback("up", message)}
-              onThumbsDown={message => sendFeedback("down", message)}
-              labels={{
-                initial: "Halo! Saya asisten Kelola. Ada yang bisa saya bantu?",
-                title: "Asisten Kelola",
-                placeholder: "Tanya sesuatu...",
-                error: "Maaf, terjadi kesalahan. Coba lagi.",
-              }}
-            />
+            <ChatErrorBoundary resetKey={chatKey} onRetry={recoverFromCrash}>
+              <CopilotChat
+                key={chatKey}
+                className="kelola-assistant-chat"
+                instructions={ASSISTANT_INSTRUCTIONS}
+                onSubmitMessage={text => { lastQuestionRef.current = text; }}
+                onThumbsUp={message => sendFeedback("up", message)}
+                onThumbsDown={message => sendFeedback("down", message)}
+                labels={{
+                  initial: "Halo! Saya asisten Kelola. Ada yang bisa saya bantu?",
+                  title: "Asisten Kelola",
+                  placeholder: "Tanya sesuatu...",
+                  error: "Maaf, terjadi kesalahan. Coba lagi.",
+                }}
+              />
+            </ChatErrorBoundary>
           </>
         )}
       </div>
