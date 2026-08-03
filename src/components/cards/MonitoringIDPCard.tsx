@@ -4,8 +4,9 @@ import { useRouter } from "next/navigation";
 import { Paper, SegmentedControl, TextInput, Avatar, Badge, Text } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import { idpUrl } from "@/lib/agent/navigation";
+import { getToday } from "@/lib/data/clock";
 
-type IDPStatus = "In Progress" | "Expired" | "Need Review" | "Completed";
+type IDPStatus = "In Progress" | "Expired" | "Need Review" | "Done";
 
 interface IDPEntry {
   id: number;
@@ -18,18 +19,20 @@ interface IDPEntry {
   aspect: string;
 }
 
+// Synced with the IDP module's canonical status-chip colors (public/idp-app/monitoring-admin.html)
 const STATUS_CONFIG: Record<IDPStatus, { bg: string; text: string; dot: string }> = {
-  "In Progress": { bg: "#e7f5ff", text: "#0c6192", dot: "#68b1ff" },
-  "Expired":     { bg: "#fff0f0", text: "#c0392b", dot: "#e74c3c" },
-  "Need Review": { bg: "#fff8e6", text: "#856404", dot: "#fd9f28" },
-  "Completed":   { bg: "#e6f7ed", text: "#1a7a43", dot: "#2ea865" },
+  "In Progress": { bg: "#FFF4E6", text: "#FD9F28", dot: "#FD9F28" },
+  "Expired":     { bg: "#F0F0F0", text: "#595959", dot: "#595959" },
+  "Need Review": { bg: "#FFEBE6", text: "#DE350B", dot: "#DE350B" },
+  "Done":   { bg: "#E3FCEF", text: "#00875A", dot: "#00875A" },
 };
 
 const ALL_FILTERS: { label: string; value: IDPStatus | "All" }[] = [
   { label: "All",         value: "All" },
   { label: "Need Review", value: "Need Review" },
   { label: "In Progress", value: "In Progress" },
-  { label: "Completed",   value: "Completed" },
+  { label: "Done",        value: "Done" },
+  { label: "Expired",     value: "Expired" },
 ];
 
 // Shape of the shared IDP source (public/data/idp-data.json) — same file the IDP
@@ -48,19 +51,25 @@ function statusOf(idps: IdpProgram[]): IDPStatus {
   const labels = idps.map(i => (i.statusLabel || "").toUpperCase());
   if (labels.includes("PENDING")) return "Need Review";
   if (labels.includes("IN PROGRESS")) return "In Progress";
-  return "Completed";
+  return "Done";
 }
 function toEntries(employees: IdpEmployee[]): IDPEntry[] {
+  const today = getToday();
   return employees.map(e => {
     const active = e.idps.find(i => (i.statusLabel || "").toUpperCase() !== "DONE") ?? e.idps[0];
+    const dueDate = active ? periodEnd(active.period) : "";
+    let status = statusOf(e.idps);
+    // A not-yet-done program whose period has already ended is Expired,
+    // matching the IDP module's own EXPIRED status — not just an "Overdue" tag.
+    if (status !== "Done" && dueDate && new Date(dueDate) < today) status = "Expired";
     return {
       id: e.id,
       name: e.name,
       initials: e.name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase(),
       avatar: e.avatar,
       position: e.role,
-      status: statusOf(e.idps),
-      dueDate: active ? periodEnd(active.period) : "",
+      status,
+      dueDate,
       aspect: active?.aspectLabel ?? "",
     };
   });
@@ -70,10 +79,6 @@ function formatDate(dateStr: string) {
   if (!dateStr) return "-";
   const d = new Date(dateStr);
   return isNaN(d.getTime()) ? "-" : d.toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" });
-}
-
-function isOverdue(dateStr: string) {
-  return !!dateStr && new Date(dateStr) < new Date();
 }
 
 export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number } = {}) {
@@ -155,7 +160,9 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
         )}
         {filtered.map(e => {
           const cfg = STATUS_CONFIG[e.status];
-          const overdue = e.status !== "Expired" && isOverdue(e.dueDate);
+          // "Overdue" is only shown for Expired rows — Done rows commonly have a
+          // past due date too (they finished on time), which isn't overdue.
+          const overdue = e.status === "Expired";
           return (
             <div
               key={e.id}
