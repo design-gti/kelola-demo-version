@@ -19,11 +19,21 @@ describe("getIdpStatusSummary", () => {
     expect(sum).toBe(summary.total);
   });
 
-  it("only counts non-Expired, past-due entries as overdue", async () => {
+  it("only counts Expired entries as overdue, never a Completed one with a stale due date", async () => {
     const summary = await getIdpStatusSummary();
     const entries = await getIdpEntries();
-    const today = new Date(summary.asOf);
-    const expectedOverdue = entries.filter(e => e.status !== "Expired" && isOverdue(e.dueDate, today));
+    const expectedOverdue = entries.filter(e => e.status === "Expired");
     expect(summary.overdue.length).toBe(expectedOverdue.length);
+    expect(summary.overdue.every(o => entries.find(e => e.id === o.id)?.status === "Expired")).toBe(true);
+  });
+
+  it("upgrades a not-yet-Completed entry to Expired once its due date has passed, matching MonitoringIDPCard.tsx", async () => {
+    const entries = await getIdpEntries();
+    const today = new Date();
+    entries.forEach(e => {
+      if (e.status !== "Completed" && e.dueDate && isOverdue(e.dueDate, today)) {
+        expect(e.status).toBe("Expired");
+      }
+    });
   });
 });

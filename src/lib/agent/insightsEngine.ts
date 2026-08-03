@@ -24,7 +24,7 @@ async function getIdpOverdueInsight(today: Date): Promise<Insight | null> {
     evidence: {
       sourceIds: names,
       computedAt: summary.asOf,
-      basis: 'IDP dengan status bukan "Expired" dan due date sudah lewat dari hari ini',
+      basis: 'IDP berstatus "Expired" — belum selesai dan due date-nya sudah lewat',
     },
     navigationTarget: { href: idpUrl({ id: String(overdue[0].id) }), label: "Lihat Monitoring IDP" },
   };

@@ -152,14 +152,14 @@ export const EVAL_CASES: EvalCase[] = [
   {
     id: "idp-status-baseline",
     question: "Bagaimana status IDP karyawan yang overdue?",
-    note: "Verified live via getAgentIdpStatusView: total=9, byStatus={In Progress:3, Expired:0, Need Review:2, Completed:4}, and all 9 are currently overdue (real due dates are already in 2025, none marked Expired yet).",
+    note: "Verified live via getAgentIdpStatusView after merging main's Monitoring IDP status fix (0fe06a6, which varied idp-data.json's sample periods and made a not-yet-Completed program past due date show as Expired instead of any past-due entry): total=9, byStatus={In Progress:1, Expired:2, Need Review:2, Completed:4}, overdue (Expired) count=2.",
     check: (trace, text) => {
       if (!called(trace, "getIdpStatus")) return { pass: false, reason: "getIdpStatus was not called" };
       const output = firstOutput<{ total?: number; overdue?: unknown[] }>(trace, "getIdpStatus");
       if (output?.total !== 9) return { pass: false, reason: `expected total 9, got ${output?.total}` };
-      if (output?.overdue?.length !== 9) return { pass: false, reason: `expected 9 overdue entries, got ${output?.overdue?.length}` };
-      if (!has(text, "9")) return { pass: false, reason: `answer doesn't mention the count 9: "${text}"` };
-      return { pass: true, reason: "called getIdpStatus and correctly reported 9 overdue" };
+      if (output?.overdue?.length !== 2) return { pass: false, reason: `expected 2 overdue entries, got ${output?.overdue?.length}` };
+      if (!has(text, "2")) return { pass: false, reason: `answer doesn't mention the count 2: "${text}"` };
+      return { pass: true, reason: "called getIdpStatus and correctly reported 2 overdue" };
     },
   },
   {
