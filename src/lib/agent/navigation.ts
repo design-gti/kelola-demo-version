@@ -32,8 +32,11 @@ export function tdpUrl(opts: { tab?: "table" | "review"; from?: string } = {}): 
 
 /**
  * Weaker than the others — verified in Phase 0 that most /idp static pages
- * ignore forwarded params entirely; only the create-idp pages read
- * aspect/participants. `page` is the only param that reliably does anything.
+ * ignore forwarded params entirely. `id`/`name` are only honored by the
+ * detail-idp-* pages (detail-idp-admin.html reads both; detail-idp-manager.html
+ * and detail-idp-employee.html read `id` only); the create-idp-* pages read a
+ * different pair (aspect/participants) not exposed by this function at all.
+ * `page` is the only param that reliably does something on every page.
  */
 export function idpUrl(opts: { page?: string; id?: string; name?: string } = {}): string {
   const params = new URLSearchParams();

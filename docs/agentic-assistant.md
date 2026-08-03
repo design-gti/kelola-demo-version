@@ -91,9 +91,10 @@ graph (grew substantially when the CopilotKit + AI SDK stack landed in the
 shared root layout). It gets much worse — 60+ seconds for one route — when
 several not-yet-visited tabs are clicked in quick succession right after
 starting the dev server, since the concurrent first-compiles contend for
-the same compiler. **This is dev-only** and should disappear entirely with
-`next build && next start` — that has not yet been independently verified
-in this repo; do that once before/while shipping to close the loop.
+the same compiler. **This is dev-only** — confirmed via `npm run build`:
+compiles clean in ~20s, typechecks in ~15s, and all 16 routes serve
+correctly under `next start`, with none of the per-route dev-mode compile
+delay described above.
 
 Separately (unrelated to the above, smaller, still worth doing): 8 orphaned
 Figma-export files (~352KB, zero references anywhere) still sit in
