@@ -29,10 +29,10 @@ const WEAK_READINESS_GAP_THRESHOLD = 25;
 
 /**
  * The canonical source for "who succeeds whom, and are they ready" is
- * dummyData.ts's `criticalPositions` — NOT OverallScoreCard.tsx's local
- * CRITICAL_POSITIONS/ALL_POSITIONS (that's a separate, exploratory "Position
- * Fit Simulator" scoring tool with hand-tuned demo scores; see the comment
- * added there). Reading from anywhere else here would let the agent give a
+ * dummyData.ts's `criticalPositions` — NOT OverallScoreCard.tsx's "Position
+ * Fit Simulator" (a separate, exploratory tool that dynamically scores a
+ * selected position's fit against live candidate data, unrelated to this
+ * summary). Reading from anywhere else here would let the agent give a
  * different answer than the succession-risk dashboard card.
  */
 export function getCriticalPositions(): SuccessionRiskPosition[] {

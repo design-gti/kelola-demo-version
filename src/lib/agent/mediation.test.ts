@@ -10,6 +10,7 @@ import {
   getAgentIdpStatusView,
   getAgentOrgHierarchyView,
   getAgentPersonalityView,
+  getAgentPositionHolderView,
   getAgentProfileCompletionView,
   getAgentRankedEmployeesView,
   getAgentSuccessionRiskView,
@@ -91,6 +92,19 @@ describe("getAgentPersonalityView", () => {
 
   it("returns null only for an id that doesn't exist at all", () => {
     expect(getAgentPersonalityView(hrSession, "nonexistent-id")).toBeNull();
+  });
+});
+
+describe("getAgentPositionHolderView", () => {
+  it("finds a position holder by acronym, identically for every session", () => {
+    const view = getAgentPositionHolderView(hrSession, "CEO");
+    expect(view.matches.length).toBeGreaterThan(0);
+    expect(view.matches[0].position).toBe("Chief Executive Officer");
+    expect(getAgentPositionHolderView(managerSession, "CEO").matches).toEqual(view.matches);
+  });
+
+  it("returns no matches for a position that doesn't exist, never fabricating one", () => {
+    expect(getAgentPositionHolderView(hrSession, "Chief Astronaut Officer").matches).toHaveLength(0);
   });
 });
 

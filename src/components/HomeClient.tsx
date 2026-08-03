@@ -131,12 +131,12 @@ export default function HomeClient({
       case "engagement-chart":       return <LineChartCard title={isManager ? "Team Avg. Engagement Score"  : "Avg. Engagement Score"}  value="3.18" chipColor="#fd9f28" data={engagementData}  areaColor="#fd9f28" lineColor="#fd9f28" hideDeptFilter={isManager} />;
       case "aspect-score":           return <AspectScoreCard title={isManager ? "Team Aspect Score Percentage" : "Percentage of Aspect Score"} hideDeptFilter={isManager} customAspects={managerAspects ?? undefined} />;
       case "employee-mapping":       return <EmployeeMapping title={isManager ? "Team Mapping" : "Employee Mapping"} cells={mappingCells} axisY={isManager ? "Competency" : undefined} />;
-      case "committee-readiness":    return <CommitteeReadinessCard />;
+      case "committee-readiness":    return <CommitteeReadinessCard candidates={pool} />;
       case "critical-position-risk": return criticalPositions ? <CriticalPositionRiskCard positions={criticalPositions} /> : null;
       case "profile-completeness":   return <ProfileCompletenessTrackerCard title={isManager ? "Team Profile Completeness Tracker" : "Profile Completeness Tracker"} employees={pool} />;
       case "data-health-indicator":  return <DataHealthIndicatorCard employees={pool} syncSystems={syncSystems} />;
       case "quick-profile-access":   return <QuickProfileAccessCard employees={pool} defaultResults={defaultQuickAccess} />;
-      case "overall-score":          return <OverallScoreCard />;
+      case "overall-score":          return <OverallScoreCard candidates={pool} />;
       case "sync-status":            return <SyncStatusCard syncSystems={syncSystems} />;
       case "activity-log":           return activityLog ? <ActivityLogCard activityLog={activityLog} /> : null;
       case "monitoring-idp":         return <MonitoringIDPCard maxEntries={isManager ? 6 : undefined} />;

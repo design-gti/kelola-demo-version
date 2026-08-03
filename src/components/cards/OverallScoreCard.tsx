@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Paper, Badge, Progress, TextInput } from "@mantine/core";
-import { candidates } from "@/data/dummyData";
+import type { Candidate } from "@/data/dummyData";
 import { loadEmployeesFromCanonical } from "../../vismap/data/canonicalAdapter";
 import type { Employee as CsvEmployee } from "../../vismap/data/orgChartData";
 
@@ -88,7 +88,7 @@ function TagBadge({ label, color, bg }: { label: string; color: string; bg: stri
   );
 }
 
-export default function OverallScoreCard() {
+export default function OverallScoreCard({ candidates }: { candidates: Candidate[] }) {
   const [selectedLabel, setSelectedLabel] = useState<string | null>(null);
   const [open, setOpen]               = useState(false);
   const [search, setSearch]           = useState("");

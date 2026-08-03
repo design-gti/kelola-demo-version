@@ -35,10 +35,10 @@ describe("getInsights", () => {
     expect(succession?.navigationTarget?.href).toBe("/vismap?tab=succession-risk");
   });
 
-  it("surfaces an idp-overdue insight sourced from the real idp-data.json, with a working navigation target", async () => {
+  it("surfaces an idp-overdue insight sourced from the real idp-data.json, deep-linking to the first overdue employee", async () => {
     const idp = (await getInsights(hrSession)).find(i => i.category === "idp-overdue");
     expect(idp).toBeDefined();
-    expect(idp?.navigationTarget?.href).toBe("/#dashboard-card-monitoring-idp");
+    expect(idp?.navigationTarget?.href).toMatch(/^\/idp\?id=\d+$/);
   });
 
   it("sorts by severity, critical before warning before info", async () => {

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Paper, SegmentedControl, TextInput, Avatar, Badge, Text } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
+import { idpUrl } from "@/lib/agent/navigation";
 import { getToday } from "@/lib/data/clock";
 
 type IDPStatus = "In Progress" | "Expired" | "Need Review" | "Done";
@@ -168,7 +169,7 @@ export default function MonitoringIDPCard({ maxEntries }: { maxEntries?: number 
               className="group/row"
               style={{ display: "grid", gridTemplateColumns: "1fr 100px 90px", gap: 8, alignItems: "center", padding: "8px 8px", borderRadius: 8, background: "#f8f9fa", cursor: "pointer", transition: "background 0.15s, box-shadow 0.15s" }}
               onClick={() => {
-                router.push(`/idp?page=detail-idp-manager.html&id=${encodeURIComponent(e.id)}&name=${encodeURIComponent(e.name)}`);
+                router.push(idpUrl({ page: "detail-idp-manager.html", id: String(e.id) }));
               }}
               onMouseEnter={e2 => { (e2.currentTarget as HTMLDivElement).style.background = "#e9ecef"; (e2.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)"; }}
               onMouseLeave={e2 => { (e2.currentTarget as HTMLDivElement).style.background = "#f8f9fa"; (e2.currentTarget as HTMLDivElement).style.boxShadow = "none"; }}

@@ -30,15 +30,21 @@ function statusOf(idps: IdpProgram[]): IdpStatus {
   return "Completed";
 }
 
-function toEntries(employees: IdpEmployee[]): IdpEntry[] {
+function toEntries(employees: IdpEmployee[], today: Date): IdpEntry[] {
   return employees.map(e => {
     const active = e.idps.find(i => (i.statusLabel || "").toUpperCase() !== "DONE") ?? e.idps[0];
+    const dueDate = active ? periodEnd(active.period) : "";
+    let status = statusOf(e.idps);
+    // A not-yet-Completed program whose period has already ended is Expired —
+    // mirrors MonitoringIDPCard.tsx's own status upgrade (see module comment
+    // below), not just an "overdue" tag layered on top of an unrelated status.
+    if (status !== "Completed" && isOverdue(dueDate, today)) status = "Expired";
     return {
       id: e.id,
       name: e.name,
       position: e.role,
-      status: statusOf(e.idps),
-      dueDate: active ? periodEnd(active.period) : "",
+      status,
+      dueDate,
       aspect: active?.aspectLabel ?? "",
     };
   });
@@ -53,7 +59,7 @@ export async function getIdpEntries(): Promise<IdpEntry[]> {
   const filePath = path.join(process.cwd(), "public/data/idp-data.json");
   const text = await readFile(filePath, "utf-8");
   const parsed: { employees: IdpEmployee[] } = JSON.parse(text);
-  return toEntries(parsed.employees ?? []);
+  return toEntries(parsed.employees ?? [], getToday());
 }
 
 export function isOverdue(dateStr: string, today: Date): boolean {
@@ -63,7 +69,7 @@ export function isOverdue(dateStr: string, today: Date): boolean {
 export interface IdpStatusSummary {
   total: number;
   byStatus: Record<IdpStatus, number>;
-  overdue: { name: string; position: string; aspect: string; dueDate: string }[];
+  overdue: { id: number; name: string; position: string; aspect: string; dueDate: string }[];
   asOf: string;
 }
 
@@ -74,8 +80,8 @@ export async function getIdpStatusSummary(): Promise<IdpStatusSummary> {
   entries.forEach(e => { byStatus[e.status]++; });
 
   const overdue = entries
-    .filter(e => e.status !== "Expired" && isOverdue(e.dueDate, today))
-    .map(e => ({ name: e.name, position: e.position, aspect: e.aspect, dueDate: e.dueDate }));
+    .filter(e => e.status === "Expired")
+    .map(e => ({ id: e.id, name: e.name, position: e.position, aspect: e.aspect, dueDate: e.dueDate }));
 
   return { total: entries.length, byStatus, overdue, asOf: today.toISOString() };
 }

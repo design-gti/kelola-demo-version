@@ -152,46 +152,64 @@ export const EVAL_CASES: EvalCase[] = [
   {
     id: "idp-status-baseline",
     question: "Bagaimana status IDP karyawan yang overdue?",
-    note: "Baseline tool-selection coverage check only — no specific number asserted.",
-    check: trace => {
+    note: "Verified live via getAgentIdpStatusView after merging main's Monitoring IDP status fix (0fe06a6, which varied idp-data.json's sample periods and made a not-yet-Completed program past due date show as Expired instead of any past-due entry): total=9, byStatus={In Progress:1, Expired:2, Need Review:2, Completed:4}, overdue (Expired) count=2.",
+    check: (trace, text) => {
       if (!called(trace, "getIdpStatus")) return { pass: false, reason: "getIdpStatus was not called" };
-      return { pass: true, reason: "called getIdpStatus" };
+      const output = firstOutput<{ total?: number; overdue?: unknown[] }>(trace, "getIdpStatus");
+      if (output?.total !== 9) return { pass: false, reason: `expected total 9, got ${output?.total}` };
+      if (output?.overdue?.length !== 2) return { pass: false, reason: `expected 2 overdue entries, got ${output?.overdue?.length}` };
+      if (!has(text, "2")) return { pass: false, reason: `answer doesn't mention the count 2: "${text}"` };
+      return { pass: true, reason: "called getIdpStatus and correctly reported 2 overdue" };
     },
   },
   {
     id: "talent-mapping-baseline",
     question: "Bagaimana distribusi talent mapping 9-box saat ini?",
-    note: "Baseline tool-selection coverage check only.",
+    note: "Verified live via getAgentTalentMappingView: total=33 across exactly 9 boxes, with 'Contributor' the largest box at 13 employees.",
     check: trace => {
       if (!called(trace, "getTalentMapping")) return { pass: false, reason: "getTalentMapping was not called" };
-      return { pass: true, reason: "called getTalentMapping" };
+      const output = firstOutput<{ total?: number; distribution?: Array<{ label: string; count: number }> }>(trace, "getTalentMapping");
+      if (output?.total !== 33) return { pass: false, reason: `expected total 33, got ${output?.total}` };
+      if (output?.distribution?.length !== 9) return { pass: false, reason: `expected 9 boxes, got ${output?.distribution?.length}` };
+      const contributor = output?.distribution?.find(b => b.label === "Contributor");
+      if (contributor?.count !== 13) return { pass: false, reason: `expected "Contributor" box to have 13, got ${contributor?.count}` };
+      return { pass: true, reason: "called getTalentMapping and returned the real 9-box distribution" };
     },
   },
   {
     id: "data-quality-baseline",
     question: "Data profil apa saja yang masih belum lengkap?",
-    note: "Baseline tool-selection coverage check only — must be distinct from getProfileCompletionSummary (overall percentage).",
+    note: "Verified live via getAgentDataQualityView: the single biggest gap is 20 employees missing 'photo' at Critical urgency. Must be distinct from getProfileCompletionSummary (overall percentage).",
     check: trace => {
       if (!called(trace, "getDataQualityAlerts")) return { pass: false, reason: "getDataQualityAlerts was not called" };
-      return { pass: true, reason: "called getDataQualityAlerts" };
+      const output = firstOutput<{ alerts?: Array<{ field: string; urgency: string; count: number }> }>(trace, "getDataQualityAlerts");
+      const photoCritical = output?.alerts?.find(a => a.field === "photo" && a.urgency === "Critical");
+      if (photoCritical?.count !== 20) return { pass: false, reason: `expected 20 employees missing photo at Critical urgency, got ${photoCritical?.count}` };
+      return { pass: true, reason: "called getDataQualityAlerts and returned the real photo-gap count" };
     },
   },
   {
     id: "profile-completion-baseline",
     question: "Berapa persen kelengkapan profil karyawan secara keseluruhan?",
-    note: "Baseline tool-selection coverage check only.",
-    check: trace => {
+    note: "Verified live via getAgentProfileCompletionView: 69% — matches the Home dashboard's own Profile Data Completion card.",
+    check: (trace, text) => {
       if (!called(trace, "getProfileCompletionSummary")) return { pass: false, reason: "getProfileCompletionSummary was not called" };
-      return { pass: true, reason: "called getProfileCompletionSummary" };
+      const output = firstOutput<{ pct?: number }>(trace, "getProfileCompletionSummary");
+      if (output?.pct !== 69) return { pass: false, reason: `expected 69%, got ${output?.pct}%` };
+      if (!has(text, "69")) return { pass: false, reason: `answer doesn't mention 69%: "${text}"` };
+      return { pass: true, reason: "called getProfileCompletionSummary and correctly reported 69%" };
     },
   },
   {
     id: "development-needed-baseline",
     question: "Siapa saja karyawan yang butuh development?",
-    note: "Baseline tool-selection coverage check only.",
-    check: trace => {
+    note: "Verified live via getAgentDevelopmentView: 4 of 33 employees need development — Enzo Fernandez, Cody Gakpo, Rafael Leao, Nico Williams.",
+    check: (trace, text) => {
       if (!called(trace, "getEmployeesNeedingDevelopment")) return { pass: false, reason: "getEmployeesNeedingDevelopment was not called" };
-      return { pass: true, reason: "called getEmployeesNeedingDevelopment" };
+      const output = firstOutput<{ needingDevelopmentCount?: number }>(trace, "getEmployeesNeedingDevelopment");
+      if (output?.needingDevelopmentCount !== 4) return { pass: false, reason: `expected 4 employees needing development, got ${output?.needingDevelopmentCount}` };
+      if (!has(text, "Cody Gakpo")) return { pass: false, reason: `answer doesn't mention Cody Gakpo: "${text}"` };
+      return { pass: true, reason: "called getEmployeesNeedingDevelopment and named a real match" };
     },
   },
   {

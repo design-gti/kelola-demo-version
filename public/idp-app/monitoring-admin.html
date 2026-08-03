@@ -568,6 +568,18 @@
       document.body.classList.remove('panel-open');
       if (_selectedRow) { _selectedRow.classList.remove('row-selected'); _selectedRow = null; }
     }
+    // Deep-link support: ?id=<empId> from the assistant's "Lihat Monitoring IDP" card
+    // (see idpUrl() in src/lib/agent/navigation.ts) selects and scrolls to that row,
+    // same intent as the highlight mechanism on Vismap/Talent Mapping/Team Profile.
+    function highlightFromDeepLink() {
+      var idParam = new URLSearchParams(window.location.search).get('id');
+      if (!idParam) return;
+      var row = document.querySelector('tr[data-emp-id="' + idParam + '"]');
+      var emp = EMPLOYEES.find(function(e){ return String(e.id) === idParam; });
+      if (!row || !emp) return;
+      openPanelById(emp.id, row);
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
     var _cfDepts=[], _cfStatuses=[], _filterConditions=[];
     var _TEAMS_VALS=['Sales Executive','Engineer','Product'];
     var _STATUS_VALS=['PENDING','IN PROGRESS','DONE','EXPIRED','DRAFT'];
@@ -592,7 +604,7 @@
       tbody.innerHTML=list.map(function(emp){
         var _sc={};emp.statuses.forEach(function(s){_sc[s.label]=(_sc[s.label]||0)+1;});
         var chips=[{l:'PENDING',c:'status-need-review'},{l:'IN PROGRESS',c:'status-in-progress'},{l:'DONE',c:'status-done'},{l:'EXPIRED',c:'status-expired'},{l:'DRAFT',c:'status-draft'}].filter(function(st){return (_sc[st.l]||0)>0;}).map(function(st){return '<span class="status-chip '+st.c+'" style="pointer-events:none">'+st.l+': '+_sc[st.l]+'</span>';}).join(' ');
-        return '<tr onclick="openPanelById('+emp.id+',this)"><td><div class="emp-cell-info"><img src="'+emp.avatar+'" width="32" height="32" style="border-radius:50%;object-fit:cover" alt=""><div><div class="emp-cell-name">'+emp.name+'</div><div class="emp-cell-role">'+emp.role+'</div></div></div></td><td class="emp-cell-dept">'+emp.dept+'</td><td>'+chips+'</td></tr>';
+        return '<tr data-emp-id="'+emp.id+'" onclick="openPanelById('+emp.id+',this)"><td><div class="emp-cell-info"><img src="'+emp.avatar+'" width="32" height="32" style="border-radius:50%;object-fit:cover" alt=""><div><div class="emp-cell-name">'+emp.name+'</div><div class="emp-cell-role">'+emp.role+'</div></div></div></td><td class="emp-cell-dept">'+emp.dept+'</td><td>'+chips+'</td></tr>';
       }).join('');
     }
     var _fltVddIdx=-1;
@@ -742,7 +754,7 @@
         EMPLOYEES = data.employees || [];
         ASPECTS = data.aspects || []; NOTIFICATIONS = data.notifications || []; renderAspectViews();
         EMPLOYEES.forEach(function(emp){ emp.statuses = emp.idps.map(function(idp){ return {label:idp.statusLabel,cls:idp.statusCls}; }); });
-        renderCfTable(); updateInsightCounts();
+        renderCfTable(); updateInsightCounts(); highlightFromDeepLink();
       }).catch(function(e){ console.error('Failed to load idp-data.json', e); });
     });
 
