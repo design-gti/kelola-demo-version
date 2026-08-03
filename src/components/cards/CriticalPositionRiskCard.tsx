@@ -25,20 +25,20 @@ export default function CriticalPositionRiskCard({ positions: rawPositions }: { 
           return (
             <div key={pos.positionId} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 10px", borderRadius: 8, background: "#f8f9fa" }}>
               <div>
-                <div style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>{pos.title}</div>
-                <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>{pos.department}</div>
+                <div style={{ fontSize: 12, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>{pos.title}</div>
+                <div style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>{pos.department}</div>
               </div>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 2 }}>
-                <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 10, background: cfg.bg, color: cfg.color, fontFamily: "Open Sans, sans-serif" }}>
+                <span style={{ fontSize: 12, padding: "2px 8px", borderRadius: 10, background: cfg.bg, color: cfg.color, fontFamily: "Open Sans, sans-serif" }}>
                   {cfg.label}
                 </span>
                 {maxGap !== null && (
-                  <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>
+                  <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>
                     Gap maks: {maxGap}
                   </span>
                 )}
                 {pos.successors.length > 0 && (
-                  <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>
+                  <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>
                     {pos.successors.length} suksesor
                   </span>
                 )}

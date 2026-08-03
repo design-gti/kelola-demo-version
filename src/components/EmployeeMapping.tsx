@@ -42,7 +42,7 @@ function AvatarStack({ avatars, names, count }: { avatars: string[]; names: stri
         {extra > 0 && (
           <div className="w-[22px] h-[22px] rounded-full flex-shrink-0 flex items-center justify-center"
             style={{ backgroundImage: `url(${avOverlay})`, backgroundSize: "cover", zIndex: 0, marginLeft: "4px" }}>
-            <span className="text-white text-[10px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>+{extra}</span>
+            <span className="text-white text-[12px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>+{extra}</span>
           </div>
         )}
       </div>
@@ -137,7 +137,7 @@ export default function EmployeeMapping({
       <div className="flex-1 flex gap-[4px] min-h-[260px]">
         {/* Y-axis label */}
         <div className="flex items-center justify-center w-[18px] flex-shrink-0">
-          <div className="text-[#58595b] text-[10px] whitespace-nowrap"
+          <div className="text-[#58595b] text-[12px] whitespace-nowrap"
             style={{ fontFamily: "'Open Sans', sans-serif", writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
             {axisY}
           </div>
@@ -151,7 +151,7 @@ export default function EmployeeMapping({
             ))}
           </div>
           <div className="h-px bg-[#adb5bd] mt-[2px]" />
-          <p className="text-[#58595b] text-[10px] text-center mt-[2px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+          <p className="text-[#58595b] text-[12px] text-center mt-[2px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
             {axisX}
           </p>
         </div>

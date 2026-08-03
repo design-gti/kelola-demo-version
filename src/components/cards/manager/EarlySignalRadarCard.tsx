@@ -35,13 +35,13 @@ export default function EarlySignalRadarCard() {
         <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12, color: "#495057" }}>
           Radar Sinyal Dini
         </span>
-        <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>
+        <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>
           {SIGNALS.length} sinyal aktif
         </span>
       </div>
 
       {SIGNALS.length === 0 ? (
-        <div style={{ textAlign: "center", padding: "20px 0", fontSize: 10, color: "#adb5bd", fontFamily: "Open Sans, sans-serif" }}>
+        <div style={{ textAlign: "center", padding: "20px 0", fontSize: 12, color: "#adb5bd", fontFamily: "Open Sans, sans-serif" }}>
           ✓ Semua anggota tim dalam kondisi normal
         </div>
       ) : (
@@ -74,7 +74,7 @@ export default function EarlySignalRadarCard() {
                       {cfg.label}
                     </span>
                   </div>
-                  <p style={{ margin: 0, fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#6c757d", lineHeight: 1.5 }}>
+                  <p style={{ margin: 0, fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#6c757d", lineHeight: 1.5 }}>
                     {s.reason}
                   </p>
                 </div>
@@ -92,7 +92,7 @@ export default function EarlySignalRadarCard() {
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 6 }}>
             {SAFE.map(name => (
               <span key={name} style={{
-                fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#28a745",
+                fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#28a745",
                 background: "#e9f7ef", padding: "2px 8px", borderRadius: 9999,
               }}>
                 {name}

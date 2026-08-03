@@ -38,8 +38,8 @@ export default function QuickProfileAccessCard({ employees, defaultResults }: { 
         {results.map(c => (
           <div key={c.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "6px 8px", borderRadius: 6, background: "#f8f9fa" }}>
             <div>
-              <div style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>{c.name}</div>
-              <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>{c.position}</div>
+              <div style={{ fontSize: 12, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>{c.name}</div>
+              <div style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>{c.position}</div>
             </div>
             <Button
               component={Link}

@@ -125,7 +125,7 @@ export default function LineChartCard({ title, value, chipColor, data, areaColor
         offsetY: -8,
         style: {
           background: chipColor, color: "#fff",
-          fontSize: "10px", fontWeight: 700,
+          fontSize: "12px", fontWeight: 700,
           fontFamily: "'Open Sans', sans-serif",
           padding: { top: 2, bottom: 2, left: 8, right: 8 },
         },
@@ -158,7 +158,7 @@ export default function LineChartCard({ title, value, chipColor, data, areaColor
     colors: [lineColor],
     xaxis: {
       categories: years,
-      labels: { style: { fontSize: "10px", fontFamily: "'Open Sans', sans-serif", colors: "#495057" } },
+      labels: { style: { fontSize: "12px", fontFamily: "'Open Sans', sans-serif", colors: "#495057" } },
       axisBorder: { show: false },
       axisTicks: { show: false },
     },

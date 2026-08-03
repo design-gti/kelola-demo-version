@@ -60,7 +60,7 @@ function InsightCard({ title, main, sub, extra, accent, icon, buttons, onClick }
           <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 22, color: "#016699", lineHeight: 1 }}>{main}</span>
           <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: "#adb5bd", marginBottom: 2 }}>{sub}</span>
         </div>
-        <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 10, color: "#adb5bd" }}>{extra}</p>
+        <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 12, color: "#adb5bd" }}>{extra}</p>
       </div>
       <div className="flex-shrink-0">{buttons}</div>
     </Paper>

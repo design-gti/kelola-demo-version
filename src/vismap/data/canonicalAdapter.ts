@@ -4,6 +4,42 @@ import { Employee } from "./orgChartData";
 import { generateDevelopmentData } from "./developmentData";
 import { store } from "@/data/model/store";
 
+// Demografi (gender/city/marital status) dan IQ TIDAK ada di store kanonik —
+// Participant hanya menyimpan posisi, atasan, DISC, potential dan foto. Tanpa ini
+// kolom "Basic Information" di Data Visibility diam-diam tidak pernah muncul di
+// kartu org chart, karena OrgChartCard baru merender field itu kalau nilainya ada
+// (beda dari kolom skor yang jatuh ke '-'). Jadi kita turunkan seperti jalur CSV
+// lama Vismap (lihat generateDummyData di dataManager.ts): deterministik dari nama,
+// supaya nilainya stabil antar-render dan antar-reload.
+const CITIES = [
+  "Jakarta", "Bandung", "Surabaya", "Yogyakarta", "Semarang",
+  "Medan", "Denpasar", "Makassar", "Palembang", "Tangerang",
+  "Bekasi", "Bogor", "Depok", "Malang", "Solo",
+];
+
+const FEMALE_NAME_HINTS = [
+  "Dian", "Yolanda", "Chelsea", "Novaria", "Angela", "Shani",
+  "Liliana", "Aurora", "Vicky", "Shifa", "Diana", "Siti",
+  "Clarissa", "Putri", "Nana", "Jesslyn", "Devi", "Gilda",
+  "Ami", "Hilda", "Wirda", "Tira", "Zamira", "Susanti",
+  "Mulyani", "Rahmawati", "Widiastuti", "Shania", "Hastuti",
+];
+
+function nameHash(name: string): number {
+  return name.split("").reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+}
+
+function demographics(name: string) {
+  const hash = nameHash(name);
+  const isFemale = FEMALE_NAME_HINTS.some(hint => name.includes(hint));
+  return {
+    gender: (isFemale ? "Female" : "Male") as "Male" | "Female",
+    city: CITIES[hash % CITIES.length],
+    maritalStatus: (hash % 2 === 0 ? "Menikah" : "Belum Menikah") as "Menikah" | "Belum Menikah",
+    iq: 105 + (hash % 26),
+  };
+}
+
 export function buildCanonicalEmployees(): Employee[] {
   const parts = store.participants;
 
@@ -37,6 +73,7 @@ export function buildCanonicalEmployees(): Employee[] {
     const sIds = succ.get(p.id) ?? [];
     const numeric = p.id.replace(/\D/g, "") || "0";
     const dev = generateDevelopmentData(numeric, readiness ?? comp);
+    const demo = demographics(p.name);
 
     return {
       id: p.id,
@@ -54,6 +91,10 @@ export function buildCanonicalEmployees(): Employee[] {
       performanceRating: perf ? Math.max(1, Math.min(5, Math.round(perf / 20))) : 3,
       readinessScore: readiness,
       criticalPosition: p.potential === "high",
+      gender: demo.gender,
+      city: demo.city,
+      maritalStatus: demo.maritalStatus,
+      iq: demo.iq,
       performance: perf,
       capabilityScore: comp,
       commitmentScore: engagement,

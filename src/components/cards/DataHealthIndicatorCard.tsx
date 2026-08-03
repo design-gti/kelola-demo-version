@@ -36,7 +36,7 @@ export default function DataHealthIndicatorCard({ employees, syncSystems }: { em
           { label: "Outlier", value: `${outliers} org`, color: outliers > 2 ? "#dc3545" : "#fd9f28" },
         ].map(m => (
           <div key={m.label} style={{ background: "#f8f9fa", borderRadius: 8, padding: "10px 8px", textAlign: "center" }}>
-            <div style={{ fontSize: 10, fontWeight: 700, color: m.color, fontFamily: "'Open Sans', sans-serif" }}>{m.value}</div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: m.color, fontFamily: "'Open Sans', sans-serif" }}>{m.value}</div>
             <div style={{ fontSize: 9, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", marginTop: 2 }}>{m.label}</div>
           </div>
         ))}
@@ -49,8 +49,8 @@ export default function DataHealthIndicatorCard({ employees, syncSystems }: { em
           const cfg = statusConfig[sys.status];
           return (
             <div key={sys.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#495057" }}>{sys.name}</span>
-              <span style={{ fontSize: 10, padding: "1px 8px", borderRadius: 10, background: cfg.color + "20", color: cfg.color, fontFamily: "Open Sans, sans-serif" }}>
+              <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#495057" }}>{sys.name}</span>
+              <span style={{ fontSize: 12, padding: "1px 8px", borderRadius: 10, background: cfg.color + "20", color: cfg.color, fontFamily: "Open Sans, sans-serif" }}>
                 {cfg.label}
               </span>
             </div>

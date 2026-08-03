@@ -42,10 +42,10 @@ export default function ProfileCompletenessTrackerCard({ title = "Profile Comple
           <div key={c.id}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
               <div>
-                <span style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>{c.name}</span>
-                <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#adb5bd", marginLeft: 6 }}>{c.position}</span>
+                <span style={{ fontSize: 12, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>{c.name}</span>
+                <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#adb5bd", marginLeft: 6 }}>{c.position}</span>
               </div>
-              <span style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: c.pct < 50 ? "#dc3545" : c.pct < 100 ? "#fd9f28" : "#28a745" }}>{c.pct}%</span>
+              <span style={{ fontSize: 12, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: c.pct < 50 ? "#dc3545" : c.pct < 100 ? "#fd9f28" : "#28a745" }}>{c.pct}%</span>
             </div>
             <div style={{ height: 4, background: "#f0f0f0", borderRadius: 2, marginBottom: 4 }}>
               <div style={{ height: "100%", width: `${c.pct}%`, background: c.pct < 50 ? "#dc3545" : c.pct < 100 ? "#fd9f28" : "#28a745", borderRadius: 2 }} />
@@ -60,7 +60,7 @@ export default function ProfileCompletenessTrackerCard({ title = "Profile Comple
           </div>
         ))}
         {toShow.length === 0 && (
-          <div style={{ fontSize: 10, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", textAlign: "center", padding: "20px 0" }}>
+          <div style={{ fontSize: 12, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", textAlign: "center", padding: "20px 0" }}>
             Semua profil lengkap
           </div>
         )}

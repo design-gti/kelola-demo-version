@@ -20,14 +20,14 @@ function AlertRow({ entry }: { entry: GroupedFieldEntry }) {
   return (
     <div style={{ padding: "8px 10px", borderRadius: 8, background: "#f8f9fa" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>
+        <span style={{ fontSize: 12, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>
           {entry.fieldLabel}
         </span>
-        <span style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#6c757d" }}>
+        <span style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#6c757d" }}>
           {entry.count} org
         </span>
       </div>
-      <div style={{ fontSize: 10, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", marginTop: 3 }}>
+      <div style={{ fontSize: 12, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", marginTop: 3 }}>
         {entry.names.slice(0, 3).join(", ")}{entry.names.length > 3 ? ` +${entry.names.length - 3} lainnya` : ""}
       </div>
     </div>
@@ -59,7 +59,7 @@ export default function ProfileCompletion({ completion }: { completion: ProfileC
         <div className="flex items-center gap-[8px]">
           <div className="flex items-center gap-[3px]">
             <Progress value={pct} color="primary" size={8} radius={4} w={71} />
-            <span className="text-[#495057] text-[10px] whitespace-nowrap"
+            <span className="text-[#495057] text-[12px] whitespace-nowrap"
               style={{ fontFamily: "'Open Sans', sans-serif" }}>
               {pct}%
             </span>
@@ -96,7 +96,7 @@ export default function ProfileCompletion({ completion }: { completion: ProfileC
             )}
 
             {noData.length === 0 && stale.length === 0 && (
-              <div style={{ fontSize: 10, color: "#adb5bd", textAlign: "center", padding: "16px 0", fontFamily: "Open Sans, sans-serif" }}>
+              <div style={{ fontSize: 12, color: "#adb5bd", textAlign: "center", padding: "16px 0", fontFamily: "Open Sans, sans-serif" }}>
                 Semua data lengkap dan relevan
               </div>
             )}

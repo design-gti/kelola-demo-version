@@ -45,7 +45,7 @@ function Section({ title, entries, up }: { title: string; entries: MomentumEntry
     <div>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
         <div style={{ width: 4, height: 14, borderRadius: 2, background: color }} />
-        <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 10, color }}>
+        <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12, color }}>
           {title}
         </span>
       </div>
@@ -63,7 +63,7 @@ function Section({ title, entries, up }: { title: string; entries: MomentumEntry
               width: 30, height: 30, borderRadius: "50%", flexShrink: 0,
               background: color + "25", color,
               display: "flex", alignItems: "center", justifyContent: "center",
-              fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 10,
+              fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 12,
             }}>
               {e.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
             </div>

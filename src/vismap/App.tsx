@@ -65,9 +65,9 @@ function OrgNode({ employee, level, showHeatmap, heatmapStyle, heatmapMode, onEm
     
     allEmployees.forEach(emp => {
       let fieldCount = 0;
-      if (visibleColumns.gender && emp.gender) fieldCount++;
-      if (visibleColumns.city && emp.city) fieldCount++;
-      if (visibleColumns.maritalStatus && emp.maritalStatus) fieldCount++;
+      if (visibleColumns.gender) fieldCount++;
+      if (visibleColumns.city) fieldCount++;
+      if (visibleColumns.maritalStatus) fieldCount++;
       if (visibleColumns.performance) fieldCount++;
       if (visibleColumns.iq) fieldCount++;
       if (visibleColumns.capability) fieldCount++;

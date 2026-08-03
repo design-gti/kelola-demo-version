@@ -210,7 +210,7 @@ function IDPModal({ modal, onClose }: { modal: ModalState; onClose: () => void }
               </Avatar>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 11, color: "#212529", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{emp.name}</div>
-                <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 10, color: "#6c757d" }}>{emp.position} · {emp.dept}</div>
+                <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 12, color: "#6c757d" }}>{emp.position} · {emp.dept}</div>
               </div>
               <Button
                 onClick={e => { e.stopPropagation(); router.push('/idp?page=create-idp-admin.html'); }}
@@ -304,7 +304,7 @@ export default function AspectScoreCard({ title = "Percentage of Aspect Score", 
           const exceedPct = (a.exceed / total) * 100;
           return (
             <div key={a.label} className="flex flex-col gap-[2px]">
-              <span className="text-[#495057] text-[10px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>{a.label}</span>
+              <span className="text-[#495057] text-[12px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>{a.label}</span>
               <div className="aspect-bar-wrap relative flex h-[6px] gap-[4px] w-full" style={{ overflow: "visible" }}>
                 {belowPct > 0 && (
                   <BarSegment pct={belowPct} background="linear-gradient(to right, #e8f1ff, #c1d8fc)" label="Below Standard" rowLabel={a.label} onEnter={showTooltip} onLeave={() => setTooltip(null)} onClick={openModal} />
@@ -316,7 +316,7 @@ export default function AspectScoreCard({ title = "Percentage of Aspect Score", 
                   <BarSegment pct={exceedPct} background="linear-gradient(to right, #5baae2, #016699)" label="Exceed Standard" rowLabel={a.label} onEnter={showTooltip} onLeave={() => setTooltip(null)} onClick={openModal} />
                 )}
                 {tooltip && tooltip.rowLabel === a.label && (
-                  <div style={{ position: "absolute", left: tooltip.x, top: tooltip.y, transform: "translateX(-50%)", background: "#333", color: "#fff", fontSize: 10, fontFamily: "'Open Sans', sans-serif", padding: "3px 7px", borderRadius: 4, whiteSpace: "nowrap", pointerEvents: "none", zIndex: 20, boxShadow: "0 2px 6px rgba(0,0,0,0.2)" }}>
+                  <div style={{ position: "absolute", left: tooltip.x, top: tooltip.y, transform: "translateX(-50%)", background: "#333", color: "#fff", fontSize: 12, fontFamily: "'Open Sans', sans-serif", padding: "3px 7px", borderRadius: 4, whiteSpace: "nowrap", pointerEvents: "none", zIndex: 20, boxShadow: "0 2px 6px rgba(0,0,0,0.2)" }}>
                     {tooltip.label} · {tooltip.pct}%
                     <div style={{ position: "absolute", bottom: -4, left: "50%", transform: "translateX(-50%)", width: 0, height: 0, borderLeft: "4px solid transparent", borderRight: "4px solid transparent", borderTop: "4px solid #333" }} />
                   </div>
@@ -334,7 +334,7 @@ export default function AspectScoreCard({ title = "Percentage of Aspect Score", 
           <div className="flex-1 h-px bg-[#adb5bd]" />
           <div className="w-px h-[6px] bg-[#adb5bd]" />
         </div>
-        <div className="flex items-center justify-between text-[#adb5bd] text-[10px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+        <div className="flex items-center justify-between text-[#adb5bd] text-[12px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
           <span>0%</span><span>100%</span>
         </div>
       </div>
@@ -344,7 +344,7 @@ export default function AspectScoreCard({ title = "Percentage of Aspect Score", 
         {[{ color: "#c1d8fc", label: "Below Standard" }, { color: "#68b1ff", label: "Meet Standard" }, { color: "#016699", label: "Exceed Standard" }].map((l) => (
           <div key={l.label} className="flex items-center gap-[4px]">
             <div className="w-[12px] h-[12px] rounded-full flex-shrink-0" style={{ backgroundColor: l.color }} />
-            <span className="text-[#495057] text-[10px] whitespace-nowrap" style={{ fontFamily: "'Open Sans', sans-serif" }}>{l.label}</span>
+            <span className="text-[#495057] text-[12px] whitespace-nowrap" style={{ fontFamily: "'Open Sans', sans-serif" }}>{l.label}</span>
           </div>
         ))}
       </div>

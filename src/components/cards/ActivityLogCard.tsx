@@ -60,13 +60,13 @@ export default function ActivityLogCard({ activityLog }: { activityLog: Activity
         {filtered.map(entry => (
           <div key={entry.id} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
             <Avatar size={24} radius="xl" style={{ flexShrink: 0, background: TYPE_COLORS[entry.type] }}>
-              <span style={{ fontSize: 10, color: "#fff", fontWeight: 700, fontFamily: "'Open Sans', sans-serif" }}>
+              <span style={{ fontSize: 12, color: "#fff", fontWeight: 700, fontFamily: "'Open Sans', sans-serif" }}>
                 {TYPE_ICONS[entry.type]}
               </span>
             </Avatar>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#495057", lineHeight: 1.4 }}>{entry.description}</div>
-              <div style={{ fontSize: 10, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", marginTop: 2 }}>
+              <div style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#495057", lineHeight: 1.4 }}>{entry.description}</div>
+              <div style={{ fontSize: 12, color: "#adb5bd", fontFamily: "Open Sans, sans-serif", marginTop: 2 }}>
                 {entry.actor} · {timeAgo(entry.timestamp)}
               </div>
             </div>

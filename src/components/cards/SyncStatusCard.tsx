@@ -22,8 +22,8 @@ export default function SyncStatusCard({ syncSystems }: { syncSystems: SyncSyste
             <div key={sys.id} style={{ padding: "8px 10px", borderRadius: 8, background: "#f8f9fa" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div>
-                  <div style={{ fontSize: 10, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>{sys.name}</div>
-                  <div style={{ fontSize: 10, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>{sys.dataType} · {timeAgo(sys.lastSync)}</div>
+                  <div style={{ fontSize: 12, fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: "#495057" }}>{sys.name}</div>
+                  <div style={{ fontSize: 12, fontFamily: "Open Sans, sans-serif", color: "#adb5bd" }}>{sys.dataType} · {timeAgo(sys.lastSync)}</div>
                 </div>
                 <Badge
                   variant="light"
@@ -36,7 +36,7 @@ export default function SyncStatusCard({ syncSystems }: { syncSystems: SyncSyste
               </div>
               {sys.status === "failed" && sys.errorMsg && (
                 <div style={{ marginTop: 6, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: 10, color: "#dc3545", fontFamily: "Open Sans, sans-serif" }}>{sys.errorMsg}</span>
+                  <span style={{ fontSize: 12, color: "#dc3545", fontFamily: "Open Sans, sans-serif" }}>{sys.errorMsg}</span>
                   <Button variant="outline" color="primary" size="compact-xs" radius={4} style={{ fontFamily: "Open Sans, sans-serif" }}>
                     Coba Lagi
                   </Button>
