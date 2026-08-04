@@ -482,7 +482,7 @@
       <!-- Insight Summary -->
       <div class="insight-card">
         <span class="insight-stat-label">Total Active IDP</span>
-        <span class="insight-stat-value">86 employees</span>
+        <span class="insight-stat-value" id="total-active-idp">0 employees</span>
       </div>
       <!-- Search & Filter -->
       <div class="search-filter-row">
@@ -754,6 +754,8 @@
         var key=chip.getAttribute('data-filter-key');
         chip.textContent=key+': '+(counts[key]||0);
       });
+      var total=document.getElementById('total-active-idp');
+      if(total)total.textContent=EMPLOYEES.length+' employees';
     }
     document.addEventListener('DOMContentLoaded', function(){
       renderAspectViews();

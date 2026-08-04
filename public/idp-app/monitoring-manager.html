@@ -482,7 +482,7 @@
       <!-- Insight Summary -->
       <div class="insight-card">
         <span class="insight-stat-label">Total Active IDP</span>
-        <span class="insight-stat-value">86 employees</span>
+        <span class="insight-stat-value" id="total-active-idp">0 employees</span>
         <div class="pic-check-insight" id="pic-check-insight">
           <span class="pic-check-insight-count" id="pic-check-count">0</span>
           <span class="pic-check-insight-label">Programs Awaiting Your Check</span>
@@ -763,6 +763,8 @@
         var key=chip.getAttribute('data-filter-key');
         chip.textContent=key+': '+(counts[key]||0);
       });
+      var total=document.getElementById('total-active-idp');
+      if(total)total.textContent=EMPLOYEES.length+' employees';
     }
     document.addEventListener('DOMContentLoaded', function(){
       fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(d){
