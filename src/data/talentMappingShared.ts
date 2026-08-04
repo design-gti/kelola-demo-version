@@ -16,6 +16,9 @@ export interface BoxDef {
   label: string;
   color: string;      // mantine token
   tag: "talent" | null;
+  // TR (Talent Readiness): the readiness bucket this box maps to
+  // ("Ready Now" / "Ready under 1 year" / ...). Unused (undefined) for TI.
+  readiness?: string | null;
 }
 
 // A criteria band on an axis. min is derived (prev band max + 0.01); max is editable.
@@ -204,36 +207,89 @@ export function orderFor(cfg: TMConfig, rawX: number, rawY: number): number {
 export const TI_CONFIG: TMConfig = makeConfig("9box");
 
 // TR (Talent Readiness): Competency × Potency, empty until a Job Target is picked.
-export const TR_CONFIG: TMConfig = {
-  ...makeConfig("9box", { sumbuXKey: "technical_score", sumbuYKey: "leadership_score" }),
-  id: "TR", name: "Talent Readiness", tabLabel: "Talent Readiness", unit: "Employees",
-  boxes: [
-    { order: 1, label: "Need Development", color: "error.2", tag: null },
-    { order: 2, label: "Need Development", color: "error.2", tag: null },
-    { order: 3, label: "Need Development", color: "error.2", tag: null },
-    { order: 4, label: "Solid Performer", color: ORG, tag: null },
-    { order: 5, label: "Need Development", color: "error.2", tag: null },
-    { order: 6, label: "Development Priority", color: BLU, tag: null },
-    { order: 7, label: "Solid Performer", color: ORG, tag: null },
-    { order: 8, label: "Development Priority", color: BLU, tag: null },
-    { order: 9, label: "Ready for bigger role", color: BLU3, tag: null },
-  ],
-};
-// Donut tags (kelola-app quirk: TI reuses tenure labels for talent/non/no-data counts).
+// A box's label, color, and readiness bucket are all determined by its GRID POSITION
+// — whether Competency (X) and/or Potency (Y) is in the TOP tier. Deriving them
+// (rather than hardcoding the 9-box) makes TR work identically for ANY layout
+// (9-box, 12-box, …), mirroring kelola-app's per-template readiness seeding.
+export const TR_TIERS = [
+  { readiness: "Ready more than 2 year", label: "Need Development", color: "error.2" },
+  { readiness: "Ready between 1 and 2 year", label: "Solid Performer", color: ORG },
+  { readiness: "Ready under 1 year", label: "Development Priority", color: BLU },
+  { readiness: "Ready Now", label: "Ready for bigger role", color: BLU3 },
+] as const;
+
+function trTierFor(compTop: boolean, potTop: boolean) {
+  const readiness = compTop && potTop ? "Ready Now"
+    : potTop ? "Ready under 1 year"
+      : compTop ? "Ready between 1 and 2 year"
+        : "Ready more than 2 year";
+  return TR_TIERS.find(t => t.readiness === readiness)!;
+}
+
+/** TR boxes for a layout ordering: label/color/readiness by grid tier
+ *  (top competency column and/or top potency row ⇒ readier). */
+export function trBoxesFor(ordering: number[][]): BoxDef[] {
+  const boxes: BoxDef[] = [];
+  ordering.forEach((row, rowFromTop) => {
+    row.forEach((order, col) => {
+      const tier = trTierFor(col === row.length - 1, rowFromTop === 0);
+      boxes.push({ order, label: tier.label, color: tier.color, tag: null, readiness: tier.readiness });
+    });
+  });
+  return boxes.sort((a, b) => a.order - b.order);
+}
+
+// Readiness buckets in display order (worst→best). Donut colors are NOT fixed
+// here — donutTags() pulls each bucket's color from its box, so it always tracks
+// the diagram (and any color edits made in Settings).
+export const READINESS_BUCKETS: string[] = [
+  "Ready more than 2 year",
+  "Ready between 1 and 2 year",
+  "Ready under 1 year",
+  "Ready Now",
+];
+
+export const TR_CONFIG: TMConfig = makeConfigById("TR");
+
+/** Base config for a box-mapping id: TI = plain layout; TR = same grid but with
+ *  tier-derived readiness labels/colors/buckets (works for every layout). */
+export function makeConfigById(
+  id: "TI" | "TR",
+  layout = "9box",
+  overrides?: Partial<Pick<TMConfig, "sumbuXKey" | "sumbuYKey">>,
+): TMConfig {
+  if (id !== "TR") return makeConfig(layout, overrides);
+  const base = makeConfig(layout, {
+    sumbuXKey: overrides?.sumbuXKey ?? "technical_score",
+    sumbuYKey: overrides?.sumbuYKey ?? "leadership_score",
+  });
+  return {
+    ...base,
+    id: "TR", name: "Talent Readiness", tabLabel: "Talent Readiness", unit: "Employees",
+    boxes: trBoxesFor(base.ordering),
+  };
+}
+
+// Donut tags. Colors are FULL tokens (no ".5" suffix appended downstream) so the
+// TR legend mirrors the diagram box colors exactly — "Ready Now" is box 9's blue,
+// never green — keeping donut ↔ 9-box ↔ table visually consistent. (TI keeps its
+// tenure labels for talent/non/no-data counts.)
 export function donutTags(cfg: TMConfig, points: TMPoint[]) {
   const isTalent = (p: TMPoint) => boxByOrder(cfg, p.order)?.tag === "talent";
   if (cfg.id === "TI") {
     return [
-      { name: "<2 Years", value: points.filter(isTalent).length, color: "primary" },
-      { name: "2 - 5 Years", value: points.filter(p => p.order != null && !isTalent(p)).length, color: "secondary" },
-      { name: ">5 Years", value: points.filter(p => p.order == null).length, color: "neutral" },
+      { name: "<2 Years", value: points.filter(isTalent).length, color: "primary.5" },
+      { name: "2 - 5 Years", value: points.filter(p => p.order != null && !isTalent(p)).length, color: "secondary.5" },
+      { name: ">5 Years", value: points.filter(p => p.order == null).length, color: "neutral.5" },
     ];
   }
+  // TR: one slice per readiness bucket present in this config's boxes, colored by
+  // that box's own color (so the legend dot matches the cell), + a grey No Data slice.
+  const readinessOf = (p: TMPoint) => boxByOrder(cfg, p.order)?.readiness || null;
+  const boxColorFor = (name: string) => cfg.boxes.find(x => x.readiness === name)?.color ?? "neutral.5";
+  const buckets = READINESS_BUCKETS.filter(name => cfg.boxes.some(x => x.readiness === name));
   return [
-    { name: "Ready more than 2 year", value: 0, color: "error" },
-    { name: "Ready between 1 and 2 year", value: 0, color: "secondary" },
-    { name: "Ready under 1 year", value: 0, color: "primary" },
-    { name: "Ready Now", value: 0, color: "success" },
-    { name: "No Data", value: points.length, color: "neutral" },
+    ...buckets.map(name => ({ name, value: points.filter(p => readinessOf(p) === name).length, color: boxColorFor(name) })),
+    { name: "No Data", value: points.filter(p => p.order == null).length, color: "neutral.5" },
   ];
 }

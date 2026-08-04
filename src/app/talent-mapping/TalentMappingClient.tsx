@@ -7,7 +7,7 @@ import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
 import DonutChart from "@/components/talent/DonutChart";
 import { matchesFuzzy } from "@/lib/data/textMatch";
-import { TR_CONFIG, donutTags, boxByOrder, resolveColor, TMConfig, TMPoint } from "@/data/talentMappingShared";
+import { donutTags, boxByOrder, resolveColor, TMConfig, TMPoint } from "@/data/talentMappingShared";
 
 /** How long the deep-link highlight (colored outline + auto-scroll) stays visible before fading — mirrors Vismap's OrgChartCard highlight timing. */
 const HIGHLIGHT_DURATION_MS = 3000;
@@ -59,7 +59,7 @@ function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean 
   return <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: muted ? "#ced4da" : "#495057" }}>{children}</span>;
 }
 
-function TablePanel({ config, points, highlightId }: { config: TMConfig; points: TMPoint[]; highlightId?: string | null }) {
+function TablePanel({ config, points, highlightId, emptyMessage = "Tidak ada data." }: { config: TMConfig; points: TMPoint[]; highlightId?: string | null; emptyMessage?: string }) {
   const router = useRouter();
   const isTI = config.id === "TI";
   const cols = isTI ? TI_COLS : TR_COLS;
@@ -90,7 +90,7 @@ function TablePanel({ config, points, highlightId }: { config: TMConfig; points:
           : <><HeaderCell>Employee</HeaderCell><HeaderCell>Position</HeaderCell><HeaderCell>Competency (X)%</HeaderCell><HeaderCell>Potency (Y)</HeaderCell><HeaderCell>Box Category</HeaderCell><HeaderCell>Readiness</HeaderCell><HeaderCell>Action</HeaderCell></>}
       </div>
       {points.length === 0 && (
-        <div style={{ padding: "40px 0", textAlign: "center", color: "#adb5bd" }}>Tidak ada data.</div>
+        <div style={{ padding: "40px 0", textAlign: "center", color: "#adb5bd" }}>{emptyMessage}</div>
       )}
       {pageRows.map((p, i) => {
         const box = boxByOrder(config, p.order);
@@ -127,7 +127,7 @@ function TablePanel({ config, points, highlightId }: { config: TMConfig; points:
                 <Cell muted={p.rawX == null}>{p.rawX != null ? `${p.rawX}%` : "{No data}"}</Cell>
                 <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
                 <span>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</span>
-                <Cell muted>-</Cell>
+                <Cell muted={!box?.readiness}>{box?.readiness || "{No data}"}</Cell>
                 <span role="button" title="Buka iProfile" onClick={() => router.push(`/iprofile?id=${encodeURIComponent(p.employeeId)}&from=talent-mapping`)} style={{ color: ACCENT, cursor: "pointer", display: "inline-flex" }}><IconArrowUpRight size={16} /></span>
               </>
             )}
@@ -161,16 +161,27 @@ function TablePanel({ config, points, highlightId }: { config: TMConfig; points:
 function Panel({
   config,
   points,
+  jobTargets = [],
+  trByTarget = {},
   initialBox = null,
   initialHighlight = null,
   onSettings,
 }: {
   config: TMConfig;
   points: TMPoint[];
+  jobTargets?: { id: string; title: string }[];
+  trByTarget?: Record<string, TMPoint[]>;
   initialBox?: number | null;
   initialHighlight?: string | null;
   onSettings?: () => void;
 }) {
+  const isTR = config.id === "TR";
+  // TR: employees are benchmarked against the picked Job Target. Empty until picked.
+  const [jobTarget, setJobTarget] = useState<string | null>(null);
+  const basePoints = useMemo(
+    () => (isTR ? (jobTarget ? trByTarget[jobTarget] ?? [] : []) : points),
+    [isTR, jobTarget, trByTarget, points],
+  );
   // Deep-link highlight: resolve the name/id once against the initial data
   // (lazy useState initializers, computed only on mount — not an effect,
   // since deriving state from a prop synchronously in an effect body is a
@@ -179,7 +190,7 @@ function Panel({
   // via the timer effect below — same convention as Vismap's OrgChartCard
   // highlight ring.
   const resolveHighlightMatch = () =>
-    initialHighlight ? points.find(p => p.employeeId === initialHighlight || matchesFuzzy(p.name, initialHighlight)) : undefined;
+    initialHighlight ? basePoints.find(p => p.employeeId === initialHighlight || matchesFuzzy(p.name, initialHighlight)) : undefined;
   const [selectedBox, setSelectedBox] = useState<number | null>(() => initialBox ?? resolveHighlightMatch()?.order ?? null);
   // Filter (by team & job) — applied values + modal draft.
   const [filterOpen, setFilterOpen] = useState(false);
@@ -196,13 +207,13 @@ function Panel({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- fade whichever highlight resolved at mount; not meant to restart on every re-render
   }, []);
 
-  const allTeams = useMemo(() => Array.from(new Set(points.map(p => p.team).filter(Boolean))).sort(), [points]);
-  const allJobs = useMemo(() => Array.from(new Set(points.map(p => p.positionTitle).filter(Boolean))).sort(), [points]);
+  const allTeams = useMemo(() => Array.from(new Set(basePoints.map(p => p.team).filter(Boolean))).sort(), [basePoints]);
+  const allJobs = useMemo(() => Array.from(new Set(basePoints.map(p => p.positionTitle).filter(Boolean))).sort(), [basePoints]);
 
-  const filtered = useMemo(() => points.filter(p =>
+  const filtered = useMemo(() => basePoints.filter(p =>
     (teams.length === 0 || teams.includes(p.team)) &&
     (jobs.length === 0 || jobs.includes(p.positionTitle))
-  ), [points, teams, jobs]);
+  ), [basePoints, teams, jobs]);
   const activeCount = teams.length + jobs.length;
 
   const tags = useMemo(() => donutTags(config, filtered), [config, filtered]);
@@ -226,12 +237,25 @@ function Panel({
         {/* Grid card */}
         <div style={{ flex: "1 1 420px", background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 20 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 8 }}>
-            {config.id === "TR" ? (
-              <div>
-                <div style={{ fontSize: 11, color: "#adb5bd", marginBottom: 4 }}>Job Target</div>
-                <select style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #e9ecef", fontFamily: FONT, fontSize: 12, color: "#adb5bd", minWidth: 200 }} defaultValue="">
-                  <option value="" disabled>Pilih job target</option>
-                </select>
+            {isTR ? (
+              <div style={{ display: "flex", alignItems: "flex-end", gap: 10 }}>
+                <div>
+                  <div style={{ fontSize: 11, color: "#adb5bd", marginBottom: 4 }}>Job Target</div>
+                  <select
+                    value={jobTarget ?? ""}
+                    onChange={e => { setJobTarget(e.currentTarget.value || null); setSelectedBox(null); }}
+                    style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #e9ecef", fontFamily: FONT, fontSize: 12, color: jobTarget ? "#495057" : "#adb5bd", minWidth: 200, background: "#fff" }}
+                  >
+                    <option value="" disabled>Pilih job target</option>
+                    {jobTargets.map(t => <option key={t.id} value={t.id} style={{ color: "#495057" }}>{t.title}</option>)}
+                  </select>
+                </div>
+                <span role="button" title="Filter" onClick={openFilter} style={{ position: "relative", cursor: "pointer", color: ACCENT, display: "inline-flex", paddingBottom: 8 }}>
+                  <IconFilter size={18} />
+                  {activeCount > 0 && (
+                    <Badge size="xs" circle color="primary" style={{ position: "absolute", top: -4, right: -8 }}>{activeCount}</Badge>
+                  )}
+                </span>
               </div>
             ) : (
               <Button
@@ -246,7 +270,7 @@ function Panel({
                 Filter
               </Button>
             )}
-            <IconSettings onClick={onSettings} title="Setting Talent Identification" size={16} style={{ color: "#adb5bd", cursor: onSettings ? "pointer" : undefined }} />
+            <IconSettings onClick={onSettings} title={`Setting ${config.name}`} size={16} style={{ color: "#adb5bd", cursor: onSettings ? "pointer" : undefined }} />
           </div>
           {chips.length > 0 && (
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginBottom: 8 }}>
@@ -271,7 +295,7 @@ function Panel({
           <div style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%", maxWidth: 250 }}>
             {tags.map((t, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: FONT, fontSize: 12, color: "#495057" }}>
-                <span style={{ width: 12, height: 12, borderRadius: "50%", background: resolveColor(`${t.color}.5`), flexShrink: 0 }} />
+                <span style={{ width: 12, height: 12, borderRadius: "50%", background: resolveColor(t.color), flexShrink: 0 }} />
                 <span style={{ flex: 1 }}>{t.name}</span>
                 <span>({t.value})</span>
               </div>
@@ -280,7 +304,12 @@ function Panel({
         </div>
       </div>
 
-      <TablePanel config={config} points={tableRows} highlightId={highlightId} />
+      <TablePanel
+        config={config}
+        points={tableRows}
+        highlightId={highlightId}
+        emptyMessage={isTR && !jobTarget ? "Belum menentukan job target, pilih job target terlebih dahulu" : "Tidak ada data."}
+      />
 
       <Modal opened={filterOpen} onClose={() => setFilterOpen(false)} title={<Text fw={700} c="#212529">Filter</Text>} size="lg" centered radius={12}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, fontFamily: FONT }}>
@@ -318,28 +347,31 @@ function Panel({
 export default function TalentMappingClient({
   tiConfig,
   tiPoints,
-  trPoints,
+  trConfig,
+  jobTargets,
+  trByTarget,
   initialBox,
   initialHighlight,
 }: {
   tiConfig: TMConfig;
   tiPoints: TMPoint[];
-  trPoints: TMPoint[];
+  trConfig: TMConfig;
+  jobTargets: { id: string; title: string }[];
+  trByTarget: Record<string, TMPoint[]>;
   initialBox: number | null;
   initialHighlight: string | null;
 }) {
   const router = useRouter();
   const [tab, setTab] = useState<"TI" | "TR">("TI");
-  const config = tab === "TI" ? tiConfig : TR_CONFIG;
-  const points = tab === "TI" ? tiPoints : trPoints;
+  const config = tab === "TI" ? tiConfig : trConfig;
+  const points = tab === "TI" ? tiPoints : [];
 
   return (
     <div style={{ fontFamily: FONT }}>
       <AppBreadcrumb items={[{ label: "Talent Mapping" }]} />
       <div style={{ padding: "12px 16px 40px" }}>
       <div style={{ display: "flex", gap: 24, borderBottom: "1px solid #e9ecef", marginBottom: 16 }}>
-        {/* ponytail: Talent Readiness tab hidden for now — re-add ["TR", "Talent Readiness"] to show it */}
-        {([["TI", "Human Asset Value"]] as const).map(([id, label]) => (
+        {([["TI", "Human Asset Value"], ["TR", "Talent Readiness"]] as const).map(([id, label]) => (
           <button key={id} onClick={() => setTab(id)} style={{
             background: "none", border: "none", cursor: "pointer", fontFamily: FONT, fontSize: 13, fontWeight: 600,
             padding: "0 0 10px", color: tab === id ? ACCENT : "#adb5bd",
@@ -351,9 +383,11 @@ export default function TalentMappingClient({
         key={tab}
         config={config}
         points={points}
+        jobTargets={jobTargets}
+        trByTarget={trByTarget}
         initialBox={initialBox}
         initialHighlight={initialHighlight}
-        onSettings={tab === "TI" ? () => router.push("/talent-mapping/config") : undefined}
+        onSettings={() => router.push(tab === "TI" ? "/talent-mapping/config" : "/talent-mapping/config?config=TR")}
       />
       </div>
     </div>

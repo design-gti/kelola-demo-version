@@ -1,5 +1,5 @@
 import { candidates, type Candidate } from "@/data/dummyData";
-import { TI_CONFIG, boxByOrder, orderFor, plotPos, resolveColor, type MetricKey, type TMConfig, type TMPoint } from "@/data/talentMappingShared";
+import { TI_CONFIG, TR_CONFIG, boxByOrder, orderFor, plotPos, resolveColor, type MetricKey, type TMConfig, type TMPoint } from "@/data/talentMappingShared";
 import { mantineColor } from "@/components/team/mantineColor";
 
 const val = (c: Candidate, key: MetricKey): number | null => c[key];
@@ -24,9 +24,62 @@ export function getTalentIdentificationPoints(cfg: TMConfig = TI_CONFIG, pool: C
   });
 }
 
-// TR (Talent Readiness): empty until a Job Target is picked — mirrors kelola-app default.
-export function getTalentReadinessPoints(): TMPoint[] {
-  return [];
+// ─── TR (Talent Readiness) ───────────────────────────────────────────────────
+// Readiness benchmarks every employee against ONE target position: Competency (X)
+// is the match% of their competency-metric vs the target's requirement (so it
+// changes per target); Potency (Y) stays the employee's intrinsic score. Mirrors
+// kelola-app, where X = calculate_match_percentage(employee, targetPosition).
+
+export interface JobTarget { id: string; title: string }
+
+/** Job targets = distinct positions that currently have an incumbent (mirrors
+ *  kelola-app's "jobs with ≥1 position"). Title doubles as the stable id. */
+export function getJobTargets(pool: Candidate[] = candidates): JobTarget[] {
+  return Array.from(new Set(pool.map(c => c.position).filter(Boolean)))
+    .sort()
+    .map(title => ({ id: title, title }));
+}
+
+/** Deterministic competency requirement for a target, by seniority keyword —
+ *  senior targets demand more, so everyone's match% (and readiness) drops. */
+export function targetRequirement(title: string): number {
+  const t = title.toLowerCase();
+  if (/(chief|officer|\bceo\b|\bcxo\b)/.test(t)) return 95;
+  if (/\bvp\b|vice president/.test(t)) return 92;
+  if (/head|director/.test(t)) return 90;
+  if (/lead|principal/.test(t)) return 87;
+  if (/manager/.test(t)) return 84;
+  if (/senior/.test(t)) return 81;
+  return 78;
+}
+
+const clampPct = (v: number) => Math.min(100, Math.max(0, Math.round(v * 100) / 100));
+
+/** Talent Readiness points for one job target, using the effective TR config. */
+export function getTalentReadinessPoints(targetId: string, cfg: TMConfig = TR_CONFIG, pool: Candidate[] = candidates): TMPoint[] {
+  const req = targetRequirement(targetId);
+  return pool.map(c => {
+    const comp = val(c, cfg.sumbuXKey);                 // competency metric (target-relative)
+    const rawX = comp == null ? null : clampPct((comp / req) * 100);
+    const rawY = val(c, cfg.sumbuYKey);                 // potency (intrinsic)
+    const has = rawX != null && rawY != null;
+    return {
+      employeeId: c.id,
+      name: c.name,
+      positionTitle: c.position,
+      team: c.department,
+      rawX, rawY,
+      x: has ? plotPos(rawX!, cfg.rangesX) : null,
+      y: has ? plotPos(rawY!, cfg.rangesY) : null,
+      order: has ? orderFor(cfg, rawX!, rawY!) : null,
+    };
+  });
+}
+
+/** Precompute readiness points for every job target (keyed by target id) so the
+ *  client can switch targets instantly without shipping raw per-person scores. */
+export function getTalentReadinessByTarget(cfg: TMConfig = TR_CONFIG, pool: Candidate[] = candidates): Record<string, TMPoint[]> {
+  return Object.fromEntries(getJobTargets(pool).map(t => [t.id, getTalentReadinessPoints(t.id, cfg, pool)]));
 }
 
 export interface TalentMappingCell {
