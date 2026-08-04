@@ -1,7 +1,7 @@
 // Align public/data/idp-data.json identity fields to the canonical
 // participants.csv (PGS-1133 consistency). Idempotent: canonical names are kept,
 // any non-canonical person name is deterministically remapped to a canonical one,
-// and role/dept/email/nik/initials are recomputed from the final name.
+// and role/dept/email/nik/initials are recomputed from the final name (dept = nama tim).
 // Hand-authored content (programs, comment text, review aspects, etc.) is preserved.
 // Run: node scripts/align-idp-data.mjs
 import { readFileSync, writeFileSync } from "node:fs";
@@ -16,6 +16,13 @@ const H = csv[0].split(",");
 const canon = csv.slice(1).map(l => { const v = l.split(","); return Object.fromEntries(H.map((h, i) => [h, (v[i] ?? "").trim()])); });
 const byName = new Map(canon.map(r => [r.name, r]));
 const canonNames = canon.map(r => r.name);
+
+// Nama tim dibaca dari output kanonik (dihasilkan scripts/seed.mjs) supaya kolom
+// "Teams" di modul IDP tidak bisa melenceng dari nama yang dipakai Team Profile /
+// Visibility Map. participants.csv hanya menyimpan id timnya (ENG, OPS, ...).
+const genSrc = readFileSync(join(ROOT, "src/data/model/generated.ts"), "utf8");
+const canonical = JSON.parse(genSrc.slice(genSrc.indexOf("{", genSrc.indexOf("CANONICAL")), genSrc.lastIndexOf("}") + 1));
+const teamNameById = new Map(canonical.teams.map(t => [t.id, t.name]));
 
 const initials = (name) => (name || "").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0] || "").join("").toUpperCase();
 const slug = (name) => (name || "").toLowerCase().normalize("NFD").replace(/[^\w\s]/g, "").trim().replace(/\s+/g, ".");
@@ -48,7 +55,9 @@ function fixPerson(obj, roleFromCanon = false) {
   e.name = fixName(e.name);
   const cr = byName.get(e.name);
   if (cr) {
-    e.role = cr.position; e.dept = cr.department; e.email = emailOf(e.name); e.nik = nikOf(e.name);
+    // dept menyimpan NAMA TIM (bukan departemen) — modul IDP menampilkannya pada
+    // kolom "Teams" dan subtitle "role · dept", jadi keduanya ikut konsisten.
+    e.role = cr.position; e.dept = teamNameById.get(cr.team) ?? "-"; e.email = emailOf(e.name); e.nik = nikOf(e.name);
     if ("avatar" in e && cr.id) e.avatar = `/avatars/photo_wc2026/${cr.id.toLowerCase()}.png`;
   }
   (e.idps || []).forEach(idp => (idp.pics || []).forEach(p => fixPerson(p)));

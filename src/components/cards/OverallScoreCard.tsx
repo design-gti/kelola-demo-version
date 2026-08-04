@@ -349,7 +349,9 @@ function CandidateRow({ c, isSuccessor }: { c: { id: string; name: string; posit
 
 function VismapButton({ positionLabel }: { positionLabel: string }) {
   const [hovered, setHovered] = useState(false);
-  const href = `/vismap?simulate=true&targetPosition=${encodeURIComponent(positionLabel)}`;
+  // ?highlight= (bukan ?simulate=) — cukup buka Vismap normal lalu zoom + sorot node
+  // posisinya; mode simulasi tidak perlu ikut menyala.
+  const href = `/vismap?highlight=${encodeURIComponent(positionLabel)}`;
   return (
     <div style={{ position: "relative", display: "inline-flex" }}>
       <Link

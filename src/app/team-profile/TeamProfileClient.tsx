@@ -30,6 +30,9 @@ const DISC_AXES: Personality[] = ["Driver", "Persuader", "Mediator", "Analyzer"]
 const FONT = "'Open Sans', sans-serif";
 const ACCENT = "#016699";
 
+/** Tab yang ditampilkan. "my" sengaja tidak diikutkan — lihat catatan di render tabs. */
+const VISIBLE_TABS = ["all"] as const;
+
 // ── helpers ──────────────────────────────────────────────────────────────────
 function initials(name: string) {
   return name.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase();
@@ -145,13 +148,21 @@ function RecommendationCard({ rec, checked, onToggle }: {
 // ── team card (All Teams grid) ───────────────────────────────────────────────
 function TeamCard({ resolved, onOpen }: { resolved: ResolvedTeam; onOpen: () => void }) {
   const { team, members, archetype } = resolved;
+  // Hover diurus lewat state, bukan :hover — style kartu ini inline semua.
+  const [hovered, setHovered] = useState(false);
   return (
     <button
       onClick={onOpen}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        textAlign: "left", cursor: "pointer", border: "1px solid #e9ecef",
-        background: "#fff", borderRadius: 12, padding: 16, width: "100%",
-        boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", fontFamily: FONT,
+        textAlign: "left", cursor: "pointer", width: "100%",
+        border: `1px solid ${hovered ? "#cfe3ee" : "#e9ecef"}`,
+        background: "#fff", borderRadius: 12, padding: 16,
+        boxShadow: hovered ? "2px 6px 16px rgba(0,0,0,0.10)" : "2px 4px 10px rgba(0,0,0,0.07)",
+        transform: hovered ? "translateY(-2px)" : "none",
+        transition: "box-shadow 0.15s, transform 0.15s, border-color 0.15s",
+        fontFamily: FONT,
         display: "flex", flexDirection: "column", gap: 12,
       }}
     >
@@ -535,6 +546,12 @@ export default function TeamProfileClient({
   const [query, setQuery] = useState("");
   const [recOpen, setRecOpen] = useState(false);
   const [pickedRecs, setPickedRecs] = useState<Set<string>>(new Set());
+  /**
+   * Tim hasil "Create Team" dari modal rekomendasi. Sengaja hanya state di memori
+   * (kebutuhan demo): begitu browser di-refresh semuanya kembali ke semula — timnya
+   * hilang dari daftar dan rekomendasinya muncul lagi.
+   */
+  const [createdTeams, setCreatedTeams] = useState<ResolvedTeam[]>([]);
 
   function toggleRec(leaderId: string) {
     setPickedRecs(prev => {
@@ -543,6 +560,17 @@ export default function TeamProfileClient({
       else next.add(leaderId);
       return next;
     });
+  }
+
+  function createPickedTeams() {
+    const picked = recommendations.filter(r => pickedRecs.has(r.leaderId));
+    if (picked.length === 0) return;
+    setCreatedTeams(prev => [
+      ...prev,
+      ...picked.map(r => ({ team: r.team, members: r.members, leader: r.leader, avg: r.avg, archetype: r.archetype })),
+    ]);
+    setPickedRecs(new Set());
+    setRecOpen(false);
   }
 
   if (selected) {
@@ -556,15 +584,20 @@ export default function TeamProfileClient({
     );
   }
 
-  const shown = resolvedTeams.filter(rt => rt.team.name.toLowerCase().includes(query.toLowerCase()));
+  const shown = [...resolvedTeams, ...createdTeams]
+    .filter(rt => rt.team.name.toLowerCase().includes(query.toLowerCase()));
+  // Rekomendasi yang sudah dibuat jadi tim tidak perlu ditawarkan lagi.
+  const createdLeaderIds = new Set(createdTeams.map(rt => rt.team.leaderId));
+  const openRecommendations = recommendations.filter(r => !createdLeaderIds.has(r.leaderId));
 
   return (
     <div style={{ fontFamily: FONT }}>
       <AppBreadcrumb items={[{ label: "Team Profile" }]} />
       <div style={{ padding: "12px 16px 40px" }}>
-      {/* Tabs */}
+      {/* Tabs — "my" disembunyikan: belum ada pemetaan akun ke employee, jadi isinya
+          selalu empty state. Masukkan kembali ke VISIBLE_TABS kalau sudah tersedia. */}
       <div style={{ display: "flex", gap: 24, borderBottom: "1px solid #e9ecef", marginBottom: 16 }}>
-        {(["my", "all"] as const).map(t => (
+        {VISIBLE_TABS.map(t => (
           <button key={t} onClick={() => setTab(t)} style={{
             background: "none", border: "none", cursor: "pointer", fontFamily: FONT, fontSize: 13, fontWeight: 600,
             padding: "0 0 10px", color: tab === t ? ACCENT : "#adb5bd",
@@ -636,7 +669,7 @@ export default function TeamProfileClient({
             Rekomendasi Tim ini dihasilkan dari Struktural yang sudah Anda mapping antara &ldquo;posisi&rdquo; dan &ldquo;report to&rdquo; di Job &amp; Position
           </p>
 
-          {recommendations.length === 0 ? (
+          {openRecommendations.length === 0 ? (
             <div style={{ padding: "48px 0", textAlign: "center", fontSize: 12, color: "#adb5bd", lineHeight: 1.7 }}>
               Belum ada rekomendasi tim baru.<br />
               Setiap atasan pada struktur Job &amp; Position sudah memimpin tim yang terdaftar.
@@ -644,7 +677,7 @@ export default function TeamProfileClient({
           ) : (
             <>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
-                {recommendations.map(rec => (
+                {openRecommendations.map(rec => (
                   <RecommendationCard
                     key={rec.leaderId}
                     rec={rec}
@@ -654,7 +687,7 @@ export default function TeamProfileClient({
                 ))}
               </div>
               <Group justify="flex-end" mt={20}>
-                <Button size="xs" radius="xl" disabled={pickedRecs.size === 0}>
+                <Button size="xs" radius="xl" disabled={pickedRecs.size === 0} onClick={createPickedTeams}>
                   Create Team
                 </Button>
               </Group>

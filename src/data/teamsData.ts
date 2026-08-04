@@ -42,7 +42,21 @@ export function teamMember(id: string): TeamMember {
   };
 }
 
-export const teams: Team[] = allTeams().map(t => ({
+/**
+ * Tim yang disembunyikan dari daftar "tim terdaftar" — kebutuhan demo, supaya
+ * pemimpinnya ikut muncul di modal Rekomendasi Tim Struktural (yang jika tidak,
+ * selalu kosong karena semua atasan struktural sudah memimpin tim).
+ *
+ * Ini murni lapisan tampilan: data kanonik (participants.csv / seed.mjs /
+ * generated.ts) TIDAK diubah, jadi keanggotaan tim orang-orang ini tetap utuh
+ * di modul lain — mis. kolom Teams di IDP dan kartu di Beranda.
+ */
+const DEMO_HIDDEN_TEAM_IDS = new Set(["FIN"]);
+
+/** allTeams() minus tim yang disembunyikan untuk demo. */
+const registeredTeams = () => allTeams().filter(t => !DEMO_HIDDEN_TEAM_IDS.has(t.id));
+
+export const teams: Team[] = registeredTeams().map(t => ({
   id: t.id,
   name: t.name,
   type: t.type,
@@ -115,6 +129,15 @@ export interface StructuralTeamRecommendation {
   memberNames: string[];
   /** Archetype of the whole proposed team, leader included. */
   archetype: TeamArchetype | null;
+  /**
+   * Bentuk tim yang sudah jadi, supaya klien bisa langsung memasukkannya ke daftar
+   * tim saat tombol Create Team ditekan — tanpa perlu bolak-balik ke server.
+   * Leader ikut dihitung sebagai anggota, sama seperti tim terdaftar.
+   */
+  team: Team;
+  members: TeamMember[];
+  leader: TeamMember | null;
+  avg: { performance: number | null; engagement: number | null };
 }
 
 /**
@@ -126,8 +149,10 @@ export interface StructuralTeamRecommendation {
  * recommending them again would just duplicate the Team Profile list.
  */
 export function structuralTeamRecommendations(): StructuralTeamRecommendation[] {
+  // registeredTeams(), bukan allTeams() — pemimpin tim yang disembunyikan harus
+  // dianggap belum memimpin tim supaya ia muncul sebagai rekomendasi.
   const existingLeaderIds = new Set(
-    allTeams().map(t => t.leaderId).filter((id): id is string => !!id)
+    registeredTeams().map(t => t.leaderId).filter((id): id is string => !!id)
   );
 
   const directReports = new Map<string, string[]>();
@@ -141,14 +166,30 @@ export function structuralTeamRecommendations(): StructuralTeamRecommendation[] 
   return [...directReports.entries()]
     .filter(([leaderId]) => !existingLeaderIds.has(leaderId))
     .map(([leaderId, memberIds]) => {
-      const leaderName = getParticipant(leaderId)?.name ?? "-";
+      const leader = getParticipant(leaderId);
+      const leaderName = leader?.name ?? "-";
+      const name = `${leaderName}'s Team`;
+      // id diberi awalan "rec-" supaya tidak bertabrakan dengan id tim terdaftar.
+      const team: Team = {
+        id: `rec-${leaderId}`,
+        name,
+        type: "STRUCTURAL",
+        leaderId,
+        reportTo: (leader?.managerId ? getParticipant(leader.managerId)?.name : null) ?? null,
+        memberIds: [leaderId, ...memberIds],
+      };
+      const members = teamMembers(team);
       return {
         leaderId,
         leaderName,
-        name: `${leaderName}'s Team`,
+        name,
         memberIds,
         memberNames: memberIds.map(id => getParticipant(id)?.name ?? "-"),
-        archetype: archetypeFromMembers([leaderId, ...memberIds].map(teamMember)),
+        archetype: archetypeFromMembers(members),
+        team,
+        members,
+        leader: teamMember(leaderId),
+        avg: teamAverages(team),
       };
     })
     .sort((a, b) => b.memberIds.length - a.memberIds.length);
