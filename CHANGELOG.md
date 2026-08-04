@@ -85,6 +85,9 @@ this — read that before extending any of the below.
   `scripts/harvest-questions.mjs` itself also gained a CSV writer
   (`harvested-feedback.csv`) alongside its existing JSON output, for the
   manual-export path.
+- **`GET /api/questions/export`** — sibling to `/api/feedback/export`, but
+  returns every question asked (from the same durable Redis sink), not just
+  the ones that got a thumbs up/down. Same `hr`-only gating.
 - **Eval harness** (`npm run eval:assistant`) — 17 cases asserting on the
   real tool-call trace and required substrings against the actual shipped
   instructions and tool definitions, never a copy that can drift.
