@@ -603,7 +603,7 @@ export default function TeamProfileClient({
             padding: "0 0 10px", color: tab === t ? ACCENT : "#adb5bd",
             borderBottom: tab === t ? `2px solid ${ACCENT}` : "2px solid transparent",
           }}>
-            {t === "my" ? "My Teams" : "All Teams"}
+            All Teams
           </button>
         ))}
       </div>
