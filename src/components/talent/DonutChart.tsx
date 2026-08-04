@@ -22,7 +22,7 @@ export default function DonutChart({ data, centerLabel, size = 220, thickness = 
   const segs = total > 0
     ? data.filter(d => d.value > 0).map(d => {
         const len = (d.value / total) * circ;
-        const seg = { color: resolveColor(`${d.color}.5`), dash: len, gap: circ - len, off: offset };
+        const seg = { color: resolveColor(d.color), dash: len, gap: circ - len, off: offset };
         offset -= len;
         return seg;
       })

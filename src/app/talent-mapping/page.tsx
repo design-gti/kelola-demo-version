@@ -1,5 +1,5 @@
-import { getTalentIdentificationPoints, getTalentReadinessPoints } from "@/lib/data/talentMapping";
-import { getEffectiveTIConfigServer } from "@/lib/data/talentMappingConfig";
+import { getTalentIdentificationPoints, getTalentReadinessByTarget, getJobTargets } from "@/lib/data/talentMapping";
+import { getEffectiveTIConfigServer, getEffectiveTRConfigServer } from "@/lib/data/talentMappingConfig";
 import TalentMappingClient from "./TalentMappingClient";
 
 export default async function TalentMappingPage({
@@ -12,13 +12,19 @@ export default async function TalentMappingPage({
 
   const tiConfig = await getEffectiveTIConfigServer();
   const tiPoints = getTalentIdentificationPoints(tiConfig);
-  const trPoints = getTalentReadinessPoints();
+
+  const trConfig = await getEffectiveTRConfigServer();
+  const jobTargets = getJobTargets();
+  // Precompute readiness per target server-side (raw scores never reach the client).
+  const trByTarget = getTalentReadinessByTarget(trConfig);
 
   return (
     <TalentMappingClient
       tiConfig={tiConfig}
       tiPoints={tiPoints}
-      trPoints={trPoints}
+      trConfig={trConfig}
+      jobTargets={jobTargets}
+      trByTarget={trByTarget}
       initialBox={initialBox}
       initialHighlight={highlight ?? null}
     />

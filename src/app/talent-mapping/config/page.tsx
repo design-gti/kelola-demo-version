@@ -1,13 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Paper, Select, TextInput, NumberInput, Switch, Button, Badge } from "@mantine/core";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import {
-  LAYOUTS, METRICS, makeConfig, boxByOrder, resolveColor, metricLabel,
+  LAYOUTS, METRICS, makeConfigById, boxByOrder, resolveColor, metricLabel,
   TMConfig, MetricKey, AxisBand,
 } from "@/data/talentMappingShared";
-import { getEffectiveTIConfig, saveTIConfig } from "@/data/talentMappingConfig";
+import { getEffectiveConfig, saveConfig, type ConfigId } from "@/data/talentMappingConfig";
 
 const FONT = "'Open Sans', sans-serif";
 const ACCENT = "#016699";
@@ -61,11 +61,15 @@ function AxisCard({ title, keyVal, onKey, bands, onMax, onLabel }: {
   );
 }
 
-export default function TalentMappingConfigPage() {
+function ConfigInner() {
   const router = useRouter();
-  const [cfg, setCfg] = useState<TMConfig>(() => makeConfig("9box"));
-  // load saved config on mount (wrapper fn keeps the effect off the setState-in-effect lint)
-  useEffect(() => { const load = () => setCfg(getEffectiveTIConfig()); load(); }, []);
+  const params = useSearchParams();
+  const configId: ConfigId = params.get("config") === "TR" ? "TR" : "TI";
+  const isTR = configId === "TR";
+  const [cfg, setCfg] = useState<TMConfig>(() => makeConfigById(configId));
+  // load the saved config for this box mapping (re-runs if the ?config= id
+  // changes). Wrapper fn keeps the effect off the setState-in-effect lint.
+  useEffect(() => { const load = () => setCfg(getEffectiveConfig(configId)); load(); }, [configId]);
 
   const setBandMax = (axis: "rangesX" | "rangesY", i: number, v: number) =>
     setCfg(c => {
@@ -76,20 +80,22 @@ export default function TalentMappingConfigPage() {
     setCfg(c => ({ ...c, [axis]: c[axis].map((b, j) => (j === i ? { ...b, label: v } : b)) }));
   const setMetric = (axis: "X" | "Y", k: MetricKey) =>
     setCfg(c => (axis === "X" ? { ...c, sumbuXKey: k, sumbuX: metricLabel(k) } : { ...c, sumbuYKey: k, sumbuY: metricLabel(k) }));
-  const pickLayout = (id: string) =>
-    setCfg(c => makeConfig(id, { sumbuXKey: c.sumbuXKey, sumbuYKey: c.sumbuYKey }));
+  const pickLayout = (layoutId: string) =>
+    setCfg(c => makeConfigById(configId, layoutId, { sumbuXKey: c.sumbuXKey, sumbuYKey: c.sumbuYKey }));
   const setBoxLabel = (order: number, v: string) =>
     setCfg(c => ({ ...c, boxes: c.boxes.map(b => (b.order === order ? { ...b, label: v } : b)) }));
   const toggleTag = (order: number) =>
     setCfg(c => ({ ...c, boxes: c.boxes.map(b => (b.order === order ? { ...b, tag: b.tag ? null : "talent" } : b)) }));
-  const resetAxes = () => setCfg(c => { const d = makeConfig(c.layout, { sumbuXKey: c.sumbuXKey, sumbuYKey: c.sumbuYKey }); return { ...c, rangesX: d.rangesX, rangesY: d.rangesY }; });
-  const resetBoxes = () => setCfg(c => ({ ...c, boxes: makeConfig(c.layout).boxes }));
+  const setBoxReadiness = (order: number, v: string) =>
+    setCfg(c => ({ ...c, boxes: c.boxes.map(b => (b.order === order ? { ...b, readiness: v } : b)) }));
+  const resetAxes = () => setCfg(c => { const d = makeConfigById(configId, c.layout, { sumbuXKey: c.sumbuXKey, sumbuYKey: c.sumbuYKey }); return { ...c, rangesX: d.rangesX, rangesY: d.rangesY }; });
+  const resetBoxes = () => setCfg(c => ({ ...c, boxes: makeConfigById(configId, c.layout).boxes }));
 
-  const persistAndGo = () => { saveTIConfig(cfg); router.push("/talent-mapping"); };
+  const persistAndGo = () => { saveConfig(configId, cfg); router.push("/talent-mapping"); };
 
   return (
     <div style={{ fontFamily: FONT }}>
-      <AppBreadcrumb items={[{ label: "Talent Mapping", href: "/talent-mapping" }, { label: "Setting Talent Identification" }]} />
+      <AppBreadcrumb items={[{ label: "Talent Mapping", href: "/talent-mapping" }, { label: `Setting ${cfg.name}` }]} />
       <div style={{ padding: "12px 16px 40px", maxWidth: 1000, margin: "0 auto" }}>
 
         {/* Layout carousel */}
@@ -143,7 +149,14 @@ export default function TalentMappingConfigPage() {
                       </div>
                       <div style={{ fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Label <span style={{ color: "#fa5252" }}>*</span></div>
                       <TextInput value={b.label} onChange={e => setBoxLabel(order, e.currentTarget.value)} size="xs" radius="xl" mb={10} styles={{ input: { fontFamily: FONT } }} />
-                      <Switch checked={b.tag === "talent"} onChange={() => toggleTag(order)} label="Tag as talent" size="sm" styles={{ label: { fontFamily: FONT, fontSize: 11, color: "#868e96" } }} />
+                      {isTR ? (
+                        <>
+                          <div style={{ fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Readiness</div>
+                          <TextInput value={b.readiness ?? ""} onChange={e => setBoxReadiness(order, e.currentTarget.value)} size="xs" radius="xl" placeholder="mis. Ready Now" styles={{ input: { fontFamily: FONT } }} />
+                        </>
+                      ) : (
+                        <Switch checked={b.tag === "talent"} onChange={() => toggleTag(order)} label="Tag as talent" size="sm" styles={{ label: { fontFamily: FONT, fontSize: 11, color: "#868e96" } }} />
+                      )}
                     </div>
                   );
                 })}
@@ -161,5 +174,14 @@ export default function TalentMappingConfigPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// useSearchParams() must sit under a Suspense boundary (App Router requirement).
+export default function TalentMappingConfigPage() {
+  return (
+    <Suspense fallback={null}>
+      <ConfigInner />
+    </Suspense>
   );
 }
