@@ -256,7 +256,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p01",
       "successorForId": null,
       "disc": "SC",
-      "potential": "high",
+      "potential": "medium",
       "photoUrl": null
     },
     {
@@ -311,7 +311,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p05",
       "successorForId": null,
       "disc": "C",
-      "potential": "high",
+      "potential": "medium",
       "photoUrl": null
     },
     {
@@ -443,7 +443,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p05",
       "successorForId": null,
       "disc": "I",
-      "potential": "high",
+      "potential": "medium",
       "photoUrl": null
     },
     {
@@ -487,7 +487,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p21",
       "successorForId": null,
       "disc": "I",
-      "potential": "high",
+      "potential": "medium",
       "photoUrl": null
     },
     {
@@ -498,7 +498,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p05",
       "successorForId": null,
       "disc": "D",
-      "potential": "high",
+      "potential": "medium",
       "photoUrl": null
     },
     {
@@ -531,7 +531,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p17",
       "successorForId": null,
       "disc": "S",
-      "potential": "high",
+      "potential": "medium",
       "photoUrl": null
     },
     {
