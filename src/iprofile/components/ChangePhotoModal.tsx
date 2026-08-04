@@ -149,14 +149,6 @@ export function ChangePhotoModal({ onClose, onPicked }: {
           It is recommended to upload close-up photos with a plain background.
         </p>
 
-        {/* Syarat yang ditegakkan saat upload */}
-        <ul className="mt-[10px] mb-0 pl-[18px] flex flex-col gap-[4px]">
-          <li className="text-[12px] text-[#495057] leading-[1.6]">Foto harus close-up.</li>
-          <li className="text-[12px] text-[#495057] leading-[1.6]">
-            Foto harus berformat <strong>PNG</strong> dan sudah <strong>remove background</strong>.
-          </li>
-        </ul>
-
         <div className="mt-[16px] flex gap-[12px]">
           <ExampleTile src={EXAMPLE_CLOSEUP} ok label="Close-up" />
           <ExampleTile src={EXAMPLE_NOT_CLOSEUP} ok={false} label="Bukan close-up" />
