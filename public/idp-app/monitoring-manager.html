@@ -582,7 +582,14 @@
       if (_selectedRow) { _selectedRow.classList.remove('row-selected'); _selectedRow = null; }
     }
     var _cfDepts=[], _cfStatuses=[], _filterConditions=[];
-    var _TEAMS_VALS=['Sales Executive','Engineer','Product'];
+    // Opsi filter Teams diturunkan dari data yang benar-benar ada (emp.dept berisi
+    // NAMA TIM). Daftar lama di-hardcode dengan jabatan (Sales Executive/Engineer/
+    // Product) yang tak pernah cocok dengan isi kolom, jadi filternya selalu kosong.
+    function _teamsVals(){
+      var out=[];
+      EMPLOYEES.forEach(function(e){ if(e.dept && out.indexOf(e.dept)===-1) out.push(e.dept); });
+      return out.sort();
+    }
     var _STATUS_VALS=['PENDING','IN PROGRESS','DONE','EXPIRED','DRAFT'];
     var _STATUS_CLS={'PENDING':'status-need-review','IN PROGRESS':'status-in-progress','DONE':'status-done','EXPIRED':'status-expired','DRAFT':'status-draft'};
     function toggleInsightFilter(key){
@@ -670,7 +677,7 @@
     }
     function renderFilterVddItems(idx){
       var c=_filterConditions[idx];
-      var vals=c.field==='Teams'?_TEAMS_VALS:_STATUS_VALS;
+      var vals=c.field==='Teams'?_teamsVals():_STATUS_VALS;
       var dd=document.getElementById('flt-vdd');
       dd.innerHTML=vals.map(function(v){
         var sel=c.values.indexOf(v)!==-1;

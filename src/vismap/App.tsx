@@ -574,9 +574,12 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const handleZoomToEmployee = (employeeId: string) => {
+  // keepHighlight: dipakai deep-link ?highlight= — sorotannya harus menetap, bukan
+  // berkedip 3 detik lalu hilang seperti hasil pencarian, supaya pengguna yang baru
+  // mendarat dari halaman lain tetap tahu kartu mana yang dimaksud.
+  const handleZoomToEmployee = (employeeId: string, keepHighlight = false) => {
     setHighlightedEmployeeId(employeeId);
-    setTimeout(() => setHighlightedEmployeeId(null), 3000);
+    if (!keepHighlight) setTimeout(() => setHighlightedEmployeeId(null), 3000);
     setTimeout(() => {
       const cardElement = document.querySelector(`[data-employee-id="${employeeId}"]`);
       if (cardElement && containerRef.current && contentRef.current) {
@@ -640,7 +643,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
             (e.name ?? '').toLowerCase() === highlightParam.toLowerCase()
           );
           if (match) {
-            setTimeout(() => handleZoomToEmployee(match.id), 600);
+            setTimeout(() => handleZoomToEmployee(match.id, true), 600);
           }
         }
       })

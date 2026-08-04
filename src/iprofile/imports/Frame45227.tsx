@@ -23,23 +23,20 @@ import {
   type IdpHistoryItem,
   type ScoreAspects,
 } from "../lib/ProfileContext";
+import { getEditedPhoto } from "../lib/photoStore";
 
 type ProfileDetail = { careerPlans: CareerPlan[]; successors: Successor[]; scoreAspects: ScoreAspects; teams: TeamRef[]; bloodType: string; extension: Extension; idpHistory: IdpHistoryItem[]; employee: ProfileCtxT["employee"] };
 
 function Frame151() {
   const { name, position, employeeId } = useContext(ProfileContext);
-  const photoKey = `employee-photo-${employeeId}`;
   // Per-person WC photo keyed by canonical p-id; falls back to the generic photo.
   const defaultPhoto = /^p\d+$/i.test(employeeId) ? `/avatars/photo_wc2026/${employeeId.toLowerCase()}.png` : '/iprofile-assets/profile-photo.png';
-  const [photoSrc, setPhotoSrc] = useState<string>(
-    () => (typeof window !== 'undefined' && localStorage.getItem(photoKey)) || defaultPhoto
-  );
+  const [photoSrc, setPhotoSrc] = useState<string>(() => getEditedPhoto(employeeId) || defaultPhoto);
 
   // Re-read when the viewed employee changes (e.g. navigating list → detail → list → another detail).
   useEffect(() => {
-    const saved = localStorage.getItem(photoKey);
-    setPhotoSrc(saved || defaultPhoto);
-  }, [photoKey, defaultPhoto]);
+    setPhotoSrc(getEditedPhoto(employeeId) || defaultPhoto);
+  }, [employeeId, defaultPhoto]);
 
   useEffect(() => {
     const handler = (e: Event) => {
