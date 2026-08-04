@@ -1,8 +1,8 @@
 id,name,position,department,team,disc,potential,manager_id,successor_for,behavioral,technical,performance,leadership,competency,prediction,engagement
 p01,Jude Bellingham,Head of Engineering,Teknologi,ENG,D,high,p05,,88,90,90,92,96,95,86
-p02,Jamal Musiala,Senior Engineer,Teknologi,ENG,CI,high,p01,p01,,91,88,72,85,84,79
+p02,Jamal Musiala,Senior Engineer,Teknologi,ENG,CI,low,p01,p01,,91,88,72,85,58,79
 p03,Florian Wirtz,Frontend Lead,Teknologi,ENG,CD,medium,p01,,74,86,82,60,79,76,71
-p04,Phil Foden,Backend Lead,Teknologi,ENG,SC,high,p01,,80,84,78,84,88,90,82
+p04,Phil Foden,Backend Lead,Teknologi,ENG,SC,high,p01,,80,84,78,84,88,75,82
 p05,Kylian Mbappe,Chief Executive Officer,Strategi,EXE,DI,high,,,90,,96,95,98,96,92
 p06,Erling Haaland,Chief Strategy Officer,Strategi,EXE,DC,high,p05,,82,78,92,70,90,88,80
 p07,Rodri,VP Corporate Strategy,Strategi,EXE,CS,high,p05,p05,85,88,85,88,94,91,86
@@ -10,9 +10,9 @@ p08,Virgil van Dijk,Head of Governance,Strategi,EXE,SD,medium,p05,,77,80,80,90,8
 p09,Pedri,Head of Finance,Keuangan,FIN,C,high,p05,,80,85,84,66,80,79,77
 p10,Federico Valverde,Senior Finance Analyst,Keuangan,FIN,CDS,medium,p09,,88,92,76,74,86,84,80
 p11,Enzo Fernandez,Finance Analyst,Keuangan,FIN,SI,low,p09,,63,68,70,58,66,60,63
-p12,Antoine Griezmann,Controller,Keuangan,FIN,IC,high,p09,,84,90,88,80,92,90,84
+p12,Antoine Griezmann,Controller,Keuangan,FIN,IC,low,p09,,84,90,88,80,92,90,84
 p13,Christian Pulisic,HR Business Partner,SDM,HR,IS,medium,p05,,72,,72,68,74,73,79
-p14,Declan Rice,HR Manager,SDM,HR,D,high,p13,p13,82,,82,86,88,90,86
+p14,Declan Rice,HR Manager,SDM,HR,D,low,p13,p13,82,,82,86,88,90,86
 p15,Cody Gakpo,Talent Acquisition Lead,SDM,HR,SDI,low,p13,,58,62,60,62,64,55,60
 p16,Alphonso Davies,People Ops Specialist,SDM,HR,S,medium,p13,,66,,66,90,80,80,78
 p17,Lautaro Martinez,VP Operations,Operasional,OPS,DCS,high,p05,,82,78,94,84,93,92,86
@@ -21,14 +21,14 @@ p19,Achraf Hakimi,Supply Chain Lead,Operasional,OPS,ID,medium,p17,,71,,74,78,83,
 p20,Son Heung-min,Operations Analyst,Operasional,OPS,IS,medium,p17,,68,70,86,58,76,74,72
 p21,Vinicius Junior,Head of Marketing,Pemasaran,SNM,I,high,p05,,86,,91,82,94,92,88
 p22,Rafael Leao,Senior Marketing Manager,Pemasaran,SNM,CIS,low,p21,,60,64,68,55,62,52,60
-p23,Bukayo Saka,Brand Manager,Pemasaran,SNM,DI,high,p21,,84,,84,88,90,90,85
+p23,Bukayo Saka,Brand Manager,Pemasaran,SNM,DI,low,p21,,84,,84,88,90,90,85
 p24,Nico Williams,Growth Marketing Lead,Pemasaran,SNM,SC,medium,p21,,58,70,58,70,72,68,74
 p25,Lionel Messi,Senior Brand Strategist,Pemasaran,SNM,I,high,p21,,90,82,95,88,94,93,92
 p26,Cristiano Ronaldo,Chief Revenue Officer,Strategi,EXE,D,high,p05,,88,80,96,92,95,95,90
 p27,Neymar Jr,Creative Director,Pemasaran,SNM,I,medium,p21,,84,78,86,80,85,82,84
-p28,Kevin De Bruyne,Principal Engineer,Teknologi,ENG,C,high,p01,,86,94,92,84,93,91,88
+p28,Kevin De Bruyne,Principal Engineer,Teknologi,ENG,C,low,p01,,86,94,92,84,93,63,88
 p29,Luka Modric,Operations Strategist,Operasional,OPS,S,high,p17,,88,85,90,86,91,90,89
-p30,Mohamed Salah,Growth Marketing Manager,Pemasaran,SNM,D,high,p21,,85,80,93,82,90,89,90
-p31,Harry Kane,Senior Finance Manager,Keuangan,FIN,D,high,p09,,84,86,91,85,90,88,87
+p30,Mohamed Salah,Growth Marketing Manager,Pemasaran,SNM,D,low,p21,,85,80,93,82,90,89,90
+p31,Harry Kane,Senior Finance Manager,Keuangan,FIN,D,low,p09,,84,86,91,85,90,88,87
 p32,Robert Lewandowski,Supply Chain Manager,Operasional,OPS,C,medium,p17,,82,84,88,80,86,84,83
-p33,Lamine Yamal,Digital Content Specialist,Pemasaran,SNM,I,high,p21,,86,80,88,80,89,87,88
+p33,Lamine Yamal,Digital Content Specialist,Pemasaran,SNM,I,low,p21,,86,80,88,80,89,87,88

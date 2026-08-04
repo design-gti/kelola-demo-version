@@ -234,7 +234,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p01",
       "successorForId": "p01",
       "disc": "CI",
-      "potential": "high",
+      "potential": "low",
       "photoUrl": null
     },
     {
@@ -344,7 +344,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p09",
       "successorForId": null,
       "disc": "IC",
-      "potential": "high",
+      "potential": "low",
       "photoUrl": null
     },
     {
@@ -366,7 +366,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p13",
       "successorForId": "p13",
       "disc": "D",
-      "potential": "high",
+      "potential": "low",
       "photoUrl": null
     },
     {
@@ -465,7 +465,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p21",
       "successorForId": null,
       "disc": "DI",
-      "potential": "high",
+      "potential": "low",
       "photoUrl": null
     },
     {
@@ -520,7 +520,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p01",
       "successorForId": null,
       "disc": "C",
-      "potential": "high",
+      "potential": "low",
       "photoUrl": null
     },
     {
@@ -542,7 +542,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p21",
       "successorForId": null,
       "disc": "D",
-      "potential": "high",
+      "potential": "low",
       "photoUrl": null
     },
     {
@@ -553,7 +553,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p09",
       "successorForId": null,
       "disc": "D",
-      "potential": "high",
+      "potential": "low",
       "photoUrl": null
     },
     {
@@ -575,7 +575,7 @@ export const CANONICAL: CanonicalData = {
       "managerId": "p21",
       "successorForId": null,
       "disc": "I",
-      "potential": "high",
+      "potential": "low",
       "photoUrl": null
     }
   ],
@@ -643,7 +643,7 @@ export const CANONICAL: CanonicalData = {
     {
       "participantId": "p02",
       "kind": "prediction",
-      "value": 84
+      "value": 58
     },
     {
       "participantId": "p02",
@@ -713,7 +713,7 @@ export const CANONICAL: CanonicalData = {
     {
       "participantId": "p04",
       "kind": "prediction",
-      "value": 90
+      "value": 75
     },
     {
       "participantId": "p04",
@@ -1553,7 +1553,7 @@ export const CANONICAL: CanonicalData = {
     {
       "participantId": "p28",
       "kind": "prediction",
-      "value": 91
+      "value": 63
     },
     {
       "participantId": "p28",
