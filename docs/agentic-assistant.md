@@ -201,24 +201,34 @@ evidence, it must not emit the insight.
 
 **Thumbs up/down feedback** (`src/app/api/feedback/route.ts`,
 `AssistantPanel.tsx`): posts `{question, answer, rating}` to
-`logAgentEvent`. `scripts/harvest-questions.mjs` parses `[agent-audit]`
-lines from captured logs and reports thumbs-up (promote to
-`scripts/eval/cases.ts` as-is) separately from thumbs-down (needs review)
-— never automatic; a human still decides.
+`logAgentEvent`. Two ways to get a recap, same underlying data: (1)
+`scripts/harvest-questions.mjs` parses `[agent-audit]` lines from captured
+logs (`vercel logs --json <url>` or a redirected local dev log) and writes
+`harvested-feedback.{json,csv}`, reporting thumbs-up (promote to
+`scripts/eval/cases.ts` as-is) separately from thumbs-down (needs review);
+(2) if `auditStore.ts`'s optional Redis sink is configured, `GET
+/api/feedback/export` (an `hr` session only) returns the same recap as a
+downloadable CSV directly — no CLI needed. Neither is automatic in the
+sense of auto-promoting anything; a human still decides.
 
 **Rate limiting** (`src/lib/agent/rateLimiter.ts`): two independent tiers,
 burst (20 requests/minute) and daily (300/day), in-memory and keyed by the
 session cookie value. Explicitly **not** a real global limit — Vercel runs
 multiple concurrent function instances, so this is best-effort per
-instance. Upgrade to Upstash Redis/Vercel KV before this handles real
-external traffic (same store would be worth reusing for the audit log
-below).
+instance. Still not wired to the Redis store below — upgrade this before
+the app handles real external traffic.
 
-**Audit logging** (`src/lib/agent/auditLog.ts`): structured
-`console.info("[agent-audit]", JSON.stringify(...))`, which Vercel captures
-as Runtime Logs. Explicitly a floor, not a durable trail — Runtime Logs
-have limited retention and a serverless function's filesystem is
-ephemeral.
+**Audit logging** (`src/lib/agent/auditLog.ts`, `src/lib/agent/auditStore.ts`):
+every event is always logged via `console.info("[agent-audit]", ...)`,
+which Vercel captures as Runtime Logs — a floor, not a durable trail on its
+own (limited retention, ephemeral filesystem). When `UPSTASH_REDIS_REST_URL`
+/`UPSTASH_REDIS_REST_TOKEN` (or Vercel's `KV_REST_API_*` equivalents) are
+set, every event is *also* persisted to Redis via `next/server`'s `after()`
+— fire-and-forget, so it never adds latency to the response the user is
+waiting on. `after()` throws when called outside a real request (true for
+`scripts/eval/assistant.eval.ts`, which calls `tools.ts` directly) —
+`logAgentEvent` gates + swallows that, see its own comment and
+`auditLog.test.ts`.
 
 **Eval harness** (`npm run eval:assistant` →
 `scripts/eval/{cases,runner,assistant.eval}.ts`, 17 cases as of this
@@ -231,15 +241,13 @@ never a copy that can drift from what's actually shipped.
 
 - No real SSO/RBAC — see 2's session-model note. Fine for internal
   testing; revisit before real end users.
-- In-memory rate limit + console-log audit trail — not durable across
-  instances or restarts; upgrade path noted above.
+- In-memory rate limit — still not durable across instances or restarts,
+  and not yet reusing the audit log's Redis store; upgrade path noted
+  above. The audit trail itself now has a durable option (see 3), but it's
+  opt-in and unconfigured by default.
 - 8 orphaned Figma-export files in `src/iprofile/imports/` (~352KB, zero
   references) — confirmed dead, not yet deleted.
 - Eval test template for non-technical testers — proposed, never built.
-- Production-build performance has not been independently re-verified in
-  this repo (`next build && next start`) — the dev-mode compile-on-visit
-  cost in 1.5 is expected to disappear there, but that's a claim to close
-  the loop on, not yet a measurement.
 - DeepSeek was researched as a cheaper cost-comparison LLM for the eval
   harness only (`DEEPSEEK_API_KEY`, confirmed OpenAI-Chat-Completions
   -compatible with reliable tool-calling) — **not** wired into
@@ -258,7 +266,11 @@ See `.env.example` for the full annotated list. Highlights:
 `route.ts` builds and which API key is required; `SESSION_SECRET` signs
 the session cookie (any long random string, e.g. `openssl rand -hex 32`);
 `COPILOTKIT_TELEMETRY_DISABLED=true` — see 1.4, must be set on the
-deployment platform too, not just `.env.local`.
+deployment platform too, not just `.env.local`; `UPSTASH_REDIS_REST_URL`/
+`UPSTASH_REDIS_REST_TOKEN` (optional — free tier at upstash.com, or the
+Vercel Marketplace "Upstash for Redis" integration, which sets these
+automatically) enable the durable audit sink and `GET
+/api/feedback/export` described in 3.
 
 ## 6. Running & verifying
 

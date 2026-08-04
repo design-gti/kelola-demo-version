@@ -74,6 +74,17 @@ this — read that before extending any of the below.
 - **Audit logging** (`src/lib/agent/auditLog.ts`) — structured
   `[agent-audit]` JSON lines for every question, tool call, and feedback
   event.
+- **Durable audit sink + feedback CSV export** (`src/lib/agent/auditStore.ts`,
+  `GET /api/feedback/export`) — optional Upstash Redis persistence for every
+  audit event, written via `next/server`'s `after()` so it never adds
+  latency to the response the user is waiting on. Entirely opt-in (no env
+  vars set = no behavior change, same console-only logging as before). Once
+  configured, an `hr` session can hit `/api/feedback/export` for a
+  ready-to-open CSV recap of every thumbs up/down, instead of manually
+  pulling `vercel logs` and running `scripts/harvest-questions.mjs`.
+  `scripts/harvest-questions.mjs` itself also gained a CSV writer
+  (`harvested-feedback.csv`) alongside its existing JSON output, for the
+  manual-export path.
 - **Eval harness** (`npm run eval:assistant`) — 17 cases asserting on the
   real tool-call trace and required substrings against the actual shipped
   instructions and tool definitions, never a copy that can drift.
