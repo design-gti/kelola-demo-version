@@ -558,16 +558,21 @@
     });
 
     var _selectedRow = null;
+    var _currentEmpId = null;
+    // 1 IDP = 1 Program: bawa index program yang diklik supaya Detail IDP cuma
+    // menampilkan satu program itu, bukan seluruh riwayat karyawan.
+    function openIdpDetail(idx){ if(_currentEmpId!=null) window.location.href='detail-idp-manager.html?id='+_currentEmpId+(idx!=null?'&program='+idx:''); }
     function openPanelById(id, row) {
       var emp = EMPLOYEES.find(function(e){ return e.id === id; });
       if (!emp) return;
+      _currentEmpId = emp.id;
       if (_selectedRow) _selectedRow.classList.remove('row-selected');
       _selectedRow = row; row.classList.add('row-selected');
       document.getElementById('panel-avatar').src = emp.avatar;
       document.getElementById('panel-avatar').alt = emp.name;
       document.getElementById('panel-emp-name').textContent = emp.name;
       document.getElementById('panel-emp-meta').textContent = emp.role + ' · ' + emp.dept;
-      var cards = emp.idps.map(_buildIdpCard).join('');
+      var cards = emp.idps.map(function(idp, idx){ return _buildIdpCard(idp, idx); }).join('');
       document.getElementById('panel-body').innerHTML = '<div class="panel-section-label">IDP History ('+emp.programs+')</div>' + cards;
       requestAnimationFrame(refreshAspectOverflow);
       document.getElementById('idp-side-panel').classList.add('open');
@@ -792,7 +797,7 @@
       if (el) el.textContent = _myPicCount;
     });
 
-    function _buildIdpCard(idp) {
+    function _buildIdpCard(idp, idx) {
       var programRow = '<div class="panel-card-row"><span class="panel-card-label">Program:</span>'
         + '<span class="panel-card-program" title="'+(idp.program||'')+'">'+(idp.program||'-')+'</span></div>';
 
@@ -847,7 +852,7 @@
       var myPicIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>';
       var myPicHeader = '<div class="my-pic-header-row"><span class="my-pic-badge" title="as PIC">'+myPicIcon+'</span></div>';
       var myPicCardDot = '<span class="my-pic-card-dot" data-tip="Program ini menunggu PIC Check Anda"></span>';
-      return '<div class="panel-idp-card'+(isMyPic ? ' is-my-pic' : '')+'" onclick="window.location.href=\'detail-idp-manager.html\'">'
+      return '<div class="panel-idp-card'+(isMyPic ? ' is-my-pic' : '')+'" onclick="openIdpDetail('+idx+')">'
         + (isMyPic ? myPicHeader : '') + (isMyPicPending ? myPicCardDot : '') + programRow + aspectRow + picRow + periodRow + statusRow + '</div>';
     }
 
@@ -972,7 +977,7 @@
       <button class="panel-footer-btn" type="button" onclick="closePanel()"><span>Close Profile</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
-      <button class="panel-footer-btn link" type="button"><span>Full Profile Page</span>
+      <button class="panel-footer-btn link" type="button" onclick="openIdpDetail()"><span>Full Profile Page</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       </button>
     </div>
@@ -1074,7 +1079,7 @@
       window.swSwitch=function(r){
         localStorage.setItem(KEY,r);
         document.getElementById('switcher-menu').style.display='none';
-        if(r==='Employee') window.location.href='/idp-app/detail-idp-employee.html';
+        if(r==='Employee') window.location.href='/idp-app/my-development.html';
         else if(r==='Admin') window.location.href='/idp-app/monitoring-admin.html';
         else render(r);
       };

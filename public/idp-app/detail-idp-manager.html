@@ -327,6 +327,13 @@
       white-space: nowrap;
     }
 
+    /* PIC cell with photo avatar + position (col-pic in program table) */
+    .pic-selected { display: flex; align-items: center; gap: 8px; }
+    .pic-av { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; object-fit: cover; background: #B0B1B2; }
+    .pic-info { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+    .pic-info .pic-name { font-size: 12px; color: var(--text-body); font-family: var(--font-body); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pic-info .pic-pos { font-size: 10px; color: var(--text-faint); font-family: var(--font-body); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
     /* Attachment link */
     .attachment-link {
       display: flex;
@@ -1393,7 +1400,7 @@
       window.swSwitch=function(r){
         localStorage.setItem(KEY,r);
         document.getElementById('switcher-menu').style.display='none';
-        if(r==='Employee') window.location.href='/idp-app/detail-idp-employee.html';
+        if(r==='Employee') window.location.href='/idp-app/my-development.html';
         else if(r==='Admin') window.location.href='/idp-app/detail-idp-admin.html';
         else render(r);
       };
@@ -1526,22 +1533,34 @@
         goals:'<td class="col-goals">'+esc(idp.developmentGoals)+'</td>',
         start:'<td class="col-start-date"><input type="date" value="'+iso(pe[0])+'" readonly style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;pointer-events:none;"></td>',
         end:'<td class="col-end-date"><input type="date" value="'+iso(pe[1])+'" readonly style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;pointer-events:none;"></td>',
-        picCell:'<td class="col-pic"><div class="pic-cell"><div class="pic-avatar"></div><span class="pic-name">'+esc(pic.name)+'</span></div></td>'
+        picCell:'<td class="col-pic"><div class="pic-cell"><div class="pic-selected"><img class="pic-av" src="'+esc(pic.photoUrl||'')+'" alt=""><div class="pic-info"><span class="pic-name">'+esc(pic.name)+'</span><span class="pic-pos">'+esc(pic.position||'-')+'</span></div></div></div></td>'
       };
     }
-    function periodRange(idps){ var ds=[]; idps.forEach(function(i){var pe=parsePeriod(i.period); if(pe[0])ds.push(pe[0]); if(pe[1])ds.push(pe[1]);}); ds.sort(function(a,b){return iso(a)<iso(b)?-1:1;}); return ds.length?(ds[0]+' \u2013 '+ds[ds.length-1]):''; }
     function pickEmp(root){ var params=new URLSearchParams(location.search); var id=params.get('id'); var emps=root.employees||root; var emp=null; if(id!=null){ emp=emps.find(function(e){return String(e.id)===String(id);}); } return emp||emps[0]; }
+    // 1 IDP = 1 Program: halaman ini cuma menampilkan program yang dipilih dari
+    // kartu "IDP History" di side-panel Monitoring Manager, bukan seluruh riwayat
+    // program karyawan. Index-nya dibawa lewat ?program=.
+    function pickProgramIdx(emp){
+      var params=new URLSearchParams(location.search);
+      var raw=params.get('program');
+      var idx=raw!=null?parseInt(raw,10):0;
+      var total=(emp.idps||[]).length;
+      return (idx>=0 && idx<total) ? idx : 0;
+    }
     fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(root){
       var emp=pickEmp(root); if(!emp) return;
+      var idps=emp.idps||[];
+      var prog=idps[pickProgramIdx(emp)];
       var set=function(id,v){var e=document.getElementById(id); if(e) e.textContent=v;};
       var avatarEl=document.getElementById('d-avatar'); if(avatarEl && emp.avatar) avatarEl.src=emp.avatar;
       set('d-name',emp.name); set('d-name-pos',(emp.role||'')+' \u00b7 '+(emp.dept||''));
-      set('d-period',periodRange(emp.idps||[])||'-');
-      var allDone=(emp.idps||[]).every(function(i){return i.statusLabel==='DONE';});
+      set('d-period',(prog&&prog.period)||'-');
+      var allDone=!!(prog&&prog.statusLabel==='DONE');
       var st=document.getElementById('d-status'); if(st){ st.textContent=allDone?'Done':'In Progress'; st.className='status-chip '+(allDone?'status-done':'status-in-progress'); }
       var body=document.getElementById('idp-programs-body'); if(!body) return;
-      _currentEmpIdps=emp.idps||[];
-      body.innerHTML=(emp.idps||[]).map(function(idp, idx){ var c=rowCommon(idp, idx);
+      var rowsSource=prog?[prog]:[];
+      _currentEmpIdps=rowsSource;
+      body.innerHTML=rowsSource.map(function(idp, idx){ var c=rowCommon(idp, idx);
         return '<tr>'+c.program+c.vendor+c.category+c.aspect+c.goals+c.start+c.end+c.picCell+_ATT+_NOTES+'<td class="col-employee-check"><input type="checkbox" class="checkbox"'+c.ck+' disabled></td></tr>';
       }).join('');
       wireProgramTooltips(body);
