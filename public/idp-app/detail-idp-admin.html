@@ -448,7 +448,7 @@
     /* PIC cell */
     .pic-cell { display: flex; align-items: center; gap: 6px; min-height: 24px; }
     .pic-selected { display: flex; align-items: center; gap: 8px; }
-    .pic-av { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .pic-av { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0; object-fit: cover; }
     .pic-info { display: flex; flex-direction: column; gap: 1px; }
     .pic-info .pic-name { font-size: 12px; color: var(--text-body); font-family: var(--font-body); line-height: 1.2; white-space: nowrap; }
     .pic-info .pic-pos { font-size: 10px; color: var(--text-faint); font-family: var(--font-body); line-height: 1.2; white-space: nowrap; }
@@ -1613,7 +1613,7 @@
       window.swSwitch=function(r){
         localStorage.setItem(KEY,r);
         document.getElementById('switcher-menu').style.display='none';
-        if(r==='Employee') window.location.href='/idp-app/detail-idp-employee.html';
+        if(r==='Employee') window.location.href='/idp-app/my-development.html';
         else if(r==='Manager') window.location.href='/idp-app/detail-idp-manager.html';
         else render(r);
       };
@@ -1747,24 +1747,33 @@
       var due=(pe[0]&&pe[1])?(pe[0]+' - '+pe[1]):(pe[0]||'-');
       openDetailPanel(btn, idp.program, idp.vendor, idp.category, idp.aspectLabel, idp.developmentGoals, due, pic.name, initials(pic.name), pic.color);
     }
+    // 1 IDP = 1 Program: halaman ini cuma menampilkan program yang dipilih dari
+    // kartu "IDP History" di side-panel Monitoring Admin, bukan seluruh riwayat
+    // program karyawan. Index-nya dibawa lewat ?program=.
+    var progParam=new URLSearchParams(location.search).get('program');
+    var progIdx=progParam!=null?parseInt(progParam,10):0;
     fetch('/data/idp-data.json').then(function(r){return r.json();}).then(function(list){
       var _emps=list.employees||list; _historyData=list.changeHistory||{}; renderComments(list.comments||[]);
       var emp=_emps.find(function(e){return e.id===id;})
         || (nameParam && _emps.find(function(e){return e.name===nameParam;}))
         || _emps[0];
       if(!emp) return;
-      _currentEmpIdps=emp.idps;
+      var idps=emp.idps||[];
+      if(!(progIdx>=0 && progIdx<idps.length)) progIdx=0;
+      var prog=idps[progIdx];
+      var rowsSource=prog?[prog]:[];
+      _currentEmpIdps=rowsSource;
       var set=function(el,v){var e=document.getElementById(el); if(e) e.textContent=v;};
       var avatarEl=document.getElementById('d-avatar'); if(avatarEl && emp.avatar) avatarEl.src=emp.avatar;
       set('d-name',emp.name); set('d-name-pos',emp.role+' \u00b7 '+emp.dept);
-      var done=0,total=0; emp.idps.forEach(function(i){done+=(i.progress&&i.progress.done)||0; total+=(i.progress&&i.progress.total)||0;});
+      var done=(prog&&prog.progress&&prog.progress.done)||0, total=(prog&&prog.progress&&prog.progress.total)||0;
       var pf=document.getElementById('progress-fill'); if(pf) pf.style.width=(total?Math.round(done/total*100):0)+'%';
       set('progress-count',done+'/'+total);
-      var allDone=emp.idps.every(function(i){return i.statusLabel==='DONE';});
+      var allDone=!!(prog&&prog.statusLabel==='DONE');
       var st=document.getElementById('d-status'); if(st){st.textContent=allDone?'Done':'In Progress'; st.className='status-chip '+(allDone?'status-done':'status-in-progress');}
-      var ds=[]; emp.idps.forEach(function(i){var pe=parsePeriod(i.period); if(pe[0])ds.push(pe[0]); if(pe[1])ds.push(pe[1]);}); ds.sort(function(a,b){return iso(a)<iso(b)?-1:1;}); if(ds.length) set('d-period',ds[0]+' 2013 '+ds[ds.length-1]);
+      if(prog&&prog.period) set('d-period',prog.period);
       var body=document.getElementById('idp-programs-body'); if(!body) return;
-      body.innerHTML=emp.idps.map(function(idp, idx){
+      body.innerHTML=rowsSource.map(function(idp, idx){
         var pe=parsePeriod(idp.period); var pic=(idp.pics&&idp.pics[0])||{name:'-',color:'#94A3B8'};
         var ck=idp.statusLabel==='DONE'?' checked':'';
         return '<tr>'+
@@ -1779,7 +1788,7 @@
           '<td class="col-goals">'+esc(idp.developmentGoals)+'</td>'+
           '<td class="col-start-date"><input type="date" value="'+iso(pe[0])+'" readonly style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;pointer-events:none;"></td>'+
           '<td class="col-end-date"><input type="date" value="'+iso(pe[1])+'" readonly style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;pointer-events:none;"></td>'+
-          '<td class="col-pic"><div class="pic-cell"><div class="pic-selected"><div class="pic-av" style="background:'+esc(pic.color)+'">'+esc(initials(pic.name))+'</div><div class="pic-info"><span class="pic-name">'+esc(pic.name)+'</span><span class="pic-pos">PIC</span></div></div></div></td>'+
+          '<td class="col-pic"><div class="pic-cell"><div class="pic-selected"><img class="pic-av" src="'+esc(pic.photoUrl||'')+'" alt=""><div class="pic-info"><span class="pic-name">'+esc(pic.name)+'</span><span class="pic-pos">'+esc(pic.position||'-')+'</span></div></div></div></td>'+
           '<td class="col-attachment"><div class="att-cell"><button type="button" class="att-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span class="att-label">Upload file</span></button></div></td>'+
           '<td class="col-notes"></td>'+
           '<td class="col-employee-check"><input type="checkbox" class="checkbox"'+ck+' disabled></td>'+

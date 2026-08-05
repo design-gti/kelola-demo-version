@@ -544,7 +544,9 @@
     var EMPLOYEES = [];
     var _selectedRow = null;
     var _currentEmpId = null;
-    function openIdpDetail(){ if(_currentEmpId!=null) window.location.href='detail-idp-admin.html?id='+_currentEmpId; }
+    // 1 IDP = 1 Program: bawa index program yang diklik supaya Detail IDP cuma
+    // menampilkan satu program itu, bukan seluruh riwayat karyawan.
+    function openIdpDetail(idx){ if(_currentEmpId!=null) window.location.href='detail-idp-admin.html?id='+_currentEmpId+(idx!=null?'&program='+idx:''); }
     function openPanelById(id, row) {
       var emp = EMPLOYEES.find(function(e){ return e.id === id; });
       if (!emp) return;
@@ -555,7 +557,7 @@
       document.getElementById('panel-avatar').alt = emp.name;
       document.getElementById('panel-emp-name').textContent = emp.name;
       document.getElementById('panel-emp-meta').textContent = emp.role + ' · ' + emp.dept;
-      var cards = emp.idps.map(_buildIdpCard).join('');
+      var cards = emp.idps.map(function(idp, idx){ return _buildIdpCard(idp, idx); }).join('');
       document.getElementById('panel-body').innerHTML = '<div class="panel-section-label">IDP History ('+emp.programs+')</div>' + cards;
       requestAnimationFrame(refreshAspectOverflow);
       document.getElementById('idp-side-panel').classList.add('open');
@@ -765,7 +767,7 @@
       }).catch(function(e){ console.error('Failed to load idp-data.json', e); });
     });
 
-    function _buildIdpCard(idp) {
+    function _buildIdpCard(idp, idx) {
       var programRow = '<div class="panel-card-row"><span class="panel-card-label">Program:</span>'
         + '<span class="panel-card-program" title="'+(idp.program||'')+'">'+(idp.program||'-')+'</span></div>';
 
@@ -815,7 +817,7 @@
         + '<span class="panel-progress-count '+clrCls+'">'+prog.done+'/'+prog.total+'</span>'
         + '</div></div>';
 
-      return '<div class="panel-idp-card" onclick="openIdpDetail()">'
+      return '<div class="panel-idp-card" onclick="openIdpDetail('+idx+')">'
         + programRow + aspectRow + picRow + periodRow + statusRow + '</div>';
     }
 
@@ -1042,7 +1044,7 @@
       window.swSwitch=function(r){
         localStorage.setItem(KEY,r);
         document.getElementById('switcher-menu').style.display='none';
-        if(r==='Employee') window.location.href='/idp-app/detail-idp-employee.html';
+        if(r==='Employee') window.location.href='/idp-app/my-development.html';
         else if(r==='Manager') window.location.href='/idp-app/monitoring-manager.html';
         else render(r);
       };

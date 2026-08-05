@@ -48,6 +48,12 @@ function fixPerson(obj, roleFromCanon = false) {
   const cr = byName.get(obj.name);
   if ("initials" in obj) obj.initials = initials(obj.name);
   if (roleFromCanon && cr && "role" in obj) obj.role = cr.position;
+  // position/photoUrl: dipakai kartu PIC di detail-idp-admin/manager/employee.html
+  // (avatar foto + nama + jabatan), supaya jabatannya tidak perlu di-hardcode ("PIC").
+  if (cr) {
+    obj.position = cr.position;
+    if (cr.id) obj.photoUrl = `/avatars/photo_wc2026/${cr.id.toLowerCase()}.png`;
+  }
 }
 
 // employees: role/dept/email/nik/avatar from canonical; fix pic identities
