@@ -97,14 +97,14 @@ export function ChangePhotoModal({ onClose, onPicked }: {
     setError(null);
 
     if (file.type !== "image/png") {
-      setError("Format foto harus PNG. File yang Anda pilih bukan PNG.");
+      setError("Photo must be a PNG. The file you selected is not a PNG.");
       return;
     }
 
     setChecking(true);
     try {
       if (!(await hasTransparentEdges(file))) {
-        setError("Background foto belum di-remove. Unggah PNG transparan tanpa background.");
+        setError("The photo background hasn't been removed. Upload a transparent PNG with no background.");
         return;
       }
       const dataUrl = await new Promise<string>((resolve, reject) => {
@@ -173,7 +173,7 @@ export function ChangePhotoModal({ onClose, onPicked }: {
             <path d="M21 15l-5-5L5 21" />
           </svg>
           <span className="text-[12px] font-bold text-[#495057]">
-            {checking ? "Memeriksa foto…" : "Upload Image"}
+            {checking ? "Checking photo…" : "Upload Image"}
           </span>
         </button>
 

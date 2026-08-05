@@ -59,7 +59,7 @@ function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean 
   return <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: muted ? "#ced4da" : "#495057" }}>{children}</span>;
 }
 
-function TablePanel({ config, points, highlightId, emptyMessage = "Tidak ada data." }: { config: TMConfig; points: TMPoint[]; highlightId?: string | null; emptyMessage?: string }) {
+function TablePanel({ config, points, highlightId, emptyMessage = "No data." }: { config: TMConfig; points: TMPoint[]; highlightId?: string | null; emptyMessage?: string }) {
   const router = useRouter();
   const isTI = config.id === "TI";
   const cols = isTI ? TI_COLS : TR_COLS;
@@ -246,7 +246,7 @@ function Panel({
                     onChange={e => { setJobTarget(e.currentTarget.value || null); setSelectedBox(null); }}
                     style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #e9ecef", fontFamily: FONT, fontSize: 12, color: jobTarget ? "#495057" : "#adb5bd", minWidth: 200, background: "#fff" }}
                   >
-                    <option value="" disabled>Pilih job target</option>
+                    <option value="" disabled>Select job target</option>
                     {jobTargets.map(t => <option key={t.id} value={t.id} style={{ color: "#495057" }}>{t.title}</option>)}
                   </select>
                 </div>
@@ -277,7 +277,7 @@ function Panel({
               {chips.map((c, i) => (
                 <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#e6f3f8", color: ACCENT, borderRadius: 999, padding: "3px 10px", fontSize: 11, fontFamily: FONT }}>
                   {c.label}
-                  <span role="button" title="Hapus filter" onClick={c.onRemove} style={{ cursor: "pointer", display: "inline-flex", opacity: 0.7 }}>✕</span>
+                  <span role="button" title="Remove filter" onClick={c.onRemove} style={{ cursor: "pointer", display: "inline-flex", opacity: 0.7 }}>✕</span>
                 </span>
               ))}
               <span role="button" onClick={clearAll} style={{ color: ACCENT, fontSize: 11, fontWeight: 700, fontFamily: FONT, cursor: "pointer" }}>Clear All</span>
@@ -290,7 +290,7 @@ function Panel({
 
         {/* Donut card */}
         <div style={{ flex: "1 1 320px", background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
-          <div style={{ fontFamily: FONT, fontWeight: 700, fontSize: 13, color: "#495057", textAlign: "center" }}>Distribusi {config.name}</div>
+          <div style={{ fontFamily: FONT, fontWeight: 700, fontSize: 13, color: "#495057", textAlign: "center" }}>{config.name} Distribution</div>
           <DonutChart data={tags} centerLabel={`${filtered.length} ${config.unit}`} />
           <div style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%", maxWidth: 250 }}>
             {tags.map((t, i) => (
@@ -308,7 +308,7 @@ function Panel({
         config={config}
         points={tableRows}
         highlightId={highlightId}
-        emptyMessage={isTR && !jobTarget ? "Belum menentukan job target, pilih job target terlebih dahulu" : "Tidak ada data."}
+        emptyMessage={isTR && !jobTarget ? "No job target selected yet, please choose one first" : "No data."}
       />
 
       <Modal opened={filterOpen} onClose={() => setFilterOpen(false)} title={<Text fw={700} c="#212529">Filter</Text>} size="lg" centered radius={12}>
@@ -320,7 +320,7 @@ function Panel({
                 {allTeams.map(t => (
                   <Checkbox key={t} label={t} checked={draftTeams.includes(t)} onChange={() => setDraftTeams(prev => toggle(prev, t))} color="primary" size="sm" />
                 ))}
-                {allTeams.length === 0 && <Text size="xs" c="#adb5bd">Tidak ada team.</Text>}
+                {allTeams.length === 0 && <Text size="xs" c="#adb5bd">No teams.</Text>}
               </div>
             </ScrollArea.Autosize>
           </div>

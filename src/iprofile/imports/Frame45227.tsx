@@ -451,7 +451,7 @@ function Frame49() {
             <div className="content-stretch flex items-center relative shrink-0 w-full"><SuccessorsAccordion name={sx.name} position={sx.position} percentage={sx.percentage} status={sx.status} photoType={i % 2 === 0 ? "woman" : "man"} photoUrl={sx.id ? `/avatars/photo_wc2026/${sx.id}.png` : undefined} /></div>
           </div>
         ))}
-        {successors.length === 0 && <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: "#adb5bd", padding: "8px 0" }}>Belum ada suksesor.</div>}
+        {successors.length === 0 && <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: "#adb5bd", padding: "8px 0" }}>No successors yet.</div>}
         <button 
           onClick={() => setIsAddSuccessorsModalOpen(true)}
           className="overflow-clip relative shrink-0 size-[20px] cursor-pointer hover:opacity-70 transition-opacity" 
@@ -1190,7 +1190,7 @@ function Frame28() {
           <p className="leading-[normal] whitespace-pre-wrap">Phone</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">+6282342905893</p>
+          <p className="leading-[normal] whitespace-pre-wrap">+6282342905XXX</p>
         </div>
       </div>
     </div>
@@ -1214,7 +1214,27 @@ function Frame30() {
   );
 }
 
+// Hitung umur dari string DOB ("1 Jan 1990" / "12 Februari 1988" / "17 Mei 1996").
+// Bulan mendukung singkatan EN & ID. iProfile ssr:false → new Date() aman (client-only).
+const _DOB_MONTHS: Record<string, number> = {
+  jan: 0, feb: 1, mar: 2, apr: 3, mei: 4, may: 4, jun: 5, jul: 6,
+  agu: 7, agt: 7, aug: 7, sep: 8, okt: 9, oct: 9, nov: 10, des: 11, dec: 11,
+};
+function ageFromDob(dob: string): string {
+  const m = dob.trim().match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+  if (!m) return "-";
+  const day = parseInt(m[1], 10);
+  const mon = _DOB_MONTHS[m[2].slice(0, 3).toLowerCase()];
+  const year = parseInt(m[3], 10);
+  if (mon == null) return "-";
+  const now = new Date();
+  let age = now.getFullYear() - year;
+  if (now.getMonth() < mon || (now.getMonth() === mon && now.getDate() < day)) age -= 1;
+  return age >= 0 ? String(age) : "-";
+}
+
 function Frame29() {
+  const { employee } = useContext(ProfileContext);
   return (
     <div className="relative shrink-0 w-full">
       <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
@@ -1223,7 +1243,7 @@ function Frame29() {
           <p className="leading-[normal] whitespace-pre-wrap">Age</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">36</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{ageFromDob(employee.dob)}</p>
         </div>
       </div>
     </div>
