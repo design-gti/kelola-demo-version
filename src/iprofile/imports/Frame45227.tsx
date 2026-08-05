@@ -9,7 +9,7 @@ import { AddCareerPlanModal } from "../components/AddCareerPlanModal";
 import { AddSuccessorsModal } from "../components/AddSuccessorsModal";
 import { useState, useContext, useRef, useEffect } from "react";
 import { candidates } from "@/data/dummyData";
-import { getParticipant, scoreOf } from "@/data/model/selectors";
+import { getParticipant, scoreOf, allTeams } from "@/data/model/selectors";
 import {
   ProfileContext,
   DEFAULT_EMP,
@@ -1038,7 +1038,7 @@ function Frame104() {
 }
 
 // One IDP-history card — data-driven replacement for the fixed IdpList/IdpList1.
-function IdpCard({ competencies, pic, dateRange, status }: { competencies: string[]; pic: string; dateRange: string; status: string }) {
+function IdpCard({ program, competencies, pic, dateRange, status }: { program: string; competencies: string[]; pic: string; dateRange: string; status: string }) {
   const router = useRouter();
   const { name: employeeName } = useContext(ProfileContext);
   const done = status.toLowerCase() === "done";
@@ -1048,6 +1048,7 @@ function IdpCard({ competencies, pic, dateRange, status }: { competencies: strin
       data-name="IDP List"
       onClick={() => router.push(`/idp?page=detail-idp-admin.html&name=${encodeURIComponent(employeeName)}`)}
     >
+      <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#212529] text-[13px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>{program}</p>
       <div className="content-start flex flex-wrap gap-[4px] items-start relative shrink-0 w-full">
         {competencies.map((c, i) => (
           <div key={i} className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
@@ -1099,7 +1100,7 @@ function Frame105() {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-[336.333px]">
       {idpHistory.map((h, i) => (
-        <IdpCard key={i} competencies={h.competencies} pic={h.pic} dateRange={h.dateRange} status={h.status} />
+        <IdpCard key={i} program={h.program} competencies={h.competencies} pic={h.pic} dateRange={h.dateRange} status={h.status} />
       ))}
     </div>
   );
@@ -1478,10 +1479,34 @@ export default function Frame120() {
   // Load per-participant profile detail from the editable JSON at runtime
   // (public/data/iprofile-data.json) — no rebuild needed to change it.
   const [iprofileData, setIprofileData] = useState<Record<string, ProfileDetail>>({});
+  // Data IDP yang sama dengan halaman Monitoring, agar IDP History di sini sinkron.
+  const [idpData, setIdpData] = useState<{ employees?: Array<{ name: string; idps?: Array<{ program?: string; aspects?: string[]; pics?: Array<{ name: string }>; period?: string; statusLabel?: string }> }> }>({});
   useEffect(() => {
     fetch("/data/iprofile-data.json").then(r => r.json()).then(setIprofileData).catch(() => {});
+    fetch("/data/idp-data.json").then(r => r.json()).then(setIdpData).catch(() => {});
   }, []);
   const detail = id ? iprofileData[id] ?? null : null;
+
+  // Teams — dari model kanonik (bukan blob): tim tempat participant menjadi member
+  // dan/atau leader. Model memberi satu teamId per participant; role "leader" bila
+  // ia memimpin tim tsb.
+  const teams = id
+    ? allTeams()
+        .filter(t => t.leaderId === id || t.id === participant?.teamId)
+        .map(t => ({ name: t.name, role: t.leaderId === id ? "as Team Leader" : "as Team member" }))
+    : [];
+
+  // IDP History — sinkron dengan data IDP (public/data/idp-data.json), dicocokkan
+  // by NAMA participant (JSON itu tak menyimpan p-id). Participant tanpa IDP → kosong.
+  const idpEmp = candidate ? (idpData.employees ?? []).find(e => e.name === candidate.name) : null;
+  const idpHistory = (idpEmp?.idps ?? []).map(idp => ({
+    program: idp.program ?? "-",
+    competencies: (idp.aspects ?? []).map(a => a.replace(/\s*\([^)]*\)\s*$/, "")),
+    pic: idp.pics?.[0]?.name ?? "-",
+    dateRange: idp.period ?? "-",
+    status: idp.statusLabel === "PENDING" ? "Need Review" : (idp.statusLabel ?? "-"),
+  }));
+
   const profileValue: ProfileCtxT = {
     name: candidate?.name ?? "Julian Alvarez",
     position: candidate?.position ?? "Direktur Pengembangan Bisnis",
@@ -1493,10 +1518,10 @@ export default function Frame120() {
     careerPlans: detail?.careerPlans ?? [],
     successors: detail?.successors ?? [],
     scoreAspects: detail?.scoreAspects ?? EMPTY_ASPECTS,
-    teams: detail?.teams ?? [],
+    teams,
     bloodType: detail?.bloodType ?? "A",
     extension: detail?.extension ?? DEFAULT_EXT,
-    idpHistory: detail?.idpHistory ?? [],
+    idpHistory,
     employee: detail?.employee ?? DEFAULT_EMP,
   };
   return (
