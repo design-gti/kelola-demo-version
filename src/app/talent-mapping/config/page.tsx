@@ -48,7 +48,7 @@ function AxisCard({ title, keyVal, onKey, bands, onMax, onLabel }: {
         size="sm" radius="xl" mb={14} styles={{ input: { fontFamily: FONT } }}
       />
       <div style={{ display: "grid", gridTemplateColumns: "1fr 70px 70px", gap: 8, fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>
-        <span>Kriteria *</span><span>Min</span><span>Max *</span>
+        <span>Criteria *</span><span>Min</span><span>Max *</span>
       </div>
       {bands.map((b, i) => (
         <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 70px 70px", gap: 8, marginBottom: 8, alignItems: "center" }}>
@@ -124,13 +124,13 @@ function ConfigInner() {
         <Paper radius={12} p={20} mb={16} withBorder>
           <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}><DefaultBtn onClick={resetAxes} /></div>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            <AxisCard title="Pilih Data Sumbu X (Horizontal)" keyVal={cfg.sumbuXKey} onKey={k => setMetric("X", k)}
+            <AxisCard title="Select X Axis Data (Horizontal)" keyVal={cfg.sumbuXKey} onKey={k => setMetric("X", k)}
               bands={cfg.rangesX} onMax={(i, v) => setBandMax("rangesX", i, v)} onLabel={(i, v) => setBandLabel("rangesX", i, v)} />
-            <AxisCard title="Pilih Data Sumbu Y (Vertical)" keyVal={cfg.sumbuYKey} onKey={k => setMetric("Y", k)}
+            <AxisCard title="Select Y Axis Data (Vertical)" keyVal={cfg.sumbuYKey} onKey={k => setMetric("Y", k)}
               bands={cfg.rangesY} onMax={(i, v) => setBandMax("rangesY", i, v)} onLabel={(i, v) => setBandLabel("rangesY", i, v)} />
           </div>
           {/* ponytail: third-axis toggle is visual-only (demo has no Z axis); wire when a 3rd metric matters. */}
-          <Switch mt={16} disabled label="Tidak gunakan Sumbu ketiga" styles={{ label: { fontFamily: FONT, color: "#868e96" } }} />
+          <Switch mt={16} disabled label="Do not use a third axis" styles={{ label: { fontFamily: FONT, color: "#868e96" } }} />
         </Paper>
 
         {/* Box grid — arranged to match the matrix (ordering rows top→bottom) */}
@@ -152,7 +152,7 @@ function ConfigInner() {
                       {isTR ? (
                         <>
                           <div style={{ fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Readiness</div>
-                          <TextInput value={b.readiness ?? ""} onChange={e => setBoxReadiness(order, e.currentTarget.value)} size="xs" radius="xl" placeholder="mis. Ready Now" styles={{ input: { fontFamily: FONT } }} />
+                          <TextInput value={b.readiness ?? ""} onChange={e => setBoxReadiness(order, e.currentTarget.value)} size="xs" radius="xl" placeholder="e.g. Ready Now" styles={{ input: { fontFamily: FONT } }} />
                         </>
                       ) : (
                         <Switch checked={b.tag === "talent"} onChange={() => toggleTag(order)} label="Tag as talent" size="sm" styles={{ label: { fontFamily: FONT, fontSize: 11, color: "#868e96" } }} />
