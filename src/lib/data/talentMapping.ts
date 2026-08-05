@@ -1,9 +1,19 @@
 import { candidates, type Candidate } from "@/data/dummyData";
 import { TI_CONFIG, TR_CONFIG, boxByOrder, orderFor, plotPos, resolveColor, type MetricKey, type TMConfig, type TMPoint } from "@/data/talentMappingShared";
 import { mantineColor } from "@/components/team/mantineColor";
+import { allTeams, getParticipant } from "@/data/model/selectors";
 
 const val = (c: Candidate, key: MetricKey): number | null => c[key];
 const darker = (token: string) => mantineColor[token.split(".")[0]]?.[6] ?? "#495057";
+
+// Team karyawan = nama Team KANONIK (Engineering Team, Sales & Marketing Team, …),
+// bukan department posisi (Teknologi/Keuangan). Menyamakan filter Teams di Talent
+// Mapping dengan Monitoring / iProfile / Team Profile.
+const _teamNameById = new Map(allTeams().map(t => [t.id, t.name]));
+const teamNameOf = (participantId: string): string => {
+  const tid = getParticipant(participantId)?.teamId;
+  return (tid ? _teamNameById.get(tid) : "") ?? "";
+};
 
 /** TI (Human Asset Value): whichever two metrics `cfg` selects (default: Performance × Potency). */
 export function getTalentIdentificationPoints(cfg: TMConfig = TI_CONFIG, pool: Candidate[] = candidates): TMPoint[] {
@@ -15,7 +25,7 @@ export function getTalentIdentificationPoints(cfg: TMConfig = TI_CONFIG, pool: C
       employeeId: c.id,
       name: c.name,
       positionTitle: c.position,
-      team: c.department,
+      team: teamNameOf(c.id),
       rawX, rawY,
       x: has ? plotPos(rawX!, cfg.rangesX) : null,
       y: has ? plotPos(rawY!, cfg.rangesY) : null,
@@ -67,7 +77,7 @@ export function getTalentReadinessPoints(targetId: string, cfg: TMConfig = TR_CO
       employeeId: c.id,
       name: c.name,
       positionTitle: c.position,
-      team: c.department,
+      team: teamNameOf(c.id),
       rawX, rawY,
       x: has ? plotPos(rawX!, cfg.rangesX) : null,
       y: has ? plotPos(rawY!, cfg.rangesY) : null,

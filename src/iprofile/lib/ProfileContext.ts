@@ -6,7 +6,7 @@ export type CareerHistory = { title: string; period: string };
 export type EmployeeBio = { nik: string; dob: string; gender: string; lastEducation: string; city: string; province: string; maritalStatus: string; reportTo: string; workStartDate: string; tenure: string; careerHistory: CareerHistory[] };
 export type TeamRef = { name: string; role: string };
 export type Extension = { performance: string; engagement: string; potency: string; height: number };
-export type IdpHistoryItem = { competencies: string[]; pic: string; dateRange: string; status: string };
+export type IdpHistoryItem = { program: string; competencies: string[]; pic: string; dateRange: string; status: string };
 export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean };
 export type ScoreAspects = { competency: AspectItem[]; potency: AspectItem[] };
 
