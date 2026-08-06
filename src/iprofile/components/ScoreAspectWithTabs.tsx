@@ -5,7 +5,9 @@ import svgPathsPotency from '../imports/svg-87qx2z9isd';
 
 type TabType = 'competency' | 'potency';
 
-export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean };
+// score null = belum ada data untuk KB ini (ditampilkan "-").
+export type KeyBehaviour = { label: string; score: number | null };
+export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean; keyBehaviours?: KeyBehaviour[] };
 
 interface ScoreAspectProps {
   Frame79: React.ComponentType;
@@ -219,7 +221,7 @@ function CompetencyContent({ items }: { items: AspectItem[] }) {
       {byCategory(items).map(([cat, group]) => (
         <CategorySection key={cat} title={cat}>
           {group.map((a, i) => (
-            <CompetencyCard key={i} title={a.label} score={a.score} standardScore={a.standardScore} dev={a.dev} />
+            <CompetencyCard key={i} title={a.label} score={a.score} standardScore={a.standardScore} dev={a.dev} keyBehaviours={a.keyBehaviours} />
           ))}
         </CategorySection>
       ))}
@@ -227,8 +229,34 @@ function CompetencyContent({ items }: { items: AspectItem[] }) {
   );
 }
 
-// Competency Card — label (+ DEV chip) and a 5-box score row.
-function CompetencyCard({ title, score, standardScore, dev }: { title: string; score: number; standardScore: number; dev: boolean }) {
+/** Warna skor KB 1-5, konsisten dengan warna DEV chip / status lain. */
+// Breakdown Key Behaviour — expand inline di bawah baris skor, bukan modal.
+// Hanya dipakai di Competency (Potency tidak punya breakdown KB).
+// Tag skor sengaja netral (bukan merah/oranye/hijau) — breakdown ini murni
+// informasi, bukan heatmap. `score` null berarti belum ada data, ditulis "-".
+function KeyBehaviourBreakdown({ keyBehaviours }: { keyBehaviours: KeyBehaviour[] }) {
+  return (
+    <div className="flex flex-col gap-[6px] w-full pt-[8px] mt-[4px] border-t border-[#e9ecef]">
+      {keyBehaviours.map((kb) => (
+        <div key={kb.label} className="flex items-center justify-between gap-[8px] w-full">
+          <p className="text-[12px] text-[#495057] leading-[normal]" style={{ fontVariationSettings: "'wdth' 100" }}>{kb.label}</p>
+          <span
+            className="shrink-0 font-['Open_Sans:Bold',sans-serif] font-bold rounded-[800px] px-[8px] py-[1px] text-[12px] text-[#6c757d] bg-[#f1f3f5]"
+          >
+            {kb.score == null ? "-" : `${kb.score}/5`}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Competency Card — label (+ DEV chip), 5-box score row, dan breakdown Key
+// Behaviour yang bisa di-expand/collapse lewat icon info (bukan modal popup).
+function CompetencyCard({ title, score, standardScore, dev, keyBehaviours }: { title: string; score: number; standardScore: number; dev: boolean; keyBehaviours?: KeyBehaviour[] }) {
+  const [expanded, setExpanded] = useState(false);
+  const hasBreakdown = !!keyBehaviours && keyBehaviours.length > 0;
+
   return (
     <div className="bg-[#f8f9fa] relative rounded-[8px] shrink-0 w-full" data-name="Card Data">
       <div className="flex flex-col justify-center size-full">
@@ -243,11 +271,21 @@ function CompetencyCard({ title, score, standardScore, dev }: { title: string; s
                     </div>
                   </div>
                 )}
-                <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   <p className="leading-[normal] whitespace-pre-wrap">{title}</p>
                 </div>
               </div>
-              <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
+              <button
+                type="button"
+                onClick={() => hasBreakdown && setExpanded((v) => !v)}
+                aria-label={`${expanded ? "Tutup" : "Lihat"} breakdown Key Behaviour ${title}`}
+                title="Penjelasan"
+                aria-expanded={expanded}
+                disabled={!hasBreakdown}
+                className={`overflow-clip relative shrink-0 size-[16px] transition-transform ${hasBreakdown ? "cursor-pointer" : "cursor-default"}`}
+                style={{ transform: expanded ? "rotate(180deg)" : undefined }}
+                data-name="info-circle"
+              >
                 <div className="absolute inset-[12.5%]" data-name="Vector">
                   <div className="absolute inset-[-6.25%]">
                     <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
@@ -255,7 +293,7 @@ function CompetencyCard({ title, score, standardScore, dev }: { title: string; s
                     </svg>
                   </div>
                 </div>
-              </div>
+              </button>
             </div>
             <div className="content-stretch flex gap-[4px] items-end relative shrink-0 w-full" data-name="Points">
               <div className="content-stretch flex flex-[1_0_0] gap-[2px] items-start min-h-px min-w-px relative" data-name="Score">
@@ -264,6 +302,7 @@ function CompetencyCard({ title, score, standardScore, dev }: { title: string; s
                 ))}
               </div>
             </div>
+            {expanded && hasBreakdown && <KeyBehaviourBreakdown keyBehaviours={keyBehaviours!} />}
           </div>
         </div>
       </div>
@@ -302,10 +341,14 @@ function PotencyCard({ title, score, standardScore }: { title: string; score: nu
         <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
           <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
             <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-              <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 <p className="leading-[normal] whitespace-pre-wrap">{title}</p>
               </div>
-              <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
+              {/* info-circle dekoratif — Potency tidak punya breakdown Key Behaviour */}
+              <div
+                className="overflow-clip relative shrink-0 size-[16px]"
+                data-name="info-circle"
+              >
                 <div className="absolute inset-[12.5%]" data-name="Vector">
                   <div className="absolute inset-[-6.25%]">
                     <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">

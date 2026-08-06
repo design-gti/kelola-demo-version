@@ -77,7 +77,7 @@ function Frame151() {
 function Frame81() {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] whitespace-nowrap">
+      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
         <p className="leading-[normal]">Profile</p>
       </div>
     </div>
@@ -966,7 +966,7 @@ function Frame121() {
 function Frame98() {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] whitespace-nowrap">
+      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
         <p className="leading-[normal]">Development</p>
       </div>
     </div>

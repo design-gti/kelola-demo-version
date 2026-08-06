@@ -37,6 +37,36 @@ const ASPECTS = [
   { label: "Kemampuan Perencanaan", category: "Uncategorized" },
 ];
 const IDP_COMPS = ["Problem solving", "critical thinking", "strategic thinking", "communication", "leadership", "analytical thinking", "planning", "collaboration"];
+// Key Behaviour (KB) — tiap aspek kompetensi/potensi dipecah jadi 3-4 indikator
+// perilaku yang lebih spesifik, masing-masing dengan skornya sendiri (skala 5).
+// Skor aspek (scoreAspects.*.score) adalah ringkasan dari KB-KB ini.
+const KB_MAP = {
+  "Logika Berpikir": ["Berpikir Sistematis", "Berpikir Kritis", "Pemecahan Masalah", "Pengambilan Kesimpulan Logis"],
+  "Kemampuan Numerikal": ["Ketepatan Hitung", "Interpretasi Data Angka", "Estimasi Cepat"],
+  "Kemampuan verbal": ["Pemahaman Bacaan", "Kejelasan Ekspresi Lisan", "Kosakata & Tata Bahasa"],
+  "Daya Analisa": ["Identifikasi Pola", "Analisis Sebab-Akibat", "Sintesis Informasi", "Evaluasi Alternatif"],
+  "Fleksibilitas": ["Adaptasi Perubahan", "Keterbukaan pada Ide Baru", "Toleransi Ambiguitas"],
+  "Leadership": ["Pengambilan Keputusan", "Memotivasi Tim", "Delegasi Tugas", "Tanggung Jawab atas Hasil"],
+  "Keterampilan Interpersonal": ["Mendengarkan Aktif", "Empati", "Membangun Hubungan Kerja"],
+  "Kerjasama": ["Kontribusi dalam Tim", "Resolusi Konflik", "Berbagi Informasi", "Dukungan ke Rekan Kerja"],
+  "Kemampuan Perencanaan": ["Penetapan Prioritas", "Manajemen Waktu", "Antisipasi Risiko"],
+};
+// Deterministik ±1 di sekitar skor aspek, supaya rata-rata KB dekat dengan skor
+// aspek (bukan acak lepas) tapi tetap ada variasi antar-KB.
+const KB_DELTAS = [0, 1, -1, 1, 0, -1]; // pola deterministik, dipilih via (seed + index KB)
+function keyBehavioursFor(label, aspectScore, seed, isFirstEmployee, aspectIndex) {
+  const names = KB_MAP[label] ?? [];
+  return names.map((kbLabel, k) => {
+    // Contoh KB tanpa data skor (ditampilkan "-" di UI) — deterministik pada
+    // KB pertama, aspek pertama, partisipan pertama, supaya selalu ada satu
+    // contoh nyata tanpa membuat data lain jadi berlubang acak.
+    if (isFirstEmployee && aspectIndex === 0 && k === 0) {
+      return { label: kbLabel, score: null };
+    }
+    const delta = KB_DELTAS[(seed + k) % KB_DELTAS.length];
+    return { label: kbLabel, score: clamp(aspectScore + delta, 1, 5) };
+  });
+}
 
 const out = {};
 rows.forEach((r, idx) => {
@@ -63,9 +93,10 @@ rows.forEach((r, idx) => {
     competency: ASPECTS.map((a, i) => {
       const score = clamp(compBase + (((i * 7 + idx) % 3) - 1), 1, 5);
       const standardScore = 3 + (i % 2);
-      return { ...a, score, standardScore, dev: score < standardScore };
+      return { ...a, score, standardScore, dev: score < standardScore, keyBehaviours: keyBehavioursFor(a.label, score, idx + i, idx === 0, i) };
     }),
     potency: ASPECTS.map((a, i) => {
+      // Potency tidak punya breakdown Key Behaviour (fitur ini khusus Competency).
       const score = clamp(potBase + (((i * 5 + idx) % 3) - 1), 1, 5);
       const standardScore = 3 + ((i + 1) % 2);
       return { ...a, score, standardScore, dev: score < standardScore };

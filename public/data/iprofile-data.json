@@ -44,63 +44,205 @@
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": null
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 3
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 5
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 4
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 5
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 3
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 5
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 5
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 4
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -277,63 +419,205 @@
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 5
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 3
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 3
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 4
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 3
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 2
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 5
+            },
+            {
+              "label": "Empati",
+              "score": 3
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 2
+            }
+          ]
         }
       ],
       "potency": [
@@ -506,63 +790,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 3
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 5
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 3
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 3
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 3
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 2
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 4
+            }
+          ]
         }
       ],
       "potency": [
@@ -735,63 +1161,205 @@
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 3
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 2
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 3
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 3
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 2
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 5
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 3
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 3
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 3
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 4
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -958,63 +1526,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 5
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 4
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 5
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 3
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 5
+            },
+            {
+              "label": "Empati",
+              "score": 4
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 3
+            }
+          ]
         }
       ],
       "potency": [
@@ -1191,63 +1901,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 5
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 4
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 5
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 5
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 3
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 5
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 4
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -1424,63 +2276,205 @@
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 3
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 5
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 4
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 5
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 3
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 5
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 5
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 4
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -1657,63 +2651,205 @@
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 5
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 3
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 3
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 4
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 3
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 2
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 5
+            },
+            {
+              "label": "Empati",
+              "score": 3
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 2
+            }
+          ]
         }
       ],
       "potency": [
@@ -1886,63 +3022,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 3
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 5
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 3
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 3
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 3
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 2
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 4
+            }
+          ]
         }
       ],
       "potency": [
@@ -2115,63 +3393,205 @@
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 3
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 2
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 3
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 3
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 2
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 5
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 3
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 3
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 3
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 4
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -2344,63 +3764,205 @@
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 3
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 2
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 3
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 3
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 4
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 2,
           "standardScore": 3,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 2
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 1
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 2
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 4
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 3
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 2,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 3
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 2
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 1
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 3
+            },
+            {
+              "label": "Empati",
+              "score": 2
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 3
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 4
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 2,
           "standardScore": 3,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 2
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 1
+            }
+          ]
         }
       ],
       "potency": [
@@ -2573,63 +4135,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 5
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 4
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 5
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 5
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 3
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 5
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 4
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -2802,63 +4506,205 @@
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 3
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 4
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 2
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 5
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 3
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 3
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 2
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 3
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 3
+            },
+            {
+              "label": "Empati",
+              "score": 4
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 5
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 3
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -3031,63 +4877,205 @@
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 5
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 3
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 3
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 4
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 3
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 2
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 5
+            },
+            {
+              "label": "Empati",
+              "score": 3
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 2
+            }
+          ]
         }
       ],
       "potency": [
@@ -3260,63 +5248,205 @@
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 3
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 4
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 2,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 3
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 2
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 1
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 3
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 2
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 3
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 2,
           "standardScore": 3,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 2
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 3
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 1
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 2
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 4
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 3
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 2,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 3
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 2
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 1
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 3
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 2
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 3
+            }
+          ]
         }
       ],
       "potency": [
@@ -3489,63 +5619,205 @@
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 3
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 2
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 3
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 3
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 2
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 5
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 3
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 3
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 3
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 4
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -3718,63 +5990,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 5
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 4
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 5
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 3
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 5
+            },
+            {
+              "label": "Empati",
+              "score": 4
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 3
+            }
+          ]
         }
       ],
       "potency": [
@@ -3951,63 +6365,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 3
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 4
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 5
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 5
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 3
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 3
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 4
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 3
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 4
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 2
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 5
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -4180,63 +6736,205 @@
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 3
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 4
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 2
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 5
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 3
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 3
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 2
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 3
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 3
+            },
+            {
+              "label": "Empati",
+              "score": 4
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 5
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 3
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -4409,63 +7107,205 @@
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 5
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 3
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 3
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 4
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 3
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 2
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 5
+            },
+            {
+              "label": "Empati",
+              "score": 3
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 2
+            }
+          ]
         }
       ],
       "potency": [
@@ -4638,63 +7478,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 5
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 4
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 5
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 4
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 5
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 5
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 4
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 3
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 5
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 4
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -4867,63 +7849,205 @@
           "category": "Category A",
           "score": 2,
           "standardScore": 3,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 3
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 2
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 1
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 3
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 2
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 3
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 4
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 2,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 2
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 3
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 1
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 2
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 3
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 4
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 2,
           "standardScore": 3,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 3
+            },
+            {
+              "label": "Empati",
+              "score": 2
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 1
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 3
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 2
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 3
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 3
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 4
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -5096,63 +8220,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 5
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 4
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 5
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 3
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 5
+            },
+            {
+              "label": "Empati",
+              "score": 4
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 3
+            }
+          ]
         }
       ],
       "potency": [
@@ -5325,63 +8591,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 3
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 4
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 5
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 5
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 3
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 3
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 4
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 3
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 4
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 2
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 5
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -5554,63 +8962,205 @@
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 3
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 5
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 4
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 5
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 3
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 5
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 5
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 4
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -5783,63 +9333,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 5
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 4
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 5
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 4
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 5
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 3
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 5
+            },
+            {
+              "label": "Empati",
+              "score": 4
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 5
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 4
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 3
+            }
+          ]
         }
       ],
       "potency": [
@@ -6012,63 +9704,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 3
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 5
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 3
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 3
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 3
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 2
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 4
+            }
+          ]
         }
       ],
       "potency": [
@@ -6241,63 +10075,205 @@
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 5
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 4
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 3
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 5
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 4
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 5
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 3
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 5
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 5
+            },
+            {
+              "label": "Empati",
+              "score": 4
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 5
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 4
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -6470,63 +10446,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 5
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 4
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 5
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 3
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 5
+            },
+            {
+              "label": "Empati",
+              "score": 4
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 3
+            }
+          ]
         }
       ],
       "potency": [
@@ -6699,63 +10817,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 5
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 4
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 5
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 5
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 3
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 5
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 4
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -6928,63 +11188,205 @@
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 3
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 5
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 4
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 5
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 5
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 4
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 3
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 5
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 4
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 5
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 5
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 4
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 5
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 5
+            }
+          ]
         }
       ],
       "potency": [
@@ -7157,63 +11559,205 @@
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 5
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 3
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 5
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 3
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 4
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 4
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 5
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 3
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 4
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 2
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 5
+            },
+            {
+              "label": "Empati",
+              "score": 3
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 5
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 5
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 2
+            }
+          ]
         }
       ],
       "potency": [
@@ -7386,63 +11930,205 @@
           "category": "Category A",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Berpikir Sistematis",
+              "score": 4
+            },
+            {
+              "label": "Berpikir Kritis",
+              "score": 5
+            },
+            {
+              "label": "Pemecahan Masalah",
+              "score": 5
+            },
+            {
+              "label": "Pengambilan Kesimpulan Logis",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Kemampuan Numerikal",
           "category": "Category A",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Ketepatan Hitung",
+              "score": 4
+            },
+            {
+              "label": "Interpretasi Data Angka",
+              "score": 3
+            },
+            {
+              "label": "Estimasi Cepat",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Kemampuan verbal",
           "category": "Category A",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pemahaman Bacaan",
+              "score": 4
+            },
+            {
+              "label": "Kejelasan Ekspresi Lisan",
+              "score": 3
+            },
+            {
+              "label": "Kosakata & Tata Bahasa",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Daya Analisa",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Identifikasi Pola",
+              "score": 4
+            },
+            {
+              "label": "Analisis Sebab-Akibat",
+              "score": 5
+            },
+            {
+              "label": "Sintesis Informasi",
+              "score": 5
+            },
+            {
+              "label": "Evaluasi Alternatif",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Fleksibilitas",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Adaptasi Perubahan",
+              "score": 3
+            },
+            {
+              "label": "Keterbukaan pada Ide Baru",
+              "score": 4
+            },
+            {
+              "label": "Toleransi Ambiguitas",
+              "score": 2
+            }
+          ]
         },
         {
           "label": "Leadership",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 4,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Pengambilan Keputusan",
+              "score": 5
+            },
+            {
+              "label": "Memotivasi Tim",
+              "score": 3
+            },
+            {
+              "label": "Delegasi Tugas",
+              "score": 5
+            },
+            {
+              "label": "Tanggung Jawab atas Hasil",
+              "score": 4
+            }
+          ]
         },
         {
           "label": "Keterampilan Interpersonal",
           "category": "Uncategorized",
           "score": 5,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Mendengarkan Aktif",
+              "score": 4
+            },
+            {
+              "label": "Empati",
+              "score": 5
+            },
+            {
+              "label": "Membangun Hubungan Kerja",
+              "score": 5
+            }
+          ]
         },
         {
           "label": "Kerjasama",
           "category": "Uncategorized",
           "score": 3,
           "standardScore": 4,
-          "dev": true
+          "dev": true,
+          "keyBehaviours": [
+            {
+              "label": "Kontribusi dalam Tim",
+              "score": 4
+            },
+            {
+              "label": "Resolusi Konflik",
+              "score": 3
+            },
+            {
+              "label": "Berbagi Informasi",
+              "score": 2
+            },
+            {
+              "label": "Dukungan ke Rekan Kerja",
+              "score": 3
+            }
+          ]
         },
         {
           "label": "Kemampuan Perencanaan",
           "category": "Uncategorized",
           "score": 4,
           "standardScore": 3,
-          "dev": false
+          "dev": false,
+          "keyBehaviours": [
+            {
+              "label": "Penetapan Prioritas",
+              "score": 4
+            },
+            {
+              "label": "Manajemen Waktu",
+              "score": 3
+            },
+            {
+              "label": "Antisipasi Risiko",
+              "score": 4
+            }
+          ]
         }
       ],
       "potency": [

@@ -7,7 +7,9 @@ export type EmployeeBio = { nik: string; dob: string; gender: string; lastEducat
 export type TeamRef = { name: string; role: string };
 export type Extension = { performance: string; engagement: string; potency: string; height: number };
 export type IdpHistoryItem = { competencies: string[]; pic: string; dateRange: string; status: string };
-export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean };
+// score null = belum ada data untuk KB ini (ditampilkan "-").
+export type KeyBehaviour = { label: string; score: number | null };
+export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean; keyBehaviours?: KeyBehaviour[] };
 export type ScoreAspects = { competency: AspectItem[]; potency: AspectItem[] };
 
 export type ProfileContextValue = {
