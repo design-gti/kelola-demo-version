@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import svgPaths from '../imports/svg-djevy8uiqd';
 import svgPathsPotency from '../imports/svg-87qx2z9isd';
+import { StandardPositionSelect } from './StandardPositionSelect';
 
 type TabType = 'competency' | 'potency';
 
@@ -157,30 +158,7 @@ function PotencyFilter() {
           Score
         </p>
       </div>
-      <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-h-px min-w-px relative" data-name="TextInput">
-        <div className="bg-[#f8f9fa] relative rounded-[16px] shrink-0 w-full" data-name="Input field">
-          <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[16px]" />
-          <div className="flex flex-row items-center size-full">
-            <div className="content-stretch flex gap-[8px] items-center px-[12px] py-[4px] relative w-full">
-              <div className="bg-[#d6e6ff] relative rounded-[4px] shrink-0 size-[16px]" data-name="Box">
-                <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-              </div>
-              <div className="flex flex-[1_0_0] flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] min-h-px min-w-px overflow-hidden relative text-[#495057] text-[10px] text-ellipsis whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-                <p className="leading-[normal] overflow-hidden">Stnd. [Marketing]</p>
-              </div>
-              <div className="overflow-clip relative shrink-0 size-[16px]" data-name="chevron-down">
-                <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-                  <div className="absolute inset-[-18.75%_-9.38%]">
-                    <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9.5 5.5">
-                      <path d={svgPathsPotency.p14416700} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <StandardPositionSelect />
     </div>
   );
 }

@@ -41,7 +41,7 @@ export const ProfileContext = createContext<ProfileContextValue>({
   position: "Direktur Pengembangan Bisnis",
   employeeId: "default",
   personality: "SC",
-  competencyMatch: "4.5",
+  competencyMatch: "90", // skala 0-100, sama seperti Vismap/TDP/Team Profile
   iq: "120",
   gtq: "115",
   careerPlans: [],
