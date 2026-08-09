@@ -1,12 +1,15 @@
-import { Briefcase, Star, UserX, ArrowRightLeft } from "lucide-react";
+import { Briefcase, Star, UserX, ArrowRightLeft, Target, Loader2, AlertCircle, Check } from "lucide-react";
 import type { Employee, OrgChartNode } from "../data/orgChartData";
 import type { HeatmapConfig } from "../components/HeatmapSettings";
 import { NEUTRAL_BORDER, isTalent, needDevelopmentColor, matchPercent, type LayerId } from "./layers";
+import { initiativeSuccessColor, type Initiative } from "./initiatives";
 
 export const CARD_W = 208;
 /** Aksen mode simulasi = palet `secondary` Prodigy. */
 const SIM_ACCENT = "var(--mantine-color-secondary-5)";
 const SIM_ACCENT_DARK = "var(--mantine-color-secondary-9)";
+/** Aksen mode Compare — primary Prodigy, beda dari simulasi (oranye) & initiatives (ungu). */
+const COMPARE_ACCENT = "#016699";
 
 interface Props {
   /** KURSI: posisi, critical position, dan struktur bawahannya. Tidak ikut pindah saat simulasi. */
@@ -17,7 +20,7 @@ interface Props {
   heatmapConfig: HeatmapConfig;
   /** Warna succession risk kursi ini — dihitung di luar karena tergantung occupancy simulasi. */
   riskColor?: string | null;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   /** Orang di kartu ini sedang "diangkat" untuk ditukar (mode simulasi). */
   picked?: boolean;
   /** Kandidat tujuan pertukaran (mode simulasi, setelah ada yang diangkat). */
@@ -26,6 +29,12 @@ interface Props {
   changed?: boolean;
   /** Orang yang SEMULA menempati kursi ini — ditampilkan sebagai kartu kecil bergaris putus-putus. */
   previousPerson?: Employee | null;
+  /** Inisiatif/goal PALING BARU milik occupant kursi ini (mode Initiatives). */
+  goal?: Initiative;
+  /** Mode pilih-untuk-Compare aktif — kartu berorang menampilkan checkbox. */
+  selectable?: boolean;
+  /** Kartu ini tercentang di mode Compare. */
+  selected?: boolean;
 }
 
 /**
@@ -48,6 +57,9 @@ export default function OrgCardV2({
   isSwapTarget,
   changed,
   previousPerson,
+  goal,
+  selectable,
+  selected,
 }: Props) {
   const vacant = !person;
 
@@ -66,11 +78,12 @@ export default function OrgCardV2({
   // Fallback ke competencyScore kalau data aspeknya tidak ada (mis. kursi vacant).
   const matchScore = person ? matchPercent(person.id, seat.position) : null;
 
-  const frameColor = picked ? SIM_ACCENT : riskColor ?? NEUTRAL_BORDER;
-  const frameWidth = picked ? 3 : riskColor ? 3 : 1;
+  const frameColor = selected ? COMPARE_ACCENT : picked ? SIM_ACCENT : riskColor ?? NEUTRAL_BORDER;
+  const frameWidth = selected || picked ? 3 : riskColor ? 3 : 1;
 
   return (
     <div
+      data-orgcard-v2={seat.id}
       onClick={onClick}
       style={{
         width: CARD_W,
@@ -81,16 +94,41 @@ export default function OrgCardV2({
         cursor: onClick ? "pointer" : "default",
         fontFamily: "'Open Sans', sans-serif",
         position: "relative",
-        boxShadow: picked
-          ? "0 0 0 4px rgba(245,158,11,0.28)"
-          : isSwapTarget
-            ? "0 0 0 3px rgba(245,158,11,0.18)"
-            : riskColor
-              ? `0 0 0 4px ${riskColor}22`
-              : "0 1px 3px rgba(0,0,0,0.08)",
+        boxShadow: selected
+          ? `0 0 0 4px ${COMPARE_ACCENT}33`
+          : picked
+            ? "0 0 0 4px rgba(245,158,11,0.28)"
+            : isSwapTarget
+              ? "0 0 0 3px rgba(245,158,11,0.18)"
+              : riskColor
+                ? `0 0 0 4px ${riskColor}22`
+                : "0 1px 3px rgba(0,0,0,0.08)",
         transition: "border-color 0.15s, box-shadow 0.15s",
       }}
     >
+      {/* Checkbox mode Compare — cuma kartu berorang yang bisa dipilih. */}
+      {selectable && person && (
+        <span
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: -9,
+            left: -9,
+            width: 20,
+            height: 20,
+            borderRadius: 5,
+            background: selected ? COMPARE_ACCENT : "white",
+            border: `2px solid ${selected ? COMPARE_ACCENT : "#adb5bd"}`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 6,
+            boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
+          }}
+        >
+          {selected && <Check size={12} strokeWidth={3.5} style={{ color: "white" }} />}
+        </span>
+      )}
       {/* Jejak occupant sebelumnya: kartu kecil di samping, disambung garis putus-putus.
           Absolute + z-index tinggi supaya tidak menggeser layout org chart. */}
       {previousPerson && (
@@ -313,6 +351,64 @@ export default function OrgCardV2({
           <div title="Kecocokan kompetensi vs standar kursi ini" style={{ fontSize: 10, color: "#6c757d" }}>
             Match {matchScore ?? person.competencyScore}%
           </div>
+        )}
+
+        {/* Layer Initiatives — kalau aktif, SEMUA kartu berorang menampilkan tag
+            ini (persentase kalau ada goal, "No initiatives" kalau belum diisi)
+            supaya jelas dibedakan dari kartu yang memang belum pernah dicek. */}
+        {person && layers.has("initiatives") && (
+          goal ? (
+            <div
+              title={goal.text}
+              style={{
+                marginTop: 4,
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                maxWidth: "100%",
+                borderRadius: 20,
+                padding: "2px 8px",
+                fontSize: 10,
+                fontWeight: 800,
+                ...(goal.status === "mapped" && goal.successPercent != null
+                  ? { color: initiativeSuccessColor(goal.successPercent), background: initiativeSuccessColor(goal.successPercent) + "1a" }
+                  : goal.status === "error"
+                    ? { color: "#DE350B", background: "#DE350B1a" }
+                    : { color: "#6c757d", background: "#f1f3f5" }),
+              }}
+            >
+              {goal.status === "mapping" ? (
+                <Loader2 size={10} className="animate-spin" />
+              ) : goal.status === "error" ? (
+                <AlertCircle size={10} />
+              ) : (
+                <Target size={10} />
+              )}
+              <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {goal.status === "mapping" ? "Menganalisis…" : goal.status === "error" ? "Gagal mapping" : `${goal.successPercent}% goal`}
+              </span>
+            </div>
+          ) : (
+            <div
+              title="Belum ada inisiatif untuk orang ini"
+              style={{
+                marginTop: 4,
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                borderRadius: 20,
+                padding: "2px 8px",
+                fontSize: 10,
+                fontWeight: 700,
+                color: "#adb5bd",
+                background: "#f8f9fa",
+                border: "1px dashed #dee2e6",
+              }}
+            >
+              <Target size={10} />
+              <span>No initiatives</span>
+            </div>
+          )
         )}
       </div>
     </div>

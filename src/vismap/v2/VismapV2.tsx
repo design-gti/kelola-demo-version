@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from "react";
+import { createPortal } from "react-dom";
 import {
   ChevronDown,
   ChevronRight,
@@ -11,11 +12,17 @@ import {
   RotateCcw,
   X,
   ArrowRightLeft,
+  Target,
+  Loader2,
+  AlertCircle,
+  User,
+  GraduationCap,
+  Columns3,
 } from "lucide-react";
 import type { Employee, OrgChartNode } from "../data/orgChartData";
 import type { HeatmapConfig } from "../components/HeatmapSettings";
 import OrgCardV2 from "./OrgCardV2";
-import { Paper, Group, Stack, Text, Badge, Button } from "@mantine/core";
+import { Paper, Group, Stack, Text, Badge, Button, Textarea } from "@mantine/core";
 import {
   LAYERS,
   isVacant,
@@ -24,6 +31,15 @@ import {
   successionRiskColorFromScores,
   type LayerId,
 } from "./layers";
+import { computeInitiativeSuccess, initiativeSuccessColor, type Initiative } from "./initiatives";
+import { INITIATIVES_SEED } from "./initiativesSeed";
+
+/** Aksen mode Initiatives — ungu, beda dari simulasi (secondary) supaya dua
+ *  jenis sinyal ini gampang dibedakan sekilas. */
+const GOAL_ACCENT = "#7C3AED";
+
+/** Aksen mode Compare — primary Prodigy. */
+const COMPARE_ACCENT = "#016699";
 
 /** Aksen mode simulasi = palet `secondary` Prodigy (bukan amber ad-hoc). */
 const SIM_ACCENT = "var(--mantine-color-secondary-5)";
@@ -31,16 +47,21 @@ const SIM_ACCENT_SOFT = "var(--mantine-color-secondary-0)";
 const SIM_ACCENT_DARK = "var(--mantine-color-secondary-9)";
 
 /**
- * Mode simulasi V2: yang dipindah adalah ORANG-nya, kursinya tetap di tempat.
- * `occupancy` memetakan seatId -> employeeId, jadi struktur org chart (dan semua
- * sinyal kursi seperti critical position) tidak pernah berubah.
+ * Satu context gabungan untuk semua interaksi kartu V2 — dulunya dua "mode"
+ * terpisah (Simulate/Initiatives) yang di-toggle dari top bar, sekarang jadi
+ * satu floating action menu yang muncul di sisi kartu yang diklik (lihat
+ * CardActionMenu), berlaku sama di tab Default maupun Heatmap.
  */
-interface SimCtx {
-  active: boolean;
+interface CardCtx {
   occupantOf: (seatId: string) => Employee | null;
-  pickedSeatId: string | null;
+  /** Kursi yang sedang "diangkat" untuk ditukar (setelah pilih Simulate di menu). */
+  pendingSwapSeatId: string | null;
   changedSeats: Set<string>;
-  onSeatClick: (seatId: string) => void;
+  goalOf: (personId: string) => Initiative | undefined;
+  onCardClick: (seatId: string, e: React.MouseEvent) => void;
+  /** Mode pilih-untuk-Compare aktif — semua kartu berorang dapat checkbox. */
+  compareMode: boolean;
+  isSelectedForCompare: (personId: string) => boolean;
 }
 
 const LINE = "#016699";
@@ -92,15 +113,13 @@ function NodeV2({
   node,
   layers,
   heatmapConfig,
-  onEmployeeClick,
-  sim,
+  card,
   promotionTarget,
 }: {
   node: OrgChartNode;
   layers: Set<LayerId>;
   heatmapConfig: HeatmapConfig;
-  onEmployeeClick: (emp: Employee) => void;
-  sim: SimCtx;
+  card: CardCtx;
   /** Posisi atasan langsung kursi ini (untuk % Ready to Promote). undefined = root, tidak ada atasan. */
   promotionTarget?: string;
 }) {
@@ -111,13 +130,14 @@ function NodeV2({
   // Garis struktur: biru seperti biasa, tapi jadi abu saat layer % Ready aktif.
   const baseLine = readyActive ? LINE_MUTED : LINE;
 
-  const person = sim.occupantOf(node.id);
+  const person = card.occupantOf(node.id);
+  const latestInitiative = person ? card.goalOf(person.id) : undefined;
   // Succession risk dihitung dari orang yang SEDANG menempati kursi bawahannya,
   // jadi hasil simulasi langsung kelihatan di frame kursi atasannya.
   const riskColor = layers.has("succession-risk")
     ? successionRiskColorFromScores(
         reports
-          .map(r => sim.occupantOf(r.id))
+          .map(r => card.occupantOf(r.id))
           .filter((p): p is Employee => !!p)
           .map(p => readinessOf(p, node.position)),
         heatmapConfig,
@@ -136,15 +156,15 @@ function NodeV2({
           layers={layers}
           heatmapConfig={heatmapConfig}
           riskColor={riskColor}
-          picked={sim.pickedSeatId === node.id}
-          isSwapTarget={sim.active && !!sim.pickedSeatId && sim.pickedSeatId !== node.id}
-          changed={sim.changedSeats.has(node.id)}
+          picked={card.pendingSwapSeatId === node.id}
+          isSwapTarget={!!card.pendingSwapSeatId && card.pendingSwapSeatId !== node.id}
+          changed={card.changedSeats.has(node.id)}
           // occupant asli kursi ini = data node itu sendiri (sebelum simulasi)
-          previousPerson={sim.changedSeats.has(node.id) && !isVacant(node) ? node : null}
-          onClick={() => {
-            if (sim.active) sim.onSeatClick(node.id);
-            else if (person) onEmployeeClick(person);
-          }}
+          previousPerson={card.changedSeats.has(node.id) && !isVacant(node) ? node : null}
+          goal={latestInitiative}
+          selectable={card.compareMode}
+          selected={!!person && card.isSelectedForCompare(person.id)}
+          onClick={(e) => card.onCardClick(node.id, e)}
         />
         {hasReports && (
           <button
@@ -173,7 +193,7 @@ function NodeV2({
             const isLast = index === reports.length - 1;
             // Garis vertikal yang menuju kartu anak ikut warna tag % Ready-nya,
             // supaya jalur ke kartu itu langsung kebaca tingkat kesiapannya.
-            const reportPerson = sim.occupantOf(report.id);
+            const reportPerson = card.occupantOf(report.id);
             // Target kecocokan bawahan = kursi node ini (atasannya langsung).
             const stalkColor =
               readyActive && reportPerson ? readinessColor(reportPerson, heatmapConfig, node.position) : baseLine;
@@ -214,8 +234,7 @@ function NodeV2({
                   node={report}
                   layers={layers}
                   heatmapConfig={heatmapConfig}
-                  onEmployeeClick={onEmployeeClick}
-                  sim={sim}
+                  card={card}
                   promotionTarget={node.position}
                 />
               </div>
@@ -234,12 +253,8 @@ interface Props {
   tab: "default" | "heatmap";
   activeLayers: Set<LayerId>;
   onToggleLayer: (id: LayerId) => void;
-  onEmployeeClick: (emp: Employee) => void;
   /** offset dari atas viewport (di bawah top bar Vismap) */
   top: number;
-  /** Mode simulasi pertukaran orang antar kursi. */
-  simulationMode: boolean;
-  onExitSimulation: () => void;
 }
 
 export default function VismapV2({
@@ -248,10 +263,7 @@ export default function VismapV2({
   tab,
   activeLayers,
   onToggleLayer,
-  onEmployeeClick,
   top,
-  simulationMode,
-  onExitSimulation,
 }: Props) {
   // Pan/zoom: duplikat dari V1 (App.tsx handleZoomIn/Out/ResetView/Wheel/DoubleClick)
   // supaya perilakunya identik — step 10%, range 25-200%, zoom mengikuti titik kursor.
@@ -282,15 +294,7 @@ export default function VismapV2({
 
   /** seatId -> employeeId yang menempatinya. Hanya berisi kursi yang diubah simulasi. */
   const [occupancy, setOccupancy] = useState<Record<string, string>>({});
-  const [pickedSeatId, setPickedSeatId] = useState<string | null>(null);
-
-  // Keluar dari mode simulasi = buang semua perubahan, balik ke data asli.
-  useEffect(() => {
-    if (!simulationMode) {
-      setOccupancy({});
-      setPickedSeatId(null);
-    }
-  }, [simulationMode]);
+  const [pendingSwapSeatId, setPendingSwapSeatId] = useState<string | null>(null);
 
   const occupantOf = (seatId: string): Employee | null => {
     const holderId = occupancy[seatId] ?? seatId;
@@ -304,40 +308,189 @@ export default function VismapV2({
     [occupancy],
   );
 
-  const handleSeatClick = (seatId: string) => {
-    if (!pickedSeatId) {
-      // Kursi kosong tidak bisa jadi asal pertukaran — tidak ada orang untuk diangkat.
-      if (!occupantOf(seatId)) return;
-      setPickedSeatId(seatId);
-      return;
-    }
-    if (pickedSeatId === seatId) {
-      setPickedSeatId(null);
-      return;
-    }
-    // Tukar occupant dua kursi. Kalau tujuannya kosong, efeknya jadi "pindah".
-    setOccupancy(prev => {
-      const a = prev[pickedSeatId] ?? pickedSeatId;
-      const b = prev[seatId] ?? seatId;
-      return { ...prev, [pickedSeatId]: b, [seatId]: a };
-    });
-    setPickedSeatId(null);
-  };
-
-  const sim: SimCtx = {
-    active: simulationMode,
-    occupantOf,
-    pickedSeatId,
-    changedSeats,
-    onSeatClick: handleSeatClick,
-  };
-
   /** Daftar perubahan untuk panel: kursi + siapa yang menempatinya sekarang. */
   const moves = [...changedSeats].map(seatId => ({
     seat: seatById.get(seatId)!,
     now: occupantOf(seatId),
     before: seatById.get(seatId)!,
   }));
+
+  // ---------- INITIATIVES ----------
+  // personId -> daftar inisiatif orang itu. State lokal murni (demo), tidak persisten.
+  const [initiativesByPerson, setInitiativesByPerson] = useState<Record<string, Initiative[]>>(() => ({ ...INITIATIVES_SEED }));
+  const [goalsPersonId, setGoalsPersonId] = useState<string | null>(null);
+  const [goalDraft, setGoalDraft] = useState("");
+
+  const initiativesOf = (personId: string): Initiative[] => initiativesByPerson[personId] ?? [];
+  const latestInitiativeOf = (personId: string): Initiative | undefined => {
+    const list = initiativesByPerson[personId];
+    return list && list[list.length - 1];
+  };
+
+  const addInitiative = async (personId: string, text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    const id = `${personId}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    const draft: Initiative = { id, text: trimmed, status: "mapping", successPercent: null };
+    setInitiativesByPerson(prev => ({ ...prev, [personId]: [...(prev[personId] ?? []), draft] }));
+
+    try {
+      const res = await fetch("/api/vismap-initiative", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: trimmed }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error ?? "Mapping failed");
+
+      const aspects = data.aspects as Initiative["aspects"];
+      const successPercent = computeInitiativeSuccess(personId, aspects ?? []);
+      setInitiativesByPerson(prev => ({
+        ...prev,
+        [personId]: (prev[personId] ?? []).map(it => it.id === id ? { ...it, status: "mapped", aspects, successPercent } : it),
+      }));
+    } catch (err) {
+      setInitiativesByPerson(prev => ({
+        ...prev,
+        [personId]: (prev[personId] ?? []).map(it => it.id === id ? { ...it, status: "error", error: err instanceof Error ? err.message : "Mapping failed" } : it),
+      }));
+    }
+  };
+
+  // Cari data orang (nama/foto) dari personId yang panelnya sedang dibuka —
+  // ditelusuri lewat occupancy kursi manapun, benar juga kalau orangnya sudah
+  // dipindah lewat simulasi sebelumnya.
+  const goalsPersonEmployee = (() => {
+    if (!goalsPersonId) return null;
+    for (const s of seats) {
+      const occ = occupantOf(s.id);
+      if (occ?.id === goalsPersonId) return occ;
+    }
+    return null;
+  })();
+
+  // ---------- FLOATING ACTION MENU ----------
+  // Muncul di sisi (kanan, atau kiri kalau mepet tepi layar) kartu yang diklik,
+  // berlaku sama di tab Default maupun Heatmap. Posisinya dihitung dari
+  // getBoundingClientRect kartu (koordinat viewport asli), jadi tidak perlu
+  // mem-balik matematika pan/zoom kanvas.
+  const [cardMenu, setCardMenu] = useState<{ seatId: string; top: number; left: number } | null>(null);
+  const cardMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!cardMenu) return;
+    const onDocMouseDown = (e: MouseEvent) => {
+      if (cardMenuRef.current && !cardMenuRef.current.contains(e.target as Node)) setCardMenu(null);
+    };
+    document.addEventListener("mousedown", onDocMouseDown);
+    return () => document.removeEventListener("mousedown", onDocMouseDown);
+  }, [cardMenu]);
+
+  const MENU_W = 184;
+
+  // ---------- COMPARE ----------
+  // Pilih beberapa orang lewat checkbox di kartu, lalu lempar ke TDP tab Compare.
+  const [compareMode, setCompareMode] = useState(false);
+  const [compareIds, setCompareIds] = useState<string[]>([]);
+
+  const exitCompare = () => {
+    setCompareMode(false);
+    setCompareIds([]);
+  };
+
+  const goToCompare = () => {
+    // TDP memakai id EMP0NN sementara canonical p-id pNN — konversi dulu, lalu
+    // titipkan lewat `shared_pinned` (kontrak yang sama dipakai V1
+    // SuccessionPanel.handleCompareClick dan dibaca TDP Screener/Comparison).
+    const toTdpId = (id: string) => "EMP" + String(id).replace(/\D/g, "").padStart(3, "0");
+    const ids = Array.from(new Set(compareIds.map(toTdpId)));
+    try { localStorage.setItem("shared_pinned", JSON.stringify(ids)); } catch { /* ignore */ }
+    (window.top ?? window).location.href = "/tdp-view";
+  };
+
+  const onCardClick = (seatId: string, e: React.MouseEvent) => {
+    // Mode Compare menimpa semua interaksi lain: klik kartu = centang/hapus centang.
+    if (compareMode) {
+      const person = occupantOf(seatId);
+      if (!person) return; // kursi kosong tidak bisa dibandingkan
+      setCompareIds(prev =>
+        prev.includes(person.id) ? prev.filter(id => id !== person.id) : [...prev, person.id],
+      );
+      return;
+    }
+
+    if (pendingSwapSeatId) {
+      if (pendingSwapSeatId === seatId) {
+        setPendingSwapSeatId(null); // klik kursi yang sama = batalkan
+        return;
+      }
+      // Tukar occupant dua kursi. Kalau tujuannya kosong, efeknya jadi "pindah".
+      setOccupancy(prev => {
+        const a = prev[pendingSwapSeatId] ?? pendingSwapSeatId;
+        const b = prev[seatId] ?? seatId;
+        return { ...prev, [pendingSwapSeatId]: b, [seatId]: a };
+      });
+      setPendingSwapSeatId(null);
+      setCardMenu(null);
+      return;
+    }
+
+    if (cardMenu?.seatId === seatId) {
+      setCardMenu(null); // klik kartu yang sama = tutup menu
+      return;
+    }
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const spaceRight = window.innerWidth - rect.right;
+    const left = spaceRight >= MENU_W + 12 ? rect.right + 8 : rect.left - MENU_W - 8;
+    setCardMenu({ seatId, top: rect.top, left });
+  };
+
+  const card: CardCtx = {
+    occupantOf,
+    pendingSwapSeatId,
+    changedSeats,
+    goalOf: latestInitiativeOf,
+    onCardClick,
+    compareMode,
+    isSelectedForCompare: (personId: string) => compareIds.includes(personId),
+  };
+
+  const menuSeat = cardMenu ? seatById.get(cardMenu.seatId) ?? null : null;
+  const menuPerson = cardMenu ? occupantOf(cardMenu.seatId) : null;
+
+  const closeMenu = () => setCardMenu(null);
+
+  const handleMenuSimulate = () => {
+    if (!cardMenu) return;
+    setPendingSwapSeatId(cardMenu.seatId);
+    closeMenu();
+  };
+  const handleMenuInitiatives = () => {
+    if (!menuPerson) return;
+    setGoalsPersonId(menuPerson.id);
+    closeMenu();
+  };
+  const handleMenuIProfile = () => {
+    if (!menuPerson) return;
+    const name = encodeURIComponent(menuPerson.name);
+    (window.top ?? window).location.href = `/iprofile?id=${encodeURIComponent(menuPerson.id)}&name=${name}&from=vismap`;
+    closeMenu();
+  };
+  const handleMenuDevelopment = () => {
+    if (!menuPerson) return;
+    const url = `/idp?page=create-idp-admin.html&participants=${encodeURIComponent(menuPerson.name)}`;
+    (window.top ?? window).location.href = url;
+    closeMenu();
+  };
+  const handleMenuCompare = () => {
+    if (!menuPerson) return;
+    // Orang yang menu-nya dibuka langsung jadi pilihan pertama.
+    setCompareMode(true);
+    setCompareIds([menuPerson.id]);
+    setPendingSwapSeatId(null);
+    setGoalsPersonId(null);
+    closeMenu();
+  };
 
   const zoomAtViewportCenter = (nextZoom: number) => {
     if (!containerRef.current) return;
@@ -479,61 +632,43 @@ export default function VismapV2({
       onDoubleClick={handleDoubleClick}
       onWheel={handleWheel}
     >
-      {/* Mode simulasi: seluruh area org chart dibingkai kuning */}
-      {simulationMode && (
-        <>
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              boxShadow: `inset 0 0 0 4px ${SIM_ACCENT}, inset 0 0 40px 8px rgba(245,158,11,0.15)`,
-              zIndex: 30,
-            }}
-          />
-          <Paper
-            data-no-drag
-            radius={0}
-            px={16}
-            py={8}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              zIndex: 31,
-              background: SIM_ACCENT_SOFT,
-              borderBottom: `1px solid ${SIM_ACCENT}`,
-            }}
-          >
-            <Group gap={8} wrap="nowrap">
-              <Shuffle size={14} color={SIM_ACCENT_DARK} />
-              <Text size="sm" fw={700} c={SIM_ACCENT_DARK}>
-                Simulation mode
-              </Text>
-              {pickedSeatId ? (
-                <Group gap={6} wrap="nowrap">
-                  <ArrowRightLeft size={13} color={SIM_ACCENT_DARK} />
-                  <Text size="sm" c={SIM_ACCENT_DARK}>
-                    <b>{occupantOf(pickedSeatId)?.name}</b> picked up — click a seat to swap, or click the same card
-                    again to cancel.
-                  </Text>
-                </Group>
-              ) : (
-                <Text size="sm" c={SIM_ACCENT_DARK}>
-                  Click a person to pick them up, then click the seat you want to move them into.
-                </Text>
-              )}
-              {moves.length > 0 && (
-                <Badge ml="auto" color="secondary" radius="xl" size="sm" variant="filled">
-                  {moves.length} seat{moves.length > 1 ? "s" : ""} changed
-                </Badge>
-              )}
-            </Group>
-          </Paper>
-        </>
+      {/* Hint mengambang saat ada kursi yang "diangkat" untuk ditukar (dipilih
+          lewat Simulate di floating menu). Menggantikan banner mode lama —
+          cuma tampil selagi benar-benar ada aksi yang menunggu diselesaikan. */}
+      {pendingSwapSeatId && (
+        <Paper
+          data-no-drag
+          radius={0}
+          px={16}
+          py={8}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 31,
+            background: SIM_ACCENT_SOFT,
+            borderBottom: `1px solid ${SIM_ACCENT}`,
+          }}
+        >
+          <Group gap={8} wrap="nowrap">
+            <ArrowRightLeft size={14} color={SIM_ACCENT_DARK} />
+            <Text size="sm" c={SIM_ACCENT_DARK}>
+              <b>{occupantOf(pendingSwapSeatId)?.name}</b> picked up — click a seat to swap, or click the same card
+              again to cancel.
+            </Text>
+            {moves.length > 0 && (
+              <Badge ml="auto" color="secondary" radius="xl" size="sm" variant="filled">
+                {moves.length} seat{moves.length > 1 ? "s" : ""} changed
+              </Badge>
+            )}
+          </Group>
+        </Paper>
       )}
 
-      {/* Panel daftar perubahan simulasi — sisi kanan */}
-      {simulationMode && (
+      {/* Panel daftar perubahan simulasi — sisi kanan. Prioritas lebih rendah
+          dari panel Initiatives (satu slot kanan dipakai bergantian). */}
+      {!goalsPersonId && (pendingSwapSeatId || changedSeats.size > 0) && (
         <Paper
           data-no-drag
           radius={12}
@@ -541,7 +676,7 @@ export default function VismapV2({
           withBorder
           style={{
             position: "absolute",
-            top: 56,
+            top: pendingSwapSeatId ? 56 : 16,
             right: 16,
             width: 236,
             maxHeight: "calc(100% - 88px)",
@@ -560,8 +695,7 @@ export default function VismapV2({
 
           {moves.length === 0 ? (
             <Text size="xs" c="neutral.5">
-              No changes yet. Pick a person, then choose the target seat — the seat itself never moves, only the person
-              in it.
+              Pick a person, then choose the target seat — the seat itself never moves, only the person in it.
             </Text>
           ) : (
             <Stack gap={10}>
@@ -581,31 +715,143 @@ export default function VismapV2({
             </Stack>
           )}
 
-          <Group gap={6} mt={14} grow>
+          <Button
+            variant="outline"
+            color="neutral.6"
+            size="compact-sm"
+            radius="xl"
+            mt={14}
+            fullWidth
+            leftSection={<RotateCcw size={12} />}
+            disabled={moves.length === 0 && !pendingSwapSeatId}
+            onClick={() => {
+              setOccupancy({});
+              setPendingSwapSeatId(null);
+            }}
+          >
+            Reset
+          </Button>
+        </Paper>
+      )}
+
+      {/* Panel Initiatives orang yang diklik — sisi kanan, dipicu dari floating menu kartu */}
+      {goalsPersonId && (
+        <Paper
+          data-no-drag
+          radius={12}
+          p={12}
+          withBorder
+          style={{
+            position: "absolute",
+            top: 56,
+            right: 16,
+            width: 260,
+            maxHeight: "calc(100% - 88px)",
+            overflowY: "auto",
+            borderColor: GOAL_ACCENT,
+            boxShadow: "2px 4px 10px rgba(0,0,0,0.07)",
+            zIndex: 32,
+          }}
+        >
+          <Group gap={6} mb={2} wrap="nowrap" justify="space-between">
+            <Group gap={6} wrap="nowrap">
+              <Target size={14} color={GOAL_ACCENT} />
+              <Text size="sm" fw={700} c={GOAL_ACCENT}>
+                {goalsPersonEmployee?.name ?? "Vacant seat"}
+              </Text>
+            </Group>
             <Button
-              variant="outline"
-              color="neutral.6"
-              size="compact-sm"
+              variant="subtle"
+              size="compact-xs"
               radius="xl"
-              leftSection={<RotateCcw size={12} />}
-              disabled={moves.length === 0}
-              onClick={() => {
-                setOccupancy({});
-                setPickedSeatId(null);
-              }}
+              px={4}
+              onClick={() => setGoalsPersonId(null)}
+              styles={{ root: { color: "#6c757d" } }}
             >
-              Reset
-            </Button>
-            <Button
-              color="secondary"
-              size="compact-sm"
-              radius="xl"
-              leftSection={<X size={12} />}
-              onClick={onExitSimulation}
-            >
-              Exit
+              <X size={12} />
             </Button>
           </Group>
+          <Text size="xs" c="neutral.5" mb={10}>
+            {goalsPersonEmployee ? "Initiatives / goals" : "Kursi ini kosong — tidak bisa diberi inisiatif."}
+          </Text>
+
+          {goalsPersonEmployee && (
+            <>
+              <Stack gap={4} mb={10}>
+                <Textarea
+                  placeholder="mis. Meningkatkan kecepatan delivery tim sebesar 20% kuartal ini"
+                  autosize
+                  minRows={2}
+                  maxRows={4}
+                  value={goalDraft}
+                  onChange={(e) => setGoalDraft(e.currentTarget.value)}
+                  styles={{ input: { fontSize: 12 } }}
+                />
+                <Button
+                  size="compact-sm"
+                  radius="xl"
+                  disabled={!goalDraft.trim()}
+                  onClick={() => {
+                    addInitiative(goalsPersonEmployee.id, goalDraft);
+                    setGoalDraft("");
+                  }}
+                  styles={{ root: { backgroundColor: GOAL_ACCENT, border: "none" } }}
+                >
+                  Add initiative
+                </Button>
+              </Stack>
+
+              {initiativesOf(goalsPersonEmployee.id).length > 0 && (
+                <Stack gap={8}>
+                  {[...initiativesOf(goalsPersonEmployee.id)].reverse().map(it => (
+                    <div key={it.id} style={{ borderLeft: `3px solid ${GOAL_ACCENT}`, paddingLeft: 8 }}>
+                      <Text size="xs" c="neutral.8" mb={2}>{it.text}</Text>
+                      {it.status === "mapping" && (
+                        <Group gap={4} wrap="nowrap">
+                          <Loader2 size={11} className="animate-spin" color="#6c757d" />
+                          <Text size="xs" c="neutral.5">Menganalisis…</Text>
+                        </Group>
+                      )}
+                      {it.status === "error" && (
+                        <Group gap={4} wrap="nowrap">
+                          <AlertCircle size={11} color="#DE350B" />
+                          <Text size="xs" c="red.7">{it.error ?? "Mapping gagal"}</Text>
+                        </Group>
+                      )}
+                      {it.status === "mapped" && (
+                        <>
+                          <Badge
+                            size="sm"
+                            radius="xl"
+                            variant="light"
+                            mb={4}
+                            styles={{
+                              root: {
+                                color: initiativeSuccessColor(it.successPercent ?? 0),
+                                backgroundColor: initiativeSuccessColor(it.successPercent ?? 0) + "1a",
+                              },
+                            }}
+                          >
+                            {it.successPercent}% likely to succeed
+                          </Badge>
+                          <Group gap={4} wrap="wrap">
+                            {it.aspects?.map(a => (
+                              <span
+                                key={a.aspect}
+                                style={{ fontSize: 9, color: "#6c757d", background: "#f1f3f5", borderRadius: 20, padding: "1px 6px" }}
+                              >
+                                {a.aspect} ≥{a.minScore}
+                              </span>
+                            ))}
+                          </Group>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </Stack>
+              )}
+            </>
+          )}
         </Paper>
       )}
 
@@ -615,8 +861,8 @@ export default function VismapV2({
           data-no-drag
           style={{
             position: "absolute",
-            // digeser turun kalau banner simulasi sedang tampil
-            top: simulationMode ? 56 : 16,
+            // digeser turun kalau ada banner mode (pending-swap / compare) sedang tampil
+            top: pendingSwapSeatId || compareMode ? 56 : 16,
             left: 16,
             width: 208,
             maxHeight: "calc(100% - 80px)",
@@ -661,6 +907,73 @@ export default function VismapV2({
             </button>
           )}
         </div>
+      )}
+
+      {/* Mode Compare: hint di atas + action bar mengambang di bawah */}
+      {compareMode && (
+        <>
+          <Paper
+            data-no-drag
+            radius={0}
+            px={16}
+            py={8}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 31,
+              background: "#E7F5FF",
+              borderBottom: `1px solid ${COMPARE_ACCENT}`,
+            }}
+          >
+            <Group gap={8} wrap="nowrap">
+              <Columns3 size={14} color={COMPARE_ACCENT} />
+              <Text size="sm" fw={700} c={COMPARE_ACCENT}>
+                Compare mode
+              </Text>
+              <Text size="sm" c={COMPARE_ACCENT}>
+                Centang kartu employee yang mau dibandingkan, lalu klik Go to Compare.
+              </Text>
+            </Group>
+          </Paper>
+
+          <Paper
+            data-no-drag
+            radius="xl"
+            px={12}
+            py={8}
+            withBorder
+            style={{
+              position: "absolute",
+              bottom: 20,
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 33,
+              borderColor: COMPARE_ACCENT,
+              boxShadow: "0 6px 20px rgba(0,0,0,0.14)",
+            }}
+          >
+            <Group gap={10} wrap="nowrap">
+              <Badge color="primary" radius="xl" size="sm" variant="light">
+                {compareIds.length} selected
+              </Badge>
+              <Button variant="outline" color="neutral.6" size="compact-sm" radius="xl" onClick={exitCompare}>
+                Cancel
+              </Button>
+              <Button
+                color="primary"
+                size="compact-sm"
+                radius="xl"
+                leftSection={<Columns3 size={13} />}
+                disabled={compareIds.length < 2}
+                onClick={goToCompare}
+              >
+                Go to Compare
+              </Button>
+            </Group>
+          </Paper>
+        </>
       )}
 
       {/* Zoom controls */}
@@ -715,14 +1028,87 @@ export default function VismapV2({
                 node={root}
                 layers={layers}
                 heatmapConfig={heatmapConfig}
-                onEmployeeClick={onEmployeeClick}
-                sim={sim}
+                card={card}
               />
             ))}
           </div>
         </div>
       </div>
+
+      {/* Floating action menu — muncul di sisi kartu yang diklik (Default maupun
+          Heatmap). Di-portal ke document.body supaya posisinya viewport-fixed
+          murni, tidak kena transform pan/zoom kanvas. */}
+      {cardMenu && menuSeat &&
+        createPortal(
+          <div
+            ref={cardMenuRef}
+            data-no-drag
+            style={{
+              position: "fixed",
+              top: cardMenu.top,
+              left: cardMenu.left,
+              width: MENU_W,
+              zIndex: 1000,
+              background: "white",
+              borderRadius: 12,
+              border: "1px solid #dee2e6",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.16)",
+              overflow: "hidden",
+              fontFamily: "'Open Sans', sans-serif",
+            }}
+          >
+            <CardMenuButton icon={<Shuffle size={13} />} label="Simulate" onClick={handleMenuSimulate} />
+            <CardMenuButton icon={<Target size={13} />} label="Initiatives" onClick={handleMenuInitiatives} disabled={!menuPerson} accent={GOAL_ACCENT} />
+            <CardMenuButton icon={<Columns3 size={13} />} label="Compare" onClick={handleMenuCompare} disabled={!menuPerson} />
+            <CardMenuButton icon={<User size={13} />} label="iProfile" onClick={handleMenuIProfile} disabled={!menuPerson} />
+            <CardMenuButton icon={<GraduationCap size={13} />} label="Development" onClick={handleMenuDevelopment} disabled={!menuPerson} isLast />
+          </div>,
+          document.body,
+        )}
     </div>
+  );
+}
+
+function CardMenuButton({
+  icon,
+  label,
+  onClick,
+  disabled,
+  isLast,
+  accent = "#016699",
+}: {
+  icon: React.ReactNode;
+  label: string;
+  onClick: () => void;
+  disabled?: boolean;
+  isLast?: boolean;
+  accent?: string;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      style={{
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        padding: "9px 12px",
+        border: "none",
+        borderBottom: isLast ? "none" : "1px solid #f1f3f5",
+        background: "white",
+        color: disabled ? "#ced4da" : "#495057",
+        fontSize: 12,
+        fontWeight: 600,
+        cursor: disabled ? "default" : "pointer",
+        textAlign: "left",
+      }}
+      onMouseEnter={(e) => { if (!disabled) e.currentTarget.style.background = "#f8f9fa"; }}
+      onMouseLeave={(e) => { e.currentTarget.style.background = "white"; }}
+    >
+      <span style={{ color: disabled ? "#ced4da" : accent, display: "flex" }}>{icon}</span>
+      {label}
+    </button>
   );
 }
 

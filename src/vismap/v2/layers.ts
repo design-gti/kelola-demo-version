@@ -17,7 +17,8 @@ export type LayerId =
   | "need-development"
   | "critical-position"
   | "talent"
-  | "ready-to-promote";
+  | "ready-to-promote"
+  | "initiatives";
 
 export type LayerScope = "position" | "person";
 
@@ -27,6 +28,7 @@ export const LAYERS: { id: LayerId; label: string; scope: LayerScope; hint: stri
   { id: "need-development", label: "Need Development", scope: "person", hint: "Photo ring" },
   { id: "talent", label: "Talent", scope: "person", hint: "Star on photo" },
   { id: "ready-to-promote", label: "% Ready to Promote", scope: "person", hint: "Tag above card + connector" },
+  { id: "initiatives", label: "Initiatives", scope: "person", hint: "Success % tag in card" },
 ];
 
 export const NEUTRAL_BORDER = "#dee2e6";

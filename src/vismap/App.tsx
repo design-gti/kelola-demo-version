@@ -25,7 +25,6 @@ import { Toaster } from "./components/ui/sonner";
 import { toast } from "sonner";
 import HeatmapSettings, { type HeatmapConfig, type HeatmapRange } from "./components/HeatmapSettings";
 import SimulationPanel, { type SimulationSwap } from "./components/SimulationPanel";
-import { Button as MantineButton } from "@mantine/core";
 import VismapV2 from "./v2/VismapV2";
 import { type LayerId } from "./v2/layers";
 
@@ -502,7 +501,6 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
   // V2: tab-nya cuma Default / Heatmap. Heatmap-nya multi-layer (lihat src/vismap/v2/layers.ts)
   const [v2Tab, setV2Tab] = useState<'default' | 'heatmap'>('default');
   const [v2Layers, setV2Layers] = useState<Set<LayerId>>(new Set());
-  const [v2SimulationMode, setV2SimulationMode] = useState(false);
   const toggleV2Layer = (id: LayerId) => {
     setV2Layers(prev => {
       const next = new Set(prev);
@@ -1105,10 +1103,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
           tab={v2Tab}
           activeLayers={v2Layers}
           onToggleLayer={toggleV2Layer}
-          onEmployeeClick={() => { /* panel detail V2 menyusul */ }}
           top={108}
-          simulationMode={v2SimulationMode}
-          onExitSimulation={() => setV2SimulationMode(false)}
         />
       )}
 
@@ -1348,19 +1343,6 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
 
         {/* View Mode Toggle */}
         <div className="flex gap-2 items-center">
-          {/* Simulate Button — V2: tukar/pindah orang antar kursi */}
-          {vismapVersion === 'v2' && (
-            <MantineButton
-              onClick={() => setV2SimulationMode(v => !v)}
-              variant={v2SimulationMode ? 'filled' : 'outline'}
-              color={v2SimulationMode ? 'secondary' : 'primary'}
-              size="compact-sm"
-              radius="xl"
-              leftSection={<Shuffle size={14} />}
-            >
-              {v2SimulationMode ? 'Stop Simulate' : 'Simulate'}
-            </MantineButton>
-          )}
           {/* Simulate Button */}
           {vismapVersion === 'v1' && viewMode === 'chart' && (
             <button
