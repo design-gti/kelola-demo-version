@@ -258,10 +258,12 @@ function Frame27() {
   );
 }
 
-function Frame153() {
+// `leftSlot` diisi ScoreAspectWithTabs dengan toggle list/spider-chart yang
+// interaktif; Frame27 (versi statis hasil import Figma) cuma jadi fallback.
+function Frame153({ leftSlot }: { leftSlot?: React.ReactNode }) {
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <Frame27 />
+      {leftSlot ?? <Frame27 />}
       <div className="content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[4px] relative rounded-[28px] shrink-0 w-[135px]" data-name="button">
         <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />
         <p className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#016699] text-[14px]">Score Records</p>

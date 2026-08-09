@@ -1,10 +1,23 @@
 ﻿"use client";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { SegmentedControl } from '@mantine/core';
 import svgPaths from '../imports/svg-djevy8uiqd';
 import svgPathsPotency from '../imports/svg-87qx2z9isd';
 import { StandardPositionSelect } from './StandardPositionSelect';
+import { AspectRadarChart } from './AspectRadarChart';
+import { ProfileContext } from '../lib/ProfileContext';
+import { hardAspectsFor } from '../lib/hardCompetency';
 
 type TabType = 'competency' | 'potency';
+/** Cara aspek ditampilkan: daftar kartu skor, atau spider/radar chart. */
+type ViewMode = 'list' | 'chart';
+/**
+ * Di dalam tab Competency ada dua rumpun aspek: soft (perilaku/kognitif, daftar
+ * aspeknya universal) dan hard (teknis, daftar aspeknya beda per posisi).
+ * Dipisah — bukan digabung jadi satu kategori — karena kalau ditumpuk di satu
+ * radar, sumbunya jadi belasan dan bentuknya tidak lagi bisa dibaca.
+ */
+type CompetencyKind = 'soft' | 'hard';
 
 // score null = belum ada data untuk KB ini (ditampilkan "-").
 export type KeyBehaviour = { label: string; score: number | null };
@@ -12,7 +25,9 @@ export type AspectItem = { label: string; category: string; score: number; stand
 
 interface ScoreAspectProps {
   Frame79: React.ComponentType;
-  Frame153: React.ComponentType;
+  /** Baris toolbar tab Competency. `leftSlot` diisi toggle list/chart dari sini,
+   *  supaya state-nya hidup di komponen ini (Frame153 sendiri statis, hasil import Figma). */
+  Frame153: React.ComponentType<{ leftSlot?: React.ReactNode }>;
   Frame116: React.ComponentType;
   scoreAspects: { competency: AspectItem[]; potency: AspectItem[] };
 }
@@ -26,6 +41,17 @@ function byCategory(items: AspectItem[]): [string, AspectItem[]][] {
 
 export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects }: ScoreAspectProps) {
   const [activeTab, setActiveTab] = useState<TabType>('competency');
+  // Satu state dipakai kedua tab — pilihan "cara lihat" terasa milik kartunya,
+  // bukan milik masing-masing tab.
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [competencyKind, setCompetencyKind] = useState<CompetencyKind>('soft');
+
+  // Aspek hard bergantung pada posisi orangnya, jadi diambil dari context —
+  // beda dengan aspek soft yang datang lewat prop `scoreAspects`.
+  const { position, employeeId } = useContext(ProfileContext);
+  const competencyItems = competencyKind === 'hard'
+    ? hardAspectsFor(position, employeeId)
+    : scoreAspects.competency;
 
   return (
     <div className="bg-white content-stretch flex flex-col gap-[12px] items-center overflow-clip p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Score Aspect">
@@ -82,15 +108,34 @@ export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects 
 
       {activeTab === 'competency' ? (
         <>
-          <Frame153 />
+          {/* Sub-pilihan rumpun aspek, satu tingkat di bawah tab utama. */}
+          <div className="w-full">
+            <SegmentedControl
+              value={competencyKind}
+              onChange={(v) => setCompetencyKind(v as CompetencyKind)}
+              color="primary"
+              radius="xl"
+              size="xs"
+              fullWidth
+              data={[
+                { label: 'Soft Competency', value: 'soft' },
+                { label: 'Hard Competency', value: 'hard' },
+              ]}
+            />
+          </div>
+          <Frame153 leftSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />} />
           <Frame116 />
-          <CompetencyContent items={scoreAspects.competency} />
+          {viewMode === 'chart'
+            ? <AspectRadarChart items={competencyItems} />
+            : <CompetencyContent items={competencyItems} />}
         </>
       ) : (
         <>
-          <PotencyControls />
+          <PotencyControls mode={viewMode} onChange={setViewMode} />
           <PotencyFilter />
-          <PotencyContent items={scoreAspects.potency} />
+          {viewMode === 'chart'
+            ? <AspectRadarChart items={scoreAspects.potency} />
+            : <PotencyContent items={scoreAspects.potency} />}
         </>
       )}
       
@@ -114,30 +159,58 @@ export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects 
   );
 }
 
-// Potency Controls (Chart/List view buttons)
-function PotencyControls() {
+/**
+ * Toggle tampilan aspek: spider chart vs list. Dipakai di kedua tab —
+ * di Competency lewat `leftSlot` Frame153, di Potency langsung (PotencyControls).
+ * Ikonnya persis aset Figma yang sudah ada, cuma sekarang state aktifnya nyata.
+ */
+export function ViewModeToggle({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode) => void }) {
+  const box = (active: boolean) =>
+    `${active ? 'bg-[#e7f5ff]' : 'bg-[#f8f9fa]'} block cursor-pointer overflow-clip relative rounded-[4px] shrink-0 size-[20px]`;
+  const stroke = (active: boolean) => (active ? '#016699' : '#CED4DA');
+
   return (
     <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
-      <button className="bg-[#f8f9fa] block cursor-pointer overflow-clip relative rounded-[4px] shrink-0 size-[20px]" data-name="chart-radar">
+      <button
+        type="button"
+        onClick={() => onChange('chart')}
+        aria-pressed={mode === 'chart'}
+        title="Tampilan spider chart"
+        className={box(mode === 'chart')}
+        data-name="chart-radar"
+      >
         <div className="absolute inset-[12.5%_10.42%]" data-name="Vector">
           <div className="absolute inset-[-5%_-4.74%]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 17.3334 16.5">
-              <path d={svgPathsPotency.p4355100} id="Vector" stroke="var(--stroke-0, #CED4DA)" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.854902" strokeWidth="1.5" />
+              <path d={svgPathsPotency.p4355100} id="Vector" stroke={stroke(mode === 'chart')} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
             </svg>
           </div>
         </div>
       </button>
-      <div className="bg-[#e7f5ff] overflow-clip relative rounded-[4px] shrink-0 size-[20px]" data-name="list">
+      <button
+        type="button"
+        onClick={() => onChange('list')}
+        aria-pressed={mode === 'list'}
+        title="Tampilan list"
+        className={box(mode === 'list')}
+        data-name="list"
+      >
         <div className="absolute bottom-[24.96%] left-[20.83%] right-[16.67%] top-1/4" data-name="Vector">
           <div className="absolute inset-[-7.49%_-6%]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 14 11.5083">
-              <path d={svgPathsPotency.p24455faf} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPathsPotency.p24455faf} id="Vector" stroke={stroke(mode === 'list')} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
             </svg>
           </div>
         </div>
-      </div>
+      </button>
     </div>
   );
+}
+
+// Potency Controls (Chart/List view buttons) — tab Potency memakai toggle yang
+// sama, cuma tanpa baris "Score Records" seperti di Competency.
+function PotencyControls({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode) => void }) {
+  return <ViewModeToggle mode={mode} onChange={onChange} />;
 }
 
 // Potency Filter (Score icon and dropdown)
