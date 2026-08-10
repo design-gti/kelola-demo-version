@@ -25,17 +25,14 @@ const EDU = ["S1 Teknik Informatika", "S1 Manajemen", "S2 Business Administratio
 const MON = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
 const BLOOD = ["A", "B", "AB", "O"];
 // Shared aspect list — competency & potency tabs measure the same aspects, different scores.
-const ASPECTS = [
-  { label: "Logika Berpikir", category: "Category A" },
-  { label: "Kemampuan Numerikal", category: "Category A" },
-  { label: "Kemampuan verbal", category: "Category A" },
-  { label: "Daya Analisa", category: "Uncategorized" },
-  { label: "Fleksibilitas", category: "Uncategorized" },
-  { label: "Leadership", category: "Uncategorized" },
-  { label: "Keterampilan Interpersonal", category: "Uncategorized" },
-  { label: "Kerjasama", category: "Uncategorized" },
-  { label: "Kemampuan Perencanaan", category: "Uncategorized" },
-];
+// Daftar & pengelompokannya datang dari CSV (bukan hardcode) supaya kategori bisa
+// diubah tanpa menyentuh kode, sama polanya dengan hard competency.
+// Urutan baris CSV dipakai apa adanya: list view merender header kategori sambil
+// menyusuri urutan itu, jadi baris satu kategori harus berurutan.
+const ASPECTS = parseCSV(read("public/data/soft_competency_aspects.csv")).map((r) => ({
+  label: r.aspect,
+  category: r.category || "Uncategorized",
+}));
 const IDP_COMPS = ["Problem solving", "critical thinking", "strategic thinking", "communication", "leadership", "analytical thinking", "planning", "collaboration"];
 // Key Behaviour (KB) — tiap aspek kompetensi/potensi dipecah jadi 3-4 indikator
 // perilaku yang lebih spesifik, masing-masing dengan skornya sendiri (skala 5).

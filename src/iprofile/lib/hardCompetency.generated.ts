@@ -1,9 +1,11 @@
 // AUTO-GENERATED oleh scripts/gen-hard-competency.mjs — jangan edit manual.
 // Sumber: public/data/position_hard_competency_standards.csv
 //         public/data/participant_hard_competency_scores.csv
+//         public/data/participant_hard_competency_kb_scores.csv
 // Regenerate: node scripts/gen-hard-competency.mjs (sudah dihook di npm run seed).
 
 export type HardAspectStandard = { label: string; category: string; standardScore: number };
+export type HardKeyBehaviour = { label: string; score: number };
 
 /** Aspek teknis + standarnya per judul posisi. Daftarnya beda-beda tiap posisi. */
 export const HARD_STANDARDS_BY_POSITION: Record<string, HardAspectStandard[]> = {
@@ -922,5 +924,2415 @@ export const HARD_SCORES_BY_PARTICIPANT: Record<string, Record<string, number>> 
     "Produksi Visual": 2,
     "SEO": 3,
     "Analitik Digital": 3
+  }
+};
+
+/** Breakdown Key Behaviour tiap partisipan, dikunci per nama aspek. */
+export const HARD_KB_BY_PARTICIPANT: Record<string, Record<string, HardKeyBehaviour[]>> = {
+  "p01": {
+    "Arsitektur Sistem": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Code Review": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 2
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ],
+    "Keamanan Aplikasi": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "CI/CD": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 5
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 5
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 4
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 5
+      }
+    ],
+    "Cloud Infrastructure": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 3
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 3
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 4
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 4
+      }
+    ],
+    "Observability": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 3
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 3
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 1
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 2
+      }
+    ]
+  },
+  "p02": {
+    "Kualitas Kode": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Pengujian Otomatis": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Debugging": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Version Control": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 5
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 5
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 5
+      }
+    ]
+  },
+  "p03": {
+    "Arsitektur Komponen": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "State Management": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Aksesibilitas": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Performa Web": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 4
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 4
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 4
+      }
+    ],
+    "Design System": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 5
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 5
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 5
+      }
+    ]
+  },
+  "p04": {
+    "Desain API": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 2
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Basis Data": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 2
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ],
+    "Optimasi Query": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Message Queue": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 2
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 2
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 1
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 1
+      }
+    ],
+    "Containerization": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 3
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 3
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 3
+      }
+    ]
+  },
+  "p05": {
+    "Strategi Korporat": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Alokasi Modal": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Tata Kelola": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 3
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 4
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 4
+      }
+    ]
+  },
+  "p06": {
+    "Strategi Korporat": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Analisis Kompetitif": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Pemodelan Skenario": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 4
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 4
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 5
+      }
+    ]
+  },
+  "p07": {
+    "Strategi Korporat": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 2
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 2
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 2
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 2
+      }
+    ],
+    "Analisis Kompetitif": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Pemodelan Skenario": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 5
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 5
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 3
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 4
+      }
+    ]
+  },
+  "p08": {
+    "Manajemen Risiko": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Kepatuhan Regulasi": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 5
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 4
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 4
+      }
+    ],
+    "Audit Internal": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 4
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 5
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 5
+      }
+    ]
+  },
+  "p09": {
+    "Pelaporan Keuangan": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Analisis Anggaran": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Manajemen Risiko": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Kepatuhan Pajak": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 5
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 5
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 5
+      }
+    ],
+    "Standar Akuntansi": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 5
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 4
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 4
+      }
+    ]
+  },
+  "p10": {
+    "Pemodelan Keuangan": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Analisis Varians": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Rekonsiliasi": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 1
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ],
+    "Spreadsheet Lanjutan": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 4
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 4
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 2
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 3
+      }
+    ],
+    "Standar Akuntansi": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 2
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 4
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 2
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 2
+      }
+    ]
+  },
+  "p11": {
+    "Pemodelan Keuangan": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ],
+    "Rekonsiliasi": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ],
+    "Analisis Varians": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 2
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ],
+    "Spreadsheet Lanjutan": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 3
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 3
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 3
+      }
+    ],
+    "Standar Akuntansi": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 2
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 4
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 4
+      }
+    ]
+  },
+  "p12": {
+    "Pengendalian Internal": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Pelaporan Keuangan": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Audit Kepatuhan": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 2
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 3
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 2
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 2
+      }
+    ],
+    "Standar Akuntansi": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 5
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 5
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 5
+      }
+    ]
+  },
+  "p13": {
+    "Manajemen Talenta": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Perencanaan SDM": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Hubungan Industrial": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 2
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 4
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 4
+      }
+    ],
+    "HRIS": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 4
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 4
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 2
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 3
+      }
+    ]
+  },
+  "p14": {
+    "Manajemen Kinerja": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Remunerasi": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 2
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 2
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 2
+      }
+    ],
+    "Hubungan Industrial": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 5
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 4
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 4
+      }
+    ],
+    "HRIS": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 3
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 3
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 3
+      }
+    ]
+  },
+  "p15": {
+    "Sourcing Kandidat": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Teknik Wawancara": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Employer Branding": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "ATS": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 5
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 5
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 5
+      }
+    ]
+  },
+  "p16": {
+    "Administrasi Personalia": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 2
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 2
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 2
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 2
+      }
+    ],
+    "Onboarding": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Kepatuhan Ketenagakerjaan": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 3
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 4
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 4
+      }
+    ],
+    "HRIS": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 1
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 1
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 1
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 2
+      }
+    ]
+  },
+  "p17": {
+    "Perencanaan Kapasitas": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Manajemen Rantai Pasok": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 2
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 2
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 2
+      }
+    ],
+    "Kendali Mutu": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Analitik Operasional": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 5
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 5
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 5
+      }
+    ],
+    "Keselamatan Kerja": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 5
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 4
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 4
+      }
+    ]
+  },
+  "p18": {
+    "Perencanaan Produksi": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Kendali Mutu": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 2
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ],
+    "Efisiensi Proses": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Keselamatan Kerja": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 4
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 5
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 5
+      }
+    ]
+  },
+  "p19": {
+    "Manajemen Rantai Pasok": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Manajemen Vendor": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 2
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 2
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 2
+      }
+    ],
+    "Perencanaan Inventori": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 2
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 2
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 1
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 2
+      }
+    ],
+    "Sistem ERP": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 4
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 4
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 2
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 3
+      }
+    ]
+  },
+  "p20": {
+    "Analitik Operasional": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Pemetaan Proses": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Spreadsheet Lanjutan": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 2
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 2
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 4
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 2
+      }
+    ]
+  },
+  "p21": {
+    "Strategi Kampanye": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Riset Pasar": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Manajemen Brand": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Analitik Digital": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 4
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 4
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 2
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 3
+      }
+    ],
+    "Otomasi Pemasaran": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 4
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 4
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 5
+      }
+    ]
+  },
+  "p22": {
+    "Strategi Kampanye": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Riset Pasar": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Analitik Digital": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 2
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 2
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 4
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 2
+      }
+    ]
+  },
+  "p23": {
+    "Manajemen Brand": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 2
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Strategi Kampanye": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Riset Pasar": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 2
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ]
+  },
+  "p24": {
+    "Eksperimen Pertumbuhan": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 2
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ],
+    "Optimasi Konversi": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ],
+    "Analitik Digital": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 4
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 4
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 3
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 5
+      }
+    ]
+  },
+  "p25": {
+    "Strategi Brand": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Riset Pasar": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Narasi & Positioning": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ]
+  },
+  "p26": {
+    "Strategi Pendapatan": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Manajemen Pipeline": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Penetapan Harga": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ]
+  },
+  "p27": {
+    "Arahan Kreatif": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Storytelling Visual": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Manajemen Produksi": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 4
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 4
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 3
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 3
+      }
+    ]
+  },
+  "p28": {
+    "Arsitektur Sistem": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Desain Terdistribusi": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Technical Roadmap": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Cloud Infrastructure": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 5
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 5
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 4
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 4
+      }
+    ],
+    "Observability": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 4
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 4
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 3
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 5
+      }
+    ]
+  },
+  "p29": {
+    "Perencanaan Strategis": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ],
+    "Analitik Operasional": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 2
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Pemodelan Skenario": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 2
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 2
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 3
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 2
+      }
+    ]
+  },
+  "p30": {
+    "Eksperimen Pertumbuhan": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Analitik Digital": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Optimasi Konversi": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Otomasi Pemasaran": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 5
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 5
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 5
+      }
+    ]
+  },
+  "p31": {
+    "Pelaporan Keuangan": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Analisis Anggaran": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Manajemen Kas": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Standar Akuntansi": [
+      {
+        "label": "Pemahaman Ketentuan",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Proses Kerja",
+        "score": 5
+      },
+      {
+        "label": "Identifikasi Risiko Kepatuhan",
+        "score": 4
+      },
+      {
+        "label": "Dokumentasi & Pelaporan",
+        "score": 4
+      }
+    ]
+  },
+  "p32": {
+    "Manajemen Rantai Pasok": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Negosiasi Pengadaan": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 5
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 5
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 5
+      }
+    ],
+    "Perencanaan Inventori": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 3
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 3
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 3
+      }
+    ],
+    "Sistem ERP": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 3
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 3
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 5
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 3
+      }
+    ]
+  },
+  "p33": {
+    "Penulisan Konten": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 4
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 4
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 4
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 4
+      }
+    ],
+    "Produksi Visual": [
+      {
+        "label": "Penguasaan Konsep Dasar",
+        "score": 1
+      },
+      {
+        "label": "Penerapan pada Pekerjaan Harian",
+        "score": 1
+      },
+      {
+        "label": "Penanganan Kasus Kompleks",
+        "score": 3
+      },
+      {
+        "label": "Berbagi Pengetahuan ke Tim",
+        "score": 1
+      }
+    ],
+    "SEO": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 2
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 2
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 4
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 2
+      }
+    ],
+    "Analitik Digital": [
+      {
+        "label": "Penguasaan Fitur Inti",
+        "score": 3
+      },
+      {
+        "label": "Pemakaian dalam Alur Kerja",
+        "score": 3
+      },
+      {
+        "label": "Troubleshooting Mandiri",
+        "score": 2
+      },
+      {
+        "label": "Optimasi & Otomasi",
+        "score": 4
+      }
+    ]
   }
 };

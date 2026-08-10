@@ -1,5 +1,5 @@
 import type { AspectItem } from "../components/ScoreAspectWithTabs";
-import { HARD_STANDARDS_BY_POSITION, HARD_SCORES_BY_PARTICIPANT } from "./hardCompetency.generated";
+import { HARD_STANDARDS_BY_POSITION, HARD_SCORES_BY_PARTICIPANT, HARD_KB_BY_PARTICIPANT } from "./hardCompetency.generated";
 
 /**
  * Aspek hard competency (kompetensi teknis) untuk kartu Score Aspect.
@@ -23,11 +23,12 @@ export function hardAspectsFor(position: string, employeeId: string): AspectItem
   // tidak dikenal — UI-nya sudah menangani kondisi kosong.
   const defs = HARD_STANDARDS_BY_POSITION[position] ?? [];
   const scores = HARD_SCORES_BY_PARTICIPANT[employeeId] ?? {};
+  const kb = HARD_KB_BY_PARTICIPANT[employeeId] ?? {};
 
   return defs.map(({ label, category, standardScore }) => {
     // Kalau skornya belum ada di data (mis. orang baru), tampilkan apa adanya
     // sebagai 0 daripada menebak — biar gap-nya jujur terlihat.
     const score = scores[label] ?? 0;
-    return { label, category, score, standardScore, dev: score < standardScore };
+    return { label, category, score, standardScore, dev: score < standardScore, keyBehaviours: kb[label] };
   });
 }

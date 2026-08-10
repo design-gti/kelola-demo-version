@@ -233,38 +233,15 @@ function Frame79() {
   );
 }
 
-function Frame27() {
+// Toggle list/spider-chart pindah ke baris dropdown standar jabatan (Frame116),
+// jadi baris ini tinggal tombol Score Records saja, rata kanan.
+// Aksi kartu (bukan filter) — ditaruh sebagai footer, dipisah garis dari isi.
+// Sebelumnya berdiri di antara kontrol dan ikut terbaca sebagai filter, padahal
+// semua kontrol lain mengubah tampilan sementara tombol ini membuka data lain.
+function Frame153() {
   return (
-    <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
-      <button className="bg-[#f8f9fa] block cursor-pointer overflow-clip relative rounded-[4px] shrink-0 size-[20px]" data-name="chart-radar">
-        <div className="absolute inset-[12.5%_10.42%]" data-name="Vector">
-          <div className="absolute inset-[-5%_-4.74%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 17.3334 16.5">
-              <path d={svgPaths.p4355100} id="Vector" stroke="var(--stroke-0, #CED4DA)" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.854902" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </button>
-      <div className="bg-[#e7f5ff] overflow-clip relative rounded-[4px] shrink-0 size-[20px]" data-name="list">
-        <div className="absolute bottom-[24.96%] left-[20.83%] right-[16.67%] top-1/4" data-name="Vector">
-          <div className="absolute inset-[-7.49%_-6%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 14 11.5083">
-              <path d={svgPaths.p24455faf} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// `leftSlot` diisi ScoreAspectWithTabs dengan toggle list/spider-chart yang
-// interaktif; Frame27 (versi statis hasil import Figma) cuma jadi fallback.
-function Frame153({ leftSlot }: { leftSlot?: React.ReactNode }) {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      {leftSlot ?? <Frame27 />}
-      <div className="content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[4px] relative rounded-[28px] shrink-0 w-[135px]" data-name="button">
+    <div className="content-stretch flex items-center justify-end relative shrink-0 w-full pt-[12px] mt-[4px] border-t border-[#e9ecef]">
+      <div className="content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[4px] relative rounded-[28px] shrink-0 w-[135px] cursor-pointer" data-name="button">
         <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />
         <p className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#016699] text-[14px]">Score Records</p>
       </div>
@@ -291,11 +268,20 @@ function Frame9() {
   );
 }
 
-function Frame116() {
+// Baris filter: dropdown standar jabatan di kiri, opsi tampilan (list/spider)
+// di kanan lewat `rightSlot`; legend "Score" jadi caption kecil di bawahnya.
+//
+// `showLegend` false saat view spider chart: tanda centang & kotak biru itu
+// bahasa visual milik view list, di chart keduanya tidak ada — dan chart sudah
+// punya legend sendiri di bawahnya.
+function Frame116({ rightSlot, showLegend = true }: { rightSlot?: React.ReactNode; showLegend?: boolean }) {
   return (
-    <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full">
-      <Frame9 />
-      <StandardPositionSelect />
+    <div className="content-stretch flex flex-col gap-[8px] relative shrink-0 w-full">
+      <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full">
+        <StandardPositionSelect />
+        {rightSlot}
+      </div>
+      {showLegend && <Frame9 />}
     </div>
   );
 }

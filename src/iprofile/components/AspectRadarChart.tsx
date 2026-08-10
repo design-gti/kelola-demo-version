@@ -1,6 +1,8 @@
 "use client";
+import { useState } from "react";
 import { Radar, RadarChart, PolarAngleAxis, Tooltip } from "recharts";
 import type { AspectItem } from "./ScoreAspectWithTabs";
+import { KeyBehaviourBreakdown } from "./KeyBehaviourBreakdown";
 
 /**
  * Tampilan spider/radar untuk kartu Score Aspect — alternatif dari tampilan
@@ -22,8 +24,16 @@ import type { AspectItem } from "./ScoreAspectWithTabs";
 const SCORE_COLOR = "#016699"; // primary-5
 const STANDARD_COLOR = "#FD9F28"; // secondary-5
 
-/** Warna per kategori, dipakai berulang kalau kategorinya lebih banyak. */
-const CATEGORY_COLORS = ["#016699", "#748094", "#00875A", "#CA6F00", "#7C3AED"];
+/**
+ * Kategori sengaja tidak diberi warna sama sekali — baik busur pembatas maupun
+ * label aspeknya. Warna di chart ini dipesan khusus untuk dua hal yang memang
+ * perlu dibandingkan (skor vs standar posisi); kalau kategori ikut berwarna,
+ * matanya terpecah dan justru bukan ke angkanya. Kategori tetap terbaca lewat
+ * posisi busurnya, dan namanya muncul saat busur itu di-hover.
+ */
+const ARC_COLOR = "#dee2e6";
+const ARC_COLOR_HOVER = "#adb5bd";
+const LABEL_COLOR = "#343a40";
 
 // Ukuran tetap: kartu Score Aspect lebarnya pasti (368px - padding 16px*2),
 // jadi cx/cy/radius bisa dipastikan dan lapisan gambar sendiri dijamin sejajar
@@ -40,7 +50,7 @@ const MAX_SCORE = 5;
 /** Radius satu tingkat skor — dipakai bersama oleh grid & bentuk area, jadi skor 3 pasti mendarat di cincin ke-3. */
 const radiusOf = (value: number) => (value / MAX_SCORE) * OUTER_R;
 
-type Group = { category: string; color: string; start: number; end: number };
+type Group = { category: string; start: number; end: number };
 type Pt = { x: number; y: number };
 
 /** Titik pada lingkaran; sudut dalam derajat matematis (0° = kanan, naik = berlawanan jarum jam). */
@@ -74,30 +84,55 @@ function smoothClosedPath(points: Pt[]): string {
   return d + " Z";
 }
 
-/** Juring untuk satu kategori, dari setengah langkah sebelum titik pertama sampai setengah langkah sesudah titik terakhir. */
-function wedgePath(startIdx: number, endIdx: number, n: number): string {
+/** Jeda sudut di tiap ujung busur kategori — bikin batas antar kategori kebaca. */
+const ARC_PAD_DEG = 2.5;
+
+/**
+ * Busur di lingkar terluar untuk satu kategori. Ini penanda kategori yang
+ * paling tegas: rentang sudutnya sama dengan juring, tapi digambar sebagai
+ * garis tebal berwarna dengan jeda di tiap ujung, jadi pembagian kategorinya
+ * terbaca langsung dari tepi chart tanpa harus mengandalkan warna label.
+ */
+function categoryArcPath(startIdx: number, endIdx: number, n: number): string {
   const step = 360 / n;
-  const a0 = 90 - step * (startIdx - 0.5);
-  const a1 = 90 - step * (endIdx + 0.5);
+  const a0 = 90 - step * (startIdx - 0.5) - ARC_PAD_DEG;
+  const a1 = 90 - step * (endIdx + 0.5) + ARC_PAD_DEG;
   const p0 = polar(a0, WEDGE_R);
   const p1 = polar(a1, WEDGE_R);
   const largeArc = Math.abs(a0 - a1) > 180 ? 1 : 0;
-  // sweep-flag 1 = searah jarum jam di layar (sudut mengecil).
-  return `M ${CX} ${CY} L ${p0.x} ${p0.y} A ${WEDGE_R} ${WEDGE_R} 0 ${largeArc} 1 ${p1.x} ${p1.y} Z`;
+  return `M ${p0.x} ${p0.y} A ${WEDGE_R} ${WEDGE_R} 0 ${largeArc} 1 ${p1.x} ${p1.y}`;
+}
+
+/** Titik tengah busur kategori — tempat tooltip-nya muncul, sedikit di luar busur. */
+function arcMidpoint(startIdx: number, endIdx: number, n: number): Pt {
+  const step = 360 / n;
+  // Didorong cukup jauh ke luar supaya tooltip-nya tidak menimpa area skor.
+  return polar(90 - step * ((startIdx + endIdx) / 2), WEDGE_R + 38);
 }
 
 /**
  * Tick label yang dibungkus jadi maksimal 2 baris — nama aspek ditampilkan utuh
- * (tidak dipotong), tapi tetap muat di keliling radar yang sempit. Warnanya
- * mengikuti kategori aspek tersebut.
+ * (tidak dipotong), tapi tetap muat di keliling radar yang sempit.
+ *
+ * Label ini sekaligus jadi TOMBOL pembuka breakdown Key Behaviour. Pemicunya
+ * sengaja teksnya sendiri, bukan ikon info terpisah seperti di view list:
+ * label terdekat cuma menyisakan 8px ke tepi area gambar, tidak cukup untuk
+ * ikon 12px + jarak — dan hit area teks dua baris justru lebih besar.
+ *
+ * Props `selectable`/`selected`/`on*` diisi recharts lewat cloneElement dari
+ * elemen yang dioper ke `tick`, digabung dengan payload/x/y miliknya.
  */
-function makeWrappedTick(colorOf: (label: string) => string) {
-  return function WrappedTick({ payload, x, y, textAnchor }: {
-    payload?: { value?: string };
-    x?: number;
-    y?: number;
-    textAnchor?: "inherit" | "start" | "middle" | "end";
-  }) {
+function WrappedTick({ payload, x, y, textAnchor, selectable, selected, hoveredLabel, onSelect, onHover }: {
+  payload?: { value?: string };
+  x?: number;
+  y?: number;
+  textAnchor?: "inherit" | "start" | "middle" | "end";
+  selectable?: (label: string) => boolean;
+  selected?: string | null;
+  hoveredLabel?: string | null;
+  onSelect?: (label: string) => void;
+  onHover?: (v: { label: string; x: number; y: number } | null) => void;
+}) {
     const label = String(payload?.value ?? "");
     const words = label.split(" ");
     let lines: string[] = [label];
@@ -108,7 +143,9 @@ function makeWrappedTick(colorOf: (label: string) => string) {
     // Label didorong menjauh dari pusat sepanjang arah radialnya — tanpa ini
     // sisi atas teks (terutama label di bawah chart) masih masuk ke dalam
     // lingkaran terluar dan menutupi area skor.
-    const RADIAL_GAP = 12;
+    // Sekarang tepi terluar diisi busur kategori setebal 4px, jadi jaraknya
+    // ditambah supaya teks tidak menempel ke busur itu.
+    const RADIAL_GAP = 16;
     const dx = (x ?? 0) - CX;
     const dy = (y ?? 0) - CY;
     const len = Math.hypot(dx, dy) || 1;
@@ -120,8 +157,23 @@ function makeWrappedTick(colorOf: (label: string) => string) {
     const LINE_H = 10;
     const growUp = py < CY;
     const firstY = py - (growUp && lines.length > 1 ? LINE_H : 0);
+
+    const canOpen = selectable?.(label) ?? false;
+    const isOpen = selected === label;
     return (
-      <text x={px} y={firstY} textAnchor={textAnchor} fill={colorOf(label)} fontSize={9} fontWeight={600} fontFamily="'Open Sans', sans-serif">
+      <text
+        x={px}
+        y={firstY}
+        textAnchor={textAnchor}
+        fill={isOpen ? SCORE_COLOR : LABEL_COLOR}
+        fontSize={9}
+        fontWeight={isOpen || hoveredLabel === label ? 800 : 600}
+        fontFamily="'Open Sans', sans-serif"
+        style={canOpen ? { cursor: "pointer" } : undefined}
+        onClick={canOpen ? () => onSelect?.(label) : undefined}
+        onMouseEnter={canOpen ? () => onHover?.({ label, x: px, y: py }) : undefined}
+        onMouseLeave={canOpen ? () => onHover?.(null) : undefined}
+      >
         {lines.map((line, i) => (
           <tspan key={i} x={px} dy={i === 0 ? 0 : LINE_H}>
             {line}
@@ -129,10 +181,14 @@ function makeWrappedTick(colorOf: (label: string) => string) {
         ))}
       </text>
     );
-  };
 }
 
 export function AspectRadarChart({ items }: { items: AspectItem[] }) {
+  const [hovered, setHovered] = useState<{ category: string; x: number; y: number } | null>(null);
+  /** Aspek yang breakdown KB-nya sedang dibuka; satu saja pada satu waktu. */
+  const [openAspect, setOpenAspect] = useState<string | null>(null);
+  const [hoveredLabel, setHoveredLabel] = useState<{ label: string; x: number; y: number } | null>(null);
+
   if (items.length === 0) {
     return (
       <div className="w-full py-[24px] text-center text-[12px] text-[#adb5bd]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -149,24 +205,19 @@ export function AspectRadarChart({ items }: { items: AspectItem[] }) {
 
   const groups: Group[] = [];
   let cursor = 0;
-  categories.forEach((category, i) => {
+  categories.forEach((category) => {
     const count = items.filter((a) => a.category === category).length;
-    groups.push({
-      category,
-      color: CATEGORY_COLORS[i % CATEGORY_COLORS.length],
-      start: cursor,
-      end: cursor + count - 1,
-    });
+    groups.push({ category, start: cursor, end: cursor + count - 1 });
     cursor += count;
   });
 
-  const colorByLabel = new Map<string, string>();
-  groups.forEach((g) => {
-    ordered.slice(g.start, g.end + 1).forEach((a) => colorByLabel.set(a.label, g.color));
-  });
-
   const data = ordered.map((a) => ({ aspect: a.label, Skor: a.score, Standar: a.standardScore }));
-  const Tick = makeWrappedTick((label) => colorByLabel.get(label) ?? "#495057");
+
+  /** Cuma aspek yang punya KB yang bisa dibuka — Potency memang tidak punya. */
+  const kbOf = (label: string) => ordered.find((a) => a.label === label)?.keyBehaviours;
+  const hasKb = (label: string) => (kbOf(label)?.length ?? 0) > 0;
+  const openItem = openAspect ? ordered.find((a) => a.label === openAspect) : undefined;
+  const openIndex = openAspect ? ordered.findIndex((a) => a.label === openAspect) : -1;
 
   const toPoints = (pick: (a: AspectItem) => number): Pt[] =>
     ordered.map((a, i) => polar(angleAt(i, n), radiusOf(pick(a))));
@@ -205,19 +256,6 @@ export function AspectRadarChart({ items }: { items: AspectItem[] }) {
             </filter>
           </defs>
 
-          {/* Juring kategori */}
-          {groups.map((g) => (
-            <path
-              key={g.category}
-              d={wedgePath(g.start, g.end, n)}
-              fill={g.color}
-              fillOpacity={0.05}
-              stroke={g.color}
-              strokeOpacity={0.18}
-              strokeWidth={1}
-            />
-          ))}
-
           {/* Grid digambar sendiri (bukan PolarGrid recharts) supaya radius tiap
               cincin memakai rumus yang sama persis dengan bentuk area —
               skor 3 dijamin mendarat tepat di cincin ke-3. */}
@@ -234,7 +272,21 @@ export function AspectRadarChart({ items }: { items: AspectItem[] }) {
           ))}
           {ordered.map((_, i) => {
             const p = polar(angleAt(i, n), OUTER_R);
-            return <line key={i} x1={CX} y1={CY} x2={p.x} y2={p.y} stroke="#dee2e6" strokeOpacity={0.5} />;
+            // Spoke aspek yang breakdown-nya dibuka dibikin menyala — penanda
+            // hubungan antara panel di bawah dengan sumbu mana yang dimaksud.
+            const lit = i === openIndex;
+            return (
+              <line
+                key={i}
+                x1={CX}
+                y1={CY}
+                x2={p.x}
+                y2={p.y}
+                stroke={lit ? SCORE_COLOR : "#dee2e6"}
+                strokeOpacity={lit ? 0.85 : 0.5}
+                strokeWidth={lit ? 1.5 : 1}
+              />
+            );
           })}
 
           {/* Skor — lapis bawah, dengan glow lembut */}
@@ -265,16 +317,83 @@ export function AspectRadarChart({ items }: { items: AspectItem[] }) {
           {/* Grid-nya digambar di lapisan SVG sendiri (lihat di atas) supaya
               skalanya sinkron dengan bentuk area; recharts di sini tinggal
               menyediakan label sumbu + tooltip. */}
-          <PolarAngleAxis dataKey="aspect" tick={<Tick />} domain={[0, MAX_SCORE]} />
+          <PolarAngleAxis
+            dataKey="aspect"
+            tick={
+              <WrappedTick
+                selectable={hasKb}
+                selected={openAspect}
+                hoveredLabel={hoveredLabel?.label ?? null}
+                onSelect={(label) => setOpenAspect((prev) => (prev === label ? null : label))}
+                onHover={setHoveredLabel}
+              />
+            }
+            domain={[0, MAX_SCORE]}
+          />
           {/* Dua Radar ini sengaja transparan — bentuknya digambar di lapisan SVG
               di atas; ini cuma penyedia hit-test supaya tooltip tetap berfungsi. */}
           <Radar dataKey="Standar" name="Standar posisi" stroke="none" fill="none" isAnimationActive={false} />
           <Radar dataKey="Skor" name="Skor" stroke="none" fill="none" isAnimationActive={false} />
           <Tooltip
+            // Tanpa ini tooltip-nya ketiban lapisan busur kategori — lapisan itu
+            // sibling yang datang setelah RadarChart, jadi menang urutan cat.
+            wrapperStyle={{ zIndex: 50 }}
             contentStyle={{ fontSize: 11, fontFamily: "'Open Sans', sans-serif", borderRadius: 8, border: "1px solid #dee2e6", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }}
             formatter={(value, name) => [`${value}/5`, String(name)]}
           />
         </RadarChart>
+
+        {/* Busur pembatas kategori — sengaja netral (abu muda) supaya tidak ikut
+            bersaing dengan warna skor & standar; nama kategorinya muncul lewat
+            tooltip saat busurnya di-hover. Lapisan ini ditaruh paling atas
+            karena satu-satunya yang perlu menerima pointer event. */}
+        <svg
+          width={CHART_W}
+          height={CHART_H}
+          style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+        >
+          {groups.map((g) => {
+            const active = hovered?.category === g.category;
+            return (
+              <path
+                key={`arc-${g.category}`}
+                d={categoryArcPath(g.start, g.end, n)}
+                fill="none"
+                stroke={active ? ARC_COLOR_HOVER : ARC_COLOR}
+                strokeWidth={active ? 5 : 4}
+                strokeLinecap="round"
+                style={{ pointerEvents: "stroke", cursor: "default", transition: "stroke 120ms, stroke-width 120ms" }}
+                onMouseEnter={() => setHovered({ category: g.category, ...arcMidpoint(g.start, g.end, n) })}
+                onMouseLeave={() => setHovered(null)}
+              />
+            );
+          })}
+        </svg>
+
+        {hovered && (
+          <div
+            className="pointer-events-none absolute z-10 whitespace-nowrap rounded-[8px] border border-[#dee2e6] bg-white px-[8px] py-[3px] text-[11px] text-[#495057] shadow-[0_4px_12px_rgba(0,0,0,0.08)]"
+            style={{ left: hovered.x, top: hovered.y, transform: "translate(-50%, -50%)", fontFamily: "'Open Sans', sans-serif" }}
+          >
+            {hovered.category}
+          </div>
+        )}
+
+        {/* Ajakan buka breakdown — muncul saat nama aspek di-hover, sekaligus
+            yang membuat teks itu kebaca sebagai sesuatu yang bisa diklik. */}
+        {hoveredLabel && hoveredLabel.label !== openAspect && (
+          <div
+            className="pointer-events-none absolute z-20 whitespace-nowrap rounded-[8px] border border-[#dee2e6] bg-white px-[8px] py-[3px] text-[11px] text-[#495057] shadow-[0_4px_12px_rgba(0,0,0,0.08)]"
+            style={{
+              left: Math.max(52, Math.min(CHART_W - 52, hoveredLabel.x)),
+              top: hoveredLabel.y,
+              transform: "translate(-50%, -140%)",
+              fontFamily: "'Open Sans', sans-serif",
+            }}
+          >
+            Lihat breakdown KB
+          </div>
+        )}
       </div>
 
       {/* Legend manual — lebih ringkas dan konsisten ukurannya dengan kartu ini
@@ -290,19 +409,31 @@ export function AspectRadarChart({ items }: { items: AspectItem[] }) {
         </span>
       </div>
 
-      {/* Chip kategori — warnanya sama dengan juring & label tick-nya. */}
-      <div className="flex flex-wrap items-center justify-center gap-[6px] mt-[8px] pt-[8px] border-t border-[#e9ecef] w-full">
-        {groups.map((g) => (
-          <span
-            key={g.category}
-            className="flex items-center gap-[5px] rounded-[800px] px-[8px] py-[2px] text-[10px] font-bold"
-            style={{ color: g.color, background: g.color + "14", fontVariationSettings: "'wdth' 100" }}
-          >
-            <span style={{ width: 8, height: 8, borderRadius: 2, background: g.color, display: "inline-block" }} />
-            {g.category}
-          </span>
-        ))}
-      </div>
+      {/* Breakdown KB aspek terpilih — komponen yang sama persis dengan yang
+          dipakai view list, jadi informasi yang sama tidak punya dua rupa. */}
+      {openItem && openItem.keyBehaviours && (
+        <div className="w-full mt-[8px] pt-[8px] border-t border-[#e9ecef]">
+          <div className="flex items-start justify-between gap-[8px] w-full">
+            <div className="flex flex-col">
+              <p className="text-[12px] font-bold text-[#343a40] leading-[normal]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {openItem.label}
+              </p>
+              <p className="text-[11px] text-[#6c757d] leading-[normal]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Skor {openItem.score}/5 · Standar {openItem.standardScore}/5
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setOpenAspect(null)}
+              className="shrink-0 rounded-[6px] px-[6px] py-[2px] text-[11px] text-[#6c757d] hover:bg-[#f1f3f5]"
+              style={{ fontFamily: "'Open Sans', sans-serif" }}
+            >
+              Tutup
+            </button>
+          </div>
+          <KeyBehaviourBreakdown keyBehaviours={openItem.keyBehaviours} />
+        </div>
+      )}
     </div>
   );
 }

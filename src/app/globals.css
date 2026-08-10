@@ -63,3 +63,16 @@ html, body {
 .card-scroll::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.18);
 }
+
+/* Recharts memberi tabindex="0" pada <svg> chart demi navigasi keyboard, jadi
+   sekali diklik browser menggambar focus ring — bentuknya kotak besar sebesar
+   viewBox SVG, tidak ada hubungannya dengan bentuk chart di dalamnya.
+   Dimatikan untuk semua kondisi fokus (termasuk :focus-visible): SVG-nya
+   sendiri tidak punya aksi keyboard, dan wadah recharts membungkusnya berlapis
+   sehingga ring-nya selalu jatuh sebagai kotak penuh yang menyesatkan. */
+.recharts-surface:focus,
+.recharts-surface:focus-visible,
+.recharts-wrapper:focus,
+.recharts-wrapper:focus-visible {
+  outline: none;
+}

@@ -5,6 +5,7 @@ import svgPaths from '../imports/svg-djevy8uiqd';
 import svgPathsPotency from '../imports/svg-87qx2z9isd';
 import { StandardPositionSelect } from './StandardPositionSelect';
 import { AspectRadarChart } from './AspectRadarChart';
+import { KeyBehaviourBreakdown, type KeyBehaviour } from './KeyBehaviourBreakdown';
 import { ProfileContext } from '../lib/ProfileContext';
 import { hardAspectsFor } from '../lib/hardCompetency';
 
@@ -19,16 +20,18 @@ type ViewMode = 'list' | 'chart';
  */
 type CompetencyKind = 'soft' | 'hard';
 
-// score null = belum ada data untuk KB ini (ditampilkan "-").
-export type KeyBehaviour = { label: string; score: number | null };
+export type { KeyBehaviour };
 export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean; keyBehaviours?: KeyBehaviour[] };
 
 interface ScoreAspectProps {
   Frame79: React.ComponentType;
   /** Baris toolbar tab Competency. `leftSlot` diisi toggle list/chart dari sini,
-   *  supaya state-nya hidup di komponen ini (Frame153 sendiri statis, hasil import Figma). */
-  Frame153: React.ComponentType<{ leftSlot?: React.ReactNode }>;
-  Frame116: React.ComponentType;
+   *  Keduanya statis hasil import Figma, jadi bagian yang perlu state (toggle
+   *  tampilan) dititipkan lewat slot dari sini. */
+  Frame153: React.ComponentType;
+  /** Baris dropdown standar jabatan; `rightSlot` diisi toggle list/spider,
+   *  `showLegend` dimatikan di view chart (chart punya legend sendiri). */
+  Frame116: React.ComponentType<{ rightSlot?: React.ReactNode; showLegend?: boolean }>;
   scoreAspects: { competency: AspectItem[]; potency: AspectItem[] };
 }
 
@@ -43,7 +46,7 @@ export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects 
   const [activeTab, setActiveTab] = useState<TabType>('competency');
   // Satu state dipakai kedua tab — pilihan "cara lihat" terasa milik kartunya,
   // bukan milik masing-masing tab.
-  const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [viewMode, setViewMode] = useState<ViewMode>('chart');
   const [competencyKind, setCompetencyKind] = useState<CompetencyKind>('soft');
 
   // Aspek hard bergantung pada posisi orangnya, jadi diambil dari context —
@@ -118,21 +121,27 @@ export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects 
               size="xs"
               fullWidth
               data={[
-                { label: 'Soft Competency', value: 'soft' },
-                { label: 'Hard Competency', value: 'hard' },
+                { label: 'Soft', value: 'soft' },
+                { label: 'Hard', value: 'hard' },
               ]}
             />
           </div>
-          <Frame153 leftSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />} />
-          <Frame116 />
+          <Frame116
+            rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
+            showLegend={viewMode === 'list'}
+          />
           {viewMode === 'chart'
             ? <AspectRadarChart items={competencyItems} />
             : <CompetencyContent items={competencyItems} />}
+          {/* Aksi kartu ditaruh paling bawah, di luar rangkaian kontrol. */}
+          <Frame153 />
         </>
       ) : (
         <>
-          <PotencyControls mode={viewMode} onChange={setViewMode} />
-          <PotencyFilter />
+          <PotencyFilter
+            rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
+            showLegend={viewMode === 'list'}
+          />
           {viewMode === 'chart'
             ? <AspectRadarChart items={scoreAspects.potency} />
             : <PotencyContent items={scoreAspects.potency} />}
@@ -207,31 +216,32 @@ export function ViewModeToggle({ mode, onChange }: { mode: ViewMode; onChange: (
   );
 }
 
-// Potency Controls (Chart/List view buttons) — tab Potency memakai toggle yang
-// sama, cuma tanpa baris "Score Records" seperti di Competency.
-function PotencyControls({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode) => void }) {
-  return <ViewModeToggle mode={mode} onChange={onChange} />;
-}
-
-// Potency Filter (Score icon and dropdown)
-function PotencyFilter() {
+// Potency Filter — susunannya disamakan dengan tab Competency: dropdown standar
+// jabatan di kiri, opsi tampilan di kanan, legend "Score" jadi caption di bawah.
+// Legend disembunyikan di view chart (lihat alasan di Frame116).
+function PotencyFilter({ rightSlot, showLegend = true }: { rightSlot?: React.ReactNode; showLegend?: boolean }) {
   return (
-    <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full">
-      <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-        <div className="overflow-clip relative shrink-0 size-[16px]" data-name="circle">
-          <div className="absolute inset-[12.5%]" data-name="Vector">
-            <div className="absolute inset-[-6.25%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
-                <path d={svgPathsPotency.p39111680} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-              </svg>
+    <div className="content-stretch flex flex-col gap-[8px] relative shrink-0 w-full">
+      <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full">
+        <StandardPositionSelect />
+        {rightSlot}
+      </div>
+      {showLegend && (
+        <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+          <div className="overflow-clip relative shrink-0 size-[16px]" data-name="circle">
+            <div className="absolute inset-[12.5%]" data-name="Vector">
+              <div className="absolute inset-[-6.25%]">
+                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
+                  <path d={svgPathsPotency.p39111680} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                </svg>
+              </div>
             </div>
           </div>
+          <p className="font-['Open_Sans:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            Score
+          </p>
         </div>
-        <p className="font-['Open_Sans:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          Score
-        </p>
-      </div>
-      <StandardPositionSelect />
+      )}
     </div>
   );
 }
@@ -280,28 +290,6 @@ function CompetencyContent({ items }: { items: AspectItem[] }) {
   );
 }
 
-/** Warna skor KB 1-5, konsisten dengan warna DEV chip / status lain. */
-// Breakdown Key Behaviour — expand inline di bawah baris skor, bukan modal.
-// Hanya dipakai di Competency (Potency tidak punya breakdown KB).
-// Tag skor sengaja netral (bukan merah/oranye/hijau) — breakdown ini murni
-// informasi, bukan heatmap. `score` null berarti belum ada data, ditulis "-".
-function KeyBehaviourBreakdown({ keyBehaviours }: { keyBehaviours: KeyBehaviour[] }) {
-  return (
-    <div className="flex flex-col gap-[6px] w-full pt-[8px] mt-[4px] border-t border-[#e9ecef]">
-      {keyBehaviours.map((kb) => (
-        <div key={kb.label} className="flex items-center justify-between gap-[8px] w-full">
-          <p className="text-[12px] text-[#495057] leading-[normal]" style={{ fontVariationSettings: "'wdth' 100" }}>{kb.label}</p>
-          <span
-            className="shrink-0 font-['Open_Sans:Bold',sans-serif] font-bold rounded-[800px] px-[8px] py-[1px] text-[12px] text-[#6c757d] bg-[#f1f3f5]"
-          >
-            {kb.score == null ? "-" : `${kb.score}/5`}
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 // Competency Card — label (+ DEV chip), 5-box score row, dan breakdown Key
 // Behaviour yang bisa di-expand/collapse lewat icon info (bukan modal popup).
 function CompetencyCard({ title, score, standardScore, dev, keyBehaviours }: { title: string; score: number; standardScore: number; dev: boolean; keyBehaviours?: KeyBehaviour[] }) {
@@ -314,7 +302,12 @@ function CompetencyCard({ title, score, standardScore, dev, keyBehaviours }: { t
         <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
           <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
             <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-              <div className="content-stretch flex gap-[4px] items-center relative shrink-0 w-[231px]">
+              {/* Lebar nama aspek dibiarkan mengikuti sisa ruang baris (bukan
+                  142px tetap seperti hasil export Figma) — nama sepanjang
+                  "Keterampilan Interpersonal" atau "Kepatuhan Ketenagakerjaan"
+                  jadi muat satu baris, dan tetap membungkus kalau memang tidak
+                  cukup (mis. saat chip DEV. ikut memakan ruang). */}
+              <div className="content-stretch flex gap-[4px] items-center relative flex-1 min-w-0 pr-[8px]">
                 {dev && (
                   <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
                     <div className="bg-[#fff2e4] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
@@ -322,7 +315,7 @@ function CompetencyCard({ title, score, standardScore, dev, keyBehaviours }: { t
                     </div>
                   </div>
                 )}
-                <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative flex-1 min-w-0 text-[#495057] text-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   <p className="leading-[normal] whitespace-pre-wrap">{title}</p>
                 </div>
               </div>
@@ -392,7 +385,8 @@ function PotencyCard({ title, score, standardScore }: { title: string; score: nu
         <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
           <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
             <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-              <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[12px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              {/* Sama seperti CompetencyCard: lebar nama aspek ikut sisa ruang. */}
+              <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative flex-1 min-w-0 pr-[8px] text-[#495057] text-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 <p className="leading-[normal] whitespace-pre-wrap">{title}</p>
               </div>
               {/* info-circle dekoratif — Potency tidak punya breakdown Key Behaviour */}

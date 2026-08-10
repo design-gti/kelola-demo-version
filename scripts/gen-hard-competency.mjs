@@ -246,6 +246,50 @@ const DEFAULT_ASPECTS = [
   ["Kepatuhan Prosedur", "Regulasi", 4],
 ];
 
+/**
+ * Key Behaviour (KB) per aspek teknis — indikator perilaku yang lebih spesifik,
+ * masing-masing punya skor sendiri (skala 5). Skor aspek adalah ringkasannya.
+ *
+ * Beda dengan KB soft competency yang ditulis satu per satu per aspek: aspek
+ * teknis jumlahnya ~90 dan berganti tiap kali daftar posisi berubah, jadi
+ * menulis KB manual per aspek bakal cepat basi. Yang dipakai di sini adalah
+ * tangga penguasaan (tahu → menerapkan → menangani kasus sulit → menularkan)
+ * yang bentuknya sama untuk semua aspek dalam satu kategori — itu memang cara
+ * kompetensi teknis biasa dinilai, jadi tetap masuk akal dibaca.
+ */
+const KB_BY_CATEGORY = {
+  "Technical Core": [
+    "Penguasaan Konsep Dasar",
+    "Penerapan pada Pekerjaan Harian",
+    "Penanganan Kasus Kompleks",
+    "Berbagi Pengetahuan ke Tim",
+  ],
+  "Tools & Platform": [
+    "Penguasaan Fitur Inti",
+    "Pemakaian dalam Alur Kerja",
+    "Troubleshooting Mandiri",
+    "Optimasi & Otomasi",
+  ],
+  "Regulasi": [
+    "Pemahaman Ketentuan",
+    "Penerapan pada Proses Kerja",
+    "Identifikasi Risiko Kepatuhan",
+    "Dokumentasi & Pelaporan",
+  ],
+};
+const KB_FALLBACK = KB_BY_CATEGORY["Technical Core"];
+const kbLabelsOf = (category) => KB_BY_CATEGORY[category] ?? KB_FALLBACK;
+
+/**
+ * Skor tiap KB disebar di sekitar skor aspeknya — bukan diacak lepas, supaya
+ * rata-rata KB tetap konsisten dengan angka aspek yang tampil di baris skor.
+ */
+const KB_DELTAS = [0, 1, -1, 1, 0, -1];
+function kbScoreFor(participantId, aspect, kbLabel, aspectScore) {
+  const seed = [...(participantId + aspect + kbLabel)].reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+  return clamp15(aspectScore + KB_DELTAS[seed % KB_DELTAS.length]);
+}
+
 /** Skor deterministik per (orang x aspek) — stabil antar-run, tersebar di sekitar standar. */
 function scoreFor(participantId, aspect, standard) {
   const seed = [...(participantId + aspect)].reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
@@ -275,6 +319,18 @@ rows.forEach((r) => {
 });
 writeFileSync(join(ROOT, "public/data/participant_hard_competency_scores.csv"), scoreLines.join("\n") + "\n", "utf8");
 
+// --- CSV skor Key Behaviour per partisipan (long format) ---
+const kbLines = ["id,aspect,key_behaviour,score"];
+rows.forEach((r) => {
+  aspectsOf(r.position).forEach(([aspect, category, standard]) => {
+    const aspectScore = scoreFor(r.id, aspect, standard);
+    kbLabelsOf(category).forEach((kb) => {
+      kbLines.push([r.id, aspect, kb, kbScoreFor(r.id, aspect, kb, aspectScore)].join(","));
+    });
+  });
+});
+writeFileSync(join(ROOT, "public/data/participant_hard_competency_kb_scores.csv"), kbLines.join("\n") + "\n", "utf8");
+
 // --- Kompilasi ke TS supaya bisa diimport sinkron oleh kartu Score Aspect ---
 const stdRows = parseCSV(read("public/data/position_hard_competency_standards.csv"));
 const scoreRows = parseCSV(read("public/data/participant_hard_competency_scores.csv"));
@@ -295,23 +351,38 @@ for (const row of scoreRows) {
   (scoresByParticipant[row.id] ??= {})[row.aspect] = Number(row.score);
 }
 
+/** participantId -> { [aspect]: [{ label, score }] } (urutan mengikuti CSV) */
+const kbRows = parseCSV(read("public/data/participant_hard_competency_kb_scores.csv"));
+const kbByParticipant = {};
+for (const row of kbRows) {
+  ((kbByParticipant[row.id] ??= {})[row.aspect] ??= []).push({
+    label: row.key_behaviour,
+    score: Number(row.score),
+  });
+}
+
 const ts = `// AUTO-GENERATED oleh scripts/gen-hard-competency.mjs — jangan edit manual.
 // Sumber: public/data/position_hard_competency_standards.csv
 //         public/data/participant_hard_competency_scores.csv
+//         public/data/participant_hard_competency_kb_scores.csv
 // Regenerate: node scripts/gen-hard-competency.mjs (sudah dihook di npm run seed).
 
 export type HardAspectStandard = { label: string; category: string; standardScore: number };
+export type HardKeyBehaviour = { label: string; score: number };
 
 /** Aspek teknis + standarnya per judul posisi. Daftarnya beda-beda tiap posisi. */
 export const HARD_STANDARDS_BY_POSITION: Record<string, HardAspectStandard[]> = ${JSON.stringify(standardsByPosition, null, 2)};
 
 /** Skor teknis tiap partisipan, dikunci per nama aspek. */
 export const HARD_SCORES_BY_PARTICIPANT: Record<string, Record<string, number>> = ${JSON.stringify(scoresByParticipant, null, 2)};
+
+/** Breakdown Key Behaviour tiap partisipan, dikunci per nama aspek. */
+export const HARD_KB_BY_PARTICIPANT: Record<string, Record<string, HardKeyBehaviour[]>> = ${JSON.stringify(kbByParticipant, null, 2)};
 `;
 writeFileSync(join(ROOT, "src/iprofile/lib/hardCompetency.generated.ts"), ts, "utf8");
 
 console.log(
   `gen-hard-competency: ${Object.keys(standardsByPosition).length} posisi, ` +
   `${Object.keys(scoresByParticipant).length} partisipan, ` +
-  `${stdLines.length - 1} baris standar, ${scoreLines.length - 1} baris skor`,
+  `${stdLines.length - 1} baris standar, ${scoreLines.length - 1} baris skor, ${kbLines.length - 1} baris KB`,
 );
