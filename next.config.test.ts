@@ -18,12 +18,14 @@ describe("headers()", () => {
 
     const tokens = match![1].split(/\s+/).filter((t) => t.length > 0);
 
-    // Himpunan yang diharapkan: 'self' + tiga domain Integro
+    // Himpunan yang diharapkan: 'self' + tiga domain Integro + dua host localhost pengembangan
     const expectedTokens = [
       "'self'",
       "https://*.talentlytica.net",
       "https://*.talentlytic.com",
       "https://*.talentlytica.app",
+      "http://localhost:*",
+      "http://127.0.0.1:*",
     ];
 
     // Uji bahwa tokens memiliki PERSIS elemen yang sama (tidak kurang tidak lebih)
