@@ -63,3 +63,17 @@ html, body {
 .card-scroll::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.18);
 }
+
+/* Mode embed (di dalam iframe Integro): sidebar demo disembunyikan supaya tidak
+   bertumpuk dengan sidebar Integro. Penanda data-embed dipasang skrip inline di
+   layout.tsx sebelum paint pertama.
+
+   <aside> sengaja TETAP dirender di server dan hanya disembunyikan CSS. Kalau
+   Sidebar mengembalikan null di klien saja, hasilnya hydration mismatch.
+
+   !important dibutuhkan karena Sidebar.tsx menyetel display: "flex" sebagai inline
+   style, dan inline style mengalahkan stylesheet betapa pun spesifiknya. Lihat pola
+   yang sama di .kelola-assistant-chat .poweredBy di atas. */
+html[data-embed] aside[data-app-sidebar] {
+  display: none !important;
+}

@@ -4,9 +4,9 @@
  *
  * URL dibangun dari kolom CSV `Referance ID` (UUID) yang dipetakan ke
  * `employee.csvFields` saat parsing. Dipakai di tab Table (klik nama)
- * dan tab Compare (klik "Create IDP"). Karena aplikasi ini di-embed via
- * iframe, link harus dibuka di parent window (target="_top") supaya yang
- * berpindah halaman adalah browser host, bukan iframe.
+ * dan tab Compare (klik "Create IDP"). Link membuka profil di aplikasi
+ * eksternal Kelola (di-embed sebagai cross-origin iframe dalam Integro,
+ * atau diakses langsung sebagai demo standalone).
  */
 
 const PROFILE_BASE_URL = 'https://demox.kelola.app/company/employee/profile';

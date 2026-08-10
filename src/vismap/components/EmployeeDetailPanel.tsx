@@ -300,11 +300,7 @@ export default function EmployeeDetailPanel({ employee, onClose, onNavigateToDet
             onClick={() => {
               // Open the demo's Create IDP page with this person pre-filled as participant.
               const url = `/idp?page=create-idp-admin.html&participants=${encodeURIComponent(employee.name)}`;
-              try {
-                (window.top ?? window).location.href = url;
-              } catch {
-                window.location.href = url;
-              }
+              window.location.href = url;
             }}
           >
             <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />

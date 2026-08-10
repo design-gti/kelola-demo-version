@@ -27,6 +27,24 @@ export default function RootLayout({
     <html lang="en" {...mantineHtmlProps} className={openSans.variable}>
       <head>
         <ColorSchemeScript />
+        {/*
+          Mode embed. Saat halaman ini dijalankan di dalam iframe (sub-menu
+          Visibility Platform di Integro), chrome milik demo disembunyikan agar
+          hanya ada satu sidebar di layar.
+
+          Harus berupa skrip inline di <head> supaya berjalan SEBELUM body
+          dicat — kalau ditaruh di komponen klien, sidebar sempat berkedip
+          muncul lalu hilang. Deteksinya lewat iframe, bukan query param, karena
+          aplikasi ini punya 38 titik navigasi internal yang sebagian sudah
+          membawa query-string sendiri; menyuntikkan flag ke semuanya rawan
+          bocor. Lihat Sidebar.tsx yang membaca penanda yang sama.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'if(window.self!==window.top){document.documentElement.dataset.embed="1";document.documentElement.style.setProperty("--sidebar-w","0px")}',
+          }}
+        />
       </head>
       <body className="min-h-screen bg-[#f8f9fa]">
         <AppMantineProvider>
