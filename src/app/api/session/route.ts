@@ -27,8 +27,21 @@ export async function POST(req: NextRequest) {
   const res = NextResponse.json({ role, scopeIds });
   res.cookies.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    // Halaman ini di-embed sebagai iframe lintas situs di Integro. Dengan
+    // SameSite=Lax browser memperlakukan cookie ini sebagai pihak ketiga dan
+    // tidak mengirimkannya, sehingga GET /api/session selalu null dan
+    // /api/copilotkit menjawab 401. `partitioned` (CHIPS) membuat Chrome dan
+    // Firefox tetap menyimpannya, terisolasi per situs induk.
+    //
+    // SameSite=None MEWAJIBKAN Secure. Browser Chrome/Firefox memperlakukan localhost
+    // sebagai origin tepercaya dan menerima Secure cookie bahkan di http://localhost.
+    // Jadi `next dev` biasa tetap berfungsi. Yang patah adalah dev di host non-localhost
+    // atas plain http: `next dev -H 0.0.0.0` diakses via `http://192.168.x.x`, demo ke
+    // rekan sejaring, atau tunnel http — di situ kelola_session DAN kelola-role-v2 hilang.
+    // Workaround: `next dev --experimental-https` atau akses melalui HTTPS/tunnel yang tepat.
+    sameSite: "none",
+    secure: true,
+    partitioned: true,
     maxAge: ONE_DAY_SECONDS,
     path: "/",
   });

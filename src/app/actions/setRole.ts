@@ -8,7 +8,12 @@ export async function setRole(role: UserRole): Promise<void> {
   store.set(ROLE_COOKIE, role, {
     path: "/",
     httpOnly: true,
-    sameSite: "lax",
+    // Alasan sama dengan kelola_session di api/session/route.ts: tanpa ini,
+    // di dalam iframe Integro getRole() diam-diam jatuh ke "hr" — pengguna
+    // memilih "Manager" di RoleSwitcher, tampilan tidak berubah, nol error.
+    sameSite: "none",
+    secure: true,
+    partitioned: true,
     maxAge: 60 * 60 * 24 * 180,
   });
 }
