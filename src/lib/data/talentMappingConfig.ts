@@ -10,7 +10,13 @@ import { makeConfigById, type TMConfig } from "@/data/talentMappingShared";
  * cookie set from the client is fine — no Server Action round-trip needed.
  */
 type ConfigId = "TI" | "TR";
-const cookieName = (id: ConfigId) => `tm-config-${id.toLowerCase()}`;
+// `-v2` suffix mirrors saveConfig()/resetConfig() in src/data/talentMappingConfig.ts
+// — keep this in sync BY HAND. Not leftover from an experiment: the old
+// (pre-Partitioned) cookie name lives on in browsers for up to 180 days, in a
+// separate cookie jar from the new Partitioned one, and wins when read outside
+// the iframe — so reusing the old name would silently resurrect stale TI/TR
+// settings for existing users instead of reading the new correct cookie.
+const cookieName = (id: ConfigId) => `tm-config-${id.toLowerCase()}-v2`;
 // Kept for existing imports.
 export const TM_CONFIG_COOKIE = cookieName("TI");
 
