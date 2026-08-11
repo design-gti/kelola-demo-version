@@ -6,6 +6,7 @@ import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 import AppMantineProvider from "@/components/AppMantineProvider";
 import CopilotProvider from "@/components/CopilotProvider";
 import Sidebar from "@/components/Sidebar";
+import AppHeader, { HEADER_HEIGHT } from "@/components/AppHeader";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -58,7 +59,10 @@ export default function RootLayout({
                 transition: "margin-left 0.22s ease",
               }}
             >
-              {children}
+              {/* Header-nya `fixed`, jadi ruangnya disediakan di sini —
+                  tanpa padding ini isi halaman masuk ke bawah header. */}
+              <AppHeader />
+              <div style={{ paddingTop: HEADER_HEIGHT }}>{children}</div>
             </main>
           </CopilotProvider>
         </AppMantineProvider>

@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { Breadcrumbs, Anchor, Text } from "@mantine/core";
 import { IconChevronLeft } from "@tabler/icons-react";
+import { usePathname } from "next/navigation";
+import { menuTitle } from "@/lib/nav";
 
 export interface BreadcrumbItem {
   label: string;
@@ -16,6 +18,14 @@ export interface BreadcrumbItem {
  * (e.g. Vismap's fixed top bar), to avoid doubling up horizontal spacing.
  */
 export default function AppBreadcrumb({ items, noPadding }: { items: BreadcrumbItem[]; noPadding?: boolean }) {
+  const pathname = usePathname();
+
+  // Sejak header aplikasi menampilkan nama menu, breadcrumb satu tingkat yang
+  // isinya sama persis dengan nama itu cuma mengulang — disembunyikan di sini
+  // supaya tidak perlu dihapus satu per satu di tiap halaman, dan breadcrumb
+  // yang benar-benar berjenjang tetap tampil.
+  if (items.length === 1 && items[0].label === menuTitle(pathname)) return null;
+
   return (
     <Breadcrumbs
       separator="/"
