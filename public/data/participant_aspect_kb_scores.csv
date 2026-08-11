@@ -1,0 +1,1205 @@
+id,aspect,key_behaviour,score
+p01,Leadership,Pengambilan Keputusan,2
+p01,Leadership,Memotivasi Tim,2
+p01,Leadership,Delegasi Tugas,3
+p01,Leadership,Tanggung Jawab atas Hasil,3
+p01,Kemampuan Perencanaan,Penetapan Prioritas,4
+p01,Kemampuan Perencanaan,Manajemen Waktu,3
+p01,Kemampuan Perencanaan,Antisipasi Risiko,2
+p01,Daya Analisa,Identifikasi Pola,5
+p01,Daya Analisa,Analisis Sebab-Akibat,5
+p01,Daya Analisa,Sintesis Informasi,5
+p01,Daya Analisa,Evaluasi Alternatif,5
+p01,Keterampilan Interpersonal,Mendengarkan Aktif,4
+p01,Keterampilan Interpersonal,Empati,4
+p01,Keterampilan Interpersonal,Membangun Hubungan Kerja,4
+p01,Kemampuan verbal,Pemahaman Bacaan,5
+p01,Kemampuan verbal,Kejelasan Ekspresi Lisan,5
+p01,Kemampuan verbal,Kosakata & Tata Bahasa,5
+p01,Kerjasama,Kontribusi dalam Tim,1
+p01,Kerjasama,Resolusi Konflik,2
+p01,Kerjasama,Berbagi Informasi,2
+p01,Kerjasama,Dukungan ke Rekan Kerja,3
+p01,Arsitektur Sistem,Penguasaan Konsep Dasar,3
+p01,Arsitektur Sistem,Penerapan pada Pekerjaan Harian,3
+p01,Arsitektur Sistem,Penanganan Kasus Kompleks,2
+p01,Arsitektur Sistem,Berbagi Pengetahuan ke Tim,3
+p01,Code Review,Penguasaan Konsep Dasar,1
+p01,Code Review,Penerapan pada Pekerjaan Harian,1
+p01,Code Review,Penanganan Kasus Kompleks,2
+p01,Code Review,Berbagi Pengetahuan ke Tim,1
+p01,Keamanan Aplikasi,Penguasaan Konsep Dasar,4
+p01,Keamanan Aplikasi,Penerapan pada Pekerjaan Harian,4
+p01,Keamanan Aplikasi,Penanganan Kasus Kompleks,4
+p01,Keamanan Aplikasi,Berbagi Pengetahuan ke Tim,4
+p01,CI/CD,Penguasaan Fitur Inti,4
+p01,CI/CD,Pemakaian dalam Alur Kerja,4
+p01,CI/CD,Troubleshooting Mandiri,3
+p01,CI/CD,Optimasi & Otomasi,5
+p01,Cloud Infrastructure,Penguasaan Fitur Inti,2
+p01,Cloud Infrastructure,Pemakaian dalam Alur Kerja,2
+p01,Cloud Infrastructure,Troubleshooting Mandiri,3
+p01,Cloud Infrastructure,Optimasi & Otomasi,3
+p01,Observability,Penguasaan Fitur Inti,4
+p01,Observability,Pemakaian dalam Alur Kerja,4
+p01,Observability,Troubleshooting Mandiri,2
+p01,Observability,Optimasi & Otomasi,3
+p02,Logika Berpikir,Berpikir Sistematis,5
+p02,Logika Berpikir,Berpikir Kritis,5
+p02,Logika Berpikir,Pemecahan Masalah,4
+p02,Logika Berpikir,Pengambilan Kesimpulan Logis,4
+p02,Daya Analisa,Identifikasi Pola,4
+p02,Daya Analisa,Analisis Sebab-Akibat,3
+p02,Daya Analisa,Sintesis Informasi,3
+p02,Daya Analisa,Evaluasi Alternatif,4
+p02,Kerjasama,Kontribusi dalam Tim,3
+p02,Kerjasama,Resolusi Konflik,4
+p02,Kerjasama,Berbagi Informasi,4
+p02,Kerjasama,Dukungan ke Rekan Kerja,3
+p02,Fleksibilitas,Adaptasi Perubahan,3
+p02,Fleksibilitas,Keterbukaan pada Ide Baru,3
+p02,Fleksibilitas,Toleransi Ambiguitas,5
+p02,Kemampuan Perencanaan,Penetapan Prioritas,4
+p02,Kemampuan Perencanaan,Manajemen Waktu,3
+p02,Kemampuan Perencanaan,Antisipasi Risiko,5
+p02,Kemampuan verbal,Pemahaman Bacaan,5
+p02,Kemampuan verbal,Kejelasan Ekspresi Lisan,5
+p02,Kemampuan verbal,Kosakata & Tata Bahasa,5
+p02,Kualitas Kode,Penguasaan Konsep Dasar,3
+p02,Kualitas Kode,Penerapan pada Pekerjaan Harian,3
+p02,Kualitas Kode,Penanganan Kasus Kompleks,5
+p02,Kualitas Kode,Berbagi Pengetahuan ke Tim,3
+p02,Pengujian Otomatis,Penguasaan Konsep Dasar,5
+p02,Pengujian Otomatis,Penerapan pada Pekerjaan Harian,5
+p02,Pengujian Otomatis,Penanganan Kasus Kompleks,5
+p02,Pengujian Otomatis,Berbagi Pengetahuan ke Tim,5
+p02,Debugging,Penguasaan Konsep Dasar,4
+p02,Debugging,Penerapan pada Pekerjaan Harian,4
+p02,Debugging,Penanganan Kasus Kompleks,3
+p02,Debugging,Berbagi Pengetahuan ke Tim,4
+p02,Version Control,Penguasaan Fitur Inti,5
+p02,Version Control,Pemakaian dalam Alur Kerja,5
+p02,Version Control,Troubleshooting Mandiri,5
+p02,Version Control,Optimasi & Otomasi,5
+p03,Logika Berpikir,Berpikir Sistematis,1
+p03,Logika Berpikir,Berpikir Kritis,1
+p03,Logika Berpikir,Pemecahan Masalah,3
+p03,Logika Berpikir,Pengambilan Kesimpulan Logis,3
+p03,Daya Analisa,Identifikasi Pola,1
+p03,Daya Analisa,Analisis Sebab-Akibat,2
+p03,Daya Analisa,Sintesis Informasi,2
+p03,Daya Analisa,Evaluasi Alternatif,1
+p03,Kerjasama,Kontribusi dalam Tim,4
+p03,Kerjasama,Resolusi Konflik,2
+p03,Kerjasama,Berbagi Informasi,2
+p03,Kerjasama,Dukungan ke Rekan Kerja,2
+p03,Fleksibilitas,Adaptasi Perubahan,1
+p03,Fleksibilitas,Keterbukaan pada Ide Baru,1
+p03,Fleksibilitas,Toleransi Ambiguitas,1
+p03,Kemampuan Perencanaan,Penetapan Prioritas,3
+p03,Kemampuan Perencanaan,Manajemen Waktu,4
+p03,Kemampuan Perencanaan,Antisipasi Risiko,4
+p03,Kemampuan verbal,Pemahaman Bacaan,1
+p03,Kemampuan verbal,Kejelasan Ekspresi Lisan,1
+p03,Kemampuan verbal,Kosakata & Tata Bahasa,1
+p03,Arsitektur Komponen,Penguasaan Konsep Dasar,3
+p03,Arsitektur Komponen,Penerapan pada Pekerjaan Harian,3
+p03,Arsitektur Komponen,Penanganan Kasus Kompleks,4
+p03,Arsitektur Komponen,Berbagi Pengetahuan ke Tim,3
+p03,State Management,Penguasaan Konsep Dasar,3
+p03,State Management,Penerapan pada Pekerjaan Harian,3
+p03,State Management,Penanganan Kasus Kompleks,5
+p03,State Management,Berbagi Pengetahuan ke Tim,3
+p03,Aksesibilitas,Penguasaan Konsep Dasar,3
+p03,Aksesibilitas,Penerapan pada Pekerjaan Harian,3
+p03,Aksesibilitas,Penanganan Kasus Kompleks,3
+p03,Aksesibilitas,Berbagi Pengetahuan ke Tim,3
+p03,Performa Web,Penguasaan Fitur Inti,3
+p03,Performa Web,Pemakaian dalam Alur Kerja,3
+p03,Performa Web,Troubleshooting Mandiri,5
+p03,Performa Web,Optimasi & Otomasi,3
+p03,Design System,Penguasaan Fitur Inti,5
+p03,Design System,Pemakaian dalam Alur Kerja,5
+p03,Design System,Troubleshooting Mandiri,5
+p03,Design System,Optimasi & Otomasi,5
+p04,Logika Berpikir,Berpikir Sistematis,4
+p04,Logika Berpikir,Berpikir Kritis,4
+p04,Logika Berpikir,Pemecahan Masalah,3
+p04,Logika Berpikir,Pengambilan Kesimpulan Logis,3
+p04,Daya Analisa,Identifikasi Pola,2
+p04,Daya Analisa,Analisis Sebab-Akibat,2
+p04,Daya Analisa,Sintesis Informasi,2
+p04,Daya Analisa,Evaluasi Alternatif,2
+p04,Kerjasama,Kontribusi dalam Tim,3
+p04,Kerjasama,Resolusi Konflik,5
+p04,Kerjasama,Berbagi Informasi,5
+p04,Kerjasama,Dukungan ke Rekan Kerja,4
+p04,Fleksibilitas,Adaptasi Perubahan,3
+p04,Fleksibilitas,Keterbukaan pada Ide Baru,3
+p04,Fleksibilitas,Toleransi Ambiguitas,1
+p04,Kemampuan Perencanaan,Penetapan Prioritas,5
+p04,Kemampuan Perencanaan,Manajemen Waktu,5
+p04,Kemampuan Perencanaan,Antisipasi Risiko,4
+p04,Kemampuan verbal,Pemahaman Bacaan,4
+p04,Kemampuan verbal,Kejelasan Ekspresi Lisan,3
+p04,Kemampuan verbal,Kosakata & Tata Bahasa,3
+p04,Desain API,Penguasaan Konsep Dasar,2
+p04,Desain API,Penerapan pada Pekerjaan Harian,2
+p04,Desain API,Penanganan Kasus Kompleks,1
+p04,Desain API,Berbagi Pengetahuan ke Tim,2
+p04,Basis Data,Penguasaan Konsep Dasar,1
+p04,Basis Data,Penerapan pada Pekerjaan Harian,1
+p04,Basis Data,Penanganan Kasus Kompleks,1
+p04,Basis Data,Berbagi Pengetahuan ke Tim,1
+p04,Optimasi Query,Penguasaan Konsep Dasar,4
+p04,Optimasi Query,Penerapan pada Pekerjaan Harian,4
+p04,Optimasi Query,Penanganan Kasus Kompleks,3
+p04,Optimasi Query,Berbagi Pengetahuan ke Tim,4
+p04,Message Queue,Penguasaan Fitur Inti,2
+p04,Message Queue,Pemakaian dalam Alur Kerja,2
+p04,Message Queue,Troubleshooting Mandiri,1
+p04,Message Queue,Optimasi & Otomasi,1
+p04,Containerization,Penguasaan Fitur Inti,4
+p04,Containerization,Pemakaian dalam Alur Kerja,4
+p04,Containerization,Troubleshooting Mandiri,5
+p04,Containerization,Optimasi & Otomasi,4
+p05,Leadership,Pengambilan Keputusan,5
+p05,Leadership,Memotivasi Tim,5
+p05,Leadership,Delegasi Tugas,5
+p05,Leadership,Tanggung Jawab atas Hasil,5
+p05,Kemampuan Perencanaan,Penetapan Prioritas,5
+p05,Kemampuan Perencanaan,Manajemen Waktu,4
+p05,Kemampuan Perencanaan,Antisipasi Risiko,5
+p05,Daya Analisa,Identifikasi Pola,5
+p05,Daya Analisa,Analisis Sebab-Akibat,3
+p05,Daya Analisa,Sintesis Informasi,3
+p05,Daya Analisa,Evaluasi Alternatif,5
+p05,Keterampilan Interpersonal,Mendengarkan Aktif,3
+p05,Keterampilan Interpersonal,Empati,3
+p05,Keterampilan Interpersonal,Membangun Hubungan Kerja,4
+p05,Kemampuan verbal,Pemahaman Bacaan,3
+p05,Kemampuan verbal,Kejelasan Ekspresi Lisan,4
+p05,Kemampuan verbal,Kosakata & Tata Bahasa,4
+p05,Kerjasama,Kontribusi dalam Tim,5
+p05,Kerjasama,Resolusi Konflik,4
+p05,Kerjasama,Berbagi Informasi,4
+p05,Kerjasama,Dukungan ke Rekan Kerja,5
+p05,Strategi Korporat,Penguasaan Konsep Dasar,4
+p05,Strategi Korporat,Penerapan pada Pekerjaan Harian,4
+p05,Strategi Korporat,Penanganan Kasus Kompleks,5
+p05,Strategi Korporat,Berbagi Pengetahuan ke Tim,4
+p05,Alokasi Modal,Penguasaan Konsep Dasar,4
+p05,Alokasi Modal,Penerapan pada Pekerjaan Harian,4
+p05,Alokasi Modal,Penanganan Kasus Kompleks,4
+p05,Alokasi Modal,Berbagi Pengetahuan ke Tim,4
+p05,Tata Kelola,Pemahaman Ketentuan,3
+p05,Tata Kelola,Penerapan pada Proses Kerja,3
+p05,Tata Kelola,Identifikasi Risiko Kepatuhan,4
+p05,Tata Kelola,Dokumentasi & Pelaporan,4
+p06,Leadership,Pengambilan Keputusan,3
+p06,Leadership,Memotivasi Tim,3
+p06,Leadership,Delegasi Tugas,1
+p06,Leadership,Tanggung Jawab atas Hasil,1
+p06,Kemampuan Perencanaan,Penetapan Prioritas,1
+p06,Kemampuan Perencanaan,Manajemen Waktu,3
+p06,Kemampuan Perencanaan,Antisipasi Risiko,3
+p06,Daya Analisa,Identifikasi Pola,4
+p06,Daya Analisa,Analisis Sebab-Akibat,5
+p06,Daya Analisa,Sintesis Informasi,5
+p06,Daya Analisa,Evaluasi Alternatif,4
+p06,Keterampilan Interpersonal,Mendengarkan Aktif,5
+p06,Keterampilan Interpersonal,Empati,5
+p06,Keterampilan Interpersonal,Membangun Hubungan Kerja,4
+p06,Kemampuan verbal,Pemahaman Bacaan,3
+p06,Kemampuan verbal,Kejelasan Ekspresi Lisan,3
+p06,Kemampuan verbal,Kosakata & Tata Bahasa,3
+p06,Kerjasama,Kontribusi dalam Tim,5
+p06,Kerjasama,Resolusi Konflik,4
+p06,Kerjasama,Berbagi Informasi,4
+p06,Kerjasama,Dukungan ke Rekan Kerja,4
+p06,Strategi Korporat,Penguasaan Konsep Dasar,5
+p06,Strategi Korporat,Penerapan pada Pekerjaan Harian,5
+p06,Strategi Korporat,Penanganan Kasus Kompleks,4
+p06,Strategi Korporat,Berbagi Pengetahuan ke Tim,5
+p06,Analisis Kompetitif,Penguasaan Konsep Dasar,5
+p06,Analisis Kompetitif,Penerapan pada Pekerjaan Harian,5
+p06,Analisis Kompetitif,Penanganan Kasus Kompleks,5
+p06,Analisis Kompetitif,Berbagi Pengetahuan ke Tim,5
+p06,Pemodelan Skenario,Penguasaan Fitur Inti,4
+p06,Pemodelan Skenario,Pemakaian dalam Alur Kerja,4
+p06,Pemodelan Skenario,Troubleshooting Mandiri,5
+p06,Pemodelan Skenario,Optimasi & Otomasi,5
+p07,Leadership,Pengambilan Keputusan,2
+p07,Leadership,Memotivasi Tim,2
+p07,Leadership,Delegasi Tugas,3
+p07,Leadership,Tanggung Jawab atas Hasil,3
+p07,Kemampuan Perencanaan,Penetapan Prioritas,4
+p07,Kemampuan Perencanaan,Manajemen Waktu,3
+p07,Kemampuan Perencanaan,Antisipasi Risiko,2
+p07,Daya Analisa,Identifikasi Pola,5
+p07,Daya Analisa,Analisis Sebab-Akibat,5
+p07,Daya Analisa,Sintesis Informasi,5
+p07,Daya Analisa,Evaluasi Alternatif,5
+p07,Keterampilan Interpersonal,Mendengarkan Aktif,3
+p07,Keterampilan Interpersonal,Empati,3
+p07,Keterampilan Interpersonal,Membangun Hubungan Kerja,3
+p07,Kemampuan verbal,Pemahaman Bacaan,4
+p07,Kemampuan verbal,Kejelasan Ekspresi Lisan,5
+p07,Kemampuan verbal,Kosakata & Tata Bahasa,5
+p07,Kerjasama,Kontribusi dalam Tim,4
+p07,Kerjasama,Resolusi Konflik,5
+p07,Kerjasama,Berbagi Informasi,5
+p07,Kerjasama,Dukungan ke Rekan Kerja,5
+p07,Strategi Korporat,Penguasaan Konsep Dasar,2
+p07,Strategi Korporat,Penerapan pada Pekerjaan Harian,2
+p07,Strategi Korporat,Penanganan Kasus Kompleks,2
+p07,Strategi Korporat,Berbagi Pengetahuan ke Tim,2
+p07,Analisis Kompetitif,Penguasaan Konsep Dasar,4
+p07,Analisis Kompetitif,Penerapan pada Pekerjaan Harian,4
+p07,Analisis Kompetitif,Penanganan Kasus Kompleks,5
+p07,Analisis Kompetitif,Berbagi Pengetahuan ke Tim,4
+p07,Pemodelan Skenario,Penguasaan Fitur Inti,5
+p07,Pemodelan Skenario,Pemakaian dalam Alur Kerja,5
+p07,Pemodelan Skenario,Troubleshooting Mandiri,3
+p07,Pemodelan Skenario,Optimasi & Otomasi,4
+p08,Leadership,Pengambilan Keputusan,4
+p08,Leadership,Memotivasi Tim,4
+p08,Leadership,Delegasi Tugas,4
+p08,Leadership,Tanggung Jawab atas Hasil,4
+p08,Kemampuan Perencanaan,Penetapan Prioritas,3
+p08,Kemampuan Perencanaan,Manajemen Waktu,2
+p08,Kemampuan Perencanaan,Antisipasi Risiko,4
+p08,Daya Analisa,Identifikasi Pola,5
+p08,Daya Analisa,Analisis Sebab-Akibat,4
+p08,Daya Analisa,Sintesis Informasi,4
+p08,Daya Analisa,Evaluasi Alternatif,5
+p08,Keterampilan Interpersonal,Mendengarkan Aktif,5
+p08,Keterampilan Interpersonal,Empati,5
+p08,Keterampilan Interpersonal,Membangun Hubungan Kerja,5
+p08,Kemampuan verbal,Pemahaman Bacaan,5
+p08,Kemampuan verbal,Kejelasan Ekspresi Lisan,5
+p08,Kemampuan verbal,Kosakata & Tata Bahasa,5
+p08,Kerjasama,Kontribusi dalam Tim,2
+p08,Kerjasama,Resolusi Konflik,3
+p08,Kerjasama,Berbagi Informasi,3
+p08,Kerjasama,Dukungan ke Rekan Kerja,2
+p08,Manajemen Risiko,Penguasaan Konsep Dasar,5
+p08,Manajemen Risiko,Penerapan pada Pekerjaan Harian,5
+p08,Manajemen Risiko,Penanganan Kasus Kompleks,3
+p08,Manajemen Risiko,Berbagi Pengetahuan ke Tim,5
+p08,Kepatuhan Regulasi,Pemahaman Ketentuan,3
+p08,Kepatuhan Regulasi,Penerapan pada Proses Kerja,4
+p08,Kepatuhan Regulasi,Identifikasi Risiko Kepatuhan,3
+p08,Kepatuhan Regulasi,Dokumentasi & Pelaporan,3
+p08,Audit Internal,Pemahaman Ketentuan,5
+p08,Audit Internal,Penerapan pada Proses Kerja,4
+p08,Audit Internal,Identifikasi Risiko Kepatuhan,5
+p08,Audit Internal,Dokumentasi & Pelaporan,5
+p09,Leadership,Pengambilan Keputusan,4
+p09,Leadership,Memotivasi Tim,4
+p09,Leadership,Delegasi Tugas,3
+p09,Leadership,Tanggung Jawab atas Hasil,3
+p09,Kemampuan Perencanaan,Penetapan Prioritas,3
+p09,Kemampuan Perencanaan,Manajemen Waktu,4
+p09,Kemampuan Perencanaan,Antisipasi Risiko,4
+p09,Daya Analisa,Identifikasi Pola,3
+p09,Daya Analisa,Analisis Sebab-Akibat,5
+p09,Daya Analisa,Sintesis Informasi,5
+p09,Daya Analisa,Evaluasi Alternatif,3
+p09,Keterampilan Interpersonal,Mendengarkan Aktif,5
+p09,Keterampilan Interpersonal,Empati,5
+p09,Keterampilan Interpersonal,Membangun Hubungan Kerja,5
+p09,Kemampuan verbal,Pemahaman Bacaan,4
+p09,Kemampuan verbal,Kejelasan Ekspresi Lisan,4
+p09,Kemampuan verbal,Kosakata & Tata Bahasa,4
+p09,Kerjasama,Kontribusi dalam Tim,4
+p09,Kerjasama,Resolusi Konflik,2
+p09,Kerjasama,Berbagi Informasi,2
+p09,Kerjasama,Dukungan ke Rekan Kerja,2
+p09,Pelaporan Keuangan,Penguasaan Konsep Dasar,3
+p09,Pelaporan Keuangan,Penerapan pada Pekerjaan Harian,3
+p09,Pelaporan Keuangan,Penanganan Kasus Kompleks,3
+p09,Pelaporan Keuangan,Berbagi Pengetahuan ke Tim,3
+p09,Analisis Anggaran,Penguasaan Konsep Dasar,5
+p09,Analisis Anggaran,Penerapan pada Pekerjaan Harian,5
+p09,Analisis Anggaran,Penanganan Kasus Kompleks,4
+p09,Analisis Anggaran,Berbagi Pengetahuan ke Tim,5
+p09,Manajemen Risiko,Penguasaan Konsep Dasar,4
+p09,Manajemen Risiko,Penerapan pada Pekerjaan Harian,4
+p09,Manajemen Risiko,Penanganan Kasus Kompleks,4
+p09,Manajemen Risiko,Berbagi Pengetahuan ke Tim,4
+p09,Kepatuhan Pajak,Pemahaman Ketentuan,4
+p09,Kepatuhan Pajak,Penerapan pada Proses Kerja,4
+p09,Kepatuhan Pajak,Identifikasi Risiko Kepatuhan,5
+p09,Kepatuhan Pajak,Dokumentasi & Pelaporan,5
+p09,Standar Akuntansi,Pemahaman Ketentuan,5
+p09,Standar Akuntansi,Penerapan pada Proses Kerja,5
+p09,Standar Akuntansi,Identifikasi Risiko Kepatuhan,4
+p09,Standar Akuntansi,Dokumentasi & Pelaporan,4
+p10,Logika Berpikir,Berpikir Sistematis,5
+p10,Logika Berpikir,Berpikir Kritis,5
+p10,Logika Berpikir,Pemecahan Masalah,5
+p10,Logika Berpikir,Pengambilan Kesimpulan Logis,5
+p10,Daya Analisa,Identifikasi Pola,5
+p10,Daya Analisa,Analisis Sebab-Akibat,5
+p10,Daya Analisa,Sintesis Informasi,5
+p10,Daya Analisa,Evaluasi Alternatif,5
+p10,Kemampuan Numerikal,Ketepatan Hitung,4
+p10,Kemampuan Numerikal,Interpretasi Data Angka,4
+p10,Kemampuan Numerikal,Estimasi Cepat,4
+p10,Kemampuan verbal,Pemahaman Bacaan,5
+p10,Kemampuan verbal,Kejelasan Ekspresi Lisan,5
+p10,Kemampuan verbal,Kosakata & Tata Bahasa,5
+p10,Kerjasama,Kontribusi dalam Tim,1
+p10,Kerjasama,Resolusi Konflik,2
+p10,Kerjasama,Berbagi Informasi,2
+p10,Kerjasama,Dukungan ke Rekan Kerja,3
+p10,Fleksibilitas,Adaptasi Perubahan,4
+p10,Fleksibilitas,Keterbukaan pada Ide Baru,4
+p10,Fleksibilitas,Toleransi Ambiguitas,3
+p10,Pemodelan Keuangan,Penguasaan Konsep Dasar,3
+p10,Pemodelan Keuangan,Penerapan pada Pekerjaan Harian,3
+p10,Pemodelan Keuangan,Penanganan Kasus Kompleks,3
+p10,Pemodelan Keuangan,Berbagi Pengetahuan ke Tim,3
+p10,Analisis Varians,Penguasaan Konsep Dasar,2
+p10,Analisis Varians,Penerapan pada Pekerjaan Harian,2
+p10,Analisis Varians,Penanganan Kasus Kompleks,2
+p10,Analisis Varians,Berbagi Pengetahuan ke Tim,2
+p10,Rekonsiliasi,Penguasaan Konsep Dasar,2
+p10,Rekonsiliasi,Penerapan pada Pekerjaan Harian,2
+p10,Rekonsiliasi,Penanganan Kasus Kompleks,2
+p10,Rekonsiliasi,Berbagi Pengetahuan ke Tim,2
+p10,Spreadsheet Lanjutan,Penguasaan Fitur Inti,4
+p10,Spreadsheet Lanjutan,Pemakaian dalam Alur Kerja,4
+p10,Spreadsheet Lanjutan,Troubleshooting Mandiri,2
+p10,Spreadsheet Lanjutan,Optimasi & Otomasi,3
+p10,Standar Akuntansi,Pemahaman Ketentuan,3
+p10,Standar Akuntansi,Penerapan pada Proses Kerja,5
+p10,Standar Akuntansi,Identifikasi Risiko Kepatuhan,3
+p10,Standar Akuntansi,Dokumentasi & Pelaporan,3
+p11,Logika Berpikir,Berpikir Sistematis,5
+p11,Logika Berpikir,Berpikir Kritis,5
+p11,Logika Berpikir,Pemecahan Masalah,4
+p11,Logika Berpikir,Pengambilan Kesimpulan Logis,4
+p11,Daya Analisa,Identifikasi Pola,4
+p11,Daya Analisa,Analisis Sebab-Akibat,3
+p11,Daya Analisa,Sintesis Informasi,3
+p11,Daya Analisa,Evaluasi Alternatif,4
+p11,Kemampuan Numerikal,Ketepatan Hitung,5
+p11,Kemampuan Numerikal,Interpretasi Data Angka,5
+p11,Kemampuan Numerikal,Estimasi Cepat,4
+p11,Kemampuan verbal,Pemahaman Bacaan,5
+p11,Kemampuan verbal,Kejelasan Ekspresi Lisan,5
+p11,Kemampuan verbal,Kosakata & Tata Bahasa,5
+p11,Kerjasama,Kontribusi dalam Tim,3
+p11,Kerjasama,Resolusi Konflik,4
+p11,Kerjasama,Berbagi Informasi,4
+p11,Kerjasama,Dukungan ke Rekan Kerja,3
+p11,Fleksibilitas,Adaptasi Perubahan,3
+p11,Fleksibilitas,Keterbukaan pada Ide Baru,3
+p11,Fleksibilitas,Toleransi Ambiguitas,5
+p11,Pemodelan Keuangan,Penguasaan Konsep Dasar,2
+p11,Pemodelan Keuangan,Penerapan pada Pekerjaan Harian,2
+p11,Pemodelan Keuangan,Penanganan Kasus Kompleks,4
+p11,Pemodelan Keuangan,Berbagi Pengetahuan ke Tim,2
+p11,Rekonsiliasi,Penguasaan Konsep Dasar,2
+p11,Rekonsiliasi,Penerapan pada Pekerjaan Harian,2
+p11,Rekonsiliasi,Penanganan Kasus Kompleks,4
+p11,Rekonsiliasi,Berbagi Pengetahuan ke Tim,2
+p11,Analisis Varians,Penguasaan Konsep Dasar,1
+p11,Analisis Varians,Penerapan pada Pekerjaan Harian,1
+p11,Analisis Varians,Penanganan Kasus Kompleks,2
+p11,Analisis Varians,Berbagi Pengetahuan ke Tim,1
+p11,Spreadsheet Lanjutan,Penguasaan Fitur Inti,3
+p11,Spreadsheet Lanjutan,Pemakaian dalam Alur Kerja,3
+p11,Spreadsheet Lanjutan,Troubleshooting Mandiri,5
+p11,Spreadsheet Lanjutan,Optimasi & Otomasi,3
+p11,Standar Akuntansi,Pemahaman Ketentuan,4
+p11,Standar Akuntansi,Penerapan pada Proses Kerja,3
+p11,Standar Akuntansi,Identifikasi Risiko Kepatuhan,5
+p11,Standar Akuntansi,Dokumentasi & Pelaporan,5
+p12,Logika Berpikir,Berpikir Sistematis,1
+p12,Logika Berpikir,Berpikir Kritis,1
+p12,Logika Berpikir,Pemecahan Masalah,3
+p12,Logika Berpikir,Pengambilan Kesimpulan Logis,3
+p12,Daya Analisa,Identifikasi Pola,1
+p12,Daya Analisa,Analisis Sebab-Akibat,2
+p12,Daya Analisa,Sintesis Informasi,2
+p12,Daya Analisa,Evaluasi Alternatif,1
+p12,Kemampuan Numerikal,Ketepatan Hitung,4
+p12,Kemampuan Numerikal,Interpretasi Data Angka,4
+p12,Kemampuan Numerikal,Estimasi Cepat,5
+p12,Kemampuan verbal,Pemahaman Bacaan,1
+p12,Kemampuan verbal,Kejelasan Ekspresi Lisan,1
+p12,Kemampuan verbal,Kosakata & Tata Bahasa,1
+p12,Kerjasama,Kontribusi dalam Tim,4
+p12,Kerjasama,Resolusi Konflik,2
+p12,Kerjasama,Berbagi Informasi,2
+p12,Kerjasama,Dukungan ke Rekan Kerja,2
+p12,Fleksibilitas,Adaptasi Perubahan,1
+p12,Fleksibilitas,Keterbukaan pada Ide Baru,1
+p12,Fleksibilitas,Toleransi Ambiguitas,1
+p12,Pengendalian Internal,Penguasaan Konsep Dasar,5
+p12,Pengendalian Internal,Penerapan pada Pekerjaan Harian,5
+p12,Pengendalian Internal,Penanganan Kasus Kompleks,4
+p12,Pengendalian Internal,Berbagi Pengetahuan ke Tim,5
+p12,Pelaporan Keuangan,Penguasaan Konsep Dasar,3
+p12,Pelaporan Keuangan,Penerapan pada Pekerjaan Harian,3
+p12,Pelaporan Keuangan,Penanganan Kasus Kompleks,3
+p12,Pelaporan Keuangan,Berbagi Pengetahuan ke Tim,3
+p12,Audit Kepatuhan,Pemahaman Ketentuan,1
+p12,Audit Kepatuhan,Penerapan pada Proses Kerja,2
+p12,Audit Kepatuhan,Identifikasi Risiko Kepatuhan,1
+p12,Audit Kepatuhan,Dokumentasi & Pelaporan,1
+p12,Standar Akuntansi,Pemahaman Ketentuan,5
+p12,Standar Akuntansi,Penerapan pada Proses Kerja,5
+p12,Standar Akuntansi,Identifikasi Risiko Kepatuhan,5
+p12,Standar Akuntansi,Dokumentasi & Pelaporan,5
+p13,Keterampilan Interpersonal,Mendengarkan Aktif,2
+p13,Keterampilan Interpersonal,Empati,2
+p13,Keterampilan Interpersonal,Membangun Hubungan Kerja,2
+p13,Kerjasama,Kontribusi dalam Tim,3
+p13,Kerjasama,Resolusi Konflik,5
+p13,Kerjasama,Berbagi Informasi,5
+p13,Kerjasama,Dukungan ke Rekan Kerja,4
+p13,Kemampuan verbal,Pemahaman Bacaan,4
+p13,Kemampuan verbal,Kejelasan Ekspresi Lisan,3
+p13,Kemampuan verbal,Kosakata & Tata Bahasa,3
+p13,Fleksibilitas,Adaptasi Perubahan,3
+p13,Fleksibilitas,Keterbukaan pada Ide Baru,3
+p13,Fleksibilitas,Toleransi Ambiguitas,1
+p13,Kemampuan Perencanaan,Penetapan Prioritas,5
+p13,Kemampuan Perencanaan,Manajemen Waktu,5
+p13,Kemampuan Perencanaan,Antisipasi Risiko,4
+p13,Daya Analisa,Identifikasi Pola,2
+p13,Daya Analisa,Analisis Sebab-Akibat,2
+p13,Daya Analisa,Sintesis Informasi,2
+p13,Daya Analisa,Evaluasi Alternatif,2
+p13,Manajemen Talenta,Penguasaan Konsep Dasar,5
+p13,Manajemen Talenta,Penerapan pada Pekerjaan Harian,5
+p13,Manajemen Talenta,Penanganan Kasus Kompleks,3
+p13,Manajemen Talenta,Berbagi Pengetahuan ke Tim,5
+p13,Perencanaan SDM,Penguasaan Konsep Dasar,3
+p13,Perencanaan SDM,Penerapan pada Pekerjaan Harian,3
+p13,Perencanaan SDM,Penanganan Kasus Kompleks,4
+p13,Perencanaan SDM,Berbagi Pengetahuan ke Tim,3
+p13,Hubungan Industrial,Pemahaman Ketentuan,3
+p13,Hubungan Industrial,Penerapan pada Proses Kerja,2
+p13,Hubungan Industrial,Identifikasi Risiko Kepatuhan,4
+p13,Hubungan Industrial,Dokumentasi & Pelaporan,4
+p13,HRIS,Penguasaan Fitur Inti,4
+p13,HRIS,Pemakaian dalam Alur Kerja,4
+p13,HRIS,Troubleshooting Mandiri,2
+p13,HRIS,Optimasi & Otomasi,3
+p14,Keterampilan Interpersonal,Mendengarkan Aktif,3
+p14,Keterampilan Interpersonal,Empati,3
+p14,Keterampilan Interpersonal,Membangun Hubungan Kerja,4
+p14,Kerjasama,Kontribusi dalam Tim,5
+p14,Kerjasama,Resolusi Konflik,4
+p14,Kerjasama,Berbagi Informasi,4
+p14,Kerjasama,Dukungan ke Rekan Kerja,5
+p14,Kemampuan verbal,Pemahaman Bacaan,3
+p14,Kemampuan verbal,Kejelasan Ekspresi Lisan,4
+p14,Kemampuan verbal,Kosakata & Tata Bahasa,4
+p14,Fleksibilitas,Adaptasi Perubahan,1
+p14,Fleksibilitas,Keterbukaan pada Ide Baru,1
+p14,Fleksibilitas,Toleransi Ambiguitas,2
+p14,Kemampuan Perencanaan,Penetapan Prioritas,5
+p14,Kemampuan Perencanaan,Manajemen Waktu,4
+p14,Kemampuan Perencanaan,Antisipasi Risiko,5
+p14,Daya Analisa,Identifikasi Pola,3
+p14,Daya Analisa,Analisis Sebab-Akibat,1
+p14,Daya Analisa,Sintesis Informasi,1
+p14,Daya Analisa,Evaluasi Alternatif,3
+p14,Manajemen Kinerja,Penguasaan Konsep Dasar,3
+p14,Manajemen Kinerja,Penerapan pada Pekerjaan Harian,3
+p14,Manajemen Kinerja,Penanganan Kasus Kompleks,5
+p14,Manajemen Kinerja,Berbagi Pengetahuan ke Tim,3
+p14,Remunerasi,Penguasaan Konsep Dasar,3
+p14,Remunerasi,Penerapan pada Pekerjaan Harian,3
+p14,Remunerasi,Penanganan Kasus Kompleks,4
+p14,Remunerasi,Berbagi Pengetahuan ke Tim,3
+p14,Hubungan Industrial,Pemahaman Ketentuan,5
+p14,Hubungan Industrial,Penerapan pada Proses Kerja,5
+p14,Hubungan Industrial,Identifikasi Risiko Kepatuhan,4
+p14,Hubungan Industrial,Dokumentasi & Pelaporan,4
+p14,HRIS,Penguasaan Fitur Inti,3
+p14,HRIS,Pemakaian dalam Alur Kerja,3
+p14,HRIS,Troubleshooting Mandiri,5
+p14,HRIS,Optimasi & Otomasi,3
+p15,Keterampilan Interpersonal,Mendengarkan Aktif,5
+p15,Keterampilan Interpersonal,Empati,5
+p15,Keterampilan Interpersonal,Membangun Hubungan Kerja,4
+p15,Kerjasama,Kontribusi dalam Tim,5
+p15,Kerjasama,Resolusi Konflik,4
+p15,Kerjasama,Berbagi Informasi,4
+p15,Kerjasama,Dukungan ke Rekan Kerja,4
+p15,Kemampuan verbal,Pemahaman Bacaan,3
+p15,Kemampuan verbal,Kejelasan Ekspresi Lisan,3
+p15,Kemampuan verbal,Kosakata & Tata Bahasa,3
+p15,Fleksibilitas,Adaptasi Perubahan,4
+p15,Fleksibilitas,Keterbukaan pada Ide Baru,4
+p15,Fleksibilitas,Toleransi Ambiguitas,4
+p15,Kemampuan Perencanaan,Penetapan Prioritas,1
+p15,Kemampuan Perencanaan,Manajemen Waktu,3
+p15,Kemampuan Perencanaan,Antisipasi Risiko,3
+p15,Daya Analisa,Identifikasi Pola,2
+p15,Daya Analisa,Analisis Sebab-Akibat,3
+p15,Daya Analisa,Sintesis Informasi,3
+p15,Daya Analisa,Evaluasi Alternatif,2
+p15,Sourcing Kandidat,Penguasaan Konsep Dasar,3
+p15,Sourcing Kandidat,Penerapan pada Pekerjaan Harian,3
+p15,Sourcing Kandidat,Penanganan Kasus Kompleks,4
+p15,Sourcing Kandidat,Berbagi Pengetahuan ke Tim,3
+p15,Teknik Wawancara,Penguasaan Konsep Dasar,4
+p15,Teknik Wawancara,Penerapan pada Pekerjaan Harian,4
+p15,Teknik Wawancara,Penanganan Kasus Kompleks,5
+p15,Teknik Wawancara,Berbagi Pengetahuan ke Tim,4
+p15,Employer Branding,Penguasaan Konsep Dasar,4
+p15,Employer Branding,Penerapan pada Pekerjaan Harian,4
+p15,Employer Branding,Penanganan Kasus Kompleks,4
+p15,Employer Branding,Berbagi Pengetahuan ke Tim,4
+p15,ATS,Penguasaan Fitur Inti,5
+p15,ATS,Pemakaian dalam Alur Kerja,5
+p15,ATS,Troubleshooting Mandiri,4
+p15,ATS,Optimasi & Otomasi,4
+p16,Keterampilan Interpersonal,Mendengarkan Aktif,3
+p16,Keterampilan Interpersonal,Empati,3
+p16,Keterampilan Interpersonal,Membangun Hubungan Kerja,3
+p16,Kerjasama,Kontribusi dalam Tim,4
+p16,Kerjasama,Resolusi Konflik,5
+p16,Kerjasama,Berbagi Informasi,5
+p16,Kerjasama,Dukungan ke Rekan Kerja,5
+p16,Kemampuan verbal,Pemahaman Bacaan,4
+p16,Kemampuan verbal,Kejelasan Ekspresi Lisan,5
+p16,Kemampuan verbal,Kosakata & Tata Bahasa,5
+p16,Fleksibilitas,Adaptasi Perubahan,3
+p16,Fleksibilitas,Keterbukaan pada Ide Baru,3
+p16,Fleksibilitas,Toleransi Ambiguitas,2
+p16,Kemampuan Perencanaan,Penetapan Prioritas,4
+p16,Kemampuan Perencanaan,Manajemen Waktu,3
+p16,Kemampuan Perencanaan,Antisipasi Risiko,2
+p16,Daya Analisa,Identifikasi Pola,4
+p16,Daya Analisa,Analisis Sebab-Akibat,4
+p16,Daya Analisa,Sintesis Informasi,4
+p16,Daya Analisa,Evaluasi Alternatif,4
+p16,Administrasi Personalia,Penguasaan Konsep Dasar,2
+p16,Administrasi Personalia,Penerapan pada Pekerjaan Harian,2
+p16,Administrasi Personalia,Penanganan Kasus Kompleks,2
+p16,Administrasi Personalia,Berbagi Pengetahuan ke Tim,2
+p16,Onboarding,Penguasaan Konsep Dasar,4
+p16,Onboarding,Penerapan pada Pekerjaan Harian,4
+p16,Onboarding,Penanganan Kasus Kompleks,4
+p16,Onboarding,Berbagi Pengetahuan ke Tim,4
+p16,Kepatuhan Ketenagakerjaan,Pemahaman Ketentuan,5
+p16,Kepatuhan Ketenagakerjaan,Penerapan pada Proses Kerja,4
+p16,Kepatuhan Ketenagakerjaan,Identifikasi Risiko Kepatuhan,5
+p16,Kepatuhan Ketenagakerjaan,Dokumentasi & Pelaporan,5
+p16,HRIS,Penguasaan Fitur Inti,1
+p16,HRIS,Pemakaian dalam Alur Kerja,1
+p16,HRIS,Troubleshooting Mandiri,1
+p16,HRIS,Optimasi & Otomasi,2
+p17,Leadership,Pengambilan Keputusan,4
+p17,Leadership,Memotivasi Tim,4
+p17,Leadership,Delegasi Tugas,4
+p17,Leadership,Tanggung Jawab atas Hasil,4
+p17,Kemampuan Perencanaan,Penetapan Prioritas,3
+p17,Kemampuan Perencanaan,Manajemen Waktu,2
+p17,Kemampuan Perencanaan,Antisipasi Risiko,4
+p17,Daya Analisa,Identifikasi Pola,5
+p17,Daya Analisa,Analisis Sebab-Akibat,4
+p17,Daya Analisa,Sintesis Informasi,4
+p17,Daya Analisa,Evaluasi Alternatif,5
+p17,Keterampilan Interpersonal,Mendengarkan Aktif,5
+p17,Keterampilan Interpersonal,Empati,5
+p17,Keterampilan Interpersonal,Membangun Hubungan Kerja,5
+p17,Kemampuan verbal,Pemahaman Bacaan,5
+p17,Kemampuan verbal,Kejelasan Ekspresi Lisan,5
+p17,Kemampuan verbal,Kosakata & Tata Bahasa,5
+p17,Kerjasama,Kontribusi dalam Tim,2
+p17,Kerjasama,Resolusi Konflik,3
+p17,Kerjasama,Berbagi Informasi,3
+p17,Kerjasama,Dukungan ke Rekan Kerja,2
+p17,Perencanaan Kapasitas,Penguasaan Konsep Dasar,3
+p17,Perencanaan Kapasitas,Penerapan pada Pekerjaan Harian,3
+p17,Perencanaan Kapasitas,Penanganan Kasus Kompleks,5
+p17,Perencanaan Kapasitas,Berbagi Pengetahuan ke Tim,3
+p17,Manajemen Rantai Pasok,Penguasaan Konsep Dasar,2
+p17,Manajemen Rantai Pasok,Penerapan pada Pekerjaan Harian,2
+p17,Manajemen Rantai Pasok,Penanganan Kasus Kompleks,4
+p17,Manajemen Rantai Pasok,Berbagi Pengetahuan ke Tim,2
+p17,Kendali Mutu,Penguasaan Konsep Dasar,5
+p17,Kendali Mutu,Penerapan pada Pekerjaan Harian,5
+p17,Kendali Mutu,Penanganan Kasus Kompleks,5
+p17,Kendali Mutu,Berbagi Pengetahuan ke Tim,5
+p17,Analitik Operasional,Penguasaan Fitur Inti,5
+p17,Analitik Operasional,Pemakaian dalam Alur Kerja,5
+p17,Analitik Operasional,Troubleshooting Mandiri,5
+p17,Analitik Operasional,Optimasi & Otomasi,5
+p17,Keselamatan Kerja,Pemahaman Ketentuan,4
+p17,Keselamatan Kerja,Penerapan pada Proses Kerja,5
+p17,Keselamatan Kerja,Identifikasi Risiko Kepatuhan,4
+p17,Keselamatan Kerja,Dokumentasi & Pelaporan,4
+p18,Leadership,Pengambilan Keputusan,4
+p18,Leadership,Memotivasi Tim,4
+p18,Leadership,Delegasi Tugas,3
+p18,Leadership,Tanggung Jawab atas Hasil,3
+p18,Kemampuan Perencanaan,Penetapan Prioritas,3
+p18,Kemampuan Perencanaan,Manajemen Waktu,4
+p18,Kemampuan Perencanaan,Antisipasi Risiko,4
+p18,Daya Analisa,Identifikasi Pola,4
+p18,Daya Analisa,Analisis Sebab-Akibat,5
+p18,Daya Analisa,Sintesis Informasi,5
+p18,Daya Analisa,Evaluasi Alternatif,4
+p18,Keterampilan Interpersonal,Mendengarkan Aktif,5
+p18,Keterampilan Interpersonal,Empati,5
+p18,Keterampilan Interpersonal,Membangun Hubungan Kerja,5
+p18,Kemampuan verbal,Pemahaman Bacaan,4
+p18,Kemampuan verbal,Kejelasan Ekspresi Lisan,4
+p18,Kemampuan verbal,Kosakata & Tata Bahasa,4
+p18,Kerjasama,Kontribusi dalam Tim,4
+p18,Kerjasama,Resolusi Konflik,2
+p18,Kerjasama,Berbagi Informasi,2
+p18,Kerjasama,Dukungan ke Rekan Kerja,2
+p18,Perencanaan Produksi,Penguasaan Konsep Dasar,3
+p18,Perencanaan Produksi,Penerapan pada Pekerjaan Harian,3
+p18,Perencanaan Produksi,Penanganan Kasus Kompleks,3
+p18,Perencanaan Produksi,Berbagi Pengetahuan ke Tim,3
+p18,Kendali Mutu,Penguasaan Konsep Dasar,1
+p18,Kendali Mutu,Penerapan pada Pekerjaan Harian,1
+p18,Kendali Mutu,Penanganan Kasus Kompleks,2
+p18,Kendali Mutu,Berbagi Pengetahuan ke Tim,1
+p18,Efisiensi Proses,Penguasaan Konsep Dasar,5
+p18,Efisiensi Proses,Penerapan pada Pekerjaan Harian,5
+p18,Efisiensi Proses,Penanganan Kasus Kompleks,5
+p18,Efisiensi Proses,Berbagi Pengetahuan ke Tim,5
+p18,Keselamatan Kerja,Pemahaman Ketentuan,5
+p18,Keselamatan Kerja,Penerapan pada Proses Kerja,4
+p18,Keselamatan Kerja,Identifikasi Risiko Kepatuhan,5
+p18,Keselamatan Kerja,Dokumentasi & Pelaporan,5
+p19,Leadership,Pengambilan Keputusan,3
+p19,Leadership,Memotivasi Tim,3
+p19,Leadership,Delegasi Tugas,5
+p19,Leadership,Tanggung Jawab atas Hasil,5
+p19,Kemampuan Perencanaan,Penetapan Prioritas,4
+p19,Kemampuan Perencanaan,Manajemen Waktu,5
+p19,Kemampuan Perencanaan,Antisipasi Risiko,3
+p19,Daya Analisa,Identifikasi Pola,3
+p19,Daya Analisa,Analisis Sebab-Akibat,3
+p19,Daya Analisa,Sintesis Informasi,3
+p19,Daya Analisa,Evaluasi Alternatif,3
+p19,Keterampilan Interpersonal,Mendengarkan Aktif,1
+p19,Keterampilan Interpersonal,Empati,1
+p19,Keterampilan Interpersonal,Membangun Hubungan Kerja,1
+p19,Kemampuan verbal,Pemahaman Bacaan,3
+p19,Kemampuan verbal,Kejelasan Ekspresi Lisan,2
+p19,Kemampuan verbal,Kosakata & Tata Bahasa,2
+p19,Kerjasama,Kontribusi dalam Tim,2
+p19,Kerjasama,Resolusi Konflik,4
+p19,Kerjasama,Berbagi Informasi,4
+p19,Kerjasama,Dukungan ke Rekan Kerja,3
+p19,Manajemen Rantai Pasok,Penguasaan Konsep Dasar,5
+p19,Manajemen Rantai Pasok,Penerapan pada Pekerjaan Harian,5
+p19,Manajemen Rantai Pasok,Penanganan Kasus Kompleks,5
+p19,Manajemen Rantai Pasok,Berbagi Pengetahuan ke Tim,5
+p19,Manajemen Vendor,Penguasaan Konsep Dasar,3
+p19,Manajemen Vendor,Penerapan pada Pekerjaan Harian,3
+p19,Manajemen Vendor,Penanganan Kasus Kompleks,4
+p19,Manajemen Vendor,Berbagi Pengetahuan ke Tim,3
+p19,Perencanaan Inventori,Penguasaan Konsep Dasar,3
+p19,Perencanaan Inventori,Penerapan pada Pekerjaan Harian,3
+p19,Perencanaan Inventori,Penanganan Kasus Kompleks,2
+p19,Perencanaan Inventori,Berbagi Pengetahuan ke Tim,3
+p19,Sistem ERP,Penguasaan Fitur Inti,5
+p19,Sistem ERP,Pemakaian dalam Alur Kerja,5
+p19,Sistem ERP,Troubleshooting Mandiri,4
+p19,Sistem ERP,Optimasi & Otomasi,5
+p20,Logika Berpikir,Berpikir Sistematis,5
+p20,Logika Berpikir,Berpikir Kritis,5
+p20,Logika Berpikir,Pemecahan Masalah,4
+p20,Logika Berpikir,Pengambilan Kesimpulan Logis,4
+p20,Daya Analisa,Identifikasi Pola,5
+p20,Daya Analisa,Analisis Sebab-Akibat,4
+p20,Daya Analisa,Sintesis Informasi,4
+p20,Daya Analisa,Evaluasi Alternatif,5
+p20,Kemampuan Numerikal,Ketepatan Hitung,5
+p20,Kemampuan Numerikal,Interpretasi Data Angka,5
+p20,Kemampuan Numerikal,Estimasi Cepat,4
+p20,Kemampuan verbal,Pemahaman Bacaan,5
+p20,Kemampuan verbal,Kejelasan Ekspresi Lisan,5
+p20,Kemampuan verbal,Kosakata & Tata Bahasa,5
+p20,Kerjasama,Kontribusi dalam Tim,3
+p20,Kerjasama,Resolusi Konflik,4
+p20,Kerjasama,Berbagi Informasi,4
+p20,Kerjasama,Dukungan ke Rekan Kerja,3
+p20,Fleksibilitas,Adaptasi Perubahan,4
+p20,Fleksibilitas,Keterbukaan pada Ide Baru,4
+p20,Fleksibilitas,Toleransi Ambiguitas,5
+p20,Analitik Operasional,Penguasaan Fitur Inti,5
+p20,Analitik Operasional,Pemakaian dalam Alur Kerja,5
+p20,Analitik Operasional,Troubleshooting Mandiri,5
+p20,Analitik Operasional,Optimasi & Otomasi,5
+p20,Pemetaan Proses,Penguasaan Konsep Dasar,4
+p20,Pemetaan Proses,Penerapan pada Pekerjaan Harian,4
+p20,Pemetaan Proses,Penanganan Kasus Kompleks,4
+p20,Pemetaan Proses,Berbagi Pengetahuan ke Tim,4
+p20,Spreadsheet Lanjutan,Penguasaan Fitur Inti,3
+p20,Spreadsheet Lanjutan,Pemakaian dalam Alur Kerja,3
+p20,Spreadsheet Lanjutan,Troubleshooting Mandiri,5
+p20,Spreadsheet Lanjutan,Optimasi & Otomasi,3
+p21,Leadership,Pengambilan Keputusan,4
+p21,Leadership,Memotivasi Tim,4
+p21,Leadership,Delegasi Tugas,3
+p21,Leadership,Tanggung Jawab atas Hasil,3
+p21,Kemampuan Perencanaan,Penetapan Prioritas,3
+p21,Kemampuan Perencanaan,Manajemen Waktu,4
+p21,Kemampuan Perencanaan,Antisipasi Risiko,4
+p21,Daya Analisa,Identifikasi Pola,1
+p21,Daya Analisa,Analisis Sebab-Akibat,2
+p21,Daya Analisa,Sintesis Informasi,2
+p21,Daya Analisa,Evaluasi Alternatif,1
+p21,Keterampilan Interpersonal,Mendengarkan Aktif,2
+p21,Keterampilan Interpersonal,Empati,2
+p21,Keterampilan Interpersonal,Membangun Hubungan Kerja,3
+p21,Kemampuan verbal,Pemahaman Bacaan,1
+p21,Kemampuan verbal,Kejelasan Ekspresi Lisan,1
+p21,Kemampuan verbal,Kosakata & Tata Bahasa,1
+p21,Kerjasama,Kontribusi dalam Tim,4
+p21,Kerjasama,Resolusi Konflik,2
+p21,Kerjasama,Berbagi Informasi,2
+p21,Kerjasama,Dukungan ke Rekan Kerja,2
+p21,Strategi Kampanye,Penguasaan Konsep Dasar,3
+p21,Strategi Kampanye,Penerapan pada Pekerjaan Harian,3
+p21,Strategi Kampanye,Penanganan Kasus Kompleks,4
+p21,Strategi Kampanye,Berbagi Pengetahuan ke Tim,3
+p21,Riset Pasar,Penguasaan Konsep Dasar,5
+p21,Riset Pasar,Penerapan pada Pekerjaan Harian,5
+p21,Riset Pasar,Penanganan Kasus Kompleks,3
+p21,Riset Pasar,Berbagi Pengetahuan ke Tim,5
+p21,Manajemen Brand,Penguasaan Konsep Dasar,2
+p21,Manajemen Brand,Penerapan pada Pekerjaan Harian,2
+p21,Manajemen Brand,Penanganan Kasus Kompleks,2
+p21,Manajemen Brand,Berbagi Pengetahuan ke Tim,2
+p21,Analitik Digital,Penguasaan Fitur Inti,4
+p21,Analitik Digital,Pemakaian dalam Alur Kerja,4
+p21,Analitik Digital,Troubleshooting Mandiri,2
+p21,Analitik Digital,Optimasi & Otomasi,3
+p21,Otomasi Pemasaran,Penguasaan Fitur Inti,4
+p21,Otomasi Pemasaran,Pemakaian dalam Alur Kerja,4
+p21,Otomasi Pemasaran,Troubleshooting Mandiri,5
+p21,Otomasi Pemasaran,Optimasi & Otomasi,5
+p22,Kemampuan verbal,Pemahaman Bacaan,4
+p22,Kemampuan verbal,Kejelasan Ekspresi Lisan,3
+p22,Kemampuan verbal,Kosakata & Tata Bahasa,3
+p22,Fleksibilitas,Adaptasi Perubahan,3
+p22,Fleksibilitas,Keterbukaan pada Ide Baru,3
+p22,Fleksibilitas,Toleransi Ambiguitas,1
+p22,Daya Analisa,Identifikasi Pola,2
+p22,Daya Analisa,Analisis Sebab-Akibat,2
+p22,Daya Analisa,Sintesis Informasi,2
+p22,Daya Analisa,Evaluasi Alternatif,2
+p22,Kerjasama,Kontribusi dalam Tim,3
+p22,Kerjasama,Resolusi Konflik,5
+p22,Kerjasama,Berbagi Informasi,5
+p22,Kerjasama,Dukungan ke Rekan Kerja,4
+p22,Keterampilan Interpersonal,Mendengarkan Aktif,2
+p22,Keterampilan Interpersonal,Empati,2
+p22,Keterampilan Interpersonal,Membangun Hubungan Kerja,2
+p22,Kemampuan Perencanaan,Penetapan Prioritas,5
+p22,Kemampuan Perencanaan,Manajemen Waktu,5
+p22,Kemampuan Perencanaan,Antisipasi Risiko,4
+p22,Strategi Kampanye,Penguasaan Konsep Dasar,5
+p22,Strategi Kampanye,Penerapan pada Pekerjaan Harian,5
+p22,Strategi Kampanye,Penanganan Kasus Kompleks,3
+p22,Strategi Kampanye,Berbagi Pengetahuan ke Tim,5
+p22,Riset Pasar,Penguasaan Konsep Dasar,4
+p22,Riset Pasar,Penerapan pada Pekerjaan Harian,4
+p22,Riset Pasar,Penanganan Kasus Kompleks,4
+p22,Riset Pasar,Berbagi Pengetahuan ke Tim,4
+p22,Analitik Digital,Penguasaan Fitur Inti,2
+p22,Analitik Digital,Pemakaian dalam Alur Kerja,2
+p22,Analitik Digital,Troubleshooting Mandiri,4
+p22,Analitik Digital,Optimasi & Otomasi,2
+p23,Kemampuan verbal,Pemahaman Bacaan,3
+p23,Kemampuan verbal,Kejelasan Ekspresi Lisan,4
+p23,Kemampuan verbal,Kosakata & Tata Bahasa,4
+p23,Fleksibilitas,Adaptasi Perubahan,1
+p23,Fleksibilitas,Keterbukaan pada Ide Baru,1
+p23,Fleksibilitas,Toleransi Ambiguitas,2
+p23,Daya Analisa,Identifikasi Pola,3
+p23,Daya Analisa,Analisis Sebab-Akibat,1
+p23,Daya Analisa,Sintesis Informasi,1
+p23,Daya Analisa,Evaluasi Alternatif,3
+p23,Kerjasama,Kontribusi dalam Tim,5
+p23,Kerjasama,Resolusi Konflik,4
+p23,Kerjasama,Berbagi Informasi,4
+p23,Kerjasama,Dukungan ke Rekan Kerja,5
+p23,Keterampilan Interpersonal,Mendengarkan Aktif,3
+p23,Keterampilan Interpersonal,Empati,3
+p23,Keterampilan Interpersonal,Membangun Hubungan Kerja,4
+p23,Kemampuan Perencanaan,Penetapan Prioritas,5
+p23,Kemampuan Perencanaan,Manajemen Waktu,4
+p23,Kemampuan Perencanaan,Antisipasi Risiko,5
+p23,Manajemen Brand,Penguasaan Konsep Dasar,3
+p23,Manajemen Brand,Penerapan pada Pekerjaan Harian,3
+p23,Manajemen Brand,Penanganan Kasus Kompleks,2
+p23,Manajemen Brand,Berbagi Pengetahuan ke Tim,3
+p23,Strategi Kampanye,Penguasaan Konsep Dasar,5
+p23,Strategi Kampanye,Penerapan pada Pekerjaan Harian,5
+p23,Strategi Kampanye,Penanganan Kasus Kompleks,5
+p23,Strategi Kampanye,Berbagi Pengetahuan ke Tim,5
+p23,Riset Pasar,Penguasaan Konsep Dasar,1
+p23,Riset Pasar,Penerapan pada Pekerjaan Harian,1
+p23,Riset Pasar,Penanganan Kasus Kompleks,2
+p23,Riset Pasar,Berbagi Pengetahuan ke Tim,1
+p24,Logika Berpikir,Berpikir Sistematis,3
+p24,Logika Berpikir,Berpikir Kritis,3
+p24,Logika Berpikir,Pemecahan Masalah,4
+p24,Logika Berpikir,Pengambilan Kesimpulan Logis,4
+p24,Daya Analisa,Identifikasi Pola,2
+p24,Daya Analisa,Analisis Sebab-Akibat,3
+p24,Daya Analisa,Sintesis Informasi,3
+p24,Daya Analisa,Evaluasi Alternatif,2
+p24,Kemampuan Numerikal,Ketepatan Hitung,2
+p24,Kemampuan Numerikal,Interpretasi Data Angka,2
+p24,Kemampuan Numerikal,Estimasi Cepat,4
+p24,Kemampuan verbal,Pemahaman Bacaan,3
+p24,Kemampuan verbal,Kejelasan Ekspresi Lisan,3
+p24,Kemampuan verbal,Kosakata & Tata Bahasa,3
+p24,Kerjasama,Kontribusi dalam Tim,5
+p24,Kerjasama,Resolusi Konflik,4
+p24,Kerjasama,Berbagi Informasi,4
+p24,Kerjasama,Dukungan ke Rekan Kerja,4
+p24,Fleksibilitas,Adaptasi Perubahan,4
+p24,Fleksibilitas,Keterbukaan pada Ide Baru,4
+p24,Fleksibilitas,Toleransi Ambiguitas,4
+p24,Eksperimen Pertumbuhan,Penguasaan Konsep Dasar,1
+p24,Eksperimen Pertumbuhan,Penerapan pada Pekerjaan Harian,1
+p24,Eksperimen Pertumbuhan,Penanganan Kasus Kompleks,2
+p24,Eksperimen Pertumbuhan,Berbagi Pengetahuan ke Tim,1
+p24,Optimasi Konversi,Penguasaan Konsep Dasar,2
+p24,Optimasi Konversi,Penerapan pada Pekerjaan Harian,2
+p24,Optimasi Konversi,Penanganan Kasus Kompleks,4
+p24,Optimasi Konversi,Berbagi Pengetahuan ke Tim,2
+p24,Analitik Digital,Penguasaan Fitur Inti,4
+p24,Analitik Digital,Pemakaian dalam Alur Kerja,4
+p24,Analitik Digital,Troubleshooting Mandiri,3
+p24,Analitik Digital,Optimasi & Otomasi,5
+p25,Kemampuan verbal,Pemahaman Bacaan,4
+p25,Kemampuan verbal,Kejelasan Ekspresi Lisan,5
+p25,Kemampuan verbal,Kosakata & Tata Bahasa,5
+p25,Fleksibilitas,Adaptasi Perubahan,3
+p25,Fleksibilitas,Keterbukaan pada Ide Baru,3
+p25,Fleksibilitas,Toleransi Ambiguitas,2
+p25,Daya Analisa,Identifikasi Pola,4
+p25,Daya Analisa,Analisis Sebab-Akibat,4
+p25,Daya Analisa,Sintesis Informasi,4
+p25,Daya Analisa,Evaluasi Alternatif,4
+p25,Kerjasama,Kontribusi dalam Tim,4
+p25,Kerjasama,Resolusi Konflik,5
+p25,Kerjasama,Berbagi Informasi,5
+p25,Kerjasama,Dukungan ke Rekan Kerja,5
+p25,Keterampilan Interpersonal,Mendengarkan Aktif,3
+p25,Keterampilan Interpersonal,Empati,3
+p25,Keterampilan Interpersonal,Membangun Hubungan Kerja,3
+p25,Kemampuan Perencanaan,Penetapan Prioritas,4
+p25,Kemampuan Perencanaan,Manajemen Waktu,3
+p25,Kemampuan Perencanaan,Antisipasi Risiko,2
+p25,Strategi Brand,Penguasaan Konsep Dasar,3
+p25,Strategi Brand,Penerapan pada Pekerjaan Harian,3
+p25,Strategi Brand,Penanganan Kasus Kompleks,3
+p25,Strategi Brand,Berbagi Pengetahuan ke Tim,3
+p25,Riset Pasar,Penguasaan Konsep Dasar,3
+p25,Riset Pasar,Penerapan pada Pekerjaan Harian,3
+p25,Riset Pasar,Penanganan Kasus Kompleks,3
+p25,Riset Pasar,Berbagi Pengetahuan ke Tim,3
+p25,Narasi & Positioning,Penguasaan Konsep Dasar,3
+p25,Narasi & Positioning,Penerapan pada Pekerjaan Harian,3
+p25,Narasi & Positioning,Penanganan Kasus Kompleks,3
+p25,Narasi & Positioning,Berbagi Pengetahuan ke Tim,3
+p26,Leadership,Pengambilan Keputusan,4
+p26,Leadership,Memotivasi Tim,4
+p26,Leadership,Delegasi Tugas,4
+p26,Leadership,Tanggung Jawab atas Hasil,4
+p26,Kemampuan Perencanaan,Penetapan Prioritas,3
+p26,Kemampuan Perencanaan,Manajemen Waktu,2
+p26,Kemampuan Perencanaan,Antisipasi Risiko,4
+p26,Daya Analisa,Identifikasi Pola,5
+p26,Daya Analisa,Analisis Sebab-Akibat,4
+p26,Daya Analisa,Sintesis Informasi,4
+p26,Daya Analisa,Evaluasi Alternatif,5
+p26,Keterampilan Interpersonal,Mendengarkan Aktif,5
+p26,Keterampilan Interpersonal,Empati,5
+p26,Keterampilan Interpersonal,Membangun Hubungan Kerja,5
+p26,Kemampuan verbal,Pemahaman Bacaan,5
+p26,Kemampuan verbal,Kejelasan Ekspresi Lisan,5
+p26,Kemampuan verbal,Kosakata & Tata Bahasa,5
+p26,Kerjasama,Kontribusi dalam Tim,2
+p26,Kerjasama,Resolusi Konflik,3
+p26,Kerjasama,Berbagi Informasi,3
+p26,Kerjasama,Dukungan ke Rekan Kerja,2
+p26,Strategi Pendapatan,Penguasaan Konsep Dasar,5
+p26,Strategi Pendapatan,Penerapan pada Pekerjaan Harian,5
+p26,Strategi Pendapatan,Penanganan Kasus Kompleks,5
+p26,Strategi Pendapatan,Berbagi Pengetahuan ke Tim,5
+p26,Manajemen Pipeline,Penguasaan Konsep Dasar,4
+p26,Manajemen Pipeline,Penerapan pada Pekerjaan Harian,4
+p26,Manajemen Pipeline,Penanganan Kasus Kompleks,5
+p26,Manajemen Pipeline,Berbagi Pengetahuan ke Tim,4
+p26,Penetapan Harga,Penguasaan Konsep Dasar,5
+p26,Penetapan Harga,Penerapan pada Pekerjaan Harian,5
+p26,Penetapan Harga,Penanganan Kasus Kompleks,3
+p26,Penetapan Harga,Berbagi Pengetahuan ke Tim,5
+p27,Kemampuan verbal,Pemahaman Bacaan,4
+p27,Kemampuan verbal,Kejelasan Ekspresi Lisan,4
+p27,Kemampuan verbal,Kosakata & Tata Bahasa,4
+p27,Fleksibilitas,Adaptasi Perubahan,4
+p27,Fleksibilitas,Keterbukaan pada Ide Baru,4
+p27,Fleksibilitas,Toleransi Ambiguitas,4
+p27,Daya Analisa,Identifikasi Pola,3
+p27,Daya Analisa,Analisis Sebab-Akibat,5
+p27,Daya Analisa,Sintesis Informasi,5
+p27,Daya Analisa,Evaluasi Alternatif,3
+p27,Kerjasama,Kontribusi dalam Tim,4
+p27,Kerjasama,Resolusi Konflik,2
+p27,Kerjasama,Berbagi Informasi,2
+p27,Kerjasama,Dukungan ke Rekan Kerja,2
+p27,Keterampilan Interpersonal,Mendengarkan Aktif,5
+p27,Keterampilan Interpersonal,Empati,5
+p27,Keterampilan Interpersonal,Membangun Hubungan Kerja,5
+p27,Kemampuan Perencanaan,Penetapan Prioritas,3
+p27,Kemampuan Perencanaan,Manajemen Waktu,4
+p27,Kemampuan Perencanaan,Antisipasi Risiko,4
+p27,Arahan Kreatif,Penguasaan Konsep Dasar,4
+p27,Arahan Kreatif,Penerapan pada Pekerjaan Harian,4
+p27,Arahan Kreatif,Penanganan Kasus Kompleks,5
+p27,Arahan Kreatif,Berbagi Pengetahuan ke Tim,4
+p27,Storytelling Visual,Penguasaan Konsep Dasar,2
+p27,Storytelling Visual,Penerapan pada Pekerjaan Harian,2
+p27,Storytelling Visual,Penanganan Kasus Kompleks,4
+p27,Storytelling Visual,Berbagi Pengetahuan ke Tim,2
+p27,Manajemen Produksi,Penguasaan Fitur Inti,5
+p27,Manajemen Produksi,Pemakaian dalam Alur Kerja,5
+p27,Manajemen Produksi,Troubleshooting Mandiri,4
+p27,Manajemen Produksi,Optimasi & Otomasi,4
+p28,Logika Berpikir,Berpikir Sistematis,3
+p28,Logika Berpikir,Berpikir Kritis,3
+p28,Logika Berpikir,Pemecahan Masalah,2
+p28,Logika Berpikir,Pengambilan Kesimpulan Logis,2
+p28,Daya Analisa,Identifikasi Pola,1
+p28,Daya Analisa,Analisis Sebab-Akibat,1
+p28,Daya Analisa,Sintesis Informasi,1
+p28,Daya Analisa,Evaluasi Alternatif,1
+p28,Kerjasama,Kontribusi dalam Tim,2
+p28,Kerjasama,Resolusi Konflik,4
+p28,Kerjasama,Berbagi Informasi,4
+p28,Kerjasama,Dukungan ke Rekan Kerja,3
+p28,Fleksibilitas,Adaptasi Perubahan,2
+p28,Fleksibilitas,Keterbukaan pada Ide Baru,2
+p28,Fleksibilitas,Toleransi Ambiguitas,1
+p28,Kemampuan Perencanaan,Penetapan Prioritas,4
+p28,Kemampuan Perencanaan,Manajemen Waktu,5
+p28,Kemampuan Perencanaan,Antisipasi Risiko,3
+p28,Kemampuan verbal,Pemahaman Bacaan,3
+p28,Kemampuan verbal,Kejelasan Ekspresi Lisan,2
+p28,Kemampuan verbal,Kosakata & Tata Bahasa,2
+p28,Arsitektur Sistem,Penguasaan Konsep Dasar,5
+p28,Arsitektur Sistem,Penerapan pada Pekerjaan Harian,5
+p28,Arsitektur Sistem,Penanganan Kasus Kompleks,3
+p28,Arsitektur Sistem,Berbagi Pengetahuan ke Tim,5
+p28,Desain Terdistribusi,Penguasaan Konsep Dasar,4
+p28,Desain Terdistribusi,Penerapan pada Pekerjaan Harian,4
+p28,Desain Terdistribusi,Penanganan Kasus Kompleks,4
+p28,Desain Terdistribusi,Berbagi Pengetahuan ke Tim,4
+p28,Technical Roadmap,Penguasaan Konsep Dasar,5
+p28,Technical Roadmap,Penerapan pada Pekerjaan Harian,5
+p28,Technical Roadmap,Penanganan Kasus Kompleks,3
+p28,Technical Roadmap,Berbagi Pengetahuan ke Tim,5
+p28,Cloud Infrastructure,Penguasaan Fitur Inti,4
+p28,Cloud Infrastructure,Pemakaian dalam Alur Kerja,4
+p28,Cloud Infrastructure,Troubleshooting Mandiri,3
+p28,Cloud Infrastructure,Optimasi & Otomasi,3
+p28,Observability,Penguasaan Fitur Inti,4
+p28,Observability,Pemakaian dalam Alur Kerja,4
+p28,Observability,Troubleshooting Mandiri,3
+p28,Observability,Optimasi & Otomasi,5
+p29,Logika Berpikir,Berpikir Sistematis,3
+p29,Logika Berpikir,Berpikir Kritis,3
+p29,Logika Berpikir,Pemecahan Masalah,2
+p29,Logika Berpikir,Pengambilan Kesimpulan Logis,2
+p29,Daya Analisa,Identifikasi Pola,5
+p29,Daya Analisa,Analisis Sebab-Akibat,3
+p29,Daya Analisa,Sintesis Informasi,3
+p29,Daya Analisa,Evaluasi Alternatif,5
+p29,Kemampuan Numerikal,Ketepatan Hitung,2
+p29,Kemampuan Numerikal,Interpretasi Data Angka,2
+p29,Kemampuan Numerikal,Estimasi Cepat,1
+p29,Kemampuan verbal,Pemahaman Bacaan,3
+p29,Kemampuan verbal,Kejelasan Ekspresi Lisan,4
+p29,Kemampuan verbal,Kosakata & Tata Bahasa,4
+p29,Kerjasama,Kontribusi dalam Tim,5
+p29,Kerjasama,Resolusi Konflik,4
+p29,Kerjasama,Berbagi Informasi,4
+p29,Kerjasama,Dukungan ke Rekan Kerja,5
+p29,Fleksibilitas,Adaptasi Perubahan,3
+p29,Fleksibilitas,Keterbukaan pada Ide Baru,3
+p29,Fleksibilitas,Toleransi Ambiguitas,4
+p29,Perencanaan Strategis,Penguasaan Konsep Dasar,2
+p29,Perencanaan Strategis,Penerapan pada Pekerjaan Harian,2
+p29,Perencanaan Strategis,Penanganan Kasus Kompleks,4
+p29,Perencanaan Strategis,Berbagi Pengetahuan ke Tim,2
+p29,Analitik Operasional,Penguasaan Fitur Inti,4
+p29,Analitik Operasional,Pemakaian dalam Alur Kerja,4
+p29,Analitik Operasional,Troubleshooting Mandiri,5
+p29,Analitik Operasional,Optimasi & Otomasi,5
+p29,Pemodelan Skenario,Penguasaan Fitur Inti,2
+p29,Pemodelan Skenario,Pemakaian dalam Alur Kerja,2
+p29,Pemodelan Skenario,Troubleshooting Mandiri,3
+p29,Pemodelan Skenario,Optimasi & Otomasi,2
+p30,Logika Berpikir,Berpikir Sistematis,1
+p30,Logika Berpikir,Berpikir Kritis,1
+p30,Logika Berpikir,Pemecahan Masalah,3
+p30,Logika Berpikir,Pengambilan Kesimpulan Logis,3
+p30,Daya Analisa,Identifikasi Pola,1
+p30,Daya Analisa,Analisis Sebab-Akibat,2
+p30,Daya Analisa,Sintesis Informasi,2
+p30,Daya Analisa,Evaluasi Alternatif,1
+p30,Kemampuan Numerikal,Ketepatan Hitung,4
+p30,Kemampuan Numerikal,Interpretasi Data Angka,4
+p30,Kemampuan Numerikal,Estimasi Cepat,5
+p30,Kemampuan verbal,Pemahaman Bacaan,1
+p30,Kemampuan verbal,Kejelasan Ekspresi Lisan,1
+p30,Kemampuan verbal,Kosakata & Tata Bahasa,1
+p30,Kerjasama,Kontribusi dalam Tim,4
+p30,Kerjasama,Resolusi Konflik,2
+p30,Kerjasama,Berbagi Informasi,2
+p30,Kerjasama,Dukungan ke Rekan Kerja,2
+p30,Fleksibilitas,Adaptasi Perubahan,1
+p30,Fleksibilitas,Keterbukaan pada Ide Baru,1
+p30,Fleksibilitas,Toleransi Ambiguitas,1
+p30,Eksperimen Pertumbuhan,Penguasaan Konsep Dasar,3
+p30,Eksperimen Pertumbuhan,Penerapan pada Pekerjaan Harian,3
+p30,Eksperimen Pertumbuhan,Penanganan Kasus Kompleks,5
+p30,Eksperimen Pertumbuhan,Berbagi Pengetahuan ke Tim,3
+p30,Analitik Digital,Penguasaan Fitur Inti,4
+p30,Analitik Digital,Pemakaian dalam Alur Kerja,4
+p30,Analitik Digital,Troubleshooting Mandiri,2
+p30,Analitik Digital,Optimasi & Otomasi,3
+p30,Optimasi Konversi,Penguasaan Konsep Dasar,4
+p30,Optimasi Konversi,Penerapan pada Pekerjaan Harian,4
+p30,Optimasi Konversi,Penanganan Kasus Kompleks,5
+p30,Optimasi Konversi,Berbagi Pengetahuan ke Tim,4
+p30,Otomasi Pemasaran,Penguasaan Fitur Inti,4
+p30,Otomasi Pemasaran,Pemakaian dalam Alur Kerja,4
+p30,Otomasi Pemasaran,Troubleshooting Mandiri,5
+p30,Otomasi Pemasaran,Optimasi & Otomasi,5
+p31,Leadership,Pengambilan Keputusan,4
+p31,Leadership,Memotivasi Tim,4
+p31,Leadership,Delegasi Tugas,5
+p31,Leadership,Tanggung Jawab atas Hasil,5
+p31,Kemampuan Perencanaan,Penetapan Prioritas,5
+p31,Kemampuan Perencanaan,Manajemen Waktu,5
+p31,Kemampuan Perencanaan,Antisipasi Risiko,4
+p31,Daya Analisa,Identifikasi Pola,2
+p31,Daya Analisa,Analisis Sebab-Akibat,2
+p31,Daya Analisa,Sintesis Informasi,2
+p31,Daya Analisa,Evaluasi Alternatif,2
+p31,Keterampilan Interpersonal,Mendengarkan Aktif,2
+p31,Keterampilan Interpersonal,Empati,2
+p31,Keterampilan Interpersonal,Membangun Hubungan Kerja,2
+p31,Kemampuan verbal,Pemahaman Bacaan,4
+p31,Kemampuan verbal,Kejelasan Ekspresi Lisan,3
+p31,Kemampuan verbal,Kosakata & Tata Bahasa,3
+p31,Kerjasama,Kontribusi dalam Tim,3
+p31,Kerjasama,Resolusi Konflik,5
+p31,Kerjasama,Berbagi Informasi,5
+p31,Kerjasama,Dukungan ke Rekan Kerja,4
+p31,Pelaporan Keuangan,Penguasaan Konsep Dasar,2
+p31,Pelaporan Keuangan,Penerapan pada Pekerjaan Harian,2
+p31,Pelaporan Keuangan,Penanganan Kasus Kompleks,3
+p31,Pelaporan Keuangan,Berbagi Pengetahuan ke Tim,2
+p31,Analisis Anggaran,Penguasaan Konsep Dasar,4
+p31,Analisis Anggaran,Penerapan pada Pekerjaan Harian,4
+p31,Analisis Anggaran,Penanganan Kasus Kompleks,4
+p31,Analisis Anggaran,Berbagi Pengetahuan ke Tim,4
+p31,Manajemen Kas,Penguasaan Konsep Dasar,5
+p31,Manajemen Kas,Penerapan pada Pekerjaan Harian,5
+p31,Manajemen Kas,Penanganan Kasus Kompleks,3
+p31,Manajemen Kas,Berbagi Pengetahuan ke Tim,5
+p31,Standar Akuntansi,Pemahaman Ketentuan,4
+p31,Standar Akuntansi,Penerapan pada Proses Kerja,5
+p31,Standar Akuntansi,Identifikasi Risiko Kepatuhan,4
+p31,Standar Akuntansi,Dokumentasi & Pelaporan,4
+p32,Leadership,Pengambilan Keputusan,5
+p32,Leadership,Memotivasi Tim,5
+p32,Leadership,Delegasi Tugas,5
+p32,Leadership,Tanggung Jawab atas Hasil,5
+p32,Kemampuan Perencanaan,Penetapan Prioritas,5
+p32,Kemampuan Perencanaan,Manajemen Waktu,4
+p32,Kemampuan Perencanaan,Antisipasi Risiko,5
+p32,Daya Analisa,Identifikasi Pola,5
+p32,Daya Analisa,Analisis Sebab-Akibat,3
+p32,Daya Analisa,Sintesis Informasi,3
+p32,Daya Analisa,Evaluasi Alternatif,5
+p32,Keterampilan Interpersonal,Mendengarkan Aktif,3
+p32,Keterampilan Interpersonal,Empati,3
+p32,Keterampilan Interpersonal,Membangun Hubungan Kerja,4
+p32,Kemampuan verbal,Pemahaman Bacaan,3
+p32,Kemampuan verbal,Kejelasan Ekspresi Lisan,4
+p32,Kemampuan verbal,Kosakata & Tata Bahasa,4
+p32,Kerjasama,Kontribusi dalam Tim,5
+p32,Kerjasama,Resolusi Konflik,4
+p32,Kerjasama,Berbagi Informasi,4
+p32,Kerjasama,Dukungan ke Rekan Kerja,5
+p32,Manajemen Rantai Pasok,Penguasaan Konsep Dasar,4
+p32,Manajemen Rantai Pasok,Penerapan pada Pekerjaan Harian,4
+p32,Manajemen Rantai Pasok,Penanganan Kasus Kompleks,5
+p32,Manajemen Rantai Pasok,Berbagi Pengetahuan ke Tim,4
+p32,Negosiasi Pengadaan,Penguasaan Konsep Dasar,5
+p32,Negosiasi Pengadaan,Penerapan pada Pekerjaan Harian,5
+p32,Negosiasi Pengadaan,Penanganan Kasus Kompleks,5
+p32,Negosiasi Pengadaan,Berbagi Pengetahuan ke Tim,5
+p32,Perencanaan Inventori,Penguasaan Konsep Dasar,5
+p32,Perencanaan Inventori,Penerapan pada Pekerjaan Harian,5
+p32,Perencanaan Inventori,Penanganan Kasus Kompleks,5
+p32,Perencanaan Inventori,Berbagi Pengetahuan ke Tim,5
+p32,Sistem ERP,Penguasaan Fitur Inti,4
+p32,Sistem ERP,Pemakaian dalam Alur Kerja,4
+p32,Sistem ERP,Troubleshooting Mandiri,5
+p32,Sistem ERP,Optimasi & Otomasi,4
+p33,Kemampuan verbal,Pemahaman Bacaan,3
+p33,Kemampuan verbal,Kejelasan Ekspresi Lisan,3
+p33,Kemampuan verbal,Kosakata & Tata Bahasa,3
+p33,Fleksibilitas,Adaptasi Perubahan,4
+p33,Fleksibilitas,Keterbukaan pada Ide Baru,4
+p33,Fleksibilitas,Toleransi Ambiguitas,4
+p33,Daya Analisa,Identifikasi Pola,2
+p33,Daya Analisa,Analisis Sebab-Akibat,3
+p33,Daya Analisa,Sintesis Informasi,3
+p33,Daya Analisa,Evaluasi Alternatif,2
+p33,Kerjasama,Kontribusi dalam Tim,5
+p33,Kerjasama,Resolusi Konflik,4
+p33,Kerjasama,Berbagi Informasi,4
+p33,Kerjasama,Dukungan ke Rekan Kerja,4
+p33,Keterampilan Interpersonal,Mendengarkan Aktif,5
+p33,Keterampilan Interpersonal,Empati,5
+p33,Keterampilan Interpersonal,Membangun Hubungan Kerja,4
+p33,Kemampuan Perencanaan,Penetapan Prioritas,1
+p33,Kemampuan Perencanaan,Manajemen Waktu,3
+p33,Kemampuan Perencanaan,Antisipasi Risiko,3
+p33,Penulisan Konten,Penguasaan Konsep Dasar,4
+p33,Penulisan Konten,Penerapan pada Pekerjaan Harian,4
+p33,Penulisan Konten,Penanganan Kasus Kompleks,4
+p33,Penulisan Konten,Berbagi Pengetahuan ke Tim,4
+p33,Produksi Visual,Penguasaan Konsep Dasar,2
+p33,Produksi Visual,Penerapan pada Pekerjaan Harian,2
+p33,Produksi Visual,Penanganan Kasus Kompleks,4
+p33,Produksi Visual,Berbagi Pengetahuan ke Tim,2
+p33,SEO,Penguasaan Fitur Inti,3
+p33,SEO,Pemakaian dalam Alur Kerja,3
+p33,SEO,Troubleshooting Mandiri,5
+p33,SEO,Optimasi & Otomasi,3
+p33,Analitik Digital,Penguasaan Fitur Inti,4
+p33,Analitik Digital,Pemakaian dalam Alur Kerja,4
+p33,Analitik Digital,Troubleshooting Mandiri,3
+p33,Analitik Digital,Optimasi & Otomasi,5

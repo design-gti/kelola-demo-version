@@ -3,64 +3,14 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavLink, UnstyledButton, Text, Tooltip } from "@mantine/core";
-import {
-  Home,
-  BarChart2,
-  Network,
-  FileText,
-  User,
-  Map,
-  Users,
-  ChevronDown,
-  ArrowRight,
-  ArrowLeft,
-  Briefcase,
-  Percent,
-  Shield,
-  History,
-  UserCog,
-} from "lucide-react";
+import { Home, ChevronDown, ArrowRight, ArrowLeft, UserCog } from "lucide-react";
+// Daftar menu tinggal di satu tempat: header memakainya untuk menentukan judul
+// halaman, jadi kalau disalin di sini keduanya bisa berbeda tanpa ketahuan.
+import { ADMIN_ITEMS, NAV_ITEMS } from "@/lib/nav";
 // Ikon buka/tutup rail diambil dari Tabler — itu set ikon yang dipakai Prodigy
 // (@talentlytica/prodigy meng-import @tabler/icons-react), jadi bentuknya sama
 // dengan yang dipakai produk lain di design system ini.
 import { IconLayoutSidebarLeftCollapse, IconLayoutSidebarLeftExpand } from "@tabler/icons-react";
-
-const NAV_ITEMS = [
-  { label: "Beranda", href: "/", icon: Home },
-  { label: "iProfile", href: "/iprofile", icon: User },
-  { label: "Visibility Map", href: "/vismap", icon: Network },
-  { label: "Talent Decision", href: "/tdp-view", icon: BarChart2 },
-  { label: "Talent Mapping", href: "/talent-mapping", icon: Map },
-  { label: "Team Profile", href: "/team-profile", icon: Users },
-  { label: "IDP", href: "/idp", icon: FileText },
-];
-
-/**
- * Menu mode Admin Settings. Halamannya masih rangka kosong (lihat
- * src/app/admin/*), tapi route-nya sudah nyata supaya item-item ini jadi link
- * betulan — state aktifnya ikut URL, bukan state lokal yang hilang saat reload.
- *
- * "Base Management" tidak punya href sendiri: ia cuma pembungkus, yang bisa
- * dibuka adalah anak-anaknya.
- */
-type AdminChild = { label: string; href: string; icon: typeof Home };
-type AdminItem = { id: string; label: string; icon: typeof Home; href?: string; children?: AdminChild[] };
-const ADMIN_ITEMS: AdminItem[] = [
-  {
-    id: "base-management",
-    label: "Base Management",
-    icon: Briefcase,
-    children: [
-      { label: "Aspect", href: "/admin/aspect", icon: Briefcase },
-      { label: "Job and Position", href: "/admin/job-position", icon: Percent },
-      { label: "Employee", href: "/admin/employee", icon: Users },
-    ],
-  },
-  { id: "profile-data", label: "Profile Data", href: "/admin/profile-data", icon: FileText },
-  { id: "criteria", label: "Criteria", href: "/admin/criteria", icon: Percent },
-  { id: "role-access", label: "Role Access", href: "/admin/role-access", icon: Shield },
-  { id: "activity-log", label: "Activity Log", href: "/admin/activity-log", icon: History },
-];
 
 /**
  * Rail navigasi kiri.

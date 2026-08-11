@@ -8,10 +8,34 @@ import { dirname, join } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (p) => readFileSync(join(ROOT, p), "utf8").replace(/^﻿/, "");
+/**
+ * Pemisah baris CSV yang mengerti tanda kutip — perlu sejak
+ * soft_competency_aspects.csv punya kolom `description` yang isinya
+ * mengandung koma; `split(",")` polos akan memotongnya jadi kolom palsu.
+ */
+function parseCSVLine(line) {
+  const out = [];
+  let cur = "";
+  let quoted = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (quoted) {
+      if (ch === '"') {
+        if (line[i + 1] === '"') { cur += '"'; i++; }
+        else quoted = false;
+      } else cur += ch;
+    } else if (ch === '"') quoted = true;
+    else if (ch === ",") { out.push(cur); cur = ""; }
+    else cur += ch;
+  }
+  out.push(cur);
+  return out.map(v => v.trim());
+}
+
 function parseCSV(t) {
   const lines = t.split(/\r?\n/).filter(l => l.trim());
-  const h = lines[0].split(",").map(s => s.trim());
-  return lines.slice(1).map(l => { const v = l.split(","); return h.reduce((o, k, i) => ((o[k] = (v[i] ?? "").trim()), o), {}); });
+  const h = parseCSVLine(lines[0]);
+  return lines.slice(1).map(l => { const v = parseCSVLine(l); return h.reduce((o, k, i) => ((o[k] = v[i] ?? ""), o), {}); });
 }
 const rows = parseCSV(read("public/data/participants.csv"));
 const byId = Object.fromEntries(rows.map(r => [r.id, r]));
@@ -24,15 +48,17 @@ const CITIES = [["Jakarta", "DKI Jakarta"], ["Surabaya", "Jawa Timur"], ["Bandun
 const EDU = ["S1 Teknik Informatika", "S1 Manajemen", "S2 Business Administration", "S1 Psikologi", "S2 Data Science", "S1 Akuntansi"];
 const MON = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
 const BLOOD = ["A", "B", "AB", "O"];
-// Shared aspect list — competency & potency tabs measure the same aspects, different scores.
-// Daftar & pengelompokannya datang dari CSV (bukan hardcode) supaya kategori bisa
-// diubah tanpa menyentuh kode, sama polanya dengan hard competency.
-// Urutan baris CSV dipakai apa adanya: list view merender header kategori sambil
-// menyusuri urutan itu, jadi baris satu kategori harus berurutan.
-const ASPECTS = parseCSV(read("public/data/soft_competency_aspects.csv")).map((r) => ({
-  label: r.aspect,
-  category: r.category || "Uncategorized",
-}));
+// Aspek untuk tab Potensi. Sumbernya katalog tunggal aspects.csv, disaring ke
+// kategori General — potensi memang diukur dengan aspek umum, bukan aspek teknis
+// yang beda-beda tiap posisi. Aspek kompetensi sendiri sudah pindah ke
+// scripts/gen-aspects.mjs (per posisi, standar per Job).
+const ASPECTS = parseCSV(read("public/data/aspects.csv"))
+  .filter((r) => r.category === "General")
+  .map((r) => ({
+    label: r.aspect,
+    category: r.category,
+    description: r.description || "",
+  }));
 const IDP_COMPS = ["Problem solving", "critical thinking", "strategic thinking", "communication", "leadership", "analytical thinking", "planning", "collaboration"];
 // Key Behaviour (KB) — tiap aspek kompetensi/potensi dipecah jadi 3-4 indikator
 // perilaku yang lebih spesifik, masing-masing dengan skornya sendiri (skala 5).
@@ -138,5 +164,10 @@ rows.forEach((r, idx) => {
   };
 });
 writeFileSync(join(ROOT, "public/data/iprofile-data.json"), JSON.stringify(out, null, 2) + "\n");
+
+// Katalog aspek untuk halaman admin sekarang dihasilkan scripts/gen-aspects.mjs
+// (src/data/model/aspects.generated.ts), jadi generator ini tidak lagi menulis
+// katalog sendiri.
+
 console.log("iprofile-data.json: " + Object.keys(out).length + " participants");
 console.log("sample p05:", JSON.stringify(out.p05).slice(0, 240));

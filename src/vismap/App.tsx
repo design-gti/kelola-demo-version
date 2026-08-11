@@ -14,7 +14,7 @@ import { buildOrgChart, type Employee, type OrgChartNode } from "./data/orgChart
 import { dataManager } from "./data/dataManager";
 import { loadEmployeesFromCanonical } from "./data/canonicalAdapter";
 import { ChevronDown, ChevronRight, ZoomIn, ZoomOut, Maximize2, Table as TableIcon, Network, Search, Settings, TrendingUp, Plus, Shuffle } from "lucide-react";
-import AppBreadcrumb from "@/components/Breadcrumb";
+import { HEADER_HEIGHT } from "@/components/AppHeader";
 import { Button } from "./components/ui/button";
 import { Switch } from "./components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
@@ -1103,7 +1103,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
           tab={v2Tab}
           activeLayers={v2Layers}
           onToggleLayer={toggleV2Layer}
-          top={108}
+          top={HEADER_HEIGHT + 108}
         />
       )}
 
@@ -1145,8 +1145,10 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
           <div 
             ref={searchInputRef}
             data-no-drag
-            className="fixed top-20 z-50 flex gap-0"
-            style={{ left: "calc(var(--sidebar-w, 220px) + 4px)" }}
+            className="fixed z-50 flex gap-0"
+            // Menempel tepat di bawah bilah atas Vismap, yang kini mulai di
+            // bawah header aplikasi.
+            style={{ left: "calc(var(--sidebar-w, 220px) + 4px)", top: HEADER_HEIGHT + 56 }}
           >
             {/* Search Input */}
             <div className="bg-[rgba(255,255,255,0)] rounded-lg p-3">
@@ -1293,10 +1295,11 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
       {/* Combined Top Bar - Tab Filter + View Mode Toggle */}
       <div
         data-no-drag
-        className="fixed top-0 right-0 bg-white shadow-lg z-50 px-4 flex flex-col"
-        style={{ left: "var(--sidebar-w, 220px)" }}
+        className="fixed right-0 bg-white shadow-lg z-50 px-4 flex flex-col"
+        // Digeser turun setinggi header aplikasi: bilah ini `fixed`, jadi kalau
+        // tetap di top:0 ia menutupi header dan judul menunya tidak terlihat.
+        style={{ left: "var(--sidebar-w, 220px)", top: HEADER_HEIGHT }}
       >
-        <AppBreadcrumb noPadding items={[{ label: "Vismap" }]} />
         {/* Tab Filter row */}
         <div className="flex items-center justify-between py-2">
         {vismapVersion === 'v2' ? (
@@ -1484,7 +1487,8 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
           }}
         />
       )}
-      <div className="absolute inset-0" style={{ paddingTop: '64px' }}>
+      {/* Kanvas dimulai di bawah header aplikasi + bilah atas Vismap. */}
+      <div className="absolute inset-0" style={{ paddingTop: 64 }}>
         {viewMode === 'chart' ? (
           <div 
             ref={contentRef}

@@ -27,7 +27,7 @@ export function EditJobModal({
   onSubmit: (value: JobForm) => void;
 }) {
   return (
-    <Modal opened={opened} onClose={onClose} title="Edit Job" size={520} padding="lg" centered>
+    <Modal opened={opened} onClose={onClose} title="Edit Job" size={520} padding="lg">
       {/* Isinya baru dipasang saat modal terbuka, jadi state formulir lahir
           ulang tiap kali dibuka — tidak perlu di-reset lewat effect, dan sisa
           ketikan sesi sebelumnya tidak ikut terbawa. */}

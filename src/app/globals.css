@@ -77,6 +77,44 @@ html, body {
   outline: none;
 }
 
+/* Judul Modal & Drawer untuk SELURUH aplikasi.
+
+   Sama seperti Tabs: tema Prodigy menyetel Modal (radius, centered) tapi tidak
+   judulnya, jadi tiap layar menuliskan gaya judulnya sendiri — ada yang
+   <span style> dengan Open Sans 15px/700, ada yang <Text fw={700}>, ada yang
+   string polos yang jatuh ke bawaan Mantine. Tiga rupa untuk satu hal.
+   Spesifikasi di bawah ini yang berlaku; pemakaian cukup mengoper string. */
+.mantine-Modal-title,
+.mantine-Drawer-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #212529;
+}
+
+/* Tabs — tampilan tab untuk SELURUH aplikasi.
+
+   Paket @talentlytica/prodigy tidak menimpa komponen Tabs sama sekali (blok
+   `components`-nya hanya memuat Button, Input, Badge, Avatar, Alert, Anchor,
+   Card, Tooltip, ActionIcon, Menu, Modal, Table, SegmentedControl), jadi Tabs
+   selama ini jatuh ke gaya bawaan Mantine: bobot 400 dan label aktif abu.
+   Akibatnya setiap layar yang butuh tab menuliskan gayanya sendiri dan
+   hasilnya beda-beda. Spesifikasi di bawah ini mengikuti tab yang sudah
+   dipakai di Talent Mapping, dan menjadi satu-satunya sumber gaya tab.
+
+   Ditulis sebagai CSS, bukan prop `styles` di tema, karena warna label aktif
+   bergantung pada atribut `data-active` — selector semacam itu tidak bisa
+   diungkapkan lewat inline style. */
+.mantine-Tabs-tab {
+  font-weight: 600;
+  color: #adb5bd;
+}
+.mantine-Tabs-tab:hover {
+  color: var(--mantine-color-primary-5);
+}
+.mantine-Tabs-tab[data-active] {
+  color: var(--mantine-color-primary-5);
+}
+
 /* Sidebar rail — latar item nav (diam / hover / aktif).
    Ditulis di sini, bukan lewat prop `styles` Mantine: prop itu menghasilkan
    inline style, jadi selector semu seperti :hover diabaikan diam-diam dan

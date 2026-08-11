@@ -1,0 +1,329 @@
+position,aspect
+Head of Engineering,Leadership
+Head of Engineering,Kemampuan Perencanaan
+Head of Engineering,Daya Analisa
+Head of Engineering,Keterampilan Interpersonal
+Head of Engineering,Kemampuan verbal
+Head of Engineering,Kerjasama
+Head of Engineering,Arsitektur Sistem
+Head of Engineering,Code Review
+Head of Engineering,Keamanan Aplikasi
+Head of Engineering,CI/CD
+Head of Engineering,Cloud Infrastructure
+Head of Engineering,Observability
+Senior Engineer,Logika Berpikir
+Senior Engineer,Daya Analisa
+Senior Engineer,Kerjasama
+Senior Engineer,Fleksibilitas
+Senior Engineer,Kemampuan Perencanaan
+Senior Engineer,Kemampuan verbal
+Senior Engineer,Kualitas Kode
+Senior Engineer,Pengujian Otomatis
+Senior Engineer,Debugging
+Senior Engineer,Version Control
+Frontend Lead,Logika Berpikir
+Frontend Lead,Daya Analisa
+Frontend Lead,Kerjasama
+Frontend Lead,Fleksibilitas
+Frontend Lead,Kemampuan Perencanaan
+Frontend Lead,Kemampuan verbal
+Frontend Lead,Arsitektur Komponen
+Frontend Lead,State Management
+Frontend Lead,Aksesibilitas
+Frontend Lead,Performa Web
+Frontend Lead,Design System
+Backend Lead,Logika Berpikir
+Backend Lead,Daya Analisa
+Backend Lead,Kerjasama
+Backend Lead,Fleksibilitas
+Backend Lead,Kemampuan Perencanaan
+Backend Lead,Kemampuan verbal
+Backend Lead,Desain API
+Backend Lead,Basis Data
+Backend Lead,Optimasi Query
+Backend Lead,Message Queue
+Backend Lead,Containerization
+Chief Executive Officer,Leadership
+Chief Executive Officer,Kemampuan Perencanaan
+Chief Executive Officer,Daya Analisa
+Chief Executive Officer,Keterampilan Interpersonal
+Chief Executive Officer,Kemampuan verbal
+Chief Executive Officer,Kerjasama
+Chief Executive Officer,Strategi Korporat
+Chief Executive Officer,Alokasi Modal
+Chief Executive Officer,Tata Kelola
+Chief Strategy Officer,Leadership
+Chief Strategy Officer,Kemampuan Perencanaan
+Chief Strategy Officer,Daya Analisa
+Chief Strategy Officer,Keterampilan Interpersonal
+Chief Strategy Officer,Kemampuan verbal
+Chief Strategy Officer,Kerjasama
+Chief Strategy Officer,Strategi Korporat
+Chief Strategy Officer,Analisis Kompetitif
+Chief Strategy Officer,Pemodelan Skenario
+VP Corporate Strategy,Leadership
+VP Corporate Strategy,Kemampuan Perencanaan
+VP Corporate Strategy,Daya Analisa
+VP Corporate Strategy,Keterampilan Interpersonal
+VP Corporate Strategy,Kemampuan verbal
+VP Corporate Strategy,Kerjasama
+VP Corporate Strategy,Strategi Korporat
+VP Corporate Strategy,Analisis Kompetitif
+VP Corporate Strategy,Pemodelan Skenario
+Head of Governance,Leadership
+Head of Governance,Kemampuan Perencanaan
+Head of Governance,Daya Analisa
+Head of Governance,Keterampilan Interpersonal
+Head of Governance,Kemampuan verbal
+Head of Governance,Kerjasama
+Head of Governance,Manajemen Risiko
+Head of Governance,Kepatuhan Regulasi
+Head of Governance,Audit Internal
+Head of Finance,Leadership
+Head of Finance,Kemampuan Perencanaan
+Head of Finance,Daya Analisa
+Head of Finance,Keterampilan Interpersonal
+Head of Finance,Kemampuan verbal
+Head of Finance,Kerjasama
+Head of Finance,Pelaporan Keuangan
+Head of Finance,Analisis Anggaran
+Head of Finance,Manajemen Risiko
+Head of Finance,Kepatuhan Pajak
+Head of Finance,Standar Akuntansi
+Senior Finance Analyst,Logika Berpikir
+Senior Finance Analyst,Daya Analisa
+Senior Finance Analyst,Kemampuan Numerikal
+Senior Finance Analyst,Kemampuan verbal
+Senior Finance Analyst,Kerjasama
+Senior Finance Analyst,Fleksibilitas
+Senior Finance Analyst,Pemodelan Keuangan
+Senior Finance Analyst,Analisis Varians
+Senior Finance Analyst,Rekonsiliasi
+Senior Finance Analyst,Spreadsheet Lanjutan
+Senior Finance Analyst,Standar Akuntansi
+Finance Analyst,Logika Berpikir
+Finance Analyst,Daya Analisa
+Finance Analyst,Kemampuan Numerikal
+Finance Analyst,Kemampuan verbal
+Finance Analyst,Kerjasama
+Finance Analyst,Fleksibilitas
+Finance Analyst,Pemodelan Keuangan
+Finance Analyst,Rekonsiliasi
+Finance Analyst,Analisis Varians
+Finance Analyst,Spreadsheet Lanjutan
+Finance Analyst,Standar Akuntansi
+Controller,Logika Berpikir
+Controller,Daya Analisa
+Controller,Kemampuan Numerikal
+Controller,Kemampuan verbal
+Controller,Kerjasama
+Controller,Fleksibilitas
+Controller,Pengendalian Internal
+Controller,Pelaporan Keuangan
+Controller,Audit Kepatuhan
+Controller,Standar Akuntansi
+HR Business Partner,Keterampilan Interpersonal
+HR Business Partner,Kerjasama
+HR Business Partner,Kemampuan verbal
+HR Business Partner,Fleksibilitas
+HR Business Partner,Kemampuan Perencanaan
+HR Business Partner,Daya Analisa
+HR Business Partner,Manajemen Talenta
+HR Business Partner,Perencanaan SDM
+HR Business Partner,Hubungan Industrial
+HR Business Partner,HRIS
+HR Manager,Keterampilan Interpersonal
+HR Manager,Kerjasama
+HR Manager,Kemampuan verbal
+HR Manager,Fleksibilitas
+HR Manager,Kemampuan Perencanaan
+HR Manager,Daya Analisa
+HR Manager,Manajemen Kinerja
+HR Manager,Remunerasi
+HR Manager,Hubungan Industrial
+HR Manager,HRIS
+Talent Acquisition Lead,Keterampilan Interpersonal
+Talent Acquisition Lead,Kerjasama
+Talent Acquisition Lead,Kemampuan verbal
+Talent Acquisition Lead,Fleksibilitas
+Talent Acquisition Lead,Kemampuan Perencanaan
+Talent Acquisition Lead,Daya Analisa
+Talent Acquisition Lead,Sourcing Kandidat
+Talent Acquisition Lead,Teknik Wawancara
+Talent Acquisition Lead,Employer Branding
+Talent Acquisition Lead,ATS
+People Ops Specialist,Keterampilan Interpersonal
+People Ops Specialist,Kerjasama
+People Ops Specialist,Kemampuan verbal
+People Ops Specialist,Fleksibilitas
+People Ops Specialist,Kemampuan Perencanaan
+People Ops Specialist,Daya Analisa
+People Ops Specialist,Administrasi Personalia
+People Ops Specialist,Onboarding
+People Ops Specialist,Kepatuhan Ketenagakerjaan
+People Ops Specialist,HRIS
+VP Operations,Leadership
+VP Operations,Kemampuan Perencanaan
+VP Operations,Daya Analisa
+VP Operations,Keterampilan Interpersonal
+VP Operations,Kemampuan verbal
+VP Operations,Kerjasama
+VP Operations,Perencanaan Kapasitas
+VP Operations,Manajemen Rantai Pasok
+VP Operations,Kendali Mutu
+VP Operations,Analitik Operasional
+VP Operations,Keselamatan Kerja
+Operations Manager,Leadership
+Operations Manager,Kemampuan Perencanaan
+Operations Manager,Daya Analisa
+Operations Manager,Keterampilan Interpersonal
+Operations Manager,Kemampuan verbal
+Operations Manager,Kerjasama
+Operations Manager,Perencanaan Produksi
+Operations Manager,Kendali Mutu
+Operations Manager,Efisiensi Proses
+Operations Manager,Keselamatan Kerja
+Supply Chain Lead,Leadership
+Supply Chain Lead,Kemampuan Perencanaan
+Supply Chain Lead,Daya Analisa
+Supply Chain Lead,Keterampilan Interpersonal
+Supply Chain Lead,Kemampuan verbal
+Supply Chain Lead,Kerjasama
+Supply Chain Lead,Manajemen Rantai Pasok
+Supply Chain Lead,Manajemen Vendor
+Supply Chain Lead,Perencanaan Inventori
+Supply Chain Lead,Sistem ERP
+Operations Analyst,Logika Berpikir
+Operations Analyst,Daya Analisa
+Operations Analyst,Kemampuan Numerikal
+Operations Analyst,Kemampuan verbal
+Operations Analyst,Kerjasama
+Operations Analyst,Fleksibilitas
+Operations Analyst,Analitik Operasional
+Operations Analyst,Pemetaan Proses
+Operations Analyst,Spreadsheet Lanjutan
+Head of Marketing,Leadership
+Head of Marketing,Kemampuan Perencanaan
+Head of Marketing,Daya Analisa
+Head of Marketing,Keterampilan Interpersonal
+Head of Marketing,Kemampuan verbal
+Head of Marketing,Kerjasama
+Head of Marketing,Strategi Kampanye
+Head of Marketing,Riset Pasar
+Head of Marketing,Manajemen Brand
+Head of Marketing,Analitik Digital
+Head of Marketing,Otomasi Pemasaran
+Senior Marketing Manager,Kemampuan verbal
+Senior Marketing Manager,Fleksibilitas
+Senior Marketing Manager,Daya Analisa
+Senior Marketing Manager,Kerjasama
+Senior Marketing Manager,Keterampilan Interpersonal
+Senior Marketing Manager,Kemampuan Perencanaan
+Senior Marketing Manager,Strategi Kampanye
+Senior Marketing Manager,Riset Pasar
+Senior Marketing Manager,Analitik Digital
+Brand Manager,Kemampuan verbal
+Brand Manager,Fleksibilitas
+Brand Manager,Daya Analisa
+Brand Manager,Kerjasama
+Brand Manager,Keterampilan Interpersonal
+Brand Manager,Kemampuan Perencanaan
+Brand Manager,Manajemen Brand
+Brand Manager,Strategi Kampanye
+Brand Manager,Riset Pasar
+Growth Marketing Lead,Logika Berpikir
+Growth Marketing Lead,Daya Analisa
+Growth Marketing Lead,Kemampuan Numerikal
+Growth Marketing Lead,Kemampuan verbal
+Growth Marketing Lead,Kerjasama
+Growth Marketing Lead,Fleksibilitas
+Growth Marketing Lead,Eksperimen Pertumbuhan
+Growth Marketing Lead,Optimasi Konversi
+Growth Marketing Lead,Analitik Digital
+Senior Brand Strategist,Kemampuan verbal
+Senior Brand Strategist,Fleksibilitas
+Senior Brand Strategist,Daya Analisa
+Senior Brand Strategist,Kerjasama
+Senior Brand Strategist,Keterampilan Interpersonal
+Senior Brand Strategist,Kemampuan Perencanaan
+Senior Brand Strategist,Strategi Brand
+Senior Brand Strategist,Riset Pasar
+Senior Brand Strategist,Narasi & Positioning
+Chief Revenue Officer,Leadership
+Chief Revenue Officer,Kemampuan Perencanaan
+Chief Revenue Officer,Daya Analisa
+Chief Revenue Officer,Keterampilan Interpersonal
+Chief Revenue Officer,Kemampuan verbal
+Chief Revenue Officer,Kerjasama
+Chief Revenue Officer,Strategi Pendapatan
+Chief Revenue Officer,Manajemen Pipeline
+Chief Revenue Officer,Penetapan Harga
+Creative Director,Kemampuan verbal
+Creative Director,Fleksibilitas
+Creative Director,Daya Analisa
+Creative Director,Kerjasama
+Creative Director,Keterampilan Interpersonal
+Creative Director,Kemampuan Perencanaan
+Creative Director,Arahan Kreatif
+Creative Director,Storytelling Visual
+Creative Director,Manajemen Produksi
+Principal Engineer,Logika Berpikir
+Principal Engineer,Daya Analisa
+Principal Engineer,Kerjasama
+Principal Engineer,Fleksibilitas
+Principal Engineer,Kemampuan Perencanaan
+Principal Engineer,Kemampuan verbal
+Principal Engineer,Arsitektur Sistem
+Principal Engineer,Desain Terdistribusi
+Principal Engineer,Technical Roadmap
+Principal Engineer,Cloud Infrastructure
+Principal Engineer,Observability
+Operations Strategist,Logika Berpikir
+Operations Strategist,Daya Analisa
+Operations Strategist,Kemampuan Numerikal
+Operations Strategist,Kemampuan verbal
+Operations Strategist,Kerjasama
+Operations Strategist,Fleksibilitas
+Operations Strategist,Perencanaan Strategis
+Operations Strategist,Analitik Operasional
+Operations Strategist,Pemodelan Skenario
+Growth Marketing Manager,Logika Berpikir
+Growth Marketing Manager,Daya Analisa
+Growth Marketing Manager,Kemampuan Numerikal
+Growth Marketing Manager,Kemampuan verbal
+Growth Marketing Manager,Kerjasama
+Growth Marketing Manager,Fleksibilitas
+Growth Marketing Manager,Eksperimen Pertumbuhan
+Growth Marketing Manager,Analitik Digital
+Growth Marketing Manager,Optimasi Konversi
+Growth Marketing Manager,Otomasi Pemasaran
+Senior Finance Manager,Leadership
+Senior Finance Manager,Kemampuan Perencanaan
+Senior Finance Manager,Daya Analisa
+Senior Finance Manager,Keterampilan Interpersonal
+Senior Finance Manager,Kemampuan verbal
+Senior Finance Manager,Kerjasama
+Senior Finance Manager,Pelaporan Keuangan
+Senior Finance Manager,Analisis Anggaran
+Senior Finance Manager,Manajemen Kas
+Senior Finance Manager,Standar Akuntansi
+Supply Chain Manager,Leadership
+Supply Chain Manager,Kemampuan Perencanaan
+Supply Chain Manager,Daya Analisa
+Supply Chain Manager,Keterampilan Interpersonal
+Supply Chain Manager,Kemampuan verbal
+Supply Chain Manager,Kerjasama
+Supply Chain Manager,Manajemen Rantai Pasok
+Supply Chain Manager,Negosiasi Pengadaan
+Supply Chain Manager,Perencanaan Inventori
+Supply Chain Manager,Sistem ERP
+Digital Content Specialist,Kemampuan verbal
+Digital Content Specialist,Fleksibilitas
+Digital Content Specialist,Daya Analisa
+Digital Content Specialist,Kerjasama
+Digital Content Specialist,Keterampilan Interpersonal
+Digital Content Specialist,Kemampuan Perencanaan
+Digital Content Specialist,Penulisan Konten
+Digital Content Specialist,Produksi Visual
+Digital Content Specialist,SEO
+Digital Content Specialist,Analitik Digital

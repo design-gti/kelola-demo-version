@@ -1,40 +1,16 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ActionIcon, Button, NativeSelect, Switch, Table, Text, TextInput, Tooltip, UnstyledButton } from "@mantine/core";
 import { IconChevronUp, IconInfoCircle, IconPlus, IconSearch, IconTrash } from "@tabler/icons-react";
+import { ASPECT_CATALOG, STANDARDS_BY_JOB } from "@/data/model/aspects.generated";
 
 const ACCENT = "var(--mantine-color-primary-5)";
 const MAX_STANDARD = 5;
 /** Standar awal tiap aspek sebelum diatur. */
 const DEFAULT_STANDARD = 2;
 
-type Aspect = { label: string; category: string };
+type Aspect = { label: string; category: string; description: string };
 type Setting = { standard: number; mandatory: boolean };
-
-/**
- * Daftar aspek dibaca langsung dari CSV di /public saat komponen dipasang —
- * pola yang sama dengan iProfile membaca iprofile-data.json, jadi daftar
- * aspeknya bisa diubah tanpa build ulang dan tetap satu sumber dengan kartu
- * Score Aspect.
- */
-function useAspects() {
-  const [aspects, setAspects] = useState<Aspect[]>([]);
-  useEffect(() => {
-    fetch("/data/soft_competency_aspects.csv")
-      .then((r) => r.text())
-      .then((text) => {
-        const lines = text.split(/\r?\n/).filter((l) => l.trim());
-        setAspects(
-          lines.slice(1).map((line) => {
-            const [label, category] = line.split(",");
-            return { label: label.trim(), category: (category ?? "").trim() || "Uncategorized" };
-          }),
-        );
-      })
-      .catch(() => setAspects([]));
-  }, []);
-  return aspects;
-}
 
 /** Baris pemilih standar 1..5 — kotak yang terpilih disorot. */
 function StandardPicker({ value, onChange }: { value: number; onChange: (v: number) => void }) {
@@ -164,7 +140,7 @@ function CategorySection({
                   <Table.Tr key={aspect.label}>
                     <Table.Td>
                       <span className="flex items-center gap-[8px]">
-                        <Tooltip label="Penjelasan aspek belum diisi" position="top" withArrow>
+                        <Tooltip label={aspect.description || "Penjelasan aspek belum diisi"} position="top" withArrow>
                           <IconInfoCircle size={16} stroke={1.6} color="#adb5bd" />
                         </Tooltip>
                         <Text size="sm" c="#495057">
@@ -173,10 +149,8 @@ function CategorySection({
                       </span>
                     </Table.Td>
                     <Table.Td>
-                      {/* Deskripsi aspek belum ada di data mana pun — dikosongkan
-                          apa adanya daripada diisi teks karangan. */}
-                      <Text size="sm" c="#adb5bd">
-                        -
+                      <Text size="sm" c={aspect.description ? "#495057" : "#adb5bd"}>
+                        {aspect.description || "-"}
                       </Text>
                     </Table.Td>
                     <Table.Td>
@@ -239,16 +213,35 @@ function CategorySection({
  * Tab Standard: mengatur standar aspek untuk satu Job — berapa skor minimum
  * tiap aspek, dan apakah aspek itu wajib.
  *
- * Perubahannya hidup di state komponen saja. Belum ada tempat menyimpan standar
- * per Job (participants.csv tidak punya kolomnya), jadi nilai yang diubah akan
- * kembali ke awal saat halaman dimuat ulang.
+ * Di sinilah standar per Job diatur: aspek yang sama bisa punya standar berbeda
+ * antar Job, jadi daftar dan nilainya diambil dari standar milik Job ini, bukan
+ * dari katalog global.
+ *
+ * Perubahannya hidup di state komponen saja — hasil seed tidak bisa ditulis dari
+ * browser, jadi nilai yang diubah kembali ke awal saat halaman dimuat ulang.
  */
-export function StandardTab() {
-  const aspects = useAspects();
+export function StandardTab({ job }: { job: string }) {
+  // Katalognya modul TS, bukan fetch — siap sejak render pertama.
+  const standardsOfJob = useMemo(() => STANDARDS_BY_JOB[job] ?? {}, [job]);
+  const aspects = useMemo<Aspect[]>(
+    () =>
+      ASPECT_CATALOG.filter((a) => a.label in standardsOfJob).map((a) => ({
+        label: a.label,
+        category: a.category,
+        description: a.description,
+      })),
+    [standardsOfJob],
+  );
+  /** Nilai awal = standar Job hasil seed. */
+  const initial = useMemo<Record<string, Setting>>(() => {
+    const out: Record<string, Setting> = {};
+    for (const a of aspects) out[a.label] = { standard: standardsOfJob[a.label], mandatory: false };
+    return out;
+  }, [aspects, standardsOfJob]);
   /** Nilai yang sedang diedit. */
-  const [settings, setSettings] = useState<Record<string, Setting>>({});
+  const [settings, setSettings] = useState<Record<string, Setting>>(initial);
   /** Nilai terakhir yang disimpan — pembanding untuk mendeteksi perubahan & bahan Cancel. */
-  const [saved, setSaved] = useState<Record<string, Setting>>({});
+  const [saved, setSaved] = useState<Record<string, Setting>>(initial);
 
   const byCategory = useMemo(() => {
     const map = new Map<string, Aspect[]>();

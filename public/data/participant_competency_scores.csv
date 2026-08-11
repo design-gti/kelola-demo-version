@@ -1,0 +1,329 @@
+id,name,aspect,score
+p01,Jude Bellingham,Leadership,3
+p01,Jude Bellingham,Kemampuan Perencanaan,3
+p01,Jude Bellingham,Daya Analisa,4
+p01,Jude Bellingham,Keterampilan Interpersonal,5
+p01,Jude Bellingham,Kemampuan verbal,5
+p01,Jude Bellingham,Kerjasama,2
+p01,Jude Bellingham,Arsitektur Sistem,3
+p01,Jude Bellingham,Code Review,2
+p01,Jude Bellingham,Keamanan Aplikasi,3
+p01,Jude Bellingham,CI/CD,4
+p01,Jude Bellingham,Cloud Infrastructure,2
+p01,Jude Bellingham,Observability,3
+p02,Jamal Musiala,Logika Berpikir,5
+p02,Jamal Musiala,Daya Analisa,4
+p02,Jamal Musiala,Kerjasama,3
+p02,Jamal Musiala,Fleksibilitas,4
+p02,Jamal Musiala,Kemampuan Perencanaan,4
+p02,Jamal Musiala,Kemampuan verbal,5
+p02,Jamal Musiala,Kualitas Kode,4
+p02,Jamal Musiala,Pengujian Otomatis,4
+p02,Jamal Musiala,Debugging,4
+p02,Jamal Musiala,Version Control,5
+p03,Florian Wirtz,Logika Berpikir,2
+p03,Florian Wirtz,Daya Analisa,1
+p03,Florian Wirtz,Kerjasama,3
+p03,Florian Wirtz,Fleksibilitas,1
+p03,Florian Wirtz,Kemampuan Perencanaan,4
+p03,Florian Wirtz,Kemampuan verbal,2
+p03,Florian Wirtz,Arsitektur Komponen,4
+p03,Florian Wirtz,State Management,4
+p03,Florian Wirtz,Aksesibilitas,2
+p03,Florian Wirtz,Performa Web,4
+p03,Florian Wirtz,Design System,5
+p04,Phil Foden,Logika Berpikir,3
+p04,Phil Foden,Daya Analisa,2
+p04,Phil Foden,Kerjasama,4
+p04,Phil Foden,Fleksibilitas,2
+p04,Phil Foden,Kemampuan Perencanaan,5
+p04,Phil Foden,Kemampuan verbal,3
+p04,Phil Foden,Desain API,2
+p04,Phil Foden,Basis Data,1
+p04,Phil Foden,Optimasi Query,4
+p04,Phil Foden,Message Queue,1
+p04,Phil Foden,Containerization,5
+p05,Kylian Mbappe,Leadership,5
+p05,Kylian Mbappe,Kemampuan Perencanaan,5
+p05,Kylian Mbappe,Daya Analisa,4
+p05,Kylian Mbappe,Keterampilan Interpersonal,3
+p05,Kylian Mbappe,Kemampuan verbal,3
+p05,Kylian Mbappe,Kerjasama,4
+p05,Kylian Mbappe,Strategi Korporat,5
+p05,Kylian Mbappe,Alokasi Modal,4
+p05,Kylian Mbappe,Tata Kelola,3
+p06,Erling Haaland,Leadership,2
+p06,Erling Haaland,Kemampuan Perencanaan,2
+p06,Erling Haaland,Daya Analisa,5
+p06,Erling Haaland,Keterampilan Interpersonal,4
+p06,Erling Haaland,Kemampuan verbal,4
+p06,Erling Haaland,Kerjasama,5
+p06,Erling Haaland,Strategi Korporat,5
+p06,Erling Haaland,Analisis Kompetitif,5
+p06,Erling Haaland,Pemodelan Skenario,4
+p07,Rodri,Leadership,3
+p07,Rodri,Kemampuan Perencanaan,3
+p07,Rodri,Daya Analisa,5
+p07,Rodri,Keterampilan Interpersonal,4
+p07,Rodri,Kemampuan verbal,4
+p07,Rodri,Kerjasama,5
+p07,Rodri,Strategi Korporat,2
+p07,Rodri,Analisis Kompetitif,5
+p07,Rodri,Pemodelan Skenario,4
+p08,Virgil van Dijk,Leadership,3
+p08,Virgil van Dijk,Kemampuan Perencanaan,3
+p08,Virgil van Dijk,Daya Analisa,5
+p08,Virgil van Dijk,Keterampilan Interpersonal,5
+p08,Virgil van Dijk,Kemampuan verbal,5
+p08,Virgil van Dijk,Kerjasama,2
+p08,Virgil van Dijk,Manajemen Risiko,4
+p08,Virgil van Dijk,Kepatuhan Regulasi,4
+p08,Virgil van Dijk,Audit Internal,5
+p09,Pedri,Leadership,4
+p09,Pedri,Kemampuan Perencanaan,4
+p09,Pedri,Daya Analisa,4
+p09,Pedri,Keterampilan Interpersonal,5
+p09,Pedri,Kemampuan verbal,5
+p09,Pedri,Kerjasama,3
+p09,Pedri,Pelaporan Keuangan,2
+p09,Pedri,Analisis Anggaran,5
+p09,Pedri,Manajemen Risiko,4
+p09,Pedri,Kepatuhan Pajak,4
+p09,Pedri,Standar Akuntansi,4
+p10,Federico Valverde,Logika Berpikir,5
+p10,Federico Valverde,Daya Analisa,4
+p10,Federico Valverde,Kemampuan Numerikal,4
+p10,Federico Valverde,Kemampuan verbal,5
+p10,Federico Valverde,Kerjasama,2
+p10,Federico Valverde,Fleksibilitas,4
+p10,Federico Valverde,Pemodelan Keuangan,3
+p10,Federico Valverde,Analisis Varians,1
+p10,Federico Valverde,Rekonsiliasi,2
+p10,Federico Valverde,Spreadsheet Lanjutan,3
+p10,Federico Valverde,Standar Akuntansi,4
+p11,Enzo Fernandez,Logika Berpikir,5
+p11,Enzo Fernandez,Daya Analisa,4
+p11,Enzo Fernandez,Kemampuan Numerikal,5
+p11,Enzo Fernandez,Kemampuan verbal,5
+p11,Enzo Fernandez,Kerjasama,3
+p11,Enzo Fernandez,Fleksibilitas,4
+p11,Enzo Fernandez,Pemodelan Keuangan,3
+p11,Enzo Fernandez,Rekonsiliasi,3
+p11,Enzo Fernandez,Analisis Varians,2
+p11,Enzo Fernandez,Spreadsheet Lanjutan,4
+p11,Enzo Fernandez,Standar Akuntansi,4
+p12,Antoine Griezmann,Logika Berpikir,2
+p12,Antoine Griezmann,Daya Analisa,1
+p12,Antoine Griezmann,Kemampuan Numerikal,5
+p12,Antoine Griezmann,Kemampuan verbal,2
+p12,Antoine Griezmann,Kerjasama,3
+p12,Antoine Griezmann,Fleksibilitas,1
+p12,Antoine Griezmann,Pengendalian Internal,5
+p12,Antoine Griezmann,Pelaporan Keuangan,2
+p12,Antoine Griezmann,Audit Kepatuhan,2
+p12,Antoine Griezmann,Standar Akuntansi,5
+p13,Christian Pulisic,Keterampilan Interpersonal,3
+p13,Christian Pulisic,Kerjasama,4
+p13,Christian Pulisic,Kemampuan verbal,3
+p13,Christian Pulisic,Fleksibilitas,2
+p13,Christian Pulisic,Kemampuan Perencanaan,5
+p13,Christian Pulisic,Daya Analisa,2
+p13,Christian Pulisic,Manajemen Talenta,4
+p13,Christian Pulisic,Perencanaan SDM,4
+p13,Christian Pulisic,Hubungan Industrial,3
+p13,Christian Pulisic,HRIS,3
+p14,Declan Rice,Keterampilan Interpersonal,3
+p14,Declan Rice,Kerjasama,4
+p14,Declan Rice,Kemampuan verbal,3
+p14,Declan Rice,Fleksibilitas,2
+p14,Declan Rice,Kemampuan Perencanaan,5
+p14,Declan Rice,Daya Analisa,2
+p14,Declan Rice,Manajemen Kinerja,4
+p14,Declan Rice,Remunerasi,4
+p14,Declan Rice,Hubungan Industrial,4
+p14,Declan Rice,HRIS,4
+p15,Cody Gakpo,Keterampilan Interpersonal,4
+p15,Cody Gakpo,Kerjasama,5
+p15,Cody Gakpo,Kemampuan verbal,4
+p15,Cody Gakpo,Fleksibilitas,3
+p15,Cody Gakpo,Kemampuan Perencanaan,2
+p15,Cody Gakpo,Daya Analisa,3
+p15,Cody Gakpo,Sourcing Kandidat,4
+p15,Cody Gakpo,Teknik Wawancara,5
+p15,Cody Gakpo,Employer Branding,4
+p15,Cody Gakpo,ATS,4
+p16,Alphonso Davies,Keterampilan Interpersonal,4
+p16,Alphonso Davies,Kerjasama,5
+p16,Alphonso Davies,Kemampuan verbal,4
+p16,Alphonso Davies,Fleksibilitas,3
+p16,Alphonso Davies,Kemampuan Perencanaan,3
+p16,Alphonso Davies,Daya Analisa,3
+p16,Alphonso Davies,Administrasi Personalia,1
+p16,Alphonso Davies,Onboarding,4
+p16,Alphonso Davies,Kepatuhan Ketenagakerjaan,5
+p16,Alphonso Davies,HRIS,1
+p17,Lautaro Martinez,Leadership,3
+p17,Lautaro Martinez,Kemampuan Perencanaan,3
+p17,Lautaro Martinez,Daya Analisa,5
+p17,Lautaro Martinez,Keterampilan Interpersonal,5
+p17,Lautaro Martinez,Kemampuan verbal,5
+p17,Lautaro Martinez,Kerjasama,2
+p17,Lautaro Martinez,Perencanaan Kapasitas,4
+p17,Lautaro Martinez,Manajemen Rantai Pasok,3
+p17,Lautaro Martinez,Kendali Mutu,5
+p17,Lautaro Martinez,Analitik Operasional,5
+p17,Lautaro Martinez,Keselamatan Kerja,5
+p18,Julian Alvarez,Leadership,4
+p18,Julian Alvarez,Kemampuan Perencanaan,4
+p18,Julian Alvarez,Daya Analisa,5
+p18,Julian Alvarez,Keterampilan Interpersonal,5
+p18,Julian Alvarez,Kemampuan verbal,5
+p18,Julian Alvarez,Kerjasama,3
+p18,Julian Alvarez,Perencanaan Produksi,3
+p18,Julian Alvarez,Kendali Mutu,2
+p18,Julian Alvarez,Efisiensi Proses,5
+p18,Julian Alvarez,Keselamatan Kerja,5
+p19,Achraf Hakimi,Leadership,4
+p19,Achraf Hakimi,Kemampuan Perencanaan,4
+p19,Achraf Hakimi,Daya Analisa,3
+p19,Achraf Hakimi,Keterampilan Interpersonal,2
+p19,Achraf Hakimi,Kemampuan verbal,2
+p19,Achraf Hakimi,Kerjasama,3
+p19,Achraf Hakimi,Manajemen Rantai Pasok,4
+p19,Achraf Hakimi,Manajemen Vendor,4
+p19,Achraf Hakimi,Perencanaan Inventori,3
+p19,Achraf Hakimi,Sistem ERP,5
+p20,Son Heung-min,Logika Berpikir,5
+p20,Son Heung-min,Daya Analisa,5
+p20,Son Heung-min,Kemampuan Numerikal,5
+p20,Son Heung-min,Kemampuan verbal,5
+p20,Son Heung-min,Kerjasama,3
+p20,Son Heung-min,Fleksibilitas,5
+p20,Son Heung-min,Analitik Operasional,5
+p20,Son Heung-min,Pemetaan Proses,3
+p20,Son Heung-min,Spreadsheet Lanjutan,4
+p21,Vinicius Junior,Leadership,4
+p21,Vinicius Junior,Kemampuan Perencanaan,4
+p21,Vinicius Junior,Daya Analisa,1
+p21,Vinicius Junior,Keterampilan Interpersonal,2
+p21,Vinicius Junior,Kemampuan verbal,2
+p21,Vinicius Junior,Kerjasama,3
+p21,Vinicius Junior,Strategi Kampanye,4
+p21,Vinicius Junior,Riset Pasar,4
+p21,Vinicius Junior,Manajemen Brand,2
+p21,Vinicius Junior,Analitik Digital,3
+p21,Vinicius Junior,Otomasi Pemasaran,4
+p22,Rafael Leao,Kemampuan verbal,3
+p22,Rafael Leao,Fleksibilitas,2
+p22,Rafael Leao,Daya Analisa,2
+p22,Rafael Leao,Kerjasama,4
+p22,Rafael Leao,Keterampilan Interpersonal,3
+p22,Rafael Leao,Kemampuan Perencanaan,5
+p22,Rafael Leao,Strategi Kampanye,4
+p22,Rafael Leao,Riset Pasar,4
+p22,Rafael Leao,Analitik Digital,3
+p23,Bukayo Saka,Kemampuan verbal,3
+p23,Bukayo Saka,Fleksibilitas,2
+p23,Bukayo Saka,Daya Analisa,2
+p23,Bukayo Saka,Kerjasama,4
+p23,Bukayo Saka,Keterampilan Interpersonal,3
+p23,Bukayo Saka,Kemampuan Perencanaan,5
+p23,Bukayo Saka,Manajemen Brand,3
+p23,Bukayo Saka,Strategi Kampanye,5
+p23,Bukayo Saka,Riset Pasar,1
+p24,Nico Williams,Logika Berpikir,4
+p24,Nico Williams,Daya Analisa,3
+p24,Nico Williams,Kemampuan Numerikal,3
+p24,Nico Williams,Kemampuan verbal,4
+p24,Nico Williams,Kerjasama,5
+p24,Nico Williams,Fleksibilitas,3
+p24,Nico Williams,Eksperimen Pertumbuhan,2
+p24,Nico Williams,Optimasi Konversi,3
+p24,Nico Williams,Analitik Digital,4
+p25,Lionel Messi,Kemampuan verbal,4
+p25,Lionel Messi,Fleksibilitas,3
+p25,Lionel Messi,Daya Analisa,3
+p25,Lionel Messi,Kerjasama,5
+p25,Lionel Messi,Keterampilan Interpersonal,4
+p25,Lionel Messi,Kemampuan Perencanaan,3
+p25,Lionel Messi,Strategi Brand,2
+p25,Lionel Messi,Riset Pasar,2
+p25,Lionel Messi,Narasi & Positioning,3
+p26,Cristiano Ronaldo,Leadership,3
+p26,Cristiano Ronaldo,Kemampuan Perencanaan,3
+p26,Cristiano Ronaldo,Daya Analisa,5
+p26,Cristiano Ronaldo,Keterampilan Interpersonal,5
+p26,Cristiano Ronaldo,Kemampuan verbal,5
+p26,Cristiano Ronaldo,Kerjasama,2
+p26,Cristiano Ronaldo,Strategi Pendapatan,4
+p26,Cristiano Ronaldo,Manajemen Pipeline,5
+p26,Cristiano Ronaldo,Penetapan Harga,4
+p27,Neymar Jr,Kemampuan verbal,5
+p27,Neymar Jr,Fleksibilitas,4
+p27,Neymar Jr,Daya Analisa,4
+p27,Neymar Jr,Kerjasama,3
+p27,Neymar Jr,Keterampilan Interpersonal,5
+p27,Neymar Jr,Kemampuan Perencanaan,4
+p27,Neymar Jr,Arahan Kreatif,5
+p27,Neymar Jr,Storytelling Visual,3
+p27,Neymar Jr,Manajemen Produksi,4
+p28,Kevin De Bruyne,Logika Berpikir,2
+p28,Kevin De Bruyne,Daya Analisa,1
+p28,Kevin De Bruyne,Kerjasama,3
+p28,Kevin De Bruyne,Fleksibilitas,1
+p28,Kevin De Bruyne,Kemampuan Perencanaan,4
+p28,Kevin De Bruyne,Kemampuan verbal,2
+p28,Kevin De Bruyne,Arsitektur Sistem,4
+p28,Kevin De Bruyne,Desain Terdistribusi,3
+p28,Kevin De Bruyne,Technical Roadmap,4
+p28,Kevin De Bruyne,Cloud Infrastructure,3
+p28,Kevin De Bruyne,Observability,4
+p29,Luka Modric,Logika Berpikir,3
+p29,Luka Modric,Daya Analisa,4
+p29,Luka Modric,Kemampuan Numerikal,2
+p29,Luka Modric,Kemampuan verbal,3
+p29,Luka Modric,Kerjasama,4
+p29,Luka Modric,Fleksibilitas,4
+p29,Luka Modric,Perencanaan Strategis,3
+p29,Luka Modric,Analitik Operasional,4
+p29,Luka Modric,Pemodelan Skenario,3
+p30,Mohamed Salah,Logika Berpikir,2
+p30,Mohamed Salah,Daya Analisa,1
+p30,Mohamed Salah,Kemampuan Numerikal,5
+p30,Mohamed Salah,Kemampuan verbal,2
+p30,Mohamed Salah,Kerjasama,3
+p30,Mohamed Salah,Fleksibilitas,1
+p30,Mohamed Salah,Eksperimen Pertumbuhan,4
+p30,Mohamed Salah,Analitik Digital,3
+p30,Mohamed Salah,Optimasi Konversi,5
+p30,Mohamed Salah,Otomasi Pemasaran,4
+p31,Harry Kane,Leadership,5
+p31,Harry Kane,Kemampuan Perencanaan,5
+p31,Harry Kane,Daya Analisa,2
+p31,Harry Kane,Keterampilan Interpersonal,3
+p31,Harry Kane,Kemampuan verbal,3
+p31,Harry Kane,Kerjasama,4
+p31,Harry Kane,Pelaporan Keuangan,3
+p31,Harry Kane,Analisis Anggaran,3
+p31,Harry Kane,Manajemen Kas,4
+p31,Harry Kane,Standar Akuntansi,5
+p32,Robert Lewandowski,Leadership,5
+p32,Robert Lewandowski,Kemampuan Perencanaan,5
+p32,Robert Lewandowski,Daya Analisa,4
+p32,Robert Lewandowski,Keterampilan Interpersonal,3
+p32,Robert Lewandowski,Kemampuan verbal,3
+p32,Robert Lewandowski,Kerjasama,4
+p32,Robert Lewandowski,Manajemen Rantai Pasok,5
+p32,Robert Lewandowski,Negosiasi Pengadaan,5
+p32,Robert Lewandowski,Perencanaan Inventori,4
+p32,Robert Lewandowski,Sistem ERP,5
+p33,Lamine Yamal,Kemampuan verbal,4
+p33,Lamine Yamal,Fleksibilitas,3
+p33,Lamine Yamal,Daya Analisa,3
+p33,Lamine Yamal,Kerjasama,5
+p33,Lamine Yamal,Keterampilan Interpersonal,4
+p33,Lamine Yamal,Kemampuan Perencanaan,2
+p33,Lamine Yamal,Penulisan Konten,4
+p33,Lamine Yamal,Produksi Visual,3
+p33,Lamine Yamal,SEO,4
+p33,Lamine Yamal,Analitik Digital,4

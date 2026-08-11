@@ -229,7 +229,7 @@ export function JobProfile({ name }: { name: string }) {
           </Tabs.Panel>
 
           <Tabs.Panel value="standard" pt="md">
-            <StandardTab />
+            <StandardTab job={name} />
           </Tabs.Panel>
 
           {/* Criteria menyusul — kontennya belum di-brief. */}
@@ -263,7 +263,7 @@ export function JobProfile({ name }: { name: string }) {
         onSave={(description) => setOverride((prev) => ({ ...prev, description }))}
       />
 
-      <Modal opened={deleteOpen} onClose={() => setDeleteOpen(false)} title="Delete Job" centered>
+      <Modal opened={deleteOpen} onClose={() => setDeleteOpen(false)} title="Delete Job">
         <Text size="sm" c="#495057">
           Hapus Job <b>{displayName}</b>? {positions.length} posisi di dalamnya ikut kehilangan induknya.
           Tindakan ini tidak bisa dibatalkan.

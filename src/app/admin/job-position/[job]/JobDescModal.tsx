@@ -19,7 +19,7 @@ export function JobDescModal({
   onSave: (next: string) => void;
 }) {
   return (
-    <Modal opened={opened} onClose={onClose} title="Job Description" size={560} padding="lg" centered>
+    <Modal opened={opened} onClose={onClose} title="Job Description" size={560} padding="lg">
       {/* Isinya baru dipasang saat modal terbuka, jadi draft-nya lahir ulang
           tiap kali dibuka — tidak ada sisa ketikan dari sesi sebelumnya. */}
       {opened && <JobDescForm value={value} onSave={onSave} />}

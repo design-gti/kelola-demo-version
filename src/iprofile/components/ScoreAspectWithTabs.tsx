@@ -1,24 +1,17 @@
 ﻿"use client";
 import { useContext, useState } from 'react';
-import { SegmentedControl } from '@mantine/core';
+import { Tabs } from '@mantine/core';
 import svgPaths from '../imports/svg-djevy8uiqd';
 import svgPathsPotency from '../imports/svg-87qx2z9isd';
 import { StandardPositionSelect } from './StandardPositionSelect';
 import { AspectRadarChart } from './AspectRadarChart';
 import { KeyBehaviourBreakdown, type KeyBehaviour } from './KeyBehaviourBreakdown';
 import { ProfileContext } from '../lib/ProfileContext';
-import { hardAspectsFor } from '../lib/hardCompetency';
+import { aspectsFor } from '../lib/aspects';
 
 type TabType = 'competency' | 'potency';
 /** Cara aspek ditampilkan: daftar kartu skor, atau spider/radar chart. */
 type ViewMode = 'list' | 'chart';
-/**
- * Di dalam tab Competency ada dua rumpun aspek: soft (perilaku/kognitif, daftar
- * aspeknya universal) dan hard (teknis, daftar aspeknya beda per posisi).
- * Dipisah — bukan digabung jadi satu kategori — karena kalau ditumpuk di satu
- * radar, sumbunya jadi belasan dan bentuknya tidak lagi bisa dibaca.
- */
-type CompetencyKind = 'soft' | 'hard';
 
 export type { KeyBehaviour };
 export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean; keyBehaviours?: KeyBehaviour[] };
@@ -47,85 +40,33 @@ export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects 
   // Satu state dipakai kedua tab — pilihan "cara lihat" terasa milik kartunya,
   // bukan milik masing-masing tab.
   const [viewMode, setViewMode] = useState<ViewMode>('chart');
-  const [competencyKind, setCompetencyKind] = useState<CompetencyKind>('soft');
 
-  // Aspek hard bergantung pada posisi orangnya, jadi diambil dari context —
-  // beda dengan aspek soft yang datang lewat prop `scoreAspects`.
+  // Satu daftar aspek untuk orang ini — General dan Technical berbaur, karena
+  // keduanya cuma kategori. Aspek mana yang dinilai ditentukan posisinya, dan
+  // standarnya oleh Job-nya; keduanya diurus `aspectsFor`.
   const { position, employeeId } = useContext(ProfileContext);
-  const competencyItems = competencyKind === 'hard'
-    ? hardAspectsFor(position, employeeId)
-    : scoreAspects.competency;
+  const competencyItems = aspectsFor(position, employeeId);
 
   return (
     <div className="bg-white content-stretch flex flex-col gap-[12px] items-center overflow-clip p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Score Aspect">
       <Frame79 />
       
-      {/* Tabs */}
-      <div className="content-stretch flex gap-[2px] items-center relative shrink-0 w-full">
-        {/* Competency Tab */}
-        <button
-          onClick={() => setActiveTab('competency')}
-          className="cursor-pointer flex-[1_0_0] min-h-px min-w-px relative rounded-tl-[4px] rounded-tr-[4px]"
-          data-name="Tab button"
-        >
-          <div 
-            aria-hidden="true" 
-            className={`absolute border-b-2 border-solid inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px] ${
-              activeTab === 'competency' ? 'border-[#016699]' : 'border-[#dee2e6]'
-            }`} 
-          />
-          <div className="flex flex-row items-center justify-center size-full">
-            <div className="content-stretch flex gap-[2px] items-center justify-center px-[16px] py-[8px] relative w-full">
-              <div className={`flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-center whitespace-nowrap ${
-                activeTab === 'competency' ? 'text-[#016699]' : 'text-[#495057]'
-              }`}>
-                <p className="leading-[normal]">Competency</p>
-              </div>
-            </div>
-          </div>
-        </button>
-        
-        {/* Potency Tab */}
-        <button
-          onClick={() => setActiveTab('potency')}
-          className="cursor-pointer flex-[1_0_0] min-h-px min-w-px relative rounded-tl-[4px] rounded-tr-[4px]"
-          data-name="Tab button"
-        >
-          <div 
-            aria-hidden="true" 
-            className={`absolute border-b-2 border-solid inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px] ${
-              activeTab === 'potency' ? 'border-[#016699]' : 'border-[#dee2e6]'
-            }`} 
-          />
-          <div className="flex flex-row items-center justify-center size-full">
-            <div className="content-stretch flex gap-[2px] items-center justify-center px-[16px] py-[8px] relative w-full">
-              <div className={`flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-center whitespace-nowrap ${
-                activeTab === 'potency' ? 'text-[#016699]' : 'text-[#495057]'
-              }`}>
-                <p className="leading-[normal]">Potency</p>
-              </div>
-            </div>
-          </div>
-        </button>
-      </div>
+      {/* Tab memakai komponen design system; gayanya dari tema (blok
+          .mantine-Tabs-* di globals.css), tidak ditulis ulang di sini.
+          `grow` membuat kedua tab membagi rata lebar kartu seperti rancangan. */}
+      <Tabs
+        value={activeTab}
+        onChange={(v) => setActiveTab((v as TabType) ?? 'competency')}
+        w="100%"
+      >
+        <Tabs.List grow>
+          <Tabs.Tab value="competency">Competency</Tabs.Tab>
+          <Tabs.Tab value="potency">Potency</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
 
       {activeTab === 'competency' ? (
         <>
-          {/* Sub-pilihan rumpun aspek, satu tingkat di bawah tab utama. */}
-          <div className="w-full">
-            <SegmentedControl
-              value={competencyKind}
-              onChange={(v) => setCompetencyKind(v as CompetencyKind)}
-              color="primary"
-              radius="xl"
-              size="xs"
-              fullWidth
-              data={[
-                { label: 'Soft', value: 'soft' },
-                { label: 'Hard', value: 'hard' },
-              ]}
-            />
-          </div>
           <Frame116
             rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
             showLegend={viewMode === 'list'}
