@@ -76,3 +76,30 @@ html, body {
 .recharts-wrapper:focus-visible {
   outline: none;
 }
+
+/* Sidebar rail — latar item nav (diam / hover / aktif).
+   Ditulis di sini, bukan lewat prop `styles` Mantine: prop itu menghasilkan
+   inline style, jadi selector semu seperti :hover diabaikan diam-diam dan
+   efek hover-nya tidak pernah muncul. `data-active` dipasang NavLink sendiri.
+   Latar rail-nya gradasi primary-5 -> primary-6, jadi sorotannya memakai putih
+   transparan supaya kontrasnya konsisten dari atas sampai bawah. */
+.sidebar-rail .mantine-NavLink-root:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+.sidebar-rail .mantine-NavLink-root[data-active] {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.sidebar-rail .mantine-NavLink-root[data-active]:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+/* Tombol buka/tutup rail (header). */
+.sidebar-rail > button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+/* Tombol mode Admin Settings / Back di dasar rail. */
+.sidebar-mode-btn {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.sidebar-mode-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}

@@ -102,6 +102,18 @@ export const prodigyFoundationTheme = createTheme({
   components: {
     Button: {
       styles: { label: { fontWeight: 700 } },
+      // Tombol & input di produk ini bentuknya membulat penuh. Ditetapkan
+      // sebagai default komponen supaya tidak perlu ditulis ulang di tiap
+      // pemakaian — sebelumnya `radius="xl"` tersebar di puluhan tempat dan
+      // yang terlewat jadi kelihatan beda sendiri.
+      defaultProps: { radius: "xl" },
     },
+    TextInput: { defaultProps: { radius: "xl" } },
+    NumberInput: { defaultProps: { radius: "xl" } },
+    Select: { defaultProps: { radius: "xl" } },
+    NativeSelect: { defaultProps: { radius: "xl" } },
+    // Textarea sengaja tidak ikut membulat penuh: kotaknya tinggi, radius 32px
+    // bikin sudutnya menggelembung dan barisnya kepotong di pojok.
+    Textarea: { defaultProps: { radius: "md" } },
   },
 });
