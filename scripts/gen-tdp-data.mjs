@@ -105,7 +105,9 @@ rows.forEach((r, i) => {
     "Manager ID": r.manager_id || "",
     "Report To": r.manager_id ? (nameById[r.manager_id] ?? "") : "",
     "Photo URL": "",
-    "Gender": i % 3 === 0 ? "Perempuan" : "Laki-laki",
+    // Dari kolom `gender` di participants.csv — sumber yang sama dengan
+    // iProfile, jadi satu orang tidak bisa berbeda jenis kelamin antar layar.
+    "Gender": r.gender || "Laki-laki",
     "City": CITIES[i % CITIES.length],
     "Marital Status": i % 2 === 0 ? "Menikah" : "Belum Menikah",
     "Education": EDU[i % EDU.length],

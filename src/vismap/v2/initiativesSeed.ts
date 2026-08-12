@@ -9,7 +9,7 @@ import { computeInitiativeSuccess, type Initiative, type InitiativeAspectRequire
  */
 const SEED_INPUT: { personId: string; text: string; aspects: InitiativeAspectRequirement[] }[] = [
   {
-    personId: "p01", // Jude Bellingham — Head of Engineering
+    personId: "p01", // Intan Permatasari — Head of Engineering
     text: "Menurunkan insiden produksi sebesar 30% kuartal ini",
     aspects: [
       { aspect: "Orientasi Hasil", minScore: 4 },
@@ -18,7 +18,7 @@ const SEED_INPUT: { personId: string; text: string; aspects: InitiativeAspectReq
     ],
   },
   {
-    personId: "p09", // Pedri — Head of Finance
+    personId: "p09", // Teguh Firmansyah — Head of Finance
     text: "Memangkas waktu tutup buku bulanan dari 10 hari jadi 5 hari",
     aspects: [
       { aspect: "Manajemen Waktu", minScore: 4 },
@@ -44,7 +44,7 @@ const SEED_INPUT: { personId: string; text: string; aspects: InitiativeAspectReq
     ],
   },
   {
-    personId: "p25", // Lionel Messi — Senior Brand Strategist (top talent)
+    personId: "p25", // Sabrina Yulianti — Senior Brand Strategist (top talent)
     text: "Meluncurkan kampanye brand baru di 3 pasar sekaligus",
     aspects: [
       { aspect: "Komunikasi", minScore: 4 },
@@ -53,7 +53,7 @@ const SEED_INPUT: { personId: string; text: string; aspects: InitiativeAspectReq
     ],
   },
   {
-    personId: "p11", // Enzo Fernandez — Finance Analyst (sengaja skor rendah, buat dinamika)
+    personId: "p11", // Cindy Pratiwi — Finance Analyst (sengaja skor rendah, buat dinamika)
     text: "Mengotomasi laporan rekonsiliasi bulanan",
     aspects: [
       { aspect: "Inisiatif", minScore: 3 },

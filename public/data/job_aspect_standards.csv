@@ -1,34 +1,37 @@
 job,aspect,standard
-Teknologi,Leadership,4
-Teknologi,Kemampuan Perencanaan,4
-Teknologi,Daya Analisa,3
-Teknologi,Keterampilan Interpersonal,4
-Teknologi,Kemampuan verbal,4
-Teknologi,Kerjasama,4
-Teknologi,Arsitektur Sistem,4
-Teknologi,Code Review,4
-Teknologi,Keamanan Aplikasi,3
-Teknologi,CI/CD,3
-Teknologi,Cloud Infrastructure,3
-Teknologi,Observability,4
-Teknologi,Logika Berpikir,4
-Teknologi,Fleksibilitas,3
-Teknologi,Kualitas Kode,4
-Teknologi,Pengujian Otomatis,4
-Teknologi,Debugging,3
-Teknologi,Version Control,4
-Teknologi,Arsitektur Komponen,4
-Teknologi,State Management,3
-Teknologi,Aksesibilitas,3
-Teknologi,Performa Web,3
-Teknologi,Design System,4
-Teknologi,Desain API,3
-Teknologi,Basis Data,3
-Teknologi,Optimasi Query,3
-Teknologi,Message Queue,3
-Teknologi,Containerization,4
-Teknologi,Desain Terdistribusi,4
-Teknologi,Technical Roadmap,4
+Teknologi,Leadership,5
+Teknologi,Kemampuan Perencanaan,5
+Teknologi,Daya Analisa,4
+Teknologi,Keterampilan Interpersonal,5
+Teknologi,Kemampuan verbal,5
+Teknologi,Kerjasama,5
+Teknologi,Arsitektur Sistem,5
+Teknologi,Code Review,5
+Teknologi,Keamanan Aplikasi,4
+Teknologi,CI/CD,4
+Teknologi,Cloud Infrastructure,4
+Teknologi,Observability,5
+Teknologi,Logika Berpikir,5
+Teknologi,Fleksibilitas,4
+Teknologi,Kualitas Kode,5
+Teknologi,Pengujian Otomatis,5
+Teknologi,Debugging,4
+Teknologi,Version Control,5
+Teknologi,Arsitektur Komponen,5
+Teknologi,State Management,4
+Teknologi,Aksesibilitas,4
+Teknologi,Performa Web,4
+Teknologi,Design System,5
+Teknologi,Desain API,4
+Teknologi,Basis Data,4
+Teknologi,Optimasi Query,4
+Teknologi,Message Queue,4
+Teknologi,Containerization,5
+Teknologi,Desain Terdistribusi,5
+Teknologi,Technical Roadmap,5
+Teknologi,Kendali Mutu,5
+Teknologi,Kepatuhan Regulasi,5
+Teknologi,Audit Internal,4
 Strategi,Leadership,4
 Strategi,Kemampuan Perencanaan,4
 Strategi,Daya Analisa,5
@@ -43,49 +46,57 @@ Strategi,Pemodelan Skenario,4
 Strategi,Manajemen Risiko,4
 Strategi,Kepatuhan Regulasi,4
 Strategi,Audit Internal,5
-Strategi,Strategi Pendapatan,4
-Strategi,Manajemen Pipeline,5
-Strategi,Penetapan Harga,4
-Keuangan,Leadership,4
-Keuangan,Kemampuan Perencanaan,4
-Keuangan,Daya Analisa,3
-Keuangan,Keterampilan Interpersonal,4
-Keuangan,Kemampuan verbal,4
-Keuangan,Kerjasama,4
-Keuangan,Pelaporan Keuangan,3
-Keuangan,Analisis Anggaran,4
-Keuangan,Manajemen Risiko,4
-Keuangan,Kepatuhan Pajak,3
-Keuangan,Standar Akuntansi,4
-Keuangan,Logika Berpikir,4
-Keuangan,Kemampuan Numerikal,4
-Keuangan,Fleksibilitas,3
-Keuangan,Pemodelan Keuangan,4
-Keuangan,Analisis Varians,3
-Keuangan,Rekonsiliasi,4
-Keuangan,Spreadsheet Lanjutan,4
-Keuangan,Pengendalian Internal,4
-Keuangan,Audit Kepatuhan,3
-Keuangan,Manajemen Kas,4
-SDM,Keterampilan Interpersonal,4
-SDM,Kerjasama,4
-SDM,Kemampuan verbal,4
-SDM,Fleksibilitas,3
-SDM,Kemampuan Perencanaan,4
-SDM,Daya Analisa,3
-SDM,Manajemen Talenta,4
-SDM,Perencanaan SDM,3
-SDM,Hubungan Industrial,4
-SDM,HRIS,3
-SDM,Manajemen Kinerja,3
-SDM,Remunerasi,4
-SDM,Sourcing Kandidat,3
-SDM,Teknik Wawancara,4
-SDM,Employer Branding,3
-SDM,ATS,3
-SDM,Administrasi Personalia,3
-SDM,Onboarding,4
-SDM,Kepatuhan Ketenagakerjaan,4
+Strategi,Logika Berpikir,4
+Strategi,Kemampuan Numerikal,4
+Strategi,Fleksibilitas,5
+Strategi,Perencanaan Strategis,5
+Strategi,Spreadsheet Lanjutan,4
+Strategi,Riset Pasar,5
+Keuangan,Leadership,5
+Keuangan,Kemampuan Perencanaan,5
+Keuangan,Daya Analisa,4
+Keuangan,Keterampilan Interpersonal,5
+Keuangan,Kemampuan verbal,5
+Keuangan,Kerjasama,5
+Keuangan,Pelaporan Keuangan,4
+Keuangan,Analisis Anggaran,5
+Keuangan,Manajemen Risiko,5
+Keuangan,Kepatuhan Pajak,4
+Keuangan,Standar Akuntansi,5
+Keuangan,Logika Berpikir,5
+Keuangan,Kemampuan Numerikal,5
+Keuangan,Fleksibilitas,4
+Keuangan,Pemodelan Keuangan,5
+Keuangan,Analisis Varians,4
+Keuangan,Rekonsiliasi,5
+Keuangan,Spreadsheet Lanjutan,5
+Keuangan,Pengendalian Internal,5
+Keuangan,Audit Kepatuhan,4
+Keuangan,Manajemen Kas,5
+Keuangan,Alokasi Modal,5
+Keuangan,Kepatuhan Regulasi,5
+Keuangan,Audit Internal,4
+Keuangan,Sistem ERP,4
+SDM,Keterampilan Interpersonal,5
+SDM,Kerjasama,5
+SDM,Kemampuan verbal,5
+SDM,Fleksibilitas,4
+SDM,Kemampuan Perencanaan,5
+SDM,Daya Analisa,4
+SDM,Manajemen Talenta,5
+SDM,Perencanaan SDM,4
+SDM,Hubungan Industrial,5
+SDM,HRIS,4
+SDM,Manajemen Kinerja,4
+SDM,Remunerasi,5
+SDM,Sourcing Kandidat,4
+SDM,Teknik Wawancara,5
+SDM,Employer Branding,4
+SDM,ATS,4
+SDM,Administrasi Personalia,4
+SDM,Onboarding,5
+SDM,Kepatuhan Ketenagakerjaan,5
+SDM,Leadership,5
 Operasional,Leadership,4
 Operasional,Kemampuan Perencanaan,4
 Operasional,Daya Analisa,5
@@ -110,27 +121,67 @@ Operasional,Spreadsheet Lanjutan,4
 Operasional,Perencanaan Strategis,5
 Operasional,Pemodelan Skenario,4
 Operasional,Negosiasi Pengadaan,4
-Pemasaran,Leadership,4
-Pemasaran,Kemampuan Perencanaan,4
-Pemasaran,Daya Analisa,3
-Pemasaran,Keterampilan Interpersonal,4
-Pemasaran,Kemampuan verbal,4
-Pemasaran,Kerjasama,4
-Pemasaran,Strategi Kampanye,4
-Pemasaran,Riset Pasar,3
-Pemasaran,Manajemen Brand,4
-Pemasaran,Analitik Digital,4
-Pemasaran,Otomasi Pemasaran,3
-Pemasaran,Fleksibilitas,3
-Pemasaran,Logika Berpikir,4
-Pemasaran,Kemampuan Numerikal,4
-Pemasaran,Eksperimen Pertumbuhan,3
-Pemasaran,Optimasi Konversi,4
-Pemasaran,Strategi Brand,3
-Pemasaran,Narasi & Positioning,4
-Pemasaran,Arahan Kreatif,4
-Pemasaran,Storytelling Visual,3
-Pemasaran,Manajemen Produksi,4
-Pemasaran,Penulisan Konten,3
-Pemasaran,Produksi Visual,4
-Pemasaran,SEO,4
+Operasional,Kepatuhan Regulasi,4
+Pemasaran,Leadership,5
+Pemasaran,Kemampuan Perencanaan,5
+Pemasaran,Daya Analisa,4
+Pemasaran,Keterampilan Interpersonal,5
+Pemasaran,Kemampuan verbal,5
+Pemasaran,Kerjasama,5
+Pemasaran,Strategi Kampanye,5
+Pemasaran,Riset Pasar,4
+Pemasaran,Manajemen Brand,5
+Pemasaran,Analitik Digital,5
+Pemasaran,Otomasi Pemasaran,4
+Pemasaran,Fleksibilitas,4
+Pemasaran,Logika Berpikir,5
+Pemasaran,Kemampuan Numerikal,5
+Pemasaran,Eksperimen Pertumbuhan,4
+Pemasaran,Optimasi Konversi,5
+Pemasaran,Strategi Brand,4
+Pemasaran,Narasi & Positioning,5
+Pemasaran,Strategi Pendapatan,5
+Pemasaran,Manajemen Pipeline,4
+Pemasaran,Penetapan Harga,5
+Pemasaran,Arahan Kreatif,5
+Pemasaran,Storytelling Visual,4
+Pemasaran,Manajemen Produksi,5
+Pemasaran,Penulisan Konten,4
+Pemasaran,Produksi Visual,5
+Pemasaran,SEO,5
+Pemasaran,CRM,4
+Pemasaran,Design System,5
+Pemasaran,Analisis Kompetitif,4
+Pemasaran,Spreadsheet Lanjutan,5
+Hunter,Leadership,4
+Hunter,Kemampuan Perencanaan,4
+Hunter,Daya Analisa,3
+Hunter,Keterampilan Interpersonal,4
+Hunter,Kemampuan verbal,4
+Hunter,Kerjasama,4
+Hunter,Manajemen Pipeline,3
+Hunter,Negosiasi Kontrak,3
+Hunter,Presentasi Solusi,4
+Hunter,CRM,3
+Hunter,Penetapan Harga,4
+Hunter,Kualifikasi Lead,4
+Hunter,Prospecting,3
+Hunter,Manajemen Tender,3
+Hunter,Kepatuhan Regulasi,4
+Hunter,Fleksibilitas,3
+Hunter,Riset Pasar,3
+Farmer,Leadership,3
+Farmer,Kemampuan Perencanaan,3
+Farmer,Daya Analisa,4
+Farmer,Keterampilan Interpersonal,3
+Farmer,Kemampuan verbal,3
+Farmer,Kerjasama,3
+Farmer,Manajemen Akun,3
+Farmer,Retensi & Renewal,4
+Farmer,Upselling & Cross-selling,4
+Farmer,CRM,4
+Farmer,Penetapan Harga,3
+Farmer,Customer Success,3
+Farmer,Manajemen Pipeline,4
+Farmer,Fleksibilitas,4
+Farmer,Negosiasi Kontrak,4

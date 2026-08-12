@@ -25,7 +25,7 @@ describe("findPositionHolders", () => {
   });
 
   // Regression test: "Operation Analyst" (singular) returned zero matches
-  // even though "Operations Analyst" (Son Heung-min's real title, verified
+  // even though "Operations Analyst" (Ahmad Al-Faruq's real title, verified
   // against src/data/model/generated.ts) exists — the old substring-only
   // match requires an exact contiguous match, so a single missing "s" broke
   // it silently instead of still finding the position.
@@ -33,7 +33,7 @@ describe("findPositionHolders", () => {
     const result = findPositionHolders("Operation Analyst");
     expect(result.matches.length).toBeGreaterThan(0);
     expect(result.matches[0].position).toBe("Operations Analyst");
-    expect(result.matches[0].name).toBe("Son Heung-min");
+    expect(result.matches[0].name).toBe("Bintang Mahesa");
   });
 
   it("does not over-match unrelated titles that share only one word", () => {

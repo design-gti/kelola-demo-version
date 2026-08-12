@@ -25,6 +25,11 @@ const TEAMS = {
   HR: { name: "Human Resources Team", type: "FUNCTIONAL", leaderId: "p13", reportToId: "p05" },
   OPS: { name: "Operations Team", type: "STRUCTURAL", leaderId: "p17", reportToId: "p05" },
   SNM: { name: "Sales & Marketing Team", type: "FUNCTIONAL", leaderId: "p21", reportToId: "p05" },
+  // Hunter & Farmer: dua Job penjualan yang terpisah, sama-sama bernaung di
+  // bawah Head of Sales (p78) — Hunter mengejar klien baru, Farmer menggarap
+  // klien yang sudah ada.
+  HUN: { name: "Hunter Team", type: "STRUCTURAL", leaderId: "p83", reportToId: "p78" },
+  FAR: { name: "Farmer Team", type: "STRUCTURAL", leaderId: "p99", reportToId: "p78" },
 };
 
 const SCORE_KINDS = ["behavioral", "technical", "performance", "leadership", "competency", "prediction", "engagement"];

@@ -327,3 +327,508 @@ Digital Content Specialist,Penulisan Konten
 Digital Content Specialist,Produksi Visual
 Digital Content Specialist,SEO
 Digital Content Specialist,Analitik Digital
+Chief Technology Officer,Leadership
+Chief Technology Officer,Kemampuan Perencanaan
+Chief Technology Officer,Daya Analisa
+Chief Technology Officer,Keterampilan Interpersonal
+Chief Technology Officer,Kemampuan verbal
+Chief Technology Officer,Kerjasama
+Chief Technology Officer,Technical Roadmap
+Chief Technology Officer,Arsitektur Sistem
+Chief Technology Officer,Cloud Infrastructure
+Chief Technology Officer,Keamanan Aplikasi
+Chief Financial Officer,Leadership
+Chief Financial Officer,Kemampuan Perencanaan
+Chief Financial Officer,Daya Analisa
+Chief Financial Officer,Keterampilan Interpersonal
+Chief Financial Officer,Kemampuan verbal
+Chief Financial Officer,Kerjasama
+Chief Financial Officer,Pelaporan Keuangan
+Chief Financial Officer,Alokasi Modal
+Chief Financial Officer,Manajemen Risiko
+Chief Financial Officer,Kepatuhan Regulasi
+Chief Operating Officer,Leadership
+Chief Operating Officer,Kemampuan Perencanaan
+Chief Operating Officer,Daya Analisa
+Chief Operating Officer,Keterampilan Interpersonal
+Chief Operating Officer,Kemampuan verbal
+Chief Operating Officer,Kerjasama
+Chief Operating Officer,Perencanaan Kapasitas
+Chief Operating Officer,Efisiensi Proses
+Chief Operating Officer,Manajemen Rantai Pasok
+Chief Operating Officer,Kendali Mutu
+Chief Human Resources Officer,Leadership
+Chief Human Resources Officer,Kemampuan Perencanaan
+Chief Human Resources Officer,Daya Analisa
+Chief Human Resources Officer,Keterampilan Interpersonal
+Chief Human Resources Officer,Kemampuan verbal
+Chief Human Resources Officer,Kerjasama
+Chief Human Resources Officer,Manajemen Talenta
+Chief Human Resources Officer,Perencanaan SDM
+Chief Human Resources Officer,Manajemen Kinerja
+Chief Human Resources Officer,Remunerasi
+Strategy Manager,Logika Berpikir
+Strategy Manager,Daya Analisa
+Strategy Manager,Kemampuan Numerikal
+Strategy Manager,Kemampuan verbal
+Strategy Manager,Kerjasama
+Strategy Manager,Fleksibilitas
+Strategy Manager,Perencanaan Strategis
+Strategy Manager,Analisis Kompetitif
+Strategy Manager,Pemodelan Skenario
+Strategy Manager,Spreadsheet Lanjutan
+Governance Manager,Logika Berpikir
+Governance Manager,Daya Analisa
+Governance Manager,Kemampuan Numerikal
+Governance Manager,Kemampuan verbal
+Governance Manager,Kerjasama
+Governance Manager,Fleksibilitas
+Governance Manager,Tata Kelola
+Governance Manager,Kepatuhan Regulasi
+Governance Manager,Audit Internal
+Governance Manager,Manajemen Risiko
+Strategy Analyst,Logika Berpikir
+Strategy Analyst,Daya Analisa
+Strategy Analyst,Kemampuan Numerikal
+Strategy Analyst,Kemampuan verbal
+Strategy Analyst,Kerjasama
+Strategy Analyst,Fleksibilitas
+Strategy Analyst,Analisis Kompetitif
+Strategy Analyst,Pemodelan Skenario
+Strategy Analyst,Spreadsheet Lanjutan
+Strategy Analyst,Riset Pasar
+Head of Infrastructure & Security,Leadership
+Head of Infrastructure & Security,Kemampuan Perencanaan
+Head of Infrastructure & Security,Daya Analisa
+Head of Infrastructure & Security,Keterampilan Interpersonal
+Head of Infrastructure & Security,Kemampuan verbal
+Head of Infrastructure & Security,Kerjasama
+Head of Infrastructure & Security,Cloud Infrastructure
+Head of Infrastructure & Security,Keamanan Aplikasi
+Head of Infrastructure & Security,Observability
+Head of Infrastructure & Security,CI/CD
+QA Lead,Logika Berpikir
+QA Lead,Daya Analisa
+QA Lead,Kerjasama
+QA Lead,Fleksibilitas
+QA Lead,Kemampuan Perencanaan
+QA Lead,Kemampuan verbal
+QA Lead,Pengujian Otomatis
+QA Lead,Kualitas Kode
+QA Lead,Debugging
+QA Lead,Kendali Mutu
+DevOps Lead,Logika Berpikir
+DevOps Lead,Daya Analisa
+DevOps Lead,Kerjasama
+DevOps Lead,Fleksibilitas
+DevOps Lead,Kemampuan Perencanaan
+DevOps Lead,Kemampuan verbal
+DevOps Lead,CI/CD
+DevOps Lead,Containerization
+DevOps Lead,Cloud Infrastructure
+DevOps Lead,Observability
+Security Lead,Logika Berpikir
+Security Lead,Daya Analisa
+Security Lead,Kerjasama
+Security Lead,Fleksibilitas
+Security Lead,Kemampuan Perencanaan
+Security Lead,Kemampuan verbal
+Security Lead,Keamanan Aplikasi
+Security Lead,Kepatuhan Regulasi
+Security Lead,Observability
+Security Lead,Audit Internal
+Backend Engineer,Logika Berpikir
+Backend Engineer,Daya Analisa
+Backend Engineer,Kerjasama
+Backend Engineer,Fleksibilitas
+Backend Engineer,Kemampuan Perencanaan
+Backend Engineer,Kemampuan verbal
+Backend Engineer,Desain API
+Backend Engineer,Basis Data
+Backend Engineer,Optimasi Query
+Backend Engineer,Kualitas Kode
+Frontend Engineer,Logika Berpikir
+Frontend Engineer,Daya Analisa
+Frontend Engineer,Kerjasama
+Frontend Engineer,Fleksibilitas
+Frontend Engineer,Kemampuan Perencanaan
+Frontend Engineer,Kemampuan verbal
+Frontend Engineer,Arsitektur Komponen
+Frontend Engineer,State Management
+Frontend Engineer,Performa Web
+Frontend Engineer,Aksesibilitas
+Software Engineer,Logika Berpikir
+Software Engineer,Daya Analisa
+Software Engineer,Kerjasama
+Software Engineer,Fleksibilitas
+Software Engineer,Kemampuan Perencanaan
+Software Engineer,Kemampuan verbal
+Software Engineer,Kualitas Kode
+Software Engineer,Pengujian Otomatis
+Software Engineer,Debugging
+Software Engineer,Version Control
+QA Engineer,Logika Berpikir
+QA Engineer,Daya Analisa
+QA Engineer,Kerjasama
+QA Engineer,Fleksibilitas
+QA Engineer,Kemampuan Perencanaan
+QA Engineer,Kemampuan verbal
+QA Engineer,Pengujian Otomatis
+QA Engineer,Debugging
+QA Engineer,Kendali Mutu
+QA Engineer,Version Control
+DevOps Engineer,Logika Berpikir
+DevOps Engineer,Daya Analisa
+DevOps Engineer,Kerjasama
+DevOps Engineer,Fleksibilitas
+DevOps Engineer,Kemampuan Perencanaan
+DevOps Engineer,Kemampuan verbal
+DevOps Engineer,CI/CD
+DevOps Engineer,Containerization
+DevOps Engineer,Observability
+DevOps Engineer,Cloud Infrastructure
+Security Analyst,Logika Berpikir
+Security Analyst,Daya Analisa
+Security Analyst,Kerjasama
+Security Analyst,Fleksibilitas
+Security Analyst,Kemampuan Perencanaan
+Security Analyst,Kemampuan verbal
+Security Analyst,Keamanan Aplikasi
+Security Analyst,Observability
+Security Analyst,Kepatuhan Regulasi
+Security Analyst,Debugging
+Head of Accounting,Leadership
+Head of Accounting,Kemampuan Perencanaan
+Head of Accounting,Daya Analisa
+Head of Accounting,Keterampilan Interpersonal
+Head of Accounting,Kemampuan verbal
+Head of Accounting,Kerjasama
+Head of Accounting,Standar Akuntansi
+Head of Accounting,Pelaporan Keuangan
+Head of Accounting,Pengendalian Internal
+Head of Accounting,Kepatuhan Pajak
+Accounting Manager,Logika Berpikir
+Accounting Manager,Daya Analisa
+Accounting Manager,Kemampuan Numerikal
+Accounting Manager,Kemampuan verbal
+Accounting Manager,Kerjasama
+Accounting Manager,Fleksibilitas
+Accounting Manager,Standar Akuntansi
+Accounting Manager,Rekonsiliasi
+Accounting Manager,Pelaporan Keuangan
+Accounting Manager,Pengendalian Internal
+Internal Auditor,Logika Berpikir
+Internal Auditor,Daya Analisa
+Internal Auditor,Kemampuan Numerikal
+Internal Auditor,Kemampuan verbal
+Internal Auditor,Kerjasama
+Internal Auditor,Fleksibilitas
+Internal Auditor,Audit Internal
+Internal Auditor,Pengendalian Internal
+Internal Auditor,Audit Kepatuhan
+Internal Auditor,Manajemen Risiko
+Accounting Staff,Logika Berpikir
+Accounting Staff,Daya Analisa
+Accounting Staff,Kemampuan Numerikal
+Accounting Staff,Kemampuan verbal
+Accounting Staff,Kerjasama
+Accounting Staff,Fleksibilitas
+Accounting Staff,Rekonsiliasi
+Accounting Staff,Standar Akuntansi
+Accounting Staff,Spreadsheet Lanjutan
+Accounting Staff,Sistem ERP
+Tax Staff,Logika Berpikir
+Tax Staff,Daya Analisa
+Tax Staff,Kemampuan Numerikal
+Tax Staff,Kemampuan verbal
+Tax Staff,Kerjasama
+Tax Staff,Fleksibilitas
+Tax Staff,Kepatuhan Pajak
+Tax Staff,Standar Akuntansi
+Tax Staff,Rekonsiliasi
+Tax Staff,Audit Kepatuhan
+Head of Supply Chain,Leadership
+Head of Supply Chain,Kemampuan Perencanaan
+Head of Supply Chain,Daya Analisa
+Head of Supply Chain,Keterampilan Interpersonal
+Head of Supply Chain,Kemampuan verbal
+Head of Supply Chain,Kerjasama
+Head of Supply Chain,Manajemen Rantai Pasok
+Head of Supply Chain,Perencanaan Inventori
+Head of Supply Chain,Manajemen Vendor
+Head of Supply Chain,Perencanaan Kapasitas
+Service Quality Manager,Leadership
+Service Quality Manager,Kemampuan Perencanaan
+Service Quality Manager,Daya Analisa
+Service Quality Manager,Keterampilan Interpersonal
+Service Quality Manager,Kemampuan verbal
+Service Quality Manager,Kerjasama
+Service Quality Manager,Kendali Mutu
+Service Quality Manager,Pemetaan Proses
+Service Quality Manager,Efisiensi Proses
+Service Quality Manager,Analitik Operasional
+Operations Staff,Logika Berpikir
+Operations Staff,Daya Analisa
+Operations Staff,Kemampuan Numerikal
+Operations Staff,Kemampuan verbal
+Operations Staff,Kerjasama
+Operations Staff,Fleksibilitas
+Operations Staff,Pemetaan Proses
+Operations Staff,Sistem ERP
+Operations Staff,Kendali Mutu
+Operations Staff,Keselamatan Kerja
+Service Quality Officer,Logika Berpikir
+Service Quality Officer,Daya Analisa
+Service Quality Officer,Kemampuan Numerikal
+Service Quality Officer,Kemampuan verbal
+Service Quality Officer,Kerjasama
+Service Quality Officer,Fleksibilitas
+Service Quality Officer,Kendali Mutu
+Service Quality Officer,Pemetaan Proses
+Service Quality Officer,Analitik Operasional
+Service Quality Officer,Keselamatan Kerja
+Logistics Staff,Logika Berpikir
+Logistics Staff,Daya Analisa
+Logistics Staff,Kemampuan Numerikal
+Logistics Staff,Kemampuan verbal
+Logistics Staff,Kerjasama
+Logistics Staff,Fleksibilitas
+Logistics Staff,Manajemen Rantai Pasok
+Logistics Staff,Perencanaan Inventori
+Logistics Staff,Sistem ERP
+Logistics Staff,Keselamatan Kerja
+Procurement Staff,Logika Berpikir
+Procurement Staff,Daya Analisa
+Procurement Staff,Kemampuan Numerikal
+Procurement Staff,Kemampuan verbal
+Procurement Staff,Kerjasama
+Procurement Staff,Fleksibilitas
+Procurement Staff,Manajemen Vendor
+Procurement Staff,Negosiasi Pengadaan
+Procurement Staff,Perencanaan Inventori
+Procurement Staff,Kepatuhan Regulasi
+People Development Manager,Keterampilan Interpersonal
+People Development Manager,Kerjasama
+People Development Manager,Kemampuan verbal
+People Development Manager,Fleksibilitas
+People Development Manager,Kemampuan Perencanaan
+People Development Manager,Daya Analisa
+People Development Manager,Manajemen Talenta
+People Development Manager,Manajemen Kinerja
+People Development Manager,Perencanaan SDM
+People Development Manager,HRIS
+HR Operations Staff,Keterampilan Interpersonal
+HR Operations Staff,Kerjasama
+HR Operations Staff,Kemampuan verbal
+HR Operations Staff,Fleksibilitas
+HR Operations Staff,Kemampuan Perencanaan
+HR Operations Staff,Daya Analisa
+HR Operations Staff,Administrasi Personalia
+HR Operations Staff,HRIS
+HR Operations Staff,Onboarding
+HR Operations Staff,Kepatuhan Ketenagakerjaan
+Recruiter,Keterampilan Interpersonal
+Recruiter,Kerjasama
+Recruiter,Kemampuan verbal
+Recruiter,Fleksibilitas
+Recruiter,Kemampuan Perencanaan
+Recruiter,Daya Analisa
+Recruiter,Sourcing Kandidat
+Recruiter,Teknik Wawancara
+Recruiter,ATS
+Recruiter,Employer Branding
+Learning & Development Specialist,Keterampilan Interpersonal
+Learning & Development Specialist,Kerjasama
+Learning & Development Specialist,Kemampuan verbal
+Learning & Development Specialist,Fleksibilitas
+Learning & Development Specialist,Kemampuan Perencanaan
+Learning & Development Specialist,Daya Analisa
+Learning & Development Specialist,Manajemen Talenta
+Learning & Development Specialist,Manajemen Kinerja
+Learning & Development Specialist,Onboarding
+Learning & Development Specialist,HRIS
+Head of Sales,Leadership
+Head of Sales,Kemampuan Perencanaan
+Head of Sales,Daya Analisa
+Head of Sales,Keterampilan Interpersonal
+Head of Sales,Kemampuan verbal
+Head of Sales,Kerjasama
+Head of Sales,Strategi Pendapatan
+Head of Sales,Manajemen Pipeline
+Head of Sales,Penetapan Harga
+Head of Sales,CRM
+Graphic Designer,Kemampuan verbal
+Graphic Designer,Fleksibilitas
+Graphic Designer,Daya Analisa
+Graphic Designer,Kerjasama
+Graphic Designer,Keterampilan Interpersonal
+Graphic Designer,Kemampuan Perencanaan
+Graphic Designer,Produksi Visual
+Graphic Designer,Storytelling Visual
+Graphic Designer,Arahan Kreatif
+Graphic Designer,Design System
+Digital Marketing Executive,Kemampuan verbal
+Digital Marketing Executive,Fleksibilitas
+Digital Marketing Executive,Daya Analisa
+Digital Marketing Executive,Kerjasama
+Digital Marketing Executive,Keterampilan Interpersonal
+Digital Marketing Executive,Kemampuan Perencanaan
+Digital Marketing Executive,Analitik Digital
+Digital Marketing Executive,Otomasi Pemasaran
+Digital Marketing Executive,SEO
+Digital Marketing Executive,Optimasi Konversi
+Market Research Analyst,Logika Berpikir
+Market Research Analyst,Daya Analisa
+Market Research Analyst,Kemampuan Numerikal
+Market Research Analyst,Kemampuan verbal
+Market Research Analyst,Kerjasama
+Market Research Analyst,Fleksibilitas
+Market Research Analyst,Riset Pasar
+Market Research Analyst,Analisis Kompetitif
+Market Research Analyst,Analitik Digital
+Market Research Analyst,Spreadsheet Lanjutan
+Hunting Manager Enterprise,Leadership
+Hunting Manager Enterprise,Kemampuan Perencanaan
+Hunting Manager Enterprise,Daya Analisa
+Hunting Manager Enterprise,Keterampilan Interpersonal
+Hunting Manager Enterprise,Kemampuan verbal
+Hunting Manager Enterprise,Kerjasama
+Hunting Manager Enterprise,Manajemen Pipeline
+Hunting Manager Enterprise,Negosiasi Kontrak
+Hunting Manager Enterprise,Presentasi Solusi
+Hunting Manager Enterprise,CRM
+Hunting Manager Enterprise,Penetapan Harga
+Hunting Manager SMB,Leadership
+Hunting Manager SMB,Kemampuan Perencanaan
+Hunting Manager SMB,Daya Analisa
+Hunting Manager SMB,Keterampilan Interpersonal
+Hunting Manager SMB,Kemampuan verbal
+Hunting Manager SMB,Kerjasama
+Hunting Manager SMB,Manajemen Pipeline
+Hunting Manager SMB,Kualifikasi Lead
+Hunting Manager SMB,Prospecting
+Hunting Manager SMB,CRM
+Hunting Manager SMB,Penetapan Harga
+Hunting Manager Government,Leadership
+Hunting Manager Government,Kemampuan Perencanaan
+Hunting Manager Government,Daya Analisa
+Hunting Manager Government,Keterampilan Interpersonal
+Hunting Manager Government,Kemampuan verbal
+Hunting Manager Government,Kerjasama
+Hunting Manager Government,Manajemen Tender
+Hunting Manager Government,Negosiasi Kontrak
+Hunting Manager Government,Kepatuhan Regulasi
+Hunting Manager Government,Manajemen Pipeline
+Hunting Manager Government,CRM
+Account Executive Enterprise,Keterampilan Interpersonal
+Account Executive Enterprise,Kerjasama
+Account Executive Enterprise,Kemampuan verbal
+Account Executive Enterprise,Fleksibilitas
+Account Executive Enterprise,Kemampuan Perencanaan
+Account Executive Enterprise,Daya Analisa
+Account Executive Enterprise,Presentasi Solusi
+Account Executive Enterprise,Negosiasi Kontrak
+Account Executive Enterprise,Manajemen Pipeline
+Account Executive Enterprise,CRM
+Account Executive SMB,Keterampilan Interpersonal
+Account Executive SMB,Kerjasama
+Account Executive SMB,Kemampuan verbal
+Account Executive SMB,Fleksibilitas
+Account Executive SMB,Kemampuan Perencanaan
+Account Executive SMB,Daya Analisa
+Account Executive SMB,Prospecting
+Account Executive SMB,Kualifikasi Lead
+Account Executive SMB,Presentasi Solusi
+Account Executive SMB,CRM
+Business Development Representative,Keterampilan Interpersonal
+Business Development Representative,Kerjasama
+Business Development Representative,Kemampuan verbal
+Business Development Representative,Fleksibilitas
+Business Development Representative,Kemampuan Perencanaan
+Business Development Representative,Daya Analisa
+Business Development Representative,Prospecting
+Business Development Representative,Kualifikasi Lead
+Business Development Representative,CRM
+Business Development Representative,Riset Pasar
+Sales Development Representative,Keterampilan Interpersonal
+Sales Development Representative,Kerjasama
+Sales Development Representative,Kemampuan verbal
+Sales Development Representative,Fleksibilitas
+Sales Development Representative,Kemampuan Perencanaan
+Sales Development Representative,Daya Analisa
+Sales Development Representative,Prospecting
+Sales Development Representative,Kualifikasi Lead
+Sales Development Representative,CRM
+Sales Development Representative,Manajemen Pipeline
+Government Relations Specialist,Keterampilan Interpersonal
+Government Relations Specialist,Kerjasama
+Government Relations Specialist,Kemampuan verbal
+Government Relations Specialist,Fleksibilitas
+Government Relations Specialist,Kemampuan Perencanaan
+Government Relations Specialist,Daya Analisa
+Government Relations Specialist,Manajemen Tender
+Government Relations Specialist,Kepatuhan Regulasi
+Government Relations Specialist,Negosiasi Kontrak
+Government Relations Specialist,CRM
+Farming Manager Enterprise,Leadership
+Farming Manager Enterprise,Kemampuan Perencanaan
+Farming Manager Enterprise,Daya Analisa
+Farming Manager Enterprise,Keterampilan Interpersonal
+Farming Manager Enterprise,Kemampuan verbal
+Farming Manager Enterprise,Kerjasama
+Farming Manager Enterprise,Manajemen Akun
+Farming Manager Enterprise,Retensi & Renewal
+Farming Manager Enterprise,Upselling & Cross-selling
+Farming Manager Enterprise,CRM
+Farming Manager Enterprise,Penetapan Harga
+Farming Manager SMB,Leadership
+Farming Manager SMB,Kemampuan Perencanaan
+Farming Manager SMB,Daya Analisa
+Farming Manager SMB,Keterampilan Interpersonal
+Farming Manager SMB,Kemampuan verbal
+Farming Manager SMB,Kerjasama
+Farming Manager SMB,Manajemen Akun
+Farming Manager SMB,Retensi & Renewal
+Farming Manager SMB,Customer Success
+Farming Manager SMB,CRM
+Farming Manager SMB,Manajemen Pipeline
+Account Manager Enterprise,Keterampilan Interpersonal
+Account Manager Enterprise,Kerjasama
+Account Manager Enterprise,Kemampuan verbal
+Account Manager Enterprise,Fleksibilitas
+Account Manager Enterprise,Kemampuan Perencanaan
+Account Manager Enterprise,Daya Analisa
+Account Manager Enterprise,Manajemen Akun
+Account Manager Enterprise,Upselling & Cross-selling
+Account Manager Enterprise,Negosiasi Kontrak
+Account Manager Enterprise,CRM
+Account Manager SMB,Keterampilan Interpersonal
+Account Manager SMB,Kerjasama
+Account Manager SMB,Kemampuan verbal
+Account Manager SMB,Fleksibilitas
+Account Manager SMB,Kemampuan Perencanaan
+Account Manager SMB,Daya Analisa
+Account Manager SMB,Manajemen Akun
+Account Manager SMB,Customer Success
+Account Manager SMB,Upselling & Cross-selling
+Account Manager SMB,CRM
+Customer Success Officer,Keterampilan Interpersonal
+Customer Success Officer,Kerjasama
+Customer Success Officer,Kemampuan verbal
+Customer Success Officer,Fleksibilitas
+Customer Success Officer,Kemampuan Perencanaan
+Customer Success Officer,Daya Analisa
+Customer Success Officer,Customer Success
+Customer Success Officer,Manajemen Akun
+Customer Success Officer,Retensi & Renewal
+Customer Success Officer,CRM
+Renewal Specialist,Keterampilan Interpersonal
+Renewal Specialist,Kerjasama
+Renewal Specialist,Kemampuan verbal
+Renewal Specialist,Fleksibilitas
+Renewal Specialist,Kemampuan Perencanaan
+Renewal Specialist,Daya Analisa
+Renewal Specialist,Retensi & Renewal
+Renewal Specialist,Manajemen Akun
+Renewal Specialist,Negosiasi Kontrak
+Renewal Specialist,CRM

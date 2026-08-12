@@ -161,7 +161,7 @@ export function buildBackendActions(session: SessionContext, requestId?: string)
       name: "getOrgHierarchy",
       description: "Find who an employee's manager is, and who reports to them — the current org-chart/reporting line. Requires the employee's name (full or partial). This is about current management structure, not succession/future-successor data.",
       parameters: [
-        { name: "query", type: "string", description: "Employee name or partial name, e.g. \"Kylian Mbappe\"", required: true },
+        { name: "query", type: "string", description: "Employee name or partial name, e.g. \"Ayu Lestari\"", required: true },
       ] as const,
       handler: async (args: { query: string }) => {
         log("getOrgHierarchy", { query: args.query });
@@ -170,9 +170,9 @@ export function buildBackendActions(session: SessionContext, requestId?: string)
     },
     {
       name: "getEmployeeRank",
-      description: "Find exactly where ONE named employee ranks on a score metric among all employees, e.g. \"where does Son Heung-min rank on performance?\" or \"why isn't X in the bottom 5?\". ALWAYS call this for a question about a specific named person's standing/rank — NEVER state a rank number for a specific person without calling this first, even if you think you can estimate it from a previous getRankedEmployees result. Same rank numbering as getRankedEmployees (1 = highest score). Returns rank + total only, never the raw score.",
+      description: "Find exactly where ONE named employee ranks on a score metric among all employees, e.g. \"where does Teguh Firmansyah rank on performance?\" or \"why isn't X in the bottom 5?\". ALWAYS call this for a question about a specific named person's standing/rank — NEVER state a rank number for a specific person without calling this first, even if you think you can estimate it from a previous getRankedEmployees result. Same rank numbering as getRankedEmployees (1 = highest score). Returns rank + total only, never the raw score.",
       parameters: [
-        { name: "name", type: "string", description: "Employee name or partial name, e.g. \"Son Heung-min\"", required: true },
+        { name: "name", type: "string", description: "Employee name or partial name, e.g. \"Teguh Firmansyah\"", required: true },
         { name: "metric", type: "string", description: "One of: behavioral, technical, performance, leadership, competency, prediction, engagement", required: true },
       ] as const,
       handler: async (args: { name: string; metric: string }) => {

@@ -118,6 +118,74 @@ const TECHNICAL_BY_POSITION = {
   "Chief Revenue Officer": ["Strategi Pendapatan", "Manajemen Pipeline", "Penetapan Harga"],
   "VP Corporate Strategy": ["Strategi Korporat", "Analisis Kompetitif", "Pemodelan Skenario"],
   "Head of Governance": ["Manajemen Risiko", "Kepatuhan Regulasi", "Audit Internal"],
+
+  // ── C-level yang menyusul struktur 5 lapis ─────────────────────────────────
+  "Chief Technology Officer": ["Technical Roadmap", "Arsitektur Sistem", "Cloud Infrastructure", "Keamanan Aplikasi"],
+  "Chief Financial Officer": ["Pelaporan Keuangan", "Alokasi Modal", "Manajemen Risiko", "Kepatuhan Regulasi"],
+  "Chief Operating Officer": ["Perencanaan Kapasitas", "Efisiensi Proses", "Manajemen Rantai Pasok", "Kendali Mutu"],
+  "Chief Human Resources Officer": ["Manajemen Talenta", "Perencanaan SDM", "Manajemen Kinerja", "Remunerasi"],
+
+  // ── Strategi ───────────────────────────────────────────────────────────────
+  "Strategy Manager": ["Perencanaan Strategis", "Analisis Kompetitif", "Pemodelan Skenario", "Spreadsheet Lanjutan"],
+  "Governance Manager": ["Tata Kelola", "Kepatuhan Regulasi", "Audit Internal", "Manajemen Risiko"],
+  "Strategy Analyst": ["Analisis Kompetitif", "Pemodelan Skenario", "Spreadsheet Lanjutan", "Riset Pasar"],
+
+  // ── Teknologi ──────────────────────────────────────────────────────────────
+  "Head of Infrastructure & Security": ["Cloud Infrastructure", "Keamanan Aplikasi", "Observability", "CI/CD"],
+  "QA Lead": ["Pengujian Otomatis", "Kualitas Kode", "Debugging", "Kendali Mutu"],
+  "DevOps Lead": ["CI/CD", "Containerization", "Cloud Infrastructure", "Observability"],
+  "Security Lead": ["Keamanan Aplikasi", "Kepatuhan Regulasi", "Observability", "Audit Internal"],
+  "Backend Engineer": ["Desain API", "Basis Data", "Optimasi Query", "Kualitas Kode"],
+  "Frontend Engineer": ["Arsitektur Komponen", "State Management", "Performa Web", "Aksesibilitas"],
+  "Software Engineer": ["Kualitas Kode", "Pengujian Otomatis", "Debugging", "Version Control"],
+  "QA Engineer": ["Pengujian Otomatis", "Debugging", "Kendali Mutu", "Version Control"],
+  "DevOps Engineer": ["CI/CD", "Containerization", "Observability", "Cloud Infrastructure"],
+  "Security Analyst": ["Keamanan Aplikasi", "Observability", "Kepatuhan Regulasi", "Debugging"],
+
+  // ── Keuangan ───────────────────────────────────────────────────────────────
+  "Head of Accounting": ["Standar Akuntansi", "Pelaporan Keuangan", "Pengendalian Internal", "Kepatuhan Pajak"],
+  "Accounting Manager": ["Standar Akuntansi", "Rekonsiliasi", "Pelaporan Keuangan", "Pengendalian Internal"],
+  "Internal Auditor": ["Audit Internal", "Pengendalian Internal", "Audit Kepatuhan", "Manajemen Risiko"],
+  "Accounting Staff": ["Rekonsiliasi", "Standar Akuntansi", "Spreadsheet Lanjutan", "Sistem ERP"],
+  "Tax Staff": ["Kepatuhan Pajak", "Standar Akuntansi", "Rekonsiliasi", "Audit Kepatuhan"],
+
+  // ── Operasional ────────────────────────────────────────────────────────────
+  "Head of Supply Chain": ["Manajemen Rantai Pasok", "Perencanaan Inventori", "Manajemen Vendor", "Perencanaan Kapasitas"],
+  "Service Quality Manager": ["Kendali Mutu", "Pemetaan Proses", "Efisiensi Proses", "Analitik Operasional"],
+  "Operations Staff": ["Pemetaan Proses", "Sistem ERP", "Kendali Mutu", "Keselamatan Kerja"],
+  "Service Quality Officer": ["Kendali Mutu", "Pemetaan Proses", "Analitik Operasional", "Keselamatan Kerja"],
+  "Logistics Staff": ["Manajemen Rantai Pasok", "Perencanaan Inventori", "Sistem ERP", "Keselamatan Kerja"],
+  "Procurement Staff": ["Manajemen Vendor", "Negosiasi Pengadaan", "Perencanaan Inventori", "Kepatuhan Regulasi"],
+
+  // ── SDM ────────────────────────────────────────────────────────────────────
+  "People Development Manager": ["Manajemen Talenta", "Manajemen Kinerja", "Perencanaan SDM", "HRIS"],
+  "HR Operations Staff": ["Administrasi Personalia", "HRIS", "Onboarding", "Kepatuhan Ketenagakerjaan"],
+  Recruiter: ["Sourcing Kandidat", "Teknik Wawancara", "ATS", "Employer Branding"],
+  "Learning & Development Specialist": ["Manajemen Talenta", "Manajemen Kinerja", "Onboarding", "HRIS"],
+
+  // ── Pemasaran ──────────────────────────────────────────────────────────────
+  "Head of Sales": ["Strategi Pendapatan", "Manajemen Pipeline", "Penetapan Harga", "CRM"],
+  "Graphic Designer": ["Produksi Visual", "Storytelling Visual", "Arahan Kreatif", "Design System"],
+  "Digital Marketing Executive": ["Analitik Digital", "Otomasi Pemasaran", "SEO", "Optimasi Konversi"],
+  "Market Research Analyst": ["Riset Pasar", "Analisis Kompetitif", "Analitik Digital", "Spreadsheet Lanjutan"],
+
+  // ── Hunter — mengejar pelanggan baru ───────────────────────────────────────
+  "Hunting Manager Enterprise": ["Manajemen Pipeline", "Negosiasi Kontrak", "Presentasi Solusi", "CRM", "Penetapan Harga"],
+  "Hunting Manager SMB": ["Manajemen Pipeline", "Kualifikasi Lead", "Prospecting", "CRM", "Penetapan Harga"],
+  "Hunting Manager Government": ["Manajemen Tender", "Negosiasi Kontrak", "Kepatuhan Regulasi", "Manajemen Pipeline", "CRM"],
+  "Account Executive Enterprise": ["Presentasi Solusi", "Negosiasi Kontrak", "Manajemen Pipeline", "CRM"],
+  "Account Executive SMB": ["Prospecting", "Kualifikasi Lead", "Presentasi Solusi", "CRM"],
+  "Business Development Representative": ["Prospecting", "Kualifikasi Lead", "CRM", "Riset Pasar"],
+  "Sales Development Representative": ["Prospecting", "Kualifikasi Lead", "CRM", "Manajemen Pipeline"],
+  "Government Relations Specialist": ["Manajemen Tender", "Kepatuhan Regulasi", "Negosiasi Kontrak", "CRM"],
+
+  // ── Farmer — menggarap pelanggan yang sudah ada ────────────────────────────
+  "Farming Manager Enterprise": ["Manajemen Akun", "Retensi & Renewal", "Upselling & Cross-selling", "CRM", "Penetapan Harga"],
+  "Farming Manager SMB": ["Manajemen Akun", "Retensi & Renewal", "Customer Success", "CRM", "Manajemen Pipeline"],
+  "Account Manager Enterprise": ["Manajemen Akun", "Upselling & Cross-selling", "Negosiasi Kontrak", "CRM"],
+  "Account Manager SMB": ["Manajemen Akun", "Customer Success", "Upselling & Cross-selling", "CRM"],
+  "Customer Success Officer": ["Customer Success", "Manajemen Akun", "Retensi & Renewal", "CRM"],
+  "Renewal Specialist": ["Retensi & Renewal", "Manajemen Akun", "Negosiasi Kontrak", "CRM"],
 };
 
 /** Paket aspek General untuk tiap posisi. */
@@ -155,10 +223,71 @@ const BUNDLE_BY_POSITION = {
   "Chief Revenue Officer": "leader",
   "VP Corporate Strategy": "leader",
   "Head of Governance": "leader",
+
+  // C-level & Head: paket kepemimpinan.
+  "Chief Technology Officer": "leader",
+  "Chief Financial Officer": "leader",
+  "Chief Operating Officer": "leader",
+  "Chief Human Resources Officer": "leader",
+  "Head of Infrastructure & Security": "leader",
+  "Head of Accounting": "leader",
+  "Head of Supply Chain": "leader",
+  "Head of Sales": "leader",
+
+  // Manager & Lead.
+  "Strategy Manager": "analyst",
+  "Governance Manager": "analyst",
+  "QA Lead": "builder",
+  "DevOps Lead": "builder",
+  "Security Lead": "builder",
+  "Accounting Manager": "analyst",
+  "Service Quality Manager": "leader",
+  "People Development Manager": "people",
+  "Hunting Manager Enterprise": "leader",
+  "Hunting Manager SMB": "leader",
+  "Hunting Manager Government": "leader",
+  "Farming Manager Enterprise": "leader",
+  "Farming Manager SMB": "leader",
+
+  // Staf.
+  "Strategy Analyst": "analyst",
+  "Backend Engineer": "builder",
+  "Frontend Engineer": "builder",
+  "Software Engineer": "builder",
+  "QA Engineer": "builder",
+  "DevOps Engineer": "builder",
+  "Security Analyst": "builder",
+  "Internal Auditor": "analyst",
+  "Accounting Staff": "analyst",
+  "Tax Staff": "analyst",
+  "Operations Staff": "analyst",
+  "Service Quality Officer": "analyst",
+  "Logistics Staff": "analyst",
+  "Procurement Staff": "analyst",
+  "HR Operations Staff": "people",
+  Recruiter: "people",
+  "Learning & Development Specialist": "people",
+  "Graphic Designer": "creative",
+  "Digital Marketing Executive": "creative",
+  "Market Research Analyst": "analyst",
+  // Penjualan memakai paket "people": pekerjaannya bertumpu pada hubungan,
+  // komunikasi, dan kerja sama — bukan analisis maupun eksekusi teknis.
+  "Account Executive Enterprise": "people",
+  "Account Executive SMB": "people",
+  "Business Development Representative": "people",
+  "Sales Development Representative": "people",
+  "Government Relations Specialist": "people",
+  "Account Manager Enterprise": "people",
+  "Account Manager SMB": "people",
+  "Customer Success Officer": "people",
+  "Renewal Specialist": "people",
 };
 
 /** Dipakai posisi yang belum terdaftar di dua tabel di atas. */
-const DEFAULT_TECHNICAL = ["Penguasaan Alat Kerja", "Kualitas Output", "Dokumentasi", "Analitik Data", "Kepatuhan Prosedur"];
+// Isinya harus benar-benar ada di aspects.csv — sebelumnya menyebut aspek yang
+// tidak pernah ada di katalog, dan itu baru ketahuan saat ada posisi yang
+// jatuh ke sini.
+const DEFAULT_TECHNICAL = ["Efisiensi Proses", "Kendali Mutu", "Pemetaan Proses", "Analitik Operasional", "Manajemen Vendor"];
 const DEFAULT_BUNDLE = "builder";
 
 // ── Key Behaviour ────────────────────────────────────────────────────────────

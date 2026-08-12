@@ -1,329 +1,1125 @@
 id,name,aspect,score
-p01,Jude Bellingham,Leadership,3
-p01,Jude Bellingham,Kemampuan Perencanaan,3
-p01,Jude Bellingham,Daya Analisa,4
-p01,Jude Bellingham,Keterampilan Interpersonal,5
-p01,Jude Bellingham,Kemampuan verbal,5
-p01,Jude Bellingham,Kerjasama,2
-p01,Jude Bellingham,Arsitektur Sistem,3
-p01,Jude Bellingham,Code Review,2
-p01,Jude Bellingham,Keamanan Aplikasi,3
-p01,Jude Bellingham,CI/CD,4
-p01,Jude Bellingham,Cloud Infrastructure,2
-p01,Jude Bellingham,Observability,3
-p02,Jamal Musiala,Logika Berpikir,5
-p02,Jamal Musiala,Daya Analisa,4
-p02,Jamal Musiala,Kerjasama,3
-p02,Jamal Musiala,Fleksibilitas,4
-p02,Jamal Musiala,Kemampuan Perencanaan,4
-p02,Jamal Musiala,Kemampuan verbal,5
-p02,Jamal Musiala,Kualitas Kode,4
-p02,Jamal Musiala,Pengujian Otomatis,4
-p02,Jamal Musiala,Debugging,4
-p02,Jamal Musiala,Version Control,5
-p03,Florian Wirtz,Logika Berpikir,2
-p03,Florian Wirtz,Daya Analisa,1
-p03,Florian Wirtz,Kerjasama,3
-p03,Florian Wirtz,Fleksibilitas,1
-p03,Florian Wirtz,Kemampuan Perencanaan,4
-p03,Florian Wirtz,Kemampuan verbal,2
-p03,Florian Wirtz,Arsitektur Komponen,4
-p03,Florian Wirtz,State Management,4
-p03,Florian Wirtz,Aksesibilitas,2
-p03,Florian Wirtz,Performa Web,4
-p03,Florian Wirtz,Design System,5
-p04,Phil Foden,Logika Berpikir,3
-p04,Phil Foden,Daya Analisa,2
-p04,Phil Foden,Kerjasama,4
-p04,Phil Foden,Fleksibilitas,2
-p04,Phil Foden,Kemampuan Perencanaan,5
-p04,Phil Foden,Kemampuan verbal,3
-p04,Phil Foden,Desain API,2
-p04,Phil Foden,Basis Data,1
-p04,Phil Foden,Optimasi Query,4
-p04,Phil Foden,Message Queue,1
-p04,Phil Foden,Containerization,5
-p05,Kylian Mbappe,Leadership,5
-p05,Kylian Mbappe,Kemampuan Perencanaan,5
-p05,Kylian Mbappe,Daya Analisa,4
-p05,Kylian Mbappe,Keterampilan Interpersonal,3
-p05,Kylian Mbappe,Kemampuan verbal,3
-p05,Kylian Mbappe,Kerjasama,4
-p05,Kylian Mbappe,Strategi Korporat,5
-p05,Kylian Mbappe,Alokasi Modal,4
-p05,Kylian Mbappe,Tata Kelola,3
-p06,Erling Haaland,Leadership,2
-p06,Erling Haaland,Kemampuan Perencanaan,2
-p06,Erling Haaland,Daya Analisa,5
-p06,Erling Haaland,Keterampilan Interpersonal,4
-p06,Erling Haaland,Kemampuan verbal,4
-p06,Erling Haaland,Kerjasama,5
-p06,Erling Haaland,Strategi Korporat,5
-p06,Erling Haaland,Analisis Kompetitif,5
-p06,Erling Haaland,Pemodelan Skenario,4
-p07,Rodri,Leadership,3
-p07,Rodri,Kemampuan Perencanaan,3
-p07,Rodri,Daya Analisa,5
-p07,Rodri,Keterampilan Interpersonal,4
-p07,Rodri,Kemampuan verbal,4
-p07,Rodri,Kerjasama,5
-p07,Rodri,Strategi Korporat,2
-p07,Rodri,Analisis Kompetitif,5
-p07,Rodri,Pemodelan Skenario,4
-p08,Virgil van Dijk,Leadership,3
-p08,Virgil van Dijk,Kemampuan Perencanaan,3
-p08,Virgil van Dijk,Daya Analisa,5
-p08,Virgil van Dijk,Keterampilan Interpersonal,5
-p08,Virgil van Dijk,Kemampuan verbal,5
-p08,Virgil van Dijk,Kerjasama,2
-p08,Virgil van Dijk,Manajemen Risiko,4
-p08,Virgil van Dijk,Kepatuhan Regulasi,4
-p08,Virgil van Dijk,Audit Internal,5
-p09,Pedri,Leadership,4
-p09,Pedri,Kemampuan Perencanaan,4
-p09,Pedri,Daya Analisa,4
-p09,Pedri,Keterampilan Interpersonal,5
-p09,Pedri,Kemampuan verbal,5
-p09,Pedri,Kerjasama,3
-p09,Pedri,Pelaporan Keuangan,2
-p09,Pedri,Analisis Anggaran,5
-p09,Pedri,Manajemen Risiko,4
-p09,Pedri,Kepatuhan Pajak,4
-p09,Pedri,Standar Akuntansi,4
-p10,Federico Valverde,Logika Berpikir,5
-p10,Federico Valverde,Daya Analisa,4
-p10,Federico Valverde,Kemampuan Numerikal,4
-p10,Federico Valverde,Kemampuan verbal,5
-p10,Federico Valverde,Kerjasama,2
-p10,Federico Valverde,Fleksibilitas,4
-p10,Federico Valverde,Pemodelan Keuangan,3
-p10,Federico Valverde,Analisis Varians,1
-p10,Federico Valverde,Rekonsiliasi,2
-p10,Federico Valverde,Spreadsheet Lanjutan,3
-p10,Federico Valverde,Standar Akuntansi,4
-p11,Enzo Fernandez,Logika Berpikir,5
-p11,Enzo Fernandez,Daya Analisa,4
-p11,Enzo Fernandez,Kemampuan Numerikal,5
-p11,Enzo Fernandez,Kemampuan verbal,5
-p11,Enzo Fernandez,Kerjasama,3
-p11,Enzo Fernandez,Fleksibilitas,4
-p11,Enzo Fernandez,Pemodelan Keuangan,3
-p11,Enzo Fernandez,Rekonsiliasi,3
-p11,Enzo Fernandez,Analisis Varians,2
-p11,Enzo Fernandez,Spreadsheet Lanjutan,4
-p11,Enzo Fernandez,Standar Akuntansi,4
-p12,Antoine Griezmann,Logika Berpikir,2
-p12,Antoine Griezmann,Daya Analisa,1
-p12,Antoine Griezmann,Kemampuan Numerikal,5
-p12,Antoine Griezmann,Kemampuan verbal,2
-p12,Antoine Griezmann,Kerjasama,3
-p12,Antoine Griezmann,Fleksibilitas,1
-p12,Antoine Griezmann,Pengendalian Internal,5
-p12,Antoine Griezmann,Pelaporan Keuangan,2
-p12,Antoine Griezmann,Audit Kepatuhan,2
-p12,Antoine Griezmann,Standar Akuntansi,5
-p13,Christian Pulisic,Keterampilan Interpersonal,3
-p13,Christian Pulisic,Kerjasama,4
-p13,Christian Pulisic,Kemampuan verbal,3
-p13,Christian Pulisic,Fleksibilitas,2
-p13,Christian Pulisic,Kemampuan Perencanaan,5
-p13,Christian Pulisic,Daya Analisa,2
-p13,Christian Pulisic,Manajemen Talenta,4
-p13,Christian Pulisic,Perencanaan SDM,4
-p13,Christian Pulisic,Hubungan Industrial,3
-p13,Christian Pulisic,HRIS,3
-p14,Declan Rice,Keterampilan Interpersonal,3
-p14,Declan Rice,Kerjasama,4
-p14,Declan Rice,Kemampuan verbal,3
-p14,Declan Rice,Fleksibilitas,2
-p14,Declan Rice,Kemampuan Perencanaan,5
-p14,Declan Rice,Daya Analisa,2
-p14,Declan Rice,Manajemen Kinerja,4
-p14,Declan Rice,Remunerasi,4
-p14,Declan Rice,Hubungan Industrial,4
-p14,Declan Rice,HRIS,4
-p15,Cody Gakpo,Keterampilan Interpersonal,4
-p15,Cody Gakpo,Kerjasama,5
-p15,Cody Gakpo,Kemampuan verbal,4
-p15,Cody Gakpo,Fleksibilitas,3
-p15,Cody Gakpo,Kemampuan Perencanaan,2
-p15,Cody Gakpo,Daya Analisa,3
-p15,Cody Gakpo,Sourcing Kandidat,4
-p15,Cody Gakpo,Teknik Wawancara,5
-p15,Cody Gakpo,Employer Branding,4
-p15,Cody Gakpo,ATS,4
-p16,Alphonso Davies,Keterampilan Interpersonal,4
-p16,Alphonso Davies,Kerjasama,5
-p16,Alphonso Davies,Kemampuan verbal,4
-p16,Alphonso Davies,Fleksibilitas,3
-p16,Alphonso Davies,Kemampuan Perencanaan,3
-p16,Alphonso Davies,Daya Analisa,3
-p16,Alphonso Davies,Administrasi Personalia,1
-p16,Alphonso Davies,Onboarding,4
-p16,Alphonso Davies,Kepatuhan Ketenagakerjaan,5
-p16,Alphonso Davies,HRIS,1
-p17,Lautaro Martinez,Leadership,3
-p17,Lautaro Martinez,Kemampuan Perencanaan,3
-p17,Lautaro Martinez,Daya Analisa,5
-p17,Lautaro Martinez,Keterampilan Interpersonal,5
-p17,Lautaro Martinez,Kemampuan verbal,5
-p17,Lautaro Martinez,Kerjasama,2
-p17,Lautaro Martinez,Perencanaan Kapasitas,4
-p17,Lautaro Martinez,Manajemen Rantai Pasok,3
-p17,Lautaro Martinez,Kendali Mutu,5
-p17,Lautaro Martinez,Analitik Operasional,5
-p17,Lautaro Martinez,Keselamatan Kerja,5
-p18,Julian Alvarez,Leadership,4
-p18,Julian Alvarez,Kemampuan Perencanaan,4
-p18,Julian Alvarez,Daya Analisa,5
-p18,Julian Alvarez,Keterampilan Interpersonal,5
-p18,Julian Alvarez,Kemampuan verbal,5
-p18,Julian Alvarez,Kerjasama,3
-p18,Julian Alvarez,Perencanaan Produksi,3
-p18,Julian Alvarez,Kendali Mutu,2
-p18,Julian Alvarez,Efisiensi Proses,5
-p18,Julian Alvarez,Keselamatan Kerja,5
-p19,Achraf Hakimi,Leadership,4
-p19,Achraf Hakimi,Kemampuan Perencanaan,4
-p19,Achraf Hakimi,Daya Analisa,3
-p19,Achraf Hakimi,Keterampilan Interpersonal,2
-p19,Achraf Hakimi,Kemampuan verbal,2
-p19,Achraf Hakimi,Kerjasama,3
-p19,Achraf Hakimi,Manajemen Rantai Pasok,4
-p19,Achraf Hakimi,Manajemen Vendor,4
-p19,Achraf Hakimi,Perencanaan Inventori,3
-p19,Achraf Hakimi,Sistem ERP,5
-p20,Son Heung-min,Logika Berpikir,5
-p20,Son Heung-min,Daya Analisa,5
-p20,Son Heung-min,Kemampuan Numerikal,5
-p20,Son Heung-min,Kemampuan verbal,5
-p20,Son Heung-min,Kerjasama,3
-p20,Son Heung-min,Fleksibilitas,5
-p20,Son Heung-min,Analitik Operasional,5
-p20,Son Heung-min,Pemetaan Proses,3
-p20,Son Heung-min,Spreadsheet Lanjutan,4
-p21,Vinicius Junior,Leadership,4
-p21,Vinicius Junior,Kemampuan Perencanaan,4
-p21,Vinicius Junior,Daya Analisa,1
-p21,Vinicius Junior,Keterampilan Interpersonal,2
-p21,Vinicius Junior,Kemampuan verbal,2
-p21,Vinicius Junior,Kerjasama,3
-p21,Vinicius Junior,Strategi Kampanye,4
-p21,Vinicius Junior,Riset Pasar,4
-p21,Vinicius Junior,Manajemen Brand,2
-p21,Vinicius Junior,Analitik Digital,3
-p21,Vinicius Junior,Otomasi Pemasaran,4
-p22,Rafael Leao,Kemampuan verbal,3
-p22,Rafael Leao,Fleksibilitas,2
-p22,Rafael Leao,Daya Analisa,2
-p22,Rafael Leao,Kerjasama,4
-p22,Rafael Leao,Keterampilan Interpersonal,3
-p22,Rafael Leao,Kemampuan Perencanaan,5
-p22,Rafael Leao,Strategi Kampanye,4
-p22,Rafael Leao,Riset Pasar,4
-p22,Rafael Leao,Analitik Digital,3
-p23,Bukayo Saka,Kemampuan verbal,3
-p23,Bukayo Saka,Fleksibilitas,2
-p23,Bukayo Saka,Daya Analisa,2
-p23,Bukayo Saka,Kerjasama,4
-p23,Bukayo Saka,Keterampilan Interpersonal,3
-p23,Bukayo Saka,Kemampuan Perencanaan,5
-p23,Bukayo Saka,Manajemen Brand,3
-p23,Bukayo Saka,Strategi Kampanye,5
-p23,Bukayo Saka,Riset Pasar,1
-p24,Nico Williams,Logika Berpikir,4
-p24,Nico Williams,Daya Analisa,3
-p24,Nico Williams,Kemampuan Numerikal,3
-p24,Nico Williams,Kemampuan verbal,4
-p24,Nico Williams,Kerjasama,5
-p24,Nico Williams,Fleksibilitas,3
-p24,Nico Williams,Eksperimen Pertumbuhan,2
-p24,Nico Williams,Optimasi Konversi,3
-p24,Nico Williams,Analitik Digital,4
-p25,Lionel Messi,Kemampuan verbal,4
-p25,Lionel Messi,Fleksibilitas,3
-p25,Lionel Messi,Daya Analisa,3
-p25,Lionel Messi,Kerjasama,5
-p25,Lionel Messi,Keterampilan Interpersonal,4
-p25,Lionel Messi,Kemampuan Perencanaan,3
-p25,Lionel Messi,Strategi Brand,2
-p25,Lionel Messi,Riset Pasar,2
-p25,Lionel Messi,Narasi & Positioning,3
-p26,Cristiano Ronaldo,Leadership,3
-p26,Cristiano Ronaldo,Kemampuan Perencanaan,3
-p26,Cristiano Ronaldo,Daya Analisa,5
-p26,Cristiano Ronaldo,Keterampilan Interpersonal,5
-p26,Cristiano Ronaldo,Kemampuan verbal,5
-p26,Cristiano Ronaldo,Kerjasama,2
-p26,Cristiano Ronaldo,Strategi Pendapatan,4
-p26,Cristiano Ronaldo,Manajemen Pipeline,5
-p26,Cristiano Ronaldo,Penetapan Harga,4
-p27,Neymar Jr,Kemampuan verbal,5
-p27,Neymar Jr,Fleksibilitas,4
-p27,Neymar Jr,Daya Analisa,4
-p27,Neymar Jr,Kerjasama,3
-p27,Neymar Jr,Keterampilan Interpersonal,5
-p27,Neymar Jr,Kemampuan Perencanaan,4
-p27,Neymar Jr,Arahan Kreatif,5
-p27,Neymar Jr,Storytelling Visual,3
-p27,Neymar Jr,Manajemen Produksi,4
-p28,Kevin De Bruyne,Logika Berpikir,2
-p28,Kevin De Bruyne,Daya Analisa,1
-p28,Kevin De Bruyne,Kerjasama,3
-p28,Kevin De Bruyne,Fleksibilitas,1
-p28,Kevin De Bruyne,Kemampuan Perencanaan,4
-p28,Kevin De Bruyne,Kemampuan verbal,2
-p28,Kevin De Bruyne,Arsitektur Sistem,4
-p28,Kevin De Bruyne,Desain Terdistribusi,3
-p28,Kevin De Bruyne,Technical Roadmap,4
-p28,Kevin De Bruyne,Cloud Infrastructure,3
-p28,Kevin De Bruyne,Observability,4
-p29,Luka Modric,Logika Berpikir,3
-p29,Luka Modric,Daya Analisa,4
-p29,Luka Modric,Kemampuan Numerikal,2
-p29,Luka Modric,Kemampuan verbal,3
-p29,Luka Modric,Kerjasama,4
-p29,Luka Modric,Fleksibilitas,4
-p29,Luka Modric,Perencanaan Strategis,3
-p29,Luka Modric,Analitik Operasional,4
-p29,Luka Modric,Pemodelan Skenario,3
-p30,Mohamed Salah,Logika Berpikir,2
-p30,Mohamed Salah,Daya Analisa,1
-p30,Mohamed Salah,Kemampuan Numerikal,5
-p30,Mohamed Salah,Kemampuan verbal,2
-p30,Mohamed Salah,Kerjasama,3
-p30,Mohamed Salah,Fleksibilitas,1
-p30,Mohamed Salah,Eksperimen Pertumbuhan,4
-p30,Mohamed Salah,Analitik Digital,3
-p30,Mohamed Salah,Optimasi Konversi,5
-p30,Mohamed Salah,Otomasi Pemasaran,4
-p31,Harry Kane,Leadership,5
-p31,Harry Kane,Kemampuan Perencanaan,5
-p31,Harry Kane,Daya Analisa,2
-p31,Harry Kane,Keterampilan Interpersonal,3
-p31,Harry Kane,Kemampuan verbal,3
-p31,Harry Kane,Kerjasama,4
-p31,Harry Kane,Pelaporan Keuangan,3
-p31,Harry Kane,Analisis Anggaran,3
-p31,Harry Kane,Manajemen Kas,4
-p31,Harry Kane,Standar Akuntansi,5
-p32,Robert Lewandowski,Leadership,5
-p32,Robert Lewandowski,Kemampuan Perencanaan,5
-p32,Robert Lewandowski,Daya Analisa,4
-p32,Robert Lewandowski,Keterampilan Interpersonal,3
-p32,Robert Lewandowski,Kemampuan verbal,3
-p32,Robert Lewandowski,Kerjasama,4
-p32,Robert Lewandowski,Manajemen Rantai Pasok,5
-p32,Robert Lewandowski,Negosiasi Pengadaan,5
-p32,Robert Lewandowski,Perencanaan Inventori,4
-p32,Robert Lewandowski,Sistem ERP,5
-p33,Lamine Yamal,Kemampuan verbal,4
-p33,Lamine Yamal,Fleksibilitas,3
-p33,Lamine Yamal,Daya Analisa,3
-p33,Lamine Yamal,Kerjasama,5
-p33,Lamine Yamal,Keterampilan Interpersonal,4
-p33,Lamine Yamal,Kemampuan Perencanaan,2
-p33,Lamine Yamal,Penulisan Konten,4
-p33,Lamine Yamal,Produksi Visual,3
-p33,Lamine Yamal,SEO,4
-p33,Lamine Yamal,Analitik Digital,4
+p01,Intan Permatasari,Leadership,4
+p01,Intan Permatasari,Kemampuan Perencanaan,4
+p01,Intan Permatasari,Daya Analisa,5
+p01,Intan Permatasari,Keterampilan Interpersonal,5
+p01,Intan Permatasari,Kemampuan verbal,5
+p01,Intan Permatasari,Kerjasama,3
+p01,Intan Permatasari,Arsitektur Sistem,4
+p01,Intan Permatasari,Code Review,3
+p01,Intan Permatasari,Keamanan Aplikasi,4
+p01,Intan Permatasari,CI/CD,5
+p01,Intan Permatasari,Cloud Infrastructure,3
+p01,Intan Permatasari,Observability,4
+p02,Ratna Juwita,Logika Berpikir,5
+p02,Ratna Juwita,Daya Analisa,5
+p02,Ratna Juwita,Kerjasama,4
+p02,Ratna Juwita,Fleksibilitas,5
+p02,Ratna Juwita,Kemampuan Perencanaan,5
+p02,Ratna Juwita,Kemampuan verbal,5
+p02,Ratna Juwita,Kualitas Kode,5
+p02,Ratna Juwita,Pengujian Otomatis,5
+p02,Ratna Juwita,Debugging,5
+p02,Ratna Juwita,Version Control,5
+p03,Citra Ayu Ningsih,Logika Berpikir,3
+p03,Citra Ayu Ningsih,Daya Analisa,2
+p03,Citra Ayu Ningsih,Kerjasama,4
+p03,Citra Ayu Ningsih,Fleksibilitas,2
+p03,Citra Ayu Ningsih,Kemampuan Perencanaan,5
+p03,Citra Ayu Ningsih,Kemampuan verbal,3
+p03,Citra Ayu Ningsih,Arsitektur Komponen,5
+p03,Citra Ayu Ningsih,State Management,5
+p03,Citra Ayu Ningsih,Aksesibilitas,3
+p03,Citra Ayu Ningsih,Performa Web,5
+p03,Citra Ayu Ningsih,Design System,5
+p04,Aditya Wibowo,Logika Berpikir,4
+p04,Aditya Wibowo,Daya Analisa,3
+p04,Aditya Wibowo,Kerjasama,5
+p04,Aditya Wibowo,Fleksibilitas,3
+p04,Aditya Wibowo,Kemampuan Perencanaan,5
+p04,Aditya Wibowo,Kemampuan verbal,4
+p04,Aditya Wibowo,Desain API,3
+p04,Aditya Wibowo,Basis Data,2
+p04,Aditya Wibowo,Optimasi Query,5
+p04,Aditya Wibowo,Message Queue,2
+p04,Aditya Wibowo,Containerization,5
+p05,Ayu Lestari,Leadership,5
+p05,Ayu Lestari,Kemampuan Perencanaan,5
+p05,Ayu Lestari,Daya Analisa,4
+p05,Ayu Lestari,Keterampilan Interpersonal,3
+p05,Ayu Lestari,Kemampuan verbal,3
+p05,Ayu Lestari,Kerjasama,4
+p05,Ayu Lestari,Strategi Korporat,5
+p05,Ayu Lestari,Alokasi Modal,4
+p05,Ayu Lestari,Tata Kelola,3
+p06,Bagus Prakoso,Leadership,2
+p06,Bagus Prakoso,Kemampuan Perencanaan,2
+p06,Bagus Prakoso,Daya Analisa,5
+p06,Bagus Prakoso,Keterampilan Interpersonal,4
+p06,Bagus Prakoso,Kemampuan verbal,4
+p06,Bagus Prakoso,Kerjasama,5
+p06,Bagus Prakoso,Strategi Korporat,5
+p06,Bagus Prakoso,Analisis Kompetitif,5
+p06,Bagus Prakoso,Pemodelan Skenario,4
+p07,Putri Maharani,Leadership,3
+p07,Putri Maharani,Kemampuan Perencanaan,3
+p07,Putri Maharani,Daya Analisa,5
+p07,Putri Maharani,Keterampilan Interpersonal,4
+p07,Putri Maharani,Kemampuan verbal,4
+p07,Putri Maharani,Kerjasama,5
+p07,Putri Maharani,Strategi Korporat,2
+p07,Putri Maharani,Analisis Kompetitif,5
+p07,Putri Maharani,Pemodelan Skenario,4
+p08,Rina Kartika,Leadership,3
+p08,Rina Kartika,Kemampuan Perencanaan,3
+p08,Rina Kartika,Daya Analisa,5
+p08,Rina Kartika,Keterampilan Interpersonal,5
+p08,Rina Kartika,Kemampuan verbal,5
+p08,Rina Kartika,Kerjasama,2
+p08,Rina Kartika,Manajemen Risiko,4
+p08,Rina Kartika,Kepatuhan Regulasi,4
+p08,Rina Kartika,Audit Internal,5
+p09,Teguh Firmansyah,Leadership,5
+p09,Teguh Firmansyah,Kemampuan Perencanaan,5
+p09,Teguh Firmansyah,Daya Analisa,5
+p09,Teguh Firmansyah,Keterampilan Interpersonal,5
+p09,Teguh Firmansyah,Kemampuan verbal,5
+p09,Teguh Firmansyah,Kerjasama,4
+p09,Teguh Firmansyah,Pelaporan Keuangan,3
+p09,Teguh Firmansyah,Analisis Anggaran,5
+p09,Teguh Firmansyah,Manajemen Risiko,5
+p09,Teguh Firmansyah,Kepatuhan Pajak,5
+p09,Teguh Firmansyah,Standar Akuntansi,5
+p10,Wisnu Baskoro,Logika Berpikir,5
+p10,Wisnu Baskoro,Daya Analisa,5
+p10,Wisnu Baskoro,Kemampuan Numerikal,5
+p10,Wisnu Baskoro,Kemampuan verbal,5
+p10,Wisnu Baskoro,Kerjasama,3
+p10,Wisnu Baskoro,Fleksibilitas,5
+p10,Wisnu Baskoro,Pemodelan Keuangan,4
+p10,Wisnu Baskoro,Analisis Varians,2
+p10,Wisnu Baskoro,Rekonsiliasi,3
+p10,Wisnu Baskoro,Spreadsheet Lanjutan,4
+p10,Wisnu Baskoro,Standar Akuntansi,5
+p11,Cindy Pratiwi,Logika Berpikir,5
+p11,Cindy Pratiwi,Daya Analisa,5
+p11,Cindy Pratiwi,Kemampuan Numerikal,5
+p11,Cindy Pratiwi,Kemampuan verbal,5
+p11,Cindy Pratiwi,Kerjasama,4
+p11,Cindy Pratiwi,Fleksibilitas,5
+p11,Cindy Pratiwi,Pemodelan Keuangan,4
+p11,Cindy Pratiwi,Rekonsiliasi,4
+p11,Cindy Pratiwi,Analisis Varians,3
+p11,Cindy Pratiwi,Spreadsheet Lanjutan,5
+p11,Cindy Pratiwi,Standar Akuntansi,5
+p12,Anisa Rahmadani,Logika Berpikir,3
+p12,Anisa Rahmadani,Daya Analisa,2
+p12,Anisa Rahmadani,Kemampuan Numerikal,5
+p12,Anisa Rahmadani,Kemampuan verbal,3
+p12,Anisa Rahmadani,Kerjasama,4
+p12,Anisa Rahmadani,Fleksibilitas,2
+p12,Anisa Rahmadani,Pengendalian Internal,5
+p12,Anisa Rahmadani,Pelaporan Keuangan,3
+p12,Anisa Rahmadani,Audit Kepatuhan,3
+p12,Anisa Rahmadani,Standar Akuntansi,5
+p13,Meliana Sianturi,Keterampilan Interpersonal,4
+p13,Meliana Sianturi,Kerjasama,5
+p13,Meliana Sianturi,Kemampuan verbal,4
+p13,Meliana Sianturi,Fleksibilitas,3
+p13,Meliana Sianturi,Kemampuan Perencanaan,5
+p13,Meliana Sianturi,Daya Analisa,3
+p13,Meliana Sianturi,Manajemen Talenta,5
+p13,Meliana Sianturi,Perencanaan SDM,5
+p13,Meliana Sianturi,Hubungan Industrial,4
+p13,Meliana Sianturi,HRIS,4
+p14,Novita Hutagalung,Keterampilan Interpersonal,4
+p14,Novita Hutagalung,Kerjasama,5
+p14,Novita Hutagalung,Kemampuan verbal,4
+p14,Novita Hutagalung,Fleksibilitas,3
+p14,Novita Hutagalung,Kemampuan Perencanaan,5
+p14,Novita Hutagalung,Daya Analisa,3
+p14,Novita Hutagalung,Manajemen Kinerja,5
+p14,Novita Hutagalung,Remunerasi,5
+p14,Novita Hutagalung,Hubungan Industrial,5
+p14,Novita Hutagalung,HRIS,5
+p15,Olivia Manurung,Keterampilan Interpersonal,5
+p15,Olivia Manurung,Kerjasama,5
+p15,Olivia Manurung,Kemampuan verbal,5
+p15,Olivia Manurung,Fleksibilitas,4
+p15,Olivia Manurung,Kemampuan Perencanaan,3
+p15,Olivia Manurung,Daya Analisa,4
+p15,Olivia Manurung,Sourcing Kandidat,5
+p15,Olivia Manurung,Teknik Wawancara,5
+p15,Olivia Manurung,Employer Branding,5
+p15,Olivia Manurung,ATS,5
+p16,Farhan Hakim,Keterampilan Interpersonal,5
+p16,Farhan Hakim,Kerjasama,5
+p16,Farhan Hakim,Kemampuan verbal,5
+p16,Farhan Hakim,Fleksibilitas,4
+p16,Farhan Hakim,Kemampuan Perencanaan,4
+p16,Farhan Hakim,Daya Analisa,4
+p16,Farhan Hakim,Administrasi Personalia,2
+p16,Farhan Hakim,Onboarding,5
+p16,Farhan Hakim,Kepatuhan Ketenagakerjaan,5
+p16,Farhan Hakim,HRIS,2
+p17,Farah Salsabila,Leadership,3
+p17,Farah Salsabila,Kemampuan Perencanaan,3
+p17,Farah Salsabila,Daya Analisa,5
+p17,Farah Salsabila,Keterampilan Interpersonal,5
+p17,Farah Salsabila,Kemampuan verbal,5
+p17,Farah Salsabila,Kerjasama,2
+p17,Farah Salsabila,Perencanaan Kapasitas,4
+p17,Farah Salsabila,Manajemen Rantai Pasok,3
+p17,Farah Salsabila,Kendali Mutu,5
+p17,Farah Salsabila,Analitik Operasional,5
+p17,Farah Salsabila,Keselamatan Kerja,5
+p18,Gilang Saputro,Leadership,4
+p18,Gilang Saputro,Kemampuan Perencanaan,4
+p18,Gilang Saputro,Daya Analisa,5
+p18,Gilang Saputro,Keterampilan Interpersonal,5
+p18,Gilang Saputro,Kemampuan verbal,5
+p18,Gilang Saputro,Kerjasama,3
+p18,Gilang Saputro,Perencanaan Produksi,3
+p18,Gilang Saputro,Kendali Mutu,2
+p18,Gilang Saputro,Efisiensi Proses,5
+p18,Gilang Saputro,Keselamatan Kerja,5
+p19,Indah Purnama,Leadership,4
+p19,Indah Purnama,Kemampuan Perencanaan,4
+p19,Indah Purnama,Daya Analisa,3
+p19,Indah Purnama,Keterampilan Interpersonal,2
+p19,Indah Purnama,Kemampuan verbal,2
+p19,Indah Purnama,Kerjasama,3
+p19,Indah Purnama,Manajemen Rantai Pasok,4
+p19,Indah Purnama,Manajemen Vendor,4
+p19,Indah Purnama,Perencanaan Inventori,3
+p19,Indah Purnama,Sistem ERP,5
+p20,Bintang Mahesa,Logika Berpikir,5
+p20,Bintang Mahesa,Daya Analisa,5
+p20,Bintang Mahesa,Kemampuan Numerikal,5
+p20,Bintang Mahesa,Kemampuan verbal,5
+p20,Bintang Mahesa,Kerjasama,3
+p20,Bintang Mahesa,Fleksibilitas,5
+p20,Bintang Mahesa,Analitik Operasional,5
+p20,Bintang Mahesa,Pemetaan Proses,3
+p20,Bintang Mahesa,Spreadsheet Lanjutan,4
+p21,Desak Putu Ariani,Leadership,5
+p21,Desak Putu Ariani,Kemampuan Perencanaan,5
+p21,Desak Putu Ariani,Daya Analisa,2
+p21,Desak Putu Ariani,Keterampilan Interpersonal,3
+p21,Desak Putu Ariani,Kemampuan verbal,3
+p21,Desak Putu Ariani,Kerjasama,4
+p21,Desak Putu Ariani,Strategi Kampanye,5
+p21,Desak Putu Ariani,Riset Pasar,5
+p21,Desak Putu Ariani,Manajemen Brand,3
+p21,Desak Putu Ariani,Analitik Digital,4
+p21,Desak Putu Ariani,Otomasi Pemasaran,5
+p22,Ahmad Al-Faruq,Kemampuan verbal,4
+p22,Ahmad Al-Faruq,Fleksibilitas,3
+p22,Ahmad Al-Faruq,Daya Analisa,3
+p22,Ahmad Al-Faruq,Kerjasama,5
+p22,Ahmad Al-Faruq,Keterampilan Interpersonal,4
+p22,Ahmad Al-Faruq,Kemampuan Perencanaan,5
+p22,Ahmad Al-Faruq,Strategi Kampanye,5
+p22,Ahmad Al-Faruq,Riset Pasar,5
+p22,Ahmad Al-Faruq,Analitik Digital,4
+p23,Ida Ayu Prameswari,Kemampuan verbal,4
+p23,Ida Ayu Prameswari,Fleksibilitas,3
+p23,Ida Ayu Prameswari,Daya Analisa,3
+p23,Ida Ayu Prameswari,Kerjasama,5
+p23,Ida Ayu Prameswari,Keterampilan Interpersonal,4
+p23,Ida Ayu Prameswari,Kemampuan Perencanaan,5
+p23,Ida Ayu Prameswari,Manajemen Brand,4
+p23,Ida Ayu Prameswari,Strategi Kampanye,5
+p23,Ida Ayu Prameswari,Riset Pasar,2
+p24,Hafiz Ramadhan,Logika Berpikir,5
+p24,Hafiz Ramadhan,Daya Analisa,4
+p24,Hafiz Ramadhan,Kemampuan Numerikal,4
+p24,Hafiz Ramadhan,Kemampuan verbal,5
+p24,Hafiz Ramadhan,Kerjasama,5
+p24,Hafiz Ramadhan,Fleksibilitas,4
+p24,Hafiz Ramadhan,Eksperimen Pertumbuhan,3
+p24,Hafiz Ramadhan,Optimasi Konversi,4
+p24,Hafiz Ramadhan,Analitik Digital,5
+p25,Sabrina Yulianti,Kemampuan verbal,5
+p25,Sabrina Yulianti,Fleksibilitas,4
+p25,Sabrina Yulianti,Daya Analisa,4
+p25,Sabrina Yulianti,Kerjasama,5
+p25,Sabrina Yulianti,Keterampilan Interpersonal,5
+p25,Sabrina Yulianti,Kemampuan Perencanaan,4
+p25,Sabrina Yulianti,Strategi Brand,3
+p25,Sabrina Yulianti,Riset Pasar,3
+p25,Sabrina Yulianti,Narasi & Positioning,4
+p26,Siti Rahmawati,Leadership,4
+p26,Siti Rahmawati,Kemampuan Perencanaan,4
+p26,Siti Rahmawati,Daya Analisa,5
+p26,Siti Rahmawati,Keterampilan Interpersonal,5
+p26,Siti Rahmawati,Kemampuan verbal,5
+p26,Siti Rahmawati,Kerjasama,3
+p26,Siti Rahmawati,Strategi Pendapatan,5
+p26,Siti Rahmawati,Manajemen Pipeline,4
+p26,Siti Rahmawati,Penetapan Harga,5
+p27,Bram Sitorus,Kemampuan verbal,5
+p27,Bram Sitorus,Fleksibilitas,5
+p27,Bram Sitorus,Daya Analisa,5
+p27,Bram Sitorus,Kerjasama,4
+p27,Bram Sitorus,Keterampilan Interpersonal,5
+p27,Bram Sitorus,Kemampuan Perencanaan,5
+p27,Bram Sitorus,Arahan Kreatif,5
+p27,Bram Sitorus,Storytelling Visual,4
+p27,Bram Sitorus,Manajemen Produksi,5
+p28,Galih Kusuma,Logika Berpikir,3
+p28,Galih Kusuma,Daya Analisa,2
+p28,Galih Kusuma,Kerjasama,4
+p28,Galih Kusuma,Fleksibilitas,2
+p28,Galih Kusuma,Kemampuan Perencanaan,5
+p28,Galih Kusuma,Kemampuan verbal,3
+p28,Galih Kusuma,Arsitektur Sistem,5
+p28,Galih Kusuma,Desain Terdistribusi,4
+p28,Galih Kusuma,Technical Roadmap,5
+p28,Galih Kusuma,Cloud Infrastructure,4
+p28,Galih Kusuma,Observability,5
+p29,Jihan Azzahra,Logika Berpikir,3
+p29,Jihan Azzahra,Daya Analisa,4
+p29,Jihan Azzahra,Kemampuan Numerikal,2
+p29,Jihan Azzahra,Kemampuan verbal,3
+p29,Jihan Azzahra,Kerjasama,4
+p29,Jihan Azzahra,Fleksibilitas,4
+p29,Jihan Azzahra,Perencanaan Strategis,3
+p29,Jihan Azzahra,Analitik Operasional,4
+p29,Jihan Azzahra,Pemodelan Skenario,3
+p30,Rani Oktarina,Logika Berpikir,3
+p30,Rani Oktarina,Daya Analisa,2
+p30,Rani Oktarina,Kemampuan Numerikal,5
+p30,Rani Oktarina,Kemampuan verbal,3
+p30,Rani Oktarina,Kerjasama,4
+p30,Rani Oktarina,Fleksibilitas,2
+p30,Rani Oktarina,Eksperimen Pertumbuhan,5
+p30,Rani Oktarina,Analitik Digital,4
+p30,Rani Oktarina,Optimasi Konversi,5
+p30,Rani Oktarina,Otomasi Pemasaran,5
+p31,Zahra Amelia,Leadership,5
+p31,Zahra Amelia,Kemampuan Perencanaan,5
+p31,Zahra Amelia,Daya Analisa,3
+p31,Zahra Amelia,Keterampilan Interpersonal,4
+p31,Zahra Amelia,Kemampuan verbal,4
+p31,Zahra Amelia,Kerjasama,5
+p31,Zahra Amelia,Pelaporan Keuangan,4
+p31,Zahra Amelia,Analisis Anggaran,4
+p31,Zahra Amelia,Manajemen Kas,5
+p31,Zahra Amelia,Standar Akuntansi,5
+p32,Hana Fadhilah,Leadership,5
+p32,Hana Fadhilah,Kemampuan Perencanaan,5
+p32,Hana Fadhilah,Daya Analisa,4
+p32,Hana Fadhilah,Keterampilan Interpersonal,3
+p32,Hana Fadhilah,Kemampuan verbal,3
+p32,Hana Fadhilah,Kerjasama,4
+p32,Hana Fadhilah,Manajemen Rantai Pasok,5
+p32,Hana Fadhilah,Negosiasi Pengadaan,5
+p32,Hana Fadhilah,Perencanaan Inventori,4
+p32,Hana Fadhilah,Sistem ERP,5
+p33,Tania Kirana,Kemampuan verbal,5
+p33,Tania Kirana,Fleksibilitas,4
+p33,Tania Kirana,Daya Analisa,4
+p33,Tania Kirana,Kerjasama,5
+p33,Tania Kirana,Keterampilan Interpersonal,5
+p33,Tania Kirana,Kemampuan Perencanaan,3
+p33,Tania Kirana,Penulisan Konten,5
+p33,Tania Kirana,Produksi Visual,4
+p33,Tania Kirana,SEO,5
+p33,Tania Kirana,Analitik Digital,5
+p34,Rizky Ramadhan,Leadership,4
+p34,Rizky Ramadhan,Kemampuan Perencanaan,4
+p34,Rizky Ramadhan,Daya Analisa,4
+p34,Rizky Ramadhan,Keterampilan Interpersonal,5
+p34,Rizky Ramadhan,Kemampuan verbal,5
+p34,Rizky Ramadhan,Kerjasama,5
+p34,Rizky Ramadhan,Technical Roadmap,3
+p34,Rizky Ramadhan,Arsitektur Sistem,3
+p34,Rizky Ramadhan,Cloud Infrastructure,3
+p34,Rizky Ramadhan,Keamanan Aplikasi,3
+p35,Dewi Anggraini,Leadership,4
+p35,Dewi Anggraini,Kemampuan Perencanaan,4
+p35,Dewi Anggraini,Daya Analisa,5
+p35,Dewi Anggraini,Keterampilan Interpersonal,5
+p35,Dewi Anggraini,Kemampuan verbal,5
+p35,Dewi Anggraini,Kerjasama,3
+p35,Dewi Anggraini,Pelaporan Keuangan,2
+p35,Dewi Anggraini,Alokasi Modal,3
+p35,Dewi Anggraini,Manajemen Risiko,5
+p35,Dewi Anggraini,Kepatuhan Regulasi,5
+p36,Andi Saputra,Leadership,4
+p36,Andi Saputra,Kemampuan Perencanaan,4
+p36,Andi Saputra,Daya Analisa,5
+p36,Andi Saputra,Keterampilan Interpersonal,5
+p36,Andi Saputra,Kemampuan verbal,5
+p36,Andi Saputra,Kerjasama,3
+p36,Andi Saputra,Perencanaan Kapasitas,5
+p36,Andi Saputra,Efisiensi Proses,5
+p36,Andi Saputra,Manajemen Rantai Pasok,4
+p36,Andi Saputra,Kendali Mutu,2
+p37,Fajar Nugroho,Leadership,5
+p37,Fajar Nugroho,Kemampuan Perencanaan,5
+p37,Fajar Nugroho,Daya Analisa,2
+p37,Fajar Nugroho,Keterampilan Interpersonal,3
+p37,Fajar Nugroho,Kemampuan verbal,3
+p37,Fajar Nugroho,Kerjasama,4
+p37,Fajar Nugroho,Manajemen Talenta,4
+p37,Fajar Nugroho,Perencanaan SDM,5
+p37,Fajar Nugroho,Manajemen Kinerja,4
+p37,Fajar Nugroho,Remunerasi,4
+p38,Dimas Prasetyo,Logika Berpikir,3
+p38,Dimas Prasetyo,Daya Analisa,4
+p38,Dimas Prasetyo,Kemampuan Numerikal,2
+p38,Dimas Prasetyo,Kemampuan verbal,3
+p38,Dimas Prasetyo,Kerjasama,4
+p38,Dimas Prasetyo,Fleksibilitas,4
+p38,Dimas Prasetyo,Perencanaan Strategis,3
+p38,Dimas Prasetyo,Analisis Kompetitif,4
+p38,Dimas Prasetyo,Pemodelan Skenario,3
+p38,Dimas Prasetyo,Spreadsheet Lanjutan,5
+p39,Yoga Pratama,Logika Berpikir,3
+p39,Yoga Pratama,Daya Analisa,4
+p39,Yoga Pratama,Kemampuan Numerikal,3
+p39,Yoga Pratama,Kemampuan verbal,3
+p39,Yoga Pratama,Kerjasama,4
+p39,Yoga Pratama,Fleksibilitas,4
+p39,Yoga Pratama,Tata Kelola,3
+p39,Yoga Pratama,Kepatuhan Regulasi,2
+p39,Yoga Pratama,Audit Internal,4
+p39,Yoga Pratama,Manajemen Risiko,2
+p40,Bayu Setiawan,Logika Berpikir,3
+p40,Bayu Setiawan,Daya Analisa,4
+p40,Bayu Setiawan,Kemampuan Numerikal,2
+p40,Bayu Setiawan,Kemampuan verbal,3
+p40,Bayu Setiawan,Kerjasama,4
+p40,Bayu Setiawan,Fleksibilitas,4
+p40,Bayu Setiawan,Analisis Kompetitif,4
+p40,Bayu Setiawan,Pemodelan Skenario,3
+p40,Bayu Setiawan,Spreadsheet Lanjutan,5
+p40,Bayu Setiawan,Riset Pasar,5
+p41,Nadia Safitri,Logika Berpikir,3
+p41,Nadia Safitri,Daya Analisa,4
+p41,Nadia Safitri,Kemampuan Numerikal,3
+p41,Nadia Safitri,Kemampuan verbal,3
+p41,Nadia Safitri,Kerjasama,4
+p41,Nadia Safitri,Fleksibilitas,4
+p41,Nadia Safitri,Analisis Kompetitif,5
+p41,Nadia Safitri,Pemodelan Skenario,3
+p41,Nadia Safitri,Spreadsheet Lanjutan,5
+p41,Nadia Safitri,Riset Pasar,3
+p42,Reza Mahendra,Leadership,3
+p42,Reza Mahendra,Kemampuan Perencanaan,3
+p42,Reza Mahendra,Daya Analisa,4
+p42,Reza Mahendra,Keterampilan Interpersonal,5
+p42,Reza Mahendra,Kemampuan verbal,5
+p42,Reza Mahendra,Kerjasama,5
+p42,Reza Mahendra,Cloud Infrastructure,2
+p42,Reza Mahendra,Keamanan Aplikasi,3
+p42,Reza Mahendra,Observability,3
+p42,Reza Mahendra,CI/CD,4
+p43,Fitri Handayani,Logika Berpikir,5
+p43,Fitri Handayani,Daya Analisa,4
+p43,Fitri Handayani,Kerjasama,5
+p43,Fitri Handayani,Fleksibilitas,4
+p43,Fitri Handayani,Kemampuan Perencanaan,4
+p43,Fitri Handayani,Kemampuan verbal,5
+p43,Fitri Handayani,Pengujian Otomatis,4
+p43,Fitri Handayani,Kualitas Kode,4
+p43,Fitri Handayani,Debugging,4
+p43,Fitri Handayani,Kendali Mutu,5
+p44,Hendra Gunawan,Logika Berpikir,5
+p44,Hendra Gunawan,Daya Analisa,5
+p44,Hendra Gunawan,Kerjasama,3
+p44,Hendra Gunawan,Fleksibilitas,5
+p44,Hendra Gunawan,Kemampuan Perencanaan,4
+p44,Hendra Gunawan,Kemampuan verbal,5
+p44,Hendra Gunawan,CI/CD,5
+p44,Hendra Gunawan,Containerization,4
+p44,Hendra Gunawan,Cloud Infrastructure,3
+p44,Hendra Gunawan,Observability,4
+p45,Iqbal Maulana,Logika Berpikir,5
+p45,Iqbal Maulana,Daya Analisa,5
+p45,Iqbal Maulana,Kerjasama,4
+p45,Iqbal Maulana,Fleksibilitas,5
+p45,Iqbal Maulana,Kemampuan Perencanaan,5
+p45,Iqbal Maulana,Kemampuan verbal,5
+p45,Iqbal Maulana,Keamanan Aplikasi,4
+p45,Iqbal Maulana,Kepatuhan Regulasi,5
+p45,Iqbal Maulana,Observability,5
+p45,Iqbal Maulana,Audit Internal,5
+p46,Laras Wulandari,Logika Berpikir,3
+p46,Laras Wulandari,Daya Analisa,2
+p46,Laras Wulandari,Kerjasama,4
+p46,Laras Wulandari,Fleksibilitas,2
+p46,Laras Wulandari,Kemampuan Perencanaan,5
+p46,Laras Wulandari,Kemampuan verbal,3
+p46,Laras Wulandari,Desain API,2
+p46,Laras Wulandari,Basis Data,5
+p46,Laras Wulandari,Optimasi Query,5
+p46,Laras Wulandari,Kualitas Kode,5
+p47,Krisna Wijaya,Logika Berpikir,4
+p47,Krisna Wijaya,Daya Analisa,3
+p47,Krisna Wijaya,Kerjasama,5
+p47,Krisna Wijaya,Fleksibilitas,3
+p47,Krisna Wijaya,Kemampuan Perencanaan,5
+p47,Krisna Wijaya,Kemampuan verbal,4
+p47,Krisna Wijaya,Desain API,3
+p47,Krisna Wijaya,Basis Data,2
+p47,Krisna Wijaya,Optimasi Query,5
+p47,Krisna Wijaya,Kualitas Kode,5
+p48,Maya Puspita,Logika Berpikir,4
+p48,Maya Puspita,Daya Analisa,3
+p48,Maya Puspita,Kerjasama,5
+p48,Maya Puspita,Fleksibilitas,3
+p48,Maya Puspita,Kemampuan Perencanaan,5
+p48,Maya Puspita,Kemampuan verbal,4
+p48,Maya Puspita,Desain API,3
+p48,Maya Puspita,Basis Data,3
+p48,Maya Puspita,Optimasi Query,2
+p48,Maya Puspita,Kualitas Kode,5
+p49,Lukman Hakim,Logika Berpikir,5
+p49,Lukman Hakim,Daya Analisa,4
+p49,Lukman Hakim,Kerjasama,5
+p49,Lukman Hakim,Fleksibilitas,4
+p49,Lukman Hakim,Kemampuan Perencanaan,3
+p49,Lukman Hakim,Kemampuan verbal,5
+p49,Lukman Hakim,Arsitektur Komponen,5
+p49,Lukman Hakim,State Management,3
+p49,Lukman Hakim,Performa Web,3
+p49,Lukman Hakim,Aksesibilitas,5
+p50,Nur Aisyah,Logika Berpikir,4
+p50,Nur Aisyah,Daya Analisa,3
+p50,Nur Aisyah,Kerjasama,5
+p50,Nur Aisyah,Fleksibilitas,3
+p50,Nur Aisyah,Kemampuan Perencanaan,5
+p50,Nur Aisyah,Kemampuan verbal,4
+p50,Nur Aisyah,Arsitektur Komponen,5
+p50,Nur Aisyah,State Management,3
+p50,Nur Aisyah,Performa Web,3
+p50,Nur Aisyah,Aksesibilitas,4
+p51,Bimo Santoso,Logika Berpikir,5
+p51,Bimo Santoso,Daya Analisa,4
+p51,Bimo Santoso,Kerjasama,5
+p51,Bimo Santoso,Fleksibilitas,4
+p51,Bimo Santoso,Kemampuan Perencanaan,3
+p51,Bimo Santoso,Kemampuan verbal,5
+p51,Bimo Santoso,Arsitektur Komponen,5
+p51,Bimo Santoso,State Management,3
+p51,Bimo Santoso,Performa Web,3
+p51,Bimo Santoso,Aksesibilitas,5
+p52,Arif Budiman,Logika Berpikir,5
+p52,Arif Budiman,Daya Analisa,4
+p52,Arif Budiman,Kerjasama,5
+p52,Arif Budiman,Fleksibilitas,4
+p52,Arif Budiman,Kemampuan Perencanaan,4
+p52,Arif Budiman,Kemampuan verbal,5
+p52,Arif Budiman,Kualitas Kode,4
+p52,Arif Budiman,Pengujian Otomatis,4
+p52,Arif Budiman,Debugging,4
+p52,Arif Budiman,Version Control,5
+p53,Salma Nabila,Logika Berpikir,5
+p53,Salma Nabila,Daya Analisa,5
+p53,Salma Nabila,Kerjasama,3
+p53,Salma Nabila,Fleksibilitas,5
+p53,Salma Nabila,Kemampuan Perencanaan,4
+p53,Salma Nabila,Kemampuan verbal,5
+p53,Salma Nabila,Pengujian Otomatis,4
+p53,Salma Nabila,Debugging,4
+p53,Salma Nabila,Kendali Mutu,5
+p53,Salma Nabila,Version Control,5
+p54,Panji Nugraha,Logika Berpikir,5
+p54,Panji Nugraha,Daya Analisa,5
+p54,Panji Nugraha,Kerjasama,4
+p54,Panji Nugraha,Fleksibilitas,5
+p54,Panji Nugraha,Kemampuan Perencanaan,5
+p54,Panji Nugraha,Kemampuan verbal,5
+p54,Panji Nugraha,Pengujian Otomatis,5
+p54,Panji Nugraha,Debugging,5
+p54,Panji Nugraha,Kendali Mutu,3
+p54,Panji Nugraha,Version Control,5
+p55,Tiara Ramadhani,Logika Berpikir,3
+p55,Tiara Ramadhani,Daya Analisa,2
+p55,Tiara Ramadhani,Kerjasama,4
+p55,Tiara Ramadhani,Fleksibilitas,2
+p55,Tiara Ramadhani,Kemampuan Perencanaan,5
+p55,Tiara Ramadhani,Kemampuan verbal,3
+p55,Tiara Ramadhani,Pengujian Otomatis,5
+p55,Tiara Ramadhani,Debugging,5
+p55,Tiara Ramadhani,Kendali Mutu,4
+p55,Tiara Ramadhani,Version Control,3
+p56,Rangga Aditama,Logika Berpikir,4
+p56,Rangga Aditama,Daya Analisa,3
+p56,Rangga Aditama,Kerjasama,5
+p56,Rangga Aditama,Fleksibilitas,3
+p56,Rangga Aditama,Kemampuan Perencanaan,5
+p56,Rangga Aditama,Kemampuan verbal,4
+p56,Rangga Aditama,CI/CD,3
+p56,Rangga Aditama,Containerization,5
+p56,Rangga Aditama,Observability,5
+p56,Rangga Aditama,Cloud Infrastructure,5
+p57,Vina Oktaviani,Logika Berpikir,4
+p57,Vina Oktaviani,Daya Analisa,3
+p57,Vina Oktaviani,Kerjasama,5
+p57,Vina Oktaviani,Fleksibilitas,3
+p57,Vina Oktaviani,Kemampuan Perencanaan,5
+p57,Vina Oktaviani,Kemampuan verbal,4
+p57,Vina Oktaviani,CI/CD,4
+p57,Vina Oktaviani,Containerization,5
+p57,Vina Oktaviani,Observability,5
+p57,Vina Oktaviani,Cloud Infrastructure,5
+p58,Winda Sari,Logika Berpikir,5
+p58,Winda Sari,Daya Analisa,4
+p58,Winda Sari,Kerjasama,5
+p58,Winda Sari,Fleksibilitas,4
+p58,Winda Sari,Kemampuan Perencanaan,3
+p58,Winda Sari,Kemampuan verbal,5
+p58,Winda Sari,Keamanan Aplikasi,3
+p58,Winda Sari,Observability,3
+p58,Winda Sari,Kepatuhan Regulasi,4
+p58,Winda Sari,Debugging,3
+p59,Satria Utomo,Logika Berpikir,5
+p59,Satria Utomo,Daya Analisa,4
+p59,Satria Utomo,Kerjasama,5
+p59,Satria Utomo,Fleksibilitas,4
+p59,Satria Utomo,Kemampuan Perencanaan,4
+p59,Satria Utomo,Kemampuan verbal,5
+p59,Satria Utomo,Keamanan Aplikasi,3
+p59,Satria Utomo,Observability,4
+p59,Satria Utomo,Kepatuhan Regulasi,4
+p59,Satria Utomo,Debugging,4
+p60,Yulia Andini,Leadership,3
+p60,Yulia Andini,Kemampuan Perencanaan,3
+p60,Yulia Andini,Daya Analisa,4
+p60,Yulia Andini,Keterampilan Interpersonal,5
+p60,Yulia Andini,Kemampuan verbal,5
+p60,Yulia Andini,Kerjasama,5
+p60,Yulia Andini,Standar Akuntansi,4
+p60,Yulia Andini,Pelaporan Keuangan,5
+p60,Yulia Andini,Pengendalian Internal,4
+p60,Yulia Andini,Kepatuhan Pajak,4
+p61,Bella Kusumawati,Logika Berpikir,5
+p61,Bella Kusumawati,Daya Analisa,4
+p61,Bella Kusumawati,Kemampuan Numerikal,5
+p61,Bella Kusumawati,Kemampuan verbal,5
+p61,Bella Kusumawati,Kerjasama,5
+p61,Bella Kusumawati,Fleksibilitas,4
+p61,Bella Kusumawati,Standar Akuntansi,4
+p61,Bella Kusumawati,Rekonsiliasi,5
+p61,Bella Kusumawati,Pelaporan Keuangan,5
+p61,Bella Kusumawati,Pengendalian Internal,4
+p62,Yudha Permana,Logika Berpikir,5
+p62,Yudha Permana,Daya Analisa,5
+p62,Yudha Permana,Kemampuan Numerikal,5
+p62,Yudha Permana,Kemampuan verbal,5
+p62,Yudha Permana,Kerjasama,3
+p62,Yudha Permana,Fleksibilitas,5
+p62,Yudha Permana,Pemodelan Keuangan,4
+p62,Yudha Permana,Rekonsiliasi,3
+p62,Yudha Permana,Analisis Varians,2
+p62,Yudha Permana,Spreadsheet Lanjutan,4
+p62,Yudha Permana,Standar Akuntansi,5
+p63,Dinda Alifia,Logika Berpikir,5
+p63,Dinda Alifia,Daya Analisa,5
+p63,Dinda Alifia,Kemampuan Numerikal,5
+p63,Dinda Alifia,Kemampuan verbal,5
+p63,Dinda Alifia,Kerjasama,4
+p63,Dinda Alifia,Fleksibilitas,5
+p63,Dinda Alifia,Audit Internal,5
+p63,Dinda Alifia,Pengendalian Internal,5
+p63,Dinda Alifia,Audit Kepatuhan,3
+p63,Dinda Alifia,Manajemen Risiko,5
+p64,Ilham Rahmadi,Logika Berpikir,3
+p64,Ilham Rahmadi,Daya Analisa,2
+p64,Ilham Rahmadi,Kemampuan Numerikal,5
+p64,Ilham Rahmadi,Kemampuan verbal,3
+p64,Ilham Rahmadi,Kerjasama,4
+p64,Ilham Rahmadi,Fleksibilitas,2
+p64,Ilham Rahmadi,Rekonsiliasi,4
+p64,Ilham Rahmadi,Standar Akuntansi,5
+p64,Ilham Rahmadi,Spreadsheet Lanjutan,5
+p64,Ilham Rahmadi,Sistem ERP,4
+p65,Elsa Nuraini,Logika Berpikir,4
+p65,Elsa Nuraini,Daya Analisa,3
+p65,Elsa Nuraini,Kemampuan Numerikal,3
+p65,Elsa Nuraini,Kemampuan verbal,4
+p65,Elsa Nuraini,Kerjasama,5
+p65,Elsa Nuraini,Fleksibilitas,3
+p65,Elsa Nuraini,Kepatuhan Pajak,3
+p65,Elsa Nuraini,Standar Akuntansi,5
+p65,Elsa Nuraini,Rekonsiliasi,5
+p65,Elsa Nuraini,Audit Kepatuhan,4
+p66,Gita Aprilia,Leadership,5
+p66,Gita Aprilia,Kemampuan Perencanaan,5
+p66,Gita Aprilia,Daya Analisa,4
+p66,Gita Aprilia,Keterampilan Interpersonal,3
+p66,Gita Aprilia,Kemampuan verbal,3
+p66,Gita Aprilia,Kerjasama,4
+p66,Gita Aprilia,Manajemen Rantai Pasok,5
+p66,Gita Aprilia,Perencanaan Inventori,4
+p66,Gita Aprilia,Manajemen Vendor,5
+p66,Gita Aprilia,Perencanaan Kapasitas,3
+p67,Damar Anggoro,Leadership,2
+p67,Damar Anggoro,Kemampuan Perencanaan,2
+p67,Damar Anggoro,Daya Analisa,5
+p67,Damar Anggoro,Keterampilan Interpersonal,4
+p67,Damar Anggoro,Kemampuan verbal,4
+p67,Damar Anggoro,Kerjasama,5
+p67,Damar Anggoro,Kendali Mutu,4
+p67,Damar Anggoro,Pemetaan Proses,5
+p67,Damar Anggoro,Efisiensi Proses,4
+p67,Damar Anggoro,Analitik Operasional,5
+p68,Rafi Alfarizi,Logika Berpikir,4
+p68,Rafi Alfarizi,Daya Analisa,5
+p68,Rafi Alfarizi,Kemampuan Numerikal,4
+p68,Rafi Alfarizi,Kemampuan verbal,4
+p68,Rafi Alfarizi,Kerjasama,5
+p68,Rafi Alfarizi,Fleksibilitas,5
+p68,Rafi Alfarizi,Pemetaan Proses,2
+p68,Rafi Alfarizi,Sistem ERP,4
+p68,Rafi Alfarizi,Kendali Mutu,5
+p68,Rafi Alfarizi,Keselamatan Kerja,4
+p69,Naufal Hidayat,Logika Berpikir,5
+p69,Naufal Hidayat,Daya Analisa,5
+p69,Naufal Hidayat,Kemampuan Numerikal,4
+p69,Naufal Hidayat,Kemampuan verbal,5
+p69,Naufal Hidayat,Kerjasama,2
+p69,Naufal Hidayat,Fleksibilitas,5
+p69,Naufal Hidayat,Kendali Mutu,5
+p69,Naufal Hidayat,Pemetaan Proses,3
+p69,Naufal Hidayat,Analitik Operasional,5
+p69,Naufal Hidayat,Keselamatan Kerja,5
+p70,Zaki Ardiansyah,Logika Berpikir,4
+p70,Zaki Ardiansyah,Daya Analisa,5
+p70,Zaki Ardiansyah,Kemampuan Numerikal,4
+p70,Zaki Ardiansyah,Kemampuan verbal,4
+p70,Zaki Ardiansyah,Kerjasama,5
+p70,Zaki Ardiansyah,Fleksibilitas,5
+p70,Zaki Ardiansyah,Manajemen Rantai Pasok,3
+p70,Zaki Ardiansyah,Perencanaan Inventori,5
+p70,Zaki Ardiansyah,Sistem ERP,4
+p70,Zaki Ardiansyah,Keselamatan Kerja,4
+p71,Kirana Sekar,Logika Berpikir,5
+p71,Kirana Sekar,Daya Analisa,5
+p71,Kirana Sekar,Kemampuan Numerikal,4
+p71,Kirana Sekar,Kemampuan verbal,5
+p71,Kirana Sekar,Kerjasama,2
+p71,Kirana Sekar,Fleksibilitas,5
+p71,Kirana Sekar,Manajemen Rantai Pasok,3
+p71,Kirana Sekar,Perencanaan Inventori,5
+p71,Kirana Sekar,Sistem ERP,4
+p71,Kirana Sekar,Keselamatan Kerja,5
+p72,Lidya Simatupang,Logika Berpikir,5
+p72,Lidya Simatupang,Daya Analisa,5
+p72,Lidya Simatupang,Kemampuan Numerikal,5
+p72,Lidya Simatupang,Kemampuan verbal,5
+p72,Lidya Simatupang,Kerjasama,3
+p72,Lidya Simatupang,Fleksibilitas,5
+p72,Lidya Simatupang,Manajemen Vendor,4
+p72,Lidya Simatupang,Negosiasi Pengadaan,3
+p72,Lidya Simatupang,Perencanaan Inventori,5
+p72,Lidya Simatupang,Kepatuhan Regulasi,4
+p73,Priska Sihombing,Keterampilan Interpersonal,3
+p73,Priska Sihombing,Kerjasama,4
+p73,Priska Sihombing,Kemampuan verbal,3
+p73,Priska Sihombing,Fleksibilitas,2
+p73,Priska Sihombing,Kemampuan Perencanaan,5
+p73,Priska Sihombing,Daya Analisa,2
+p73,Priska Sihombing,Manajemen Talenta,4
+p73,Priska Sihombing,Manajemen Kinerja,4
+p73,Priska Sihombing,Perencanaan SDM,5
+p73,Priska Sihombing,HRIS,4
+p74,Ni Luh Ayu Savitri,Keterampilan Interpersonal,4
+p74,Ni Luh Ayu Savitri,Kerjasama,5
+p74,Ni Luh Ayu Savitri,Kemampuan verbal,4
+p74,Ni Luh Ayu Savitri,Fleksibilitas,3
+p74,Ni Luh Ayu Savitri,Kemampuan Perencanaan,5
+p74,Ni Luh Ayu Savitri,Daya Analisa,3
+p74,Ni Luh Ayu Savitri,Administrasi Personalia,4
+p74,Ni Luh Ayu Savitri,HRIS,4
+p74,Ni Luh Ayu Savitri,Onboarding,3
+p74,Ni Luh Ayu Savitri,Kepatuhan Ketenagakerjaan,5
+p75,Ni Kadek Sriani,Keterampilan Interpersonal,4
+p75,Ni Kadek Sriani,Kerjasama,5
+p75,Ni Kadek Sriani,Kemampuan verbal,4
+p75,Ni Kadek Sriani,Fleksibilitas,3
+p75,Ni Kadek Sriani,Kemampuan Perencanaan,5
+p75,Ni Kadek Sriani,Daya Analisa,3
+p75,Ni Kadek Sriani,Sourcing Kandidat,4
+p75,Ni Kadek Sriani,Teknik Wawancara,5
+p75,Ni Kadek Sriani,ATS,4
+p75,Ni Kadek Sriani,Employer Branding,5
+p76,Denny Kurniawan,Keterampilan Interpersonal,5
+p76,Denny Kurniawan,Kerjasama,5
+p76,Denny Kurniawan,Kemampuan verbal,5
+p76,Denny Kurniawan,Fleksibilitas,4
+p76,Denny Kurniawan,Kemampuan Perencanaan,3
+p76,Denny Kurniawan,Daya Analisa,4
+p76,Denny Kurniawan,Sourcing Kandidat,5
+p76,Denny Kurniawan,Teknik Wawancara,5
+p76,Denny Kurniawan,ATS,5
+p76,Denny Kurniawan,Employer Branding,5
+p77,Ni Made Wulandari,Keterampilan Interpersonal,5
+p77,Ni Made Wulandari,Kerjasama,5
+p77,Ni Made Wulandari,Kemampuan verbal,5
+p77,Ni Made Wulandari,Fleksibilitas,4
+p77,Ni Made Wulandari,Kemampuan Perencanaan,4
+p77,Ni Made Wulandari,Daya Analisa,4
+p77,Ni Made Wulandari,Manajemen Talenta,5
+p77,Ni Made Wulandari,Manajemen Kinerja,3
+p77,Ni Made Wulandari,Onboarding,5
+p77,Ni Made Wulandari,HRIS,2
+p78,Ridho Setiadi,Leadership,4
+p78,Ridho Setiadi,Kemampuan Perencanaan,4
+p78,Ridho Setiadi,Daya Analisa,5
+p78,Ridho Setiadi,Keterampilan Interpersonal,5
+p78,Ridho Setiadi,Kemampuan verbal,5
+p78,Ridho Setiadi,Kerjasama,3
+p78,Ridho Setiadi,Strategi Pendapatan,5
+p78,Ridho Setiadi,Manajemen Pipeline,4
+p78,Ridho Setiadi,Penetapan Harga,5
+p78,Ridho Setiadi,CRM,3
+p79,Ulfa Nabilah,Kemampuan verbal,5
+p79,Ulfa Nabilah,Fleksibilitas,5
+p79,Ulfa Nabilah,Daya Analisa,5
+p79,Ulfa Nabilah,Kerjasama,4
+p79,Ulfa Nabilah,Keterampilan Interpersonal,5
+p79,Ulfa Nabilah,Kemampuan Perencanaan,5
+p79,Ulfa Nabilah,Produksi Visual,5
+p79,Ulfa Nabilah,Storytelling Visual,4
+p79,Ulfa Nabilah,Arahan Kreatif,5
+p79,Ulfa Nabilah,Design System,5
+p80,Vera Anggita,Kemampuan verbal,5
+p80,Vera Anggita,Fleksibilitas,5
+p80,Vera Anggita,Daya Analisa,5
+p80,Vera Anggita,Kerjasama,3
+p80,Vera Anggita,Keterampilan Interpersonal,5
+p80,Vera Anggita,Kemampuan Perencanaan,4
+p80,Vera Anggita,Analitik Digital,5
+p80,Vera Anggita,Otomasi Pemasaran,4
+p80,Vera Anggita,SEO,5
+p80,Vera Anggita,Optimasi Konversi,5
+p81,Josua Tampubolon,Kemampuan verbal,5
+p81,Josua Tampubolon,Fleksibilitas,5
+p81,Josua Tampubolon,Daya Analisa,5
+p81,Josua Tampubolon,Kerjasama,4
+p81,Josua Tampubolon,Keterampilan Interpersonal,5
+p81,Josua Tampubolon,Kemampuan Perencanaan,5
+p81,Josua Tampubolon,Analitik Digital,3
+p81,Josua Tampubolon,Otomasi Pemasaran,4
+p81,Josua Tampubolon,SEO,3
+p81,Josua Tampubolon,Optimasi Konversi,5
+p82,Wulan Ramadhani,Logika Berpikir,3
+p82,Wulan Ramadhani,Daya Analisa,2
+p82,Wulan Ramadhani,Kemampuan Numerikal,5
+p82,Wulan Ramadhani,Kemampuan verbal,3
+p82,Wulan Ramadhani,Kerjasama,4
+p82,Wulan Ramadhani,Fleksibilitas,2
+p82,Wulan Ramadhani,Riset Pasar,5
+p82,Wulan Ramadhani,Analisis Kompetitif,3
+p82,Wulan Ramadhani,Analitik Digital,4
+p82,Wulan Ramadhani,Spreadsheet Lanjutan,5
+p83,Ruben Simanjuntak,Leadership,5
+p83,Ruben Simanjuntak,Kemampuan Perencanaan,5
+p83,Ruben Simanjuntak,Daya Analisa,2
+p83,Ruben Simanjuntak,Keterampilan Interpersonal,3
+p83,Ruben Simanjuntak,Kemampuan verbal,3
+p83,Ruben Simanjuntak,Kerjasama,4
+p83,Ruben Simanjuntak,Manajemen Pipeline,1
+p83,Ruben Simanjuntak,Negosiasi Kontrak,1
+p83,Ruben Simanjuntak,Presentasi Solusi,5
+p83,Ruben Simanjuntak,CRM,3
+p83,Ruben Simanjuntak,Penetapan Harga,5
+p84,Yasmin Khairunnisa,Leadership,5
+p84,Yasmin Khairunnisa,Kemampuan Perencanaan,5
+p84,Yasmin Khairunnisa,Daya Analisa,2
+p84,Yasmin Khairunnisa,Keterampilan Interpersonal,3
+p84,Yasmin Khairunnisa,Kemampuan verbal,3
+p84,Yasmin Khairunnisa,Kerjasama,4
+p84,Yasmin Khairunnisa,Manajemen Pipeline,2
+p84,Yasmin Khairunnisa,Kualifikasi Lead,3
+p84,Yasmin Khairunnisa,Prospecting,1
+p84,Yasmin Khairunnisa,CRM,4
+p84,Yasmin Khairunnisa,Penetapan Harga,2
+p85,Kevin Napitupulu,Leadership,2
+p85,Kevin Napitupulu,Kemampuan Perencanaan,2
+p85,Kevin Napitupulu,Daya Analisa,3
+p85,Kevin Napitupulu,Keterampilan Interpersonal,4
+p85,Kevin Napitupulu,Kemampuan verbal,4
+p85,Kevin Napitupulu,Kerjasama,5
+p85,Kevin Napitupulu,Manajemen Tender,1
+p85,Kevin Napitupulu,Negosiasi Kontrak,2
+p85,Kevin Napitupulu,Kepatuhan Regulasi,3
+p85,Kevin Napitupulu,Manajemen Pipeline,2
+p85,Kevin Napitupulu,CRM,4
+p86,Zulfa Amalia,Keterampilan Interpersonal,4
+p86,Zulfa Amalia,Kerjasama,5
+p86,Zulfa Amalia,Kemampuan verbal,4
+p86,Zulfa Amalia,Fleksibilitas,3
+p86,Zulfa Amalia,Kemampuan Perencanaan,3
+p86,Zulfa Amalia,Daya Analisa,3
+p86,Zulfa Amalia,Presentasi Solusi,3
+p86,Zulfa Amalia,Negosiasi Kontrak,3
+p86,Zulfa Amalia,Manajemen Pipeline,3
+p86,Zulfa Amalia,CRM,1
+p87,Marco Silalahi,Keterampilan Interpersonal,5
+p87,Marco Silalahi,Kerjasama,2
+p87,Marco Silalahi,Kemampuan verbal,5
+p87,Marco Silalahi,Fleksibilitas,4
+p87,Marco Silalahi,Kemampuan Perencanaan,3
+p87,Marco Silalahi,Daya Analisa,4
+p87,Marco Silalahi,Presentasi Solusi,3
+p87,Marco Silalahi,Negosiasi Kontrak,3
+p87,Marco Silalahi,Manajemen Pipeline,3
+p87,Marco Silalahi,CRM,2
+p88,Amelia Rizki,Keterampilan Interpersonal,5
+p88,Amelia Rizki,Kerjasama,3
+p88,Amelia Rizki,Kemampuan verbal,5
+p88,Amelia Rizki,Fleksibilitas,4
+p88,Amelia Rizki,Kemampuan Perencanaan,4
+p88,Amelia Rizki,Daya Analisa,4
+p88,Amelia Rizki,Presentasi Solusi,4
+p88,Amelia Rizki,Negosiasi Kontrak,4
+p88,Amelia Rizki,Manajemen Pipeline,4
+p88,Amelia Rizki,CRM,2
+p89,Gerry Panggabean,Keterampilan Interpersonal,2
+p89,Gerry Panggabean,Kerjasama,3
+p89,Gerry Panggabean,Kemampuan verbal,2
+p89,Gerry Panggabean,Fleksibilitas,1
+p89,Gerry Panggabean,Kemampuan Perencanaan,4
+p89,Gerry Panggabean,Daya Analisa,1
+p89,Gerry Panggabean,Prospecting,4
+p89,Gerry Panggabean,Kualifikasi Lead,2
+p89,Gerry Panggabean,Presentasi Solusi,4
+p89,Gerry Panggabean,CRM,3
+p90,Bunga Lestari,Keterampilan Interpersonal,5
+p90,Bunga Lestari,Kerjasama,3
+p90,Bunga Lestari,Kemampuan verbal,5
+p90,Bunga Lestari,Fleksibilitas,4
+p90,Bunga Lestari,Kemampuan Perencanaan,4
+p90,Bunga Lestari,Daya Analisa,4
+p90,Bunga Lestari,Prospecting,3
+p90,Bunga Lestari,Kualifikasi Lead,5
+p90,Bunga Lestari,Presentasi Solusi,4
+p90,Bunga Lestari,CRM,2
+p91,Chika Ardhana,Keterampilan Interpersonal,2
+p91,Chika Ardhana,Kerjasama,3
+p91,Chika Ardhana,Kemampuan verbal,2
+p91,Chika Ardhana,Fleksibilitas,1
+p91,Chika Ardhana,Kemampuan Perencanaan,4
+p91,Chika Ardhana,Daya Analisa,1
+p91,Chika Ardhana,Prospecting,4
+p91,Chika Ardhana,Kualifikasi Lead,2
+p91,Chika Ardhana,CRM,3
+p91,Chika Ardhana,Riset Pasar,4
+p92,Wayan Suardika,Keterampilan Interpersonal,3
+p92,Wayan Suardika,Kerjasama,4
+p92,Wayan Suardika,Kemampuan verbal,3
+p92,Wayan Suardika,Fleksibilitas,2
+p92,Wayan Suardika,Kemampuan Perencanaan,5
+p92,Wayan Suardika,Daya Analisa,2
+p92,Wayan Suardika,Prospecting,4
+p92,Wayan Suardika,Kualifikasi Lead,3
+p92,Wayan Suardika,CRM,3
+p92,Wayan Suardika,Riset Pasar,4
+p93,Diah Ayu Kusuma,Keterampilan Interpersonal,3
+p93,Diah Ayu Kusuma,Kerjasama,4
+p93,Diah Ayu Kusuma,Kemampuan verbal,3
+p93,Diah Ayu Kusuma,Fleksibilitas,2
+p93,Diah Ayu Kusuma,Kemampuan Perencanaan,5
+p93,Diah Ayu Kusuma,Daya Analisa,2
+p93,Diah Ayu Kusuma,Prospecting,1
+p93,Diah Ayu Kusuma,Kualifikasi Lead,3
+p93,Diah Ayu Kusuma,CRM,4
+p93,Diah Ayu Kusuma,Riset Pasar,1
+p94,Made Arsana,Keterampilan Interpersonal,4
+p94,Made Arsana,Kerjasama,5
+p94,Made Arsana,Kemampuan verbal,4
+p94,Made Arsana,Fleksibilitas,3
+p94,Made Arsana,Kemampuan Perencanaan,2
+p94,Made Arsana,Daya Analisa,3
+p94,Made Arsana,Prospecting,2
+p94,Made Arsana,Kualifikasi Lead,4
+p94,Made Arsana,CRM,4
+p94,Made Arsana,Riset Pasar,2
+p95,Erika Wijayanti,Keterampilan Interpersonal,4
+p95,Erika Wijayanti,Kerjasama,5
+p95,Erika Wijayanti,Kemampuan verbal,4
+p95,Erika Wijayanti,Fleksibilitas,3
+p95,Erika Wijayanti,Kemampuan Perencanaan,3
+p95,Erika Wijayanti,Daya Analisa,3
+p95,Erika Wijayanti,Prospecting,2
+p95,Erika Wijayanti,Kualifikasi Lead,4
+p95,Erika Wijayanti,CRM,1
+p95,Erika Wijayanti,Manajemen Pipeline,3
+p96,Komang Aditya,Keterampilan Interpersonal,5
+p96,Komang Aditya,Kerjasama,2
+p96,Komang Aditya,Kemampuan verbal,5
+p96,Komang Aditya,Fleksibilitas,4
+p96,Komang Aditya,Kemampuan Perencanaan,3
+p96,Komang Aditya,Daya Analisa,4
+p96,Komang Aditya,Prospecting,3
+p96,Komang Aditya,Kualifikasi Lead,5
+p96,Komang Aditya,CRM,2
+p96,Komang Aditya,Manajemen Pipeline,3
+p97,Putu Darmawan,Keterampilan Interpersonal,5
+p97,Putu Darmawan,Kerjasama,3
+p97,Putu Darmawan,Kemampuan verbal,5
+p97,Putu Darmawan,Fleksibilitas,4
+p97,Putu Darmawan,Kemampuan Perencanaan,4
+p97,Putu Darmawan,Daya Analisa,4
+p97,Putu Darmawan,Manajemen Tender,3
+p97,Putu Darmawan,Kepatuhan Regulasi,4
+p97,Putu Darmawan,Negosiasi Kontrak,4
+p97,Putu Darmawan,CRM,2
+p98,Fani Nurhaliza,Keterampilan Interpersonal,2
+p98,Fani Nurhaliza,Kerjasama,3
+p98,Fani Nurhaliza,Kemampuan verbal,2
+p98,Fani Nurhaliza,Fleksibilitas,1
+p98,Fani Nurhaliza,Kemampuan Perencanaan,4
+p98,Fani Nurhaliza,Daya Analisa,1
+p98,Fani Nurhaliza,Manajemen Tender,3
+p98,Fani Nurhaliza,Kepatuhan Regulasi,5
+p98,Fani Nurhaliza,Negosiasi Kontrak,4
+p98,Fani Nurhaliza,CRM,3
+p99,Rendra Pratama,Leadership,4
+p99,Rendra Pratama,Kemampuan Perencanaan,4
+p99,Rendra Pratama,Daya Analisa,3
+p99,Rendra Pratama,Keterampilan Interpersonal,2
+p99,Rendra Pratama,Kemampuan verbal,2
+p99,Rendra Pratama,Kerjasama,3
+p99,Rendra Pratama,Manajemen Akun,3
+p99,Rendra Pratama,Retensi & Renewal,5
+p99,Rendra Pratama,Upselling & Cross-selling,3
+p99,Rendra Pratama,CRM,4
+p99,Rendra Pratama,Penetapan Harga,4
+p100,Gina Puspasari,Leadership,2
+p100,Gina Puspasari,Kemampuan Perencanaan,2
+p100,Gina Puspasari,Daya Analisa,4
+p100,Gina Puspasari,Keterampilan Interpersonal,3
+p100,Gina Puspasari,Kemampuan verbal,3
+p100,Gina Puspasari,Kerjasama,4
+p100,Gina Puspasari,Manajemen Akun,1
+p100,Gina Puspasari,Retensi & Renewal,3
+p100,Gina Puspasari,Customer Success,4
+p100,Gina Puspasari,CRM,2
+p100,Gina Puspasari,Manajemen Pipeline,4
+p101,Doni Saputra,Keterampilan Interpersonal,4
+p101,Doni Saputra,Kerjasama,1
+p101,Doni Saputra,Kemampuan verbal,4
+p101,Doni Saputra,Fleksibilitas,5
+p101,Doni Saputra,Kemampuan Perencanaan,2
+p101,Doni Saputra,Daya Analisa,5
+p101,Doni Saputra,Manajemen Akun,2
+p101,Doni Saputra,Upselling & Cross-selling,5
+p101,Doni Saputra,Negosiasi Kontrak,4
+p101,Doni Saputra,CRM,3
+p102,Ayu Lestari,Keterampilan Interpersonal,4
+p102,Ayu Lestari,Kerjasama,2
+p102,Ayu Lestari,Kemampuan verbal,4
+p102,Ayu Lestari,Fleksibilitas,5
+p102,Ayu Lestari,Kemampuan Perencanaan,3
+p102,Ayu Lestari,Daya Analisa,5
+p102,Ayu Lestari,Manajemen Akun,2
+p102,Ayu Lestari,Upselling & Cross-selling,2
+p102,Ayu Lestari,Negosiasi Kontrak,5
+p102,Ayu Lestari,CRM,3
+p103,Ferdi Ahmad,Keterampilan Interpersonal,1
+p103,Ferdi Ahmad,Kerjasama,2
+p103,Ferdi Ahmad,Kemampuan verbal,1
+p103,Ferdi Ahmad,Fleksibilitas,2
+p103,Ferdi Ahmad,Kemampuan Perencanaan,3
+p103,Ferdi Ahmad,Daya Analisa,2
+p103,Ferdi Ahmad,Manajemen Akun,3
+p103,Ferdi Ahmad,Upselling & Cross-selling,3
+p103,Ferdi Ahmad,Negosiasi Kontrak,5
+p103,Ferdi Ahmad,CRM,4
+p104,Siti Rahmawati,Keterampilan Interpersonal,2
+p104,Siti Rahmawati,Kerjasama,3
+p104,Siti Rahmawati,Kemampuan verbal,2
+p104,Siti Rahmawati,Fleksibilitas,3
+p104,Siti Rahmawati,Kemampuan Perencanaan,4
+p104,Siti Rahmawati,Daya Analisa,3
+p104,Siti Rahmawati,Manajemen Akun,3
+p104,Siti Rahmawati,Customer Success,3
+p104,Siti Rahmawati,Upselling & Cross-selling,3
+p104,Siti Rahmawati,CRM,4
+p105,Irfan Maulidin,Keterampilan Interpersonal,2
+p105,Irfan Maulidin,Kerjasama,3
+p105,Irfan Maulidin,Kemampuan verbal,2
+p105,Irfan Maulidin,Fleksibilitas,3
+p105,Irfan Maulidin,Kemampuan Perencanaan,4
+p105,Irfan Maulidin,Daya Analisa,3
+p105,Irfan Maulidin,Manajemen Akun,4
+p105,Irfan Maulidin,Customer Success,3
+p105,Irfan Maulidin,Upselling & Cross-selling,4
+p105,Irfan Maulidin,CRM,5
+p106,Dewi Anggraini,Keterampilan Interpersonal,3
+p106,Dewi Anggraini,Kerjasama,4
+p106,Dewi Anggraini,Kemampuan verbal,3
+p106,Dewi Anggraini,Fleksibilitas,4
+p106,Dewi Anggraini,Kemampuan Perencanaan,1
+p106,Dewi Anggraini,Daya Analisa,4
+p106,Dewi Anggraini,Customer Success,4
+p106,Dewi Anggraini,Manajemen Akun,4
+p106,Dewi Anggraini,Retensi & Renewal,2
+p106,Dewi Anggraini,CRM,5
+p107,Yusuf Abdillah,Keterampilan Interpersonal,3
+p107,Yusuf Abdillah,Kerjasama,4
+p107,Yusuf Abdillah,Kemampuan verbal,3
+p107,Yusuf Abdillah,Fleksibilitas,4
+p107,Yusuf Abdillah,Kemampuan Perencanaan,2
+p107,Yusuf Abdillah,Daya Analisa,4
+p107,Yusuf Abdillah,Customer Success,4
+p107,Yusuf Abdillah,Manajemen Akun,1
+p107,Yusuf Abdillah,Retensi & Renewal,3
+p107,Yusuf Abdillah,CRM,2
+p108,Putri Maharani,Keterampilan Interpersonal,4
+p108,Putri Maharani,Kerjasama,1
+p108,Putri Maharani,Kemampuan verbal,4
+p108,Putri Maharani,Fleksibilitas,5
+p108,Putri Maharani,Kemampuan Perencanaan,2
+p108,Putri Maharani,Daya Analisa,5
+p108,Putri Maharani,Customer Success,1
+p108,Putri Maharani,Manajemen Akun,2
+p108,Putri Maharani,Retensi & Renewal,3
+p108,Putri Maharani,CRM,3
+p109,Adam Nurhakim,Keterampilan Interpersonal,4
+p109,Adam Nurhakim,Kerjasama,2
+p109,Adam Nurhakim,Kemampuan verbal,4
+p109,Adam Nurhakim,Fleksibilitas,5
+p109,Adam Nurhakim,Kemampuan Perencanaan,3
+p109,Adam Nurhakim,Daya Analisa,5
+p109,Adam Nurhakim,Customer Success,2
+p109,Adam Nurhakim,Manajemen Akun,2
+p109,Adam Nurhakim,Retensi & Renewal,4
+p109,Adam Nurhakim,CRM,3
+p110,Rio Sanjaya,Keterampilan Interpersonal,4
+p110,Rio Sanjaya,Kerjasama,1
+p110,Rio Sanjaya,Kemampuan verbal,4
+p110,Rio Sanjaya,Fleksibilitas,5
+p110,Rio Sanjaya,Kemampuan Perencanaan,2
+p110,Rio Sanjaya,Daya Analisa,5
+p110,Rio Sanjaya,Retensi & Renewal,3
+p110,Rio Sanjaya,Manajemen Akun,2
+p110,Rio Sanjaya,Negosiasi Kontrak,4
+p110,Rio Sanjaya,CRM,3
+p111,Rina Kartika,Keterampilan Interpersonal,4
+p111,Rina Kartika,Kerjasama,2
+p111,Rina Kartika,Kemampuan verbal,4
+p111,Rina Kartika,Fleksibilitas,5
+p111,Rina Kartika,Kemampuan Perencanaan,3
+p111,Rina Kartika,Daya Analisa,5
+p111,Rina Kartika,Retensi & Renewal,4
+p111,Rina Kartika,Manajemen Akun,2
+p111,Rina Kartika,Negosiasi Kontrak,5
+p111,Rina Kartika,CRM,3
+p112,Tio Wicaksono,Keterampilan Interpersonal,1
+p112,Tio Wicaksono,Kerjasama,2
+p112,Tio Wicaksono,Kemampuan verbal,1
+p112,Tio Wicaksono,Fleksibilitas,2
+p112,Tio Wicaksono,Kemampuan Perencanaan,3
+p112,Tio Wicaksono,Daya Analisa,2
+p112,Tio Wicaksono,Retensi & Renewal,4
+p112,Tio Wicaksono,Manajemen Akun,3
+p112,Tio Wicaksono,Negosiasi Kontrak,5
+p112,Tio Wicaksono,CRM,4

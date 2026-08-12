@@ -2,10 +2,10 @@
   "employees": [
     {
       "id": 0,
-      "name": "Cody Gakpo",
-      "role": "Talent Acquisition Lead",
-      "dept": "Human Resources Team",
-      "avatar": "/avatars/photo_wc2026/p15.png",
+      "name": "Ratna Juwita",
+      "role": "Senior Engineer",
+      "dept": "Engineering Team",
+      "avatar": "/avatars/photo_wc2026/p02.png",
       "programs": 4,
       "statuses": [],
       "idps": [
@@ -20,32 +20,32 @@
           ],
           "pics": [
             {
-              "name": "Florian Wirtz",
-              "initials": "FW",
+              "name": "Gina Puspasari",
+              "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Frontend Lead",
-              "photoUrl": "/avatars/photo_wc2026/p03.png"
+              "position": "Farming Manager SMB",
+              "photoUrl": "/avatars/photo_wc2026/p100.png"
             },
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             },
             {
-              "name": "Bukayo Saka",
-              "initials": "BS",
+              "name": "Bagus Prakoso",
+              "initials": "BP",
               "color": "#10B981",
-              "position": "Brand Manager",
-              "photoUrl": "/avatars/photo_wc2026/p23.png"
+              "position": "Chief Strategy Officer",
+              "photoUrl": "/avatars/photo_wc2026/p06.png"
             },
             {
-              "name": "Antoine Griezmann",
-              "initials": "AG",
+              "name": "Maya Puspita",
+              "initials": "MP",
               "color": "#F59E0B",
-              "position": "Controller",
-              "photoUrl": "/avatars/photo_wc2026/p12.png"
+              "position": "Backend Engineer",
+              "photoUrl": "/avatars/photo_wc2026/p48.png"
             }
           ],
           "period": "Jul 17, 2026 - Aug 21, 2026",
@@ -67,11 +67,11 @@
           ],
           "pics": [
             {
-              "name": "Florian Wirtz",
-              "initials": "FW",
+              "name": "Gina Puspasari",
+              "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Frontend Lead",
-              "photoUrl": "/avatars/photo_wc2026/p03.png"
+              "position": "Farming Manager SMB",
+              "photoUrl": "/avatars/photo_wc2026/p100.png"
             }
           ],
           "period": "Jul 26, 2026 - Sep 29, 2026",
@@ -93,11 +93,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Aug 1 - Sep 15, 2024",
@@ -119,11 +119,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "May 1 - Jun 30, 2024",
@@ -139,15 +139,15 @@
           "developmentGoals": "Menguasai teknik identifikasi & pemecahan masalah"
         }
       ],
-      "nik": "2349700015",
-      "email": "cody.gakpo@talentlytica.com"
+      "nik": "2349700002",
+      "email": "ratna.juwita@talentlytica.com"
     },
     {
       "id": 1,
-      "name": "Rafael Leao",
-      "role": "Senior Marketing Manager",
-      "dept": "Sales & Marketing Team",
-      "avatar": "/avatars/photo_wc2026/p22.png",
+      "name": "Yoga Pratama",
+      "role": "Governance Manager",
+      "dept": "Executive Office Team",
+      "avatar": "/avatars/photo_wc2026/p39.png",
       "programs": 4,
       "statuses": [],
       "idps": [
@@ -158,11 +158,11 @@
           ],
           "pics": [
             {
-              "name": "Florian Wirtz",
-              "initials": "FW",
+              "name": "Gina Puspasari",
+              "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Frontend Lead",
-              "photoUrl": "/avatars/photo_wc2026/p03.png"
+              "position": "Farming Manager SMB",
+              "photoUrl": "/avatars/photo_wc2026/p100.png"
             }
           ],
           "period": "May 17, 2026 - Jul 1, 2026",
@@ -184,11 +184,11 @@
           ],
           "pics": [
             {
-              "name": "Florian Wirtz",
-              "initials": "FW",
+              "name": "Gina Puspasari",
+              "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Frontend Lead",
-              "photoUrl": "/avatars/photo_wc2026/p03.png"
+              "position": "Farming Manager SMB",
+              "photoUrl": "/avatars/photo_wc2026/p100.png"
             }
           ],
           "period": "Jul 11, 2026 - Aug 10, 2026",
@@ -210,11 +210,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Nov 1 - Dec 15, 2024",
@@ -236,11 +236,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Jul 1 - Aug 31, 2024",
@@ -256,15 +256,15 @@
           "developmentGoals": "Mempertajam analisis & berpikir kritis"
         }
       ],
-      "nik": "2349700022",
-      "email": "rafael.leao@talentlytica.com"
+      "nik": "2349700039",
+      "email": "yoga.pratama@talentlytica.com"
     },
     {
       "id": 2,
-      "name": "Jude Bellingham",
-      "role": "Head of Engineering",
+      "name": "Winda Sari",
+      "role": "Security Analyst",
       "dept": "Engineering Team",
-      "avatar": "/avatars/photo_wc2026/p01.png",
+      "avatar": "/avatars/photo_wc2026/p58.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -275,11 +275,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Jan 1 - Feb 28, 2025",
@@ -301,11 +301,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Oct 1 - Nov 30, 2024",
@@ -327,11 +327,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Jul 1 - Aug 31, 2024",
@@ -347,15 +347,15 @@
           "developmentGoals": "Meningkatkan kemampuan komunikasi & penyampaian ide"
         }
       ],
-      "nik": "2349700001",
-      "email": "jude.bellingham@talentlytica.com"
+      "nik": "2349700058",
+      "email": "winda.sari@talentlytica.com"
     },
     {
       "id": 3,
-      "name": "Son Heung-min",
-      "role": "Operations Analyst",
-      "dept": "Operations Team",
-      "avatar": "/avatars/photo_wc2026/p20.png",
+      "name": "Nadia Safitri",
+      "role": "Strategy Analyst",
+      "dept": "Executive Office Team",
+      "avatar": "/avatars/photo_wc2026/p41.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -366,11 +366,11 @@
           ],
           "pics": [
             {
-              "name": "Florian Wirtz",
-              "initials": "FW",
+              "name": "Gina Puspasari",
+              "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Frontend Lead",
-              "photoUrl": "/avatars/photo_wc2026/p03.png"
+              "position": "Farming Manager SMB",
+              "photoUrl": "/avatars/photo_wc2026/p100.png"
             }
           ],
           "period": "Jul 17, 2026 - Aug 21, 2026",
@@ -392,11 +392,11 @@
           ],
           "pics": [
             {
-              "name": "Florian Wirtz",
-              "initials": "FW",
+              "name": "Gina Puspasari",
+              "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Frontend Lead",
-              "photoUrl": "/avatars/photo_wc2026/p03.png"
+              "position": "Farming Manager SMB",
+              "photoUrl": "/avatars/photo_wc2026/p100.png"
             }
           ],
           "period": "Oct 1 - Nov 30, 2024",
@@ -418,11 +418,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Jul 1 - Aug 31, 2024",
@@ -438,15 +438,15 @@
           "developmentGoals": "Memperkuat kolaborasi & dinamika tim"
         }
       ],
-      "nik": "2349700020",
-      "email": "son.heungmin@talentlytica.com"
+      "nik": "2349700041",
+      "email": "nadia.safitri@talentlytica.com"
     },
     {
       "id": 4,
-      "name": "Achraf Hakimi",
-      "role": "Supply Chain Lead",
-      "dept": "Operations Team",
-      "avatar": "/avatars/photo_wc2026/p19.png",
+      "name": "Rendra Pratama",
+      "role": "Farming Manager Enterprise",
+      "dept": "Farmer Team",
+      "avatar": "/avatars/photo_wc2026/p99.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -457,11 +457,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Jul 26, 2026 - Sep 29, 2026",
@@ -483,11 +483,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Nov 1 - Dec 31, 2024",
@@ -509,11 +509,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Aug 1 - Sep 30, 2024",
@@ -529,15 +529,15 @@
           "developmentGoals": "Mempertajam analisis & berpikir kritis"
         }
       ],
-      "nik": "2349700019",
-      "email": "achraf.hakimi@talentlytica.com"
+      "nik": "2349700099",
+      "email": "rendra.pratama@talentlytica.com"
     },
     {
       "id": 5,
-      "name": "Julian Alvarez",
-      "role": "Operations Manager",
-      "dept": "Operations Team",
-      "avatar": "/avatars/photo_wc2026/p18.png",
+      "name": "Marco Silalahi",
+      "role": "Account Executive Enterprise",
+      "dept": "Hunter Team",
+      "avatar": "/avatars/photo_wc2026/p87.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -548,11 +548,11 @@
           ],
           "pics": [
             {
-              "name": "Florian Wirtz",
-              "initials": "FW",
+              "name": "Gina Puspasari",
+              "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Frontend Lead",
-              "photoUrl": "/avatars/photo_wc2026/p03.png"
+              "position": "Farming Manager SMB",
+              "photoUrl": "/avatars/photo_wc2026/p100.png"
             }
           ],
           "period": "Jan 1 - Feb 28, 2025",
@@ -574,11 +574,11 @@
           ],
           "pics": [
             {
-              "name": "Florian Wirtz",
-              "initials": "FW",
+              "name": "Gina Puspasari",
+              "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Frontend Lead",
-              "photoUrl": "/avatars/photo_wc2026/p03.png"
+              "position": "Farming Manager SMB",
+              "photoUrl": "/avatars/photo_wc2026/p100.png"
             }
           ],
           "period": "Sep 1 - Oct 31, 2024",
@@ -600,11 +600,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "May 1 - Jun 30, 2024",
@@ -620,15 +620,15 @@
           "developmentGoals": "Mengembangkan kepemimpinan & pengambilan keputusan"
         }
       ],
-      "nik": "2349700018",
-      "email": "julian.alvarez@talentlytica.com"
+      "nik": "2349700087",
+      "email": "marco.silalahi@talentlytica.com"
     },
     {
       "id": 6,
-      "name": "Nico Williams",
-      "role": "Growth Marketing Lead",
-      "dept": "Sales & Marketing Team",
-      "avatar": "/avatars/photo_wc2026/p24.png",
+      "name": "Ni Luh Ayu Savitri",
+      "role": "HR Operations Staff",
+      "dept": "Human Resources Team",
+      "avatar": "/avatars/photo_wc2026/p74.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -639,11 +639,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Feb 1 - Mar 31, 2025",
@@ -665,11 +665,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Oct 1 - Nov 30, 2024",
@@ -691,11 +691,11 @@
           ],
           "pics": [
             {
-              "name": "Florian Wirtz",
-              "initials": "FW",
+              "name": "Gina Puspasari",
+              "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Frontend Lead",
-              "photoUrl": "/avatars/photo_wc2026/p03.png"
+              "position": "Farming Manager SMB",
+              "photoUrl": "/avatars/photo_wc2026/p100.png"
             }
           ],
           "period": "Jun 1 - Jul 31, 2024",
@@ -711,15 +711,15 @@
           "developmentGoals": "Mengembangkan kepemimpinan & pengambilan keputusan"
         }
       ],
-      "nik": "2349700024",
-      "email": "nico.williams@talentlytica.com"
+      "nik": "2349700074",
+      "email": "ni.luh.ayu.savitri@talentlytica.com"
     },
     {
       "id": 7,
-      "name": "Bukayo Saka",
-      "role": "Brand Manager",
-      "dept": "Sales & Marketing Team",
-      "avatar": "/avatars/photo_wc2026/p23.png",
+      "name": "Bagus Prakoso",
+      "role": "Chief Strategy Officer",
+      "dept": "Executive Office Team",
+      "avatar": "/avatars/photo_wc2026/p06.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -730,11 +730,11 @@
           ],
           "pics": [
             {
-              "name": "Florian Wirtz",
-              "initials": "FW",
+              "name": "Gina Puspasari",
+              "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Frontend Lead",
-              "photoUrl": "/avatars/photo_wc2026/p03.png"
+              "position": "Farming Manager SMB",
+              "photoUrl": "/avatars/photo_wc2026/p100.png"
             }
           ],
           "period": "May 17, 2026 - Jul 1, 2026",
@@ -756,11 +756,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Nov 1 - Dec 31, 2024",
@@ -782,11 +782,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Jul 1 - Aug 31, 2024",
@@ -802,15 +802,15 @@
           "developmentGoals": "Menguasai teknik identifikasi & pemecahan masalah"
         }
       ],
-      "nik": "2349700023",
-      "email": "bukayo.saka@talentlytica.com"
+      "nik": "2349700006",
+      "email": "bagus.prakoso@talentlytica.com"
     },
     {
       "id": 8,
-      "name": "Vinicius Junior",
-      "role": "Head of Marketing",
-      "dept": "Sales & Marketing Team",
-      "avatar": "/avatars/photo_wc2026/p21.png",
+      "name": "Siti Rahmawati",
+      "role": "Account Manager SMB",
+      "dept": "Farmer Team",
+      "avatar": "/avatars/photo_wc2026/p104.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -821,11 +821,11 @@
           ],
           "pics": [
             {
-              "name": "Florian Wirtz",
-              "initials": "FW",
+              "name": "Gina Puspasari",
+              "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Frontend Lead",
-              "photoUrl": "/avatars/photo_wc2026/p03.png"
+              "position": "Farming Manager SMB",
+              "photoUrl": "/avatars/photo_wc2026/p100.png"
             }
           ],
           "period": "Jan 1 - Feb 28, 2025",
@@ -847,11 +847,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "Sep 1 - Oct 31, 2024",
@@ -873,11 +873,11 @@
           ],
           "pics": [
             {
-              "name": "Jamal Musiala",
-              "initials": "JM",
+              "name": "Dewi Anggraini",
+              "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Senior Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p02.png"
+              "position": "Customer Success Officer",
+              "photoUrl": "/avatars/photo_wc2026/p106.png"
             }
           ],
           "period": "May 1 - Jun 30, 2024",
@@ -893,175 +893,570 @@
           "developmentGoals": "Mempertajam analisis & berpikir kritis"
         }
       ],
-      "nik": "2349700021",
-      "email": "vinicius.junior@talentlytica.com"
+      "nik": "2349700026",
+      "email": "siti.rahmawati@talentlytica.com"
     }
   ],
   "participantPool": [
     {
-      "name": "Jude Bellingham",
+      "name": "Intan Permatasari",
       "nik": "2349700001",
-      "email": "jude.bellingham@talentlytica.com"
+      "email": "intan.permatasari@talentlytica.com"
     },
     {
-      "name": "Jamal Musiala",
+      "name": "Ratna Juwita",
       "nik": "2349700002",
-      "email": "jamal.musiala@talentlytica.com"
+      "email": "ratna.juwita@talentlytica.com"
     },
     {
-      "name": "Florian Wirtz",
+      "name": "Citra Ayu Ningsih",
       "nik": "2349700003",
-      "email": "florian.wirtz@talentlytica.com"
+      "email": "citra.ayu.ningsih@talentlytica.com"
     },
     {
-      "name": "Phil Foden",
+      "name": "Aditya Wibowo",
       "nik": "2349700004",
-      "email": "phil.foden@talentlytica.com"
+      "email": "aditya.wibowo@talentlytica.com"
     },
     {
-      "name": "Kylian Mbappe",
+      "name": "Ayu Lestari",
       "nik": "2349700005",
-      "email": "kylian.mbappe@talentlytica.com"
+      "email": "ayu.lestari@talentlytica.com"
     },
     {
-      "name": "Erling Haaland",
+      "name": "Bagus Prakoso",
       "nik": "2349700006",
-      "email": "erling.haaland@talentlytica.com"
+      "email": "bagus.prakoso@talentlytica.com"
     },
     {
-      "name": "Rodri",
+      "name": "Putri Maharani",
       "nik": "2349700007",
-      "email": "rodri@talentlytica.com"
+      "email": "putri.maharani@talentlytica.com"
     },
     {
-      "name": "Virgil van Dijk",
+      "name": "Rina Kartika",
       "nik": "2349700008",
-      "email": "virgil.van.dijk@talentlytica.com"
+      "email": "rina.kartika@talentlytica.com"
     },
     {
-      "name": "Pedri",
+      "name": "Teguh Firmansyah",
       "nik": "2349700009",
-      "email": "pedri@talentlytica.com"
+      "email": "teguh.firmansyah@talentlytica.com"
     },
     {
-      "name": "Federico Valverde",
+      "name": "Wisnu Baskoro",
       "nik": "2349700010",
-      "email": "federico.valverde@talentlytica.com"
+      "email": "wisnu.baskoro@talentlytica.com"
     },
     {
-      "name": "Enzo Fernandez",
+      "name": "Cindy Pratiwi",
       "nik": "2349700011",
-      "email": "enzo.fernandez@talentlytica.com"
+      "email": "cindy.pratiwi@talentlytica.com"
     },
     {
-      "name": "Antoine Griezmann",
+      "name": "Anisa Rahmadani",
       "nik": "2349700012",
-      "email": "antoine.griezmann@talentlytica.com"
+      "email": "anisa.rahmadani@talentlytica.com"
     },
     {
-      "name": "Christian Pulisic",
+      "name": "Meliana Sianturi",
       "nik": "2349700013",
-      "email": "christian.pulisic@talentlytica.com"
+      "email": "meliana.sianturi@talentlytica.com"
     },
     {
-      "name": "Declan Rice",
+      "name": "Novita Hutagalung",
       "nik": "2349700014",
-      "email": "declan.rice@talentlytica.com"
+      "email": "novita.hutagalung@talentlytica.com"
     },
     {
-      "name": "Cody Gakpo",
+      "name": "Olivia Manurung",
       "nik": "2349700015",
-      "email": "cody.gakpo@talentlytica.com"
+      "email": "olivia.manurung@talentlytica.com"
     },
     {
-      "name": "Alphonso Davies",
+      "name": "Farhan Hakim",
       "nik": "2349700016",
-      "email": "alphonso.davies@talentlytica.com"
+      "email": "farhan.hakim@talentlytica.com"
     },
     {
-      "name": "Lautaro Martinez",
+      "name": "Farah Salsabila",
       "nik": "2349700017",
-      "email": "lautaro.martinez@talentlytica.com"
+      "email": "farah.salsabila@talentlytica.com"
     },
     {
-      "name": "Julian Alvarez",
+      "name": "Gilang Saputro",
       "nik": "2349700018",
-      "email": "julian.alvarez@talentlytica.com"
+      "email": "gilang.saputro@talentlytica.com"
     },
     {
-      "name": "Achraf Hakimi",
+      "name": "Indah Purnama",
       "nik": "2349700019",
-      "email": "achraf.hakimi@talentlytica.com"
+      "email": "indah.purnama@talentlytica.com"
     },
     {
-      "name": "Son Heung-min",
+      "name": "Bintang Mahesa",
       "nik": "2349700020",
-      "email": "son.heungmin@talentlytica.com"
+      "email": "bintang.mahesa@talentlytica.com"
     },
     {
-      "name": "Vinicius Junior",
+      "name": "Desak Putu Ariani",
       "nik": "2349700021",
-      "email": "vinicius.junior@talentlytica.com"
+      "email": "desak.putu.ariani@talentlytica.com"
     },
     {
-      "name": "Rafael Leao",
+      "name": "Ahmad Al-Faruq",
       "nik": "2349700022",
-      "email": "rafael.leao@talentlytica.com"
+      "email": "ahmad.alfaruq@talentlytica.com"
     },
     {
-      "name": "Bukayo Saka",
+      "name": "Ida Ayu Prameswari",
       "nik": "2349700023",
-      "email": "bukayo.saka@talentlytica.com"
+      "email": "ida.ayu.prameswari@talentlytica.com"
     },
     {
-      "name": "Nico Williams",
+      "name": "Hafiz Ramadhan",
       "nik": "2349700024",
-      "email": "nico.williams@talentlytica.com"
+      "email": "hafiz.ramadhan@talentlytica.com"
     },
     {
-      "name": "Lionel Messi",
+      "name": "Sabrina Yulianti",
       "nik": "2349700025",
-      "email": "lionel.messi@talentlytica.com"
+      "email": "sabrina.yulianti@talentlytica.com"
     },
     {
-      "name": "Cristiano Ronaldo",
+      "name": "Siti Rahmawati",
       "nik": "2349700026",
-      "email": "cristiano.ronaldo@talentlytica.com"
+      "email": "siti.rahmawati@talentlytica.com"
     },
     {
-      "name": "Neymar Jr",
+      "name": "Bram Sitorus",
       "nik": "2349700027",
-      "email": "neymar.jr@talentlytica.com"
+      "email": "bram.sitorus@talentlytica.com"
     },
     {
-      "name": "Kevin De Bruyne",
+      "name": "Galih Kusuma",
       "nik": "2349700028",
-      "email": "kevin.de.bruyne@talentlytica.com"
+      "email": "galih.kusuma@talentlytica.com"
     },
     {
-      "name": "Luka Modric",
+      "name": "Jihan Azzahra",
       "nik": "2349700029",
-      "email": "luka.modric@talentlytica.com"
+      "email": "jihan.azzahra@talentlytica.com"
     },
     {
-      "name": "Mohamed Salah",
+      "name": "Rani Oktarina",
       "nik": "2349700030",
-      "email": "mohamed.salah@talentlytica.com"
+      "email": "rani.oktarina@talentlytica.com"
     },
     {
-      "name": "Harry Kane",
+      "name": "Zahra Amelia",
       "nik": "2349700031",
-      "email": "harry.kane@talentlytica.com"
+      "email": "zahra.amelia@talentlytica.com"
     },
     {
-      "name": "Robert Lewandowski",
+      "name": "Hana Fadhilah",
       "nik": "2349700032",
-      "email": "robert.lewandowski@talentlytica.com"
+      "email": "hana.fadhilah@talentlytica.com"
     },
     {
-      "name": "Lamine Yamal",
+      "name": "Tania Kirana",
       "nik": "2349700033",
-      "email": "lamine.yamal@talentlytica.com"
+      "email": "tania.kirana@talentlytica.com"
+    },
+    {
+      "name": "Rizky Ramadhan",
+      "nik": "2349700034",
+      "email": "rizky.ramadhan@talentlytica.com"
+    },
+    {
+      "name": "Dewi Anggraini",
+      "nik": "2349700035",
+      "email": "dewi.anggraini@talentlytica.com"
+    },
+    {
+      "name": "Andi Saputra",
+      "nik": "2349700036",
+      "email": "andi.saputra@talentlytica.com"
+    },
+    {
+      "name": "Fajar Nugroho",
+      "nik": "2349700037",
+      "email": "fajar.nugroho@talentlytica.com"
+    },
+    {
+      "name": "Dimas Prasetyo",
+      "nik": "2349700038",
+      "email": "dimas.prasetyo@talentlytica.com"
+    },
+    {
+      "name": "Yoga Pratama",
+      "nik": "2349700039",
+      "email": "yoga.pratama@talentlytica.com"
+    },
+    {
+      "name": "Bayu Setiawan",
+      "nik": "2349700040",
+      "email": "bayu.setiawan@talentlytica.com"
+    },
+    {
+      "name": "Nadia Safitri",
+      "nik": "2349700041",
+      "email": "nadia.safitri@talentlytica.com"
+    },
+    {
+      "name": "Reza Mahendra",
+      "nik": "2349700042",
+      "email": "reza.mahendra@talentlytica.com"
+    },
+    {
+      "name": "Fitri Handayani",
+      "nik": "2349700043",
+      "email": "fitri.handayani@talentlytica.com"
+    },
+    {
+      "name": "Hendra Gunawan",
+      "nik": "2349700044",
+      "email": "hendra.gunawan@talentlytica.com"
+    },
+    {
+      "name": "Iqbal Maulana",
+      "nik": "2349700045",
+      "email": "iqbal.maulana@talentlytica.com"
+    },
+    {
+      "name": "Laras Wulandari",
+      "nik": "2349700046",
+      "email": "laras.wulandari@talentlytica.com"
+    },
+    {
+      "name": "Krisna Wijaya",
+      "nik": "2349700047",
+      "email": "krisna.wijaya@talentlytica.com"
+    },
+    {
+      "name": "Maya Puspita",
+      "nik": "2349700048",
+      "email": "maya.puspita@talentlytica.com"
+    },
+    {
+      "name": "Lukman Hakim",
+      "nik": "2349700049",
+      "email": "lukman.hakim@talentlytica.com"
+    },
+    {
+      "name": "Nur Aisyah",
+      "nik": "2349700050",
+      "email": "nur.aisyah@talentlytica.com"
+    },
+    {
+      "name": "Bimo Santoso",
+      "nik": "2349700051",
+      "email": "bimo.santoso@talentlytica.com"
+    },
+    {
+      "name": "Arif Budiman",
+      "nik": "2349700052",
+      "email": "arif.budiman@talentlytica.com"
+    },
+    {
+      "name": "Salma Nabila",
+      "nik": "2349700053",
+      "email": "salma.nabila@talentlytica.com"
+    },
+    {
+      "name": "Panji Nugraha",
+      "nik": "2349700054",
+      "email": "panji.nugraha@talentlytica.com"
+    },
+    {
+      "name": "Tiara Ramadhani",
+      "nik": "2349700055",
+      "email": "tiara.ramadhani@talentlytica.com"
+    },
+    {
+      "name": "Rangga Aditama",
+      "nik": "2349700056",
+      "email": "rangga.aditama@talentlytica.com"
+    },
+    {
+      "name": "Vina Oktaviani",
+      "nik": "2349700057",
+      "email": "vina.oktaviani@talentlytica.com"
+    },
+    {
+      "name": "Winda Sari",
+      "nik": "2349700058",
+      "email": "winda.sari@talentlytica.com"
+    },
+    {
+      "name": "Satria Utomo",
+      "nik": "2349700059",
+      "email": "satria.utomo@talentlytica.com"
+    },
+    {
+      "name": "Yulia Andini",
+      "nik": "2349700060",
+      "email": "yulia.andini@talentlytica.com"
+    },
+    {
+      "name": "Bella Kusumawati",
+      "nik": "2349700061",
+      "email": "bella.kusumawati@talentlytica.com"
+    },
+    {
+      "name": "Yudha Permana",
+      "nik": "2349700062",
+      "email": "yudha.permana@talentlytica.com"
+    },
+    {
+      "name": "Dinda Alifia",
+      "nik": "2349700063",
+      "email": "dinda.alifia@talentlytica.com"
+    },
+    {
+      "name": "Ilham Rahmadi",
+      "nik": "2349700064",
+      "email": "ilham.rahmadi@talentlytica.com"
+    },
+    {
+      "name": "Elsa Nuraini",
+      "nik": "2349700065",
+      "email": "elsa.nuraini@talentlytica.com"
+    },
+    {
+      "name": "Gita Aprilia",
+      "nik": "2349700066",
+      "email": "gita.aprilia@talentlytica.com"
+    },
+    {
+      "name": "Damar Anggoro",
+      "nik": "2349700067",
+      "email": "damar.anggoro@talentlytica.com"
+    },
+    {
+      "name": "Rafi Alfarizi",
+      "nik": "2349700068",
+      "email": "rafi.alfarizi@talentlytica.com"
+    },
+    {
+      "name": "Naufal Hidayat",
+      "nik": "2349700069",
+      "email": "naufal.hidayat@talentlytica.com"
+    },
+    {
+      "name": "Zaki Ardiansyah",
+      "nik": "2349700070",
+      "email": "zaki.ardiansyah@talentlytica.com"
+    },
+    {
+      "name": "Kirana Sekar",
+      "nik": "2349700071",
+      "email": "kirana.sekar@talentlytica.com"
+    },
+    {
+      "name": "Lidya Simatupang",
+      "nik": "2349700072",
+      "email": "lidya.simatupang@talentlytica.com"
+    },
+    {
+      "name": "Priska Sihombing",
+      "nik": "2349700073",
+      "email": "priska.sihombing@talentlytica.com"
+    },
+    {
+      "name": "Ni Luh Ayu Savitri",
+      "nik": "2349700074",
+      "email": "ni.luh.ayu.savitri@talentlytica.com"
+    },
+    {
+      "name": "Ni Kadek Sriani",
+      "nik": "2349700075",
+      "email": "ni.kadek.sriani@talentlytica.com"
+    },
+    {
+      "name": "Denny Kurniawan",
+      "nik": "2349700076",
+      "email": "denny.kurniawan@talentlytica.com"
+    },
+    {
+      "name": "Ni Made Wulandari",
+      "nik": "2349700077",
+      "email": "ni.made.wulandari@talentlytica.com"
+    },
+    {
+      "name": "Ridho Setiadi",
+      "nik": "2349700078",
+      "email": "ridho.setiadi@talentlytica.com"
+    },
+    {
+      "name": "Ulfa Nabilah",
+      "nik": "2349700079",
+      "email": "ulfa.nabilah@talentlytica.com"
+    },
+    {
+      "name": "Vera Anggita",
+      "nik": "2349700080",
+      "email": "vera.anggita@talentlytica.com"
+    },
+    {
+      "name": "Josua Tampubolon",
+      "nik": "2349700081",
+      "email": "josua.tampubolon@talentlytica.com"
+    },
+    {
+      "name": "Wulan Ramadhani",
+      "nik": "2349700082",
+      "email": "wulan.ramadhani@talentlytica.com"
+    },
+    {
+      "name": "Ruben Simanjuntak",
+      "nik": "2349700083",
+      "email": "ruben.simanjuntak@talentlytica.com"
+    },
+    {
+      "name": "Yasmin Khairunnisa",
+      "nik": "2349700084",
+      "email": "yasmin.khairunnisa@talentlytica.com"
+    },
+    {
+      "name": "Kevin Napitupulu",
+      "nik": "2349700085",
+      "email": "kevin.napitupulu@talentlytica.com"
+    },
+    {
+      "name": "Zulfa Amalia",
+      "nik": "2349700086",
+      "email": "zulfa.amalia@talentlytica.com"
+    },
+    {
+      "name": "Marco Silalahi",
+      "nik": "2349700087",
+      "email": "marco.silalahi@talentlytica.com"
+    },
+    {
+      "name": "Amelia Rizki",
+      "nik": "2349700088",
+      "email": "amelia.rizki@talentlytica.com"
+    },
+    {
+      "name": "Gerry Panggabean",
+      "nik": "2349700089",
+      "email": "gerry.panggabean@talentlytica.com"
+    },
+    {
+      "name": "Bunga Lestari",
+      "nik": "2349700090",
+      "email": "bunga.lestari@talentlytica.com"
+    },
+    {
+      "name": "Chika Ardhana",
+      "nik": "2349700091",
+      "email": "chika.ardhana@talentlytica.com"
+    },
+    {
+      "name": "Wayan Suardika",
+      "nik": "2349700092",
+      "email": "wayan.suardika@talentlytica.com"
+    },
+    {
+      "name": "Diah Ayu Kusuma",
+      "nik": "2349700093",
+      "email": "diah.ayu.kusuma@talentlytica.com"
+    },
+    {
+      "name": "Made Arsana",
+      "nik": "2349700094",
+      "email": "made.arsana@talentlytica.com"
+    },
+    {
+      "name": "Erika Wijayanti",
+      "nik": "2349700095",
+      "email": "erika.wijayanti@talentlytica.com"
+    },
+    {
+      "name": "Komang Aditya",
+      "nik": "2349700096",
+      "email": "komang.aditya@talentlytica.com"
+    },
+    {
+      "name": "Putu Darmawan",
+      "nik": "2349700097",
+      "email": "putu.darmawan@talentlytica.com"
+    },
+    {
+      "name": "Fani Nurhaliza",
+      "nik": "2349700098",
+      "email": "fani.nurhaliza@talentlytica.com"
+    },
+    {
+      "name": "Rendra Pratama",
+      "nik": "2349700099",
+      "email": "rendra.pratama@talentlytica.com"
+    },
+    {
+      "name": "Gina Puspasari",
+      "nik": "2349700100",
+      "email": "gina.puspasari@talentlytica.com"
+    },
+    {
+      "name": "Doni Saputra",
+      "nik": "2349700101",
+      "email": "doni.saputra@talentlytica.com"
+    },
+    {
+      "name": "Ayu Lestari",
+      "nik": "2349700005",
+      "email": "ayu.lestari@talentlytica.com"
+    },
+    {
+      "name": "Ferdi Ahmad",
+      "nik": "2349700103",
+      "email": "ferdi.ahmad@talentlytica.com"
+    },
+    {
+      "name": "Siti Rahmawati",
+      "nik": "2349700026",
+      "email": "siti.rahmawati@talentlytica.com"
+    },
+    {
+      "name": "Irfan Maulidin",
+      "nik": "2349700105",
+      "email": "irfan.maulidin@talentlytica.com"
+    },
+    {
+      "name": "Dewi Anggraini",
+      "nik": "2349700035",
+      "email": "dewi.anggraini@talentlytica.com"
+    },
+    {
+      "name": "Yusuf Abdillah",
+      "nik": "2349700107",
+      "email": "yusuf.abdillah@talentlytica.com"
+    },
+    {
+      "name": "Putri Maharani",
+      "nik": "2349700007",
+      "email": "putri.maharani@talentlytica.com"
+    },
+    {
+      "name": "Adam Nurhakim",
+      "nik": "2349700109",
+      "email": "adam.nurhakim@talentlytica.com"
+    },
+    {
+      "name": "Rio Sanjaya",
+      "nik": "2349700110",
+      "email": "rio.sanjaya@talentlytica.com"
+    },
+    {
+      "name": "Rina Kartika",
+      "nik": "2349700008",
+      "email": "rina.kartika@talentlytica.com"
+    },
+    {
+      "name": "Tio Wicaksono",
+      "nik": "2349700112",
+      "email": "tio.wicaksono@talentlytica.com"
     }
   ],
   "aspects": [
@@ -1221,7 +1616,7 @@
   "notifications": [
     {
       "title": "IDP Review Required",
-      "desc": "A new IDP submitted by Kylian Mbappe for Florian Wirtz is waiting for your review.",
+      "desc": "A new IDP submitted by Gilang Saputro for Gina Puspasari is waiting for your review.",
       "tags": [
         {
           "label": "NEED REVIEW",
@@ -1242,7 +1637,7 @@
     },
     {
       "title": "IDP Approved",
-      "desc": "The IDP you submitted for Florian Wirtz has been reviewed and approved by Admin.",
+      "desc": "The IDP you submitted for Gina Puspasari has been reviewed and approved by Admin.",
       "tags": [
         {
           "label": "LEADERSHIP",
@@ -1255,7 +1650,7 @@
     },
     {
       "title": "New IDP Assignment for your Team Member",
-      "desc": "You have been assigned as the PIC for an IDP created for Florian Wirtz.",
+      "desc": "You have been assigned as the PIC for an IDP created for Gina Puspasari.",
       "tags": [
         {
           "label": "CRITICAL THINKING",
@@ -1268,7 +1663,7 @@
     },
     {
       "title": "IDP Submission Rejected",
-      "desc": "The IDP you submitted for Florian Wirtz was not approved by Admin.",
+      "desc": "The IDP you submitted for Gina Puspasari was not approved by Admin.",
       "tags": [
         {
           "label": "COMMUNICATION",
@@ -1281,7 +1676,7 @@
     },
     {
       "title": "New IDP Assigned",
-      "desc": "You have been assigned an IDP by Florian Wirtz",
+      "desc": "You have been assigned an IDP by Gina Puspasari",
       "tags": [
         {
           "label": "CRITICAL THINKING",
@@ -1300,62 +1695,62 @@
   "reviews": [
     {
       "reqby": {
-        "name": "Rodri",
-        "role": "VP Corporate Strategy",
+        "name": "Erika Wijayanti",
+        "role": "Sales Development Representative",
         "color": "#4C6EF5",
-        "position": "VP Corporate Strategy",
-        "photoUrl": "/avatars/photo_wc2026/p07.png"
+        "position": "Sales Development Representative",
+        "photoUrl": "/avatars/photo_wc2026/p95.png"
       },
       "participants": [
-        "Lautaro Martinez",
-        "Pedri"
+        "Kirana Sekar",
+        "Tiara Ramadhani"
       ],
       "aspects": [
         "Leadership Development"
       ],
       "pics": [
-        "Rafael Leao",
-        "Son Heung-min"
+        "Yoga Pratama",
+        "Nadia Safitri"
       ],
       "date": "2026-06-08"
     },
     {
       "reqby": {
-        "name": "Jude Bellingham",
-        "role": "Head of Engineering",
+        "name": "Winda Sari",
+        "role": "Security Analyst",
         "color": "#10b981",
-        "position": "Head of Engineering",
-        "photoUrl": "/avatars/photo_wc2026/p01.png"
+        "position": "Security Analyst",
+        "photoUrl": "/avatars/photo_wc2026/p58.png"
       },
       "participants": [
-        "Jamal Musiala",
-        "Lautaro Martinez",
-        "Son Heung-min"
+        "Dewi Anggraini",
+        "Kirana Sekar",
+        "Nadia Safitri"
       ],
       "aspects": [
         "Leadership Development"
       ],
       "pics": [
-        "Son Heung-min",
-        "Florian Wirtz",
-        "Bukayo Saka"
+        "Nadia Safitri",
+        "Gina Puspasari",
+        "Bagus Prakoso"
       ],
       "date": "2026-06-05"
     },
     {
       "reqby": {
-        "name": "Jude Bellingham",
-        "role": "Head of Engineering",
+        "name": "Winda Sari",
+        "role": "Security Analyst",
         "color": "#10b981",
-        "position": "Head of Engineering",
-        "photoUrl": "/avatars/photo_wc2026/p01.png"
+        "position": "Security Analyst",
+        "photoUrl": "/avatars/photo_wc2026/p58.png"
       },
       "participants": [
-        "Jamal Musiala",
-        "Lautaro Martinez",
-        "Pedri",
-        "Son Heung-min",
-        "Federico Valverde"
+        "Dewi Anggraini",
+        "Kirana Sekar",
+        "Tiara Ramadhani",
+        "Nadia Safitri",
+        "Farah Salsabila"
       ],
       "aspects": [
         "Collaboration",
@@ -1363,50 +1758,50 @@
         "Technical Skills"
       ],
       "pics": [
-        "Phil Foden",
-        "Rafael Leao",
-        "Son Heung-min",
-        "Bukayo Saka"
+        "Farhan Hakim",
+        "Yoga Pratama",
+        "Nadia Safitri",
+        "Bagus Prakoso"
       ],
       "date": "2026-06-04"
     }
   ],
   "comments": [
     {
-      "name": "Florian Wirtz",
-      "initials": "FW",
+      "name": "Gina Puspasari",
+      "initials": "GP",
       "color": "",
       "time": "Apr 20, 2026, 11:39 AM",
       "text": "tolong sekali lage cek dokumentasinya dan lampirkan kembali",
-      "position": "Frontend Lead",
-      "photoUrl": "/avatars/photo_wc2026/p03.png"
+      "position": "Farming Manager SMB",
+      "photoUrl": "/avatars/photo_wc2026/p100.png"
     },
     {
-      "name": "Kylian Mbappe",
-      "initials": "KM",
+      "name": "Gilang Saputro",
+      "initials": "GS",
       "color": "#B0B1B2",
       "time": "Apr 20, 2026, 11:39 AM",
       "text": "dokumentasi trainingnya kah Pak?",
-      "position": "Chief Executive Officer",
-      "photoUrl": "/avatars/photo_wc2026/p05.png"
+      "position": "Operations Manager",
+      "photoUrl": "/avatars/photo_wc2026/p18.png"
     },
     {
-      "name": "Florian Wirtz",
-      "initials": "FW",
+      "name": "Gina Puspasari",
+      "initials": "GP",
       "color": "",
       "time": "Apr 20, 2026, 11:40 AM",
       "text": "Iya",
-      "position": "Frontend Lead",
-      "photoUrl": "/avatars/photo_wc2026/p03.png"
+      "position": "Farming Manager SMB",
+      "photoUrl": "/avatars/photo_wc2026/p100.png"
     },
     {
-      "name": "Kylian Mbappe",
-      "initials": "KM",
+      "name": "Gilang Saputro",
+      "initials": "GS",
       "color": "#B0B1B2",
       "time": "Apr 20, 2026, 11:41 AM",
       "text": "Baik Pak, saya lampirkan kembali",
-      "position": "Chief Executive Officer",
-      "photoUrl": "/avatars/photo_wc2026/p05.png"
+      "position": "Operations Manager",
+      "photoUrl": "/avatars/photo_wc2026/p18.png"
     }
   ],
   "changeHistory": {

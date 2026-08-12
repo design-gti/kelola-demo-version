@@ -24,7 +24,7 @@ Senior Marketing Manager,Pemasaran,3,4,3,3,2,3,3,3,3,3,3,3,3
 Brand Manager,Pemasaran,4,2,4,3,3,3,4,3,4,3,3,3,3
 Growth Marketing Lead,Pemasaran,3,2,3,2,3,2,3,4,3,4,4,4,3
 Senior Brand Strategist,Pemasaran,3,4,4,2,3,2,3,3,3,3,3,3,3
-Chief Revenue Officer,Strategi,5,5,5,5,5,5,5,5,5,5,5,5,5
+Chief Revenue Officer,Pemasaran,5,5,5,5,5,5,5,5,5,5,5,5,5
 Creative Director,Pemasaran,3,3,4,3,3,3,4,3,3,3,3,3,4
 Principal Engineer,Teknologi,4,3,4,4,4,2,3,4,3,3,4,4,4
 Operations Strategist,Operasional,2,2,3,3,3,3,3,3,4,3,3,3,4
@@ -32,3 +32,53 @@ Growth Marketing Manager,Pemasaran,4,3,3,3,4,3,4,3,3,4,4,2,3
 Senior Finance Manager,Keuangan,2,4,3,3,3,3,3,4,3,4,3,3,3
 Supply Chain Manager,Operasional,3,2,3,3,2,3,3,3,4,3,4,4,3
 Digital Content Specialist,Pemasaran,2,2,2,2,2,2,1,3,1,2,2,3,3
+Chief Technology Officer,Teknologi,4,4,3,3,3,3,3,4,3,3,4,4,3
+Chief Financial Officer,Keuangan,4,3,3,2,2,4,4,3,4,3,3,3,3
+Chief Operating Officer,Operasional,3,2,2,2,3,3,3,4,3,3,3,3,3
+Chief Human Resources Officer,SDM,3,3,3,3,3,3,4,3,4,2,4,2,3
+Strategy Manager,Strategi,3,3,3,4,4,3,3,3,4,3,4,4,3
+Governance Manager,Strategi,3,4,4,3,4,3,3,3,4,3,4,4,3
+Strategy Analyst,Strategi,3,3,4,3,4,3,4,3,3,4,3,3,3
+Head of Infrastructure & Security,Teknologi,3,4,2,3,4,3,3,3,2,3,3,3,3
+QA Lead,Teknologi,3,3,3,3,3,3,3,3,2,4,3,3,3
+DevOps Lead,Teknologi,2,2,4,3,4,4,3,3,3,2,3,2,4
+Security Lead,Teknologi,3,3,4,4,4,3,3,3,4,3,3,3,3
+Backend Engineer,Teknologi,3,3,4,4,4,4,4,4,2,3,3,3,3
+Frontend Engineer,Teknologi,4,3,3,4,3,2,3,3,3,3,3,4,4
+Software Engineer,Teknologi,3,3,4,3,3,2,3,4,3,4,3,3,3
+QA Engineer,Teknologi,4,4,4,3,2,3,3,3,3,3,3,3,4
+DevOps Engineer,Teknologi,3,3,4,3,2,2,3,3,3,3,3,3,3
+Security Analyst,Teknologi,2,4,3,3,4,4,4,3,4,3,3,3,3
+Head of Accounting,Keuangan,3,3,3,3,3,4,3,3,3,4,3,2,3
+Accounting Manager,Keuangan,4,2,3,3,3,3,3,3,4,3,3,3,2
+Internal Auditor,Keuangan,4,3,3,3,3,3,3,3,2,3,4,4,4
+Accounting Staff,Keuangan,3,4,3,4,3,3,4,3,3,4,3,2,4
+Tax Staff,Keuangan,3,3,3,3,3,3,2,4,4,3,3,3,3
+Head of Supply Chain,Operasional,4,4,3,3,4,3,2,4,3,3,3,4,3
+Service Quality Manager,Operasional,4,3,3,4,3,4,4,3,4,4,4,3,3
+Operations Staff,Operasional,3,4,3,3,4,4,3,3,4,3,3,3,3
+Service Quality Officer,Operasional,3,4,3,3,3,4,3,3,3,4,3,4,3
+Logistics Staff,Operasional,3,3,3,3,3,2,4,3,3,3,4,2,2
+Procurement Staff,Operasional,3,2,3,4,3,4,3,3,3,3,3,3,3
+People Development Manager,SDM,3,2,3,2,3,3,4,3,3,4,4,3,3
+HR Operations Staff,SDM,2,4,4,2,3,3,2,4,4,2,3,3,3
+Recruiter,SDM,3,3,3,3,4,3,3,4,3,3,3,3,4
+Learning & Development Specialist,SDM,3,3,3,3,4,4,3,4,3,4,3,2,4
+Head of Sales,Pemasaran,3,4,3,4,4,4,2,3,3,3,3,3,4
+Graphic Designer,Pemasaran,3,4,2,3,4,4,2,4,4,3,4,4,4
+Digital Marketing Executive,Pemasaran,3,3,2,3,4,2,4,3,4,3,3,3,3
+Market Research Analyst,Pemasaran,4,3,4,3,3,3,3,3,4,3,4,3,4
+Hunting Manager Enterprise,Hunter,3,3,4,3,4,3,3,3,3,3,3,4,3
+Hunting Manager SMB,Hunter,4,3,3,3,3,4,4,3,4,3,3,3,4
+Hunting Manager Government,Hunter,4,4,2,3,2,3,3,3,3,2,3,3,4
+Account Executive Enterprise,Hunter,3,3,3,3,3,3,2,2,3,4,3,3,4
+Account Executive SMB,Hunter,3,4,3,2,3,4,4,4,4,2,3,3,3
+Business Development Representative,Hunter,3,3,3,2,3,4,3,4,3,3,3,3,4
+Sales Development Representative,Hunter,2,4,2,2,3,2,2,3,3,2,3,3,4
+Government Relations Specialist,Hunter,3,3,4,4,4,3,4,4,2,3,4,3,3
+Farming Manager Enterprise,Farmer,3,3,3,3,4,3,4,4,2,2,4,3,2
+Farming Manager SMB,Farmer,3,4,3,2,4,3,3,2,3,4,3,3,2
+Account Manager Enterprise,Farmer,3,2,4,4,3,4,3,3,4,3,3,4,3
+Account Manager SMB,Farmer,2,3,3,4,3,4,3,3,3,3,3,3,4
+Customer Success Officer,Farmer,3,4,2,3,3,4,3,3,3,4,4,3,3
+Renewal Specialist,Farmer,3,4,3,3,3,3,3,3,2,4,3,3,4
