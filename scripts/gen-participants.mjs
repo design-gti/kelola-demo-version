@@ -163,6 +163,8 @@ const FEMALE = [
   "Rani Oktarina", "Sabrina Yulianti", "Tania Kirana", "Ulfa Nabilah", "Vera Anggita",
   "Wulan Ramadhani", "Yasmin Khairunnisa", "Zulfa Amalia", "Amelia Rizki", "Bunga Lestari",
   "Chika Ardhana", "Diah Ayu Kusuma", "Erika Wijayanti", "Fani Nurhaliza", "Gina Puspasari",
+  "Hesti Nuraini", "Ika Damayanti", "Jasmine Aulia", "Karina Dewanti", "Lita Puspaningrum",
+  "Mira Anjani", "Nayla Hasanah", "Oktavia Rahayu", "Pipit Larasati", "Qonita Salsabil",
 ];
 
 // ── Skor ─────────────────────────────────────────────────────────────────────
@@ -285,6 +287,20 @@ const build = () => {
 };
 
 const rows = build();
+
+// Nama harus unik. Pencarian orang di aplikasi ini bertumpu pada nama — asisten
+// dan Talent Mapping mencocokkan teks nama, bukan id — jadi dua orang bernama
+// sama akan menunjuk orang yang keliru tanpa ada pesan galat. Pernah terjadi:
+// daftar nama perempuan lebih pendek dari jumlah yang dibutuhkan, dan lima nama
+// terakhir diam-diam mengulang dari awal.
+const dupes = Object.entries(
+  rows.reduce((acc, r) => ((acc[r.name] = (acc[r.name] ?? 0) + 1), acc), {}),
+).filter(([, n]) => n > 1);
+if (dupes.length) {
+  throw new Error(
+    `Nama kembar (tambah nama di daftar MALE/FEMALE): ${dupes.map(([n, c]) => `${n} ×${c}`).join(", ")}`,
+  );
+}
 
 const HEADERS = [
   "id", "name", "gender", "position", "department", "team", "disc", "potential",

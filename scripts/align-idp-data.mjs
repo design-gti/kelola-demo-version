@@ -52,7 +52,7 @@ function fixPerson(obj, roleFromCanon = false) {
   // (avatar foto + nama + jabatan), supaya jabatannya tidak perlu di-hardcode ("PIC").
   if (cr) {
     obj.position = cr.position;
-    if (cr.id) obj.photoUrl = `/avatars/photo_wc2026/${cr.id.toLowerCase()}.png`;
+    if (cr.id) obj.photoUrl = `/avatars/employee/${cr.id.toLowerCase()}.png`;
   }
 }
 
@@ -64,7 +64,7 @@ function fixPerson(obj, roleFromCanon = false) {
     // dept menyimpan NAMA TIM (bukan departemen) — modul IDP menampilkannya pada
     // kolom "Teams" dan subtitle "role · dept", jadi keduanya ikut konsisten.
     e.role = cr.position; e.dept = teamNameById.get(cr.team) ?? "-"; e.email = emailOf(e.name); e.nik = nikOf(e.name);
-    if ("avatar" in e && cr.id) e.avatar = `/avatars/photo_wc2026/${cr.id.toLowerCase()}.png`;
+    if ("avatar" in e && cr.id) e.avatar = `/avatars/employee/${cr.id.toLowerCase()}.png`;
   }
   (e.idps || []).forEach(idp => (idp.pics || []).forEach(p => fixPerson(p)));
 });

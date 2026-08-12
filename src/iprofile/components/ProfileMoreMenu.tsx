@@ -16,8 +16,8 @@ export function ProfileMoreMenu() {
   const [changeOpen, setChangeOpen] = useState(false);
 
   // Sumber foto identik dengan kartu Profile (Frame45227): per-employee
-  // /avatars/photo_wc2026/<id>.png, fallback ke default generik.
-  const defaultPhoto = /^p\d+$/i.test(employeeId) ? `/avatars/photo_wc2026/${employeeId.toLowerCase()}.png` : '/iprofile-assets/profile-photo.png';
+  // /avatars/employee/<id>.png, fallback ke default generik.
+  const defaultPhoto = /^p\d+$/i.test(employeeId) ? `/avatars/employee/${employeeId.toLowerCase()}.png` : '/iprofile-assets/profile-photo.png';
   const currentPhoto = () => getEditedPhoto(employeeId) || defaultPhoto;
 
   // Dipanggil ChangePhotoModal setelah file lolos syarat PNG + background transparan.

@@ -49,7 +49,7 @@ function Avatar({ name, size = 32, id }: { name: string; size?: number; id?: str
       <span>{initials(name)}</span>
       {id && (
         <img
-          src={`/avatars/photo_wc2026/${id}.png`}
+          src={`/avatars/employee/${id}.png`}
           alt=""
           onError={(e) => { e.currentTarget.style.display = "none"; }}
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
@@ -409,7 +409,7 @@ function TeamDetail({
             dimmed
             horizontalText
             colors={["primary", "primary", "primary", "primary"]}
-            datas={members.map(m => ({ name: m.name, DISC: m.disc as DISCTypes, photo: `/avatars/photo_wc2026/${m.id}.png` }))}
+            datas={members.map(m => ({ name: m.name, DISC: m.disc as DISCTypes, photo: `/avatars/employee/${m.id}.png` }))}
           />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>

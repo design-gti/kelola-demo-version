@@ -1737,7 +1737,7 @@ export const CANONICAL: CanonicalData = {
     },
     {
       "id": "p102",
-      "name": "Ayu Lestari",
+      "name": "Hesti Nuraini",
       "positionId": "pos-p102",
       "teamId": "FAR",
       "managerId": "p99",
@@ -1759,7 +1759,7 @@ export const CANONICAL: CanonicalData = {
     },
     {
       "id": "p104",
-      "name": "Siti Rahmawati",
+      "name": "Ika Damayanti",
       "positionId": "pos-p104",
       "teamId": "FAR",
       "managerId": "p100",
@@ -1781,7 +1781,7 @@ export const CANONICAL: CanonicalData = {
     },
     {
       "id": "p106",
-      "name": "Dewi Anggraini",
+      "name": "Jasmine Aulia",
       "positionId": "pos-p106",
       "teamId": "FAR",
       "managerId": "p99",
@@ -1803,7 +1803,7 @@ export const CANONICAL: CanonicalData = {
     },
     {
       "id": "p108",
-      "name": "Putri Maharani",
+      "name": "Karina Dewanti",
       "positionId": "pos-p108",
       "teamId": "FAR",
       "managerId": "p99",
@@ -1836,7 +1836,7 @@ export const CANONICAL: CanonicalData = {
     },
     {
       "id": "p111",
-      "name": "Rina Kartika",
+      "name": "Lita Puspaningrum",
       "positionId": "pos-p111",
       "teamId": "FAR",
       "managerId": "p100",

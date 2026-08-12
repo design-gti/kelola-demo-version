@@ -5,7 +5,7 @@
       "name": "Ratna Juwita",
       "role": "Senior Engineer",
       "dept": "Engineering Team",
-      "avatar": "/avatars/photo_wc2026/p02.png",
+      "avatar": "/avatars/employee/p02.png",
       "programs": 4,
       "statuses": [],
       "idps": [
@@ -24,28 +24,28 @@
               "initials": "GP",
               "color": "#0EA5E9",
               "position": "Farming Manager SMB",
-              "photoUrl": "/avatars/photo_wc2026/p100.png"
+              "photoUrl": "/avatars/employee/p100.png"
             },
             {
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             },
             {
               "name": "Bagus Prakoso",
               "initials": "BP",
               "color": "#10B981",
               "position": "Chief Strategy Officer",
-              "photoUrl": "/avatars/photo_wc2026/p06.png"
+              "photoUrl": "/avatars/employee/p06.png"
             },
             {
               "name": "Maya Puspita",
               "initials": "MP",
               "color": "#F59E0B",
               "position": "Backend Engineer",
-              "photoUrl": "/avatars/photo_wc2026/p48.png"
+              "photoUrl": "/avatars/employee/p48.png"
             }
           ],
           "period": "Jul 17, 2026 - Aug 21, 2026",
@@ -71,7 +71,7 @@
               "initials": "GP",
               "color": "#0EA5E9",
               "position": "Farming Manager SMB",
-              "photoUrl": "/avatars/photo_wc2026/p100.png"
+              "photoUrl": "/avatars/employee/p100.png"
             }
           ],
           "period": "Jul 26, 2026 - Sep 29, 2026",
@@ -96,8 +96,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Aug 1 - Sep 15, 2024",
@@ -122,8 +122,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "May 1 - Jun 30, 2024",
@@ -147,7 +147,7 @@
       "name": "Yoga Pratama",
       "role": "Governance Manager",
       "dept": "Executive Office Team",
-      "avatar": "/avatars/photo_wc2026/p39.png",
+      "avatar": "/avatars/employee/p39.png",
       "programs": 4,
       "statuses": [],
       "idps": [
@@ -162,7 +162,7 @@
               "initials": "GP",
               "color": "#0EA5E9",
               "position": "Farming Manager SMB",
-              "photoUrl": "/avatars/photo_wc2026/p100.png"
+              "photoUrl": "/avatars/employee/p100.png"
             }
           ],
           "period": "May 17, 2026 - Jul 1, 2026",
@@ -188,7 +188,7 @@
               "initials": "GP",
               "color": "#0EA5E9",
               "position": "Farming Manager SMB",
-              "photoUrl": "/avatars/photo_wc2026/p100.png"
+              "photoUrl": "/avatars/employee/p100.png"
             }
           ],
           "period": "Jul 11, 2026 - Aug 10, 2026",
@@ -213,8 +213,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Nov 1 - Dec 15, 2024",
@@ -239,8 +239,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Jul 1 - Aug 31, 2024",
@@ -264,7 +264,7 @@
       "name": "Winda Sari",
       "role": "Security Analyst",
       "dept": "Engineering Team",
-      "avatar": "/avatars/photo_wc2026/p58.png",
+      "avatar": "/avatars/employee/p58.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -278,8 +278,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Jan 1 - Feb 28, 2025",
@@ -304,8 +304,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Oct 1 - Nov 30, 2024",
@@ -330,8 +330,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Jul 1 - Aug 31, 2024",
@@ -355,7 +355,7 @@
       "name": "Nadia Safitri",
       "role": "Strategy Analyst",
       "dept": "Executive Office Team",
-      "avatar": "/avatars/photo_wc2026/p41.png",
+      "avatar": "/avatars/employee/p41.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -370,7 +370,7 @@
               "initials": "GP",
               "color": "#0EA5E9",
               "position": "Farming Manager SMB",
-              "photoUrl": "/avatars/photo_wc2026/p100.png"
+              "photoUrl": "/avatars/employee/p100.png"
             }
           ],
           "period": "Jul 17, 2026 - Aug 21, 2026",
@@ -396,7 +396,7 @@
               "initials": "GP",
               "color": "#0EA5E9",
               "position": "Farming Manager SMB",
-              "photoUrl": "/avatars/photo_wc2026/p100.png"
+              "photoUrl": "/avatars/employee/p100.png"
             }
           ],
           "period": "Oct 1 - Nov 30, 2024",
@@ -421,8 +421,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Jul 1 - Aug 31, 2024",
@@ -446,7 +446,7 @@
       "name": "Rendra Pratama",
       "role": "Farming Manager Enterprise",
       "dept": "Farmer Team",
-      "avatar": "/avatars/photo_wc2026/p99.png",
+      "avatar": "/avatars/employee/p99.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -460,8 +460,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Jul 26, 2026 - Sep 29, 2026",
@@ -486,8 +486,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Nov 1 - Dec 31, 2024",
@@ -512,8 +512,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Aug 1 - Sep 30, 2024",
@@ -537,7 +537,7 @@
       "name": "Marco Silalahi",
       "role": "Account Executive Enterprise",
       "dept": "Hunter Team",
-      "avatar": "/avatars/photo_wc2026/p87.png",
+      "avatar": "/avatars/employee/p87.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -552,7 +552,7 @@
               "initials": "GP",
               "color": "#0EA5E9",
               "position": "Farming Manager SMB",
-              "photoUrl": "/avatars/photo_wc2026/p100.png"
+              "photoUrl": "/avatars/employee/p100.png"
             }
           ],
           "period": "Jan 1 - Feb 28, 2025",
@@ -578,7 +578,7 @@
               "initials": "GP",
               "color": "#0EA5E9",
               "position": "Farming Manager SMB",
-              "photoUrl": "/avatars/photo_wc2026/p100.png"
+              "photoUrl": "/avatars/employee/p100.png"
             }
           ],
           "period": "Sep 1 - Oct 31, 2024",
@@ -603,8 +603,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "May 1 - Jun 30, 2024",
@@ -628,7 +628,7 @@
       "name": "Ni Luh Ayu Savitri",
       "role": "HR Operations Staff",
       "dept": "Human Resources Team",
-      "avatar": "/avatars/photo_wc2026/p74.png",
+      "avatar": "/avatars/employee/p74.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -642,8 +642,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Feb 1 - Mar 31, 2025",
@@ -668,8 +668,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Oct 1 - Nov 30, 2024",
@@ -695,7 +695,7 @@
               "initials": "GP",
               "color": "#0EA5E9",
               "position": "Farming Manager SMB",
-              "photoUrl": "/avatars/photo_wc2026/p100.png"
+              "photoUrl": "/avatars/employee/p100.png"
             }
           ],
           "period": "Jun 1 - Jul 31, 2024",
@@ -719,7 +719,7 @@
       "name": "Bagus Prakoso",
       "role": "Chief Strategy Officer",
       "dept": "Executive Office Team",
-      "avatar": "/avatars/photo_wc2026/p06.png",
+      "avatar": "/avatars/employee/p06.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -734,7 +734,7 @@
               "initials": "GP",
               "color": "#0EA5E9",
               "position": "Farming Manager SMB",
-              "photoUrl": "/avatars/photo_wc2026/p100.png"
+              "photoUrl": "/avatars/employee/p100.png"
             }
           ],
           "period": "May 17, 2026 - Jul 1, 2026",
@@ -759,8 +759,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Nov 1 - Dec 31, 2024",
@@ -785,8 +785,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Jul 1 - Aug 31, 2024",
@@ -808,9 +808,9 @@
     {
       "id": 8,
       "name": "Siti Rahmawati",
-      "role": "Account Manager SMB",
-      "dept": "Farmer Team",
-      "avatar": "/avatars/photo_wc2026/p104.png",
+      "role": "Chief Revenue Officer",
+      "dept": "Sales & Marketing Team",
+      "avatar": "/avatars/employee/p26.png",
       "programs": 3,
       "statuses": [],
       "idps": [
@@ -825,7 +825,7 @@
               "initials": "GP",
               "color": "#0EA5E9",
               "position": "Farming Manager SMB",
-              "photoUrl": "/avatars/photo_wc2026/p100.png"
+              "photoUrl": "/avatars/employee/p100.png"
             }
           ],
           "period": "Jan 1 - Feb 28, 2025",
@@ -850,8 +850,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "Sep 1 - Oct 31, 2024",
@@ -876,8 +876,8 @@
               "name": "Dewi Anggraini",
               "initials": "DA",
               "color": "#8B5CF6",
-              "position": "Customer Success Officer",
-              "photoUrl": "/avatars/photo_wc2026/p106.png"
+              "position": "Chief Financial Officer",
+              "photoUrl": "/avatars/employee/p35.png"
             }
           ],
           "period": "May 1 - Jun 30, 2024",
@@ -1404,9 +1404,9 @@
       "email": "doni.saputra@talentlytica.com"
     },
     {
-      "name": "Ayu Lestari",
-      "nik": "2349700005",
-      "email": "ayu.lestari@talentlytica.com"
+      "name": "Hesti Nuraini",
+      "nik": "2349700102",
+      "email": "hesti.nuraini@talentlytica.com"
     },
     {
       "name": "Ferdi Ahmad",
@@ -1414,9 +1414,9 @@
       "email": "ferdi.ahmad@talentlytica.com"
     },
     {
-      "name": "Siti Rahmawati",
-      "nik": "2349700026",
-      "email": "siti.rahmawati@talentlytica.com"
+      "name": "Ika Damayanti",
+      "nik": "2349700104",
+      "email": "ika.damayanti@talentlytica.com"
     },
     {
       "name": "Irfan Maulidin",
@@ -1424,9 +1424,9 @@
       "email": "irfan.maulidin@talentlytica.com"
     },
     {
-      "name": "Dewi Anggraini",
-      "nik": "2349700035",
-      "email": "dewi.anggraini@talentlytica.com"
+      "name": "Jasmine Aulia",
+      "nik": "2349700106",
+      "email": "jasmine.aulia@talentlytica.com"
     },
     {
       "name": "Yusuf Abdillah",
@@ -1434,9 +1434,9 @@
       "email": "yusuf.abdillah@talentlytica.com"
     },
     {
-      "name": "Putri Maharani",
-      "nik": "2349700007",
-      "email": "putri.maharani@talentlytica.com"
+      "name": "Karina Dewanti",
+      "nik": "2349700108",
+      "email": "karina.dewanti@talentlytica.com"
     },
     {
       "name": "Adam Nurhakim",
@@ -1449,9 +1449,9 @@
       "email": "rio.sanjaya@talentlytica.com"
     },
     {
-      "name": "Rina Kartika",
-      "nik": "2349700008",
-      "email": "rina.kartika@talentlytica.com"
+      "name": "Lita Puspaningrum",
+      "nik": "2349700111",
+      "email": "lita.puspaningrum@talentlytica.com"
     },
     {
       "name": "Tio Wicaksono",
@@ -1699,7 +1699,7 @@
         "role": "Sales Development Representative",
         "color": "#4C6EF5",
         "position": "Sales Development Representative",
-        "photoUrl": "/avatars/photo_wc2026/p95.png"
+        "photoUrl": "/avatars/employee/p95.png"
       },
       "participants": [
         "Kirana Sekar",
@@ -1720,7 +1720,7 @@
         "role": "Security Analyst",
         "color": "#10b981",
         "position": "Security Analyst",
-        "photoUrl": "/avatars/photo_wc2026/p58.png"
+        "photoUrl": "/avatars/employee/p58.png"
       },
       "participants": [
         "Dewi Anggraini",
@@ -1743,7 +1743,7 @@
         "role": "Security Analyst",
         "color": "#10b981",
         "position": "Security Analyst",
-        "photoUrl": "/avatars/photo_wc2026/p58.png"
+        "photoUrl": "/avatars/employee/p58.png"
       },
       "participants": [
         "Dewi Anggraini",
@@ -1774,7 +1774,7 @@
       "time": "Apr 20, 2026, 11:39 AM",
       "text": "tolong sekali lage cek dokumentasinya dan lampirkan kembali",
       "position": "Farming Manager SMB",
-      "photoUrl": "/avatars/photo_wc2026/p100.png"
+      "photoUrl": "/avatars/employee/p100.png"
     },
     {
       "name": "Gilang Saputro",
@@ -1783,7 +1783,7 @@
       "time": "Apr 20, 2026, 11:39 AM",
       "text": "dokumentasi trainingnya kah Pak?",
       "position": "Operations Manager",
-      "photoUrl": "/avatars/photo_wc2026/p18.png"
+      "photoUrl": "/avatars/employee/p18.png"
     },
     {
       "name": "Gina Puspasari",
@@ -1792,7 +1792,7 @@
       "time": "Apr 20, 2026, 11:40 AM",
       "text": "Iya",
       "position": "Farming Manager SMB",
-      "photoUrl": "/avatars/photo_wc2026/p100.png"
+      "photoUrl": "/avatars/employee/p100.png"
     },
     {
       "name": "Gilang Saputro",
@@ -1801,7 +1801,7 @@
       "time": "Apr 20, 2026, 11:41 AM",
       "text": "Baik Pak, saya lampirkan kembali",
       "position": "Operations Manager",
-      "photoUrl": "/avatars/photo_wc2026/p18.png"
+      "photoUrl": "/avatars/employee/p18.png"
     }
   ],
   "changeHistory": {

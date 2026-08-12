@@ -40,7 +40,7 @@ function Avatar({ name, employeeId }: { name: string; employeeId?: string }) {
     <MantineAvatar
       radius="xl"
       size={28}
-      src={employeeId ? `/avatars/photo_wc2026/${employeeId}.png` : null}
+      src={employeeId ? `/avatars/employee/${employeeId}.png` : null}
       style={{ flexShrink: 0, background: "#e6f3f8" }}
     >
       <span style={{ color: ACCENT, fontFamily: FONT, fontWeight: 700, fontSize: 10 }}>{initials(name)}</span>

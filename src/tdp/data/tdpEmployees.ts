@@ -226,7 +226,7 @@ function buildPhotoUrl(name: string, fallback?: string, gender?: string, pid?: s
   if (fallback && fallback.trim()) return fallback.trim();
   // Per-person WC photo keyed by canonical p-id (p01.png..p24.png).
   const id = (pid ?? '').trim();
-  if (/^p\d+$/i.test(id)) return `/avatars/photo_wc2026/${id.toLowerCase()}.png`;
+  if (/^p\d+$/i.test(id)) return `/avatars/employee/${id.toLowerCase()}.png`;
   const g = (gender ?? '').trim().toLowerCase();
   if (g === 'perempuan') return AVATAR_FEMALE;
   if (g === 'laki-laki') return AVATAR_MALE;

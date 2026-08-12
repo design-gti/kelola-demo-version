@@ -48,7 +48,7 @@ function competencyMatchFromAspects(aspects: ScoreAspects["competency"]): string
 function Frame151() {
   const { name, position, employeeId } = useContext(ProfileContext);
   // Per-person WC photo keyed by canonical p-id; falls back to the generic photo.
-  const defaultPhoto = /^p\d+$/i.test(employeeId) ? `/avatars/photo_wc2026/${employeeId.toLowerCase()}.png` : '/iprofile-assets/profile-photo.png';
+  const defaultPhoto = /^p\d+$/i.test(employeeId) ? `/avatars/employee/${employeeId.toLowerCase()}.png` : '/iprofile-assets/profile-photo.png';
   const [photoSrc, setPhotoSrc] = useState<string>(() => getEditedPhoto(employeeId) || defaultPhoto);
 
   // Re-read when the viewed employee changes (e.g. navigating list → detail → list → another detail).
@@ -413,7 +413,7 @@ function Frame49() {
             <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
               <p className="leading-[normal] whitespace-pre-wrap">{`Successors ${i + 1}`}</p>
             </div>
-            <div className="content-stretch flex items-center relative shrink-0 w-full"><SuccessorsAccordion name={sx.name} position={sx.position} percentage={sx.percentage} status={sx.status} photoType={i % 2 === 0 ? "woman" : "man"} photoUrl={sx.id ? `/avatars/photo_wc2026/${sx.id}.png` : undefined} /></div>
+            <div className="content-stretch flex items-center relative shrink-0 w-full"><SuccessorsAccordion name={sx.name} position={sx.position} percentage={sx.percentage} status={sx.status} photoType={i % 2 === 0 ? "woman" : "man"} photoUrl={sx.id ? `/avatars/employee/${sx.id}.png` : undefined} /></div>
           </div>
         ))}
         {successors.length === 0 && <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: "#adb5bd", padding: "8px 0" }}>No successors yet.</div>}

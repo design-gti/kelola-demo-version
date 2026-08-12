@@ -1,0 +1,113 @@
+nama_file,id,nama,gender,posisi,job
+p01.png,p01,Intan Permatasari,Perempuan,Head of Engineering,Teknologi
+p02.png,p02,Ratna Juwita,Perempuan,Senior Engineer,Teknologi
+p03.png,p03,Citra Ayu Ningsih,Perempuan,Frontend Lead,Teknologi
+p04.png,p04,Aditya Wibowo,Laki-laki,Backend Lead,Teknologi
+p05.png,p05,Ayu Lestari,Perempuan,Chief Executive Officer,Strategi
+p06.png,p06,Bagus Prakoso,Laki-laki,Chief Strategy Officer,Strategi
+p07.png,p07,Putri Maharani,Perempuan,VP Corporate Strategy,Strategi
+p08.png,p08,Rina Kartika,Perempuan,Head of Governance,Strategi
+p09.png,p09,Teguh Firmansyah,Laki-laki,Head of Finance,Keuangan
+p10.png,p10,Wisnu Baskoro,Laki-laki,Senior Finance Analyst,Keuangan
+p11.png,p11,Cindy Pratiwi,Perempuan,Finance Analyst,Keuangan
+p12.png,p12,Anisa Rahmadani,Perempuan,Controller,Keuangan
+p13.png,p13,Meliana Sianturi,Perempuan,HR Business Partner,SDM
+p14.png,p14,Novita Hutagalung,Perempuan,HR Manager,SDM
+p15.png,p15,Olivia Manurung,Perempuan,Talent Acquisition Lead,SDM
+p16.png,p16,Farhan Hakim,Laki-laki,People Ops Specialist,SDM
+p17.png,p17,Farah Salsabila,Perempuan,VP Operations,Operasional
+p18.png,p18,Gilang Saputro,Laki-laki,Operations Manager,Operasional
+p19.png,p19,Indah Purnama,Perempuan,Supply Chain Lead,Operasional
+p20.png,p20,Bintang Mahesa,Laki-laki,Operations Analyst,Operasional
+p21.png,p21,Desak Putu Ariani,Perempuan,Head of Marketing,Pemasaran
+p22.png,p22,Ahmad Al-Faruq,Laki-laki,Senior Marketing Manager,Pemasaran
+p23.png,p23,Ida Ayu Prameswari,Perempuan,Brand Manager,Pemasaran
+p24.png,p24,Hafiz Ramadhan,Laki-laki,Growth Marketing Lead,Pemasaran
+p25.png,p25,Sabrina Yulianti,Perempuan,Senior Brand Strategist,Pemasaran
+p26.png,p26,Siti Rahmawati,Perempuan,Chief Revenue Officer,Pemasaran
+p27.png,p27,Bram Sitorus,Laki-laki,Creative Director,Pemasaran
+p28.png,p28,Galih Kusuma,Laki-laki,Principal Engineer,Teknologi
+p29.png,p29,Jihan Azzahra,Perempuan,Operations Strategist,Operasional
+p30.png,p30,Rani Oktarina,Perempuan,Growth Marketing Manager,Pemasaran
+p31.png,p31,Zahra Amelia,Perempuan,Senior Finance Manager,Keuangan
+p32.png,p32,Hana Fadhilah,Perempuan,Supply Chain Manager,Operasional
+p33.png,p33,Tania Kirana,Perempuan,Digital Content Specialist,Pemasaran
+p34.png,p34,Rizky Ramadhan,Laki-laki,Chief Technology Officer,Teknologi
+p35.png,p35,Dewi Anggraini,Perempuan,Chief Financial Officer,Keuangan
+p36.png,p36,Andi Saputra,Laki-laki,Chief Operating Officer,Operasional
+p37.png,p37,Fajar Nugroho,Laki-laki,Chief Human Resources Officer,SDM
+p38.png,p38,Dimas Prasetyo,Laki-laki,Strategy Manager,Strategi
+p39.png,p39,Yoga Pratama,Laki-laki,Governance Manager,Strategi
+p40.png,p40,Bayu Setiawan,Laki-laki,Strategy Analyst,Strategi
+p41.png,p41,Nadia Safitri,Perempuan,Strategy Analyst,Strategi
+p42.png,p42,Reza Mahendra,Laki-laki,Head of Infrastructure & Security,Teknologi
+p43.png,p43,Fitri Handayani,Perempuan,QA Lead,Teknologi
+p44.png,p44,Hendra Gunawan,Laki-laki,DevOps Lead,Teknologi
+p45.png,p45,Iqbal Maulana,Laki-laki,Security Lead,Teknologi
+p46.png,p46,Laras Wulandari,Perempuan,Backend Engineer,Teknologi
+p47.png,p47,Krisna Wijaya,Laki-laki,Backend Engineer,Teknologi
+p48.png,p48,Maya Puspita,Perempuan,Backend Engineer,Teknologi
+p49.png,p49,Lukman Hakim,Laki-laki,Frontend Engineer,Teknologi
+p50.png,p50,Nur Aisyah,Perempuan,Frontend Engineer,Teknologi
+p51.png,p51,Bimo Santoso,Laki-laki,Frontend Engineer,Teknologi
+p52.png,p52,Arif Budiman,Laki-laki,Software Engineer,Teknologi
+p53.png,p53,Salma Nabila,Perempuan,QA Engineer,Teknologi
+p54.png,p54,Panji Nugraha,Laki-laki,QA Engineer,Teknologi
+p55.png,p55,Tiara Ramadhani,Perempuan,QA Engineer,Teknologi
+p56.png,p56,Rangga Aditama,Laki-laki,DevOps Engineer,Teknologi
+p57.png,p57,Vina Oktaviani,Perempuan,DevOps Engineer,Teknologi
+p58.png,p58,Winda Sari,Perempuan,Security Analyst,Teknologi
+p59.png,p59,Satria Utomo,Laki-laki,Security Analyst,Teknologi
+p60.png,p60,Yulia Andini,Perempuan,Head of Accounting,Keuangan
+p61.png,p61,Bella Kusumawati,Perempuan,Accounting Manager,Keuangan
+p62.png,p62,Yudha Permana,Laki-laki,Finance Analyst,Keuangan
+p63.png,p63,Dinda Alifia,Perempuan,Internal Auditor,Keuangan
+p64.png,p64,Ilham Rahmadi,Laki-laki,Accounting Staff,Keuangan
+p65.png,p65,Elsa Nuraini,Perempuan,Tax Staff,Keuangan
+p66.png,p66,Gita Aprilia,Perempuan,Head of Supply Chain,Operasional
+p67.png,p67,Damar Anggoro,Laki-laki,Service Quality Manager,Operasional
+p68.png,p68,Rafi Alfarizi,Laki-laki,Operations Staff,Operasional
+p69.png,p69,Naufal Hidayat,Laki-laki,Service Quality Officer,Operasional
+p70.png,p70,Zaki Ardiansyah,Laki-laki,Logistics Staff,Operasional
+p71.png,p71,Kirana Sekar,Perempuan,Logistics Staff,Operasional
+p72.png,p72,Lidya Simatupang,Perempuan,Procurement Staff,Operasional
+p73.png,p73,Priska Sihombing,Perempuan,People Development Manager,SDM
+p74.png,p74,Ni Luh Ayu Savitri,Perempuan,HR Operations Staff,SDM
+p75.png,p75,Ni Kadek Sriani,Perempuan,Recruiter,SDM
+p76.png,p76,Denny Kurniawan,Laki-laki,Recruiter,SDM
+p77.png,p77,Ni Made Wulandari,Perempuan,Learning & Development Specialist,SDM
+p78.png,p78,Ridho Setiadi,Laki-laki,Head of Sales,Pemasaran
+p79.png,p79,Ulfa Nabilah,Perempuan,Graphic Designer,Pemasaran
+p80.png,p80,Vera Anggita,Perempuan,Digital Marketing Executive,Pemasaran
+p81.png,p81,Josua Tampubolon,Laki-laki,Digital Marketing Executive,Pemasaran
+p82.png,p82,Wulan Ramadhani,Perempuan,Market Research Analyst,Pemasaran
+p83.png,p83,Ruben Simanjuntak,Laki-laki,Hunting Manager Enterprise,Hunter
+p84.png,p84,Yasmin Khairunnisa,Perempuan,Hunting Manager SMB,Hunter
+p85.png,p85,Kevin Napitupulu,Laki-laki,Hunting Manager Government,Hunter
+p86.png,p86,Zulfa Amalia,Perempuan,Account Executive Enterprise,Hunter
+p87.png,p87,Marco Silalahi,Laki-laki,Account Executive Enterprise,Hunter
+p88.png,p88,Amelia Rizki,Perempuan,Account Executive Enterprise,Hunter
+p89.png,p89,Gerry Panggabean,Laki-laki,Account Executive SMB,Hunter
+p90.png,p90,Bunga Lestari,Perempuan,Account Executive SMB,Hunter
+p91.png,p91,Chika Ardhana,Perempuan,Business Development Representative,Hunter
+p92.png,p92,Wayan Suardika,Laki-laki,Business Development Representative,Hunter
+p93.png,p93,Diah Ayu Kusuma,Perempuan,Business Development Representative,Hunter
+p94.png,p94,Made Arsana,Laki-laki,Business Development Representative,Hunter
+p95.png,p95,Erika Wijayanti,Perempuan,Sales Development Representative,Hunter
+p96.png,p96,Komang Aditya,Laki-laki,Sales Development Representative,Hunter
+p97.png,p97,Putu Darmawan,Laki-laki,Government Relations Specialist,Hunter
+p98.png,p98,Fani Nurhaliza,Perempuan,Government Relations Specialist,Hunter
+p99.png,p99,Rendra Pratama,Laki-laki,Farming Manager Enterprise,Farmer
+p100.png,p100,Gina Puspasari,Perempuan,Farming Manager SMB,Farmer
+p101.png,p101,Doni Saputra,Laki-laki,Account Manager Enterprise,Farmer
+p102.png,p102,Hesti Nuraini,Perempuan,Account Manager Enterprise,Farmer
+p103.png,p103,Ferdi Ahmad,Laki-laki,Account Manager Enterprise,Farmer
+p104.png,p104,Ika Damayanti,Perempuan,Account Manager SMB,Farmer
+p105.png,p105,Irfan Maulidin,Laki-laki,Account Manager SMB,Farmer
+p106.png,p106,Jasmine Aulia,Perempuan,Customer Success Officer,Farmer
+p107.png,p107,Yusuf Abdillah,Laki-laki,Customer Success Officer,Farmer
+p108.png,p108,Karina Dewanti,Perempuan,Customer Success Officer,Farmer
+p109.png,p109,Adam Nurhakim,Laki-laki,Customer Success Officer,Farmer
+p110.png,p110,Rio Sanjaya,Laki-laki,Renewal Specialist,Farmer
+p111.png,p111,Lita Puspaningrum,Perempuan,Renewal Specialist,Farmer
+p112.png,p112,Tio Wicaksono,Laki-laki,Renewal Specialist,Farmer

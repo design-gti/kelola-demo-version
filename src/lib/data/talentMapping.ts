@@ -125,7 +125,7 @@ export function getTalentMappingCells(cfg: TMConfig = TI_CONFIG, pool: Candidate
       label: box.label,
       countColor: darker(box.color),
       bg: resolveColor(box.color),
-      avatars: members.slice(0, 2).map(m => `/avatars/photo_wc2026/${m.employeeId}.png`),
+      avatars: members.slice(0, 2).map(m => `/avatars/employee/${m.employeeId}.png`),
       names: members.map(m => m.name),
     };
   });

@@ -200,7 +200,7 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
               <span>{initials(p.name)}</span>
               {p.employeeId && (
                 <img
-                  src={`/avatars/photo_wc2026/${p.employeeId}.png`}
+                  src={`/avatars/employee/${p.employeeId}.png`}
                   alt=""
                   onError={(e) => { e.currentTarget.style.display = "none"; }}
                   style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
@@ -224,7 +224,7 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
                     <span style={{ display: "flex", alignItems: "center", gap: 6, minWidth: 0 }}>
                       <span style={{ width: 22, height: 22, borderRadius: "50%", background: NODE_BG, color: "#fff", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 8, fontWeight: 700, overflow: "hidden", position: "relative" }}>
                         <span>{initials(p.name)}</span>
-                        {p.employeeId && <img src={`/avatars/photo_wc2026/${p.employeeId}.png`} alt="" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} />}
+                        {p.employeeId && <img src={`/avatars/employee/${p.employeeId}.png`} alt="" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} />}
                       </span>
                       <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span>
                     </span>
