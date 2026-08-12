@@ -10,7 +10,7 @@ import { AddCareerPlanModal } from "../components/AddCareerPlanModal";
 import { AddSuccessorsModal } from "../components/AddSuccessorsModal";
 import { useState, useContext, useRef, useEffect } from "react";
 import { candidates } from "@/data/dummyData";
-import { getParticipant, scoreOf } from "@/data/model/selectors";
+import { getParticipant, scoreOf, allTeams } from "@/data/model/selectors";
 import {
   ProfileContext,
   DEFAULT_EMP,
@@ -416,7 +416,7 @@ function Frame49() {
             <div className="content-stretch flex items-center relative shrink-0 w-full"><SuccessorsAccordion name={sx.name} position={sx.position} percentage={sx.percentage} status={sx.status} photoType={i % 2 === 0 ? "woman" : "man"} photoUrl={sx.id ? `/avatars/photo_wc2026/${sx.id}.png` : undefined} /></div>
           </div>
         ))}
-        {successors.length === 0 && <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: "#adb5bd", padding: "8px 0" }}>Belum ada suksesor.</div>}
+        {successors.length === 0 && <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: "#adb5bd", padding: "8px 0" }}>No successors yet.</div>}
         <button 
           onClick={() => setIsAddSuccessorsModalOpen(true)}
           className="overflow-clip relative shrink-0 size-[20px] cursor-pointer hover:opacity-70 transition-opacity" 
@@ -1003,7 +1003,7 @@ function Frame104() {
 }
 
 // One IDP-history card — data-driven replacement for the fixed IdpList/IdpList1.
-function IdpCard({ competencies, pic, dateRange, status }: { competencies: string[]; pic: string; dateRange: string; status: string }) {
+function IdpCard({ program, competencies, pic, dateRange, status }: { program: string; competencies: string[]; pic: string; dateRange: string; status: string }) {
   const router = useRouter();
   const { name: employeeName } = useContext(ProfileContext);
   const done = status.toLowerCase() === "done";
@@ -1013,6 +1013,7 @@ function IdpCard({ competencies, pic, dateRange, status }: { competencies: strin
       data-name="IDP List"
       onClick={() => router.push(`/idp?page=detail-idp-admin.html&name=${encodeURIComponent(employeeName)}`)}
     >
+      <p className="font-['Open_Sans:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#212529] text-[13px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>{program}</p>
       <div className="content-start flex flex-wrap gap-[4px] items-start relative shrink-0 w-full">
         {competencies.map((c, i) => (
           <div key={i} className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
@@ -1064,7 +1065,7 @@ function Frame105() {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-[336.333px]">
       {idpHistory.map((h, i) => (
-        <IdpCard key={i} competencies={h.competencies} pic={h.pic} dateRange={h.dateRange} status={h.status} />
+        <IdpCard key={i} program={h.program} competencies={h.competencies} pic={h.pic} dateRange={h.dateRange} status={h.status} />
       ))}
     </div>
   );
@@ -1154,7 +1155,7 @@ function Frame28() {
           <p className="leading-[normal] whitespace-pre-wrap">Phone</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">+6282342905893</p>
+          <p className="leading-[normal] whitespace-pre-wrap">+6282342905XXX</p>
         </div>
       </div>
     </div>
@@ -1178,7 +1179,27 @@ function Frame30() {
   );
 }
 
+// Hitung umur dari string DOB ("1 Jan 1990" / "12 Februari 1988" / "17 Mei 1996").
+// Bulan mendukung singkatan EN & ID. iProfile ssr:false → new Date() aman (client-only).
+const _DOB_MONTHS: Record<string, number> = {
+  jan: 0, feb: 1, mar: 2, apr: 3, mei: 4, may: 4, jun: 5, jul: 6,
+  agu: 7, agt: 7, aug: 7, sep: 8, okt: 9, oct: 9, nov: 10, des: 11, dec: 11,
+};
+function ageFromDob(dob: string): string {
+  const m = dob.trim().match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+  if (!m) return "-";
+  const day = parseInt(m[1], 10);
+  const mon = _DOB_MONTHS[m[2].slice(0, 3).toLowerCase()];
+  const year = parseInt(m[3], 10);
+  if (mon == null) return "-";
+  const now = new Date();
+  let age = now.getFullYear() - year;
+  if (now.getMonth() < mon || (now.getMonth() === mon && now.getDate() < day)) age -= 1;
+  return age >= 0 ? String(age) : "-";
+}
+
 function Frame29() {
+  const { employee } = useContext(ProfileContext);
   return (
     <div className="relative shrink-0 w-full">
       <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
@@ -1187,7 +1208,7 @@ function Frame29() {
           <p className="leading-[normal] whitespace-pre-wrap">Age</p>
         </div>
         <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">36</p>
+          <p className="leading-[normal] whitespace-pre-wrap">{ageFromDob(employee.dob)}</p>
         </div>
       </div>
     </div>
@@ -1443,10 +1464,34 @@ export default function Frame120() {
   // Load per-participant profile detail from the editable JSON at runtime
   // (public/data/iprofile-data.json) — no rebuild needed to change it.
   const [iprofileData, setIprofileData] = useState<Record<string, ProfileDetail>>({});
+  // Data IDP yang sama dengan halaman Monitoring, agar IDP History di sini sinkron.
+  const [idpData, setIdpData] = useState<{ employees?: Array<{ name: string; idps?: Array<{ program?: string; aspects?: string[]; pics?: Array<{ name: string }>; period?: string; statusLabel?: string }> }> }>({});
   useEffect(() => {
     fetch("/data/iprofile-data.json").then(r => r.json()).then(setIprofileData).catch(() => {});
+    fetch("/data/idp-data.json").then(r => r.json()).then(setIdpData).catch(() => {});
   }, []);
   const detail = id ? iprofileData[id] ?? null : null;
+
+  // Teams — dari model kanonik (bukan blob): tim tempat participant menjadi member
+  // dan/atau leader. Model memberi satu teamId per participant; role "leader" bila
+  // ia memimpin tim tsb.
+  const teams = id
+    ? allTeams()
+        .filter(t => t.leaderId === id || t.id === participant?.teamId)
+        .map(t => ({ name: t.name, role: t.leaderId === id ? "as Team Leader" : "as Team member" }))
+    : [];
+
+  // IDP History — sinkron dengan data IDP (public/data/idp-data.json), dicocokkan
+  // by NAMA participant (JSON itu tak menyimpan p-id). Participant tanpa IDP → kosong.
+  const idpEmp = candidate ? (idpData.employees ?? []).find(e => e.name === candidate.name) : null;
+  const idpHistory = (idpEmp?.idps ?? []).map(idp => ({
+    program: idp.program ?? "-",
+    competencies: (idp.aspects ?? []).map(a => a.replace(/\s*\([^)]*\)\s*$/, "")),
+    pic: idp.pics?.[0]?.name ?? "-",
+    dateRange: idp.period ?? "-",
+    status: idp.statusLabel === "PENDING" ? "Need Review" : (idp.statusLabel ?? "-"),
+  }));
+
   const profileValue: ProfileCtxT = {
     name: candidate?.name ?? "Julian Alvarez",
     position: candidate?.position ?? "Direktur Pengembangan Bisnis",
@@ -1458,10 +1503,10 @@ export default function Frame120() {
     careerPlans: detail?.careerPlans ?? [],
     successors: detail?.successors ?? [],
     scoreAspects: detail?.scoreAspects ?? EMPTY_ASPECTS,
-    teams: detail?.teams ?? [],
+    teams,
     bloodType: detail?.bloodType ?? "A",
     extension: detail?.extension ?? DEFAULT_EXT,
-    idpHistory: detail?.idpHistory ?? [],
+    idpHistory,
     employee: detail?.employee ?? DEFAULT_EMP,
   };
   return (

@@ -775,13 +775,13 @@ export default function SuccessionPanel({ employee, onClose, onCompare, onIDPDia
     const toTdpId = (id: string) => 'EMP' + String(id).replace(/\D/g, '').padStart(3, '0');
     const ids = [employee, ...allSuccessors].map(e => toTdpId(e.id));
     try { localStorage.setItem('shared_pinned', JSON.stringify(Array.from(new Set(ids)))); } catch { /* ignore */ }
-    (window.top ?? window)!.location.href = '/tdp-view';
+    window.location.href = '/tdp-view';
   };
 
   const handleNavigateToEmployeeProfile = (employeeId: string) => {
     const selectedEmployee = allEmployees.find(e => e.id === employeeId);
     const name = selectedEmployee ? encodeURIComponent(selectedEmployee.name) : '';
-    window.top!.location.href = `/iprofile?id=${encodeURIComponent(employeeId)}&name=${name}&from=vismap`;
+    window.location.href = `/iprofile?id=${encodeURIComponent(employeeId)}&name=${name}&from=vismap`;
   };
   
   // Get eligible employees for adding as successors

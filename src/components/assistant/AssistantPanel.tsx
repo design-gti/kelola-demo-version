@@ -17,10 +17,10 @@ const ACCENT = "#016699";
 /**
  * Overlay slide-over — deliberately not a docked/push panel. The Home
  * dashboard scales its whole ~1440px canvas down via ScaleWrapper, and
- * /tdp-view + /idp are full-bleed iframes; shrinking <main>'s width the way
- * Sidebar does via --sidebar-w would shrink that scale factor further and
- * letterbox the iframes. No backdrop either — this is a companion surface,
- * the dashboard underneath should stay visible and usable.
+ * some views like /tdp-view + /idp occupy the full width. Using a docked
+ * panel with --sidebar-w would interfere with scaling. No backdrop either
+ * — this is a companion surface, the dashboard underneath should stay
+ * visible and usable while the assistant provides guidance.
  */
 export default function AssistantPanel({
   open,

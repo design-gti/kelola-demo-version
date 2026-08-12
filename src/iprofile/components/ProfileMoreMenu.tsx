@@ -15,7 +15,10 @@ export function ProfileMoreMenu() {
   const [viewPhoto, setViewPhoto] = useState<string | null>(null);
   const [changeOpen, setChangeOpen] = useState(false);
 
-  const currentPhoto = () => getEditedPhoto(employeeId) || '/iprofile-assets/profile-photo.png';
+  // Sumber foto identik dengan kartu Profile (Frame45227): per-employee
+  // /avatars/photo_wc2026/<id>.png, fallback ke default generik.
+  const defaultPhoto = /^p\d+$/i.test(employeeId) ? `/avatars/photo_wc2026/${employeeId.toLowerCase()}.png` : '/iprofile-assets/profile-photo.png';
+  const currentPhoto = () => getEditedPhoto(employeeId) || defaultPhoto;
 
   // Dipanggil ChangePhotoModal setelah file lolos syarat PNG + background transparan.
   const applyPhoto = (dataUrl: string) => {
@@ -131,6 +134,7 @@ export function ProfileMoreMenu() {
             alt="Profile photo"
             style={{ maxWidth: '80vw', maxHeight: '80vh', borderRadius: 12, objectFit: 'contain', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}
             onClick={e => e.stopPropagation()}
+            onError={(e) => { const t = e.currentTarget as HTMLImageElement; t.src = '/iprofile-assets/profile-photo.png'; t.onerror = null; }}
           />
         </div>,
         document.body

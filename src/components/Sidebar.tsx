@@ -52,7 +52,12 @@ export default function Sidebar() {
     if (saved !== null) setCollapsed(saved === "true");
   }, []);
 
+  // Di dalam iframe (mode embed) sidebar disembunyikan lewat CSS dan lebarnya
+  // dikunci 0px oleh skrip inline di layout.tsx. Tanpa penjaga ini, efek mount
+  // di bawah menimpanya kembali jadi 220px — sidebarnya tak terlihat, tapi
+  // kontennya tetap tergeser 220px ke kanan dengan ruang kosong di kiri.
   const setSidebarVar = (isCollapsed: boolean) => {
+    if (document.documentElement.dataset.embed === "1") return;
     document.documentElement.style.setProperty("--sidebar-w", isCollapsed ? "60px" : "220px");
   };
 
@@ -113,6 +118,7 @@ export default function Sidebar() {
   return (
     <aside
       className="sidebar-rail"
+      data-app-sidebar
       style={{
         width: collapsed ? 60 : 220,
         background: RAIL_BG,

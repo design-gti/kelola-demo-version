@@ -1,6 +1,9 @@
 import { cookies } from "next/headers";
 
-export const ROLE_COOKIE = "kelola-role";
+// -v2 karena cookie lama (kelola-role tanpa partisi, SameSite=Lax) tetap tersimpan
+// di browser pengguna dengan TTL 180 hari dan mengalahkan cookie baru (terpartisi,
+// SameSite=None). Nama baru mencegah tabrakan; cookie lama akan kedaluwarsa sendiri.
+export const ROLE_COOKIE = "kelola-role-v2";
 export type UserRole = "hr" | "manager";
 
 /**

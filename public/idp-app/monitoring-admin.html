@@ -482,22 +482,21 @@
       <!-- Insight Summary -->
       <div class="insight-card">
         <span class="insight-stat-label">Total Active IDP</span>
-        <span class="insight-stat-value">86 employees</span>
+        <span class="insight-stat-value" id="total-active-idp">0 employees</span>
       </div>
       <!-- Search & Filter -->
       <div class="search-filter-row">
-        <input type="text" class="search-input" placeholder="Search">
+        <input type="text" class="search-input" placeholder="Search" oninput="onCfSearch(this.value)">
         <button class="btn-filter" id="filter-btn" onclick="toggleFilterModal(event)">
           <svg class="btn-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
           <span class="filter-badge" id="filter-badge" style="display:none">0</span>
         </button>
         <div class="insight-status-group">
           <div class="insight-chips">
-            <span class="status-chip status-need-review" data-filter-key="PENDING" onclick="toggleInsightFilter('PENDING')">PENDING: 151</span>
+            <span class="status-chip status-need-review" data-filter-key="PENDING" onclick="toggleInsightFilter('PENDING')">Need Review: 151</span>
             <span class="status-chip status-in-progress" data-filter-key="IN PROGRESS" onclick="toggleInsightFilter('IN PROGRESS')">IN PROGRESS: 9</span>
             <span class="status-chip status-done" data-filter-key="DONE" onclick="toggleInsightFilter('DONE')">DONE: 0</span>
             <span class="status-chip status-expired" data-filter-key="EXPIRED" onclick="toggleInsightFilter('EXPIRED')">EXPIRED: 32</span>
-            <span class="status-chip status-draft" data-filter-key="DRAFT" onclick="toggleInsightFilter('DRAFT')">DRAFT: 0</span>
           </div>
         </div>
       </div>
@@ -591,8 +590,13 @@
       EMPLOYEES.forEach(function(e){ if(e.dept && out.indexOf(e.dept)===-1) out.push(e.dept); });
       return out.sort();
     }
-    var _STATUS_VALS=['PENDING','IN PROGRESS','DONE','EXPIRED','DRAFT'];
+    var _STATUS_VALS=['PENDING','IN PROGRESS','DONE','EXPIRED'];
     var _STATUS_CLS={'PENDING':'status-need-review','IN PROGRESS':'status-in-progress','DONE':'status-done','EXPIRED':'status-expired','DRAFT':'status-draft'};
+    // PENDING = key internal (data-filter-key, data, filter). Untuk TAMPILAN, status ini
+    // ditulis "Need Review" (mirror kelola-app); key tetap PENDING agar filter tak berubah.
+    function statusText(label){ return label==='PENDING' ? 'Need Review' : label; }
+    var _cfSearch='';
+    function onCfSearch(v){ _cfSearch=v; renderCfTable(); }
     function toggleInsightFilter(key){
       var sc=_filterConditions.filter(function(c){return c.field==='Status';})[0];
       if(!sc){sc={field:'Status',values:[]};_filterConditions.push(sc);}
@@ -610,9 +614,21 @@
           return emp.statuses.some(function(s){return _cfStatuses.indexOf(s.label)!==-1;});
         });
       }
+      var _q=_cfSearch.trim().toLowerCase();
+      if(_q){
+        list=list.filter(function(e){
+          return (e.name||'').toLowerCase().indexOf(_q)!==-1
+            || (e.role||'').toLowerCase().indexOf(_q)!==-1
+            || (e.dept||'').toLowerCase().indexOf(_q)!==-1;
+        });
+      }
+      if(list.length===0){
+        tbody.innerHTML='<tr><td colspan="3" style="text-align:center;padding:32px;color:var(--text-muted)">No results.</td></tr>';
+        return;
+      }
       tbody.innerHTML=list.map(function(emp){
         var _sc={};emp.statuses.forEach(function(s){_sc[s.label]=(_sc[s.label]||0)+1;});
-        var chips=[{l:'PENDING',c:'status-need-review'},{l:'IN PROGRESS',c:'status-in-progress'},{l:'DONE',c:'status-done'},{l:'EXPIRED',c:'status-expired'},{l:'DRAFT',c:'status-draft'}].filter(function(st){return (_sc[st.l]||0)>0;}).map(function(st){return '<span class="status-chip '+st.c+'" style="pointer-events:none">'+st.l+': '+_sc[st.l]+'</span>';}).join(' ');
+        var chips=[{l:'PENDING',c:'status-need-review'},{l:'IN PROGRESS',c:'status-in-progress'},{l:'DONE',c:'status-done'},{l:'EXPIRED',c:'status-expired'}].filter(function(st){return (_sc[st.l]||0)>0;}).map(function(st){return '<span class="status-chip '+st.c+'" style="pointer-events:none">'+statusText(st.l)+': '+_sc[st.l]+'</span>';}).join(' ');
         return '<tr data-emp-id="'+emp.id+'" onclick="openPanelById('+emp.id+',this)"><td><div class="emp-cell-info"><img src="'+emp.avatar+'" width="32" height="32" style="border-radius:50%;object-fit:cover" alt=""><div><div class="emp-cell-name">'+emp.name+'</div><div class="emp-cell-role">'+emp.role+'</div></div></div></td><td class="emp-cell-dept">'+emp.dept+'</td><td>'+chips+'</td></tr>';
       }).join('');
     }
@@ -675,7 +691,7 @@
       dd.innerHTML=vals.map(function(v){
         var sel=c.values.indexOf(v)!==-1;
         var cls=c.field==='Status'?_STATUS_CLS[v]:'';
-        var chip=cls?'<span class="status-chip '+cls+'" style="pointer-events:none">'+v+'</span>':'<span>'+v+'</span>';
+        var chip=cls?'<span class="status-chip '+cls+'" style="pointer-events:none">'+statusText(v)+'</span>':'<span>'+v+'</span>';
         var check=sel?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="flex-shrink:0;color:var(--primary)"><polyline points="20 6 9 17 4 12"/></svg>':'<span style="display:inline-block;width:12px;flex-shrink:0"></span>';
         return '<div class="flt-vdd-item'+(sel?' flt-selected':'')+'" onclick="pickFilterValue('+idx+',\''+v+'\')" style="display:flex;align-items:center;gap:8px">'+check+chip+'</div>';
       }).join('');
@@ -709,7 +725,7 @@
           return '<option value="'+f+'"'+(c.field===f?' selected':'')+dis+'>'+f+'</option>';
         }).join('');
         var valContent=c.values.length>0
-          ?c.values.map(function(v){var vc=c.field==='Status'?_STATUS_CLS[v]:'';return vc?'<span class="status-chip '+vc+'" style="pointer-events:none;font-size:10px">'+v+'</span>':'<span style="color:var(--text-body);font-size:12px;font-family:var(--font-body)">'+v+'</span>';}).join('')
+          ?c.values.map(function(v){var vc=c.field==='Status'?_STATUS_CLS[v]:'';return vc?'<span class="status-chip '+vc+'" style="pointer-events:none;font-size:10px">'+statusText(v)+'</span>':'<span style="color:var(--text-body);font-size:12px;font-family:var(--font-body)">'+v+'</span>';}).join('')
           :'<span style="color:var(--text-muted)">Select...</span>';
         return '<div class="flt-row">'+
           '<select class="flt-field-sel" onchange="setConditionField('+i+',this.value)">'+fieldOpts+'</select>'+
@@ -754,8 +770,10 @@
       });
       document.querySelectorAll('.insight-chips .status-chip').forEach(function(chip){
         var key=chip.getAttribute('data-filter-key');
-        chip.textContent=key+': '+(counts[key]||0);
+        chip.textContent=statusText(key)+': '+(counts[key]||0);
       });
+      var total=document.getElementById('total-active-idp');
+      if(total)total.textContent=EMPLOYEES.length+' employees';
     }
     document.addEventListener('DOMContentLoaded', function(){
       renderAspectViews();
@@ -812,7 +830,7 @@
                   : 'clr-expired';
       var statusRow = '<div class="panel-card-row"><span class="panel-card-label">Status:</span>'
         + '<div class="panel-idp-status-inline">'
-        + '<span class="status-chip '+idp.statusCls+'">'+idp.statusLabel+'</span>'
+        + '<span class="status-chip '+idp.statusCls+'">'+statusText(idp.statusLabel)+'</span>'
         + '<div class="panel-progress-bar"><div class="panel-progress-fill '+fillCls+'" style="width:'+pct+'%"></div></div>'
         + '<span class="panel-progress-count '+clrCls+'">'+prog.done+'/'+prog.total+'</span>'
         + '</div></div>';

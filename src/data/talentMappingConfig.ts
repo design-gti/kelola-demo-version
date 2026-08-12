@@ -13,7 +13,12 @@ import { TMConfig, makeConfigById } from "./talentMappingShared";
 export type ConfigId = "TI" | "TR";
 
 const key = (id: ConfigId) => `tm-config-${id}`;
-const cookie = (id: ConfigId) => `tm-config-${id.toLowerCase()}`;
+// `-v2` bukan sisa eksperimen: sama seperti kelola-role-v2 (lihat setRole.ts),
+// cookie lama non-partitioned bertahan sampai 180 hari di jar terpisah dari
+// cookie Partitioned yang baru dan MENANG saat server membacanya di luar
+// iframe. Ganti nama memaksa pengguna lama mulai dari cookie baru yang benar,
+// bukan bertabrakan diam-diam dengan cookie lama yang salah atribut.
+const cookie = (id: ConfigId) => `tm-config-${id.toLowerCase()}-v2`;
 export const TM_CONFIG_EVENT = "tm-config-changed";
 
 type Saved = Pick<TMConfig, "layout" | "sumbuX" | "sumbuY" | "sumbuXKey" | "sumbuYKey" | "rangesX" | "rangesY" | "boxes">;
@@ -54,14 +59,27 @@ export function saveConfig(id: ConfigId, cfg: TMConfig): void {
   };
   const json = JSON.stringify(s);
   localStorage.setItem(key(id), json);
-  document.cookie = `${cookie(id)}=${encodeURIComponent(json)}; path=/; max-age=${60 * 60 * 24 * 180}; SameSite=Lax`;
+  // Halaman ini di-embed sebagai iframe lintas situs di Integro. Dengan
+  // SameSite=Lax browser memperlakukan cookie ini sebagai pihak ketiga dan
+  // tidak menyimpannya, sehingga getEffectiveConfigServer() di
+  // src/lib/data/talentMappingConfig.ts selalu jatuh ke default — pengguna
+  // mengatur sumbu/rentang/box TI/TR, reload, dan pengaturannya hilang senyap
+  // tanpa error. `Partitioned` (CHIPS) membuat Chrome/Firefox tetap
+  // menyimpannya, terisolasi per situs induk. SameSite=None MEWAJIBKAN Secure;
+  // localhost tetap dianggap tepercaya jadi `next dev` biasa tidak terdampak
+  // (lihat komentar sejenis di api/session/route.ts untuk kasus non-localhost).
+  document.cookie = `${cookie(id)}=${encodeURIComponent(json)}; path=/; max-age=${60 * 60 * 24 * 180}; SameSite=None; Secure; Partitioned`;
   window.dispatchEvent(new Event(TM_CONFIG_EVENT));
 }
 
 export function resetConfig(id: ConfigId): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(key(id));
-  document.cookie = `${cookie(id)}=; path=/; max-age=0`;
+  // Atribut penghapusan HARUS sama (SameSite/Secure/Partitioned) dengan atribut
+  // penulisan di atas — browser mencocokkan atribut cookie saat menghapus, jadi
+  // max-age=0 tanpa atribut yang cocok hanya menghapus (atau membuat) cookie di
+  // jar yang salah dan cookie Partitioned lama tetap hidup.
+  document.cookie = `${cookie(id)}=; path=/; max-age=0; SameSite=None; Secure; Partitioned`;
   window.dispatchEvent(new Event(TM_CONFIG_EVENT));
 }
 
