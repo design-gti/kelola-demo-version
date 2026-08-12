@@ -9,7 +9,7 @@ import { matchesFuzzy } from "@/lib/data/textMatch";
 import { ActionIcon, Button, Checkbox, Modal, TextInput, Tooltip } from "@talentlytica/prodigy";
 // Prodigy ships no layout primitives, so Group (which its Button docs tell us to
 // use for spacing instead of manual margins) comes straight from Mantine.
-import { Group } from "@mantine/core";
+import { Group, Table, Tabs } from "@mantine/core";
 import { IconFileSearch, IconSearch, IconSparkles } from "@tabler/icons-react";
 
 /** How long the deep-link highlight (colored outline + auto-scroll) stays visible before fading — mirrors Vismap's OrgChartCard highlight timing. */
@@ -221,49 +221,50 @@ function TeamCard({ resolved, onOpen }: { resolved: ResolvedTeam; onOpen: () => 
 }
 
 // ── team detail (Overview) ───────────────────────────────────────────────────
-const COLS = "1.5fr 1.5fr 0.8fr 1.1fr 1.7fr 0.9fr 0.9fr";
+/** Judul kolom tabel anggota; urutannya sama dengan urutan sel di MemberRow. */
+const MEMBER_HEADERS = [
+  "Member",
+  "Position",
+  "Personality",
+  "Competency Match",
+  "Prediction Competency",
+  "Latest Performance",
+  "Latest Engagement",
+];
 
-function HeaderCell({ children, align = "left" }: { children: React.ReactNode; align?: "left" | "center" }) {
-  return (
-    <span style={{ fontSize: 11, fontWeight: 700, color: "#adb5bd", textTransform: "uppercase", letterSpacing: "0.3px", textAlign: align }}>
-      {children}
-    </span>
-  );
-}
-
-function MemberRow({ m, highlighted, rowRef }: { m: TeamMember; highlighted?: boolean; rowRef?: React.RefObject<HTMLDivElement | null> }) {
+function MemberRow({ m, highlighted, rowRef }: { m: TeamMember; highlighted?: boolean; rowRef?: React.RefObject<HTMLTableRowElement | null> }) {
   const badge = matchBadge(m.competencyMatch);
+  const prediction = predictionLabel(m.predictionScore);
   return (
-    <div
+    <Table.Tr
       ref={rowRef}
-      style={{
-        display: "grid", gridTemplateColumns: COLS, alignItems: "center", gap: 12,
-        padding: "12px 16px", borderBottom: "1px solid #f0f0f0", fontFamily: FONT, fontSize: 12, color: "#495057",
-        ...(highlighted && {
-          background: "#e6f3f8",
-          borderRadius: 8,
-          boxShadow: `0 0 0 2px ${ACCENT}, 0 0 16px rgba(1,102,153,0.35)`,
-          transition: "background 0.3s, box-shadow 0.3s",
-        }),
-      }}
+      // Sorotan deep-link dipasang sebagai latar saja — <tr> tidak bisa
+      // membawa border-radius maupun box-shadow.
+      style={highlighted ? { background: "#e6f3f8", transition: "background 0.3s" } : undefined}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
-        <Avatar name={m.name} id={m.id} size={30} />
-        <span style={{ fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{m.name}</span>
-      </div>
-      <span style={{ color: "#6c757d", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{m.position}</span>
-      <span>{m.personality ?? <span style={{ color: "#ced4da" }}>N/A</span>}</span>
-      <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        {m.competencyMatch.toFixed(2)}%
-        <Pill bg={badge.bg}>{badge.label}</Pill>
-      </span>
-      <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        {m.predictionScore.toFixed(2)}%
-        {(() => { const p = predictionLabel(m.predictionScore); return <Pill bg={p.color}>{p.label.toUpperCase()}</Pill>; })()}
-      </span>
-      <span>{m.latestPerformance != null ? m.latestPerformance : <span style={{ color: "#ced4da" }}>N/A</span>}</span>
-      <span>{m.latestEngagement != null ? m.latestEngagement : <span style={{ color: "#ced4da" }}>N/A</span>}</span>
-    </div>
+      <Table.Td>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+          <Avatar name={m.name} id={m.id} size={30} />
+          <span style={{ fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{m.name}</span>
+        </div>
+      </Table.Td>
+      <Table.Td c="#6c757d">{m.position}</Table.Td>
+      <Table.Td>{m.personality ?? <span style={{ color: "#ced4da" }}>N/A</span>}</Table.Td>
+      <Table.Td>
+        <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {m.competencyMatch.toFixed(2)}%
+          <Pill bg={badge.bg}>{badge.label}</Pill>
+        </span>
+      </Table.Td>
+      <Table.Td>
+        <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {m.predictionScore.toFixed(2)}%
+          <Pill bg={prediction.color}>{prediction.label.toUpperCase()}</Pill>
+        </span>
+      </Table.Td>
+      <Table.Td>{m.latestPerformance != null ? m.latestPerformance : <span style={{ color: "#ced4da" }}>N/A</span>}</Table.Td>
+      <Table.Td>{m.latestEngagement != null ? m.latestEngagement : <span style={{ color: "#ced4da" }}>N/A</span>}</Table.Td>
+    </Table.Tr>
   );
 }
 
@@ -379,7 +380,8 @@ function TeamDetail({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- fade whichever highlight resolved at mount; not meant to restart on every re-render
   }, []);
 
-  const highlightRowRef = useRef<HTMLDivElement>(null);
+  // Baris kini <tr>, bukan <div> — tipe ref-nya ikut menyesuaikan.
+  const highlightRowRef = useRef<HTMLTableRowElement>(null);
   useEffect(() => {
     if (!highlightId) return;
     highlightRowRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -458,8 +460,6 @@ function TeamDetail({
             <Modal
               opened={typeOpen}
               onClose={() => setTypeOpen(false)}
-              centered
-              radius="md"
               size="820px"
               title="Detail Tipe Team"
             >
@@ -484,38 +484,35 @@ function TeamDetail({
 
       {/* Tabs + content */}
       <div style={{ background: "#fff", borderRadius: 12, padding: 20, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}>
-        <div style={{ display: "flex", gap: 24, borderBottom: "1px solid #e9ecef", marginBottom: 16 }}>
-          {(["overview", "interaction"] as const).map(t => (
-            <button key={t} onClick={() => setTab(t)} style={{
-              background: "none", border: "none", cursor: "pointer", fontFamily: FONT, fontSize: 13, fontWeight: 600,
-              padding: "0 0 10px", color: tab === t ? ACCENT : "#adb5bd",
-              borderBottom: tab === t ? `2px solid ${ACCENT}` : "2px solid transparent",
-            }}>
-              {t === "overview" ? "Overview" : "Interaction"}
-            </button>
-          ))}
-        </div>
+        {/* Tab memakai komponen design system; gayanya dari tema, lihat
+            blok .mantine-Tabs-* di globals.css. */}
+        <Tabs value={tab} onChange={(v) => setTab((v as "overview" | "interaction") ?? "overview")} mb={16}>
+          <Tabs.List>
+            <Tabs.Tab value="overview">Overview</Tabs.Tab>
+            <Tabs.Tab value="interaction">Interaction</Tabs.Tab>
+          </Tabs.List>
+        </Tabs>
 
         {tab === "overview" ? (
-          <div>
-            <div style={{ display: "grid", gridTemplateColumns: COLS, gap: 12, padding: "0 16px 10px" }}>
-              <HeaderCell>Member</HeaderCell>
-              <HeaderCell>Position</HeaderCell>
-              <HeaderCell>Personality</HeaderCell>
-              <HeaderCell>Competency Match</HeaderCell>
-              <HeaderCell>Prediction Competency</HeaderCell>
-              <HeaderCell>Latest Performance</HeaderCell>
-              <HeaderCell>Latest Engagement</HeaderCell>
-            </div>
-            {members.map(m => (
-              <MemberRow
-                key={m.id}
-                m={m}
-                highlighted={m.id === highlightId}
-                rowRef={m.id === highlightId ? highlightRowRef : undefined}
-              />
-            ))}
-          </div>
+          <Table verticalSpacing="sm" horizontalSpacing="md" highlightOnHover>
+            <Table.Thead>
+              <Table.Tr>
+                {MEMBER_HEADERS.map((h) => (
+                  <Table.Th key={h}>{h}</Table.Th>
+                ))}
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>
+              {members.map(m => (
+                <MemberRow
+                  key={m.id}
+                  m={m}
+                  highlighted={m.id === highlightId}
+                  rowRef={m.id === highlightId ? highlightRowRef : undefined}
+                />
+              ))}
+            </Table.Tbody>
+          </Table>
         ) : (
           <InteractionPanel members={members} />
         )}
@@ -596,17 +593,15 @@ export default function TeamProfileClient({
       <div style={{ padding: "12px 16px 40px" }}>
       {/* Tabs — "my" disembunyikan: belum ada pemetaan akun ke employee, jadi isinya
           selalu empty state. Masukkan kembali ke VISIBLE_TABS kalau sudah tersedia. */}
-      <div style={{ display: "flex", gap: 24, borderBottom: "1px solid #e9ecef", marginBottom: 16 }}>
-        {VISIBLE_TABS.map(t => (
-          <button key={t} onClick={() => setTab(t)} style={{
-            background: "none", border: "none", cursor: "pointer", fontFamily: FONT, fontSize: 13, fontWeight: 600,
-            padding: "0 0 10px", color: tab === t ? ACCENT : "#adb5bd",
-            borderBottom: tab === t ? `2px solid ${ACCENT}` : "2px solid transparent",
-          }}>
-            All Teams
-          </button>
-        ))}
-      </div>
+      <Tabs value={tab} onChange={(v) => setTab((v as "my" | "all") ?? "all")} mb={16}>
+        <Tabs.List>
+          {VISIBLE_TABS.map((t) => (
+            <Tabs.Tab key={t} value={t}>
+              All Teams
+            </Tabs.Tab>
+          ))}
+        </Tabs.List>
+      </Tabs>
 
       {tab === "my" ? (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, padding: "80px 0", textAlign: "center" }}>
@@ -659,10 +654,8 @@ export default function TeamProfileClient({
       <Modal
         opened={recOpen}
         onClose={() => setRecOpen(false)}
-        centered
-        radius="md"
         size="1100px"
-        title={<span style={{ fontFamily: FONT, fontSize: 15, fontWeight: 700, color: "#212529" }}>Rekomendasi Tim Struktural</span>}
+        title="Rekomendasi Tim Struktural"
       >
         <div style={{ fontFamily: FONT }}>
           <p style={{ margin: "0 0 16px", fontSize: 12, color: "#6c757d" }}>

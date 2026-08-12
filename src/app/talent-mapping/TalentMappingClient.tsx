@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Paper, Badge, Avatar as MantineAvatar, Select, Pagination, Text, Button, Modal, Checkbox, ScrollArea } from "@mantine/core";
+import { ActionIcon, Paper, Badge, Avatar as MantineAvatar, Select, Pagination, Table, Text, Button, Modal, Checkbox, ScrollArea, Tabs } from "@mantine/core";
 import { IconArrowUpRight, IconSettings, IconFilter } from "@tabler/icons-react";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
@@ -48,12 +48,9 @@ function Avatar({ name, employeeId }: { name: string; employeeId?: string }) {
   );
 }
 
-const TI_COLS = "1.4fr 1.5fr 0.9fr 0.8fr 1.1fr 1fr 0.5fr";
-const TR_COLS = "1.5fr 1.4fr 1fr 0.8fr 1.1fr 1.1fr 0.5fr";
-
-function HeaderCell({ children }: { children: React.ReactNode }) {
-  return <span style={{ fontSize: 11, fontWeight: 700, color: "#adb5bd", textTransform: "uppercase", letterSpacing: "0.3px" }}>{children}</span>;
-}
+/** Judul kolom per mode; urutannya sama dengan urutan sel di badan tabel. */
+const TI_HEADERS = ["Position", "Employee", "Performance (X)", "Potency (Y)", "Box Category", "HAV status", "Action"];
+const TR_HEADERS = ["Employee", "Position", "Competency (X)%", "Potency (Y)", "Box Category", "Readiness", "Action"];
 
 function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean }) {
   return <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: muted ? "#ced4da" : "#495057" }}>{children}</span>;
@@ -62,7 +59,6 @@ function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean 
 function TablePanel({ config, points, highlightId, emptyMessage = "No data." }: { config: TMConfig; points: TMPoint[]; highlightId?: string | null; emptyMessage?: string }) {
   const router = useRouter();
   const isTI = config.id === "TI";
-  const cols = isTI ? TI_COLS : TR_COLS;
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const pageCount = Math.max(1, Math.ceil(points.length / limit));
@@ -76,7 +72,8 @@ function TablePanel({ config, points, highlightId, emptyMessage = "No data." }: 
   // curPage clamps to pageCount, so a shrinking filter can't strand you on an empty page
 
   const highlightIndex = highlightId ? pageRows.findIndex(p => p.employeeId === highlightId) : -1;
-  const rowRef = useRef<HTMLDivElement>(null);
+  // Baris kini <tr>, bukan <div> — tipe ref-nya ikut menyesuaikan.
+  const rowRef = useRef<HTMLTableRowElement>(null);
   useEffect(() => {
     if (highlightIndex === -1) return;
     rowRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -84,56 +81,87 @@ function TablePanel({ config, points, highlightId, emptyMessage = "No data." }: 
 
   return (
     <Paper radius={12} style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: "16px 8px", fontFamily: FONT, fontSize: 12 }}>
-      <div style={{ display: "grid", gridTemplateColumns: cols, gap: 12, padding: "0 12px 10px", borderBottom: "1px solid #e9ecef" }}>
-        {isTI
-          ? <><HeaderCell>Position</HeaderCell><HeaderCell>Employee</HeaderCell><HeaderCell>Performance (X)</HeaderCell><HeaderCell>Potency (Y)</HeaderCell><HeaderCell>Box Category</HeaderCell><HeaderCell>HAV status</HeaderCell><HeaderCell>Action</HeaderCell></>
-          : <><HeaderCell>Employee</HeaderCell><HeaderCell>Position</HeaderCell><HeaderCell>Competency (X)%</HeaderCell><HeaderCell>Potency (Y)</HeaderCell><HeaderCell>Box Category</HeaderCell><HeaderCell>Readiness</HeaderCell><HeaderCell>Action</HeaderCell></>}
-      </div>
+      <Table verticalSpacing="sm" horizontalSpacing="md" highlightOnHover>
+        <Table.Thead>
+          <Table.Tr>
+            {(isTI ? TI_HEADERS : TR_HEADERS).map((h) => (
+              <Table.Th key={h}>{h}</Table.Th>
+            ))}
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>
+          {pageRows.map((p, i) => {
+            const box = boxByOrder(config, p.order);
+            const boxColor = box ? darker(box.color) : "#adb5bd";
+            const isHighlighted = i === highlightIndex;
+            const openProfile = () => router.push(`/iprofile?id=${encodeURIComponent(p.employeeId)}&from=talent-mapping`);
+            const person = (
+              <span style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+                <Avatar name={p.name} employeeId={p.employeeId} />
+                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span>
+              </span>
+            );
+            const action = (
+              <ActionIcon variant="subtle" color="primary" onClick={openProfile} aria-label={`Buka iProfile ${p.name}`}>
+                <IconArrowUpRight size={16} />
+              </ActionIcon>
+            );
+            return (
+              <Table.Tr
+                key={p.employeeId}
+                ref={isHighlighted ? rowRef : undefined}
+                // Sorotan deep-link: kotaknya dipasang di sel, bukan baris —
+                // <tr> tidak bisa membawa border-radius maupun box-shadow.
+                style={isHighlighted ? { background: "#e6f3f8", transition: "background 0.3s" } : undefined}
+              >
+                {isTI ? (
+                  <>
+                    <Table.Td>
+                      <Cell>{p.positionTitle}</Cell>
+                    </Table.Td>
+                    <Table.Td>{person}</Table.Td>
+                    <Table.Td>
+                      <Cell muted={p.rawX == null}>{p.rawX ?? "{No data}"}</Cell>
+                    </Table.Td>
+                    <Table.Td>
+                      <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
+                    </Table.Td>
+                    <Table.Td>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</Table.Td>
+                    <Table.Td>
+                      {box?.tag === "talent" ? <OutlinePill color="#00875A">Talent</OutlinePill> : <OutlinePill color="#F28700">Non Talent</OutlinePill>}
+                    </Table.Td>
+                    <Table.Td>{action}</Table.Td>
+                  </>
+                ) : (
+                  <>
+                    <Table.Td>{person}</Table.Td>
+                    <Table.Td>
+                      <Cell>{p.positionTitle}</Cell>
+                    </Table.Td>
+                    <Table.Td>
+                      <Cell muted={p.rawX == null}>{p.rawX != null ? `${p.rawX}%` : "{No data}"}</Cell>
+                    </Table.Td>
+                    <Table.Td>
+                      <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
+                    </Table.Td>
+                    <Table.Td>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</Table.Td>
+                    <Table.Td>
+                      <Cell muted={!box?.readiness}>{box?.readiness || "{No data}"}</Cell>
+                    </Table.Td>
+                    <Table.Td>{action}</Table.Td>
+                  </>
+                )}
+              </Table.Tr>
+            );
+          })}
+        </Table.Tbody>
+      </Table>
+
       {points.length === 0 && (
-        <div style={{ padding: "40px 0", textAlign: "center", color: "#adb5bd" }}>{emptyMessage}</div>
+        <Text ta="center" py={40} c="#adb5bd">
+          {emptyMessage}
+        </Text>
       )}
-      {pageRows.map((p, i) => {
-        const box = boxByOrder(config, p.order);
-        const boxColor = box ? darker(box.color) : "#adb5bd";
-        const isHighlighted = i === highlightIndex;
-        return (
-          <div
-            key={p.employeeId}
-            ref={isHighlighted ? rowRef : undefined}
-            style={{
-              display: "grid", gridTemplateColumns: cols, gap: 12, alignItems: "center", padding: "12px", borderBottom: "1px solid #f0f0f0",
-              ...(isHighlighted && {
-                background: "#e6f3f8",
-                borderRadius: 8,
-                boxShadow: `0 0 0 2px ${ACCENT}, 0 0 16px rgba(1,102,153,0.35)`,
-                transition: "background 0.3s, box-shadow 0.3s",
-              }),
-            }}
-          >
-            {isTI ? (
-              <>
-                <Cell>{p.positionTitle}</Cell>
-                <span style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}><Avatar name={p.name} employeeId={p.employeeId} /><span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span></span>
-                <Cell muted={p.rawX == null}>{p.rawX ?? "{No data}"}</Cell>
-                <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
-                <span>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</span>
-                <span>{box?.tag === "talent" ? <OutlinePill color="#00875A">Talent</OutlinePill> : <OutlinePill color="#F28700">Non Talent</OutlinePill>}</span>
-                <span role="button" title="Buka iProfile" onClick={() => router.push(`/iprofile?id=${encodeURIComponent(p.employeeId)}&from=talent-mapping`)} style={{ color: ACCENT, cursor: "pointer", display: "inline-flex" }}><IconArrowUpRight size={16} /></span>
-              </>
-            ) : (
-              <>
-                <span style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}><Avatar name={p.name} employeeId={p.employeeId} /><span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span></span>
-                <Cell>{p.positionTitle}</Cell>
-                <Cell muted={p.rawX == null}>{p.rawX != null ? `${p.rawX}%` : "{No data}"}</Cell>
-                <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
-                <span>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</span>
-                <Cell muted={!box?.readiness}>{box?.readiness || "{No data}"}</Cell>
-                <span role="button" title="Buka iProfile" onClick={() => router.push(`/iprofile?id=${encodeURIComponent(p.employeeId)}&from=talent-mapping`)} style={{ color: ACCENT, cursor: "pointer", display: "inline-flex" }}><IconArrowUpRight size={16} /></span>
-              </>
-            )}
-          </div>
-        );
-      })}
 
       {points.length > 0 && (
         <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "14px 12px 4px", flexWrap: "wrap" }}>
@@ -311,7 +339,8 @@ function Panel({
         emptyMessage={isTR && !jobTarget ? "No job target selected yet, please choose one first" : "No data."}
       />
 
-      <Modal opened={filterOpen} onClose={() => setFilterOpen(false)} title={<Text fw={700} c="#212529">Filter</Text>} size="lg" centered radius={12}>
+      {/* Judul & radius datang dari tema — cukup oper string. */}
+      <Modal opened={filterOpen} onClose={() => setFilterOpen(false)} title="Filter" size="lg">
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, fontFamily: FONT }}>
           <div>
             <Text fw={700} size="sm" c="#495057" mb={10}>Teams</Text>
@@ -370,15 +399,14 @@ export default function TalentMappingClient({
     <div style={{ fontFamily: FONT }}>
       <AppBreadcrumb items={[{ label: "Talent Mapping" }]} />
       <div style={{ padding: "12px 16px 40px" }}>
-      <div style={{ display: "flex", gap: 24, borderBottom: "1px solid #e9ecef", marginBottom: 16 }}>
-        {([["TI", "Human Asset Value"], ["TR", "Talent Readiness"]] as const).map(([id, label]) => (
-          <button key={id} onClick={() => setTab(id)} style={{
-            background: "none", border: "none", cursor: "pointer", fontFamily: FONT, fontSize: 13, fontWeight: 600,
-            padding: "0 0 10px", color: tab === id ? ACCENT : "#adb5bd",
-            borderBottom: tab === id ? `2px solid ${ACCENT}` : "2px solid transparent",
-          }}>{label}</button>
-        ))}
-      </div>
+      {/* Tab memakai komponen design system; gayanya datang dari tema
+          (lihat blok .mantine-Tabs-* di globals.css), bukan ditulis di sini. */}
+      <Tabs value={tab} onChange={(v) => setTab((v as "TI" | "TR") ?? "TI")} mb={16}>
+        <Tabs.List>
+          <Tabs.Tab value="TI">Human Asset Value</Tabs.Tab>
+          <Tabs.Tab value="TR">Talent Readiness</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
       <Panel
         key={tab}
         config={config}

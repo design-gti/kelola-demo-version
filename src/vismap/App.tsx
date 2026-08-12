@@ -25,6 +25,8 @@ import { Toaster } from "./components/ui/sonner";
 import { toast } from "sonner";
 import HeatmapSettings, { type HeatmapConfig, type HeatmapRange } from "./components/HeatmapSettings";
 import SimulationPanel, { type SimulationSwap } from "./components/SimulationPanel";
+import VismapV2 from "./v2/VismapV2";
+import { type LayerId } from "./v2/layers";
 
 
 interface OrgNodeProps {
@@ -493,6 +495,19 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
     setHeatmapMode(s.mode);
   }, [initialTab]);
   const [selectedCardInV2Mode, setSelectedCardInV2Mode] = useState<string | null>(null);
+  // Vismap V2 (WIP): v1 = perilaku Vismap saat ini (default, tidak berubah).
+  // v2 baru placeholder — akan dibangun bertahap di sini tanpa menyentuh logic v1.
+  const [vismapVersion, setVismapVersion] = useState<'v1' | 'v2'>('v1');
+  // V2: tab-nya cuma Default / Heatmap. Heatmap-nya multi-layer (lihat src/vismap/v2/layers.ts)
+  const [v2Tab, setV2Tab] = useState<'default' | 'heatmap'>('default');
+  const [v2Layers, setV2Layers] = useState<Set<LayerId>>(new Set());
+  const toggleV2Layer = (id: LayerId) => {
+    setV2Layers(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
   const [viewMode, setViewMode] = useState<'chart' | 'table'>('chart');
   const [isDataEditorOpen, setIsDataEditorOpen] = useState(false);
   const [isHeatmapSettingsOpen, setIsHeatmapSettingsOpen] = useState(false);
@@ -1054,6 +1069,44 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
 
   return (
     <TooltipProvider>
+      {/* Vismap V1/V2 switch — floating pojok kiri bawah, gaya sama dengan
+          user-switcher di modul IDP. Selalu di atas placeholder V2 supaya bisa
+          kapan saja balik ke V1. */}
+      <div
+        data-no-drag
+        className="fixed flex items-center gap-1 bg-white rounded-full border border-[#dee2e6] p-1 shadow-lg"
+        style={{ bottom: 20, left: "calc(var(--sidebar-w, 220px) + 20px)", zIndex: 1000, fontFamily: "'Open Sans', sans-serif" }}
+      >
+        {(['v1', 'v2'] as const).map((v) => (
+          <button
+            key={v}
+            onClick={() => setVismapVersion(v)}
+            style={{
+              padding: '6px 12px', borderRadius: 800, border: 'none', cursor: 'pointer',
+              fontSize: 11, fontWeight: 700, whiteSpace: 'nowrap',
+              background: vismapVersion === v ? '#016699' : 'transparent',
+              color: vismapVersion === v ? 'white' : '#016699',
+            }}
+          >
+            {v === 'v1' ? 'V1 (Current)' : 'V2'}
+          </button>
+        ))}
+      </div>
+
+      {/* Vismap V2 — canvas sendiri, menutup UI V1 di bawahnya (V1 tetap ter-mount
+          supaya logic/canvas lamanya tidak perlu disentuh). Tab-nya di-render di
+          top bar bersama breadcrumb. */}
+      {vismapVersion === 'v2' && !showEmployeeDetail && !comparisonData && (
+        <VismapV2
+          orgChart={orgChart}
+          heatmapConfig={heatmapConfig}
+          tab={v2Tab}
+          activeLayers={v2Layers}
+          onToggleLayer={toggleV2Layer}
+          top={HEADER_HEIGHT + 108}
+        />
+      )}
+
       {/* Comparison View - Full screen overlay (works in all views) */}
       {comparisonData && (
         <SuccessorComparison
@@ -1088,7 +1141,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
         <Toaster position="top-center" />
         
         {/* Search Field - Top left corner (only in chart view) */}
-        {viewMode === 'chart' && (
+        {vismapVersion === 'v1' && viewMode === 'chart' && (
           <div 
             ref={searchInputRef}
             data-no-drag
@@ -1249,6 +1302,26 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
       >
         {/* Tab Filter row */}
         <div className="flex items-center justify-between py-2">
+        {vismapVersion === 'v2' ? (
+          /* Tab V2: cuma Default & Heatmap. Pilihan heatmap-nya ada di panel kiri. */
+          <div className="flex gap-[12px] items-center">
+            {([['default', 'Default'], ['heatmap', 'Heatmap']] as const).map(([id, label]) => (
+              <button
+                key={id}
+                onClick={() => setV2Tab(id)}
+                className={`flex gap-[8px] items-center px-[8px] py-[4px] rounded-[28px] transition-colors ${
+                  v2Tab === id ? 'bg-[#016699]' : 'bg-transparent hover:bg-[#016699]/10'
+                }`}
+              >
+                <p className={`font-['Open_Sans',_sans-serif] font-semibold text-[14px] text-nowrap ${
+                  v2Tab === id ? 'text-white' : 'text-[#016699]'
+                }`}>
+                  {label}
+                </p>
+              </button>
+            ))}
+          </div>
+        ) : (
         <TabFilter activeTab={activeTab} onTabChange={(tab) => {
           setActiveTab(tab);
           if (tab === 'need-develop') {
@@ -1269,11 +1342,12 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
             setSelectedCardInV2Mode(null); // Reset selection when changing tabs
           }
         }} />
+        )}
 
         {/* View Mode Toggle */}
         <div className="flex gap-2 items-center">
           {/* Simulate Button */}
-          {viewMode === 'chart' && (
+          {vismapVersion === 'v1' && viewMode === 'chart' && (
             <button
               onClick={() => {
                 if (isSimulationMode) {
@@ -1297,7 +1371,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
               {isSimulationMode ? 'Stop Simulate' : 'Simulate'}
             </button>
           )}
-          <div className="flex gap-1 p-1 bg-gray-50 rounded-lg">
+          <div className="flex gap-1 p-1 bg-gray-50 rounded-lg" style={vismapVersion === 'v2' ? { display: 'none' } : undefined}>
             <Button
               variant={viewMode === 'chart' ? 'default' : 'ghost'}
               size="icon"
@@ -1342,7 +1416,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
       </div>
 
       {/* Zoom Controls - Only show in chart view */}
-      {viewMode === 'chart' && (
+      {vismapVersion === 'v1' && viewMode === 'chart' && (
         <div
           data-no-drag
           className={`fixed bottom-4 bg-white rounded-lg shadow-lg p-2 flex flex-col items-center gap-2 z-50 transition-all duration-300 ${

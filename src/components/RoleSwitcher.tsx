@@ -32,7 +32,12 @@ export default function RoleSwitcher({ initialRole }: { initialRole: UserRole })
         { label: "Manager", value: "manager" },
       ]}
       style={{
-        position: "fixed", left: 20, bottom: 20, zIndex: 50,
+        // Digeser sejauh lebar sidebar supaya berada di dalam bingkai halaman,
+        // bukan menimpa rail. `--sidebar-w` di-set Sidebar dan ikut berubah
+        // saat rail dilebarkan/disempitkan, jadi posisinya selalu menempel di
+        // pojok kiri bawah area konten. Pola yang sama dipakai tombol V1/V2 di Vismap.
+        position: "fixed", left: "calc(var(--sidebar-w, 220px) + 20px)", bottom: 20, zIndex: 50,
+        transition: "left 0.22s ease",
         boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
         border: "1px solid #e9ecef",
         opacity: isPending ? 0.6 : 1,

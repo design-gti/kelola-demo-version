@@ -1,16 +1,30 @@
 ﻿"use client";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { Tabs } from '@mantine/core';
 import svgPaths from '../imports/svg-djevy8uiqd';
 import svgPathsPotency from '../imports/svg-87qx2z9isd';
+import { StandardPositionSelect } from './StandardPositionSelect';
+import { AspectRadarChart } from './AspectRadarChart';
+import { KeyBehaviourBreakdown, type KeyBehaviour } from './KeyBehaviourBreakdown';
+import { ProfileContext } from '../lib/ProfileContext';
+import { aspectsFor } from '../lib/aspects';
 
 type TabType = 'competency' | 'potency';
+/** Cara aspek ditampilkan: daftar kartu skor, atau spider/radar chart. */
+type ViewMode = 'list' | 'chart';
 
-export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean };
+export type { KeyBehaviour };
+export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean; keyBehaviours?: KeyBehaviour[] };
 
 interface ScoreAspectProps {
   Frame79: React.ComponentType;
+  /** Baris toolbar tab Competency. `leftSlot` diisi toggle list/chart dari sini,
+   *  Keduanya statis hasil import Figma, jadi bagian yang perlu state (toggle
+   *  tampilan) dititipkan lewat slot dari sini. */
   Frame153: React.ComponentType;
-  Frame116: React.ComponentType;
+  /** Baris dropdown standar jabatan; `rightSlot` diisi toggle list/spider,
+   *  `showLegend` dimatikan di view chart (chart punya legend sendiri). */
+  Frame116: React.ComponentType<{ rightSlot?: React.ReactNode; showLegend?: boolean }>;
   scoreAspects: { competency: AspectItem[]; potency: AspectItem[] };
 }
 
@@ -23,71 +37,55 @@ function byCategory(items: AspectItem[]): [string, AspectItem[]][] {
 
 export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects }: ScoreAspectProps) {
   const [activeTab, setActiveTab] = useState<TabType>('competency');
+  // Satu state dipakai kedua tab — pilihan "cara lihat" terasa milik kartunya,
+  // bukan milik masing-masing tab.
+  const [viewMode, setViewMode] = useState<ViewMode>('chart');
+
+  // Satu daftar aspek untuk orang ini — General dan Technical berbaur, karena
+  // keduanya cuma kategori. Aspek mana yang dinilai ditentukan posisinya, dan
+  // standarnya oleh Job-nya; keduanya diurus `aspectsFor`.
+  const { position, employeeId } = useContext(ProfileContext);
+  const competencyItems = aspectsFor(position, employeeId);
 
   return (
     <div className="bg-white content-stretch flex flex-col gap-[12px] items-center overflow-clip p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Score Aspect">
       <Frame79 />
       
-      {/* Tabs */}
-      <div className="content-stretch flex gap-[2px] items-center relative shrink-0 w-full">
-        {/* Competency Tab */}
-        <button
-          onClick={() => setActiveTab('competency')}
-          className="cursor-pointer flex-[1_0_0] min-h-px min-w-px relative rounded-tl-[4px] rounded-tr-[4px]"
-          data-name="Tab button"
-        >
-          <div 
-            aria-hidden="true" 
-            className={`absolute border-b-2 border-solid inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px] ${
-              activeTab === 'competency' ? 'border-[#016699]' : 'border-[#dee2e6]'
-            }`} 
-          />
-          <div className="flex flex-row items-center justify-center size-full">
-            <div className="content-stretch flex gap-[2px] items-center justify-center px-[16px] py-[8px] relative w-full">
-              <div className={`flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-center whitespace-nowrap ${
-                activeTab === 'competency' ? 'text-[#016699]' : 'text-[#495057]'
-              }`}>
-                <p className="leading-[normal]">Competency</p>
-              </div>
-            </div>
-          </div>
-        </button>
-        
-        {/* Potency Tab */}
-        <button
-          onClick={() => setActiveTab('potency')}
-          className="cursor-pointer flex-[1_0_0] min-h-px min-w-px relative rounded-tl-[4px] rounded-tr-[4px]"
-          data-name="Tab button"
-        >
-          <div 
-            aria-hidden="true" 
-            className={`absolute border-b-2 border-solid inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px] ${
-              activeTab === 'potency' ? 'border-[#016699]' : 'border-[#dee2e6]'
-            }`} 
-          />
-          <div className="flex flex-row items-center justify-center size-full">
-            <div className="content-stretch flex gap-[2px] items-center justify-center px-[16px] py-[8px] relative w-full">
-              <div className={`flex flex-col font-['Open_Sans',sans-serif] font-bold justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-center whitespace-nowrap ${
-                activeTab === 'potency' ? 'text-[#016699]' : 'text-[#495057]'
-              }`}>
-                <p className="leading-[normal]">Potency</p>
-              </div>
-            </div>
-          </div>
-        </button>
-      </div>
+      {/* Tab memakai komponen design system; gayanya dari tema (blok
+          .mantine-Tabs-* di globals.css), tidak ditulis ulang di sini.
+          `grow` membuat kedua tab membagi rata lebar kartu seperti rancangan. */}
+      <Tabs
+        value={activeTab}
+        onChange={(v) => setActiveTab((v as TabType) ?? 'competency')}
+        w="100%"
+      >
+        <Tabs.List grow>
+          <Tabs.Tab value="competency">Competency</Tabs.Tab>
+          <Tabs.Tab value="potency">Potency</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
 
       {activeTab === 'competency' ? (
         <>
+          <Frame116
+            rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
+            showLegend={viewMode === 'list'}
+          />
+          {viewMode === 'chart'
+            ? <AspectRadarChart items={competencyItems} />
+            : <CompetencyContent items={competencyItems} />}
+          {/* Aksi kartu ditaruh paling bawah, di luar rangkaian kontrol. */}
           <Frame153 />
-          <Frame116 />
-          <CompetencyContent items={scoreAspects.competency} />
         </>
       ) : (
         <>
-          <PotencyControls />
-          <PotencyFilter />
-          <PotencyContent items={scoreAspects.potency} />
+          <PotencyFilter
+            rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
+            showLegend={viewMode === 'list'}
+          />
+          {viewMode === 'chart'
+            ? <AspectRadarChart items={scoreAspects.potency} />
+            : <PotencyContent items={scoreAspects.potency} />}
         </>
       )}
       
@@ -111,74 +109,80 @@ export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects 
   );
 }
 
-// Potency Controls (Chart/List view buttons)
-function PotencyControls() {
+/**
+ * Toggle tampilan aspek: spider chart vs list. Dipakai di kedua tab —
+ * di Competency lewat `leftSlot` Frame153, di Potency langsung (PotencyControls).
+ * Ikonnya persis aset Figma yang sudah ada, cuma sekarang state aktifnya nyata.
+ */
+export function ViewModeToggle({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode) => void }) {
+  const box = (active: boolean) =>
+    `${active ? 'bg-[#e7f5ff]' : 'bg-[#f8f9fa]'} block cursor-pointer overflow-clip relative rounded-[4px] shrink-0 size-[20px]`;
+  const stroke = (active: boolean) => (active ? '#016699' : '#CED4DA');
+
   return (
     <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
-      <button className="bg-[#f8f9fa] block cursor-pointer overflow-clip relative rounded-[4px] shrink-0 size-[20px]" data-name="chart-radar">
+      <button
+        type="button"
+        onClick={() => onChange('chart')}
+        aria-pressed={mode === 'chart'}
+        title="Tampilan spider chart"
+        className={box(mode === 'chart')}
+        data-name="chart-radar"
+      >
         <div className="absolute inset-[12.5%_10.42%]" data-name="Vector">
           <div className="absolute inset-[-5%_-4.74%]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 17.3334 16.5">
-              <path d={svgPathsPotency.p4355100} id="Vector" stroke="var(--stroke-0, #CED4DA)" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.854902" strokeWidth="1.5" />
+              <path d={svgPathsPotency.p4355100} id="Vector" stroke={stroke(mode === 'chart')} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
             </svg>
           </div>
         </div>
       </button>
-      <div className="bg-[#e7f5ff] overflow-clip relative rounded-[4px] shrink-0 size-[20px]" data-name="list">
+      <button
+        type="button"
+        onClick={() => onChange('list')}
+        aria-pressed={mode === 'list'}
+        title="Tampilan list"
+        className={box(mode === 'list')}
+        data-name="list"
+      >
         <div className="absolute bottom-[24.96%] left-[20.83%] right-[16.67%] top-1/4" data-name="Vector">
           <div className="absolute inset-[-7.49%_-6%]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 14 11.5083">
-              <path d={svgPathsPotency.p24455faf} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPathsPotency.p24455faf} id="Vector" stroke={stroke(mode === 'list')} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
             </svg>
           </div>
         </div>
-      </div>
+      </button>
     </div>
   );
 }
 
-// Potency Filter (Score icon and dropdown)
-function PotencyFilter() {
+// Potency Filter — susunannya disamakan dengan tab Competency: dropdown standar
+// jabatan di kiri, opsi tampilan di kanan, legend "Score" jadi caption di bawah.
+// Legend disembunyikan di view chart (lihat alasan di Frame116).
+function PotencyFilter({ rightSlot, showLegend = true }: { rightSlot?: React.ReactNode; showLegend?: boolean }) {
   return (
-    <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full">
-      <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-        <div className="overflow-clip relative shrink-0 size-[16px]" data-name="circle">
-          <div className="absolute inset-[12.5%]" data-name="Vector">
-            <div className="absolute inset-[-6.25%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
-                <path d={svgPathsPotency.p39111680} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-              </svg>
-            </div>
-          </div>
-        </div>
-        <p className="font-['Open_Sans:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          Score
-        </p>
+    <div className="content-stretch flex flex-col gap-[8px] relative shrink-0 w-full">
+      <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full">
+        <StandardPositionSelect />
+        {rightSlot}
       </div>
-      <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-h-px min-w-px relative" data-name="TextInput">
-        <div className="bg-[#f8f9fa] relative rounded-[16px] shrink-0 w-full" data-name="Input field">
-          <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[16px]" />
-          <div className="flex flex-row items-center size-full">
-            <div className="content-stretch flex gap-[8px] items-center px-[12px] py-[4px] relative w-full">
-              <div className="bg-[#d6e6ff] relative rounded-[4px] shrink-0 size-[16px]" data-name="Box">
-                <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-              </div>
-              <div className="flex flex-[1_0_0] flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] min-h-px min-w-px overflow-hidden relative text-[#495057] text-[10px] text-ellipsis whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-                <p className="leading-[normal] overflow-hidden">Stnd. [Marketing]</p>
-              </div>
-              <div className="overflow-clip relative shrink-0 size-[16px]" data-name="chevron-down">
-                <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-                  <div className="absolute inset-[-18.75%_-9.38%]">
-                    <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9.5 5.5">
-                      <path d={svgPathsPotency.p14416700} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                    </svg>
-                  </div>
-                </div>
+      {showLegend && (
+        <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+          <div className="overflow-clip relative shrink-0 size-[16px]" data-name="circle">
+            <div className="absolute inset-[12.5%]" data-name="Vector">
+              <div className="absolute inset-[-6.25%]">
+                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
+                  <path d={svgPathsPotency.p39111680} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                </svg>
               </div>
             </div>
           </div>
+          <p className="font-['Open_Sans:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            Score
+          </p>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -219,7 +223,7 @@ function CompetencyContent({ items }: { items: AspectItem[] }) {
       {byCategory(items).map(([cat, group]) => (
         <CategorySection key={cat} title={cat}>
           {group.map((a, i) => (
-            <CompetencyCard key={i} title={a.label} score={a.score} standardScore={a.standardScore} dev={a.dev} />
+            <CompetencyCard key={i} title={a.label} score={a.score} standardScore={a.standardScore} dev={a.dev} keyBehaviours={a.keyBehaviours} />
           ))}
         </CategorySection>
       ))}
@@ -227,15 +231,24 @@ function CompetencyContent({ items }: { items: AspectItem[] }) {
   );
 }
 
-// Competency Card — label (+ DEV chip) and a 5-box score row.
-function CompetencyCard({ title, score, standardScore, dev }: { title: string; score: number; standardScore: number; dev: boolean }) {
+// Competency Card — label (+ DEV chip), 5-box score row, dan breakdown Key
+// Behaviour yang bisa di-expand/collapse lewat icon info (bukan modal popup).
+function CompetencyCard({ title, score, standardScore, dev, keyBehaviours }: { title: string; score: number; standardScore: number; dev: boolean; keyBehaviours?: KeyBehaviour[] }) {
+  const [expanded, setExpanded] = useState(false);
+  const hasBreakdown = !!keyBehaviours && keyBehaviours.length > 0;
+
   return (
     <div className="bg-[#f8f9fa] relative rounded-[8px] shrink-0 w-full" data-name="Card Data">
       <div className="flex flex-col justify-center size-full">
         <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
           <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
             <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-              <div className="content-stretch flex gap-[4px] items-center relative shrink-0 w-[231px]">
+              {/* Lebar nama aspek dibiarkan mengikuti sisa ruang baris (bukan
+                  142px tetap seperti hasil export Figma) — nama sepanjang
+                  "Keterampilan Interpersonal" atau "Kepatuhan Ketenagakerjaan"
+                  jadi muat satu baris, dan tetap membungkus kalau memang tidak
+                  cukup (mis. saat chip DEV. ikut memakan ruang). */}
+              <div className="content-stretch flex gap-[4px] items-center relative flex-1 min-w-0 pr-[8px]">
                 {dev && (
                   <div className="content-stretch flex items-start relative shrink-0" data-name="Chip - DISC">
                     <div className="bg-[#fff2e4] content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" data-name="Chip">
@@ -243,11 +256,21 @@ function CompetencyCard({ title, score, standardScore, dev }: { title: string; s
                     </div>
                   </div>
                 )}
-                <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative flex-1 min-w-0 text-[#495057] text-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   <p className="leading-[normal] whitespace-pre-wrap">{title}</p>
                 </div>
               </div>
-              <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
+              <button
+                type="button"
+                onClick={() => hasBreakdown && setExpanded((v) => !v)}
+                aria-label={`${expanded ? "Tutup" : "Lihat"} breakdown Key Behaviour ${title}`}
+                title="Penjelasan"
+                aria-expanded={expanded}
+                disabled={!hasBreakdown}
+                className={`overflow-clip relative shrink-0 size-[16px] transition-transform ${hasBreakdown ? "cursor-pointer" : "cursor-default"}`}
+                style={{ transform: expanded ? "rotate(180deg)" : undefined }}
+                data-name="info-circle"
+              >
                 <div className="absolute inset-[12.5%]" data-name="Vector">
                   <div className="absolute inset-[-6.25%]">
                     <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">
@@ -255,7 +278,7 @@ function CompetencyCard({ title, score, standardScore, dev }: { title: string; s
                     </svg>
                   </div>
                 </div>
-              </div>
+              </button>
             </div>
             <div className="content-stretch flex gap-[4px] items-end relative shrink-0 w-full" data-name="Points">
               <div className="content-stretch flex flex-[1_0_0] gap-[2px] items-start min-h-px min-w-px relative" data-name="Score">
@@ -264,6 +287,7 @@ function CompetencyCard({ title, score, standardScore, dev }: { title: string; s
                 ))}
               </div>
             </div>
+            {expanded && hasBreakdown && <KeyBehaviourBreakdown keyBehaviours={keyBehaviours!} />}
           </div>
         </div>
       </div>
@@ -302,10 +326,15 @@ function PotencyCard({ title, score, standardScore }: { title: string; score: nu
         <div className="content-stretch flex flex-col items-start justify-center p-[8px] relative w-full">
           <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
             <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-              <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-[142px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              {/* Sama seperti CompetencyCard: lebar nama aspek ikut sisa ruang. */}
+              <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative flex-1 min-w-0 pr-[8px] text-[#495057] text-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 <p className="leading-[normal] whitespace-pre-wrap">{title}</p>
               </div>
-              <div className="overflow-clip relative shrink-0 size-[16px]" data-name="info-circle">
+              {/* info-circle dekoratif — Potency tidak punya breakdown Key Behaviour */}
+              <div
+                className="overflow-clip relative shrink-0 size-[16px]"
+                data-name="info-circle"
+              >
                 <div className="absolute inset-[12.5%]" data-name="Vector">
                   <div className="absolute inset-[-6.25%]">
                     <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.5 13.5">

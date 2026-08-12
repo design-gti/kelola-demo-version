@@ -2,6 +2,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import svgPaths from "./svg-djevy8uiqd";
 import { ScoreAspectWithTabs } from "../components/ScoreAspectWithTabs";
+import { StandardPositionSelect } from "../components/StandardPositionSelect";
 import { ProfileMoreMenu } from "../components/ProfileMoreMenu";
 import { SuccessorsAccordion } from "../components/SuccessorsAccordion";
 import { CareerPlanAccordion } from "../components/CareerPlanAccordion";
@@ -26,6 +27,23 @@ import {
 import { getEditedPhoto } from "../lib/photoStore";
 
 type ProfileDetail = { careerPlans: CareerPlan[]; successors: Successor[]; scoreAspects: ScoreAspects; teams: TeamRef[]; bloodType: string; extension: Extension; idpHistory: IdpHistoryItem[]; employee: ProfileCtxT["employee"] };
+
+/**
+ * "Competency match" = rata-rata kecocokan skor tiap aspek (Score Aspect card,
+ * tab Competency) terhadap standarnya masing-masing, skala 0-100 — disamakan
+ * dengan skala competency score di Vismap/TDP/Team Profile (bukan lagi 0-5
+ * seperti sebelumnya, yang cuma cocok dengan kotak skor 1-5 di kartu Score
+ * Aspect tapi beda sendiri dari halaman lain). Aspek yang skornya sudah >=
+ * standar dihitung penuh (dibatasi 100%, tidak menambah rata-rata lewat itu),
+ * aspek yang di bawah standar menariknya turun — jadi angka ini benar-benar
+ * mencerminkan kecocokan orang tersebut dengan posisinya SAAT INI.
+ */
+function competencyMatchFromAspects(aspects: ScoreAspects["competency"]): string | null {
+  if (!aspects || aspects.length === 0) return null;
+  const ratios = aspects.map(a => Math.min(1, a.score / a.standardScore));
+  const avg = ratios.reduce((s, v) => s + v, 0) / ratios.length;
+  return Math.round(avg * 100).toString();
+}
 
 function Frame151() {
   const { name, position, employeeId } = useContext(ProfileContext);
@@ -77,7 +95,7 @@ function Frame151() {
 function Frame81() {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] whitespace-nowrap">
+      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
         <p className="leading-[normal]">Profile</p>
       </div>
     </div>
@@ -150,10 +168,10 @@ function Frame25() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] left-[13px] text-[#495057] text-[10px] top-[12px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">Competency match</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] left-[15px] not-italic text-[#016699] text-[14px] top-[34.5px] whitespace-nowrap">
-        <p className="leading-[normal]">{competencyMatch}</p>
+      <div className="-translate-y-1/2 absolute flex flex-row items-center gap-[2px] left-[15px] top-[34.5px] whitespace-nowrap">
+        <p className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic text-[#016699] text-[14px]">{competencyMatch}%</p>
       </div>
-      <div className="absolute left-[36px] overflow-clip size-[10px] top-[21px]" data-name="arrow-up">
+      <div className="absolute overflow-clip size-[10px] top-[21px]" style={{ left: `${15 + `${competencyMatch}%`.length * 7.5}px` }} data-name="arrow-up">
         <div className="absolute bottom-[20.83%] left-1/4 right-1/4 top-[20.83%]" data-name="Vector">
           <div className="absolute inset-[-8.04%_-9.38%]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 5.9375 6.77083">
@@ -215,36 +233,15 @@ function Frame79() {
   );
 }
 
-function Frame27() {
-  return (
-    <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
-      <button className="bg-[#f8f9fa] block cursor-pointer overflow-clip relative rounded-[4px] shrink-0 size-[20px]" data-name="chart-radar">
-        <div className="absolute inset-[12.5%_10.42%]" data-name="Vector">
-          <div className="absolute inset-[-5%_-4.74%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 17.3334 16.5">
-              <path d={svgPaths.p4355100} id="Vector" stroke="var(--stroke-0, #CED4DA)" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.854902" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </button>
-      <div className="bg-[#e7f5ff] overflow-clip relative rounded-[4px] shrink-0 size-[20px]" data-name="list">
-        <div className="absolute bottom-[24.96%] left-[20.83%] right-[16.67%] top-1/4" data-name="Vector">
-          <div className="absolute inset-[-7.49%_-6%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 14 11.5083">
-              <path d={svgPaths.p24455faf} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
+// Toggle list/spider-chart pindah ke baris dropdown standar jabatan (Frame116),
+// jadi baris ini tinggal tombol Score Records saja, rata kanan.
+// Aksi kartu (bukan filter) — ditaruh sebagai footer, dipisah garis dari isi.
+// Sebelumnya berdiri di antara kontrol dan ikut terbaca sebagai filter, padahal
+// semua kontrol lain mengubah tampilan sementara tombol ini membuka data lain.
 function Frame153() {
   return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <Frame27 />
-      <div className="content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[4px] relative rounded-[28px] shrink-0 w-[135px]" data-name="button">
+    <div className="content-stretch flex items-center justify-end relative shrink-0 w-full pt-[12px] mt-[4px] border-t border-[#e9ecef]">
+      <div className="content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[4px] relative rounded-[28px] shrink-0 w-[135px] cursor-pointer" data-name="button">
         <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />
         <p className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#016699] text-[14px]">Score Records</p>
       </div>
@@ -271,52 +268,20 @@ function Frame9() {
   );
 }
 
-function Box() {
+// Baris filter: dropdown standar jabatan di kiri, opsi tampilan (list/spider)
+// di kanan lewat `rightSlot`; legend "Score" jadi caption kecil di bawahnya.
+//
+// `showLegend` false saat view spider chart: tanda centang & kotak biru itu
+// bahasa visual milik view list, di chart keduanya tidak ada — dan chart sudah
+// punya legend sendiri di bawahnya.
+function Frame116({ rightSlot, showLegend = true }: { rightSlot?: React.ReactNode; showLegend?: boolean }) {
   return (
-    <div className="bg-[#d6e6ff] relative rounded-[4px] shrink-0 size-[16px]" data-name="Box">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function InputField() {
-  return (
-    <div className="bg-[#f8f9fa] relative rounded-[16px] shrink-0 w-full" data-name="Input field">
-      <div aria-hidden="true" className="absolute border border-[#dee2e6] border-solid inset-0 pointer-events-none rounded-[16px]" />
-      <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex gap-[8px] items-center px-[12px] py-[4px] relative w-full">
-          <Box />
-          <div className="flex flex-[1_0_0] flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] min-h-px min-w-px overflow-hidden relative text-[#495057] text-[10px] text-ellipsis whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-            <p className="leading-[normal] overflow-hidden">Stnd. [Marketing]</p>
-          </div>
-          <div className="overflow-clip relative shrink-0 size-[16px]" data-name="chevron-down">
-            <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
-              <div className="absolute inset-[-18.75%_-9.38%]">
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9.5 5.5">
-                  <path d={svgPaths.p14416700} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div className="content-stretch flex flex-col gap-[8px] relative shrink-0 w-full">
+      <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full">
+        <StandardPositionSelect />
+        {rightSlot}
       </div>
-    </div>
-  );
-}
-
-function TextInput() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-h-px min-w-px relative" data-name="TextInput">
-      <InputField />
-    </div>
-  );
-}
-
-function Frame116() {
-  return (
-    <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full">
-      <Frame9 />
-      <TextInput />
+      {showLegend && <Frame9 />}
     </div>
   );
 }
@@ -966,7 +931,7 @@ function Frame121() {
 function Frame98() {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] whitespace-nowrap">
+      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
         <p className="leading-[normal]">Development</p>
       </div>
     </div>
@@ -1532,7 +1497,7 @@ export default function Frame120() {
     position: candidate?.position ?? "Direktur Pengembangan Bisnis",
     employeeId: id ?? "default", // shared photo storage key with TDP
     personality: participant?.disc ?? "SC",
-    competencyMatch: comp != null ? (comp / 20).toFixed(1) : "4.5",
+    competencyMatch: competencyMatchFromAspects(detail?.scoreAspects?.competency ?? []) ?? (comp != null ? String(comp) : "90"),
     iq: comp != null ? String(Math.round(95 + comp / 4)) : "120",
     gtq: comp != null ? String(Math.round(90 + comp / 4)) : "115",
     careerPlans: detail?.careerPlans ?? [],

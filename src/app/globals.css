@@ -64,6 +64,192 @@ html, body {
   background: rgba(0, 0, 0, 0.18);
 }
 
+/* Recharts memberi tabindex="0" pada <svg> chart demi navigasi keyboard, jadi
+   sekali diklik browser menggambar focus ring — bentuknya kotak besar sebesar
+   viewBox SVG, tidak ada hubungannya dengan bentuk chart di dalamnya.
+   Dimatikan untuk semua kondisi fokus (termasuk :focus-visible): SVG-nya
+   sendiri tidak punya aksi keyboard, dan wadah recharts membungkusnya berlapis
+   sehingga ring-nya selalu jatuh sebagai kotak penuh yang menyesatkan. */
+.recharts-surface:focus,
+.recharts-surface:focus-visible,
+.recharts-wrapper:focus,
+.recharts-wrapper:focus-visible {
+  outline: none;
+}
+
+/* Judul Modal & Drawer untuk SELURUH aplikasi.
+
+   Sama seperti Tabs: tema Prodigy menyetel Modal (radius, centered) tapi tidak
+   judulnya, jadi tiap layar menuliskan gaya judulnya sendiri — ada yang
+   <span style> dengan Open Sans 15px/700, ada yang <Text fw={700}>, ada yang
+   string polos yang jatuh ke bawaan Mantine. Tiga rupa untuk satu hal.
+   Spesifikasi di bawah ini yang berlaku; pemakaian cukup mengoper string. */
+.mantine-Modal-title,
+.mantine-Drawer-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #212529;
+}
+
+/* Tabs — tampilan tab untuk SELURUH aplikasi.
+
+   Paket @talentlytica/prodigy tidak menimpa komponen Tabs sama sekali (blok
+   `components`-nya hanya memuat Button, Input, Badge, Avatar, Alert, Anchor,
+   Card, Tooltip, ActionIcon, Menu, Modal, Table, SegmentedControl), jadi Tabs
+   selama ini jatuh ke gaya bawaan Mantine: bobot 400 dan label aktif abu.
+   Akibatnya setiap layar yang butuh tab menuliskan gayanya sendiri dan
+   hasilnya beda-beda. Spesifikasi di bawah ini mengikuti tab yang sudah
+   dipakai di Talent Mapping, dan menjadi satu-satunya sumber gaya tab.
+
+   Ditulis sebagai CSS, bukan prop `styles` di tema, karena warna label aktif
+   bergantung pada atribut `data-active` — selector semacam itu tidak bisa
+   diungkapkan lewat inline style. */
+.mantine-Tabs-tab {
+  font-weight: 600;
+  color: #adb5bd;
+}
+.mantine-Tabs-tab:hover {
+  color: var(--mantine-color-primary-5);
+}
+.mantine-Tabs-tab[data-active] {
+  color: var(--mantine-color-primary-5);
+}
+
+/* Sidebar rail — latar item nav (diam / hover / aktif).
+   Ditulis di sini, bukan lewat prop `styles` Mantine: prop itu menghasilkan
+   inline style, jadi selector semu seperti :hover diabaikan diam-diam dan
+   efek hover-nya tidak pernah muncul. `data-active` dipasang NavLink sendiri.
+   Latar rail-nya gradasi primary-5 -> primary-6, jadi sorotannya memakai putih
+   transparan supaya kontrasnya konsisten dari atas sampai bawah. */
+.sidebar-rail .mantine-NavLink-root:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+.sidebar-rail .mantine-NavLink-root[data-active] {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.sidebar-rail .mantine-NavLink-root[data-active]:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+/* Tombol buka/tutup rail (header). */
+.sidebar-rail > button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+/* Tombol mode Admin Settings / Back di dasar rail. */
+.sidebar-mode-btn {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.sidebar-mode-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Tabel aspek (halaman Aspect & tab Aspect di Job Profile).
+
+   Dua hal yang tidak bisa diatur lewat prop Mantine:
+
+   1. Sel tidak dipotong. Isi yang panjang dibiarkan turun baris, dan tinggi
+      barisnya mengikuti sel yang paling tinggi — itu perilaku bawaan tabel,
+      asal teksnya tidak dipaksa satu baris. Isinya dirapatkan ke atas supaya
+      baris yang tinggi tetap terbaca sebagai satu baris.
+   2. Kolom centang dan kolom nama aspek tetap di tempat saat tabel digulung
+      ke samping. `position: sticky` butuh selector pada sel, sementara prop
+      `styles` Mantine menghasilkan inline style yang tidak bisa menyasar
+      kolom ke-n.
+
+   Latar sel sticky memakai `inherit` supaya sorotan hover baris ikut terbawa;
+   kalau ditulis putih mati, dua kolom pertama jadi satu-satunya bagian baris
+   yang tidak menyala saat disorot. */
+.aspect-table tbody tr,
+.aspect-table thead tr {
+  background-color: var(--mantine-color-white);
+}
+/* Seluruh isi tabel seragam 12px. Komponen di dalam sel (Text, Textarea,
+   NativeSelect) memakai ukuran "xs" yang di tema ini bernilai 10px, dan
+   masing-masing menuliskannya sebagai inline var — jadi menimpa `font-size`
+   dari luar tidak mempan. Yang diubah nilainya: skala "xs" itu sendiri, khusus
+   di dalam tabel ini. */
+.aspect-table {
+  --mantine-font-size-xs: 12px;
+}
+.aspect-table :is(th, td) {
+  vertical-align: top;
+  white-space: normal;
+  word-break: break-word;
+  /* Seluruh isi sel seragam 12px, termasuk judul kolom. Ditulis di sini supaya
+     satu aturan mengurus semuanya — kalau diserahkan ke prop `size` tiap
+     komponen, sel yang menyusul nanti gampang lolos memakai ukuran lain. */
+  font-size: 12px;
+}
+.aspect-table :is(th, td):first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background-color: inherit;
+  /* Lebar dikunci karena kolom berikutnya menggeser dirinya sejauh ini. */
+  width: 52px;
+  min-width: 52px;
+  max-width: 52px;
+}
+.aspect-table :is(th, td):nth-child(2) {
+  position: sticky;
+  left: 52px;
+  z-index: 2;
+  background-color: inherit;
+  /* Garis pemisah: penanda bahwa kolom di kanannya yang bergerak. */
+  box-shadow: 1px 0 0 0 var(--mantine-color-gray-3);
+}
+
+/* Butir Key Behaviour di kolom Key Behavior (halaman Aspect).
+
+   Bukan Badge/Chip Mantine: keduanya melebar mengikuti teks dan memotong isi
+   yang panjang, sedangkan di sini butirnya harus selebar kolom dan boleh turun
+   baris — nama KB bisa sepanjang "Penerapan pada Pekerjaan Harian". */
+.kb-chip {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: var(--mantine-radius-sm);
+  /* primary-1, bukan primary-0: shade 0 di palet ini abu-abu (#F9FAFB), dan
+     chip-nya jadi tidak terbaca sebagai butir biru muda seperti rancangan. */
+  background-color: var(--mantine-color-primary-1);
+  color: var(--mantine-color-primary-8);
+}
+.kb-chip-label {
+  min-width: 0;
+  word-break: break-word;
+}
+.kb-chip-remove {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  color: var(--mantine-color-primary-8);
+  opacity: 0.65;
+}
+.kb-chip-remove:hover {
+  opacity: 1;
+}
+
+/* Bar seleksi aspek — mengambang di bawah layar selama ada aspek tercentang.
+
+   `fixed`, dan digeser ke kanan sejauh lebar sidebar supaya duduk di tengah
+   area isi, bukan tengah viewport. Lebar sidebar berubah saat rail dilipat,
+   jadi dipakai variabelnya, bukan angka mati. */
+.selection-bar {
+  position: fixed;
+  bottom: 24px;
+  left: calc(var(--sidebar-w, 220px) / 2 + 50%);
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  background-color: var(--mantine-color-white);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.16);
+}
+
 /* Mode embed (di dalam iframe Integro): sidebar demo disembunyikan supaya tidak
    bertumpuk dengan sidebar Integro. Penanda data-embed dipasang skrip inline di
    layout.tsx sebelum paint pertama.

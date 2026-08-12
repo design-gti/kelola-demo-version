@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Paper, TextInput, Select, Pagination, Text } from "@mantine/core";
+import { ActionIcon, Badge, Paper, TextInput, Select, Pagination, Table, Text, UnstyledButton } from "@mantine/core";
 import { IconSearch, IconArrowUpRight, IconChevronUp, IconChevronDown, IconSelector } from "@tabler/icons-react";
 import type { IProfileEmployee } from "@/data/iprofileEmployees";
 
@@ -20,6 +20,11 @@ function SortIcon({ active, dir }: { active: boolean; dir: "asc" | "desc" }) {
   return dir === "asc" ? <IconChevronUp size={13} style={{ color: ACCENT }} /> : <IconChevronDown size={13} style={{ color: ACCENT }} />;
 }
 
+/**
+ * Sel header. Kolom yang bisa diurutkan dirender sebagai tombol di dalam
+ * `<th>` — bukan `<th>` yang diberi onClick — supaya tetap terjangkau keyboard
+ * dan terbaca sebagai kontrol oleh pembaca layar.
+ */
 function HeaderCell({
   children,
   sortKey,
@@ -33,33 +38,17 @@ function HeaderCell({
   dir: "asc" | "desc";
   onSort: (key: SortKey) => void;
 }) {
-  if (!sortKey) {
-    return <span style={{ fontSize: 12, fontWeight: 700, color: "#495057" }}>{children}</span>;
-  }
+  if (!sortKey) return <>{children}</>;
   return (
-    <button
+    <UnstyledButton
       onClick={() => onSort(sortKey)}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 4,
-        background: "none",
-        border: "none",
-        padding: 0,
-        cursor: "pointer",
-        fontFamily: FONT,
-        fontSize: 12,
-        fontWeight: 700,
-        color: "#495057",
-      }}
+      style={{ display: "flex", alignItems: "center", gap: 4, fontSize: "inherit", fontWeight: "inherit", color: "inherit" }}
     >
       {children}
       <SortIcon active={activeKey === sortKey} dir={dir} />
-    </button>
+    </UnstyledButton>
   );
 }
-
-const COLS = "0.5fr 2fr 2.2fr 2fr 1.2fr 0.8fr";
 
 export default function EmployeeListTable({ employees, from }: { employees: IProfileEmployee[]; from?: string }) {
   const router = useRouter();
@@ -109,8 +98,6 @@ export default function EmployeeListTable({ employees, from }: { employees: IPro
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12, fontFamily: FONT }}>
-      <div style={{ fontSize: 16, fontWeight: 700, color: "#495057" }}>Employee List</div>
-
       <Paper radius={12} style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: "16px 20px", fontFamily: FONT, fontSize: 13 }}>
         <TextInput
           value={keyword}
@@ -122,65 +109,57 @@ export default function EmployeeListTable({ employees, from }: { employees: IPro
           style={{ maxWidth: 280, marginBottom: 16 }}
         />
 
-        <div style={{ display: "grid", gridTemplateColumns: COLS, gap: 12, padding: "0 12px 10px", borderBottom: "1px solid #e9ecef" }}>
-          <HeaderCell activeKey={sortKey} dir={sortDir} onSort={handleSort}>No.</HeaderCell>
-          <HeaderCell sortKey="name" activeKey={sortKey} dir={sortDir} onSort={handleSort}>Employee Name</HeaderCell>
-          <HeaderCell sortKey="email" activeKey={sortKey} dir={sortDir} onSort={handleSort}>Email</HeaderCell>
-          <HeaderCell sortKey="position" activeKey={sortKey} dir={sortDir} onSort={handleSort}>Position</HeaderCell>
-          <HeaderCell sortKey="joinDate" activeKey={sortKey} dir={sortDir} onSort={handleSort}>Join Date</HeaderCell>
-          <HeaderCell activeKey={sortKey} dir={sortDir} onSort={handleSort}>Actions</HeaderCell>
-        </div>
+        <Table verticalSpacing="sm" horizontalSpacing="md" highlightOnHover>
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th w={60}>No.</Table.Th>
+              <Table.Th>
+                <HeaderCell sortKey="name" activeKey={sortKey} dir={sortDir} onSort={handleSort}>Employee Name</HeaderCell>
+              </Table.Th>
+              <Table.Th>
+                <HeaderCell sortKey="email" activeKey={sortKey} dir={sortDir} onSort={handleSort}>Email</HeaderCell>
+              </Table.Th>
+              <Table.Th>
+                <HeaderCell sortKey="position" activeKey={sortKey} dir={sortDir} onSort={handleSort}>Position</HeaderCell>
+              </Table.Th>
+              <Table.Th w={130}>
+                <HeaderCell sortKey="joinDate" activeKey={sortKey} dir={sortDir} onSort={handleSort}>Join Date</HeaderCell>
+              </Table.Th>
+              <Table.Th w={80}>Actions</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>
+            {pageRows.map((emp, i) => (
+              <Table.Tr key={emp.id} onClick={() => onSelect(emp)} style={{ cursor: "pointer" }}>
+                <Table.Td c="#495057">{(curPage - 1) * limit + i + 1}</Table.Td>
+                <Table.Td style={{ color: ACCENT, fontWeight: 600 }}>{emp.name}</Table.Td>
+                <Table.Td c="#495057">{emp.email}</Table.Td>
+                <Table.Td>
+                  <Badge color="primary" variant="light" radius="xl" size="sm">
+                    {emp.position}
+                  </Badge>
+                </Table.Td>
+                <Table.Td c="#495057">{emp.joinDate}</Table.Td>
+                <Table.Td>
+                  <ActionIcon
+                    variant="subtle"
+                    color="primary"
+                    onClick={(e) => { e.stopPropagation(); onSelect(emp); }}
+                    aria-label={`Buka profil ${emp.name}`}
+                  >
+                    <IconArrowUpRight size={16} />
+                  </ActionIcon>
+                </Table.Td>
+              </Table.Tr>
+            ))}
+          </Table.Tbody>
+        </Table>
 
         {pageRows.length === 0 && (
-          <div style={{ padding: "40px 0", textAlign: "center", color: "#adb5bd" }}>Tidak ada data.</div>
+          <Text ta="center" py={40} c="#adb5bd">
+            Tidak ada data.
+          </Text>
         )}
-
-        {pageRows.map((emp, i) => (
-          <div
-            key={emp.id}
-            onClick={() => onSelect(emp)}
-            style={{
-              display: "grid",
-              gridTemplateColumns: COLS,
-              gap: 12,
-              alignItems: "center",
-              padding: "12px",
-              borderBottom: "1px solid #f0f0f0",
-              cursor: "pointer",
-            }}
-          >
-            <span style={{ color: "#495057" }}>{(curPage - 1) * limit + i + 1}</span>
-            <span style={{ color: ACCENT, fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{emp.name}</span>
-            <span style={{ color: "#495057", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{emp.email}</span>
-            <span style={{ overflow: "hidden" }}>
-              <span
-                style={{
-                  display: "inline-block",
-                  fontSize: 10,
-                  fontWeight: 700,
-                  color: ACCENT,
-                  background: "#e7f5ff",
-                  borderRadius: 999,
-                  padding: "3px 10px",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  maxWidth: "100%",
-                }}
-              >
-                {emp.position}
-              </span>
-            </span>
-            <span style={{ color: "#495057" }}>{emp.joinDate}</span>
-            <span
-              onClick={(e) => { e.stopPropagation(); onSelect(emp); }}
-              style={{ color: ACCENT, cursor: "pointer", display: "inline-flex" }}
-              aria-label={`Open profile for ${emp.name}`}
-            >
-              <IconArrowUpRight size={16} />
-            </span>
-          </div>
-        ))}
 
         <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "14px 12px 4px", flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, color: "#6c757d" }}>
