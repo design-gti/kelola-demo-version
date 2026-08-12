@@ -12,22 +12,33 @@ export function JobDescModal({
   value,
   onClose,
   onSave,
+  onGenerate,
 }: {
   opened: boolean;
   value: string;
   onClose: () => void;
   onSave: (next: string) => void;
+  /** Membuka modal rekomendasi aspek; modal ini ditutup oleh pemanggilnya. */
+  onGenerate: () => void;
 }) {
   return (
     <Modal opened={opened} onClose={onClose} title="Job Description" size={560} padding="lg">
       {/* Isinya baru dipasang saat modal terbuka, jadi draft-nya lahir ulang
           tiap kali dibuka — tidak ada sisa ketikan dari sesi sebelumnya. */}
-      {opened && <JobDescForm value={value} onSave={onSave} />}
+      {opened && <JobDescForm value={value} onSave={onSave} onGenerate={onGenerate} />}
     </Modal>
   );
 }
 
-function JobDescForm({ value, onSave }: { value: string; onSave: (next: string) => void }) {
+function JobDescForm({
+  value,
+  onSave,
+  onGenerate,
+}: {
+  value: string;
+  onSave: (next: string) => void;
+  onGenerate: () => void;
+}) {
   /** Teks tersimpan; jadi pembanding "ada perubahan" sekaligus bahan Cancel. */
   const [saved, setSaved] = useState(value);
   const [draft, setDraft] = useState(value);
@@ -53,11 +64,25 @@ function JobDescForm({ value, onSave }: { value: string; onSave: (next: string) 
             Cancel
           </Button>
         )}
-        {/* Belum punya alur: pemetaan deskripsi ke aspek butuh sumber data
-            yang belum ada. Dimatikan saat deskripsinya masih kosong supaya
-            tidak terlihat bisa dipakai padahal tidak ada yang bisa dibaca. */}
-        <Button variant="outline" disabled={draft.trim() === ""} leftSection={<IconSparkles size={16} stroke={1.6} />}>
-          Generate Aspect
+        {/* Pintu masuk kedua ke rekomendasi aspek — sama persis dengan tombol
+            "Generate Aspect by Job Desc." di tab Aspect. Dimatikan saat
+            deskripsinya masih kosong: tidak ada yang bisa dibaca. */}
+        <Button
+          variant="outline"
+          disabled={draft.trim() === ""}
+          leftSection={<IconSparkles size={16} stroke={1.6} />}
+          onClick={() => {
+            // Yang dibaca perekomendasi adalah deskripsi TERSIMPAN, jadi
+            // ketikan yang belum disimpan ikut disimpan dulu — kalau tidak,
+            // hasilnya diturunkan dari teks lama tanpa ada yang menyadari.
+            if (dirty) {
+              setSaved(draft);
+              onSave(draft);
+            }
+            onGenerate();
+          }}
+        >
+          Generate Aspect by Job Desc.
         </Button>
         {dirty && (
           <Button

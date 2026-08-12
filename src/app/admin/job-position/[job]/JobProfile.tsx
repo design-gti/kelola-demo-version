@@ -36,6 +36,14 @@ export function JobProfile({ name }: { name: string }) {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [descOpen, setDescOpen] = useState(false);
   /**
+   * Modal rekomendasi aspek. Dikendalikan dari sini, bukan dari StandardTab,
+   * karena ada dua pintu masuk: tombol di tab Aspect dan "Generate Aspect" di
+   * modal Job Description — keduanya harus membuka modal yang sama.
+   */
+  const [generateOpen, setGenerateOpen] = useState(false);
+  /** Tab aktif; ikut dikendalikan supaya bisa dipindah dari modal Job Desc. */
+  const [tab, setTab] = useState<string | null>("position");
+  /**
    * Hasil edit hanya hidup di halaman ini. Nama & grade Job berasal dari
    * participants.csv yang tidak bisa ditulis dari browser, jadi perubahannya
    * tampil supaya alurnya kelihatan, tapi hilang saat halaman dimuat ulang.
@@ -137,10 +145,10 @@ export function JobProfile({ name }: { name: string }) {
 
       {/* Isi Job */}
       <div className={`${CARD} p-[16px]`}>
-        <Tabs defaultValue="position">
+        <Tabs value={tab} onChange={setTab}>
           <Tabs.List>
             <Tabs.Tab value="position">Position</Tabs.Tab>
-            <Tabs.Tab value="standard">Standard</Tabs.Tab>
+            <Tabs.Tab value="standard">Aspect</Tabs.Tab>
             <Tabs.Tab value="criteria">Criteria</Tabs.Tab>
           </Tabs.List>
 
@@ -229,7 +237,12 @@ export function JobProfile({ name }: { name: string }) {
           </Tabs.Panel>
 
           <Tabs.Panel value="standard" pt="md">
-            <StandardTab job={name} />
+            <StandardTab
+              job={name}
+              jobDescription={jobDescription}
+              generateOpen={generateOpen}
+              onGenerateOpenChange={setGenerateOpen}
+            />
           </Tabs.Panel>
 
           {/* Criteria menyusul — kontennya belum di-brief. */}
@@ -261,6 +274,14 @@ export function JobProfile({ name }: { name: string }) {
         value={jobDescription}
         onClose={() => setDescOpen(false)}
         onSave={(description) => setOverride((prev) => ({ ...prev, description }))}
+        onGenerate={() => {
+          // Pindah ke tab Aspect dulu: hasil rekomendasinya menambah aspek di
+          // tab itu, jadi tempat perubahannya harus sudah terlihat di belakang
+          // modal saat aspeknya masuk.
+          setDescOpen(false);
+          setTab("standard");
+          setGenerateOpen(true);
+        }}
       />
 
       <Modal opened={deleteOpen} onClose={() => setDeleteOpen(false)} title="Delete Job">

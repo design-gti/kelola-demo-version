@@ -1,9 +1,11 @@
 "use client";
 import { memo, useCallback, useMemo, useState } from "react";
-import { ActionIcon, Button, Checkbox, NativeSelect, Table, Text, TextInput, Tooltip, UnstyledButton } from "@mantine/core";
-import { IconChevronUp, IconInfoCircle, IconPlus, IconSearch, IconTrash } from "@tabler/icons-react";
+import { ActionIcon, Button, Checkbox, NativeSelect, Table, Text, Textarea, TextInput, UnstyledButton } from "@mantine/core";
+import { IconArrowsMove, IconChevronUp, IconPlus, IconSearch, IconTrash, IconX } from "@tabler/icons-react";
 import { buildLibrary, byCategory, SCALE, type LibraryAspect } from "./aspects";
-import { ImportAspectModal } from "./ImportAspectModal";
+import { AspectPickerModal } from "./AspectPickerModal";
+import { CreateCategoryModal } from "./CreateCategoryModal";
+import { MoveToClusterModal } from "./MoveToClusterModal";
 
 const ACCENT = "var(--mantine-color-primary-5)";
 const CARD = "rounded-[8px] bg-white shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)]";
@@ -16,6 +18,8 @@ const levelLabel = (n: number) =>
 type Draft = {
   /** undefined = belum disentuh, jadi yang tampil deskripsi asli aspeknya. */
   description?: string;
+  /** undefined = belum disentuh, jadi yang tampil KB bawaan aspeknya. */
+  keyBehaviours?: string[];
   keyBehaviourInput: string;
   /** Pemetaan taraf 1..5 → nama Key Behaviour. */
   levels: Record<number, string | null>;
@@ -42,27 +46,30 @@ const AspectRow = memo(function AspectRow({
   onToggle: (label: string) => void;
   onChange: (label: string, next: Partial<Draft>) => void;
 }) {
-  const options = aspect.keyBehaviours;
+  // Sumber tunggal untuk dua tempat: daftar chip di kolom Key Behavior dan
+  // pilihan di kolom taraf 1-5. KB yang dihapus langsung hilang dari keduanya.
+  const options = draft.keyBehaviours ?? aspect.keyBehaviours;
 
   return (
     <Table.Tr>
       <Table.Td w={40}>
         <Checkbox checked={checked} onChange={() => onToggle(aspect.label)} size="xs" aria-label={`Pilih aspek ${aspect.label}`} />
       </Table.Td>
-      <Table.Td>
-        <span className="flex items-center gap-[8px]">
-          <Tooltip label="Penjelasan aspek belum diisi" position="top" withArrow>
-            <IconInfoCircle size={16} stroke={1.6} color="#adb5bd" />
-          </Tooltip>
-          <Text size="sm" c="#495057">
-            {aspect.label}
-          </Text>
-        </span>
+      <Table.Td miw={180}>
+        <Text size="xs" c="#495057">
+          {aspect.label}
+        </Text>
       </Table.Td>
       <Table.Td w={300}>
-        <TextInput
+        {/* Textarea autosize, bukan TextInput: deskripsi aspek panjang-panjang,
+            dan di isian satu baris ujungnya terpotong tanpa tanda apa pun.
+            Dengan autosize, kotaknya tumbuh mengikuti isi dan barisnya ikut
+            meninggi. */}
+        <Textarea
           variant="unstyled"
           size="xs"
+          autosize
+          minRows={1}
           placeholder="Description"
           value={draft.description ?? aspect.description}
           onChange={(e) => onChange(aspect.label, { description: e.currentTarget.value })}
@@ -70,20 +77,47 @@ const AspectRow = memo(function AspectRow({
         />
       </Table.Td>
       <Table.Td w={280}>
-        {/* Satu isian teks, dipisah dengan "|" — sesuai rancangan, biar admin
-            bisa menempel banyak KB sekaligus tanpa menambah baris. */}
-        <TextInput
-          variant="unstyled"
-          size="xs"
-          placeholder="Enter to submit Key Behavior, will auto separate item with '|'"
-          value={draft.keyBehaviourInput}
-          onChange={(e) => onChange(aspect.label, { keyBehaviourInput: e.currentTarget.value })}
-          aria-label={`Key Behavior ${aspect.label}`}
-        />
+        {/* KB tampil sebagai daftar butir, bukan satu teks panjang: butirnya
+            dipakai satu-satu di pemetaan taraf, jadi harus bisa dibaca dan
+            dihapus satu-satu juga. */}
+        <div className="flex flex-col gap-[6px]">
+          {options.map((kb) => (
+            <span key={kb} className="kb-chip">
+              <span className="kb-chip-label">{kb}</span>
+              <UnstyledButton
+                onClick={() => onChange(aspect.label, { keyBehaviours: options.filter((x) => x !== kb) })}
+                aria-label={`Hapus Key Behavior ${kb} dari ${aspect.label}`}
+                className="kb-chip-remove"
+              >
+                <IconX size={13} stroke={1.8} />
+              </UnstyledButton>
+            </span>
+          ))}
+          {/* Satu isian untuk menambah, dipisah dengan "|" — sesuai rancangan,
+              biar admin bisa menempel banyak KB sekaligus. */}
+          <TextInput
+            variant="unstyled"
+            size="xs"
+            placeholder="Enter to submit Key Behavior, will auto separate item with '|'"
+            value={draft.keyBehaviourInput}
+            onChange={(e) => onChange(aspect.label, { keyBehaviourInput: e.currentTarget.value })}
+            onKeyDown={(e) => {
+              if (e.key !== "Enter") return;
+              e.preventDefault();
+              const baru = e.currentTarget.value
+                .split("|")
+                .map((s) => s.trim())
+                .filter((s) => s && !options.includes(s));
+              if (baru.length === 0) return;
+              onChange(aspect.label, { keyBehaviours: [...options, ...baru], keyBehaviourInput: "" });
+            }}
+            aria-label={`Tambah Key Behavior ${aspect.label}`}
+          />
+        </div>
       </Table.Td>
       <Table.Td w={130}>
         {/* Belum ada sumber datanya; ditandai apa adanya, bukan diisi tebakan. */}
-        <Text size="sm" c="#6c757d">
+        <Text size="xs" c="#6c757d">
           Under Review
         </Text>
       </Table.Td>
@@ -183,7 +217,7 @@ function CategoryCard({
           </div>
 
           <Table.ScrollContainer minWidth={1400} mt="md">
-            <Table verticalSpacing="sm" horizontalSpacing="md" highlightOnHover>
+            <Table className="aspect-table" verticalSpacing="sm" horizontalSpacing="md" highlightOnHover>
               <Table.Thead>
                 <Table.Tr>
                   <Table.Th />
@@ -249,16 +283,46 @@ export function AspectLibrary() {
   /** Pencarian lintas seluruh kategori. */
   const [search, setSearch] = useState("");
 
+  /**
+   * Kategori buatan pengguna. Sengaja hidup di state saja: katalognya hasil
+   * seed yang tidak bisa ditulis dari browser, jadi kategori baru bertahan
+   * selama sesi dan kembali ke semula begitu halaman dimuat ulang.
+   */
+  const [extraCategories, setExtraCategories] = useState<string[]>([]);
+
+  /** Aspek yang dihapus lewat bar seleksi — sama sementaranya dengan yang lain. */
+  const [removed, setRemoved] = useState<Set<string>>(new Set());
+  /** Kategori baru untuk aspek yang dipindahkan; menimpa kategori asli katalog. */
+  const [movedTo, setMovedTo] = useState<Record<string, string>>({});
+
+  const visible = useMemo(
+    () =>
+      aspects
+        .filter((a) => !removed.has(a.label))
+        .map((a) => (movedTo[a.label] ? { ...a, category: movedTo[a.label] } : a)),
+    [aspects, removed, movedTo],
+  );
+
   const groups = useMemo(() => {
     const q = search.trim().toLowerCase();
     // Disaring sebelum dikelompokkan, jadi kategori yang tidak punya hasil
     // sama sekali tidak ikut dirender.
-    return byCategory(q ? aspects.filter((a) => a.label.toLowerCase().includes(q)) : aspects);
-  }, [aspects, search]);
+    const found = byCategory(q ? visible.filter((a) => a.label.toLowerCase().includes(q)) : visible);
+    // Kategori baru belum punya aspek. Tetap ditampilkan (kecuali sedang
+    // mencari, karena isinya pasti tidak cocok) supaya hasil "Create Category"
+    // kelihatan dan bisa jadi tujuan pemindahan aspek nanti.
+    if (q) return found;
+    // Kategori buatan pengguna yang belum kebagian aspek tetap perlu muncul —
+    // yang sudah terisi lewat "Move to Cluster" sudah dibawa `found`.
+    const terisi = new Set(found.map(([c]) => c));
+    return [...found, ...extraCategories.filter((c) => !terisi.has(c)).map((c) => [c, []] as [string, LibraryAspect[]])];
+  }, [visible, search, extraCategories]);
 
   const [drafts, setDrafts] = useState<Record<string, Draft>>({});
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [importOpen, setImportOpen] = useState(false);
+  const [categoryOpen, setCategoryOpen] = useState(false);
+  const [moveOpen, setMoveOpen] = useState(false);
 
   // Dibungkus useCallback supaya identitasnya tetap antar-render — kalau
   // berubah, memo pada AspectRow tidak menahan apa pun.
@@ -300,7 +364,11 @@ export function AspectLibrary() {
           w={300}
           rightSection={<IconSearch size={16} stroke={1.6} color="#adb5bd" />}
         />
-        <Button variant="outline" leftSection={<IconPlus size={16} stroke={1.6} />}>
+        <Button
+          variant="outline"
+          leftSection={<IconPlus size={16} stroke={1.6} />}
+          onClick={() => setCategoryOpen(true)}
+        >
           Create Category Aspect
         </Button>
       </div>
@@ -330,7 +398,60 @@ export function AspectLibrary() {
         ))
       )}
 
-      <ImportAspectModal
+      {/* Bar seleksi — muncul hanya saat ada aspek tercentang. Mengambang di
+          bawah layar, bukan di dalam kartu kategori, karena seleksinya bisa
+          menyeberang kategori dan barnya harus tetap terlihat sejauh apa pun
+          tabel digulung. */}
+      {selected.size > 0 && (
+        <div className="selection-bar">
+          <Text size="sm" c="#495057">
+            {selected.size} selected
+          </Text>
+          <Button
+            variant="subtle"
+            color="gray"
+            leftSection={<IconTrash size={16} stroke={1.6} />}
+            onClick={() => {
+              setRemoved((prev) => new Set([...prev, ...selected]));
+              setSelected(new Set());
+            }}
+          >
+            Delete
+          </Button>
+          <Button
+            variant="subtle"
+            leftSection={<IconArrowsMove size={16} stroke={1.6} />}
+            onClick={() => setMoveOpen(true)}
+          >
+            Move to Cluster
+          </Button>
+        </div>
+      )}
+
+      <MoveToClusterModal
+        opened={moveOpen}
+        count={selected.size}
+        clusters={groups.map(([category]) => category)}
+        onClose={() => setMoveOpen(false)}
+        onMove={(cluster) => {
+          setMovedTo((prev) => {
+            const next = { ...prev };
+            selected.forEach((label) => (next[label] = cluster));
+            return next;
+          });
+          setSelected(new Set());
+          setMoveOpen(false);
+        }}
+      />
+
+      <CreateCategoryModal
+        opened={categoryOpen}
+        existing={groups.map(([category]) => category)}
+        onClose={() => setCategoryOpen(false)}
+        onCreate={(names) => setExtraCategories((prev) => [...prev, ...names])}
+      />
+
+      <AspectPickerModal
         opened={importOpen}
         aspects={aspects}
         onClose={() => setImportOpen(false)}

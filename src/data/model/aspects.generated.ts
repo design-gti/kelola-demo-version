@@ -16,7 +16,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Berpikir Sistematis",
       "Berpikir Kritis",
       "Pemecahan Masalah",
-      "Pengambilan Kesimpulan Logis"
+      "Pengambilan Kesimpulan Logis",
+      "Pengujian Asumsi"
     ]
   },
   {
@@ -26,7 +27,9 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
     "keyBehaviours": [
       "Ketepatan Hitung",
       "Interpretasi Data Angka",
-      "Estimasi Cepat"
+      "Estimasi Cepat",
+      "Pembacaan Tabel & Grafik",
+      "Ketelitian Angka"
     ]
   },
   {
@@ -36,7 +39,9 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
     "keyBehaviours": [
       "Pemahaman Bacaan",
       "Kejelasan Ekspresi Lisan",
-      "Kosakata & Tata Bahasa"
+      "Kosakata & Tata Bahasa",
+      "Penyusunan Tulisan Kerja",
+      "Penyesuaian Gaya Bahasa"
     ]
   },
   {
@@ -47,7 +52,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Identifikasi Pola",
       "Analisis Sebab-Akibat",
       "Sintesis Informasi",
-      "Evaluasi Alternatif"
+      "Evaluasi Alternatif",
+      "Penyederhanaan Masalah"
     ]
   },
   {
@@ -57,7 +63,9 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
     "keyBehaviours": [
       "Mendengarkan Aktif",
       "Empati",
-      "Membangun Hubungan Kerja"
+      "Membangun Hubungan Kerja",
+      "Membaca Situasi Sosial",
+      "Penyampaian Umpan Balik"
     ]
   },
   {
@@ -68,7 +76,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Kontribusi dalam Tim",
       "Resolusi Konflik",
       "Berbagi Informasi",
-      "Dukungan ke Rekan Kerja"
+      "Dukungan ke Rekan Kerja",
+      "Menjaga Komitmen Bersama"
     ]
   },
   {
@@ -78,7 +87,9 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
     "keyBehaviours": [
       "Adaptasi Perubahan",
       "Keterbukaan pada Ide Baru",
-      "Toleransi Ambiguitas"
+      "Toleransi Ambiguitas",
+      "Penyesuaian Prioritas",
+      "Pemulihan Setelah Hambatan"
     ]
   },
   {
@@ -89,7 +100,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Pengambilan Keputusan",
       "Memotivasi Tim",
       "Delegasi Tugas",
-      "Tanggung Jawab atas Hasil"
+      "Tanggung Jawab atas Hasil",
+      "Pengembangan Anggota Tim"
     ]
   },
   {
@@ -99,7 +111,9 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
     "keyBehaviours": [
       "Penetapan Prioritas",
       "Manajemen Waktu",
-      "Antisipasi Risiko"
+      "Antisipasi Risiko",
+      "Penyusunan Langkah Kerja",
+      "Pemantauan Pelaksanaan"
     ]
   },
   {
@@ -110,6 +124,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -121,6 +136,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -132,6 +148,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -143,7 +160,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -154,7 +172,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -165,7 +184,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -176,6 +196,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -187,6 +208,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -198,6 +220,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -209,7 +232,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -220,6 +244,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -231,6 +256,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -242,6 +268,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -253,7 +280,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -264,7 +292,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -275,6 +304,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -286,6 +316,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -297,6 +328,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -308,7 +340,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -319,7 +352,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -330,6 +364,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -341,6 +376,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -352,7 +388,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Pemahaman Ketentuan",
       "Penerapan pada Proses Kerja",
       "Identifikasi Risiko Kepatuhan",
-      "Dokumentasi & Pelaporan"
+      "Dokumentasi & Pelaporan",
+      "Pembaruan atas Perubahan Aturan"
     ]
   },
   {
@@ -363,6 +400,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -374,7 +412,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -385,6 +424,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -396,7 +436,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Pemahaman Ketentuan",
       "Penerapan pada Proses Kerja",
       "Identifikasi Risiko Kepatuhan",
-      "Dokumentasi & Pelaporan"
+      "Dokumentasi & Pelaporan",
+      "Pembaruan atas Perubahan Aturan"
     ]
   },
   {
@@ -407,7 +448,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Pemahaman Ketentuan",
       "Penerapan pada Proses Kerja",
       "Identifikasi Risiko Kepatuhan",
-      "Dokumentasi & Pelaporan"
+      "Dokumentasi & Pelaporan",
+      "Pembaruan atas Perubahan Aturan"
     ]
   },
   {
@@ -418,6 +460,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -429,6 +472,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -440,7 +484,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Pemahaman Ketentuan",
       "Penerapan pada Proses Kerja",
       "Identifikasi Risiko Kepatuhan",
-      "Dokumentasi & Pelaporan"
+      "Dokumentasi & Pelaporan",
+      "Pembaruan atas Perubahan Aturan"
     ]
   },
   {
@@ -451,7 +496,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Pemahaman Ketentuan",
       "Penerapan pada Proses Kerja",
       "Identifikasi Risiko Kepatuhan",
-      "Dokumentasi & Pelaporan"
+      "Dokumentasi & Pelaporan",
+      "Pembaruan atas Perubahan Aturan"
     ]
   },
   {
@@ -462,6 +508,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -473,6 +520,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -484,6 +532,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -495,7 +544,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -506,6 +556,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -517,7 +568,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Pemahaman Ketentuan",
       "Penerapan pada Proses Kerja",
       "Identifikasi Risiko Kepatuhan",
-      "Dokumentasi & Pelaporan"
+      "Dokumentasi & Pelaporan",
+      "Pembaruan atas Perubahan Aturan"
     ]
   },
   {
@@ -528,6 +580,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -539,6 +592,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -550,7 +604,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Pemahaman Ketentuan",
       "Penerapan pada Proses Kerja",
       "Identifikasi Risiko Kepatuhan",
-      "Dokumentasi & Pelaporan"
+      "Dokumentasi & Pelaporan",
+      "Pembaruan atas Perubahan Aturan"
     ]
   },
   {
@@ -561,7 +616,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -572,6 +628,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -583,6 +640,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -594,6 +652,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -605,6 +664,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -616,6 +676,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -627,7 +688,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -638,6 +700,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -649,6 +712,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -660,7 +724,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Pemahaman Ketentuan",
       "Penerapan pada Proses Kerja",
       "Identifikasi Risiko Kepatuhan",
-      "Dokumentasi & Pelaporan"
+      "Dokumentasi & Pelaporan",
+      "Pembaruan atas Perubahan Aturan"
     ]
   },
   {
@@ -671,6 +736,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -682,6 +748,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -693,6 +760,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -704,7 +772,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -715,7 +784,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Pemahaman Ketentuan",
       "Penerapan pada Proses Kerja",
       "Identifikasi Risiko Kepatuhan",
-      "Dokumentasi & Pelaporan"
+      "Dokumentasi & Pelaporan",
+      "Pembaruan atas Perubahan Aturan"
     ]
   },
   {
@@ -726,6 +796,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -737,6 +808,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -748,6 +820,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -759,6 +832,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -770,7 +844,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -781,6 +856,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -792,6 +868,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -803,6 +880,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -814,6 +892,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -825,7 +904,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -836,7 +916,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -847,6 +928,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -858,6 +940,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -869,6 +952,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -880,6 +964,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -891,6 +976,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -902,6 +988,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -913,6 +1000,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -924,6 +1012,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -935,6 +1024,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -946,7 +1036,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   },
   {
@@ -957,6 +1048,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -968,6 +1060,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -979,6 +1072,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -990,6 +1084,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -1001,6 +1096,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -1012,6 +1108,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -1023,6 +1120,7 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Konsep Dasar",
       "Penerapan pada Pekerjaan Harian",
       "Penanganan Kasus Kompleks",
+      "Perbaikan Cara Kerja",
       "Berbagi Pengetahuan ke Tim"
     ]
   },
@@ -1034,7 +1132,8 @@ export const ASPECT_CATALOG: CatalogAspect[] = [
       "Penguasaan Fitur Inti",
       "Pemakaian dalam Alur Kerja",
       "Troubleshooting Mandiri",
-      "Optimasi & Otomasi"
+      "Optimasi & Otomasi",
+      "Pendampingan Pengguna Lain"
     ]
   }
 ];
@@ -2042,6 +2141,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 3
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 3
       }
     ],
     "Kemampuan Perencanaan": [
@@ -2055,6 +2158,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 2
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 2
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 2
       }
     ],
@@ -2074,6 +2185,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 5
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 3
       }
     ],
     "Keterampilan Interpersonal": [
@@ -2088,6 +2203,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 4
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 4
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 5
       }
     ],
     "Kemampuan verbal": [
@@ -2101,6 +2224,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 5
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 5
       }
     ],
@@ -2120,6 +2251,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 3
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 1
       }
     ],
     "Arsitektur Sistem": [
@@ -2134,6 +2269,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 2
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -2154,6 +2293,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 2
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 1
       }
@@ -2170,6 +2313,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 2
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -2192,6 +2339,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 3
       }
     ],
     "Cloud Infrastructure": [
@@ -2210,6 +2361,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 2
       }
     ],
     "Observability": [
@@ -2228,6 +2383,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 2
       }
     ]
   },
@@ -2248,6 +2407,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Pengambilan Kesimpulan Logis",
         "score": 4
+      },
+      {
+        "label": "Pengujian Asumsi",
+        "score": 5
       }
     ],
     "Daya Analisa": [
@@ -2265,6 +2428,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Evaluasi Alternatif",
+        "score": 4
+      },
+      {
+        "label": "Penyederhanaan Masalah",
         "score": 4
       }
     ],
@@ -2284,6 +2451,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 3
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 4
       }
     ],
     "Fleksibilitas": [
@@ -2298,6 +2469,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 5
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 5
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 3
       }
     ],
     "Kemampuan Perencanaan": [
@@ -2312,6 +2491,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 5
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 4
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 4
       }
     ],
     "Kemampuan verbal": [
@@ -2325,6 +2512,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 5
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 5
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 5
       }
     ],
@@ -2340,6 +2535,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -2360,6 +2559,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 5
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 5
       }
@@ -2376,6 +2579,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -2398,6 +2605,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 5
       }
     ]
   },
@@ -2418,6 +2629,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Pengambilan Kesimpulan Logis",
         "score": 3
+      },
+      {
+        "label": "Pengujian Asumsi",
+        "score": 3
       }
     ],
     "Daya Analisa": [
@@ -2436,6 +2651,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 1
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 2
       }
     ],
     "Kerjasama": [
@@ -2454,6 +2673,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 2
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Fleksibilitas": [
@@ -2467,6 +2690,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Toleransi Ambiguitas",
+        "score": 1
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 1
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
         "score": 1
       }
     ],
@@ -2482,6 +2713,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 5
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 5
       }
     ],
     "Kemampuan verbal": [
@@ -2495,6 +2734,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 1
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 3
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 1
       }
     ],
@@ -2510,6 +2757,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -2530,6 +2781,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 5
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 3
       }
@@ -2546,6 +2801,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 1
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -2568,6 +2827,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ],
     "Design System": [
@@ -2585,6 +2848,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Optimasi & Otomasi",
+        "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
         "score": 5
       }
     ]
@@ -2606,6 +2873,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Pengambilan Kesimpulan Logis",
         "score": 3
+      },
+      {
+        "label": "Pengujian Asumsi",
+        "score": 2
       }
     ],
     "Daya Analisa": [
@@ -2624,6 +2895,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 2
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 1
       }
     ],
     "Kerjasama": [
@@ -2642,6 +2917,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 4
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Fleksibilitas": [
@@ -2656,6 +2935,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 1
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 3
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 3
       }
     ],
     "Kemampuan Perencanaan": [
@@ -2669,6 +2956,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 4
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 4
       }
     ],
@@ -2684,6 +2979,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 3
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 2
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 4
       }
     ],
     "Desain API": [
@@ -2698,6 +3001,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 1
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -2718,6 +3025,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 1
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 2
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 1
       }
@@ -2734,6 +3045,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -2756,6 +3071,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 1
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 1
       }
     ],
     "Containerization": [
@@ -2774,6 +3093,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 4
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 5
       }
     ]
   },
@@ -2794,6 +3117,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 5
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 4
       }
     ],
     "Kemampuan Perencanaan": [
@@ -2807,6 +3134,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 5
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 5
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 5
       }
     ],
@@ -2826,6 +3161,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 5
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 5
       }
     ],
     "Keterampilan Interpersonal": [
@@ -2839,6 +3178,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Membangun Hubungan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 4
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
         "score": 4
       }
     ],
@@ -2854,6 +3201,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 3
       }
     ],
     "Kerjasama": [
@@ -2872,6 +3227,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 5
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 4
       }
     ],
     "Strategi Korporat": [
@@ -2885,6 +3244,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
         "score": 5
       },
       {
@@ -2904,6 +3267,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -2926,6 +3293,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 4
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 2
       }
     ]
   },
@@ -2946,6 +3317,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 1
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 3
       }
     ],
     "Kemampuan Perencanaan": [
@@ -2960,6 +3335,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 3
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 2
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 2
       }
     ],
     "Daya Analisa": [
@@ -2978,6 +3361,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 4
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 5
       }
     ],
     "Keterampilan Interpersonal": [
@@ -2992,6 +3379,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 4
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 4
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 3
       }
     ],
     "Kemampuan verbal": [
@@ -3005,6 +3400,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 3
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 3
       }
     ],
@@ -3024,6 +3427,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 4
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 5
       }
     ],
     "Strategi Korporat": [
@@ -3038,6 +3445,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -3056,6 +3467,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -3078,6 +3493,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ]
   },
@@ -3098,6 +3517,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 3
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 3
       }
     ],
     "Kemampuan Perencanaan": [
@@ -3111,6 +3534,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 2
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 2
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 2
       }
     ],
@@ -3130,6 +3561,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 5
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 4
       }
     ],
     "Keterampilan Interpersonal": [
@@ -3144,6 +3579,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 3
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 3
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 5
       }
     ],
     "Kemampuan verbal": [
@@ -3158,6 +3601,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 5
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 3
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 4
       }
     ],
     "Kerjasama": [
@@ -3176,6 +3627,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 5
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 4
       }
     ],
     "Strategi Korporat": [
@@ -3190,6 +3645,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 2
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 1
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -3207,6 +3666,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
         "score": 5
       },
       {
@@ -3230,6 +3693,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 4
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 3
       }
     ]
   },
@@ -3250,6 +3717,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 4
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 2
       }
     ],
     "Kemampuan Perencanaan": [
@@ -3264,6 +3735,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 3
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 3
       }
     ],
     "Daya Analisa": [
@@ -3282,6 +3761,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 5
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 5
       }
     ],
     "Keterampilan Interpersonal": [
@@ -3296,6 +3779,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 5
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 5
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 5
       }
     ],
     "Kemampuan verbal": [
@@ -3309,6 +3800,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 5
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 5
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 5
       }
     ],
@@ -3328,6 +3827,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 2
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Manajemen Risiko": [
@@ -3342,6 +3845,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -3364,6 +3871,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 3
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 4
       }
     ],
     "Audit Internal": [
@@ -3381,6 +3892,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Dokumentasi & Pelaporan",
+        "score": 5
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
         "score": 5
       }
     ]
@@ -3402,6 +3917,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 3
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 4
       }
     ],
     "Kemampuan Perencanaan": [
@@ -3416,6 +3935,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 5
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 5
       }
     ],
     "Daya Analisa": [
@@ -3434,6 +3961,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 3
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 5
       }
     ],
     "Keterampilan Interpersonal": [
@@ -3448,6 +3979,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 5
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 5
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 4
       }
     ],
     "Kemampuan verbal": [
@@ -3461,6 +4000,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 4
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 5
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 4
       }
     ],
@@ -3480,6 +4027,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 2
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Pelaporan Keuangan": [
@@ -3494,6 +4045,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 1
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -3514,6 +4069,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 4
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 5
       }
@@ -3530,6 +4089,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -3552,6 +4115,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 5
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 3
       }
     ],
     "Standar Akuntansi": [
@@ -3570,6 +4137,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 4
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 3
       }
     ]
   },
@@ -3590,6 +4161,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Pengambilan Kesimpulan Logis",
         "score": 5
+      },
+      {
+        "label": "Pengujian Asumsi",
+        "score": 4
       }
     ],
     "Daya Analisa": [
@@ -3608,6 +4183,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 5
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 3
       }
     ],
     "Kemampuan Numerikal": [
@@ -3622,6 +4201,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Estimasi Cepat",
         "score": 4
+      },
+      {
+        "label": "Pembacaan Tabel & Grafik",
+        "score": 4
+      },
+      {
+        "label": "Ketelitian Angka",
+        "score": 4
       }
     ],
     "Kemampuan verbal": [
@@ -3635,6 +4222,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 5
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 5
       }
     ],
@@ -3654,6 +4249,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 3
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 1
       }
     ],
     "Fleksibilitas": [
@@ -3668,6 +4267,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 3
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 4
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 4
       }
     ],
     "Pemodelan Keuangan": [
@@ -3682,6 +4289,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 2
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -3702,6 +4313,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 2
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 1
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 2
       }
@@ -3718,6 +4333,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 2
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 1
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -3740,6 +4359,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 2
       }
     ],
     "Standar Akuntansi": [
@@ -3758,6 +4381,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 3
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 5
       }
     ]
   },
@@ -3778,6 +4405,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Pengambilan Kesimpulan Logis",
         "score": 4
+      },
+      {
+        "label": "Pengujian Asumsi",
+        "score": 5
       }
     ],
     "Daya Analisa": [
@@ -3796,6 +4427,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 4
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 4
       }
     ],
     "Kemampuan Numerikal": [
@@ -3810,6 +4445,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Estimasi Cepat",
         "score": 4
+      },
+      {
+        "label": "Pembacaan Tabel & Grafik",
+        "score": 4
+      },
+      {
+        "label": "Ketelitian Angka",
+        "score": 4
       }
     ],
     "Kemampuan verbal": [
@@ -3823,6 +4466,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 5
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 5
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 5
       }
     ],
@@ -3842,6 +4493,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 3
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 4
       }
     ],
     "Fleksibilitas": [
@@ -3856,6 +4511,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 5
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 5
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 3
       }
     ],
     "Pemodelan Keuangan": [
@@ -3870,6 +4533,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -3890,6 +4557,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 4
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 2
       }
@@ -3906,6 +4577,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 2
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -3928,6 +4603,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ],
     "Standar Akuntansi": [
@@ -3946,6 +4625,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 5
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 4
       }
     ]
   },
@@ -3966,6 +4649,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Pengambilan Kesimpulan Logis",
         "score": 3
+      },
+      {
+        "label": "Pengujian Asumsi",
+        "score": 3
       }
     ],
     "Daya Analisa": [
@@ -3984,6 +4671,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 1
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 2
       }
     ],
     "Kemampuan Numerikal": [
@@ -3998,6 +4689,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Estimasi Cepat",
         "score": 5
+      },
+      {
+        "label": "Pembacaan Tabel & Grafik",
+        "score": 5
+      },
+      {
+        "label": "Ketelitian Angka",
+        "score": 5
       }
     ],
     "Kemampuan verbal": [
@@ -4011,6 +4710,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 1
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 3
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 1
       }
     ],
@@ -4030,6 +4737,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 2
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Fleksibilitas": [
@@ -4043,6 +4754,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Toleransi Ambiguitas",
+        "score": 1
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 1
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
         "score": 1
       }
     ],
@@ -4058,6 +4777,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -4076,6 +4799,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 1
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -4098,6 +4825,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 1
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 2
       }
     ],
     "Standar Akuntansi": [
@@ -4116,6 +4847,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 5
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 4
       }
     ]
   },
@@ -4132,6 +4867,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 2
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 2
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 3
       }
     ],
     "Kerjasama": [
@@ -4150,6 +4893,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 4
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Kemampuan verbal": [
@@ -4164,6 +4911,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 3
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 2
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 4
       }
     ],
     "Fleksibilitas": [
@@ -4178,6 +4933,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 1
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 3
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 3
       }
     ],
     "Kemampuan Perencanaan": [
@@ -4191,6 +4954,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 4
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 4
       }
     ],
@@ -4210,6 +4981,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 2
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 1
       }
     ],
     "Manajemen Talenta": [
@@ -4224,6 +4999,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -4244,6 +5023,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 4
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 3
       }
@@ -4264,6 +5047,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 4
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 3
       }
     ],
     "HRIS": [
@@ -4282,6 +5069,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 2
       }
     ]
   },
@@ -4297,6 +5088,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Membangun Hubungan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 4
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
         "score": 4
       }
     ],
@@ -4316,6 +5115,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 5
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 4
       }
     ],
     "Kemampuan verbal": [
@@ -4330,6 +5133,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 3
       }
     ],
     "Fleksibilitas": [
@@ -4344,6 +5155,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 2
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 2
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 1
       }
     ],
     "Kemampuan Perencanaan": [
@@ -4357,6 +5176,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 5
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 5
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 5
       }
     ],
@@ -4376,6 +5203,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 3
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 3
       }
     ],
     "Manajemen Kinerja": [
@@ -4390,6 +5221,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -4410,6 +5245,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 4
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 3
       }
@@ -4430,6 +5269,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 4
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 3
       }
     ],
     "HRIS": [
@@ -4448,6 +5291,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ]
   },
@@ -4464,6 +5311,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 4
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 4
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 3
       }
     ],
     "Kerjasama": [
@@ -4482,6 +5337,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 4
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 5
       }
     ],
     "Kemampuan verbal": [
@@ -4495,6 +5354,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 3
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 3
       }
     ],
@@ -4510,6 +5377,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 4
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 2
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 4
       }
     ],
     "Kemampuan Perencanaan": [
@@ -4524,6 +5399,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 3
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 2
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 2
       }
     ],
     "Daya Analisa": [
@@ -4542,6 +5425,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 2
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 3
       }
     ],
     "Sourcing Kandidat": [
@@ -4556,6 +5443,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -4576,6 +5467,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 5
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 4
       }
@@ -4592,6 +5487,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -4614,6 +5513,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 4
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 5
       }
     ]
   },
@@ -4630,6 +5533,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 3
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 3
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 5
       }
     ],
     "Kerjasama": [
@@ -4648,6 +5559,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 5
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 4
       }
     ],
     "Kemampuan verbal": [
@@ -4662,6 +5577,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 5
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 3
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 4
       }
     ],
     "Fleksibilitas": [
@@ -4676,6 +5599,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 2
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 3
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 3
       }
     ],
     "Kemampuan Perencanaan": [
@@ -4689,6 +5620,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 2
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 2
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 2
       }
     ],
@@ -4708,6 +5647,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 4
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 2
       }
     ],
     "Administrasi Personalia": [
@@ -4722,6 +5665,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 2
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 1
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -4740,6 +5687,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -4762,6 +5713,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 5
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 5
       }
     ],
     "HRIS": [
@@ -4780,6 +5735,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 2
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 1
       }
     ]
   },
@@ -4800,6 +5759,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 4
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 2
       }
     ],
     "Kemampuan Perencanaan": [
@@ -4814,6 +5777,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 3
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 3
       }
     ],
     "Daya Analisa": [
@@ -4832,6 +5803,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 5
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 5
       }
     ],
     "Keterampilan Interpersonal": [
@@ -4846,6 +5821,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 5
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 5
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 5
       }
     ],
     "Kemampuan verbal": [
@@ -4859,6 +5842,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 5
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 5
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 5
       }
     ],
@@ -4878,6 +5869,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 2
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Perencanaan Kapasitas": [
@@ -4892,6 +5887,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -4912,6 +5911,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 4
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 2
       }
@@ -4928,6 +5931,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -4950,6 +5957,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 5
       }
     ],
     "Keselamatan Kerja": [
@@ -4968,6 +5979,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 4
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 5
       }
     ]
   },
@@ -4988,6 +6003,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 3
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 4
       }
     ],
     "Kemampuan Perencanaan": [
@@ -5002,6 +6021,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 5
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 5
       }
     ],
     "Daya Analisa": [
@@ -5020,6 +6047,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 4
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 5
       }
     ],
     "Keterampilan Interpersonal": [
@@ -5034,6 +6065,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 5
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 5
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 4
       }
     ],
     "Kemampuan verbal": [
@@ -5047,6 +6086,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 4
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 5
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 4
       }
     ],
@@ -5066,6 +6113,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 2
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Perencanaan Produksi": [
@@ -5080,6 +6131,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 2
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -5100,6 +6155,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 2
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 1
       }
@@ -5116,6 +6175,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -5137,6 +6200,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Dokumentasi & Pelaporan",
+        "score": 5
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
         "score": 5
       }
     ]
@@ -5158,6 +6225,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 5
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 5
       }
     ],
     "Kemampuan Perencanaan": [
@@ -5171,6 +6242,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 3
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 3
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 3
       }
     ],
@@ -5190,6 +6269,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 3
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 2
       }
     ],
     "Keterampilan Interpersonal": [
@@ -5204,6 +6287,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 1
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 1
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 2
       }
     ],
     "Kemampuan verbal": [
@@ -5218,6 +6309,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 2
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 1
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 3
       }
     ],
     "Kerjasama": [
@@ -5236,6 +6335,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 3
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 2
       }
     ],
     "Manajemen Rantai Pasok": [
@@ -5250,6 +6353,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -5270,6 +6377,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 4
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 3
       }
@@ -5286,6 +6397,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 2
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -5308,6 +6423,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ]
   },
@@ -5328,6 +6447,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Pengambilan Kesimpulan Logis",
         "score": 4
+      },
+      {
+        "label": "Pengujian Asumsi",
+        "score": 5
       }
     ],
     "Daya Analisa": [
@@ -5346,6 +6469,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 5
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 5
       }
     ],
     "Kemampuan Numerikal": [
@@ -5360,6 +6487,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Estimasi Cepat",
         "score": 4
+      },
+      {
+        "label": "Pembacaan Tabel & Grafik",
+        "score": 4
+      },
+      {
+        "label": "Ketelitian Angka",
+        "score": 4
       }
     ],
     "Kemampuan verbal": [
@@ -5373,6 +6508,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 5
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 5
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 5
       }
     ],
@@ -5392,6 +6535,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 3
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 4
       }
     ],
     "Fleksibilitas": [
@@ -5406,6 +6553,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 5
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 5
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 4
       }
     ],
     "Analitik Operasional": [
@@ -5424,6 +6579,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 5
       }
     ],
     "Pemetaan Proses": [
@@ -5438,6 +6597,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 2
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -5460,6 +6623,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ]
   },
@@ -5480,6 +6647,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 3
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 4
       }
     ],
     "Kemampuan Perencanaan": [
@@ -5494,6 +6665,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 5
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 5
       }
     ],
     "Daya Analisa": [
@@ -5512,6 +6691,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 1
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 2
       }
     ],
     "Keterampilan Interpersonal": [
@@ -5526,6 +6709,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 3
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 3
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 1
       }
     ],
     "Kemampuan verbal": [
@@ -5539,6 +6730,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 1
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 3
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 1
       }
     ],
@@ -5558,6 +6757,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 2
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Strategi Kampanye": [
@@ -5572,6 +6775,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 5
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -5592,6 +6799,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 3
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 5
       }
@@ -5608,6 +6819,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 2
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 1
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -5630,6 +6845,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 2
       }
     ],
     "Otomasi Pemasaran": [
@@ -5648,6 +6867,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ]
   },
@@ -5664,6 +6887,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 3
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 2
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 4
       }
     ],
     "Fleksibilitas": [
@@ -5678,6 +6909,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 1
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 3
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 3
       }
     ],
     "Daya Analisa": [
@@ -5696,6 +6935,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 2
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 1
       }
     ],
     "Kerjasama": [
@@ -5714,6 +6957,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 4
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Keterampilan Interpersonal": [
@@ -5728,6 +6975,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 2
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 2
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 3
       }
     ],
     "Kemampuan Perencanaan": [
@@ -5741,6 +6996,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 4
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 4
       }
     ],
@@ -5756,6 +7019,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -5774,6 +7041,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -5796,6 +7067,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 2
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 3
       }
     ]
   },
@@ -5812,6 +7087,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 3
       }
     ],
     "Fleksibilitas": [
@@ -5826,6 +7109,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 2
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 2
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 1
       }
     ],
     "Daya Analisa": [
@@ -5843,6 +7134,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Evaluasi Alternatif",
+        "score": 3
+      },
+      {
+        "label": "Penyederhanaan Masalah",
         "score": 3
       }
     ],
@@ -5862,6 +7157,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 5
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 4
       }
     ],
     "Keterampilan Interpersonal": [
@@ -5875,6 +7174,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Membangun Hubungan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 4
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
         "score": 4
       }
     ],
@@ -5890,6 +7197,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 5
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 5
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 5
       }
     ],
     "Manajemen Brand": [
@@ -5904,6 +7219,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 2
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -5924,6 +7243,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 5
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 5
       }
@@ -5940,6 +7263,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 2
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 1
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -5964,6 +7291,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Pengambilan Kesimpulan Logis",
         "score": 4
+      },
+      {
+        "label": "Pengujian Asumsi",
+        "score": 4
       }
     ],
     "Daya Analisa": [
@@ -5982,6 +7313,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 2
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 3
       }
     ],
     "Kemampuan Numerikal": [
@@ -5996,6 +7331,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Estimasi Cepat",
         "score": 4
+      },
+      {
+        "label": "Pembacaan Tabel & Grafik",
+        "score": 4
+      },
+      {
+        "label": "Ketelitian Angka",
+        "score": 4
       }
     ],
     "Kemampuan verbal": [
@@ -6009,6 +7352,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 3
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 3
       }
     ],
@@ -6028,6 +7379,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 4
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 5
       }
     ],
     "Fleksibilitas": [
@@ -6041,6 +7396,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Toleransi Ambiguitas",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 2
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
         "score": 4
       }
     ],
@@ -6056,6 +7419,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 2
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -6074,6 +7441,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -6096,6 +7467,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 3
       }
     ]
   },
@@ -6112,6 +7487,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 5
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 3
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 4
       }
     ],
     "Fleksibilitas": [
@@ -6126,6 +7509,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 2
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 3
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 3
       }
     ],
     "Daya Analisa": [
@@ -6144,6 +7535,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 4
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 2
       }
     ],
     "Kerjasama": [
@@ -6162,6 +7557,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 5
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 4
       }
     ],
     "Keterampilan Interpersonal": [
@@ -6176,6 +7575,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 3
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 3
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 5
       }
     ],
     "Kemampuan Perencanaan": [
@@ -6189,6 +7596,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 2
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 2
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 2
       }
     ],
@@ -6204,6 +7619,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 1
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -6224,6 +7643,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 3
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 1
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 3
       }
@@ -6240,6 +7663,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 2
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -6264,6 +7691,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 4
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 2
       }
     ],
     "Kemampuan Perencanaan": [
@@ -6278,6 +7709,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 3
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 3
       }
     ],
     "Daya Analisa": [
@@ -6296,6 +7735,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 5
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 5
       }
     ],
     "Keterampilan Interpersonal": [
@@ -6310,6 +7753,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 5
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 5
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 5
       }
     ],
     "Kemampuan verbal": [
@@ -6323,6 +7774,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 5
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 5
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 5
       }
     ],
@@ -6342,6 +7801,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 2
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Strategi Pendapatan": [
@@ -6356,6 +7819,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -6373,6 +7840,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
         "score": 5
       },
       {
@@ -6394,6 +7865,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 3
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 5
       }
@@ -6412,6 +7887,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 5
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 4
       }
     ],
     "Fleksibilitas": [
@@ -6425,6 +7908,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Toleransi Ambiguitas",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 3
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
         "score": 4
       }
     ],
@@ -6444,6 +7935,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 3
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 5
       }
     ],
     "Kerjasama": [
@@ -6462,6 +7957,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 2
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Keterampilan Interpersonal": [
@@ -6476,6 +7975,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 5
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 5
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 4
       }
     ],
     "Kemampuan Perencanaan": [
@@ -6490,6 +7997,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 5
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 5
       }
     ],
     "Arahan Kreatif": [
@@ -6503,6 +8018,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
         "score": 5
       },
       {
@@ -6522,6 +8041,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -6544,6 +8067,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 4
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 5
       }
     ]
   },
@@ -6564,6 +8091,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Pengambilan Kesimpulan Logis",
         "score": 2
+      },
+      {
+        "label": "Pengujian Asumsi",
+        "score": 1
       }
     ],
     "Daya Analisa": [
@@ -6581,6 +8112,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Evaluasi Alternatif",
+        "score": 1
+      },
+      {
+        "label": "Penyederhanaan Masalah",
         "score": 1
       }
     ],
@@ -6600,6 +8135,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 3
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 2
       }
     ],
     "Fleksibilitas": [
@@ -6614,6 +8153,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 1
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 2
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 2
       }
     ],
     "Kemampuan Perencanaan": [
@@ -6627,6 +8174,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 3
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 3
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 3
       }
     ],
@@ -6642,6 +8197,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 2
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 1
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 3
       }
     ],
     "Arsitektur Sistem": [
@@ -6656,6 +8219,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -6676,6 +8243,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 4
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 2
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 4
       }
@@ -6692,6 +8263,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -6714,6 +8289,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ],
     "Observability": [
@@ -6732,6 +8311,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 3
       }
     ]
   },
@@ -6752,6 +8335,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Pengambilan Kesimpulan Logis",
         "score": 2
+      },
+      {
+        "label": "Pengujian Asumsi",
+        "score": 4
       }
     ],
     "Daya Analisa": [
@@ -6770,6 +8357,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 5
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 5
       }
     ],
     "Kemampuan Numerikal": [
@@ -6783,6 +8374,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Estimasi Cepat",
+        "score": 1
+      },
+      {
+        "label": "Pembacaan Tabel & Grafik",
+        "score": 1
+      },
+      {
+        "label": "Ketelitian Angka",
         "score": 1
       }
     ],
@@ -6798,6 +8397,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 3
       }
     ],
     "Kerjasama": [
@@ -6816,6 +8423,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 5
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 4
       }
     ],
     "Fleksibilitas": [
@@ -6830,6 +8441,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Toleransi Ambiguitas",
         "score": 4
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 4
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
+        "score": 3
       }
     ],
     "Perencanaan Strategis": [
@@ -6844,6 +8463,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -6866,6 +8489,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ],
     "Pemodelan Skenario": [
@@ -6884,6 +8511,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 2
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ]
   },
@@ -6904,6 +8535,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Pengambilan Kesimpulan Logis",
         "score": 3
+      },
+      {
+        "label": "Pengujian Asumsi",
+        "score": 3
       }
     ],
     "Daya Analisa": [
@@ -6922,6 +8557,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 1
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 2
       }
     ],
     "Kemampuan Numerikal": [
@@ -6936,6 +8575,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Estimasi Cepat",
         "score": 5
+      },
+      {
+        "label": "Pembacaan Tabel & Grafik",
+        "score": 5
+      },
+      {
+        "label": "Ketelitian Angka",
+        "score": 5
       }
     ],
     "Kemampuan verbal": [
@@ -6949,6 +8596,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Kosakata & Tata Bahasa",
+        "score": 1
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 3
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
         "score": 1
       }
     ],
@@ -6968,6 +8623,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 2
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Fleksibilitas": [
@@ -6981,6 +8640,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Toleransi Ambiguitas",
+        "score": 1
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 1
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
         "score": 1
       }
     ],
@@ -6996,6 +8663,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -7018,6 +8689,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 2
       }
     ],
     "Optimasi Konversi": [
@@ -7031,6 +8706,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
         "score": 5
       },
       {
@@ -7054,6 +8733,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ]
   },
@@ -7074,6 +8757,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 5
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 5
       }
     ],
     "Kemampuan Perencanaan": [
@@ -7087,6 +8774,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 4
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 4
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 4
       }
     ],
@@ -7106,6 +8801,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 2
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 1
       }
     ],
     "Keterampilan Interpersonal": [
@@ -7120,6 +8819,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 2
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 2
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 3
       }
     ],
     "Kemampuan verbal": [
@@ -7134,6 +8841,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 3
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 2
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 4
       }
     ],
     "Kerjasama": [
@@ -7152,6 +8867,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 4
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 3
       }
     ],
     "Pelaporan Keuangan": [
@@ -7166,6 +8885,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -7186,6 +8909,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 4
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 2
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 4
       }
@@ -7202,6 +8929,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 3
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -7224,6 +8955,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dokumentasi & Pelaporan",
         "score": 4
+      },
+      {
+        "label": "Pembaruan atas Perubahan Aturan",
+        "score": 5
       }
     ]
   },
@@ -7244,6 +8979,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Tanggung Jawab atas Hasil",
         "score": 5
+      },
+      {
+        "label": "Pengembangan Anggota Tim",
+        "score": 4
       }
     ],
     "Kemampuan Perencanaan": [
@@ -7257,6 +8996,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Antisipasi Risiko",
+        "score": 5
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 5
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
         "score": 5
       }
     ],
@@ -7276,6 +9023,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 5
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 5
       }
     ],
     "Keterampilan Interpersonal": [
@@ -7289,6 +9040,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Membangun Hubungan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 4
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
         "score": 4
       }
     ],
@@ -7304,6 +9063,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 4
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 3
       }
     ],
     "Kerjasama": [
@@ -7322,6 +9089,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 5
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 4
       }
     ],
     "Manajemen Rantai Pasok": [
@@ -7335,6 +9106,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Penanganan Kasus Kompleks",
+        "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
         "score": 5
       },
       {
@@ -7356,6 +9131,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
         "score": 5
       },
       {
+        "label": "Perbaikan Cara Kerja",
+        "score": 4
+      },
+      {
         "label": "Berbagi Pengetahuan ke Tim",
         "score": 5
       }
@@ -7372,6 +9151,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 5
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -7394,6 +9177,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 4
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 5
       }
     ]
   },
@@ -7410,6 +9197,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Kosakata & Tata Bahasa",
         "score": 3
+      },
+      {
+        "label": "Penyusunan Tulisan Kerja",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Gaya Bahasa",
+        "score": 3
       }
     ],
     "Fleksibilitas": [
@@ -7423,6 +9218,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       },
       {
         "label": "Toleransi Ambiguitas",
+        "score": 4
+      },
+      {
+        "label": "Penyesuaian Prioritas",
+        "score": 2
+      },
+      {
+        "label": "Pemulihan Setelah Hambatan",
         "score": 4
       }
     ],
@@ -7442,6 +9245,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Evaluasi Alternatif",
         "score": 2
+      },
+      {
+        "label": "Penyederhanaan Masalah",
+        "score": 3
       }
     ],
     "Kerjasama": [
@@ -7460,6 +9267,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Dukungan ke Rekan Kerja",
         "score": 4
+      },
+      {
+        "label": "Menjaga Komitmen Bersama",
+        "score": 5
       }
     ],
     "Keterampilan Interpersonal": [
@@ -7474,6 +9285,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Membangun Hubungan Kerja",
         "score": 4
+      },
+      {
+        "label": "Membaca Situasi Sosial",
+        "score": 4
+      },
+      {
+        "label": "Penyampaian Umpan Balik",
+        "score": 3
       }
     ],
     "Kemampuan Perencanaan": [
@@ -7488,6 +9307,14 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Antisipasi Risiko",
         "score": 3
+      },
+      {
+        "label": "Penyusunan Langkah Kerja",
+        "score": 2
+      },
+      {
+        "label": "Pemantauan Pelaksanaan",
+        "score": 2
       }
     ],
     "Penulisan Konten": [
@@ -7502,6 +9329,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -7520,6 +9351,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Penanganan Kasus Kompleks",
         "score": 4
+      },
+      {
+        "label": "Perbaikan Cara Kerja",
+        "score": 3
       },
       {
         "label": "Berbagi Pengetahuan ke Tim",
@@ -7542,6 +9377,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 3
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 4
       }
     ],
     "Analitik Digital": [
@@ -7560,6 +9399,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
       {
         "label": "Optimasi & Otomasi",
         "score": 5
+      },
+      {
+        "label": "Pendampingan Pengguna Lain",
+        "score": 3
       }
     ]
   }

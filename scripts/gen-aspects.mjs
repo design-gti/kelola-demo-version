@@ -162,17 +162,22 @@ const DEFAULT_TECHNICAL = ["Penguasaan Alat Kerja", "Kualitas Output", "Dokument
 const DEFAULT_BUNDLE = "builder";
 
 // ── Key Behaviour ────────────────────────────────────────────────────────────
-/** KB aspek General — indikator perilaku spesifik per aspek. */
+/**
+ * KB aspek General — indikator perilaku spesifik per aspek.
+ *
+ * Tiap aspek punya tepat KB_PER_ASPECT butir: skala penilaiannya 1-5, jadi satu
+ * KB per taraf membuat pemetaan taraf → KB di halaman Aspect selalu penuh.
+ */
 const KB_GENERAL = {
-  "Logika Berpikir": ["Berpikir Sistematis", "Berpikir Kritis", "Pemecahan Masalah", "Pengambilan Kesimpulan Logis"],
-  "Kemampuan Numerikal": ["Ketepatan Hitung", "Interpretasi Data Angka", "Estimasi Cepat"],
-  "Kemampuan verbal": ["Pemahaman Bacaan", "Kejelasan Ekspresi Lisan", "Kosakata & Tata Bahasa"],
-  "Daya Analisa": ["Identifikasi Pola", "Analisis Sebab-Akibat", "Sintesis Informasi", "Evaluasi Alternatif"],
-  Fleksibilitas: ["Adaptasi Perubahan", "Keterbukaan pada Ide Baru", "Toleransi Ambiguitas"],
-  Leadership: ["Pengambilan Keputusan", "Memotivasi Tim", "Delegasi Tugas", "Tanggung Jawab atas Hasil"],
-  "Keterampilan Interpersonal": ["Mendengarkan Aktif", "Empati", "Membangun Hubungan Kerja"],
-  Kerjasama: ["Kontribusi dalam Tim", "Resolusi Konflik", "Berbagi Informasi", "Dukungan ke Rekan Kerja"],
-  "Kemampuan Perencanaan": ["Penetapan Prioritas", "Manajemen Waktu", "Antisipasi Risiko"],
+  "Logika Berpikir": ["Berpikir Sistematis", "Berpikir Kritis", "Pemecahan Masalah", "Pengambilan Kesimpulan Logis", "Pengujian Asumsi"],
+  "Kemampuan Numerikal": ["Ketepatan Hitung", "Interpretasi Data Angka", "Estimasi Cepat", "Pembacaan Tabel & Grafik", "Ketelitian Angka"],
+  "Kemampuan verbal": ["Pemahaman Bacaan", "Kejelasan Ekspresi Lisan", "Kosakata & Tata Bahasa", "Penyusunan Tulisan Kerja", "Penyesuaian Gaya Bahasa"],
+  "Daya Analisa": ["Identifikasi Pola", "Analisis Sebab-Akibat", "Sintesis Informasi", "Evaluasi Alternatif", "Penyederhanaan Masalah"],
+  Fleksibilitas: ["Adaptasi Perubahan", "Keterbukaan pada Ide Baru", "Toleransi Ambiguitas", "Penyesuaian Prioritas", "Pemulihan Setelah Hambatan"],
+  Leadership: ["Pengambilan Keputusan", "Memotivasi Tim", "Delegasi Tugas", "Tanggung Jawab atas Hasil", "Pengembangan Anggota Tim"],
+  "Keterampilan Interpersonal": ["Mendengarkan Aktif", "Empati", "Membangun Hubungan Kerja", "Membaca Situasi Sosial", "Penyampaian Umpan Balik"],
+  Kerjasama: ["Kontribusi dalam Tim", "Resolusi Konflik", "Berbagi Informasi", "Dukungan ke Rekan Kerja", "Menjaga Komitmen Bersama"],
+  "Kemampuan Perencanaan": ["Penetapan Prioritas", "Manajemen Waktu", "Antisipasi Risiko", "Penyusunan Langkah Kerja", "Pemantauan Pelaksanaan"],
 };
 
 /**
@@ -182,10 +187,13 @@ const KB_GENERAL = {
  * aspek perkakas.
  */
 const KB_BY_FAMILY = {
-  "Technical Core": ["Penguasaan Konsep Dasar", "Penerapan pada Pekerjaan Harian", "Penanganan Kasus Kompleks", "Berbagi Pengetahuan ke Tim"],
-  "Tools & Platform": ["Penguasaan Fitur Inti", "Pemakaian dalam Alur Kerja", "Troubleshooting Mandiri", "Optimasi & Otomasi"],
-  Regulasi: ["Pemahaman Ketentuan", "Penerapan pada Proses Kerja", "Identifikasi Risiko Kepatuhan", "Dokumentasi & Pelaporan"],
+  "Technical Core": ["Penguasaan Konsep Dasar", "Penerapan pada Pekerjaan Harian", "Penanganan Kasus Kompleks", "Perbaikan Cara Kerja", "Berbagi Pengetahuan ke Tim"],
+  "Tools & Platform": ["Penguasaan Fitur Inti", "Pemakaian dalam Alur Kerja", "Troubleshooting Mandiri", "Optimasi & Otomasi", "Pendampingan Pengguna Lain"],
+  Regulasi: ["Pemahaman Ketentuan", "Penerapan pada Proses Kerja", "Identifikasi Risiko Kepatuhan", "Dokumentasi & Pelaporan", "Pembaruan atas Perubahan Aturan"],
 };
+
+/** Tiap aspek wajib punya sebanyak ini KB — dijaga oleh pemeriksaan di bawah. */
+const KB_PER_ASPECT = 5;
 
 // ── Rakit ────────────────────────────────────────────────────────────────────
 const catalog = parseCSV(read("public/data/aspects.csv"));
@@ -266,6 +274,13 @@ const kbLabelsOf = (aspect) => {
   if (entry?.category === "General") return KB_GENERAL[aspect] ?? [];
   return KB_BY_FAMILY[entry?.kb_family] ?? KB_BY_FAMILY["Technical Core"];
 };
+// Aspek yang KB-nya kurang dari lima akan tampil sebagai baris dengan taraf
+// kosong di halaman Aspect — dihentikan di sini, bukan dibiarkan lolos.
+const kbShort = catalog.map((a) => a.aspect).filter((a) => kbLabelsOf(a).length !== KB_PER_ASPECT);
+if (kbShort.length) {
+  throw new Error(`Aspek dengan KB ≠ ${KB_PER_ASPECT}: ${kbShort.join(", ")}`);
+}
+
 const kbLines = ["id,aspect,key_behaviour,score"];
 participants.forEach((p) =>
   aspectsOf(p.position).forEach((a) => {

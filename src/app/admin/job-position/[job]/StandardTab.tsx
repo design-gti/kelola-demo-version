@@ -1,8 +1,11 @@
 "use client";
 import { useMemo, useState } from "react";
 import { ActionIcon, Button, NativeSelect, Switch, Table, Text, TextInput, Tooltip, UnstyledButton } from "@mantine/core";
-import { IconChevronUp, IconInfoCircle, IconPlus, IconSearch, IconTrash } from "@tabler/icons-react";
+import { IconChevronUp, IconInfoCircle, IconPlus, IconSearch, IconSparkles, IconTrash } from "@tabler/icons-react";
 import { ASPECT_CATALOG, STANDARDS_BY_JOB } from "@/data/model/aspects.generated";
+import { AspectPickerModal } from "@/app/admin/aspect/AspectPickerModal";
+import { GenerateAspectModal } from "./GenerateAspectModal";
+import { buildLibrary } from "@/app/admin/aspect/aspects";
 
 const ACCENT = "var(--mantine-color-primary-5)";
 const MAX_STANDARD = 5;
@@ -220,22 +223,44 @@ function CategorySection({
  * Perubahannya hidup di state komponen saja — hasil seed tidak bisa ditulis dari
  * browser, jadi nilai yang diubah kembali ke awal saat halaman dimuat ulang.
  */
-export function StandardTab({ job }: { job: string }) {
+export function StandardTab({
+  job,
+  jobDescription,
+  generateOpen,
+  onGenerateOpenChange,
+}: {
+  job: string;
+  jobDescription: string;
+  /** Dikendalikan induk: modalnya juga bisa dibuka dari modal Job Description. */
+  generateOpen: boolean;
+  onGenerateOpenChange: (open: boolean) => void;
+}) {
   // Katalognya modul TS, bukan fetch — siap sejak render pertama.
   const standardsOfJob = useMemo(() => STANDARDS_BY_JOB[job] ?? {}, [job]);
+  /**
+   * Aspek yang ditambahkan lewat "Choose Aspect". Hidup di state saja: standar
+   * per Job berasal dari hasil seed yang tidak bisa ditulis dari browser, jadi
+   * tambahan ini bertahan selama sesi dan hilang saat halaman dimuat ulang.
+   */
+  const [added, setAdded] = useState<string[]>([]);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  /** Library aspek aktif — sumber pilihan di modal Choose Aspect. */
+  const library = useMemo(() => buildLibrary(), []);
   const aspects = useMemo<Aspect[]>(
     () =>
-      ASPECT_CATALOG.filter((a) => a.label in standardsOfJob).map((a) => ({
+      ASPECT_CATALOG.filter((a) => a.label in standardsOfJob || added.includes(a.label)).map((a) => ({
         label: a.label,
         category: a.category,
         description: a.description,
       })),
-    [standardsOfJob],
+    [standardsOfJob, added],
   );
-  /** Nilai awal = standar Job hasil seed. */
+  /** Nilai awal = standar Job hasil seed; aspek yang baru ditambahkan mulai dari standar bawaan. */
   const initial = useMemo<Record<string, Setting>>(() => {
     const out: Record<string, Setting> = {};
-    for (const a of aspects) out[a.label] = { standard: standardsOfJob[a.label], mandatory: false };
+    for (const a of aspects) {
+      out[a.label] = { standard: standardsOfJob[a.label] ?? DEFAULT_STANDARD, mandatory: false };
+    }
     return out;
   }, [aspects, standardsOfJob]);
   /** Nilai yang sedang diedit. */
@@ -291,12 +316,48 @@ export function StandardTab({ job }: { job: string }) {
 
   return (
     <div className="flex flex-col gap-[16px]">
-      <div className="flex justify-end">
-        {/* Belum punya alur — halaman admin masih rangka. */}
-        <Button variant="outline" radius="xl" leftSection={<IconPlus size={16} stroke={1.6} />}>
+      <div className="flex flex-wrap items-center justify-end gap-[8px]">
+        <Button
+          variant="subtle"
+          radius="xl"
+          leftSection={<IconPlus size={16} stroke={1.6} />}
+          onClick={() => setPickerOpen(true)}
+        >
           Choose Aspect
         </Button>
+        <Button
+          variant="outline"
+          radius="xl"
+          leftSection={<IconSparkles size={16} stroke={1.6} />}
+          onClick={() => onGenerateOpenChange(true)}
+        >
+          Generate Aspect by Job Desc.
+        </Button>
       </div>
+
+      {/* Modal yang sama dipakai halaman Aspect — daftarnya juga sama, yaitu
+          aspek aktif. Yang sudah ada di Job ini dilewatkan sebagai
+          `alreadyAdded` supaya tidak bisa dipilih dua kali. */}
+      <GenerateAspectModal
+        opened={generateOpen}
+        jobDescription={jobDescription}
+        library={library}
+        alreadyAdded={aspects.map((a) => a.label)}
+        onClose={() => onGenerateOpenChange(false)}
+        onAdd={(labels) => setAdded((prev) => [...prev, ...labels.filter((l) => !prev.includes(l))])}
+      />
+
+      <AspectPickerModal
+        opened={pickerOpen}
+        aspects={library}
+        title="Choose Aspect"
+        alreadyAdded={aspects.map((a) => a.label)}
+        onClose={() => setPickerOpen(false)}
+        onAdd={(labels) => {
+          setAdded((prev) => [...prev, ...labels.filter((l) => !prev.includes(l))]);
+          setPickerOpen(false);
+        }}
+      />
 
       {byCategory.map(([category, list]) => (
         <CategorySection
