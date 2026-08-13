@@ -1,6 +1,6 @@
 "use client";
 import { createPortal } from "react-dom";
-import { ActionIcon } from "@mantine/core";
+import { Button } from "@mantine/core";
 import { IconSettings } from "@tabler/icons-react";
 import { useState } from "react";
 import DraggableCardWrapper from "@/components/DraggableCardWrapper";
@@ -116,18 +116,6 @@ export function IProfileCardGrid({
         document.body,
       )}
 
-      <ActionIcon
-        onClick={() => setSettingsOpen(true)}
-        variant="filled"
-        color="primary"
-        radius="xl"
-        size={40}
-        aria-label="Atur kartu iProfile"
-        style={{ position: "fixed", right: 24, bottom: 88, zIndex: 30 }}
-      >
-        <IconSettings size={20} stroke={1.6} />
-      </ActionIcon>
-
       <SettingsPanel
         open={settingsOpen}
         onClose={() => setSettingsOpen(false)}
@@ -140,10 +128,26 @@ export function IProfileCardGrid({
         previewRenderWidth={CARD_WIDTH}
       />
 
-      <div className="flex gap-[16px] items-start relative size-full">
-        {column(0)}
-        {column(1)}
-        {column(2)}
+      {/* Tombol pengaturan duduk di atas kolom paling kanan: wadahnya selebar
+          ketiga kolom, jadi rata kanan di sini berarti sejajar tepi kanan
+          kartu terakhir. */}
+      <div className="flex flex-col gap-[8px] relative size-full">
+        <div className="flex justify-end" style={{ width: CARD_WIDTH * 3 + 32 }}>
+          <Button
+            variant="subtle"
+            size="compact-sm"
+            leftSection={<IconSettings size={16} stroke={1.6} />}
+            onClick={() => setSettingsOpen(true)}
+          >
+            Configuration
+          </Button>
+        </div>
+
+        <div className="flex gap-[16px] items-start">
+          {column(0)}
+          {column(1)}
+          {column(2)}
+        </div>
       </div>
     </>
   );

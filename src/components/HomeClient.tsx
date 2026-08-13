@@ -3,7 +3,6 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { ActionIcon } from "@mantine/core";
 import { IconSettings } from "@tabler/icons-react";
-import TopHeading from "@/components/TopHeading";
 import BannerInsight from "@/components/BannerInsight";
 import DraggableCardWrapper from "@/components/DraggableCardWrapper";
 import AspectScoreCard from "@/components/AspectScoreCard";
@@ -223,10 +222,9 @@ export default function HomeClient({
 
       <ScaleWrapper>
         <div className="bg-[#f8f9fa] min-h-screen">
-          <div className="bg-[#f8f9fa] h-[54px] px-4">
-            <TopHeading />
-          </div>
-
+          {/* Judul "Home" + lonceng notifikasi sebelumnya berdiri di sini,
+              tapi sudah dobel dengan AppHeader yang menampilkan nama menu dan
+              lonceng yang sama di header aplikasi. */}
           <div className="px-4 pb-8">
             <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
 
