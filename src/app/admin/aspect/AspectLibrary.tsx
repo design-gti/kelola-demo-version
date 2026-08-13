@@ -2,7 +2,7 @@
 import { memo, useCallback, useMemo, useState } from "react";
 import { ActionIcon, Button, Checkbox, NativeSelect, Table, Text, Textarea, TextInput, UnstyledButton } from "@mantine/core";
 import { IconArrowsMove, IconChevronUp, IconPlus, IconSearch, IconTrash, IconX } from "@tabler/icons-react";
-import { buildLibrary, byCategory, SCALE, type LibraryAspect } from "./aspects";
+import { buildLibrary, byCategory, SCALE, type KeyBehaviourRef, type LibraryAspect } from "./aspects";
 import { AspectPickerModal } from "./AspectPickerModal";
 import { CreateCategoryModal } from "./CreateCategoryModal";
 import { MoveToClusterModal } from "./MoveToClusterModal";
@@ -19,7 +19,7 @@ type Draft = {
   /** undefined = belum disentuh, jadi yang tampil deskripsi asli aspeknya. */
   description?: string;
   /** undefined = belum disentuh, jadi yang tampil KB bawaan aspeknya. */
-  keyBehaviours?: string[];
+  keyBehaviours?: KeyBehaviourRef[];
   keyBehaviourInput: string;
   /** Pemetaan taraf 1..5 → nama Key Behaviour. */
   levels: Record<number, string | null>;
@@ -49,6 +49,10 @@ const AspectRow = memo(function AspectRow({
   // Sumber tunggal untuk dua tempat: daftar chip di kolom Key Behavior dan
   // pilihan di kolom taraf 1-5. KB yang dihapus langsung hilang dari keduanya.
   const options = draft.keyBehaviours ?? aspect.keyBehaviours;
+  // KB dikelompokkan per taraf: kolom taraf N hanya menawarkan butir milik
+  // taraf N. Sebelumnya semua kolom menawarkan daftar yang sama persis, yang
+  // membuat pemetaan taraf jadi tidak ada artinya.
+  const optionsOfLevel = (level: number) => options.filter((kb) => kb.level === level);
 
   return (
     <Table.Tr>
@@ -80,13 +84,24 @@ const AspectRow = memo(function AspectRow({
         {/* KB tampil sebagai daftar butir, bukan satu teks panjang: butirnya
             dipakai satu-satu di pemetaan taraf, jadi harus bisa dibaca dan
             dihapus satu-satu juga. */}
-        <div className="flex flex-col gap-[6px]">
+        {/* Digulung di dalam sel: tiap aspek punya 15 butir KB, dan kalau semua
+            ditumpuk satu baris aspek jadi setinggi layar penuh — tabelnya tidak
+            bisa dibaca lagi. Isian tambah KB sengaja di luar area gulir supaya
+            selalu terjangkau. */}
+        <div className="flex max-h-[190px] flex-col gap-[6px] overflow-y-auto pr-[4px] card-scroll">
           {options.map((kb) => (
-            <span key={kb} className="kb-chip">
-              <span className="kb-chip-label">{kb}</span>
+            <span key={`${kb.level}-${kb.label}`} className="kb-chip">
+              {/* Tarafnya ikut ditulis: butir yang sama bisa terasa mirip antar
+                  taraf, dan tanpa penanda ini urutannya jadi tidak terbaca. */}
+              <span className="kb-chip-level">L{kb.level}</span>
+              <span className="kb-chip-label">{kb.label}</span>
               <UnstyledButton
-                onClick={() => onChange(aspect.label, { keyBehaviours: options.filter((x) => x !== kb) })}
-                aria-label={`Hapus Key Behavior ${kb} dari ${aspect.label}`}
+                onClick={() =>
+                  onChange(aspect.label, {
+                    keyBehaviours: options.filter((x) => !(x.level === kb.level && x.label === kb.label)),
+                  })
+                }
+                aria-label={`Hapus Key Behavior ${kb.label} dari ${aspect.label}`}
                 className="kb-chip-remove"
               >
                 <IconX size={13} stroke={1.8} />
@@ -98,7 +113,7 @@ const AspectRow = memo(function AspectRow({
           <TextInput
             variant="unstyled"
             size="xs"
-            placeholder="Enter to submit Key Behavior, will auto separate item with '|'"
+            placeholder="Enter to submit Key Behavior, awali '3: ' untuk taraf, pisah item dengan '|'"
             value={draft.keyBehaviourInput}
             onChange={(e) => onChange(aspect.label, { keyBehaviourInput: e.currentTarget.value })}
             onKeyDown={(e) => {
@@ -107,9 +122,19 @@ const AspectRow = memo(function AspectRow({
               const baru = e.currentTarget.value
                 .split("|")
                 .map((s) => s.trim())
-                .filter((s) => s && !options.includes(s));
+                .filter(Boolean)
+                .map((s) => {
+                  // "3: teks" menaruh butir di taraf 3; tanpa awalan itu butirnya
+                  // masuk taraf 1, taraf paling dasar.
+                  const m = /^([1-5])\s*[:.]\s*(.+)$/.exec(s);
+                  return m ? { level: Number(m[1]), label: m[2].trim() } : { level: 1, label: s };
+                })
+                .filter((kb) => !options.some((x) => x.level === kb.level && x.label === kb.label));
               if (baru.length === 0) return;
-              onChange(aspect.label, { keyBehaviours: [...options, ...baru], keyBehaviourInput: "" });
+              onChange(aspect.label, {
+                keyBehaviours: [...options, ...baru].sort((a, b) => a.level - b.level),
+                keyBehaviourInput: "",
+              });
             }}
             aria-label={`Tambah Key Behavior ${aspect.label}`}
           />
@@ -124,13 +149,18 @@ const AspectRow = memo(function AspectRow({
       {Array.from({ length: SCALE }, (_, i) => i + 1).map((level) => (
         <Table.Td key={level} w={150}>
           {/* NativeSelect, bukan Select: Select membangun combobox lengkap
-              (portal, store, pencarian) per sel, dan di tab Hard ada ratusan
-              sel — itu yang bikin perpindahan tab tersendat. Pilihannya cuma
-              3-4 KB per aspek, jadi pencarian memang tidak diperlukan. */}
+              (portal, store, pencarian) per sel, dan tabel ini punya ratusan
+              sel — itu yang dulu bikin perpindahan tab tersendat. Pilihannya
+              cuma beberapa KB per taraf, jadi pencarian memang tak diperlukan.
+
+              Yang ditawarkan HANYA KB milik taraf ini — itu inti pemetaannya. */}
           <NativeSelect
             variant="unstyled"
             size="xs"
-            data={[{ value: "", label: "select key behavior" }, ...options]}
+            data={[
+              { value: "", label: "select key behavior" },
+              ...optionsOfLevel(level).map((kb) => kb.label),
+            ]}
             value={draft.levels[level] ?? ""}
             onChange={(e) => onChange(aspect.label, { levels: { ...draft.levels, [level]: e.currentTarget.value || null } })}
             aria-label={`Key Behavior taraf ${level} untuk ${aspect.label}`}

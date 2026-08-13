@@ -219,6 +219,14 @@ html, body {
   min-width: 0;
   word-break: break-word;
 }
+/* Penanda taraf di depan butir KB. Lebarnya dikunci supaya teks butirnya rata
+   satu sama lain meski tarafnya berbeda digit. */
+.kb-chip-level {
+  flex-shrink: 0;
+  width: 20px;
+  font-weight: 700;
+  opacity: 0.55;
+}
 .kb-chip-remove {
   flex-shrink: 0;
   display: inline-flex;

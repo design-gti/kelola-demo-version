@@ -1,4 +1,6 @@
-import { ASPECT_CATALOG } from "@/data/model/aspects.generated";
+import { ASPECT_CATALOG, type KeyBehaviourRef } from "@/data/model/aspects.generated";
+
+export type { KeyBehaviourRef };
 
 export type LibraryAspect = {
   label: string;
@@ -6,8 +8,12 @@ export type LibraryAspect = {
   category: string;
   /** Penjelasan singkat kemampuan yang dinilai aspek ini. */
   description: string;
-  /** Key Behaviour milik aspek ini — jadi pilihan saat memetakannya ke taraf 1-5. */
-  keyBehaviours: string[];
+  /**
+   * Key Behaviour milik aspek ini, bertaraf: tiap taraf 1..SCALE punya
+   * beberapa butir. Kolom taraf di halaman Aspect hanya menawarkan butir milik
+   * taraf yang bersangkutan.
+   */
+  keyBehaviours: KeyBehaviourRef[];
 };
 
 /** Skala penilaian aspek; sama dengan skala skor di iProfile. */

@@ -1,72 +1,4 @@
 job,aspect,standard
-Teknologi,Mendengar Aktif,3
-Teknologi,Inisiatif,3
-Teknologi,Keandalan,3
-Teknologi,Koordinasi Lintas Fungsi,3
-Teknologi,Ketahanan Tekanan,3
-Teknologi,Kegigihan,3
-Teknologi,Pemantauan Kinerja Akun,3
-Teknologi,Rekayasa Perangkat Lunak,4
-Teknologi,Arsitektur & Rancangan Sistem,4
-Teknologi,Keandalan & Operasional Sistem,4
-Teknologi,Keamanan Informasi,4
-Teknologi,Pengelolaan Data,4
-Strategi,Mendengar Aktif,3
-Strategi,Inisiatif,3
-Strategi,Kemitraan Strategis,3
-Strategi,Koordinasi Lintas Fungsi,3
-Strategi,Pemantauan Kinerja Akun,3
-Strategi,Persuasi,3
-Strategi,Ketahanan Tekanan,3
-Strategi,Analisis Strategis,4
-Strategi,Tata Kelola & Manajemen Risiko,4
-Strategi,Pemahaman Organisasi Klien,4
-Strategi,Ketajaman Komersial,4
-Keuangan,Mendengar Aktif,3
-Keuangan,Keandalan,3
-Keuangan,Pemantauan Kinerja Akun,3
-Keuangan,Koordinasi Lintas Fungsi,3
-Keuangan,Kepekaan Sosial,3
-Keuangan,Inisiatif,3
-Keuangan,Ketahanan Tekanan,3
-Keuangan,Pelaporan & Standar Akuntansi,4
-Keuangan,Analisis & Perencanaan Keuangan,4
-Keuangan,Pengendalian & Kepatuhan,4
-Keuangan,Pengelolaan Data,4
-SDM,Mendengar Aktif,3
-SDM,Kepekaan Sosial,3
-SDM,Orientasi Melayani,3
-SDM,Enablement Klien,3
-SDM,Koordinasi Lintas Fungsi,3
-SDM,Keandalan,3
-SDM,Pemantauan Kinerja Akun,3
-SDM,Negosiasi,3
-SDM,Rekrutmen & Seleksi,4
-SDM,Pengembangan Talenta,4
-SDM,Manajemen Kinerja & Remunerasi,4
-Operasional,Keandalan,3
-Operasional,Koordinasi Lintas Fungsi,3
-Operasional,Pemantauan Kinerja Akun,3
-Operasional,Inisiatif,3
-Operasional,Mendengar Aktif,3
-Operasional,Ketahanan Tekanan,3
-Operasional,Orientasi Melayani,3
-Operasional,Perbaikan Proses,4
-Operasional,Kendali Mutu,4
-Operasional,Manajemen Rantai Pasok,4
-Operasional,Pengelolaan Data,4
-Pemasaran,Mendengar Aktif,3
-Pemasaran,Inisiatif,3
-Pemasaran,Persuasi,3
-Pemasaran,Koordinasi Lintas Fungsi,3
-Pemasaran,Kepekaan Sosial,3
-Pemasaran,Kemitraan Strategis,3
-Pemasaran,Pemantauan Kinerja Akun,3
-Pemasaran,Strategi Merek & Komunikasi,4
-Pemasaran,Pemasaran Digital & Analitik,4
-Pemasaran,Riset Pasar & Wawasan Pelanggan,4
-Pemasaran,Penguasaan Produk & Pasar,4
-Pemasaran,Ketajaman Komersial,4
 Hunter,Mendengar Aktif,4
 Hunter,Inisiatif,5
 Hunter,Negosiasi,4
@@ -92,3 +24,71 @@ Farmer,Penguasaan Sales Technology,3
 Farmer,Manajemen Layanan Klien,5
 Farmer,Evaluasi Kesehatan Akun,4
 Farmer,Penguasaan Produk & Pasar,3
+Teknologi,Mendengar Aktif,3
+Teknologi,Inisiatif,3
+Teknologi,Keandalan,3
+Teknologi,Koordinasi Lintas Fungsi,3
+Teknologi,Ketahanan Tekanan,3
+Teknologi,Kegigihan,3
+Teknologi,Pemantauan Kinerja Akun,3
+Teknologi,Rekayasa Perangkat Lunak,4
+Teknologi,Arsitektur & Rancangan Sistem,4
+Teknologi,Keandalan & Operasional Sistem,4
+Teknologi,Keamanan Informasi,4
+Teknologi,Pengelolaan Data,4
+Keuangan,Mendengar Aktif,3
+Keuangan,Keandalan,3
+Keuangan,Pemantauan Kinerja Akun,3
+Keuangan,Koordinasi Lintas Fungsi,3
+Keuangan,Kepekaan Sosial,3
+Keuangan,Inisiatif,3
+Keuangan,Ketahanan Tekanan,3
+Keuangan,Pelaporan & Standar Akuntansi,4
+Keuangan,Analisis & Perencanaan Keuangan,4
+Keuangan,Pengendalian & Kepatuhan,4
+Keuangan,Pengelolaan Data,4
+Operasional,Keandalan,3
+Operasional,Koordinasi Lintas Fungsi,3
+Operasional,Pemantauan Kinerja Akun,3
+Operasional,Inisiatif,3
+Operasional,Mendengar Aktif,3
+Operasional,Ketahanan Tekanan,3
+Operasional,Orientasi Melayani,3
+Operasional,Perbaikan Proses,4
+Operasional,Kendali Mutu,4
+Operasional,Manajemen Rantai Pasok,4
+Operasional,Pengelolaan Data,4
+SDM,Mendengar Aktif,3
+SDM,Kepekaan Sosial,3
+SDM,Orientasi Melayani,3
+SDM,Enablement Klien,3
+SDM,Koordinasi Lintas Fungsi,3
+SDM,Keandalan,3
+SDM,Pemantauan Kinerja Akun,3
+SDM,Negosiasi,3
+SDM,Rekrutmen & Seleksi,4
+SDM,Pengembangan Talenta,4
+SDM,Manajemen Kinerja & Remunerasi,4
+Strategi,Mendengar Aktif,3
+Strategi,Inisiatif,3
+Strategi,Kemitraan Strategis,3
+Strategi,Koordinasi Lintas Fungsi,3
+Strategi,Pemantauan Kinerja Akun,3
+Strategi,Persuasi,3
+Strategi,Ketahanan Tekanan,3
+Strategi,Analisis Strategis,4
+Strategi,Tata Kelola & Manajemen Risiko,4
+Strategi,Pemahaman Organisasi Klien,4
+Strategi,Ketajaman Komersial,4
+Pemasaran,Mendengar Aktif,3
+Pemasaran,Inisiatif,3
+Pemasaran,Persuasi,3
+Pemasaran,Koordinasi Lintas Fungsi,3
+Pemasaran,Kepekaan Sosial,3
+Pemasaran,Kemitraan Strategis,3
+Pemasaran,Pemantauan Kinerja Akun,3
+Pemasaran,Strategi Merek & Komunikasi,4
+Pemasaran,Pemasaran Digital & Analitik,4
+Pemasaran,Riset Pasar & Wawasan Pelanggan,4
+Pemasaran,Penguasaan Produk & Pasar,4
+Pemasaran,Ketajaman Komersial,4

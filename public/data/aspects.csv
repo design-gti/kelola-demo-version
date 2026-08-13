@@ -1,105 +1,40 @@
-aspect,category,description,kb_family
-Logika Berpikir,General,"Kemampuan menyusun penalaran yang runtut, menarik kesimpulan yang sahih dari informasi yang tersedia, dan menguji asumsi sebelum mengambil keputusan.",
-Kemampuan Numerikal,General,"Kemampuan bekerja dengan angka secara cepat dan tepat, membaca data kuantitatif, serta menafsirkan maknanya untuk kebutuhan pekerjaan.",
-Kemampuan verbal,General,"Kemampuan memahami bacaan dan menyampaikan gagasan secara lisan maupun tertulis dengan struktur, kosakata, dan tata bahasa yang jelas.",
-Daya Analisa,General,"Kemampuan menguraikan masalah menjadi bagian-bagian yang lebih kecil, mengenali pola dan hubungan sebab-akibat, lalu menyusunnya kembali jadi kesimpulan yang utuh.",
-Keterampilan Interpersonal,General,"Kemampuan membangun dan menjaga hubungan kerja yang sehat, membaca situasi sosial, serta menyesuaikan cara berkomunikasi dengan lawan bicara.",
-Kerjasama,General,"Kesediaan bekerja bersama orang lain demi tujuan bersama, berbagi informasi secara terbuka, dan mendukung penyelesaian tugas rekan satu tim.",
-Fleksibilitas,General,"Kemampuan menyesuaikan diri dengan perubahan prioritas, cara kerja, atau situasi baru tanpa kehilangan efektivitas.",
-Leadership,General,"Kemampuan mengarahkan dan memotivasi orang lain menuju sasaran bersama, mengambil keputusan, serta bertanggung jawab atas hasilnya.",
-Kemampuan Perencanaan,General,"Kemampuan menetapkan sasaran, menyusun langkah kerja beserta kebutuhan sumber dayanya, dan memantau pelaksanaannya sampai tuntas.",
-Arsitektur Sistem,Technical,"Merancang struktur sistem yang aman, terukur, dan mudah dirawat, termasuk memilih pola dan batasan antar-komponen.",Technical Core
-Code Review,Technical,"Menelaah kode rekan kerja untuk menjaga kualitas, menemukan cacat lebih awal, dan menularkan standar teknis tim.",Technical Core
-Keamanan Aplikasi,Technical,"Mengenali dan menutup celah keamanan pada aplikasi, dari validasi masukan sampai pengelolaan hak akses.",Technical Core
-CI/CD,Technical,"Menyiapkan dan merawat alur build, uji, dan rilis otomatis agar perubahan sampai ke produksi dengan cepat dan aman.",Tools & Platform
-Cloud Infrastructure,Technical,"Mengelola sumber daya cloud — komputasi, jaringan, dan penyimpanan — sesuai kebutuhan beban dan anggaran.",Tools & Platform
-Observability,Technical,"Menyiapkan log, metrik, dan penelusuran agar perilaku sistem di produksi bisa dipantau dan masalahnya cepat ditemukan.",Tools & Platform
-Kualitas Kode,Technical,"Menulis kode yang bersih, konsisten, dan mudah dibaca orang lain, bukan hanya berjalan benar.",Technical Core
-Pengujian Otomatis,Technical,Menyusun pengujian yang menangkap regresi lebih awal dan menjaga keyakinan saat kode diubah.,Technical Core
-Debugging,Technical,"Menelusuri penyebab kegagalan secara sistematis sampai ke akar masalahnya, bukan berhenti di gejalanya.",Technical Core
-Version Control,Technical,"Mengelola riwayat perubahan, percabangan, dan penggabungan kode secara tertib dalam kerja tim.",Tools & Platform
-Arsitektur Komponen,Technical,Menyusun komponen antarmuka yang dapat dipakai ulang dengan batas tanggung jawab yang jelas.,Technical Core
-State Management,Technical,Mengelola alur data dan status aplikasi sisi klien agar tetap dapat diprediksi saat aplikasi membesar.,Technical Core
-Aksesibilitas,Technical,"Memastikan antarmuka dapat digunakan semua orang, termasuk pengguna pembaca layar dan navigasi keyboard.",Technical Core
-Performa Web,Technical,Mengukur dan memperbaiki kecepatan muat serta kelancaran interaksi halaman.,Tools & Platform
-Design System,Technical,Membangun dan merawat komponen serta token desain bersama agar tampilan produk konsisten.,Tools & Platform
-Desain API,Technical,"Merancang antarmuka layanan yang jelas, konsisten, dan mudah dipakai tim lain.",Technical Core
-Basis Data,Technical,Merancang skema dan relasi data yang menjaga integritas serta sesuai pola penggunaannya.,Technical Core
-Optimasi Query,Technical,"Menganalisis dan memperbaiki kueri yang lambat, termasuk penggunaan indeks yang tepat.",Technical Core
-Message Queue,Technical,Memakai antrean pesan untuk memisahkan proses yang berjalan asinkron dan menahan lonjakan beban.,Tools & Platform
-Containerization,Technical,Mengemas aplikasi beserta dependensinya ke dalam container agar konsisten di semua lingkungan.,Tools & Platform
-Strategi Korporat,Technical,Menyusun arah jangka panjang perusahaan dan menerjemahkannya jadi sasaran yang bisa dijalankan unit kerja.,Technical Core
-Alokasi Modal,Technical,Memutuskan ke mana dana dan sumber daya diarahkan berdasarkan potensi imbal hasil serta risikonya.,Technical Core
-Tata Kelola,Technical,"Menjaga proses pengambilan keputusan perusahaan berjalan sesuai aturan, wewenang, dan akuntabilitas yang berlaku.",Regulasi
-Analisis Kompetitif,Technical,Membaca posisi pesaing dan dinamika pasar untuk menemukan peluang serta ancaman bagi perusahaan.,Technical Core
-Pemodelan Skenario,Technical,Menyusun beberapa kemungkinan masa depan beserta dampaknya sebagai bahan pengambilan keputusan.,Tools & Platform
-Manajemen Risiko,Technical,"Mengidentifikasi, menilai, dan menyiapkan penanganan atas risiko yang dapat mengganggu tujuan organisasi.",Technical Core
-Kepatuhan Regulasi,Technical,Memastikan kegiatan perusahaan memenuhi ketentuan hukum dan regulasi yang berlaku.,Regulasi
-Audit Internal,Technical,Menguji secara independen apakah proses dan pengendalian internal berjalan sebagaimana mestinya.,Regulasi
-Pelaporan Keuangan,Technical,"Menyusun laporan keuangan yang akurat, tepat waktu, dan sesuai standar yang berlaku.",Technical Core
-Analisis Anggaran,Technical,Menyusun anggaran dan menganalisis realisasinya untuk menjaga belanja tetap pada rencana.,Technical Core
-Kepatuhan Pajak,Technical,Memenuhi kewajiban perpajakan perusahaan secara tepat hitung dan tepat waktu.,Regulasi
-Standar Akuntansi,Technical,Menerapkan standar akuntansi yang berlaku dalam pencatatan dan penyajian transaksi.,Regulasi
-Pemodelan Keuangan,Technical,Membangun model perhitungan untuk memproyeksikan kinerja keuangan dan menguji asumsinya.,Technical Core
-Analisis Varians,Technical,Menjelaskan selisih antara rencana dan realisasi beserta penyebabnya.,Technical Core
-Rekonsiliasi,Technical,Mencocokkan catatan antar-sumber data keuangan dan menuntaskan selisih yang ditemukan.,Technical Core
-Spreadsheet Lanjutan,Technical,"Mengolah data dengan rumus, tabel pivot, dan otomasi spreadsheet untuk analisis yang berulang.",Tools & Platform
-Pengendalian Internal,Technical,Merancang dan menjalankan kontrol yang mencegah kesalahan serta penyimpangan dalam proses kerja.,Technical Core
-Audit Kepatuhan,Technical,Memeriksa kesesuaian pelaksanaan proses terhadap kebijakan dan ketentuan yang berlaku.,Regulasi
-Manajemen Talenta,Technical,"Mengelola identifikasi, pengembangan, dan retensi karyawan bertalenta sesuai kebutuhan organisasi.",Technical Core
-Perencanaan SDM,Technical,Memproyeksikan kebutuhan tenaga kerja dan menyiapkan pemenuhannya sejalan dengan rencana bisnis.,Technical Core
-Hubungan Industrial,Technical,Menjaga hubungan kerja yang sehat antara perusahaan dan karyawan sesuai ketentuan ketenagakerjaan.,Regulasi
-HRIS,Technical,Mengelola data dan proses kepegawaian melalui sistem informasi SDM.,Tools & Platform
-Manajemen Kinerja,Technical,"Menjalankan siklus penetapan sasaran, pemantauan, dan penilaian kinerja karyawan.",Technical Core
-Remunerasi,Technical,Menyusun struktur gaji dan tunjangan yang adil secara internal serta bersaing di pasar.,Technical Core
-Sourcing Kandidat,Technical,Menemukan dan menjangkau kandidat yang sesuai kebutuhan posisi melalui berbagai kanal.,Technical Core
-Teknik Wawancara,Technical,Menggali kemampuan dan kesesuaian kandidat lewat pertanyaan yang terstruktur dan bukti perilaku.,Technical Core
-Employer Branding,Technical,Membangun citra perusahaan sebagai tempat kerja yang menarik bagi kandidat sasaran.,Technical Core
-ATS,Technical,Mengelola alur rekrutmen dan data pelamar melalui sistem pelacakan kandidat.,Tools & Platform
-Administrasi Personalia,Technical,"Mengurus dokumen, kontrak, dan pencatatan kepegawaian secara tertib dan tepat waktu.",Technical Core
-Onboarding,Technical,"Menyiapkan karyawan baru agar cepat memahami peran, alat kerja, dan budaya organisasi.",Technical Core
-Kepatuhan Ketenagakerjaan,Technical,Memastikan praktik kepegawaian memenuhi peraturan ketenagakerjaan yang berlaku.,Regulasi
-Perencanaan Kapasitas,Technical,Menyelaraskan kapasitas produksi atau layanan dengan proyeksi permintaan.,Technical Core
-Manajemen Rantai Pasok,Technical,Mengelola aliran barang dan informasi dari pemasok sampai ke pelanggan.,Technical Core
-Kendali Mutu,Technical,Menjaga hasil kerja memenuhi standar mutu melalui pemeriksaan dan tindakan perbaikan.,Technical Core
-Analitik Operasional,Technical,Mengolah data operasional menjadi temuan yang bisa ditindaklanjuti untuk perbaikan proses.,Tools & Platform
-Keselamatan Kerja,Technical,Menerapkan prosedur keselamatan untuk mencegah kecelakaan dan penyakit akibat kerja.,Regulasi
-Perencanaan Produksi,Technical,Menyusun jadwal dan urutan produksi agar target terpenuhi dengan sumber daya yang ada.,Technical Core
-Efisiensi Proses,Technical,Menemukan pemborosan dalam alur kerja dan merancang perbaikannya.,Technical Core
-Manajemen Vendor,Technical,"Memilih, mengevaluasi, dan membina hubungan dengan pemasok agar pasokan andal.",Technical Core
-Perencanaan Inventori,Technical,Menjaga tingkat persediaan pada titik yang aman tanpa menahan modal berlebih.,Technical Core
-Sistem ERP,Technical,Menjalankan proses bisnis terpadu melalui sistem ERP perusahaan.,Tools & Platform
-Pemetaan Proses,Technical,Mendokumentasikan alur kerja beserta pelaku dan keluarannya sebagai dasar perbaikan.,Technical Core
-Strategi Kampanye,Technical,"Merancang kampanye pemasaran mulai dari sasaran, pesan, sampai pemilihan kanal.",Technical Core
-Riset Pasar,Technical,"Menggali kebutuhan, perilaku, dan persepsi pasar sebagai dasar keputusan pemasaran.",Technical Core
-Manajemen Brand,Technical,Menjaga konsistensi identitas dan persepsi merek di seluruh titik sentuh.,Technical Core
-Analitik Digital,Technical,Mengukur kinerja kanal digital dan menerjemahkan datanya jadi keputusan optimasi.,Tools & Platform
-Otomasi Pemasaran,Technical,Merancang alur komunikasi otomatis yang berjalan sesuai perilaku calon pelanggan.,Tools & Platform
-Eksperimen Pertumbuhan,Technical,Merancang dan menjalankan uji coba terukur untuk menemukan pendorong pertumbuhan.,Technical Core
-Optimasi Konversi,Technical,Memperbaiki tahapan perjalanan pengguna agar lebih banyak yang menuntaskan tindakan sasaran.,Technical Core
-Strategi Brand,Technical,"Menetapkan posisi, nilai, dan arah jangka panjang merek di pasar.",Technical Core
-Narasi & Positioning,Technical,Merumuskan cerita dan pembeda merek agar tertanam jelas di benak audiens.,Technical Core
-Strategi Pendapatan,Technical,Menyusun cara perusahaan menumbuhkan pendapatan lintas produk dan segmen.,Technical Core
-Manajemen Pipeline,Technical,Mengelola tahapan peluang penjualan agar prakiraan pendapatan dapat diandalkan.,Technical Core
-Penetapan Harga,Technical,"Menentukan harga berdasarkan nilai bagi pelanggan, biaya, dan posisi pesaing.",Technical Core
-Arahan Kreatif,Technical,Memimpin arah visual dan pesan karya kreatif agar selaras dengan sasaran kampanye.,Technical Core
-Storytelling Visual,Technical,Menyampaikan gagasan melalui rangkaian visual yang runtut dan berkesan.,Technical Core
-Manajemen Produksi,Technical,"Mengatur jadwal, sumber daya, dan mutu pada proses produksi materi kreatif.",Tools & Platform
-Desain Terdistribusi,Technical,Merancang sistem yang berjalan di banyak layanan dengan memperhitungkan kegagalan parsial dan konsistensi data.,Technical Core
-Technical Roadmap,Technical,"Menyusun arah teknis jangka menengah, termasuk urutan pembenahan utang teknis dan investasi platform.",Technical Core
-Perencanaan Strategis,Technical,Menerjemahkan sasaran jangka panjang menjadi rencana kerja dengan tahapan dan ukuran keberhasilan.,Technical Core
-Manajemen Kas,Technical,Mengelola arus kas masuk dan keluar agar likuiditas perusahaan tetap terjaga.,Technical Core
-Negosiasi Pengadaan,Technical,Merundingkan harga dan syarat pengadaan yang menguntungkan tanpa mengorbankan mutu.,Technical Core
-Penulisan Konten,Technical,"Menulis konten yang jelas, sesuai audiens, dan mendukung tujuan komunikasi.",Technical Core
-Produksi Visual,Technical,Menghasilkan materi visual yang rapi dan sesuai panduan merek.,Technical Core
-SEO,Technical,Meningkatkan keterlihatan halaman di mesin pencari lewat perbaikan teknis dan konten.,Tools & Platform
-Prospecting,Technical,"Kemampuan menemukan dan menjangkau calon pelanggan baru lewat riset pasar, jaringan, dan kanal yang tepat sasaran.",Technical Core
-Kualifikasi Lead,Technical,"Kemampuan menilai kesiapan dan kecocokan calon pelanggan agar upaya penjualan diarahkan ke peluang yang benar-benar layak.",Technical Core
-Presentasi Solusi,Technical,"Kemampuan merangkai dan menyampaikan solusi yang menjawab kebutuhan pelanggan, termasuk demo produk dan penanganan keberatan.",Technical Core
-Negosiasi Kontrak,Technical,"Kemampuan menyepakati harga, ruang lingkup, dan syarat kerja sama yang menguntungkan kedua pihak tanpa merusak hubungan.",Technical Core
-Manajemen Akun,Technical,"Kemampuan menjaga dan mengembangkan hubungan dengan pelanggan yang sudah ada, termasuk memetakan kebutuhan lanjutannya.",Technical Core
-Customer Success,Technical,"Kemampuan memastikan pelanggan memperoleh manfaat nyata dari produk, dari onboarding sampai pemakaian sehari-hari.",Technical Core
-Retensi & Renewal,Technical,"Kemampuan menjaga pelanggan tetap berlangganan, mengenali tanda-tanda akan berhenti, dan menyiapkan perpanjangan lebih awal.",Technical Core
-Upselling & Cross-selling,Technical,"Kemampuan mengenali peluang penambahan nilai di akun yang sudah berjalan dan menawarkannya pada saat yang tepat.",Technical Core
-CRM,Technical,"Kemampuan memakai perkakas CRM untuk mencatat aktivitas, menjaga kebersihan data pipeline, dan menarik laporan yang bisa dipercaya.",Tools & Platform
-Manajemen Tender,Technical,"Kemampuan mengikuti pengadaan pemerintah maupun korporat: membaca ketentuan, menyiapkan dokumen, dan menjaga kepatuhannya.",Regulasi
+aspect,category,description
+Mendengar Aktif,General,"Memberi perhatian penuh pada lawan bicara, memahami maksud, dan mengajukan pertanyaan yang tepat."
+Koordinasi Lintas Fungsi,General,Menyesuaikan tindakan diri dengan tindakan orang lain untuk mencapai hasil bersama.
+Keandalan,General,"Dapat diandalkan, bertanggung jawab, dan memenuhi kewajiban."
+Inisiatif,General,Kesediaan mengambil tanggung jawab dan tantangan tanpa menunggu instruksi.
+Enablement Klien,General,Mengajarkan orang lain cara melakukan sesuatu.
+Pemantauan Kinerja Akun,General,"Memantau dan menilai kinerja diri, orang lain, atau organisasi untuk melakukan perbaikan."
+Negosiasi,General,Mempertemukan pihak-pihak yang berbeda kepentingan dan mengupayakan kesepakatan.
+Kegigihan,General,Ketekunan menghadapi hambatan dan tidak mudah menyerah pada penolakan.
+Persuasi,General,Membujuk orang lain untuk mengubah pikiran atau perilaku.
+Kemitraan Strategis,General,"Memosisikan diri sebagai mitra sejajar klien: berani jujur, membawa perspektif luar, dan dipercaya terlibat sebelum kebutuhan dirumuskan. FOKUS pada POSISI dan KEBERANIAN, bukan pada teknik menggali kebutuhan (lihat aspek OA dan AL)."
+Orientasi Melayani,General,Aktif mencari cara untuk membantu orang lain.
+Kepekaan Sosial,General,Menyadari reaksi orang lain dan memahami mengapa mereka bereaksi demikian.
+Ketahanan Tekanan,General,Menerima kritik dan menghadapi situasi bertekanan tinggi dengan tenang dan efektif.
+Pemahaman Organisasi Klien,Technical,"Pengetahuan tentang prinsip bisnis dan manajemen: struktur, alokasi sumber daya, koordinasi."
+Penguasaan Sales Technology,Technical,Kemampuan memanfaatkan perangkat lunak dan sistem pendukung kerja penjualan.
+Manajemen Layanan Klien,Technical,"Prinsip dan proses layanan pelanggan: penilaian kebutuhan, standar mutu, evaluasi kepuasan."
+Ketajaman Komersial,Technical,"Pengetahuan tentang prinsip ekonomi dan akuntansi, analisis data finansial, dan pelaporan."
+Analisis Kebutuhan Klien,Technical,Menganalisis kebutuhan dan persyaratan untuk merumuskan rancangan solusi.
+Evaluasi Kesehatan Akun,Technical,Mengidentifikasi ukuran kinerja sistem dan tindakan yang diperlukan untuk memperbaikinya.
+Penguasaan Produk & Pasar,Technical,"Pengetahuan tentang produk, strategi penjualan, teknik demonstrasi, dan lanskap pasar."
+Rekayasa Perangkat Lunak,Technical,"Kemampuan menulis, menguji, dan merawat kode yang benar, mudah dibaca, dan bertahan terhadap perubahan."
+Arsitektur & Rancangan Sistem,Technical,"Kemampuan menyusun struktur sistem yang aman, terukur, dan mudah dirawat, beserta alasan di balik tiap pilihannya."
+Keandalan & Operasional Sistem,Technical,"Kemampuan menjaga layanan tetap hidup: memantau, menangani gangguan, dan mencegahnya berulang."
+Keamanan Informasi,Technical,"Kemampuan mengenali dan menutup celah keamanan pada sistem, data, dan cara kerja sehari-hari."
+Pengelolaan Data,Technical,"Kemampuan menyiapkan, mengolah, dan menjaga mutu data agar layak dipakai untuk pengambilan keputusan."
+Pelaporan & Standar Akuntansi,Technical,"Kemampuan menyusun laporan keuangan yang benar, tepat waktu, dan sesuai standar yang berlaku."
+Analisis & Perencanaan Keuangan,Technical,"Kemampuan membaca angka menjadi keputusan: menyusun anggaran, proyeksi, dan menilai kelayakan investasi."
+Pengendalian & Kepatuhan,Technical,"Kemampuan menjaga proses keuangan berjalan sesuai aturan, termasuk perpajakan dan pengendalian internal."
+Perbaikan Proses,Technical,"Kemampuan memetakan cara kerja yang berjalan, menemukan pemborosan, dan merapikannya."
+Kendali Mutu,Technical,"Kemampuan menjaga hasil kerja memenuhi standar mutu, termasuk menangani penyimpangan yang muncul."
+Manajemen Rantai Pasok,Technical,"Kemampuan menjaga ketersediaan barang dan jasa: perencanaan kebutuhan, pemasok, dan persediaan."
+Rekrutmen & Seleksi,Technical,"Kemampuan menemukan, menilai, dan meyakinkan kandidat yang sesuai kebutuhan jabatan."
+Pengembangan Talenta,Technical,"Kemampuan menumbuhkan kemampuan orang: menilai kebutuhan, menyiapkan program, dan menyiapkan penerus."
+Manajemen Kinerja & Remunerasi,Technical,Kemampuan menjalankan penilaian kinerja yang adil dan menyusun imbalan yang bersaing serta layak.
+Analisis Strategis,Technical,"Kemampuan membaca lanskap bisnis — pasar, pesaing, dan kemampuan internal — menjadi pilihan yang bisa diputuskan."
+Tata Kelola & Manajemen Risiko,Technical,Kemampuan menjaga keputusan perusahaan berjalan lewat mekanisme yang benar dan risikonya terkelola.
+Strategi Merek & Komunikasi,Technical,Kemampuan membangun posisi merek dan menyampaikannya secara konsisten di seluruh titik sentuh.
+Pemasaran Digital & Analitik,Technical,"Kemampuan menjalankan dan mengukur kegiatan pemasaran di kanal digital, lalu memperbaikinya dari data."
+Riset Pasar & Wawasan Pelanggan,Technical,"Kemampuan menggali kebutuhan dan perilaku pelanggan, lalu mengubahnya jadi arahan yang bisa dipakai."
