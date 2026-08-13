@@ -1,7 +1,7 @@
 ﻿"use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import svgPaths from "./svg-djevy8uiqd";
-import { CompetencyScoresCard, PotencyScoresCard } from "../components/ScoreAspectWithTabs";
+import { IProfileCardGrid } from "../components/IProfileCardGrid";
 import { StandardPositionSelect } from "../components/StandardPositionSelect";
 import { ProfileMoreMenu } from "../components/ProfileMoreMenu";
 import { SuccessorsAccordion } from "../components/SuccessorsAccordion";
@@ -226,7 +226,7 @@ function Frame76() {
   );
 }
 
-function Frame79({ title }: { title: string }) {
+export function Frame79({ title }: { title: string }) {
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-[336.333px]">
       <Frame83 title={title} />
@@ -240,7 +240,7 @@ function Frame79({ title }: { title: string }) {
 // Aksi kartu (bukan filter) — ditaruh sebagai footer, dipisah garis dari isi.
 // Sebelumnya berdiri di antara kontrol dan ikut terbaca sebagai filter, padahal
 // semua kontrol lain mengubah tampilan sementara tombol ini membuka data lain.
-function Frame153() {
+export function Frame153() {
   return (
     <div className="content-stretch flex items-center justify-end relative shrink-0 w-full pt-[12px] mt-[4px] border-t border-[#e9ecef]">
       <div className="content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[4px] relative rounded-[28px] shrink-0 w-[135px] cursor-pointer" data-name="button">
@@ -276,7 +276,7 @@ function Frame9() {
 // `showLegend` false saat view spider chart: tanda centang & kotak biru itu
 // bahasa visual milik view list, di chart keduanya tidak ada — dan chart sudah
 // punya legend sendiri di bawahnya.
-function Frame116({ rightSlot, showLegend = true }: { rightSlot?: React.ReactNode; showLegend?: boolean }) {
+export function Frame116({ rightSlot, showLegend = true }: { rightSlot?: React.ReactNode; showLegend?: boolean }) {
   return (
     <div className="content-stretch flex flex-col gap-[8px] relative shrink-0 w-full">
       <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full">
@@ -289,38 +289,30 @@ function Frame116({ rightSlot, showLegend = true }: { rightSlot?: React.ReactNod
 }
 
 
-function Frame118() {
-  const { scoreAspects } = useContext(ProfileContext);
+export function ProfileCard() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-[368.333px]">
-      <div className="bg-white overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Profile">
-        <div style={{ height: 346 }} />
-        <Frame151 />
-        <Frame78 />
-        <div className="absolute left-0 overflow-clip size-[16px] top-[16px]" data-name="grip-vertical">
-          <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
-            <div className="absolute inset-[-7.03%_-14.06%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
-                <g id="Vector">
-                  <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </g>
-              </svg>
-            </div>
-          </div>
+  <div className="bg-white overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Profile">
+    <div style={{ height: 346 }} />
+    <Frame151 />
+    <Frame78 />
+    <div className="absolute left-0 overflow-clip size-[16px] top-[16px]" data-name="grip-vertical">
+      <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
+        <div className="absolute inset-[-7.03%_-14.06%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
+            <g id="Vector">
+              <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+            </g>
+          </svg>
         </div>
-        <Frame88 />
       </div>
-      {/* Dua kartu terpisah, bertumpuk. Sebelumnya satu kartu dengan tab
-          Competency | Potency; dipisah supaya keduanya terbaca sekaligus tanpa
-          harus berpindah tab. */}
-      <CompetencyScoresCard Frame79={Frame79} Frame153={Frame153} Frame116={Frame116} />
-      <PotencyScoresCard Frame79={Frame79} items={scoreAspects.potency} />
     </div>
+    <Frame88 />
+  </div>
   );
 }
 
@@ -843,89 +835,97 @@ function Frame94() {
   );
 }
 
-function Frame121() {
+export function CareerSuccessionCard() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-[368.333px]">
-      <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto pl-[36px] pr-[16px] py-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Career & Succession plan">
-        <Frame80 />
-        <Frame47 />
-        <div className="relative rounded-[28px] shrink-0 w-full cursor-pointer hover:bg-[#f0f9ff] transition-colors" data-name="button"
-          onClick={() => { window.location.href = '/tdp-view?tab=compare&from=iprofile'; }}>
-          <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />
-          <div className="flex flex-row items-center justify-center size-full">
-            <div className="content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[4px] relative w-full">
-              <div className="overflow-clip relative shrink-0 size-[20px]" data-name="users">
-                <div className="absolute inset-[12.5%]" data-name="Vector">
-                  <div className="absolute inset-[-5%]">
-                    <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.5 16.5">
-                      <path d={svgPaths.p221e2500} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                    </svg>
-                  </div>
-                </div>
+  <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto pl-[36px] pr-[16px] py-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Career & Succession plan">
+    <Frame80 />
+    <Frame47 />
+    <div className="relative rounded-[28px] shrink-0 w-full cursor-pointer hover:bg-[#f0f9ff] transition-colors" data-name="button"
+      onClick={() => { window.location.href = '/tdp-view?tab=compare&from=iprofile'; }}>
+      <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />
+      <div className="flex flex-row items-center justify-center size-full">
+        <div className="content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[4px] relative w-full">
+          <div className="overflow-clip relative shrink-0 size-[20px]" data-name="users">
+            <div className="absolute inset-[12.5%]" data-name="Vector">
+              <div className="absolute inset-[-5%]">
+                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.5 16.5">
+                  <path d={svgPaths.p221e2500} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                </svg>
               </div>
-              <p className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#016699] text-[14px]">Compare Successors</p>
             </div>
           </div>
-        </div>
-        <div className="absolute left-0 overflow-clip size-[16px] top-[17px]" data-name="grip-vertical">
-          <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
-            <div className="absolute inset-[-7.03%_-14.06%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
-                <g id="Vector">
-                  <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </g>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <DynamicConnectors />
-      </div>
-      <div className="bg-white content-stretch flex flex-col gap-[23px] items-start p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Teams">
-        <Frame117 />
-        <Frame87 />
-        <div className="absolute left-0 overflow-clip size-[16px] top-[17px]" data-name="grip-vertical">
-          <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
-            <div className="absolute inset-[-7.03%_-14.06%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
-                <g id="Vector">
-                  <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </g>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="bg-white content-stretch flex flex-col gap-[23px] h-[216.313px] items-start p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Data Extension">
-        <Frame91 />
-        <Frame94 />
-        <div className="absolute left-0 overflow-clip size-[16px] top-[16px]" data-name="grip-vertical">
-          <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
-            <div className="absolute inset-[-7.03%_-14.06%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
-                <g id="Vector">
-                  <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </g>
-              </svg>
-            </div>
-          </div>
+          <p className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#016699] text-[14px]">Compare Successors</p>
         </div>
       </div>
     </div>
+    <div className="absolute left-0 overflow-clip size-[16px] top-[17px]" data-name="grip-vertical">
+      <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
+        <div className="absolute inset-[-7.03%_-14.06%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
+            <g id="Vector">
+              <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <DynamicConnectors />
+  </div>
+  );
+}
+
+export function TeamsCard() {
+  return (
+  <div className="bg-white content-stretch flex flex-col gap-[23px] items-start p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Teams">
+    <Frame117 />
+    <Frame87 />
+    <div className="absolute left-0 overflow-clip size-[16px] top-[17px]" data-name="grip-vertical">
+      <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
+        <div className="absolute inset-[-7.03%_-14.06%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
+            <g id="Vector">
+              <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  );
+}
+
+export function ExtensionDataCard() {
+  return (
+  <div className="bg-white content-stretch flex flex-col gap-[23px] h-[216.313px] items-start p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Data Extension">
+    <Frame91 />
+    <Frame94 />
+    <div className="absolute left-0 overflow-clip size-[16px] top-[16px]" data-name="grip-vertical">
+      <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
+        <div className="absolute inset-[-7.03%_-14.06%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
+            <g id="Vector">
+              <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
   );
 }
 
@@ -1395,66 +1395,70 @@ function Frame69() {
   );
 }
 
-function Frame119() {
+export function DevelopmentCard() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-[368.333px]">
-      <div className="bg-white content-stretch flex flex-col gap-[16px] items-start p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="IDP List">
-        <Frame97 />
-        <Frame104 />
-        <Frame105 />
-        <div className="absolute left-[-0.17px] overflow-clip size-[16px] top-[16px]" data-name="grip-vertical">
-          <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
-            <div className="absolute inset-[-7.03%_-14.06%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
-                <g id="Vector">
-                  <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </g>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="bg-white content-stretch flex flex-col gap-[16px] items-center p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Employee Data">
-        <Frame111 />
-        <Frame69 />
-        <button className="content-stretch cursor-pointer flex gap-[8px] items-center px-[8px] py-[4px] relative rounded-[28px] shrink-0" data-name="button">
-          <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[28px]" />
-          <div className="overflow-clip relative shrink-0 size-[20px]" data-name="circle-chevron-up">
-            <div className="absolute inset-[12.5%]" data-name="Vector">
-              <div className="absolute inset-[-5%]">
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.5 16.5">
-                  <path d={svgPaths.pffcc900} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <p className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#adb5bd] text-[14px] text-left">Less</p>
-        </button>
-        <div className="absolute left-0 overflow-clip size-[16px] top-[16px]" data-name="grip-vertical">
-          <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
-            <div className="absolute inset-[-7.03%_-14.06%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
-                <g id="Vector">
-                  <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                  <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </g>
-              </svg>
-            </div>
-          </div>
+  <div className="bg-white content-stretch flex flex-col gap-[16px] items-start p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="IDP List">
+    <Frame97 />
+    <Frame104 />
+    <Frame105 />
+    <div className="absolute left-[-0.17px] overflow-clip size-[16px] top-[16px]" data-name="grip-vertical">
+      <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
+        <div className="absolute inset-[-7.03%_-14.06%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
+            <g id="Vector">
+              <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+            </g>
+          </svg>
         </div>
       </div>
     </div>
+  </div>
   );
 }
+
+export function EmployeeDataCard() {
+  return (
+  <div className="bg-white content-stretch flex flex-col gap-[16px] items-center p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Employee Data">
+    <Frame111 />
+    <Frame69 />
+    <button className="content-stretch cursor-pointer flex gap-[8px] items-center px-[8px] py-[4px] relative rounded-[28px] shrink-0" data-name="button">
+      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[28px]" />
+      <div className="overflow-clip relative shrink-0 size-[20px]" data-name="circle-chevron-up">
+        <div className="absolute inset-[12.5%]" data-name="Vector">
+          <div className="absolute inset-[-5%]">
+            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.5 16.5">
+              <path d={svgPaths.pffcc900} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <p className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#adb5bd] text-[14px] text-left">Less</p>
+    </button>
+    <div className="absolute left-0 overflow-clip size-[16px] top-[16px]" data-name="grip-vertical">
+      <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
+        <div className="absolute inset-[-7.03%_-14.06%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
+            <g id="Vector">
+              <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  );
+}
+
 
 export default function Frame120() {
   const searchParams = useSearchParams();
@@ -1512,11 +1516,7 @@ export default function Frame120() {
   };
   return (
     <ProfileContext.Provider value={profileValue}>
-      <div className="content-stretch flex gap-[16px] items-start relative size-full">
-        <Frame118 />
-        <Frame121 />
-        <Frame119 />
-      </div>
+      <IProfileCardGrid scoreAspects={profileValue.scoreAspects} />
     </ProfileContext.Provider>
   );
 }

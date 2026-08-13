@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { ActionIcon } from "@mantine/core";
 import { IconSettings } from "@tabler/icons-react";
@@ -12,6 +12,7 @@ import LineChartCard from "@/components/LineChartCard";
 import ProfileCompletion from "@/components/ProfileCompletion";
 import ScaleWrapper from "@/components/ScaleWrapper";
 import { useDashboardConfig, CardConfig } from "@/hooks/useDashboardConfig";
+import { useCardDrag } from "@/hooks/useCardDrag";
 import SettingsPanel from "@/components/SettingsPanel";
 import RoleSwitcher from "@/components/RoleSwitcher";
 import CommitteeReadinessCard from "@/components/cards/CommitteeReadinessCard";
@@ -41,17 +42,6 @@ import { MANAGER_EXCLUDED_CARDS } from "@/lib/dashboardCardVisibility";
 
 const performanceData = [3.5, 3.3, 3.2, 3.18, 3.18];
 const engagementData  = [3.3, 3.1, 3.18, 3.0, 3.0];
-
-interface DragInfo {
-  id: string;
-  offsetX: number;
-  offsetY: number;
-}
-
-interface InsertInfo {
-  targetCol: 0 | 1 | 2;
-  insertBeforeId: string | null; // null = insert at end of targetCol
-}
 
 interface HomeClientProps {
   role: UserRole;
@@ -89,29 +79,21 @@ export default function HomeClient({
     ? allCards.filter(c => !MANAGER_EXCLUDED_CARDS.has(c.id))
     : allCards;
 
-  // ── Drag state ─────────────────────────────────────────────────────────────
-  const [dragId,      setDragId]      = useState<string | null>(null);
-  const [ghostPos,    setGhostPos]    = useState<{ x: number; y: number } | null>(null);
-  const [ghostDims,   setGhostDims]   = useState<{ w: number; h: number; scale: number } | null>(null);
-  const [insertInfo,  setInsertInfo]  = useState<InsertInfo | null>(null);
-  const [mounted,     setMounted]     = useState(false);
+  // Kartu yang ikut dipindai saat menggeser: hanya yang duduk di dalam kolom.
+  // Banner dan Profile Completion berdiri di luar kolom, jadi tidak bisa jadi
+  // tujuan sisip.
+  const scanCards = cards
+    .filter(c => c.enabled && c.id !== "banner" && c.id !== "profile-completion")
+    .map(c => ({ id: c.id, col: c.col as number }));
 
-  const dragRef         = useRef<DragInfo | null>(null);
-  const insertInfoRef   = useRef<InsertInfo | null>(null);
-  const cardRefsMap     = useRef<Map<string, HTMLDivElement>>(new Map());
-  const colContainerRefs = useRef<(HTMLDivElement | null)[]>([null, null, null]);
-  const withoutDragRef  = useRef<CardConfig[]>([]);
-  const insertAtRef     = useRef(insertAt);
-  const pageScaleRef    = useRef(1);
-  insertAtRef.current   = insertAt;
-
-  useEffect(() => {
-    setMounted(true);
-    const update = () => { pageScaleRef.current = Math.min(window.innerWidth / 1440, 1); };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
+  const {
+    dragId, ghostPos, ghostDims, insertInfo, mounted,
+    onHandleMouseDown, registerCard, registerColumn, insertLineFor,
+  } = useCardDrag({
+    columnCount: 3,
+    cards: scanCards,
+    onDrop: (id, targetCol, insertBeforeId) => insertAt(id, targetCol as 0 | 1 | 2, insertBeforeId),
+  });
 
   // ── Card renderer ──────────────────────────────────────────────────────────
   function renderCard(id: string) {
@@ -150,144 +132,35 @@ export default function HomeClient({
     }
   }
 
-  // ── Column-aware insert point finder ──────────────────────────────────────
-  const findInsertPoint = (mx: number, my: number): InsertInfo => {
-    const wd = withoutDragRef.current;
-
-    // Group cards by explicit col property
-    const cols: { id: string; rect: DOMRect }[][] = [[], [], []];
-    wd.forEach(c => {
-      const el = cardRefsMap.current.get(c.id);
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      cols[c.col].push({ id: c.id, rect });
-    });
-
-    // Determine target column using container rects (works even when col is empty)
-    let targetCol: 0 | 1 | 2 = 0;
-    let minDist = Infinity;
-    for (let ci = 0; ci < 3; ci++) {
-      const container = colContainerRefs.current[ci];
-      if (!container) continue;
-      const r = container.getBoundingClientRect();
-      if (mx >= r.left && mx <= r.right) {
-        targetCol = ci as 0 | 1 | 2;
-        minDist = 0;
-        break;
-      }
-      const d = Math.min(Math.abs(mx - r.left), Math.abs(mx - r.right));
-      if (d < minDist) { minDist = d; targetCol = ci as 0 | 1 | 2; }
-    }
-
-    // Within targetCol, find where to insert by Y midpoint
-    const colCards = cols[targetCol];
-    for (const { id, rect } of colCards) {
-      if (my < rect.top + rect.height / 2) {
-        return { targetCol, insertBeforeId: id };
-      }
-    }
-    return { targetCol, insertBeforeId: null };
-  };
-
-  // ── Global pointer listeners ───────────────────────────────────────────────
-  useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      if (!dragRef.current) return;
-      const drag = dragRef.current;
-      setGhostPos({ x: e.clientX - drag.offsetX, y: e.clientY - drag.offsetY });
-      const info = findInsertPoint(e.clientX, e.clientY);
-      const prev = insertInfoRef.current;
-      if (!prev || prev.targetCol !== info.targetCol || prev.insertBeforeId !== info.insertBeforeId) {
-        insertInfoRef.current = info;
-        setInsertInfo(info);
-      }
-    };
-
-    const onMouseUp = () => {
-      const drag = dragRef.current;
-      if (!drag) return;
-      const info = insertInfoRef.current;
-      if (info) insertAtRef.current(drag.id, info.targetCol, info.insertBeforeId);
-      dragRef.current      = null;
-      insertInfoRef.current = null;
-      setDragId(null);
-      setGhostPos(null);
-      setGhostDims(null);
-      setInsertInfo(null);
-      document.body.style.userSelect = "";
-      document.body.style.cursor     = "";
-    };
-
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup",   onMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup",   onMouseUp);
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // ── Drag start ─────────────────────────────────────────────────────────────
-  const handleHandleMouseDown = useCallback((id: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    const el = cardRefsMap.current.get(id);
-    if (!el) return;
-    const rect  = el.getBoundingClientRect();
-    const scale = pageScaleRef.current;
-    dragRef.current = { id, offsetX: e.clientX - rect.left, offsetY: e.clientY - rect.top };
-    insertInfoRef.current = null;
-    setDragId(id);
-    setGhostPos({ x: rect.left, y: rect.top });
-    setGhostDims({ w: rect.width, h: rect.height, scale });
-    setInsertInfo(null);
-    document.body.style.userSelect = "none";
-    document.body.style.cursor     = "grabbing";
-  }, []);
 
   // ── Layout ─────────────────────────────────────────────────────────────────
   const enabledCards          = cards.filter(c => c.enabled);
   const bannerEnabled         = enabledCards.find(c => c.id === "banner");
   const profileCompletionEnabled = enabledCards.find(c => c.id === "profile-completion");
   const otherCards            = enabledCards.filter(c => c.id !== "banner" && c.id !== "profile-completion");
-  // withoutDrag: used for column-aware mouse scanning (exclude dragged card)
-  const withoutDragged = dragId ? otherCards.filter(c => c.id !== dragId) : otherCards;
-  withoutDragRef.current = withoutDragged;
 
   // Columns filtered by explicit col property (order preserved by array position)
   const col0 = otherCards.filter(c => c.col === 0);
   const col1 = otherCards.filter(c => c.col === 1);
   const col2 = otherCards.filter(c => c.col === 2);
 
-  // Insert-after-last: when insertBeforeId is null, show "after" on last card of targetCol
-  const lastInCol = (colCards: CardConfig[]) =>
-    dragId ? colCards.filter(c => c.id !== dragId).slice(-1)[0]?.id : undefined;
-
   // ── Column renderer ────────────────────────────────────────────────────────
   function renderColumn(colCards: CardConfig[], colIdx: 0 | 1 | 2) {
-    const lastId = lastInCol(colCards);
-    const showAfterLast =
-      insertInfo !== null &&
-      insertInfo.targetCol === colIdx &&
-      insertInfo.insertBeforeId === null;
+    // Kartu terakhir di kolom — penanda "sisipkan di paling bawah".
+    const lastId = dragId ? colCards.filter(c => c.id !== dragId).slice(-1)[0]?.id : undefined;
 
-    return colCards.map(c => {
-      const showLine =
-        insertInfo?.insertBeforeId === c.id        ? "before" :
-        showAfterLast && c.id === lastId           ? "after"  : null;
-
-      return (
-        <DraggableCardWrapper
-          key={c.id}
-          ref={el => { if (el) cardRefsMap.current.set(c.id, el); else cardRefsMap.current.delete(c.id); }}
-          id={c.id}
-          isDragging={dragId === c.id}
-          showInsertLine={showLine}
-          onHandleMouseDown={handleHandleMouseDown}
-        >
-          {renderCard(c.id)}
-        </DraggableCardWrapper>
-      );
-    });
+    return colCards.map(c => (
+      <DraggableCardWrapper
+        key={c.id}
+        ref={registerCard(c.id)}
+        id={c.id}
+        isDragging={dragId === c.id}
+        showInsertLine={insertLineFor(c.id, colIdx, lastId)}
+        onHandleMouseDown={onHandleMouseDown}
+      >
+        {renderCard(c.id)}
+      </DraggableCardWrapper>
+    ));
   }
 
   // ── Render ─────────────────────────────────────────────────────────────────
@@ -362,10 +235,10 @@ export default function HomeClient({
                 {bannerEnabled && renderCard("banner")}
                 {(col0.length > 0 || col1.length > 0) && (
                   <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                    <div ref={el => { colContainerRefs.current[0] = el; }} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 16, minWidth: 0, minHeight: 60 }}>
+                    <div ref={registerColumn(0)} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 16, minWidth: 0, minHeight: 60 }}>
                       {renderColumn(col0, 0)}
                     </div>
-                    <div ref={el => { colContainerRefs.current[1] = el; }} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 16, minWidth: 0, minHeight: 60 }}>
+                    <div ref={registerColumn(1)} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 16, minWidth: 0, minHeight: 60 }}>
                       {renderColumn(col1, 1)}
                     </div>
                   </div>
@@ -377,7 +250,7 @@ export default function HomeClient({
                 {/* Pinned — tidak bisa di-drag */}
                 {profileCompletionEnabled && <ProfileCompletion completion={completion} />}
                 {/* Draggable col2 cards */}
-                <div ref={el => { colContainerRefs.current[2] = el; }} style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0, minHeight: 60 }}>
+                <div ref={registerColumn(2)} style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0, minHeight: 60 }}>
                   {renderColumn(col2, 2)}
                 </div>
               </div>

@@ -1,14 +1,31 @@
 "use client";
 import { useState } from "react";
 import { Switch, CloseButton } from "@mantine/core";
-import { CardConfig } from "@/hooks/useDashboardConfig";
+/**
+ * Bentuk kartu seadanya — panel ini dipakai Beranda maupun iProfile, yang
+ * daftar kartunya berbeda tapi sama-sama punya keempat kolom ini.
+ */
+export interface SettingsPanelCard {
+  id: string;
+  label: string;
+  description: string;
+  enabled: boolean;
+}
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  cards: CardConfig[];
+  cards: SettingsPanelCard[];
   onToggle: (id: string) => void;
   renderCard: (id: string) => React.ReactNode;
+  /** Kartu yang selalu menyala; tampil di atas dengan sakelar mati. */
+  pinnedIds?: string[];
+  /** Judul panel. */
+  title?: string;
+  /** Kalimat di bawah judul panel. */
+  subtitle?: string;
+  /** Lebar asli kartu saat dipratinjau — kartu iProfile lebih sempit dari Beranda. */
+  previewRenderWidth?: number;
 }
 
 const PANEL_WIDTH = 380;
@@ -16,13 +33,18 @@ const PREVIEW_WIDTH = 268;
 const CARD_RENDER_WIDTH = 420;
 const BANNER_RENDER_WIDTH = 860;
 
-function previewZoom(id: string) {
-  return id === "banner"
-    ? PREVIEW_WIDTH / BANNER_RENDER_WIDTH
-    : PREVIEW_WIDTH / CARD_RENDER_WIDTH;
+function previewZoom(id: string, cardWidth: number) {
+  return id === "banner" ? PREVIEW_WIDTH / BANNER_RENDER_WIDTH : PREVIEW_WIDTH / cardWidth;
 }
 
-export default function SettingsPanel({ open, onClose, cards, onToggle, renderCard }: Props) {
+export default function SettingsPanel({
+  open, onClose, cards, onToggle, renderCard,
+  pinnedIds = ["banner", "profile-completion"],
+  title = "Konfigurasi Dashboard",
+  subtitle = "Aktifkan card yang ingin ditampilkan di dashboard",
+  previewRenderWidth,
+}: Props) {
+  const cardRenderWidth = previewRenderWidth ?? CARD_RENDER_WIDTH;
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [previewTop, setPreviewTop] = useState(0);
 
@@ -71,9 +93,8 @@ export default function SettingsPanel({ open, onClose, cards, onToggle, renderCa
           {/* Scaled card */}
           <div style={{ overflow: "hidden", borderRadius: 8 }}>
             <div style={{
-              width: hoveredId === "banner" ? BANNER_RENDER_WIDTH : CARD_RENDER_WIDTH,
-              // @ts-ignore — zoom is valid CSS, TS doesn't know it
-              zoom: previewZoom(hoveredId),
+              width: hoveredId === "banner" ? BANNER_RENDER_WIDTH : cardRenderWidth,
+              zoom: previewZoom(hoveredId, cardRenderWidth),
               pointerEvents: "none",
             }}>
               {renderCard(hoveredId)}
@@ -102,12 +123,12 @@ export default function SettingsPanel({ open, onClose, cards, onToggle, renderCa
         <div style={{ padding: "20px 20px 16px", borderBottom: "1px solid #f0f0f0" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, fontSize: 16, color: "#495057" }}>
-              Konfigurasi Dashboard
+              {title}
             </span>
             <CloseButton onClick={onClose} size="md" c="#adb5bd" />
           </div>
           <p style={{ fontFamily: "Open Sans, sans-serif", fontSize: 12, color: "#adb5bd", marginTop: 6 }}>
-            Aktifkan card yang ingin ditampilkan di dashboard
+            {subtitle}
           </p>
         </div>
 
@@ -116,7 +137,7 @@ export default function SettingsPanel({ open, onClose, cards, onToggle, renderCa
           onMouseLeave={() => setHoveredId(null)}
         >
           {/* Pinned cards — always on, shown at top */}
-          {["banner", "profile-completion"].map(pinnedId => {
+          {pinnedIds.map(pinnedId => {
             const card = cards.find(c => c.id === pinnedId);
             if (!card) return null;
             return (
@@ -147,7 +168,7 @@ export default function SettingsPanel({ open, onClose, cards, onToggle, renderCa
           <div style={{ height: 1, background: "#e9ecef", margin: "4px 0" }} />
 
           {/* Toggleable cards */}
-          {cards.filter(c => c.id !== "banner" && c.id !== "profile-completion").map(card => (
+          {cards.filter(c => !pinnedIds.includes(c.id)).map(card => (
             <div
               key={card.id}
               onMouseEnter={e => handleRowEnter(card.id, e)}
