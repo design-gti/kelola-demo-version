@@ -23,6 +23,7 @@ import {
   type Extension,
   type IdpHistoryItem,
   type ScoreAspects,
+  type EmployeeBio,
 } from "../lib/ProfileContext";
 import { getEditedPhoto } from "../lib/photoStore";
 
@@ -1111,75 +1112,14 @@ function Frame111() {
   );
 }
 
-function Frame114() {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] whitespace-nowrap">
-        <p className="leading-[normal]">Personal Data</p>
-      </div>
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="edit">
-        <div className="absolute inset-[12.5%_12.5%_16.67%_16.67%]" data-name="Vector">
-          <div className="absolute inset-[-6.62%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.8334 12.8334">
-              <path d={svgPaths.p6667300} id="Vector" stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
-function Frame7() {
-  const { employee } = useContext(ProfileContext);
-  return (
-    <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">NIK</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">{employee.nik}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
 
-function Frame28() {
-  return (
-    <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Phone</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">+6282342905XXX</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame30() {
-  const { employee } = useContext(ProfileContext);
-  return (
-    <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Date of Birth</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">{employee.dob}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
+/**
+ * Baris "Personal Data" (NIK s/d Marital Status), dibangun sebagai data supaya
+ * bisa dipotong saat kartu dilipat lewat tombol Less/More. Nilainya sama
+ * persis dengan yang dulu ditulis tetap di Frame7/28/30/29/31/32/38/39/40 —
+ * termasuk "Phone" yang memang selalu angka dummy, bukan dari data karyawan.
+ */
 // Hitung umur dari string DOB ("1 Jan 1990" / "12 Februari 1988" / "17 Mei 1996").
 // Bulan mendukung singkatan EN & ID. iProfile ssr:false → new Date() aman (client-only).
 const _DOB_MONTHS: Record<string, number> = {
@@ -1199,158 +1139,28 @@ function ageFromDob(dob: string): string {
   return age >= 0 ? String(age) : "-";
 }
 
-function Frame29() {
-  const { employee } = useContext(ProfileContext);
-  return (
-    <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Age</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">{ageFromDob(employee.dob)}</p>
-        </div>
-      </div>
-    </div>
-  );
+function personalDataRows(employee: EmployeeBio): { label: string; value: string }[] {
+  return [
+    { label: "NIK", value: employee.nik },
+    { label: "Phone", value: "+6282342905XXX" },
+    { label: "Date of Birth", value: employee.dob },
+    { label: "Age", value: ageFromDob(employee.dob) },
+    { label: "Gender", value: employee.gender },
+    { label: "Last Education", value: employee.lastEducation },
+    { label: "City Domicile", value: employee.city },
+    { label: "Province Domicile", value: employee.province },
+    { label: "Marital Status", value: employee.maritalStatus },
+  ];
 }
 
-function Frame31() {
-  const { employee } = useContext(ProfileContext);
-  return (
-    <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Gender</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">{employee.gender}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame32() {
-  const { employee } = useContext(ProfileContext);
-  return (
-    <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Last Education</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">{employee.lastEducation}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame38() {
-  const { employee } = useContext(ProfileContext);
-  return (
-    <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">City Domicile</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">{employee.city}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame39() {
-  const { employee } = useContext(ProfileContext);
-  return (
-    <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Province Domicile</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">{employee.province}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame40() {
-  const { employee } = useContext(ProfileContext);
-  return (
-    <div className="relative shrink-0 w-full">
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Marital Status</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">{employee.maritalStatus}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame67() {
-  return (
-    <div className="content-stretch flex flex-col gap-[2px] items-start py-[4px] relative shrink-0 w-full">
-      <Frame114 />
-      <Frame7 />
-      <Frame28 />
-      <Frame30 />
-      <Frame29 />
-      <Frame31 />
-      <Frame32 />
-      <Frame38 />
-      <Frame39 />
-      <Frame40 />
-    </div>
-  );
-}
-
-function Frame115() {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] whitespace-nowrap">
-        <p className="leading-[normal]">Employee Data</p>
-      </div>
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="edit">
-        <div className="absolute inset-[12.5%_12.5%_16.67%_16.67%]" data-name="Vector">
-          <div className="absolute inset-[-6.62%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.8334 12.8334">
-              <path d={svgPaths.p6667300} id="Vector" stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame8() {
-  const { employee } = useContext(ProfileContext);
-  return (
-    <div className="relative shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">Report to</p>
-        </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[normal] whitespace-pre-wrap">{employee.reportTo}</p>
-        </div>
-      </div>
-    </div>
-  );
+/** Baris "Employee Data" (Report to s/d Career History), bentuk data yang sama. */
+function employeeDataRows(employee: EmployeeBio): { label: string; value: string }[] {
+  return [
+    { label: "Report to", value: employee.reportTo },
+    { label: "Work start date", value: employee.workStartDate },
+    { label: "Tenure", value: employee.tenure },
+    ...employee.careerHistory.map((h) => ({ label: "Career History", value: `${h.title} | ${h.period}` })),
+  ];
 }
 
 // A labelled key/value row inside the Employee Data card.
@@ -1370,27 +1180,43 @@ function EmpDataRow({ label, value, border = true }: { label: string; value: str
   );
 }
 
-function Frame68() {
-  const { employee } = useContext(ProfileContext);
-  const hist = employee.careerHistory;
+/**
+ * Satu grup baris berjudul ("Personal Data" / "Employee Data") dengan jumlah
+ * baris yang tampil dibatasi oleh `visible`. Grup yang kehabisan jatah (visible
+ * <= 0) tidak dirender sama sekali — judulnya pun ikut hilang, karena judul
+ * tanpa satu baris pun di bawahnya cuma kotak kosong.
+ */
+function EmpDataGroup({
+  title,
+  rows,
+  visible,
+}: {
+  title: string;
+  rows: { label: string; value: string }[];
+  /** Berapa baris dari grup ini yang boleh tampil; grup lain memakai sisanya. */
+  visible: number;
+}) {
+  if (visible <= 0) return null;
+  const shown = rows.slice(0, visible);
   return (
     <div className="content-stretch flex flex-col gap-[2px] items-start py-[4px] relative shrink-0 w-full">
-      <Frame115 />
-      <Frame8 />
-      <EmpDataRow label="Work start date" value={employee.workStartDate} />
-      <EmpDataRow label="Tenure" value={employee.tenure} />
-      {hist.map((h, i) => (
-        <EmpDataRow key={i} label="Career History" value={`${h.title} | ${h.period}`} border={i < hist.length - 1} />
+      <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+        <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] whitespace-nowrap">
+          <p className="leading-[normal]">{title}</p>
+        </div>
+        <div className="overflow-clip relative shrink-0 size-[16px]" data-name="edit">
+          <div className="absolute inset-[12.5%_12.5%_16.67%_16.67%]" data-name="Vector">
+            <div className="absolute inset-[-6.62%]">
+              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.8334 12.8334">
+                <path d={svgPaths.p6667300} id="Vector" stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      {shown.map((r, i) => (
+        <EmpDataRow key={r.label + i} label={r.label} value={r.value} border={i < shown.length - 1} />
       ))}
-    </div>
-  );
-}
-
-function Frame69() {
-  return (
-    <div className="content-stretch flex flex-col gap-[24px] items-start overflow-clip relative shrink-0 w-full">
-      <Frame67 />
-      <Frame68 />
     </div>
   );
 }
@@ -1421,24 +1247,61 @@ export function DevelopmentCard() {
   );
 }
 
+/** Baris yang tampil saat dilipat — cukup untuk memberi gambaran tanpa memenuhi kartu. */
+const COLLAPSED_ROW_COUNT = 6;
+
 export function EmployeeDataCard() {
+  const { employee } = useContext(ProfileContext);
+  // Default terbuka: perilaku sebelum tombol ini hidup adalah menampilkan
+  // semua baris, jadi keadaan awal harus tetap begitu.
+  const [expanded, setExpanded] = useState(true);
+
+  const personalRows = personalDataRows(employee);
+  const employeeRows = employeeDataRows(employee);
+  const totalRows = personalRows.length + employeeRows.length;
+
+  // Jatah 6 baris dihabiskan dari grup Personal Data dulu, sisanya baru
+  // dipakai Employee Data — begitu Personal Data sendiri sudah >= 6 baris
+  // (selalu benar di data ini: 9 baris), grup Employee Data tidak tampil sama
+  // sekali saat dilipat, judulnya pun ikut hilang lewat EmpDataGroup.
+  const personalVisible = expanded ? personalRows.length : Math.min(COLLAPSED_ROW_COUNT, personalRows.length);
+  const employeeVisible = expanded
+    ? employeeRows.length
+    : Math.max(0, COLLAPSED_ROW_COUNT - personalRows.length);
+
   return (
   <div className="bg-white content-stretch flex flex-col gap-[16px] items-center p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Employee Data">
     <Frame111 />
-    <Frame69 />
-    <button className="content-stretch cursor-pointer flex gap-[8px] items-center px-[8px] py-[4px] relative rounded-[28px] shrink-0" data-name="button">
-      <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[28px]" />
-      <div className="overflow-clip relative shrink-0 size-[20px]" data-name="circle-chevron-up">
-        <div className="absolute inset-[12.5%]" data-name="Vector">
-          <div className="absolute inset-[-5%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.5 16.5">
-              <path d={svgPaths.pffcc900} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
+    <div className="content-stretch flex flex-col gap-[24px] items-start overflow-clip relative shrink-0 w-full">
+      <EmpDataGroup title="Personal Data" rows={personalRows} visible={personalVisible} />
+      <EmpDataGroup title="Employee Data" rows={employeeRows} visible={employeeVisible} />
+    </div>
+    {/* Tombol cuma berarti kalau ada sesuatu yang bisa disembunyikan. */}
+    {totalRows > COLLAPSED_ROW_COUNT && (
+      <button
+        onClick={() => setExpanded((v) => !v)}
+        className="content-stretch cursor-pointer flex gap-[8px] items-center px-[8px] py-[4px] relative rounded-[28px] shrink-0"
+        data-name="button"
+      >
+        <div aria-hidden="true" className="absolute border border-[#adb5bd] border-solid inset-0 pointer-events-none rounded-[28px]" />
+        <div
+          className="overflow-clip relative shrink-0 size-[20px]"
+          data-name="circle-chevron-up"
+          style={{ transform: expanded ? undefined : "rotate(180deg)", transition: "transform 0.15s" }}
+        >
+          <div className="absolute inset-[12.5%]" data-name="Vector">
+            <div className="absolute inset-[-5%]">
+              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.5 16.5">
+                <path d={svgPaths.pffcc900} id="Vector" stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+              </svg>
+            </div>
           </div>
         </div>
-      </div>
-      <p className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#adb5bd] text-[14px] text-left">Less</p>
-    </button>
+        <p className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#adb5bd] text-[14px] text-left">
+          {expanded ? "Less" : "More"}
+        </p>
+      </button>
+    )}
     <div className="absolute left-0 overflow-clip size-[16px] top-[16px]" data-name="grip-vertical">
       <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
         <div className="absolute inset-[-7.03%_-14.06%]">
