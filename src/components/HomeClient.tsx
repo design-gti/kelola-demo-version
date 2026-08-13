@@ -3,6 +3,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { ActionIcon } from "@mantine/core";
 import { IconSettings } from "@tabler/icons-react";
+import { HEADER_HEIGHT } from "@/components/AppHeader";
 import BannerInsight from "@/components/BannerInsight";
 import DraggableCardWrapper from "@/components/DraggableCardWrapper";
 import AspectScoreCard from "@/components/AspectScoreCard";
@@ -202,7 +203,10 @@ export default function HomeClient({
         size={40}
         aria-label="Pengaturan dashboard"
         style={{
-          position: "fixed", right: 24, top: 16, zIndex: 30,
+          // top dihitung dari bawah AppHeader (fixed, zIndex 40): sebelumnya
+          // tombol ini duduk di top:16 — persis di dalam area header, jadi
+          // tertutup olehnya. Digeser ke bawah header + jarak yang sama.
+          position: "fixed", right: 24, top: HEADER_HEIGHT + 16, zIndex: 30,
           boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
         }}
       >
@@ -225,7 +229,7 @@ export default function HomeClient({
           {/* Judul "Home" + lonceng notifikasi sebelumnya berdiri di sini,
               tapi sudah dobel dengan AppHeader yang menampilkan nama menu dan
               lonceng yang sama di header aplikasi. */}
-          <div className="px-4 pb-8">
+          <div className="px-4 pt-4 pb-8">
             <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
 
               {/* Left 2/3 */}
