@@ -136,7 +136,7 @@ function AspectPickerForm({
                 />
               </Table.Th>
               <Table.Th w={200}>Aspect</Table.Th>
-              <Table.Th>Description</Table.Th>
+              <Table.Th>Definisi</Table.Th>
               <Table.Th w={150}>Category</Table.Th>
             </Table.Tr>
           </Table.Thead>

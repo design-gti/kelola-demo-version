@@ -74,7 +74,7 @@ const AspectRow = memo(function AspectRow({
           size="xs"
           autosize
           minRows={1}
-          placeholder="Description"
+          placeholder="Definisi"
           value={draft.description ?? aspect.description}
           onChange={(e) => onChange(aspect.label, { description: e.currentTarget.value })}
           aria-label={`Deskripsi ${aspect.label}`}
@@ -252,7 +252,7 @@ function CategoryCard({
                 <Table.Tr>
                   <Table.Th />
                   <Table.Th>Aspect Name</Table.Th>
-                  <Table.Th>Description</Table.Th>
+                  <Table.Th>Definisi</Table.Th>
                   <Table.Th>Key Behavior</Table.Th>
                   <Table.Th>Prediction Tools</Table.Th>
                   {Array.from({ length: SCALE }, (_, i) => i + 1).map((n) => (
