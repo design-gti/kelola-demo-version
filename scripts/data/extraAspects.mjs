@@ -656,11 +656,14 @@ export const JOB_ASPECTS = {
     general: ["Mendengar Aktif", "Kepekaan Sosial", "Orientasi Melayani", "Enablement Klien", "Koordinasi Lintas Fungsi", "Keandalan", "Pemantauan Kinerja Akun", "Negosiasi"],
     technical: ["Rekrutmen & Seleksi", "Pengembangan Talenta", "Manajemen Kinerja & Remunerasi"],
   },
-  Strategi: {
-    general: ["Mendengar Aktif", "Inisiatif", "Kemitraan Strategis", "Koordinasi Lintas Fungsi", "Pemantauan Kinerja Akun", "Persuasi", "Ketahanan Tekanan"],
-    technical: ["Analisis Strategis", "Tata Kelola & Manajemen Risiko", "Pemahaman Organisasi Klien", "Ketajaman Komersial"],
+  // Produk menggantikan Strategi: sejak organisasi memakai lima Chief, unit
+  // strategi melebur ke bawah CPO. Aspeknya memakai bahan yang sama —
+  // analisis, tata kelola, dan pembacaan kebutuhan pelanggan.
+  Produk: {
+    general: ["Mendengar Aktif", "Inisiatif", "Kemitraan Strategis", "Koordinasi Lintas Fungsi", "Pemantauan Kinerja Akun", "Kepekaan Sosial", "Persuasi"],
+    technical: ["Analisis Strategis", "Riset Pasar & Wawasan Pelanggan", "Pengelolaan Data", "Tata Kelola & Manajemen Risiko", "Analisis Kebutuhan Klien"],
   },
-  Pemasaran: {
+  Marketing: {
     general: ["Mendengar Aktif", "Inisiatif", "Persuasi", "Koordinasi Lintas Fungsi", "Kepekaan Sosial", "Kemitraan Strategis", "Pemantauan Kinerja Akun"],
     technical: ["Strategi Merek & Komunikasi", "Pemasaran Digital & Analitik", "Riset Pasar & Wawasan Pelanggan", "Penguasaan Produk & Pasar", "Ketajaman Komersial"],
   },

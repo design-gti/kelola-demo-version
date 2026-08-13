@@ -1,199 +1,135 @@
-// Menyusun public/data/participants.csv dari kerangka organisasi di bawah.
+// Menyusun ulang JABATAN dan garis atasan di public/data/participants.csv.
 // Jalankan manual: node scripts/gen-participants.mjs
 //
-// SENGAJA TIDAK ikut `npm run seed` / predev. participants.csv tetap berkedudukan
-// sebagai sumber data yang boleh disunting tangan; script ini hanya alat untuk
-// menyusun ulang kerangkanya kalau strukturnya berubah. Kalau ikut predev,
-// suntingan manual bakal tertimpa diam-diam tiap dev server start.
+// IDENTITAS ORANG TIDAK DISENTUH. Nama, gender, dan seluruh skor dibaca dari
+// participants.csv yang sudah ada, lalu ditulis kembali apa adanya menurut id.
+// Yang disusun ulang hanya position, department, team, manager_id, dan
+// successor_for — orangnya berpindah kursi, datanya tetap. Foto ikut aman
+// karena berkas foto dinamai menurut id.
 //
-// Kerangkanya 5 lapis: CEO → C-level → Head/VP → Manager & Lead → Staff.
-// Hunter dan Farmer ada di lapis 4 sebagai unit tersendiri di bawah Head of
-// Sales, masing-masing punya staf sendiri di lapis 5.
-import { writeFileSync } from "node:fs";
+// SENGAJA TIDAK ikut `npm run seed`: participants.csv tetap berkedudukan
+// sebagai data yang boleh disunting tangan, dan kalau ikut predev suntingan itu
+// tertimpa diam-diam tiap dev server start.
+//
+// Kerangkanya 5 lapis:
+//   1 CEO
+//   2 lima Chief (COO, CFO, CTO, CPO, CMO)
+//   3 Head tiap bidang — di bawah CMO ada dua: Marketing dan Sales
+//   4 unit kerja — di bawah Sales hanya ada dua: Hunter dan Farmer
+//   5 staf, dinamai "<unit> #n"
+import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const CSV_PATH = "public/data/participants.csv";
 
 /**
  * Satu unit = satu jabatan beserta jumlah pemegangnya.
  *
- * `ids` mengunci kursi tertentu ke id lama (p01-p33) supaya foto, assignment,
- * dan riwayat IDP yang sudah menempel di id itu tidak putus. Kursi selebihnya
- * dapat id berurutan mulai p34.
+ * `ids` mengunci kursi ke orang tertentu supaya yang sekarang menjabat Chief
+ * atau Head tidak mendadak tertukar dengan stafnya. Kursi selebihnya diisi
+ * berurutan dari id yang belum terpakai.
  *
- * `reportTo` menunjuk key unit atasan; yang dipakai sebagai atasan adalah orang
- * PERTAMA di unit itu — untuk unit berisi banyak orang, yang pertama memang
- * kepalanya.
+ * `staff` menyalakan penamaan bernomor: unit "Backend" dengan staff 4 melahirkan
+ * Backend #1 sampai #4.
  */
 const UNITS = [
   // ── Lapis 1 ────────────────────────────────────────────────────────────────
-  { key: "CEO", position: "Chief Executive Officer", job: "Strategi", team: "EXE", ids: ["p05"], reportTo: null },
+  { key: "CEO", position: "Chief Executive Officer", job: "Operasional", team: "EXE", ids: ["p05"], reportTo: null },
 
-  // ── Lapis 2: C-level ───────────────────────────────────────────────────────
-  { key: "CSO", position: "Chief Strategy Officer", job: "Strategi", team: "EXE", ids: ["p06"], reportTo: "CEO" },
-  { key: "CRO", position: "Chief Revenue Officer", job: "Pemasaran", team: "SNM", ids: ["p26"], reportTo: "CEO" },
-  { key: "CTO", position: "Chief Technology Officer", job: "Teknologi", team: "ENG", reportTo: "CEO" },
-  { key: "CFO", position: "Chief Financial Officer", job: "Keuangan", team: "FIN", reportTo: "CEO" },
-  { key: "COO", position: "Chief Operating Officer", job: "Operasional", team: "OPS", reportTo: "CEO" },
-  { key: "CHRO", position: "Chief Human Resources Officer", job: "SDM", team: "HR", reportTo: "CEO" },
+  // ── Lapis 2: lima Chief ────────────────────────────────────────────────────
+  { key: "COO", position: "Chief Operating Officer", job: "Operasional", team: "OPS", ids: ["p36"], reportTo: "CEO" },
+  { key: "CFO", position: "Chief Financial Officer", job: "Keuangan", team: "FIN", ids: ["p35"], reportTo: "CEO" },
+  { key: "CTO", position: "Chief Technology Officer", job: "Teknologi", team: "ENG", ids: ["p34"], reportTo: "CEO" },
+  { key: "CPO", position: "Chief Product Officer", job: "Produk", team: "PRD", ids: ["p06"], reportTo: "CEO" },
+  { key: "CMO", position: "Chief Marketing Officer", job: "Marketing", team: "MKT", ids: ["p26"], reportTo: "CEO" },
 
-  // ── Strategi (8) ───────────────────────────────────────────────────────────
-  { key: "STR_VP", position: "VP Corporate Strategy", job: "Strategi", team: "EXE", ids: ["p07"], reportTo: "CSO" },
-  { key: "STR_GOV", position: "Head of Governance", job: "Strategi", team: "EXE", ids: ["p08"], reportTo: "CSO" },
-  { key: "STR_MGR", position: "Strategy Manager", job: "Strategi", team: "EXE", reportTo: "STR_VP" },
-  { key: "STR_GOVMGR", position: "Governance Manager", job: "Strategi", team: "EXE", reportTo: "STR_GOV" },
-  { key: "STR_ANL", position: "Strategy Analyst", job: "Strategi", team: "EXE", count: 2, reportTo: "STR_MGR" },
-
-  // ── Teknologi (24) ─────────────────────────────────────────────────────────
-  { key: "ENG_HEAD", position: "Head of Engineering", job: "Teknologi", team: "ENG", ids: ["p01"], reportTo: "CTO" },
-  { key: "INF_HEAD", position: "Head of Infrastructure & Security", job: "Teknologi", team: "ENG", reportTo: "CTO" },
-  { key: "BE_LEAD", position: "Backend Lead", job: "Teknologi", team: "ENG", ids: ["p04"], reportTo: "ENG_HEAD" },
-  { key: "FE_LEAD", position: "Frontend Lead", job: "Teknologi", team: "ENG", ids: ["p03"], reportTo: "ENG_HEAD" },
-  { key: "PRINC", position: "Principal Engineer", job: "Teknologi", team: "ENG", ids: ["p28"], reportTo: "ENG_HEAD" },
-  { key: "QA_LEAD", position: "QA Lead", job: "Teknologi", team: "ENG", reportTo: "ENG_HEAD" },
-  { key: "DEVOPS_LEAD", position: "DevOps Lead", job: "Teknologi", team: "ENG", reportTo: "INF_HEAD" },
-  { key: "SEC_LEAD", position: "Security Lead", job: "Teknologi", team: "ENG", reportTo: "INF_HEAD" },
-  { key: "BE_ENG", position: "Backend Engineer", job: "Teknologi", team: "ENG", count: 3, reportTo: "BE_LEAD" },
-  { key: "FE_ENG", position: "Frontend Engineer", job: "Teknologi", team: "ENG", count: 3, reportTo: "FE_LEAD" },
-  { key: "SR_ENG", position: "Senior Engineer", job: "Teknologi", team: "ENG", ids: ["p02"], reportTo: "PRINC" },
-  { key: "SW_ENG", position: "Software Engineer", job: "Teknologi", team: "ENG", reportTo: "PRINC" },
-  { key: "QA_ENG", position: "QA Engineer", job: "Teknologi", team: "ENG", count: 3, reportTo: "QA_LEAD" },
-  { key: "DEVOPS_ENG", position: "DevOps Engineer", job: "Teknologi", team: "ENG", count: 2, reportTo: "DEVOPS_LEAD" },
-  { key: "SEC_ANL", position: "Security Analyst", job: "Teknologi", team: "ENG", count: 2, reportTo: "SEC_LEAD" },
-
-  // ── Keuangan (12) ──────────────────────────────────────────────────────────
-  { key: "FIN_HEAD", position: "Head of Finance", job: "Keuangan", team: "FIN", ids: ["p09"], reportTo: "CFO" },
-  { key: "ACC_HEAD", position: "Head of Accounting", job: "Keuangan", team: "FIN", reportTo: "CFO" },
-  { key: "FIN_MGR", position: "Senior Finance Manager", job: "Keuangan", team: "FIN", ids: ["p31"], reportTo: "FIN_HEAD" },
-  { key: "CTRL", position: "Controller", job: "Keuangan", team: "FIN", ids: ["p12"], reportTo: "FIN_HEAD" },
-  { key: "ACC_MGR", position: "Accounting Manager", job: "Keuangan", team: "FIN", reportTo: "ACC_HEAD" },
-  { key: "FIN_SRANL", position: "Senior Finance Analyst", job: "Keuangan", team: "FIN", ids: ["p10"], reportTo: "FIN_MGR" },
-  { key: "FIN_ANL", position: "Finance Analyst", job: "Keuangan", team: "FIN", ids: ["p11"], count: 2, reportTo: "FIN_MGR" },
-  { key: "AUDIT", position: "Internal Auditor", job: "Keuangan", team: "FIN", reportTo: "CTRL" },
-  { key: "ACC_STAFF", position: "Accounting Staff", job: "Keuangan", team: "FIN", reportTo: "ACC_MGR" },
-  { key: "TAX_STAFF", position: "Tax Staff", job: "Keuangan", team: "FIN", reportTo: "ACC_MGR" },
-
-  // ── Operasional (14) ───────────────────────────────────────────────────────
-  { key: "OPS_VP", position: "VP Operations", job: "Operasional", team: "OPS", ids: ["p17"], reportTo: "COO" },
-  { key: "SC_HEAD", position: "Head of Supply Chain", job: "Operasional", team: "OPS", reportTo: "COO" },
-  { key: "OPS_MGR", position: "Operations Manager", job: "Operasional", team: "OPS", ids: ["p18"], reportTo: "OPS_VP" },
-  { key: "SQ_MGR", position: "Service Quality Manager", job: "Operasional", team: "OPS", reportTo: "OPS_VP" },
-  { key: "SC_MGR", position: "Supply Chain Manager", job: "Operasional", team: "OPS", ids: ["p32"], reportTo: "SC_HEAD" },
-  { key: "SC_LEAD", position: "Supply Chain Lead", job: "Operasional", team: "OPS", ids: ["p19"], reportTo: "SC_HEAD" },
-  { key: "OPS_ANL", position: "Operations Analyst", job: "Operasional", team: "OPS", ids: ["p20"], reportTo: "OPS_MGR" },
-  { key: "OPS_STRAT", position: "Operations Strategist", job: "Operasional", team: "OPS", ids: ["p29"], reportTo: "OPS_MGR" },
-  { key: "OPS_STAFF", position: "Operations Staff", job: "Operasional", team: "OPS", reportTo: "OPS_MGR" },
-  { key: "SQ_OFF", position: "Service Quality Officer", job: "Operasional", team: "OPS", reportTo: "SQ_MGR" },
-  { key: "LOG_STAFF", position: "Logistics Staff", job: "Operasional", team: "OPS", count: 2, reportTo: "SC_MGR" },
-  { key: "PROC_STAFF", position: "Procurement Staff", job: "Operasional", team: "OPS", reportTo: "SC_LEAD" },
+  // ── Operasional (15 termasuk CEO & COO) ────────────────────────────────────
+  { key: "OPS_HEAD", position: "Head of Operations", job: "Operasional", team: "OPS", ids: ["p66"], reportTo: "COO" },
+  { key: "OPS", position: "Operations Lead", job: "Operasional", team: "OPS", reportTo: "OPS_HEAD", staff: { name: "Operations", count: 3 } },
+  { key: "LOG", position: "Logistics Lead", job: "Operasional", team: "OPS", reportTo: "OPS_HEAD", staff: { name: "Logistics", count: 3 } },
+  { key: "QLT", position: "Quality Lead", job: "Operasional", team: "OPS", reportTo: "OPS_HEAD", staff: { name: "Quality", count: 3 } },
 
   // ── SDM (10) ───────────────────────────────────────────────────────────────
-  { key: "HR_BP", position: "HR Business Partner", job: "SDM", team: "HR", ids: ["p13"], reportTo: "CHRO" },
-  { key: "HR_MGR", position: "HR Manager", job: "SDM", team: "HR", ids: ["p14"], reportTo: "HR_BP" },
-  { key: "TA_LEAD", position: "Talent Acquisition Lead", job: "SDM", team: "HR", ids: ["p15"], reportTo: "HR_BP" },
-  { key: "PD_MGR", position: "People Development Manager", job: "SDM", team: "HR", reportTo: "HR_BP" },
-  { key: "PEOPLE_OPS", position: "People Ops Specialist", job: "SDM", team: "HR", ids: ["p16"], reportTo: "HR_MGR" },
-  { key: "HR_STAFF", position: "HR Operations Staff", job: "SDM", team: "HR", reportTo: "HR_MGR" },
-  { key: "RECRUITER", position: "Recruiter", job: "SDM", team: "HR", count: 2, reportTo: "TA_LEAD" },
-  { key: "LND", position: "Learning & Development Specialist", job: "SDM", team: "HR", reportTo: "PD_MGR" },
+  { key: "HR_HEAD", position: "Head of People", job: "SDM", team: "HR", ids: ["p37"], reportTo: "COO" },
+  { key: "REC", position: "Recruitment Lead", job: "SDM", team: "HR", reportTo: "HR_HEAD", staff: { name: "Recruitment", count: 4 } },
+  { key: "PDV", position: "People Development Lead", job: "SDM", team: "HR", reportTo: "HR_HEAD", staff: { name: "People Development", count: 3 } },
 
-  // ── Pemasaran (14) ─────────────────────────────────────────────────────────
-  { key: "MKT_HEAD", position: "Head of Marketing", job: "Pemasaran", team: "SNM", ids: ["p21"], reportTo: "CRO" },
-  { key: "SALES_HEAD", position: "Head of Sales", job: "Pemasaran", team: "SNM", reportTo: "CRO" },
-  { key: "MKT_SRMGR", position: "Senior Marketing Manager", job: "Pemasaran", team: "SNM", ids: ["p22"], reportTo: "MKT_HEAD" },
-  { key: "BRAND_MGR", position: "Brand Manager", job: "Pemasaran", team: "SNM", ids: ["p23"], reportTo: "MKT_HEAD" },
-  { key: "GROWTH_LEAD", position: "Growth Marketing Lead", job: "Pemasaran", team: "SNM", ids: ["p24"], reportTo: "MKT_HEAD" },
-  { key: "CREATIVE_DIR", position: "Creative Director", job: "Pemasaran", team: "SNM", ids: ["p27"], reportTo: "MKT_HEAD" },
-  { key: "GROWTH_MGR", position: "Growth Marketing Manager", job: "Pemasaran", team: "SNM", ids: ["p30"], reportTo: "MKT_HEAD" },
-  { key: "BRAND_STRAT", position: "Senior Brand Strategist", job: "Pemasaran", team: "SNM", ids: ["p25"], reportTo: "BRAND_MGR" },
-  { key: "CONTENT_SPEC", position: "Digital Content Specialist", job: "Pemasaran", team: "SNM", ids: ["p33"], reportTo: "CREATIVE_DIR" },
-  { key: "GRAPHIC", position: "Graphic Designer", job: "Pemasaran", team: "SNM", reportTo: "CREATIVE_DIR" },
-  { key: "DIGITAL_EXEC", position: "Digital Marketing Executive", job: "Pemasaran", team: "SNM", count: 2, reportTo: "GROWTH_MGR" },
-  { key: "RESEARCH_ANL", position: "Market Research Analyst", job: "Pemasaran", team: "SNM", reportTo: "MKT_SRMGR" },
+  // ── Keuangan (13 termasuk CFO) ─────────────────────────────────────────────
+  { key: "FIN_HEAD", position: "Head of Finance", job: "Keuangan", team: "FIN", ids: ["p09"], reportTo: "CFO" },
+  { key: "ACC", position: "Accounting Lead", job: "Keuangan", team: "FIN", reportTo: "FIN_HEAD", staff: { name: "Accounting", count: 3 } },
+  { key: "TRS", position: "Treasury Lead", job: "Keuangan", team: "FIN", reportTo: "FIN_HEAD", staff: { name: "Treasury", count: 2 } },
+  { key: "TAX", position: "Tax Lead", job: "Keuangan", team: "FIN", reportTo: "FIN_HEAD", staff: { name: "Tax", count: 3 } },
 
-  // ── Hunter (16) — lapis 4 & 5 di bawah Head of Sales ───────────────────────
-  { key: "HUNT_ENT", position: "Hunting Manager Enterprise", job: "Hunter", team: "HUN", reportTo: "SALES_HEAD" },
-  { key: "HUNT_SMB", position: "Hunting Manager SMB", job: "Hunter", team: "HUN", reportTo: "SALES_HEAD" },
-  { key: "HUNT_GOV", position: "Hunting Manager Government", job: "Hunter", team: "HUN", reportTo: "SALES_HEAD" },
-  { key: "AE_ENT", position: "Account Executive Enterprise", job: "Hunter", team: "HUN", count: 3, reportTo: "HUNT_ENT" },
-  { key: "AE_SMB", position: "Account Executive SMB", job: "Hunter", team: "HUN", count: 2, reportTo: "HUNT_SMB" },
-  { key: "BDR", position: "Business Development Representative", job: "Hunter", team: "HUN", count: 4, reportTo: "HUNT_SMB" },
-  { key: "SDR", position: "Sales Development Representative", job: "Hunter", team: "HUN", count: 2, reportTo: "HUNT_ENT" },
-  { key: "GOV_SPEC", position: "Government Relations Specialist", job: "Hunter", team: "HUN", count: 2, reportTo: "HUNT_GOV" },
+  // ── Teknologi (26 termasuk CTO) ────────────────────────────────────────────
+  { key: "ENG_HEAD", position: "Head of Engineering", job: "Teknologi", team: "ENG", ids: ["p01"], reportTo: "CTO" },
+  { key: "INF_HEAD", position: "Head of Infrastructure", job: "Teknologi", team: "ENG", ids: ["p42"], reportTo: "CTO" },
+  { key: "BE", position: "Backend Lead", job: "Teknologi", team: "ENG", reportTo: "ENG_HEAD", staff: { name: "Backend", count: 4 } },
+  { key: "FE", position: "Frontend Lead", job: "Teknologi", team: "ENG", reportTo: "ENG_HEAD", staff: { name: "Frontend", count: 3 } },
+  { key: "QA", position: "QA Lead", job: "Teknologi", team: "ENG", reportTo: "ENG_HEAD", staff: { name: "QA", count: 3 } },
+  { key: "DEVOPS", position: "DevOps Lead", job: "Teknologi", team: "ENG", reportTo: "INF_HEAD", staff: { name: "DevOps", count: 3 } },
+  { key: "SEC", position: "Security Lead", job: "Teknologi", team: "ENG", reportTo: "INF_HEAD", staff: { name: "Security", count: 2 } },
+  { key: "DATA", position: "Data Lead", job: "Teknologi", team: "ENG", reportTo: "INF_HEAD", staff: { name: "Data", count: 2 } },
 
-  // ── Farmer (14) — lapis 4 & 5 di bawah Head of Sales ───────────────────────
-  { key: "FARM_ENT", position: "Farming Manager Enterprise", job: "Farmer", team: "FAR", reportTo: "SALES_HEAD" },
-  { key: "FARM_SMB", position: "Farming Manager SMB", job: "Farmer", team: "FAR", reportTo: "SALES_HEAD" },
-  { key: "AM_ENT", position: "Account Manager Enterprise", job: "Farmer", team: "FAR", count: 3, reportTo: "FARM_ENT" },
-  { key: "AM_SMB", position: "Account Manager SMB", job: "Farmer", team: "FAR", count: 2, reportTo: "FARM_SMB" },
-  { key: "CS_OFF", position: "Customer Success Officer", job: "Farmer", team: "FAR", count: 4, reportTo: "FARM_ENT" },
-  { key: "RENEWAL", position: "Renewal Specialist", job: "Farmer", team: "FAR", count: 3, reportTo: "FARM_SMB" },
+  // ── Produk (13 termasuk CPO) ───────────────────────────────────────────────
+  { key: "PRD_HEAD", position: "Head of Product", job: "Produk", team: "PRD", ids: ["p08"], reportTo: "CPO" },
+  { key: "PM", position: "Product Management Lead", job: "Produk", team: "PRD", reportTo: "PRD_HEAD", staff: { name: "Product Management", count: 3 } },
+  { key: "PD", position: "Product Design Lead", job: "Produk", team: "PRD", reportTo: "PRD_HEAD", staff: { name: "Product Design", count: 3 } },
+  { key: "PA", position: "Product Analytics Lead", job: "Produk", team: "PRD", reportTo: "PRD_HEAD", staff: { name: "Product Analytics", count: 2 } },
+
+  // ── Marketing (23 termasuk CMO) ────────────────────────────────────────────
+  { key: "MKT_HEAD", position: "Head of Marketing", job: "Marketing", team: "MKT", ids: ["p21"], reportTo: "CMO" },
+  { key: "DGM", position: "Digital Marketing Lead", job: "Marketing", team: "MKT", reportTo: "MKT_HEAD", staff: { name: "Digital Marketing", count: 7 } },
+  { key: "BRC", position: "Brand & Content Lead", job: "Marketing", team: "MKT", reportTo: "MKT_HEAD", staff: { name: "Brand & Content", count: 6 } },
+  { key: "MRS", position: "Market Research Lead", job: "Marketing", team: "MKT", reportTo: "MKT_HEAD", staff: { name: "Market Research", count: 4 } },
+
+  // ── Sales: HANYA Hunter & Farmer di lapis 4, masing-masing 5 staf ──────────
+  { key: "SLS_HEAD", position: "Head of Sales", job: "Marketing", team: "MKT", ids: ["p78"], reportTo: "CMO" },
+  { key: "HUNTER", position: "Hunter", job: "Hunter", team: "HUN", reportTo: "SLS_HEAD", staff: { name: "Hunter", count: 5 } },
+  { key: "FARMER", position: "Farmer", job: "Farmer", team: "FAR", reportTo: "SLS_HEAD", staff: { name: "Farmer", count: 5 } },
 ];
 
-// ── Nama ─────────────────────────────────────────────────────────────────────
-// Dipakai berurutan, jadi susunannya sengaja diselang-seling supaya sebaran
-// laki-laki/perempuan merata di semua unit, bukan menumpuk di satu departemen.
-const MALE = [
-  "Bagus Prakoso", "Rizky Ramadhan", "Andi Saputra", "Fajar Nugroho", "Dimas Prasetyo",
-  "Yoga Pratama", "Bayu Setiawan", "Reza Mahendra", "Aditya Wibowo", "Galih Kusuma",
-  "Hendra Gunawan", "Iqbal Maulana", "Krisna Wijaya", "Lukman Hakim", "Bimo Santoso",
-  "Arif Budiman", "Panji Nugraha", "Rangga Aditama", "Satria Utomo", "Teguh Firmansyah",
-  "Wisnu Baskoro", "Yudha Permana", "Ilham Rahmadi", "Gilang Saputro", "Damar Anggoro",
-  "Bintang Mahesa", "Rafi Alfarizi", "Naufal Hidayat", "Zaki Ardiansyah", "Farhan Hakim",
-  // Satu nama sengaja bertanda hubung: pencarian nama menormalkan hubung dan
-  // spasi, dan tanpa contoh berhubung di data, uji regresinya kehilangan bahan.
-  "Denny Kurniawan", "Ridho Setiadi", "Ahmad Al-Faruq", "Hafiz Ramadhan", "Bram Sitorus",
-  "Josua Tampubolon", "Ruben Simanjuntak", "Kevin Napitupulu", "Marco Silalahi", "Gerry Panggabean",
-  "Wayan Suardika", "Made Arsana", "Komang Aditya", "Putu Darmawan", "Rendra Pratama",
-  "Doni Saputra", "Ferdi Ahmad", "Irfan Maulidin", "Yusuf Abdillah", "Adam Nurhakim",
-  "Rio Sanjaya", "Tio Wicaksono", "Nanda Pribadi", "Angga Setyawan", "Dicky Ferdian",
-  "Rahmat Fauzi", "Aldi Nurcahyo", "Bagas Winarno", "Fikri Ramadhan", "Sandi Kurnia",
-];
-
-const FEMALE = [
-  "Ayu Lestari", "Siti Rahmawati", "Dewi Anggraini", "Putri Maharani", "Rina Kartika",
-  "Nadia Safitri", "Intan Permatasari", "Citra Ayu Ningsih", "Fitri Handayani", "Laras Wulandari",
-  "Maya Puspita", "Nur Aisyah", "Ratna Juwita", "Salma Nabila", "Tiara Ramadhani",
-  "Vina Oktaviani", "Winda Sari", "Yulia Andini", "Zahra Amelia", "Anisa Rahmadani",
-  "Bella Kusumawati", "Cindy Pratiwi", "Dinda Alifia", "Elsa Nuraini", "Farah Salsabila",
-  "Gita Aprilia", "Hana Fadhilah", "Indah Purnama", "Jihan Azzahra", "Kirana Sekar",
-  "Lidya Simatupang", "Meliana Sianturi", "Novita Hutagalung", "Olivia Manurung", "Priska Sihombing",
-  "Ni Luh Ayu Savitri", "Ni Kadek Sriani", "Ni Made Wulandari", "Desak Putu Ariani", "Ida Ayu Prameswari",
-  "Rani Oktarina", "Sabrina Yulianti", "Tania Kirana", "Ulfa Nabilah", "Vera Anggita",
-  "Wulan Ramadhani", "Yasmin Khairunnisa", "Zulfa Amalia", "Amelia Rizki", "Bunga Lestari",
-  "Chika Ardhana", "Diah Ayu Kusuma", "Erika Wijayanti", "Fani Nurhaliza", "Gina Puspasari",
-  "Hesti Nuraini", "Ika Damayanti", "Jasmine Aulia", "Karina Dewanti", "Lita Puspaningrum",
-  "Mira Anjani", "Nayla Hasanah", "Oktavia Rahayu", "Pipit Larasati", "Qonita Salsabil",
-];
-
-// ── Skor ─────────────────────────────────────────────────────────────────────
-/** Hash kecil & stabil — dipakai supaya angka yang keluar sama tiap kali dijalankan. */
-function hash(str) {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
-  return h;
+// ── Identitas orang: dibaca, tidak dibuat ───────────────────────────────────
+function parseCSVLine(line) {
+  const out = [];
+  let cur = "";
+  let quoted = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (quoted) {
+      if (ch === '"') {
+        if (line[i + 1] === '"') {
+          cur += '"';
+          i++;
+        } else quoted = false;
+      } else cur += ch;
+    } else if (ch === '"') quoted = true;
+    else if (ch === ",") {
+      out.push(cur);
+      cur = "";
+    } else cur += ch;
+  }
+  out.push(cur);
+  return out;
 }
 
-const DISC = ["D", "I", "S", "C", "DI", "CI", "SC", "DC"];
+const existingText = readFileSync(join(ROOT, CSV_PATH), "utf8").replace(/^﻿/, "");
+const existingLines = existingText.split(/\r?\n/).filter((l) => l.trim());
+const existingHeaders = parseCSVLine(existingLines[0]).map((h) => h.trim());
+const existing = existingLines.slice(1).map((line) => {
+  const vals = parseCSVLine(line);
+  return existingHeaders.reduce((o, h, i) => ((o[h] = (vals[i] ?? "").trim()), o), {});
+});
+const byId = new Map(existing.map((r) => [r.id, r]));
 
-/**
- * Rentang skor per lapis. Makin tinggi jabatan makin tinggi dasarnya — tanpa ini
- * 9-box Talent Mapping jadi acak dan tidak ada pola yang bisa dibaca saat demo.
- */
-const BASE_BY_LEVEL = { 1: 90, 2: 86, 3: 82, 4: 77, 5: 72 };
+/** Kolom yang datang apa adanya dari berkas lama — tidak boleh disusun ulang. */
+const KEPT = [
+  "name", "gender", "disc", "potential", "behavioral", "technical",
+  "performance", "leadership", "competency", "prediction", "engagement",
+];
 
-/**
- * Watak tiap orang, digeser dari dasar lapisnya.
- *
- * Tanpa ini semua staf berkerumun di satu kotak 9-box — pernah terjadi: 68 dari
- * 112 orang jatuh di kotak yang sama dan petanya tidak lagi bisa dibaca.
- * Performa dan potensi diberi watak yang BERBEDA supaya keduanya tidak bergerak
- * seiring; justru dari selisih itulah kotak seperti "Emerging Star" (potensi
- * tinggi, performa belum) dan "Expert" (sebaliknya) muncul.
- */
-const TRAITS = [-16, -9, -3, 3, 9, 16];
-
+// ── Rakit ────────────────────────────────────────────────────────────────────
 const build = () => {
   const byKey = new Map(UNITS.map((u) => [u.key, u]));
 
@@ -206,67 +142,53 @@ const build = () => {
     return levelOf(u.reportTo, guard + 1) + 1;
   };
 
-  const taken = new Set(UNITS.flatMap((u) => u.ids ?? []));
-  let next = 34;
-  const nextId = () => {
-    let id;
-    do {
-      id = "p" + String(next++).padStart(2, "0");
-    } while (taken.has(id));
-    taken.add(id);
-    return id;
+  const locked = new Set(UNITS.flatMap((u) => u.ids ?? []));
+  const pool = existing.map((r) => r.id).filter((id) => !locked.has(id));
+  let cursor = 0;
+  const takeId = () => {
+    if (cursor >= pool.length) throw new Error("Kursi lebih banyak daripada orang yang tersedia");
+    return pool[cursor++];
   };
 
   const rows = [];
   const firstIdOf = new Map();
-  let mi = 0;
-  let fi = 0;
+
+  const seat = ({ id, position, job, team, level, unitKey }) => {
+    const src = byId.get(id);
+    if (!src) throw new Error(`Id ${id} tidak ada di ${CSV_PATH}`);
+    const row = { id, position, department: job, team, level, unitKey, manager_id: "", successor_for: "" };
+    for (const k of KEPT) row[k] = src[k] ?? "";
+    rows.push(row);
+    return row;
+  };
 
   for (const unit of UNITS) {
-    const count = unit.count ?? unit.ids?.length ?? 1;
     const level = levelOf(unit.key);
-    for (let i = 0; i < count; i++) {
-      const id = unit.ids?.[i] ?? nextId();
-      // Gender berselang-seling menurut urutan kursi; nama diambil dari daftar
-      // yang sesuai supaya nama dan gender tidak pernah bertentangan.
-      const female = (rows.length + (unit.key.length % 2)) % 2 === 1;
-      const name = female ? FEMALE[fi++ % FEMALE.length] : MALE[mi++ % MALE.length];
-      const base = BASE_BY_LEVEL[level] ?? 72;
-      const perfTrait = TRAITS[hash(id + "perf-trait") % TRAITS.length];
-      const potTrait = TRAITS[hash(id + "pot-trait") % TRAITS.length];
-      const score = (kind, spread = 12, trait = 0) => {
-        const h = hash(id + kind);
-        return Math.max(42, Math.min(99, base + trait - Math.floor(spread / 2) + (h % spread)));
-      };
-      const competency = score("competency", 14, Math.round((perfTrait + potTrait) / 2));
-      const row = {
-        id,
-        name,
-        gender: female ? "Perempuan" : "Laki-laki",
-        position: unit.position,
-        department: unit.job,
-        team: unit.team,
-        disc: DISC[hash(id + "disc") % DISC.length],
-        potential: competency >= 88 ? "high" : competency >= 78 ? "medium" : "low",
-        managerUnit: unit.reportTo,
-        successor_for: "",
-        behavioral: score("behavioral", 14, potTrait),
-        technical: score("technical", 14, perfTrait),
-        // performance = sumbu X di 9-box, leadership = sumbu Y (potensi).
-        performance: score("performance", 10, perfTrait),
-        leadership: score("leadership", 10, potTrait),
-        competency,
-        prediction: score("prediction", 18, potTrait),
-        engagement: score("engagement", 18),
-        level,
-        unitKey: unit.key,
-      };
-      rows.push(row);
+    const heads = unit.ids?.length ?? 1;
+    for (let i = 0; i < heads; i++) {
+      const id = unit.ids?.[i] ?? takeId();
+      const row = seat({ id, position: unit.position, job: unit.job, team: unit.team, level, unitKey: unit.key });
       if (i === 0) firstIdOf.set(unit.key, id);
+      row.managerUnit = unit.reportTo;
+    }
+    // Staf unit: satu lapis di bawah pemimpin unitnya, dinamai bernomor.
+    for (let n = 1; n <= (unit.staff?.count ?? 0); n++) {
+      const row = seat({
+        id: takeId(),
+        position: `${unit.staff.name} #${n}`,
+        job: unit.job,
+        team: unit.team,
+        level: level + 1,
+        unitKey: unit.key + "_STAFF",
+      });
+      row.managerUnit = unit.key;
     }
   }
 
-  // Atasan = orang pertama di unit yang ditunjuk reportTo.
+  if (cursor < pool.length) {
+    throw new Error(`${pool.length - cursor} orang tidak kebagian kursi — jumlah di blueprint kurang`);
+  }
+
   for (const r of rows) r.manager_id = r.managerUnit ? firstIdOf.get(r.managerUnit) : "";
 
   // Successor: bawahan langsung dengan competency tertinggi ditandai sebagai
@@ -279,8 +201,8 @@ const build = () => {
     byManager.set(r.manager_id, list);
   }
   for (const [managerId, list] of byManager) {
-    const best = [...list].sort((a, b) => b.competency - a.competency)[0];
-    if (best && best.competency >= 80) best.successor_for = managerId;
+    const best = [...list].sort((a, b) => Number(b.competency) - Number(a.competency))[0];
+    if (best && Number(best.competency) >= 80) best.successor_for = managerId;
   }
 
   return rows;
@@ -288,19 +210,12 @@ const build = () => {
 
 const rows = build();
 
-// Nama harus unik. Pencarian orang di aplikasi ini bertumpu pada nama — asisten
-// dan Talent Mapping mencocokkan teks nama, bukan id — jadi dua orang bernama
-// sama akan menunjuk orang yang keliru tanpa ada pesan galat. Pernah terjadi:
-// daftar nama perempuan lebih pendek dari jumlah yang dibutuhkan, dan lima nama
-// terakhir diam-diam mengulang dari awal.
-const dupes = Object.entries(
-  rows.reduce((acc, r) => ((acc[r.name] = (acc[r.name] ?? 0) + 1), acc), {}),
-).filter(([, n]) => n > 1);
-if (dupes.length) {
-  throw new Error(
-    `Nama kembar (tambah nama di daftar MALE/FEMALE): ${dupes.map(([n, c]) => `${n} ×${c}`).join(", ")}`,
-  );
-}
+// Identitas wajib utuh: kalau ada id yang hilang atau nama yang bergeser, seluruh
+// foto dan riwayat yang menempel pada id itu jadi salah orang.
+const hilang = existing.map((r) => r.id).filter((id) => !rows.some((r) => r.id === id));
+if (hilang.length) throw new Error(`Id hilang dari hasil: ${hilang.join(", ")}`);
+const bergeser = rows.filter((r) => r.name !== byId.get(r.id).name || r.gender !== byId.get(r.id).gender);
+if (bergeser.length) throw new Error(`Nama/gender bergeser di: ${bergeser.map((r) => r.id).join(", ")}`);
 
 const HEADERS = [
   "id", "name", "gender", "position", "department", "team", "disc", "potential",
@@ -308,13 +223,16 @@ const HEADERS = [
   "leadership", "competency", "prediction", "engagement",
 ];
 
-// Diurutkan menurut id supaya berkasnya enak dibaca dan diff-nya stabil.
+const csv = (v) => {
+  const s = String(v ?? "");
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+};
+
 const sorted = [...rows].sort((a, b) => Number(a.id.slice(1)) - Number(b.id.slice(1)));
 const lines = [HEADERS.join(",")];
-for (const r of sorted) lines.push(HEADERS.map((h) => r[h] ?? "").join(","));
-writeFileSync(join(ROOT, "public/data/participants.csv"), lines.join("\n") + "\n", "utf8");
+for (const r of sorted) lines.push(HEADERS.map((h) => csv(r[h] ?? "")).join(","));
+writeFileSync(join(ROOT, CSV_PATH), lines.join("\n") + "\n", "utf8");
 
-// Ringkasan supaya ketimpangan struktur langsung kelihatan tanpa buka CSV-nya.
 const perLevel = {};
 const perJob = {};
 for (const r of rows) {
@@ -324,4 +242,4 @@ for (const r of rows) {
 console.log(`participants.csv: ${rows.length} employee, ${new Set(rows.map((r) => r.position)).size} posisi unik`);
 console.log("per lapis:", perLevel);
 console.log("per Job:", perJob);
-console.log("successor ditandai:", rows.filter((r) => r.successor_for).length);
+console.log("identitas (nama, gender, skor) dipertahankan dari berkas sebelumnya");

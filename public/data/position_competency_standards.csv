@@ -1,84 +1,113 @@
 position,department,Orientasi Hasil,Kerjasama,Komunikasi,Daya Analisis,Adaptabilitas,Inisiatif,Pelayanan Pelanggan,Integritas,Pengembangan Diri,Pengambilan Keputusan,Manajemen Waktu,Disiplin,Keterampilan Interpersonal
 Head of Engineering,Teknologi,4,5,4,4,5,4,5,4,5,5,3,4,4
-Senior Engineer,Teknologi,4,3,4,3,2,3,4,3,4,3,4,3,4
-Frontend Lead,Teknologi,4,3,4,3,4,3,4,4,3,3,4,3,4
-Backend Lead,Teknologi,4,4,3,3,2,4,3,3,3,2,3,3,3
-Chief Executive Officer,Strategi,5,4,5,5,5,5,5,5,5,5,5,5,5
-Chief Strategy Officer,Strategi,5,5,5,4,5,5,4,5,5,5,5,5,5
-VP Corporate Strategy,Strategi,4,4,4,4,4,4,4,4,3,3,4,4,5
-Head of Governance,Strategi,5,4,4,4,4,4,3,4,5,3,4,3,3
+Operations Lead,Operasional,3,3,3,4,4,3,3,3,3,3,2,3,2
+Operations #1,Operasional,4,4,3,3,3,4,4,3,4,3,3,3,3
+Operations #2,Operasional,3,4,3,3,4,4,4,3,4,3,3,3,2
+Chief Executive Officer,Operasional,5,4,5,5,5,5,5,5,5,5,5,5,5
+Chief Product Officer,Produk,4,4,3,4,3,3,3,4,3,3,4,4,3
+Operations #3,Operasional,4,3,3,3,4,2,3,4,2,3,3,3,3
+Head of Product,Produk,4,3,3,3,4,3,3,2,4,3,2,4,4
 Head of Finance,Keuangan,4,5,4,5,4,4,4,4,4,4,4,4,5
-Senior Finance Analyst,Keuangan,3,4,3,4,2,4,4,3,3,3,4,3,3
-Finance Analyst,Keuangan,2,2,2,2,2,2,3,3,2,3,2,1,2
-Controller,Keuangan,3,3,4,3,2,3,3,4,3,4,4,3,4
-HR Business Partner,SDM,3,4,3,3,4,3,3,3,3,3,3,2,3
-HR Manager,SDM,4,3,3,2,4,3,3,3,4,4,4,3,3
-Talent Acquisition Lead,SDM,3,4,3,3,3,4,3,3,2,3,3,4,2
-People Ops Specialist,SDM,3,1,2,2,2,2,3,2,3,2,3,2,3
-VP Operations,Operasional,4,4,5,5,5,5,4,4,3,5,4,5,5
-Operations Manager,Operasional,3,3,3,3,3,3,3,2,4,4,3,3,3
-Supply Chain Lead,Operasional,3,4,3,4,3,3,4,3,3,4,3,4,3
-Operations Analyst,Operasional,3,1,2,2,2,2,2,2,2,2,2,3,2
-Head of Marketing,Pemasaran,5,5,4,5,3,5,5,4,4,4,5,5,4
-Senior Marketing Manager,Pemasaran,3,4,3,3,2,3,3,3,3,3,3,3,3
-Brand Manager,Pemasaran,4,2,4,3,3,3,4,3,4,3,3,3,3
-Growth Marketing Lead,Pemasaran,3,2,3,2,3,2,3,4,3,4,4,4,3
-Senior Brand Strategist,Pemasaran,3,4,4,2,3,2,3,3,3,3,3,3,3
-Chief Revenue Officer,Pemasaran,5,5,5,5,5,5,5,5,5,5,5,5,5
-Creative Director,Pemasaran,3,3,4,3,3,3,4,3,3,3,3,3,4
-Principal Engineer,Teknologi,4,3,4,4,4,2,3,4,3,3,4,4,4
-Operations Strategist,Operasional,2,2,3,3,3,3,3,3,4,3,3,3,4
-Growth Marketing Manager,Pemasaran,4,3,3,3,4,3,4,3,3,4,4,2,3
-Senior Finance Manager,Keuangan,2,4,3,3,3,3,3,4,3,4,3,3,3
-Supply Chain Manager,Operasional,3,2,3,3,2,3,3,3,4,3,4,4,3
-Digital Content Specialist,Pemasaran,2,2,2,2,2,2,1,3,1,2,2,3,3
+Logistics Lead,Operasional,4,4,4,4,4,2,3,3,2,3,3,3,4
+Logistics #1,Operasional,3,4,3,4,3,3,3,4,4,3,4,3,4
+Logistics #2,Operasional,2,3,4,3,3,3,3,3,4,3,3,3,3
+Logistics #3,Operasional,4,4,3,4,3,3,3,3,4,3,3,4,3
+Quality Lead,Operasional,4,3,2,2,3,3,3,3,2,3,3,3,3
+Quality #1,Operasional,3,3,3,3,3,4,4,4,4,3,3,3,2
+Quality #2,Operasional,4,3,3,4,3,2,4,2,4,2,3,3,3
+Quality #3,Operasional,3,3,3,3,4,3,4,3,3,3,3,3,3
+Recruitment Lead,SDM,4,4,4,3,3,4,3,3,4,3,4,3,3
+Recruitment #1,SDM,2,3,3,4,4,4,4,3,2,3,3,3,4
+Recruitment #2,SDM,3,3,3,4,3,3,3,3,3,3,3,3,4
+Head of Marketing,Marketing,5,5,4,5,3,5,5,4,4,4,5,5,4
+Recruitment #3,SDM,4,3,3,3,3,2,3,3,3,4,4,4,2
+Recruitment #4,SDM,2,3,4,3,2,2,4,4,3,3,3,3,4
+People Development Lead,SDM,3,3,3,3,3,3,2,4,3,4,3,3,3
+People Development #1,SDM,3,3,4,4,3,3,3,3,4,4,3,3,3
+Chief Marketing Officer,Marketing,4,3,4,4,4,4,3,3,3,3,4,3,4
+People Development #2,SDM,3,3,3,3,3,3,3,3,3,3,3,4,4
+People Development #3,SDM,3,2,3,4,2,4,3,4,2,3,3,3,3
+Accounting Lead,Keuangan,4,3,3,2,3,3,4,4,4,4,3,3,2
+Accounting #1,Keuangan,4,2,3,4,3,3,3,4,3,3,4,3,3
+Accounting #2,Keuangan,3,3,3,4,3,4,3,3,3,3,3,4,3
+Accounting #3,Keuangan,2,3,3,3,3,3,3,3,4,3,3,3,3
+Treasury Lead,Keuangan,3,3,2,3,4,3,4,4,3,3,3,4,3
 Chief Technology Officer,Teknologi,4,4,3,3,3,3,3,4,3,3,4,4,3
 Chief Financial Officer,Keuangan,4,3,3,2,2,4,4,3,4,3,3,3,3
 Chief Operating Officer,Operasional,3,2,2,2,3,3,3,4,3,3,3,3,3
-Chief Human Resources Officer,SDM,3,3,3,3,3,3,4,3,4,2,4,2,3
-Strategy Manager,Strategi,3,3,3,4,4,3,3,3,4,3,4,4,3
-Governance Manager,Strategi,3,4,4,3,4,3,3,3,4,3,4,4,3
-Strategy Analyst,Strategi,3,3,4,3,4,3,4,3,3,4,3,3,3
-Head of Infrastructure & Security,Teknologi,3,4,2,3,4,3,3,3,2,3,3,3,3
+Head of People,SDM,3,3,3,3,4,3,3,4,3,4,3,4,3
+Treasury #1,Keuangan,3,3,3,4,4,3,3,3,2,2,3,3,3
+Treasury #2,Keuangan,3,3,3,4,3,3,2,3,4,3,4,4,4
+Tax Lead,Keuangan,2,3,4,3,4,3,3,3,3,4,3,4,4
+Tax #1,Keuangan,3,3,4,4,4,2,3,3,4,3,4,3,3
+Head of Infrastructure,Teknologi,3,3,4,3,4,4,4,3,3,3,2,3,3
+Tax #2,Keuangan,3,4,3,3,3,3,4,4,3,3,3,3,3
+Tax #3,Keuangan,3,3,4,3,3,4,3,3,3,3,3,2,3
+Backend Lead,Teknologi,4,4,3,3,2,4,3,3,3,2,3,3,3
+Backend #1,Teknologi,3,4,2,3,2,3,4,3,3,3,3,4,3
+Backend #2,Teknologi,3,3,3,3,2,2,3,3,3,3,3,3,2
+Backend #3,Teknologi,3,4,3,4,3,3,4,4,4,4,3,3,3
+Backend #4,Teknologi,3,3,3,3,4,3,3,3,3,4,3,4,3
+Frontend Lead,Teknologi,4,3,4,3,4,3,4,4,3,3,4,3,4
+Frontend #1,Teknologi,4,3,3,4,3,4,4,2,3,3,2,3,3
+Frontend #2,Teknologi,3,2,4,4,3,4,2,3,3,4,4,3,3
+Frontend #3,Teknologi,4,2,4,3,3,2,3,3,3,4,4,3,3
 QA Lead,Teknologi,3,3,3,3,3,3,3,3,2,4,3,3,3
+QA #1,Teknologi,4,4,3,2,4,3,3,3,4,3,4,4,3
+QA #2,Teknologi,3,4,4,4,4,3,4,3,4,4,3,3,3
+QA #3,Teknologi,2,3,3,3,3,4,4,4,2,3,3,3,4
 DevOps Lead,Teknologi,2,2,4,3,4,4,3,3,3,2,3,2,4
+DevOps #1,Teknologi,4,3,3,3,4,3,2,3,4,3,3,2,3
+DevOps #2,Teknologi,4,3,3,3,2,2,3,3,4,4,3,4,3
+DevOps #3,Teknologi,3,3,2,3,3,4,3,3,3,4,3,3,2
 Security Lead,Teknologi,3,3,4,4,4,3,3,3,4,3,3,3,3
-Backend Engineer,Teknologi,3,3,4,4,4,4,4,4,2,3,3,3,3
-Frontend Engineer,Teknologi,4,3,3,4,3,2,3,3,3,3,3,4,4
-Software Engineer,Teknologi,3,3,4,3,3,2,3,4,3,4,3,3,3
-QA Engineer,Teknologi,4,4,4,3,2,3,3,3,3,3,3,3,4
-DevOps Engineer,Teknologi,3,3,4,3,2,2,3,3,3,3,3,3,3
-Security Analyst,Teknologi,2,4,3,3,4,4,4,3,4,3,3,3,3
-Head of Accounting,Keuangan,3,3,3,3,3,4,3,3,3,4,3,2,3
-Accounting Manager,Keuangan,4,2,3,3,3,3,3,3,4,3,3,3,2
-Internal Auditor,Keuangan,4,3,3,3,3,3,3,3,2,3,4,4,4
-Accounting Staff,Keuangan,3,4,3,4,3,3,4,3,3,4,3,2,4
-Tax Staff,Keuangan,3,3,3,3,3,3,2,4,4,3,3,3,3
-Head of Supply Chain,Operasional,4,4,3,3,4,3,2,4,3,3,3,4,3
-Service Quality Manager,Operasional,4,3,3,4,3,4,4,3,4,4,4,3,3
-Operations Staff,Operasional,3,4,3,3,4,4,3,3,4,3,3,3,3
-Service Quality Officer,Operasional,3,4,3,3,3,4,3,3,3,4,3,4,3
-Logistics Staff,Operasional,3,3,3,3,3,2,4,3,3,3,4,2,2
-Procurement Staff,Operasional,3,2,3,4,3,4,3,3,3,3,3,3,3
-People Development Manager,SDM,3,2,3,2,3,3,4,3,3,4,4,3,3
-HR Operations Staff,SDM,2,4,4,2,3,3,2,4,4,2,3,3,3
-Recruiter,SDM,3,3,3,3,4,3,3,4,3,3,3,3,4
-Learning & Development Specialist,SDM,3,3,3,3,4,4,3,4,3,4,3,2,4
-Head of Sales,Pemasaran,3,4,3,4,4,4,2,3,3,3,3,3,4
-Graphic Designer,Pemasaran,3,4,2,3,4,4,2,4,4,3,4,4,4
-Digital Marketing Executive,Pemasaran,3,3,2,3,4,2,4,3,4,3,3,3,3
-Market Research Analyst,Pemasaran,4,3,4,3,3,3,3,3,4,3,4,3,4
-Hunting Manager Enterprise,Hunter,3,3,4,3,4,3,3,3,3,3,3,4,3
-Hunting Manager SMB,Hunter,4,3,3,3,3,4,4,3,4,3,3,3,4
-Hunting Manager Government,Hunter,4,4,2,3,2,3,3,3,3,2,3,3,4
-Account Executive Enterprise,Hunter,3,3,3,3,3,3,2,2,3,4,3,3,4
-Account Executive SMB,Hunter,3,4,3,2,3,4,4,4,4,2,3,3,3
-Business Development Representative,Hunter,3,3,3,2,3,4,3,4,3,3,3,3,4
-Sales Development Representative,Hunter,2,4,2,2,3,2,2,3,3,2,3,3,4
-Government Relations Specialist,Hunter,3,3,4,4,4,3,4,4,2,3,4,3,3
-Farming Manager Enterprise,Farmer,3,3,3,3,4,3,4,4,2,2,4,3,2
-Farming Manager SMB,Farmer,3,4,3,2,4,3,3,2,3,4,3,3,2
-Account Manager Enterprise,Farmer,3,2,4,4,3,4,3,3,4,3,3,4,3
-Account Manager SMB,Farmer,2,3,3,4,3,4,3,3,3,3,3,3,4
-Customer Success Officer,Farmer,3,4,2,3,3,4,3,3,3,4,4,3,3
-Renewal Specialist,Farmer,3,4,3,3,3,3,3,3,2,4,3,3,4
+Security #1,Teknologi,3,3,4,3,3,3,4,3,3,2,4,3,3
+Security #2,Teknologi,3,3,3,3,4,4,2,3,3,3,4,4,4
+Data Lead,Teknologi,3,3,3,4,3,4,3,2,3,4,3,3,4
+Head of Operations,Operasional,4,3,3,3,3,3,3,3,3,4,4,2,4
+Data #1,Teknologi,3,3,3,3,4,3,3,3,4,4,3,3,3
+Data #2,Teknologi,2,3,4,4,3,4,3,3,3,3,4,3,4
+Product Management Lead,Produk,3,3,3,4,3,2,3,4,4,4,3,4,3
+Product Management #1,Produk,3,4,2,4,2,3,4,4,3,3,2,4,3
+Product Management #2,Produk,3,2,4,2,3,3,4,3,4,3,2,4,4
+Product Management #3,Produk,3,3,2,4,4,3,4,3,3,4,3,3,3
+Product Design Lead,Produk,4,4,3,3,4,3,4,3,3,3,3,3,3
+Product Design #1,Produk,2,3,3,2,2,4,3,3,4,2,3,3,3
+Product Design #2,Produk,3,3,3,3,3,4,2,3,4,3,4,4,2
+Product Design #3,Produk,3,4,3,4,4,3,3,3,4,3,4,3,3
+Product Analytics Lead,Produk,4,2,3,4,3,4,3,3,3,3,4,3,4
+Head of Sales,Marketing,3,4,3,4,4,4,2,3,3,3,3,3,4
+Product Analytics #1,Produk,3,4,3,3,4,4,2,3,3,4,3,3,2
+Product Analytics #2,Produk,4,3,3,3,3,3,2,3,3,4,3,3,3
+Digital Marketing Lead,Marketing,3,3,4,3,3,3,3,4,2,4,3,3,3
+Digital Marketing #1,Marketing,4,4,4,3,2,4,3,3,4,3,3,4,3
+Digital Marketing #2,Marketing,3,3,3,3,3,3,4,3,4,3,3,3,4
+Digital Marketing #3,Marketing,3,3,2,2,4,3,3,3,3,2,3,2,3
+Digital Marketing #4,Marketing,3,3,3,2,4,3,3,3,3,3,2,3,3
+Digital Marketing #5,Marketing,3,3,3,3,3,3,3,3,3,3,2,3,4
+Digital Marketing #6,Marketing,3,3,3,3,4,3,2,2,3,4,3,3,4
+Digital Marketing #7,Marketing,3,4,3,3,4,3,4,3,3,3,3,3,3
+Brand & Content Lead,Marketing,3,3,3,3,4,3,3,3,3,3,3,3,2
+Brand & Content #1,Marketing,3,3,3,2,3,4,3,4,3,3,3,4,2
+Brand & Content #2,Marketing,3,2,3,3,3,3,3,3,3,3,3,3,4
+Brand & Content #3,Marketing,3,3,4,2,3,4,3,3,3,4,3,4,3
+Brand & Content #4,Marketing,3,3,3,3,4,3,4,4,4,3,3,3,4
+Brand & Content #5,Marketing,4,3,4,3,3,3,3,3,3,2,4,4,3
+Brand & Content #6,Marketing,3,4,3,3,2,4,3,4,3,3,2,3,3
+Market Research Lead,Marketing,3,3,3,4,3,3,4,4,2,3,4,3,4
+Market Research #1,Marketing,2,4,3,4,3,3,2,3,3,3,4,3,3
+Market Research #2,Marketing,4,3,3,3,4,3,2,4,4,4,3,4,3
+Market Research #3,Marketing,4,3,3,4,3,4,3,3,3,4,3,3,4
+Market Research #4,Marketing,3,3,2,3,4,2,2,3,4,3,3,3,4
+Hunter,Hunter,2,3,3,3,4,2,4,4,3,3,4,4,2
+Hunter #1,Hunter,3,3,3,4,3,3,4,4,3,4,2,3,4
+Hunter #2,Hunter,3,2,3,3,4,3,3,3,2,3,2,3,3
+Hunter #3,Hunter,3,3,3,4,4,3,4,3,3,4,3,2,4
+Hunter #4,Hunter,4,4,3,3,3,3,2,4,3,3,3,4,4
+Hunter #5,Hunter,4,3,3,3,4,4,3,3,3,3,3,2,3
+Farmer,Farmer,3,4,3,3,3,2,4,4,3,2,3,3,3
+Farmer #1,Farmer,3,3,3,4,4,3,4,3,3,4,3,3,3
+Farmer #2,Farmer,4,4,3,4,3,3,3,4,3,3,3,3,3
+Farmer #3,Farmer,3,3,3,4,3,3,2,3,3,3,4,3,3
+Farmer #4,Farmer,2,3,3,3,3,3,3,4,3,3,4,4,3
+Farmer #5,Farmer,3,2,3,3,3,4,3,3,3,2,4,3,3

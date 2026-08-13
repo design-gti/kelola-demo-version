@@ -1,113 +1,113 @@
 id,name,gender,position,department,team,disc,potential,manager_id,successor_for,behavioral,technical,performance,leadership,competency,prediction,engagement
 p01,Intan Permatasari,Perempuan,Head of Engineering,Teknologi,ENG,SC,high,p34,,99,93,94,97,91,89,77
-p02,Ratna Juwita,Perempuan,Senior Engineer,Teknologi,ENG,DC,low,p28,,56,65,64,56,67,64,66
-p03,Citra Ayu Ningsih,Perempuan,Frontend Lead,Teknologi,ENG,D,low,p01,,61,65,72,65,65,61,70
-p04,Aditya Wibowo,Laki-laki,Backend Lead,Teknologi,ENG,I,low,p01,,74,59,64,72,62,66,73
-p05,Ayu Lestari,Perempuan,Chief Executive Officer,Strategi,EXE,S,high,,,90,92,95,88,94,88,85
-p06,Bagus Prakoso,Laki-laki,Chief Strategy Officer,Strategi,EXE,C,medium,p05,,99,83,84,91,83,89,84
-p07,Putri Maharani,Perempuan,VP Corporate Strategy,Strategi,EXE,DI,high,p06,p06,86,99,98,82,97,78,79
-p08,Rina Kartika,Perempuan,Head of Governance,Strategi,EXE,CI,high,p06,,85,93,90,95,89,87,82
-p09,Teguh Firmansyah,Laki-laki,Head of Finance,Keuangan,FIN,SC,medium,p35,,99,76,71,93,81,93,81
-p10,Wisnu Baskoro,Laki-laki,Senior Finance Analyst,Keuangan,FIN,DI,low,p31,,62,76,75,64,72,54,67
-p11,Cindy Pratiwi,Perempuan,Finance Analyst,Keuangan,FIN,CI,low,p31,,75,75,68,67,65,63,70
-p12,Anisa Rahmadani,Perempuan,Controller,Keuangan,FIN,SC,medium,p09,,83,86,91,79,80,73,74
-p13,Meliana Sianturi,Perempuan,HR Business Partner,SDM,HR,DC,high,p37,p37,87,85,88,87,91,87,78
-p14,Novita Hutagalung,Perempuan,HR Manager,SDM,HR,D,medium,p13,p13,96,75,76,90,84,88,76
-p15,Olivia Manurung,Perempuan,Talent Acquisition Lead,SDM,HR,I,low,p13,,61,57,56,65,65,59,75
-p16,Farhan Hakim,Laki-laki,People Ops Specialist,SDM,HR,S,low,p14,,56,85,92,58,73,60,73
-p17,Farah Salsabila,Perempuan,VP Operations,Operasional,OPS,C,low,p36,,83,77,82,75,73,75,82
-p18,Gilang Saputro,Laki-laki,Operations Manager,Operasional,OPS,DI,low,p17,,77,67,70,83,75,79,76
-p19,Indah Purnama,Perempuan,Supply Chain Lead,Operasional,OPS,CI,low,p66,,90,61,62,90,72,84,79
-p20,Bintang Mahesa,Laki-laki,Operations Analyst,Operasional,OPS,C,low,p18,,58,54,59,56,62,50,70
-p21,Desak Putu Ariani,Perempuan,Head of Marketing,Pemasaran,SNM,DI,medium,p26,p26,68,97,99,70,85,70,83
-p22,Ahmad Al-Faruq,Laki-laki,Senior Marketing Manager,Pemasaran,SNM,CI,low,p21,,80,74,75,72,70,70,77
-p23,Ida Ayu Prameswari,Perempuan,Brand Manager,Pemasaran,SNM,SC,low,p21,,79,69,68,75,77,79,76
-p24,Hafiz Ramadhan,Laki-laki,Growth Marketing Lead,Pemasaran,SNM,DC,low,p21,,92,63,60,82,74,84,79
-p25,Sabrina Yulianti,Perempuan,Senior Brand Strategist,Pemasaran,SNM,D,low,p23,,91,78,73,91,75,89,73
-p26,Siti Rahmawati,Perempuan,Chief Revenue Officer,Pemasaran,SNM,I,low,p05,,66,87,80,74,77,70,90
-p27,Bram Sitorus,Laki-laki,Creative Director,Pemasaran,SNM,S,medium,p21,,61,98,89,63,78,67,80
-p28,Galih Kusuma,Laki-laki,Principal Engineer,Teknologi,ENG,C,medium,p01,p01,74,92,81,76,84,76,79
-p29,Jihan Azzahra,Perempuan,Operations Strategist,Operasional,OPS,DI,low,p18,,68,68,79,78,76,76,77
-p30,Rani Oktarina,Perempuan,Growth Marketing Manager,Pemasaran,SNM,S,medium,p21,p21,98,85,76,92,82,90,78
-p31,Zahra Amelia,Perempuan,Senior Finance Manager,Keuangan,FIN,C,medium,p09,p09,84,80,69,82,82,86,77
-p32,Hana Fadhilah,Perempuan,Supply Chain Manager,Operasional,OPS,DI,high,p66,p66,98,86,97,90,92,92,80
-p33,Tania Kirana,Perempuan,Digital Content Specialist,Pemasaran,SNM,CI,low,p27,,58,75,84,60,75,58,74
+p02,Ratna Juwita,Perempuan,Operations Lead,Operasional,OPS,DC,low,p66,,56,65,64,56,67,64,66
+p03,Citra Ayu Ningsih,Perempuan,Operations #1,Operasional,OPS,D,low,p02,,61,65,72,65,65,61,70
+p04,Aditya Wibowo,Laki-laki,Operations #2,Operasional,OPS,I,low,p02,,74,59,64,72,62,66,73
+p05,Ayu Lestari,Perempuan,Chief Executive Officer,Operasional,EXE,S,high,,,90,92,95,88,94,88,85
+p06,Bagus Prakoso,Laki-laki,Chief Product Officer,Produk,PRD,C,medium,p05,,99,83,84,91,83,89,84
+p07,Putri Maharani,Perempuan,Operations #3,Operasional,OPS,DI,high,p02,p02,86,99,98,82,97,78,79
+p08,Rina Kartika,Perempuan,Head of Product,Produk,PRD,CI,high,p06,p06,85,93,90,95,89,87,82
+p09,Teguh Firmansyah,Laki-laki,Head of Finance,Keuangan,FIN,SC,medium,p35,p35,99,76,71,93,81,93,81
+p10,Wisnu Baskoro,Laki-laki,Logistics Lead,Operasional,OPS,DI,low,p66,,62,76,75,64,72,54,67
+p11,Cindy Pratiwi,Perempuan,Logistics #1,Operasional,OPS,CI,low,p10,,75,75,68,67,65,63,70
+p12,Anisa Rahmadani,Perempuan,Logistics #2,Operasional,OPS,SC,medium,p10,,83,86,91,79,80,73,74
+p13,Meliana Sianturi,Perempuan,Logistics #3,Operasional,OPS,DC,high,p10,p10,87,85,88,87,91,87,78
+p14,Novita Hutagalung,Perempuan,Quality Lead,Operasional,OPS,D,medium,p66,p66,96,75,76,90,84,88,76
+p15,Olivia Manurung,Perempuan,Quality #1,Operasional,OPS,I,low,p14,,61,57,56,65,65,59,75
+p16,Farhan Hakim,Laki-laki,Quality #2,Operasional,OPS,S,low,p14,,56,85,92,58,73,60,73
+p17,Farah Salsabila,Perempuan,Quality #3,Operasional,OPS,C,low,p14,,83,77,82,75,73,75,82
+p18,Gilang Saputro,Laki-laki,Recruitment Lead,SDM,HR,DI,low,p37,,77,67,70,83,75,79,76
+p19,Indah Purnama,Perempuan,Recruitment #1,SDM,HR,CI,low,p18,,90,61,62,90,72,84,79
+p20,Bintang Mahesa,Laki-laki,Recruitment #2,SDM,HR,C,low,p18,,58,54,59,56,62,50,70
+p21,Desak Putu Ariani,Perempuan,Head of Marketing,Marketing,MKT,DI,medium,p26,p26,68,97,99,70,85,70,83
+p22,Ahmad Al-Faruq,Laki-laki,Recruitment #3,SDM,HR,CI,low,p18,,80,74,75,72,70,70,77
+p23,Ida Ayu Prameswari,Perempuan,Recruitment #4,SDM,HR,SC,low,p18,,79,69,68,75,77,79,76
+p24,Hafiz Ramadhan,Laki-laki,People Development Lead,SDM,HR,DC,low,p37,,92,63,60,82,74,84,79
+p25,Sabrina Yulianti,Perempuan,People Development #1,SDM,HR,D,low,p24,,91,78,73,91,75,89,73
+p26,Siti Rahmawati,Perempuan,Chief Marketing Officer,Marketing,MKT,I,low,p05,,66,87,80,74,77,70,90
+p27,Bram Sitorus,Laki-laki,People Development #2,SDM,HR,S,medium,p24,,61,98,89,63,78,67,80
+p28,Galih Kusuma,Laki-laki,People Development #3,SDM,HR,C,medium,p24,p24,74,92,81,76,84,76,79
+p29,Jihan Azzahra,Perempuan,Accounting Lead,Keuangan,FIN,DI,low,p09,,68,68,79,78,76,76,77
+p30,Rani Oktarina,Perempuan,Accounting #1,Keuangan,FIN,S,medium,p29,,98,85,76,92,82,90,78
+p31,Zahra Amelia,Perempuan,Accounting #2,Keuangan,FIN,C,medium,p29,,84,80,69,82,82,86,77
+p32,Hana Fadhilah,Perempuan,Accounting #3,Keuangan,FIN,DI,high,p29,p29,98,86,97,90,92,92,80
+p33,Tania Kirana,Perempuan,Treasury Lead,Keuangan,FIN,CI,low,p09,,58,75,84,60,75,58,74
 p34,Rizky Ramadhan,Laki-laki,Chief Technology Officer,Teknologi,ENG,SC,medium,p05,,72,88,91,72,86,78,91
 p35,Dewi Anggraini,Perempuan,Chief Financial Officer,Keuangan,FIN,DC,low,p05,,89,70,71,85,73,87,90
 p36,Andi Saputra,Laki-laki,Chief Operating Officer,Operasional,OPS,D,high,p05,p05,88,99,99,92,99,92,93
-p37,Fajar Nugroho,Laki-laki,Chief Human Resources Officer,SDM,HR,I,high,p05,,91,85,82,99,89,97,92
-p38,Dimas Prasetyo,Laki-laki,Strategy Manager,Strategi,EXE,S,low,p07,,96,71,66,94,74,98,82
-p39,Yoga Pratama,Laki-laki,Governance Manager,Strategi,EXE,C,low,p08,,57,65,58,63,65,65,85
-p40,Bayu Setiawan,Laki-laki,Strategy Analyst,Strategi,EXE,I,low,p38,,63,58,55,67,61,69,76
-p41,Nadia Safitri,Perempuan,Strategy Analyst,Strategi,EXE,S,medium,p38,p38,76,91,86,70,87,78,75
-p42,Reza Mahendra,Laki-laki,Head of Infrastructure & Security,Teknologi,ENG,C,high,p34,p34,85,95,88,87,93,93,88
-p43,Fitri Handayani,Perempuan,QA Lead,Teknologi,ENG,DI,low,p01,,98,73,64,96,76,98,82
-p44,Hendra Gunawan,Laki-laki,DevOps Lead,Teknologi,ENG,CI,low,p42,,59,67,56,65,67,65,85
-p45,Iqbal Maulana,Laki-laki,Security Lead,Teknologi,ENG,SC,low,p42,,63,73,84,63,73,71,84
-p46,Laras Wulandari,Perempuan,Backend Engineer,Teknologi,ENG,DC,low,p04,,71,63,72,71,75,75,64
-p47,Krisna Wijaya,Laki-laki,Backend Engineer,Teknologi,ENG,D,medium,p04,p04,74,83,90,78,85,80,63
-p48,Maya Puspita,Perempuan,Backend Engineer,Teknologi,ENG,I,low,p04,,87,77,82,81,77,89,80
-p49,Lukman Hakim,Laki-laki,Frontend Engineer,Teknologi,ENG,S,low,p03,,87,72,75,89,75,95,65
-p50,Nur Aisyah,Perempuan,Frontend Engineer,Teknologi,ENG,D,low,p03,,60,70,77,60,70,66,79
-p51,Bimo Santoso,Laki-laki,Frontend Engineer,Teknologi,ENG,I,low,p03,,73,65,70,73,63,75,78
-p52,Arif Budiman,Laki-laki,Software Engineer,Teknologi,ENG,S,low,p28,,72,60,63,70,74,80,63
-p53,Salma Nabila,Perempuan,QA Engineer,Teknologi,ENG,C,medium,p43,,75,79,80,83,79,89,80
-p54,Panji Nugraha,Laki-laki,QA Engineer,Teknologi,ENG,DI,medium,p43,p43,89,74,73,91,87,95,65
-p55,Tiara Ramadhani,Perempuan,QA Engineer,Teknologi,ENG,CI,low,p43,,79,56,53,85,71,87,64
-p56,Rangga Aditama,Laki-laki,DevOps Engineer,Teknologi,ENG,SC,medium,p44,p44,93,89,84,89,83,79,67
-p57,Vina Oktaviani,Perempuan,DevOps Engineer,Teknologi,ENG,DC,low,p44,,58,71,64,58,69,64,66
-p58,Winda Sari,Perempuan,Security Analyst,Teknologi,ENG,D,low,p45,,58,56,67,62,62,56,65
-p59,Satria Utomo,Laki-laki,Security Analyst,Teknologi,ENG,I,low,p45,,71,50,59,69,59,61,68
-p60,Yulia Andini,Perempuan,Head of Accounting,Keuangan,FIN,DC,medium,p35,p35,91,72,61,87,83,97,74
-p61,Bella Kusumawati,Perempuan,Accounting Manager,Keuangan,FIN,D,high,p60,p60,86,86,97,96,90,84,68
-p62,Yudha Permana,Laki-laki,Finance Analyst,Keuangan,FIN,I,low,p31,,56,75,84,60,63,64,66
-p63,Dinda Alifia,Perempuan,Internal Auditor,Keuangan,FIN,S,low,p12,,60,58,65,64,64,56,65
-p64,Ilham Rahmadi,Laki-laki,Accounting Staff,Keuangan,FIN,C,low,p61,,73,52,57,71,57,61,68
-p65,Elsa Nuraini,Perempuan,Tax Staff,Keuangan,FIN,DI,medium,p61,p61,76,72,75,78,80,66,67
-p66,Gita Aprilia,Perempuan,Head of Supply Chain,Operasional,OPS,CI,medium,p36,p36,85,77,78,91,83,85,76
-p67,Damar Anggoro,Laki-laki,Service Quality Manager,Operasional,OPS,SC,high,p17,p17,94,92,91,94,88,86,74
-p68,Rafi Alfarizi,Laki-laki,Operations Staff,Operasional,OPS,DC,low,p18,,54,81,78,54,71,52,68
-p69,Naufal Hidayat,Laki-laki,Service Quality Officer,Operasional,OPS,D,low,p67,,68,76,71,62,68,58,71
-p70,Zaki Ardiansyah,Laki-laki,Logistics Staff,Operasional,OPS,SC,low,p32,,78,74,73,70,68,66,67
-p71,Kirana Sekar,Perempuan,Logistics Staff,Operasional,OPS,DC,low,p32,,77,69,66,83,75,75,66
-p72,Lidya Simatupang,Perempuan,Procurement Staff,Operasional,OPS,D,low,p19,,91,64,59,91,73,81,69
-p73,Priska Sihombing,Perempuan,People Development Manager,SDM,HR,I,medium,p13,,61,88,81,61,78,57,73
-p74,Ni Luh Ayu Savitri,Perempuan,HR Operations Staff,SDM,HR,S,low,p14,,56,78,79,64,66,58,71
-p75,Ni Kadek Sriani,Perempuan,Recruiter,SDM,HR,C,low,p15,,73,60,59,71,57,63,70
-p76,Denny Kurniawan,Laki-laki,Recruiter,SDM,HR,DI,medium,p15,p15,72,93,90,74,83,72,69
-p77,Ni Made Wulandari,Perempuan,Learning & Development Specialist,SDM,HR,CI,medium,p73,,85,87,82,81,79,77,72
-p78,Ridho Setiadi,Laki-laki,Head of Sales,Pemasaran,SNM,SC,medium,p26,,86,66,73,82,84,84,81
-p79,Ulfa Nabilah,Perempuan,Graphic Designer,Pemasaran,SNM,DC,low,p27,,75,50,55,79,71,79,74
-p80,Vera Anggita,Perempuan,Digital Marketing Executive,Pemasaran,SNM,CI,low,p30,,58,62,57,60,52,50,70
-p81,Josua Tampubolon,Laki-laki,Digital Marketing Executive,Pemasaran,SNM,SC,medium,p30,,62,81,88,64,79,60,69
-p82,Wulan Ramadhani,Perempuan,Market Research Analyst,Pemasaran,SNM,DC,low,p22,,75,79,80,71,75,65,72
-p83,Ruben Simanjuntak,Laki-laki,Hunting Manager Enterprise,Hunter,HUN,D,low,p78,,83,67,66,79,67,79,76
-p84,Yasmin Khairunnisa,Perempuan,Hunting Manager SMB,Hunter,HUN,I,low,p78,,82,61,58,86,74,84,79
-p85,Kevin Napitupulu,Laki-laki,Hunting Manager Government,Hunter,HUN,S,medium,p78,p78,86,81,76,94,84,90,78
-p86,Zulfa Amalia,Perempuan,Account Executive Enterprise,Hunter,HUN,C,low,p83,,56,71,64,54,67,56,72
-p87,Marco Silalahi,Laki-laki,Account Executive Enterprise,Hunter,HUN,DI,low,p83,,56,66,67,62,64,62,75
-p88,Amelia Rizki,Perempuan,Account Executive Enterprise,Hunter,HUN,CI,low,p83,,73,85,84,65,69,71,74
-p89,Gerry Panggabean,Laki-laki,Account Executive SMB,Hunter,HUN,SC,low,p84,,72,80,77,72,76,76,77
-p90,Bunga Lestari,Perempuan,Account Executive SMB,Hunter,HUN,DI,medium,p84,p84,93,91,92,91,87,85,73
-p91,Chika Ardhana,Perempuan,Business Development Representative,Hunter,HUN,CI,low,p84,,58,73,72,56,69,56,72
-p92,Wayan Suardika,Laki-laki,Business Development Representative,Hunter,HUN,SC,low,p84,,58,68,65,64,66,62,75
-p93,Diah Ayu Kusuma,Perempuan,Business Development Representative,Hunter,HUN,DC,low,p84,,75,87,82,71,71,71,74
-p94,Made Arsana,Laki-laki,Business Development Representative,Hunter,HUN,D,medium,p84,,74,68,75,74,78,76,77
-p95,Erika Wijayanti,Perempuan,Sales Development Representative,Hunter,HUN,I,low,p83,,77,50,55,81,69,81,76
-p96,Komang Aditya,Laki-laki,Sales Development Representative,Hunter,HUN,S,medium,p83,p83,91,83,86,85,81,91,75
-p97,Putu Darmawan,Laki-laki,Government Relations Specialist,Hunter,HUN,C,low,p85,,52,77,78,54,73,58,78
-p98,Fani Nurhaliza,Perempuan,Government Relations Specialist,Hunter,HUN,DI,low,p85,,56,60,59,58,60,68,77
-p99,Rendra Pratama,Laki-laki,Farming Manager Enterprise,Farmer,FAR,CI,low,p78,,74,59,56,70,72,78,85
-p100,Gina Puspasari,Perempuan,Farming Manager SMB,Farmer,FAR,SC,low,p78,,65,67,66,65,69,63,76
-p101,Doni Saputra,Laki-laki,Account Manager Enterprise,Farmer,FAR,DC,low,p99,,73,56,53,73,57,67,70
-p102,Hesti Nuraini,Perempuan,Account Manager Enterprise,Farmer,FAR,D,medium,p99,p99,72,89,84,70,87,72,73
-p103,Ferdi Ahmad,Laki-laki,Account Manager Enterprise,Farmer,FAR,I,low,p99,,75,71,64,83,73,81,72
-p104,Ika Damayanti,Perempuan,Account Manager SMB,Farmer,FAR,S,low,p100,,89,66,67,91,71,87,75
-p105,Irfan Maulidin,Laki-laki,Account Manager SMB,Farmer,FAR,C,low,p100,,54,85,84,60,71,54,74
-p106,Jasmine Aulia,Perempuan,Customer Success Officer,Farmer,FAR,DI,low,p99,,68,80,77,64,64,64,77
-p107,Yusuf Abdillah,Laki-laki,Customer Success Officer,Farmer,FAR,CI,low,p99,,71,62,57,71,69,69,76
-p108,Karina Dewanti,Perempuan,Customer Success Officer,Farmer,FAR,SC,medium,p99,,70,81,88,74,81,78,75
-p109,Adam Nurhakim,Laki-laki,Customer Success Officer,Farmer,FAR,DC,low,p99,,83,75,80,81,77,83,78
-p110,Rio Sanjaya,Laki-laki,Renewal Specialist,Farmer,FAR,CI,low,p100,,56,87,82,52,73,54,74
-p111,Lita Puspaningrum,Perempuan,Renewal Specialist,Farmer,FAR,SC,low,p100,,56,68,75,66,66,64,73
-p112,Tio Wicaksono,Laki-laki,Renewal Specialist,Farmer,FAR,DC,low,p100,,69,63,68,73,63,69,76
+p37,Fajar Nugroho,Laki-laki,Head of People,SDM,HR,I,high,p36,p36,91,85,82,99,89,97,92
+p38,Dimas Prasetyo,Laki-laki,Treasury #1,Keuangan,FIN,S,low,p33,,96,71,66,94,74,98,82
+p39,Yoga Pratama,Laki-laki,Treasury #2,Keuangan,FIN,C,low,p33,,57,65,58,63,65,65,85
+p40,Bayu Setiawan,Laki-laki,Tax Lead,Keuangan,FIN,I,low,p09,,63,58,55,67,61,69,76
+p41,Nadia Safitri,Perempuan,Tax #1,Keuangan,FIN,S,medium,p40,p40,76,91,86,70,87,78,75
+p42,Reza Mahendra,Laki-laki,Head of Infrastructure,Teknologi,ENG,C,high,p34,p34,85,95,88,87,93,93,88
+p43,Fitri Handayani,Perempuan,Tax #2,Keuangan,FIN,DI,low,p40,,98,73,64,96,76,98,82
+p44,Hendra Gunawan,Laki-laki,Tax #3,Keuangan,FIN,CI,low,p40,,59,67,56,65,67,65,85
+p45,Iqbal Maulana,Laki-laki,Backend Lead,Teknologi,ENG,SC,low,p01,,63,73,84,63,73,71,84
+p46,Laras Wulandari,Perempuan,Backend #1,Teknologi,ENG,DC,low,p45,,71,63,72,71,75,75,64
+p47,Krisna Wijaya,Laki-laki,Backend #2,Teknologi,ENG,D,medium,p45,p45,74,83,90,78,85,80,63
+p48,Maya Puspita,Perempuan,Backend #3,Teknologi,ENG,I,low,p45,,87,77,82,81,77,89,80
+p49,Lukman Hakim,Laki-laki,Backend #4,Teknologi,ENG,S,low,p45,,87,72,75,89,75,95,65
+p50,Nur Aisyah,Perempuan,Frontend Lead,Teknologi,ENG,D,low,p01,,60,70,77,60,70,66,79
+p51,Bimo Santoso,Laki-laki,Frontend #1,Teknologi,ENG,I,low,p50,,73,65,70,73,63,75,78
+p52,Arif Budiman,Laki-laki,Frontend #2,Teknologi,ENG,S,low,p50,,72,60,63,70,74,80,63
+p53,Salma Nabila,Perempuan,Frontend #3,Teknologi,ENG,C,medium,p50,,75,79,80,83,79,89,80
+p54,Panji Nugraha,Laki-laki,QA Lead,Teknologi,ENG,DI,medium,p01,p01,89,74,73,91,87,95,65
+p55,Tiara Ramadhani,Perempuan,QA #1,Teknologi,ENG,CI,low,p54,,79,56,53,85,71,87,64
+p56,Rangga Aditama,Laki-laki,QA #2,Teknologi,ENG,SC,medium,p54,p54,93,89,84,89,83,79,67
+p57,Vina Oktaviani,Perempuan,QA #3,Teknologi,ENG,DC,low,p54,,58,71,64,58,69,64,66
+p58,Winda Sari,Perempuan,DevOps Lead,Teknologi,ENG,D,low,p42,,58,56,67,62,62,56,65
+p59,Satria Utomo,Laki-laki,DevOps #1,Teknologi,ENG,I,low,p58,,71,50,59,69,59,61,68
+p60,Yulia Andini,Perempuan,DevOps #2,Teknologi,ENG,DC,medium,p58,,91,72,61,87,83,97,74
+p61,Bella Kusumawati,Perempuan,DevOps #3,Teknologi,ENG,D,high,p58,p58,86,86,97,96,90,84,68
+p62,Yudha Permana,Laki-laki,Security Lead,Teknologi,ENG,I,low,p42,,56,75,84,60,63,64,66
+p63,Dinda Alifia,Perempuan,Security #1,Teknologi,ENG,S,low,p62,,60,58,65,64,64,56,65
+p64,Ilham Rahmadi,Laki-laki,Security #2,Teknologi,ENG,C,low,p62,,73,52,57,71,57,61,68
+p65,Elsa Nuraini,Perempuan,Data Lead,Teknologi,ENG,DI,medium,p42,p42,76,72,75,78,80,66,67
+p66,Gita Aprilia,Perempuan,Head of Operations,Operasional,OPS,CI,medium,p36,,85,77,78,91,83,85,76
+p67,Damar Anggoro,Laki-laki,Data #1,Teknologi,ENG,SC,high,p65,p65,94,92,91,94,88,86,74
+p68,Rafi Alfarizi,Laki-laki,Data #2,Teknologi,ENG,DC,low,p65,,54,81,78,54,71,52,68
+p69,Naufal Hidayat,Laki-laki,Product Management Lead,Produk,PRD,D,low,p08,,68,76,71,62,68,58,71
+p70,Zaki Ardiansyah,Laki-laki,Product Management #1,Produk,PRD,SC,low,p69,,78,74,73,70,68,66,67
+p71,Kirana Sekar,Perempuan,Product Management #2,Produk,PRD,DC,low,p69,,77,69,66,83,75,75,66
+p72,Lidya Simatupang,Perempuan,Product Management #3,Produk,PRD,D,low,p69,,91,64,59,91,73,81,69
+p73,Priska Sihombing,Perempuan,Product Design Lead,Produk,PRD,I,medium,p08,,61,88,81,61,78,57,73
+p74,Ni Luh Ayu Savitri,Perempuan,Product Design #1,Produk,PRD,S,low,p73,,56,78,79,64,66,58,71
+p75,Ni Kadek Sriani,Perempuan,Product Design #2,Produk,PRD,C,low,p73,,73,60,59,71,57,63,70
+p76,Denny Kurniawan,Laki-laki,Product Design #3,Produk,PRD,DI,medium,p73,p73,72,93,90,74,83,72,69
+p77,Ni Made Wulandari,Perempuan,Product Analytics Lead,Produk,PRD,CI,medium,p08,,85,87,82,81,79,77,72
+p78,Ridho Setiadi,Laki-laki,Head of Sales,Marketing,MKT,SC,medium,p26,,86,66,73,82,84,84,81
+p79,Ulfa Nabilah,Perempuan,Product Analytics #1,Produk,PRD,DC,low,p77,,75,50,55,79,71,79,74
+p80,Vera Anggita,Perempuan,Product Analytics #2,Produk,PRD,CI,low,p77,,58,62,57,60,52,50,70
+p81,Josua Tampubolon,Laki-laki,Digital Marketing Lead,Marketing,MKT,SC,medium,p21,,62,81,88,64,79,60,69
+p82,Wulan Ramadhani,Perempuan,Digital Marketing #1,Marketing,MKT,DC,low,p81,,75,79,80,71,75,65,72
+p83,Ruben Simanjuntak,Laki-laki,Digital Marketing #2,Marketing,MKT,D,low,p81,,83,67,66,79,67,79,76
+p84,Yasmin Khairunnisa,Perempuan,Digital Marketing #3,Marketing,MKT,I,low,p81,,82,61,58,86,74,84,79
+p85,Kevin Napitupulu,Laki-laki,Digital Marketing #4,Marketing,MKT,S,medium,p81,p81,86,81,76,94,84,90,78
+p86,Zulfa Amalia,Perempuan,Digital Marketing #5,Marketing,MKT,C,low,p81,,56,71,64,54,67,56,72
+p87,Marco Silalahi,Laki-laki,Digital Marketing #6,Marketing,MKT,DI,low,p81,,56,66,67,62,64,62,75
+p88,Amelia Rizki,Perempuan,Digital Marketing #7,Marketing,MKT,CI,low,p81,,73,85,84,65,69,71,74
+p89,Gerry Panggabean,Laki-laki,Brand & Content Lead,Marketing,MKT,SC,low,p21,,72,80,77,72,76,76,77
+p90,Bunga Lestari,Perempuan,Brand & Content #1,Marketing,MKT,DI,medium,p89,p89,93,91,92,91,87,85,73
+p91,Chika Ardhana,Perempuan,Brand & Content #2,Marketing,MKT,CI,low,p89,,58,73,72,56,69,56,72
+p92,Wayan Suardika,Laki-laki,Brand & Content #3,Marketing,MKT,SC,low,p89,,58,68,65,64,66,62,75
+p93,Diah Ayu Kusuma,Perempuan,Brand & Content #4,Marketing,MKT,DC,low,p89,,75,87,82,71,71,71,74
+p94,Made Arsana,Laki-laki,Brand & Content #5,Marketing,MKT,D,medium,p89,,74,68,75,74,78,76,77
+p95,Erika Wijayanti,Perempuan,Brand & Content #6,Marketing,MKT,I,low,p89,,77,50,55,81,69,81,76
+p96,Komang Aditya,Laki-laki,Market Research Lead,Marketing,MKT,S,medium,p21,p21,91,83,86,85,81,91,75
+p97,Putu Darmawan,Laki-laki,Market Research #1,Marketing,MKT,C,low,p96,,52,77,78,54,73,58,78
+p98,Fani Nurhaliza,Perempuan,Market Research #2,Marketing,MKT,DI,low,p96,,56,60,59,58,60,68,77
+p99,Rendra Pratama,Laki-laki,Market Research #3,Marketing,MKT,CI,low,p96,,74,59,56,70,72,78,85
+p100,Gina Puspasari,Perempuan,Market Research #4,Marketing,MKT,SC,low,p96,,65,67,66,65,69,63,76
+p101,Doni Saputra,Laki-laki,Hunter,Hunter,HUN,DC,low,p78,,73,56,53,73,57,67,70
+p102,Hesti Nuraini,Perempuan,Hunter #1,Hunter,HUN,D,medium,p101,p101,72,89,84,70,87,72,73
+p103,Ferdi Ahmad,Laki-laki,Hunter #2,Hunter,HUN,I,low,p101,,75,71,64,83,73,81,72
+p104,Ika Damayanti,Perempuan,Hunter #3,Hunter,HUN,S,low,p101,,89,66,67,91,71,87,75
+p105,Irfan Maulidin,Laki-laki,Hunter #4,Hunter,HUN,C,low,p101,,54,85,84,60,71,54,74
+p106,Jasmine Aulia,Perempuan,Hunter #5,Hunter,HUN,DI,low,p101,,68,80,77,64,64,64,77
+p107,Yusuf Abdillah,Laki-laki,Farmer,Farmer,FAR,CI,low,p78,,71,62,57,71,69,69,76
+p108,Karina Dewanti,Perempuan,Farmer #1,Farmer,FAR,SC,medium,p107,p107,70,81,88,74,81,78,75
+p109,Adam Nurhakim,Laki-laki,Farmer #2,Farmer,FAR,DC,low,p107,,83,75,80,81,77,83,78
+p110,Rio Sanjaya,Laki-laki,Farmer #3,Farmer,FAR,CI,low,p107,,56,87,82,52,73,54,74
+p111,Lita Puspaningrum,Perempuan,Farmer #4,Farmer,FAR,SC,low,p107,,56,68,75,66,66,64,73
+p112,Tio Wicaksono,Laki-laki,Farmer #5,Farmer,FAR,DC,low,p107,,69,63,68,73,63,69,76

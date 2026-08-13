@@ -11,86 +11,85 @@ p01,Intan Permatasari,Arsitektur & Rancangan Sistem,4
 p01,Intan Permatasari,Keandalan & Operasional Sistem,5
 p01,Intan Permatasari,Keamanan Informasi,5
 p01,Intan Permatasari,Pengelolaan Data,3
-p02,Ratna Juwita,Mendengar Aktif,3
-p02,Ratna Juwita,Inisiatif,2
 p02,Ratna Juwita,Keandalan,3
 p02,Ratna Juwita,Koordinasi Lintas Fungsi,2
-p02,Ratna Juwita,Ketahanan Tekanan,1
-p02,Ratna Juwita,Kegigihan,4
 p02,Ratna Juwita,Pemantauan Kinerja Akun,1
-p02,Ratna Juwita,Rekayasa Perangkat Lunak,4
-p02,Ratna Juwita,Arsitektur & Rancangan Sistem,2
-p02,Ratna Juwita,Keandalan & Operasional Sistem,4
-p02,Ratna Juwita,Keamanan Informasi,2
+p02,Ratna Juwita,Inisiatif,2
+p02,Ratna Juwita,Mendengar Aktif,3
+p02,Ratna Juwita,Ketahanan Tekanan,1
+p02,Ratna Juwita,Orientasi Melayani,3
+p02,Ratna Juwita,Perbaikan Proses,4
+p02,Ratna Juwita,Kendali Mutu,3
+p02,Ratna Juwita,Manajemen Rantai Pasok,2
 p02,Ratna Juwita,Pengelolaan Data,4
-p03,Citra Ayu Ningsih,Mendengar Aktif,3
-p03,Citra Ayu Ningsih,Inisiatif,2
 p03,Citra Ayu Ningsih,Keandalan,4
 p03,Citra Ayu Ningsih,Koordinasi Lintas Fungsi,4
-p03,Citra Ayu Ningsih,Ketahanan Tekanan,3
-p03,Citra Ayu Ningsih,Kegigihan,4
 p03,Citra Ayu Ningsih,Pemantauan Kinerja Akun,4
-p03,Citra Ayu Ningsih,Rekayasa Perangkat Lunak,5
-p03,Citra Ayu Ningsih,Arsitektur & Rancangan Sistem,4
-p03,Citra Ayu Ningsih,Keandalan & Operasional Sistem,3
-p03,Citra Ayu Ningsih,Keamanan Informasi,3
+p03,Citra Ayu Ningsih,Inisiatif,2
+p03,Citra Ayu Ningsih,Mendengar Aktif,3
+p03,Citra Ayu Ningsih,Ketahanan Tekanan,3
+p03,Citra Ayu Ningsih,Orientasi Melayani,2
+p03,Citra Ayu Ningsih,Perbaikan Proses,3
+p03,Citra Ayu Ningsih,Kendali Mutu,5
+p03,Citra Ayu Ningsih,Manajemen Rantai Pasok,3
 p03,Citra Ayu Ningsih,Pengelolaan Data,3
-p04,Aditya Wibowo,Mendengar Aktif,4
-p04,Aditya Wibowo,Inisiatif,3
 p04,Aditya Wibowo,Keandalan,4
 p04,Aditya Wibowo,Koordinasi Lintas Fungsi,1
-p04,Aditya Wibowo,Ketahanan Tekanan,3
-p04,Aditya Wibowo,Kegigihan,1
 p04,Aditya Wibowo,Pemantauan Kinerja Akun,3
-p04,Aditya Wibowo,Rekayasa Perangkat Lunak,4
-p04,Aditya Wibowo,Arsitektur & Rancangan Sistem,3
-p04,Aditya Wibowo,Keandalan & Operasional Sistem,5
-p04,Aditya Wibowo,Keamanan Informasi,4
+p04,Aditya Wibowo,Inisiatif,3
+p04,Aditya Wibowo,Mendengar Aktif,4
+p04,Aditya Wibowo,Ketahanan Tekanan,3
+p04,Aditya Wibowo,Orientasi Melayani,3
+p04,Aditya Wibowo,Perbaikan Proses,3
+p04,Aditya Wibowo,Kendali Mutu,4
+p04,Aditya Wibowo,Manajemen Rantai Pasok,4
 p04,Aditya Wibowo,Pengelolaan Data,5
-p05,Ayu Lestari,Mendengar Aktif,3
-p05,Ayu Lestari,Inisiatif,3
-p05,Ayu Lestari,Kemitraan Strategis,4
+p05,Ayu Lestari,Keandalan,1
 p05,Ayu Lestari,Koordinasi Lintas Fungsi,4
 p05,Ayu Lestari,Pemantauan Kinerja Akun,2
-p05,Ayu Lestari,Persuasi,2
+p05,Ayu Lestari,Inisiatif,3
+p05,Ayu Lestari,Mendengar Aktif,3
 p05,Ayu Lestari,Ketahanan Tekanan,4
-p05,Ayu Lestari,Analisis Strategis,4
-p05,Ayu Lestari,Tata Kelola & Manajemen Risiko,2
-p05,Ayu Lestari,Pemahaman Organisasi Klien,3
-p05,Ayu Lestari,Ketajaman Komersial,5
+p05,Ayu Lestari,Orientasi Melayani,4
+p05,Ayu Lestari,Perbaikan Proses,2
+p05,Ayu Lestari,Kendali Mutu,3
+p05,Ayu Lestari,Manajemen Rantai Pasok,3
+p05,Ayu Lestari,Pengelolaan Data,4
 p06,Bagus Prakoso,Mendengar Aktif,3
 p06,Bagus Prakoso,Inisiatif,4
 p06,Bagus Prakoso,Kemitraan Strategis,1
 p06,Bagus Prakoso,Koordinasi Lintas Fungsi,4
 p06,Bagus Prakoso,Pemantauan Kinerja Akun,4
+p06,Bagus Prakoso,Kepekaan Sosial,2
 p06,Bagus Prakoso,Persuasi,4
-p06,Bagus Prakoso,Ketahanan Tekanan,2
 p06,Bagus Prakoso,Analisis Strategis,5
+p06,Bagus Prakoso,Riset Pasar & Wawasan Pelanggan,5
+p06,Bagus Prakoso,Pengelolaan Data,5
 p06,Bagus Prakoso,Tata Kelola & Manajemen Risiko,5
-p06,Bagus Prakoso,Pemahaman Organisasi Klien,3
-p06,Bagus Prakoso,Ketajaman Komersial,3
-p07,Putri Maharani,Mendengar Aktif,4
-p07,Putri Maharani,Inisiatif,4
-p07,Putri Maharani,Kemitraan Strategis,2
+p06,Bagus Prakoso,Analisis Kebutuhan Klien,4
+p07,Putri Maharani,Keandalan,4
 p07,Putri Maharani,Koordinasi Lintas Fungsi,3
 p07,Putri Maharani,Pemantauan Kinerja Akun,3
-p07,Putri Maharani,Persuasi,1
+p07,Putri Maharani,Inisiatif,4
+p07,Putri Maharani,Mendengar Aktif,4
 p07,Putri Maharani,Ketahanan Tekanan,4
-p07,Putri Maharani,Analisis Strategis,5
-p07,Putri Maharani,Tata Kelola & Manajemen Risiko,4
-p07,Putri Maharani,Pemahaman Organisasi Klien,3
-p07,Putri Maharani,Ketajaman Komersial,4
+p07,Putri Maharani,Orientasi Melayani,3
+p07,Putri Maharani,Perbaikan Proses,5
+p07,Putri Maharani,Kendali Mutu,5
+p07,Putri Maharani,Manajemen Rantai Pasok,5
+p07,Putri Maharani,Pengelolaan Data,4
 p08,Rina Kartika,Mendengar Aktif,4
 p08,Rina Kartika,Inisiatif,1
 p08,Rina Kartika,Kemitraan Strategis,3
 p08,Rina Kartika,Koordinasi Lintas Fungsi,4
 p08,Rina Kartika,Pemantauan Kinerja Akun,2
+p08,Rina Kartika,Kepekaan Sosial,3
 p08,Rina Kartika,Persuasi,3
-p08,Rina Kartika,Ketahanan Tekanan,4
 p08,Rina Kartika,Analisis Strategis,2
+p08,Rina Kartika,Riset Pasar & Wawasan Pelanggan,3
+p08,Rina Kartika,Pengelolaan Data,3
 p08,Rina Kartika,Tata Kelola & Manajemen Risiko,3
-p08,Rina Kartika,Pemahaman Organisasi Klien,5
-p08,Rina Kartika,Ketajaman Komersial,5
+p08,Rina Kartika,Analisis Kebutuhan Klien,3
 p09,Teguh Firmansyah,Mendengar Aktif,1
 p09,Teguh Firmansyah,Keandalan,2
 p09,Teguh Firmansyah,Pemantauan Kinerja Akun,1
@@ -102,83 +101,83 @@ p09,Teguh Firmansyah,Pelaporan & Standar Akuntansi,4
 p09,Teguh Firmansyah,Analisis & Perencanaan Keuangan,5
 p09,Teguh Firmansyah,Pengendalian & Kepatuhan,5
 p09,Teguh Firmansyah,Pengelolaan Data,3
-p10,Wisnu Baskoro,Mendengar Aktif,4
 p10,Wisnu Baskoro,Keandalan,4
-p10,Wisnu Baskoro,Pemantauan Kinerja Akun,4
 p10,Wisnu Baskoro,Koordinasi Lintas Fungsi,2
-p10,Wisnu Baskoro,Kepekaan Sosial,3
+p10,Wisnu Baskoro,Pemantauan Kinerja Akun,4
 p10,Wisnu Baskoro,Inisiatif,4
+p10,Wisnu Baskoro,Mendengar Aktif,4
 p10,Wisnu Baskoro,Ketahanan Tekanan,3
-p10,Wisnu Baskoro,Pelaporan & Standar Akuntansi,2
-p10,Wisnu Baskoro,Analisis & Perencanaan Keuangan,2
-p10,Wisnu Baskoro,Pengendalian & Kepatuhan,4
+p10,Wisnu Baskoro,Orientasi Melayani,2
+p10,Wisnu Baskoro,Perbaikan Proses,2
+p10,Wisnu Baskoro,Kendali Mutu,2
+p10,Wisnu Baskoro,Manajemen Rantai Pasok,5
 p10,Wisnu Baskoro,Pengelolaan Data,2
-p11,Cindy Pratiwi,Mendengar Aktif,1
 p11,Cindy Pratiwi,Keandalan,1
-p11,Cindy Pratiwi,Pemantauan Kinerja Akun,3
 p11,Cindy Pratiwi,Koordinasi Lintas Fungsi,1
-p11,Cindy Pratiwi,Kepekaan Sosial,4
+p11,Cindy Pratiwi,Pemantauan Kinerja Akun,3
 p11,Cindy Pratiwi,Inisiatif,1
+p11,Cindy Pratiwi,Mendengar Aktif,1
 p11,Cindy Pratiwi,Ketahanan Tekanan,4
-p11,Cindy Pratiwi,Pelaporan & Standar Akuntansi,4
-p11,Cindy Pratiwi,Analisis & Perencanaan Keuangan,2
-p11,Cindy Pratiwi,Pengendalian & Kepatuhan,3
+p11,Cindy Pratiwi,Orientasi Melayani,3
+p11,Cindy Pratiwi,Perbaikan Proses,5
+p11,Cindy Pratiwi,Kendali Mutu,5
+p11,Cindy Pratiwi,Manajemen Rantai Pasok,2
 p11,Cindy Pratiwi,Pengelolaan Data,5
-p12,Anisa Rahmadani,Mendengar Aktif,2
 p12,Anisa Rahmadani,Keandalan,2
-p12,Anisa Rahmadani,Pemantauan Kinerja Akun,2
 p12,Anisa Rahmadani,Koordinasi Lintas Fungsi,2
-p12,Anisa Rahmadani,Kepekaan Sosial,4
+p12,Anisa Rahmadani,Pemantauan Kinerja Akun,2
 p12,Anisa Rahmadani,Inisiatif,4
+p12,Anisa Rahmadani,Mendengar Aktif,2
 p12,Anisa Rahmadani,Ketahanan Tekanan,2
-p12,Anisa Rahmadani,Pelaporan & Standar Akuntansi,3
-p12,Anisa Rahmadani,Analisis & Perencanaan Keuangan,4
-p12,Anisa Rahmadani,Pengendalian & Kepatuhan,4
+p12,Anisa Rahmadani,Orientasi Melayani,4
+p12,Anisa Rahmadani,Perbaikan Proses,5
+p12,Anisa Rahmadani,Kendali Mutu,4
+p12,Anisa Rahmadani,Manajemen Rantai Pasok,5
 p12,Anisa Rahmadani,Pengelolaan Data,4
-p13,Meliana Sianturi,Mendengar Aktif,2
-p13,Meliana Sianturi,Kepekaan Sosial,3
-p13,Meliana Sianturi,Orientasi Melayani,3
-p13,Meliana Sianturi,Enablement Klien,2
-p13,Meliana Sianturi,Koordinasi Lintas Fungsi,4
 p13,Meliana Sianturi,Keandalan,2
+p13,Meliana Sianturi,Koordinasi Lintas Fungsi,4
 p13,Meliana Sianturi,Pemantauan Kinerja Akun,4
-p13,Meliana Sianturi,Negosiasi,4
-p13,Meliana Sianturi,Rekrutmen & Seleksi,2
-p13,Meliana Sianturi,Pengembangan Talenta,3
-p13,Meliana Sianturi,Manajemen Kinerja & Remunerasi,4
-p14,Novita Hutagalung,Mendengar Aktif,3
-p14,Novita Hutagalung,Kepekaan Sosial,4
-p14,Novita Hutagalung,Orientasi Melayani,4
-p14,Novita Hutagalung,Enablement Klien,1
-p14,Novita Hutagalung,Koordinasi Lintas Fungsi,1
+p13,Meliana Sianturi,Inisiatif,4
+p13,Meliana Sianturi,Mendengar Aktif,2
+p13,Meliana Sianturi,Ketahanan Tekanan,2
+p13,Meliana Sianturi,Orientasi Melayani,3
+p13,Meliana Sianturi,Perbaikan Proses,4
+p13,Meliana Sianturi,Kendali Mutu,3
+p13,Meliana Sianturi,Manajemen Rantai Pasok,2
+p13,Meliana Sianturi,Pengelolaan Data,4
 p14,Novita Hutagalung,Keandalan,3
+p14,Novita Hutagalung,Koordinasi Lintas Fungsi,1
 p14,Novita Hutagalung,Pemantauan Kinerja Akun,3
-p14,Novita Hutagalung,Negosiasi,1
-p14,Novita Hutagalung,Rekrutmen & Seleksi,3
-p14,Novita Hutagalung,Pengembangan Talenta,5
-p14,Novita Hutagalung,Manajemen Kinerja & Remunerasi,3
-p15,Olivia Manurung,Mendengar Aktif,3
-p15,Olivia Manurung,Kepekaan Sosial,4
-p15,Olivia Manurung,Orientasi Melayani,2
-p15,Olivia Manurung,Enablement Klien,4
-p15,Olivia Manurung,Koordinasi Lintas Fungsi,4
+p14,Novita Hutagalung,Inisiatif,1
+p14,Novita Hutagalung,Mendengar Aktif,3
+p14,Novita Hutagalung,Ketahanan Tekanan,4
+p14,Novita Hutagalung,Orientasi Melayani,4
+p14,Novita Hutagalung,Perbaikan Proses,3
+p14,Novita Hutagalung,Kendali Mutu,5
+p14,Novita Hutagalung,Manajemen Rantai Pasok,3
+p14,Novita Hutagalung,Pengelolaan Data,3
 p15,Olivia Manurung,Keandalan,3
+p15,Olivia Manurung,Koordinasi Lintas Fungsi,4
 p15,Olivia Manurung,Pemantauan Kinerja Akun,2
-p15,Olivia Manurung,Negosiasi,2
-p15,Olivia Manurung,Rekrutmen & Seleksi,4
-p15,Olivia Manurung,Pengembangan Talenta,3
-p15,Olivia Manurung,Manajemen Kinerja & Remunerasi,2
-p16,Farhan Hakim,Mendengar Aktif,4
-p16,Farhan Hakim,Kepekaan Sosial,1
-p16,Farhan Hakim,Orientasi Melayani,3
-p16,Farhan Hakim,Enablement Klien,4
-p16,Farhan Hakim,Koordinasi Lintas Fungsi,4
+p15,Olivia Manurung,Inisiatif,2
+p15,Olivia Manurung,Mendengar Aktif,3
+p15,Olivia Manurung,Ketahanan Tekanan,2
+p15,Olivia Manurung,Orientasi Melayani,2
+p15,Olivia Manurung,Perbaikan Proses,4
+p15,Olivia Manurung,Kendali Mutu,4
+p15,Olivia Manurung,Manajemen Rantai Pasok,2
+p15,Olivia Manurung,Pengelolaan Data,2
 p16,Farhan Hakim,Keandalan,4
+p16,Farhan Hakim,Koordinasi Lintas Fungsi,4
 p16,Farhan Hakim,Pemantauan Kinerja Akun,1
-p16,Farhan Hakim,Negosiasi,2
-p16,Farhan Hakim,Rekrutmen & Seleksi,5
-p16,Farhan Hakim,Pengembangan Talenta,5
-p16,Farhan Hakim,Manajemen Kinerja & Remunerasi,5
+p16,Farhan Hakim,Inisiatif,2
+p16,Farhan Hakim,Mendengar Aktif,4
+p16,Farhan Hakim,Ketahanan Tekanan,3
+p16,Farhan Hakim,Orientasi Melayani,3
+p16,Farhan Hakim,Perbaikan Proses,3
+p16,Farhan Hakim,Kendali Mutu,3
+p16,Farhan Hakim,Manajemen Rantai Pasok,3
+p16,Farhan Hakim,Pengelolaan Data,3
 p17,Farah Salsabila,Keandalan,4
 p17,Farah Salsabila,Koordinasi Lintas Fungsi,3
 p17,Farah Salsabila,Pemantauan Kinerja Akun,4
@@ -190,39 +189,39 @@ p17,Farah Salsabila,Perbaikan Proses,5
 p17,Farah Salsabila,Kendali Mutu,2
 p17,Farah Salsabila,Manajemen Rantai Pasok,4
 p17,Farah Salsabila,Pengelolaan Data,5
-p18,Gilang Saputro,Keandalan,1
-p18,Gilang Saputro,Koordinasi Lintas Fungsi,4
-p18,Gilang Saputro,Pemantauan Kinerja Akun,3
-p18,Gilang Saputro,Inisiatif,3
 p18,Gilang Saputro,Mendengar Aktif,3
-p18,Gilang Saputro,Ketahanan Tekanan,1
+p18,Gilang Saputro,Kepekaan Sosial,2
 p18,Gilang Saputro,Orientasi Melayani,3
-p18,Gilang Saputro,Perbaikan Proses,2
-p18,Gilang Saputro,Kendali Mutu,3
-p18,Gilang Saputro,Manajemen Rantai Pasok,5
-p18,Gilang Saputro,Pengelolaan Data,4
-p19,Indah Purnama,Keandalan,2
-p19,Indah Purnama,Koordinasi Lintas Fungsi,3
-p19,Indah Purnama,Pemantauan Kinerja Akun,2
-p19,Indah Purnama,Inisiatif,4
+p18,Gilang Saputro,Enablement Klien,2
+p18,Gilang Saputro,Koordinasi Lintas Fungsi,4
+p18,Gilang Saputro,Keandalan,1
+p18,Gilang Saputro,Pemantauan Kinerja Akun,3
+p18,Gilang Saputro,Negosiasi,3
+p18,Gilang Saputro,Rekrutmen & Seleksi,2
+p18,Gilang Saputro,Pengembangan Talenta,2
+p18,Gilang Saputro,Manajemen Kinerja & Remunerasi,3
 p19,Indah Purnama,Mendengar Aktif,4
-p19,Indah Purnama,Ketahanan Tekanan,3
+p19,Indah Purnama,Kepekaan Sosial,3
 p19,Indah Purnama,Orientasi Melayani,4
-p19,Indah Purnama,Perbaikan Proses,5
-p19,Indah Purnama,Kendali Mutu,2
-p19,Indah Purnama,Manajemen Rantai Pasok,4
-p19,Indah Purnama,Pengelolaan Data,3
-p20,Bintang Mahesa,Keandalan,4
-p20,Bintang Mahesa,Koordinasi Lintas Fungsi,2
-p20,Bintang Mahesa,Pemantauan Kinerja Akun,3
-p20,Bintang Mahesa,Inisiatif,3
+p19,Indah Purnama,Enablement Klien,3
+p19,Indah Purnama,Koordinasi Lintas Fungsi,3
+p19,Indah Purnama,Keandalan,2
+p19,Indah Purnama,Pemantauan Kinerja Akun,2
+p19,Indah Purnama,Negosiasi,4
+p19,Indah Purnama,Rekrutmen & Seleksi,3
+p19,Indah Purnama,Pengembangan Talenta,2
+p19,Indah Purnama,Manajemen Kinerja & Remunerasi,5
 p20,Bintang Mahesa,Mendengar Aktif,1
-p20,Bintang Mahesa,Ketahanan Tekanan,4
+p20,Bintang Mahesa,Kepekaan Sosial,2
 p20,Bintang Mahesa,Orientasi Melayani,3
-p20,Bintang Mahesa,Perbaikan Proses,4
-p20,Bintang Mahesa,Kendali Mutu,3
-p20,Bintang Mahesa,Manajemen Rantai Pasok,4
-p20,Bintang Mahesa,Pengelolaan Data,2
+p20,Bintang Mahesa,Enablement Klien,2
+p20,Bintang Mahesa,Koordinasi Lintas Fungsi,2
+p20,Bintang Mahesa,Keandalan,4
+p20,Bintang Mahesa,Pemantauan Kinerja Akun,3
+p20,Bintang Mahesa,Negosiasi,3
+p20,Bintang Mahesa,Rekrutmen & Seleksi,5
+p20,Bintang Mahesa,Pengembangan Talenta,2
+p20,Bintang Mahesa,Manajemen Kinerja & Remunerasi,4
 p21,Desak Putu Ariani,Mendengar Aktif,2
 p21,Desak Putu Ariani,Inisiatif,3
 p21,Desak Putu Ariani,Persuasi,2
@@ -236,53 +235,49 @@ p21,Desak Putu Ariani,Riset Pasar & Wawasan Pelanggan,3
 p21,Desak Putu Ariani,Penguasaan Produk & Pasar,3
 p21,Desak Putu Ariani,Ketajaman Komersial,5
 p22,Ahmad Al-Faruq,Mendengar Aktif,4
-p22,Ahmad Al-Faruq,Inisiatif,4
-p22,Ahmad Al-Faruq,Persuasi,2
-p22,Ahmad Al-Faruq,Koordinasi Lintas Fungsi,2
 p22,Ahmad Al-Faruq,Kepekaan Sosial,3
-p22,Ahmad Al-Faruq,Kemitraan Strategis,1
+p22,Ahmad Al-Faruq,Orientasi Melayani,3
+p22,Ahmad Al-Faruq,Enablement Klien,3
+p22,Ahmad Al-Faruq,Koordinasi Lintas Fungsi,2
+p22,Ahmad Al-Faruq,Keandalan,2
 p22,Ahmad Al-Faruq,Pemantauan Kinerja Akun,4
-p22,Ahmad Al-Faruq,Strategi Merek & Komunikasi,4
-p22,Ahmad Al-Faruq,Pemasaran Digital & Analitik,5
-p22,Ahmad Al-Faruq,Riset Pasar & Wawasan Pelanggan,3
-p22,Ahmad Al-Faruq,Penguasaan Produk & Pasar,3
-p22,Ahmad Al-Faruq,Ketajaman Komersial,3
+p22,Ahmad Al-Faruq,Negosiasi,4
+p22,Ahmad Al-Faruq,Rekrutmen & Seleksi,3
+p22,Ahmad Al-Faruq,Pengembangan Talenta,3
+p22,Ahmad Al-Faruq,Manajemen Kinerja & Remunerasi,5
 p23,Ida Ayu Prameswari,Mendengar Aktif,1
-p23,Ida Ayu Prameswari,Inisiatif,4
-p23,Ida Ayu Prameswari,Persuasi,4
-p23,Ida Ayu Prameswari,Koordinasi Lintas Fungsi,4
 p23,Ida Ayu Prameswari,Kepekaan Sosial,4
-p23,Ida Ayu Prameswari,Kemitraan Strategis,2
+p23,Ida Ayu Prameswari,Orientasi Melayani,4
+p23,Ida Ayu Prameswari,Enablement Klien,4
+p23,Ida Ayu Prameswari,Koordinasi Lintas Fungsi,4
+p23,Ida Ayu Prameswari,Keandalan,2
 p23,Ida Ayu Prameswari,Pemantauan Kinerja Akun,3
-p23,Ida Ayu Prameswari,Strategi Merek & Komunikasi,4
-p23,Ida Ayu Prameswari,Pemasaran Digital & Analitik,2
-p23,Ida Ayu Prameswari,Riset Pasar & Wawasan Pelanggan,4
-p23,Ida Ayu Prameswari,Penguasaan Produk & Pasar,3
-p23,Ida Ayu Prameswari,Ketajaman Komersial,4
+p23,Ida Ayu Prameswari,Negosiasi,4
+p23,Ida Ayu Prameswari,Rekrutmen & Seleksi,4
+p23,Ida Ayu Prameswari,Pengembangan Talenta,5
+p23,Ida Ayu Prameswari,Manajemen Kinerja & Remunerasi,4
 p24,Hafiz Ramadhan,Mendengar Aktif,2
-p24,Hafiz Ramadhan,Inisiatif,1
-p24,Hafiz Ramadhan,Persuasi,3
-p24,Hafiz Ramadhan,Koordinasi Lintas Fungsi,1
 p24,Hafiz Ramadhan,Kepekaan Sosial,4
-p24,Hafiz Ramadhan,Kemitraan Strategis,3
+p24,Hafiz Ramadhan,Orientasi Melayani,2
+p24,Hafiz Ramadhan,Enablement Klien,3
+p24,Hafiz Ramadhan,Koordinasi Lintas Fungsi,1
+p24,Hafiz Ramadhan,Keandalan,3
 p24,Hafiz Ramadhan,Pemantauan Kinerja Akun,2
-p24,Hafiz Ramadhan,Strategi Merek & Komunikasi,4
-p24,Hafiz Ramadhan,Pemasaran Digital & Analitik,3
-p24,Hafiz Ramadhan,Riset Pasar & Wawasan Pelanggan,4
-p24,Hafiz Ramadhan,Penguasaan Produk & Pasar,3
-p24,Hafiz Ramadhan,Ketajaman Komersial,5
+p24,Hafiz Ramadhan,Negosiasi,1
+p24,Hafiz Ramadhan,Rekrutmen & Seleksi,5
+p24,Hafiz Ramadhan,Pengembangan Talenta,3
+p24,Hafiz Ramadhan,Manajemen Kinerja & Remunerasi,5
 p25,Sabrina Yulianti,Mendengar Aktif,2
-p25,Sabrina Yulianti,Inisiatif,2
-p25,Sabrina Yulianti,Persuasi,3
-p25,Sabrina Yulianti,Koordinasi Lintas Fungsi,4
 p25,Sabrina Yulianti,Kepekaan Sosial,1
-p25,Sabrina Yulianti,Kemitraan Strategis,4
+p25,Sabrina Yulianti,Orientasi Melayani,3
+p25,Sabrina Yulianti,Enablement Klien,2
+p25,Sabrina Yulianti,Koordinasi Lintas Fungsi,4
+p25,Sabrina Yulianti,Keandalan,3
 p25,Sabrina Yulianti,Pemantauan Kinerja Akun,1
-p25,Sabrina Yulianti,Strategi Merek & Komunikasi,4
-p25,Sabrina Yulianti,Pemasaran Digital & Analitik,3
-p25,Sabrina Yulianti,Riset Pasar & Wawasan Pelanggan,2
-p25,Sabrina Yulianti,Penguasaan Produk & Pasar,3
-p25,Sabrina Yulianti,Ketajaman Komersial,2
+p25,Sabrina Yulianti,Negosiasi,2
+p25,Sabrina Yulianti,Rekrutmen & Seleksi,3
+p25,Sabrina Yulianti,Pengembangan Talenta,5
+p25,Sabrina Yulianti,Manajemen Kinerja & Remunerasi,4
 p26,Siti Rahmawati,Mendengar Aktif,3
 p26,Siti Rahmawati,Inisiatif,2
 p26,Siti Rahmawati,Persuasi,2
@@ -296,52 +291,49 @@ p26,Siti Rahmawati,Riset Pasar & Wawasan Pelanggan,2
 p26,Siti Rahmawati,Penguasaan Produk & Pasar,3
 p26,Siti Rahmawati,Ketajaman Komersial,3
 p27,Bram Sitorus,Mendengar Aktif,3
-p27,Bram Sitorus,Inisiatif,3
-p27,Bram Sitorus,Persuasi,2
-p27,Bram Sitorus,Koordinasi Lintas Fungsi,3
 p27,Bram Sitorus,Kepekaan Sosial,4
-p27,Bram Sitorus,Kemitraan Strategis,3
+p27,Bram Sitorus,Orientasi Melayani,1
+p27,Bram Sitorus,Enablement Klien,1
+p27,Bram Sitorus,Koordinasi Lintas Fungsi,3
+p27,Bram Sitorus,Keandalan,4
 p27,Bram Sitorus,Pemantauan Kinerja Akun,3
-p27,Bram Sitorus,Strategi Merek & Komunikasi,4
-p27,Bram Sitorus,Pemasaran Digital & Analitik,2
-p27,Bram Sitorus,Riset Pasar & Wawasan Pelanggan,4
-p27,Bram Sitorus,Penguasaan Produk & Pasar,3
-p27,Bram Sitorus,Ketajaman Komersial,4
+p27,Bram Sitorus,Negosiasi,3
+p27,Bram Sitorus,Rekrutmen & Seleksi,5
+p27,Bram Sitorus,Pengembangan Talenta,2
+p27,Bram Sitorus,Manajemen Kinerja & Remunerasi,5
 p28,Galih Kusuma,Mendengar Aktif,4
-p28,Galih Kusuma,Inisiatif,3
-p28,Galih Kusuma,Keandalan,1
+p28,Galih Kusuma,Kepekaan Sosial,1
+p28,Galih Kusuma,Orientasi Melayani,4
+p28,Galih Kusuma,Enablement Klien,4
 p28,Galih Kusuma,Koordinasi Lintas Fungsi,4
-p28,Galih Kusuma,Ketahanan Tekanan,2
-p28,Galih Kusuma,Kegigihan,2
+p28,Galih Kusuma,Keandalan,1
 p28,Galih Kusuma,Pemantauan Kinerja Akun,2
-p28,Galih Kusuma,Rekayasa Perangkat Lunak,3
-p28,Galih Kusuma,Arsitektur & Rancangan Sistem,5
-p28,Galih Kusuma,Keandalan & Operasional Sistem,3
-p28,Galih Kusuma,Keamanan Informasi,5
-p28,Galih Kusuma,Pengelolaan Data,2
-p29,Jihan Azzahra,Keandalan,2
-p29,Jihan Azzahra,Koordinasi Lintas Fungsi,3
-p29,Jihan Azzahra,Pemantauan Kinerja Akun,4
-p29,Jihan Azzahra,Inisiatif,4
+p28,Galih Kusuma,Negosiasi,3
+p28,Galih Kusuma,Rekrutmen & Seleksi,4
+p28,Galih Kusuma,Pengembangan Talenta,4
+p28,Galih Kusuma,Manajemen Kinerja & Remunerasi,4
 p29,Jihan Azzahra,Mendengar Aktif,4
+p29,Jihan Azzahra,Keandalan,2
+p29,Jihan Azzahra,Pemantauan Kinerja Akun,4
+p29,Jihan Azzahra,Koordinasi Lintas Fungsi,3
+p29,Jihan Azzahra,Kepekaan Sosial,2
+p29,Jihan Azzahra,Inisiatif,4
 p29,Jihan Azzahra,Ketahanan Tekanan,4
-p29,Jihan Azzahra,Orientasi Melayani,2
-p29,Jihan Azzahra,Perbaikan Proses,3
-p29,Jihan Azzahra,Kendali Mutu,3
-p29,Jihan Azzahra,Manajemen Rantai Pasok,3
+p29,Jihan Azzahra,Pelaporan & Standar Akuntansi,5
+p29,Jihan Azzahra,Analisis & Perencanaan Keuangan,2
+p29,Jihan Azzahra,Pengendalian & Kepatuhan,5
 p29,Jihan Azzahra,Pengelolaan Data,5
 p30,Rani Oktarina,Mendengar Aktif,4
-p30,Rani Oktarina,Inisiatif,3
-p30,Rani Oktarina,Persuasi,4
+p30,Rani Oktarina,Keandalan,4
+p30,Rani Oktarina,Pemantauan Kinerja Akun,3
 p30,Rani Oktarina,Koordinasi Lintas Fungsi,2
 p30,Rani Oktarina,Kepekaan Sosial,1
-p30,Rani Oktarina,Kemitraan Strategis,1
-p30,Rani Oktarina,Pemantauan Kinerja Akun,3
-p30,Rani Oktarina,Strategi Merek & Komunikasi,4
-p30,Rani Oktarina,Pemasaran Digital & Analitik,3
-p30,Rani Oktarina,Riset Pasar & Wawasan Pelanggan,4
-p30,Rani Oktarina,Penguasaan Produk & Pasar,3
-p30,Rani Oktarina,Ketajaman Komersial,4
+p30,Rani Oktarina,Inisiatif,3
+p30,Rani Oktarina,Ketahanan Tekanan,1
+p30,Rani Oktarina,Pelaporan & Standar Akuntansi,4
+p30,Rani Oktarina,Analisis & Perencanaan Keuangan,3
+p30,Rani Oktarina,Pengendalian & Kepatuhan,4
+p30,Rani Oktarina,Pengelolaan Data,4
 p31,Zahra Amelia,Mendengar Aktif,4
 p31,Zahra Amelia,Keandalan,1
 p31,Zahra Amelia,Pemantauan Kinerja Akun,2
@@ -353,29 +345,28 @@ p31,Zahra Amelia,Pelaporan & Standar Akuntansi,2
 p31,Zahra Amelia,Analisis & Perencanaan Keuangan,3
 p31,Zahra Amelia,Pengendalian & Kepatuhan,3
 p31,Zahra Amelia,Pengelolaan Data,4
-p32,Hana Fadhilah,Keandalan,4
-p32,Hana Fadhilah,Koordinasi Lintas Fungsi,2
-p32,Hana Fadhilah,Pemantauan Kinerja Akun,1
-p32,Hana Fadhilah,Inisiatif,4
 p32,Hana Fadhilah,Mendengar Aktif,1
+p32,Hana Fadhilah,Keandalan,4
+p32,Hana Fadhilah,Pemantauan Kinerja Akun,1
+p32,Hana Fadhilah,Koordinasi Lintas Fungsi,2
+p32,Hana Fadhilah,Kepekaan Sosial,2
+p32,Hana Fadhilah,Inisiatif,4
 p32,Hana Fadhilah,Ketahanan Tekanan,3
-p32,Hana Fadhilah,Orientasi Melayani,4
-p32,Hana Fadhilah,Perbaikan Proses,3
-p32,Hana Fadhilah,Kendali Mutu,2
-p32,Hana Fadhilah,Manajemen Rantai Pasok,3
+p32,Hana Fadhilah,Pelaporan & Standar Akuntansi,4
+p32,Hana Fadhilah,Analisis & Perencanaan Keuangan,4
+p32,Hana Fadhilah,Pengendalian & Kepatuhan,4
 p32,Hana Fadhilah,Pengelolaan Data,3
 p33,Tania Kirana,Mendengar Aktif,2
-p33,Tania Kirana,Inisiatif,4
-p33,Tania Kirana,Persuasi,1
+p33,Tania Kirana,Keandalan,4
+p33,Tania Kirana,Pemantauan Kinerja Akun,4
 p33,Tania Kirana,Koordinasi Lintas Fungsi,4
 p33,Tania Kirana,Kepekaan Sosial,3
-p33,Tania Kirana,Kemitraan Strategis,4
-p33,Tania Kirana,Pemantauan Kinerja Akun,4
-p33,Tania Kirana,Strategi Merek & Komunikasi,4
-p33,Tania Kirana,Pemasaran Digital & Analitik,4
-p33,Tania Kirana,Riset Pasar & Wawasan Pelanggan,4
-p33,Tania Kirana,Penguasaan Produk & Pasar,3
-p33,Tania Kirana,Ketajaman Komersial,2
+p33,Tania Kirana,Inisiatif,4
+p33,Tania Kirana,Ketahanan Tekanan,4
+p33,Tania Kirana,Pelaporan & Standar Akuntansi,3
+p33,Tania Kirana,Analisis & Perencanaan Keuangan,4
+p33,Tania Kirana,Pengendalian & Kepatuhan,3
+p33,Tania Kirana,Pengelolaan Data,2
 p34,Rizky Ramadhan,Mendengar Aktif,2
 p34,Rizky Ramadhan,Inisiatif,1
 p34,Rizky Ramadhan,Keandalan,1
@@ -422,49 +413,49 @@ p37,Fajar Nugroho,Rekrutmen & Seleksi,3
 p37,Fajar Nugroho,Pengembangan Talenta,3
 p37,Fajar Nugroho,Manajemen Kinerja & Remunerasi,5
 p38,Dimas Prasetyo,Mendengar Aktif,3
-p38,Dimas Prasetyo,Inisiatif,2
-p38,Dimas Prasetyo,Kemitraan Strategis,2
-p38,Dimas Prasetyo,Koordinasi Lintas Fungsi,4
+p38,Dimas Prasetyo,Keandalan,3
 p38,Dimas Prasetyo,Pemantauan Kinerja Akun,2
-p38,Dimas Prasetyo,Persuasi,1
+p38,Dimas Prasetyo,Koordinasi Lintas Fungsi,4
+p38,Dimas Prasetyo,Kepekaan Sosial,2
+p38,Dimas Prasetyo,Inisiatif,2
 p38,Dimas Prasetyo,Ketahanan Tekanan,3
-p38,Dimas Prasetyo,Analisis Strategis,5
-p38,Dimas Prasetyo,Tata Kelola & Manajemen Risiko,2
-p38,Dimas Prasetyo,Pemahaman Organisasi Klien,5
-p38,Dimas Prasetyo,Ketajaman Komersial,4
+p38,Dimas Prasetyo,Pelaporan & Standar Akuntansi,2
+p38,Dimas Prasetyo,Analisis & Perencanaan Keuangan,5
+p38,Dimas Prasetyo,Pengendalian & Kepatuhan,2
+p38,Dimas Prasetyo,Pengelolaan Data,4
 p39,Yoga Pratama,Mendengar Aktif,3
-p39,Yoga Pratama,Inisiatif,2
-p39,Yoga Pratama,Kemitraan Strategis,3
-p39,Yoga Pratama,Koordinasi Lintas Fungsi,3
+p39,Yoga Pratama,Keandalan,4
 p39,Yoga Pratama,Pemantauan Kinerja Akun,1
-p39,Yoga Pratama,Persuasi,2
+p39,Yoga Pratama,Koordinasi Lintas Fungsi,3
+p39,Yoga Pratama,Kepekaan Sosial,4
+p39,Yoga Pratama,Inisiatif,2
 p39,Yoga Pratama,Ketahanan Tekanan,1
-p39,Yoga Pratama,Analisis Strategis,3
-p39,Yoga Pratama,Tata Kelola & Manajemen Risiko,5
-p39,Yoga Pratama,Pemahaman Organisasi Klien,5
-p39,Yoga Pratama,Ketajaman Komersial,5
+p39,Yoga Pratama,Pelaporan & Standar Akuntansi,4
+p39,Yoga Pratama,Analisis & Perencanaan Keuangan,3
+p39,Yoga Pratama,Pengendalian & Kepatuhan,5
+p39,Yoga Pratama,Pengelolaan Data,3
 p40,Bayu Setiawan,Mendengar Aktif,3
-p40,Bayu Setiawan,Inisiatif,1
-p40,Bayu Setiawan,Kemitraan Strategis,3
-p40,Bayu Setiawan,Koordinasi Lintas Fungsi,2
+p40,Bayu Setiawan,Keandalan,3
 p40,Bayu Setiawan,Pemantauan Kinerja Akun,2
-p40,Bayu Setiawan,Persuasi,4
+p40,Bayu Setiawan,Koordinasi Lintas Fungsi,2
+p40,Bayu Setiawan,Kepekaan Sosial,2
+p40,Bayu Setiawan,Inisiatif,1
 p40,Bayu Setiawan,Ketahanan Tekanan,4
-p40,Bayu Setiawan,Analisis Strategis,3
-p40,Bayu Setiawan,Tata Kelola & Manajemen Risiko,5
-p40,Bayu Setiawan,Pemahaman Organisasi Klien,5
-p40,Bayu Setiawan,Ketajaman Komersial,3
+p40,Bayu Setiawan,Pelaporan & Standar Akuntansi,3
+p40,Bayu Setiawan,Analisis & Perencanaan Keuangan,2
+p40,Bayu Setiawan,Pengendalian & Kepatuhan,4
+p40,Bayu Setiawan,Pengelolaan Data,5
 p41,Nadia Safitri,Mendengar Aktif,3
-p41,Nadia Safitri,Inisiatif,2
-p41,Nadia Safitri,Kemitraan Strategis,4
-p41,Nadia Safitri,Koordinasi Lintas Fungsi,1
+p41,Nadia Safitri,Keandalan,3
 p41,Nadia Safitri,Pemantauan Kinerja Akun,1
-p41,Nadia Safitri,Persuasi,3
+p41,Nadia Safitri,Koordinasi Lintas Fungsi,1
+p41,Nadia Safitri,Kepekaan Sosial,2
+p41,Nadia Safitri,Inisiatif,2
 p41,Nadia Safitri,Ketahanan Tekanan,2
-p41,Nadia Safitri,Analisis Strategis,4
-p41,Nadia Safitri,Tata Kelola & Manajemen Risiko,2
-p41,Nadia Safitri,Pemahaman Organisasi Klien,5
-p41,Nadia Safitri,Ketajaman Komersial,4
+p41,Nadia Safitri,Pelaporan & Standar Akuntansi,5
+p41,Nadia Safitri,Analisis & Perencanaan Keuangan,4
+p41,Nadia Safitri,Pengendalian & Kepatuhan,3
+p41,Nadia Safitri,Pengelolaan Data,4
 p42,Reza Mahendra,Mendengar Aktif,4
 p42,Reza Mahendra,Inisiatif,2
 p42,Reza Mahendra,Keandalan,4
@@ -478,28 +469,26 @@ p42,Reza Mahendra,Keandalan & Operasional Sistem,3
 p42,Reza Mahendra,Keamanan Informasi,3
 p42,Reza Mahendra,Pengelolaan Data,5
 p43,Fitri Handayani,Mendengar Aktif,4
-p43,Fitri Handayani,Inisiatif,3
 p43,Fitri Handayani,Keandalan,4
-p43,Fitri Handayani,Koordinasi Lintas Fungsi,4
-p43,Fitri Handayani,Ketahanan Tekanan,2
-p43,Fitri Handayani,Kegigihan,1
 p43,Fitri Handayani,Pemantauan Kinerja Akun,3
-p43,Fitri Handayani,Rekayasa Perangkat Lunak,5
-p43,Fitri Handayani,Arsitektur & Rancangan Sistem,5
-p43,Fitri Handayani,Keandalan & Operasional Sistem,2
-p43,Fitri Handayani,Keamanan Informasi,2
+p43,Fitri Handayani,Koordinasi Lintas Fungsi,4
+p43,Fitri Handayani,Kepekaan Sosial,2
+p43,Fitri Handayani,Inisiatif,3
+p43,Fitri Handayani,Ketahanan Tekanan,2
+p43,Fitri Handayani,Pelaporan & Standar Akuntansi,5
+p43,Fitri Handayani,Analisis & Perencanaan Keuangan,5
+p43,Fitri Handayani,Pengendalian & Kepatuhan,3
 p43,Fitri Handayani,Pengelolaan Data,4
 p44,Hendra Gunawan,Mendengar Aktif,1
-p44,Hendra Gunawan,Inisiatif,3
 p44,Hendra Gunawan,Keandalan,1
-p44,Hendra Gunawan,Koordinasi Lintas Fungsi,1
-p44,Hendra Gunawan,Ketahanan Tekanan,3
-p44,Hendra Gunawan,Kegigihan,2
 p44,Hendra Gunawan,Pemantauan Kinerja Akun,2
-p44,Hendra Gunawan,Rekayasa Perangkat Lunak,4
-p44,Hendra Gunawan,Arsitektur & Rancangan Sistem,4
-p44,Hendra Gunawan,Keandalan & Operasional Sistem,5
-p44,Hendra Gunawan,Keamanan Informasi,3
+p44,Hendra Gunawan,Koordinasi Lintas Fungsi,1
+p44,Hendra Gunawan,Kepekaan Sosial,2
+p44,Hendra Gunawan,Inisiatif,3
+p44,Hendra Gunawan,Ketahanan Tekanan,3
+p44,Hendra Gunawan,Pelaporan & Standar Akuntansi,4
+p44,Hendra Gunawan,Analisis & Perencanaan Keuangan,5
+p44,Hendra Gunawan,Pengendalian & Kepatuhan,3
 p44,Hendra Gunawan,Pengelolaan Data,3
 p45,Iqbal Maulana,Mendengar Aktif,2
 p45,Iqbal Maulana,Inisiatif,4
@@ -682,70 +671,76 @@ p59,Satria Utomo,Keandalan & Operasional Sistem,5
 p59,Satria Utomo,Keamanan Informasi,4
 p59,Satria Utomo,Pengelolaan Data,2
 p60,Yulia Andini,Mendengar Aktif,2
-p60,Yulia Andini,Keandalan,1
-p60,Yulia Andini,Pemantauan Kinerja Akun,2
-p60,Yulia Andini,Koordinasi Lintas Fungsi,2
-p60,Yulia Andini,Kepekaan Sosial,3
 p60,Yulia Andini,Inisiatif,3
+p60,Yulia Andini,Keandalan,1
+p60,Yulia Andini,Koordinasi Lintas Fungsi,2
 p60,Yulia Andini,Ketahanan Tekanan,3
-p60,Yulia Andini,Pelaporan & Standar Akuntansi,4
-p60,Yulia Andini,Analisis & Perencanaan Keuangan,3
-p60,Yulia Andini,Pengendalian & Kepatuhan,4
+p60,Yulia Andini,Kegigihan,3
+p60,Yulia Andini,Pemantauan Kinerja Akun,2
+p60,Yulia Andini,Rekayasa Perangkat Lunak,5
+p60,Yulia Andini,Arsitektur & Rancangan Sistem,4
+p60,Yulia Andini,Keandalan & Operasional Sistem,3
+p60,Yulia Andini,Keamanan Informasi,3
 p60,Yulia Andini,Pengelolaan Data,3
 p61,Bella Kusumawati,Mendengar Aktif,3
-p61,Bella Kusumawati,Keandalan,2
-p61,Bella Kusumawati,Pemantauan Kinerja Akun,4
-p61,Bella Kusumawati,Koordinasi Lintas Fungsi,1
-p61,Bella Kusumawati,Kepekaan Sosial,4
 p61,Bella Kusumawati,Inisiatif,4
+p61,Bella Kusumawati,Keandalan,2
+p61,Bella Kusumawati,Koordinasi Lintas Fungsi,1
 p61,Bella Kusumawati,Ketahanan Tekanan,4
-p61,Bella Kusumawati,Pelaporan & Standar Akuntansi,3
-p61,Bella Kusumawati,Analisis & Perencanaan Keuangan,4
-p61,Bella Kusumawati,Pengendalian & Kepatuhan,3
+p61,Bella Kusumawati,Kegigihan,2
+p61,Bella Kusumawati,Pemantauan Kinerja Akun,4
+p61,Bella Kusumawati,Rekayasa Perangkat Lunak,5
+p61,Bella Kusumawati,Arsitektur & Rancangan Sistem,3
+p61,Bella Kusumawati,Keandalan & Operasional Sistem,2
+p61,Bella Kusumawati,Keamanan Informasi,4
 p61,Bella Kusumawati,Pengelolaan Data,4
 p62,Yudha Permana,Mendengar Aktif,3
-p62,Yudha Permana,Keandalan,2
-p62,Yudha Permana,Pemantauan Kinerja Akun,3
-p62,Yudha Permana,Koordinasi Lintas Fungsi,2
-p62,Yudha Permana,Kepekaan Sosial,4
 p62,Yudha Permana,Inisiatif,4
+p62,Yudha Permana,Keandalan,2
+p62,Yudha Permana,Koordinasi Lintas Fungsi,2
 p62,Yudha Permana,Ketahanan Tekanan,2
-p62,Yudha Permana,Pelaporan & Standar Akuntansi,5
-p62,Yudha Permana,Analisis & Perencanaan Keuangan,4
-p62,Yudha Permana,Pengendalian & Kepatuhan,4
+p62,Yudha Permana,Kegigihan,3
+p62,Yudha Permana,Pemantauan Kinerja Akun,3
+p62,Yudha Permana,Rekayasa Perangkat Lunak,4
+p62,Yudha Permana,Arsitektur & Rancangan Sistem,5
+p62,Yudha Permana,Keandalan & Operasional Sistem,5
+p62,Yudha Permana,Keamanan Informasi,3
 p62,Yudha Permana,Pengelolaan Data,3
 p63,Dinda Alifia,Mendengar Aktif,4
-p63,Dinda Alifia,Keandalan,3
-p63,Dinda Alifia,Pemantauan Kinerja Akun,2
-p63,Dinda Alifia,Koordinasi Lintas Fungsi,4
-p63,Dinda Alifia,Kepekaan Sosial,1
 p63,Dinda Alifia,Inisiatif,1
+p63,Dinda Alifia,Keandalan,3
+p63,Dinda Alifia,Koordinasi Lintas Fungsi,4
 p63,Dinda Alifia,Ketahanan Tekanan,2
-p63,Dinda Alifia,Pelaporan & Standar Akuntansi,3
-p63,Dinda Alifia,Analisis & Perencanaan Keuangan,2
-p63,Dinda Alifia,Pengendalian & Kepatuhan,3
+p63,Dinda Alifia,Kegigihan,3
+p63,Dinda Alifia,Pemantauan Kinerja Akun,2
+p63,Dinda Alifia,Rekayasa Perangkat Lunak,5
+p63,Dinda Alifia,Arsitektur & Rancangan Sistem,3
+p63,Dinda Alifia,Keandalan & Operasional Sistem,4
+p63,Dinda Alifia,Keamanan Informasi,4
 p63,Dinda Alifia,Pengelolaan Data,5
 p64,Ilham Rahmadi,Mendengar Aktif,3
-p64,Ilham Rahmadi,Keandalan,3
-p64,Ilham Rahmadi,Pemantauan Kinerja Akun,1
-p64,Ilham Rahmadi,Koordinasi Lintas Fungsi,1
-p64,Ilham Rahmadi,Kepekaan Sosial,2
 p64,Ilham Rahmadi,Inisiatif,2
+p64,Ilham Rahmadi,Keandalan,3
+p64,Ilham Rahmadi,Koordinasi Lintas Fungsi,1
 p64,Ilham Rahmadi,Ketahanan Tekanan,4
-p64,Ilham Rahmadi,Pelaporan & Standar Akuntansi,5
-p64,Ilham Rahmadi,Analisis & Perencanaan Keuangan,2
-p64,Ilham Rahmadi,Pengendalian & Kepatuhan,3
+p64,Ilham Rahmadi,Kegigihan,4
+p64,Ilham Rahmadi,Pemantauan Kinerja Akun,1
+p64,Ilham Rahmadi,Rekayasa Perangkat Lunak,4
+p64,Ilham Rahmadi,Arsitektur & Rancangan Sistem,5
+p64,Ilham Rahmadi,Keandalan & Operasional Sistem,3
+p64,Ilham Rahmadi,Keamanan Informasi,5
 p64,Ilham Rahmadi,Pengelolaan Data,2
 p65,Elsa Nuraini,Mendengar Aktif,3
-p65,Elsa Nuraini,Keandalan,4
-p65,Elsa Nuraini,Pemantauan Kinerja Akun,4
-p65,Elsa Nuraini,Koordinasi Lintas Fungsi,4
-p65,Elsa Nuraini,Kepekaan Sosial,2
 p65,Elsa Nuraini,Inisiatif,2
+p65,Elsa Nuraini,Keandalan,4
+p65,Elsa Nuraini,Koordinasi Lintas Fungsi,4
 p65,Elsa Nuraini,Ketahanan Tekanan,2
-p65,Elsa Nuraini,Pelaporan & Standar Akuntansi,4
-p65,Elsa Nuraini,Analisis & Perencanaan Keuangan,4
-p65,Elsa Nuraini,Pengendalian & Kepatuhan,2
+p65,Elsa Nuraini,Kegigihan,4
+p65,Elsa Nuraini,Pemantauan Kinerja Akun,4
+p65,Elsa Nuraini,Rekayasa Perangkat Lunak,4
+p65,Elsa Nuraini,Arsitektur & Rancangan Sistem,4
+p65,Elsa Nuraini,Keandalan & Operasional Sistem,5
+p65,Elsa Nuraini,Keamanan Informasi,3
 p65,Elsa Nuraini,Pengelolaan Data,5
 p66,Gita Aprilia,Keandalan,4
 p66,Gita Aprilia,Koordinasi Lintas Fungsi,4
@@ -758,127 +753,138 @@ p66,Gita Aprilia,Perbaikan Proses,5
 p66,Gita Aprilia,Kendali Mutu,3
 p66,Gita Aprilia,Manajemen Rantai Pasok,5
 p66,Gita Aprilia,Pengelolaan Data,4
+p67,Damar Anggoro,Mendengar Aktif,4
+p67,Damar Anggoro,Inisiatif,3
 p67,Damar Anggoro,Keandalan,1
 p67,Damar Anggoro,Koordinasi Lintas Fungsi,3
-p67,Damar Anggoro,Pemantauan Kinerja Akun,2
-p67,Damar Anggoro,Inisiatif,3
-p67,Damar Anggoro,Mendengar Aktif,4
 p67,Damar Anggoro,Ketahanan Tekanan,3
-p67,Damar Anggoro,Orientasi Melayani,4
-p67,Damar Anggoro,Perbaikan Proses,4
-p67,Damar Anggoro,Kendali Mutu,2
-p67,Damar Anggoro,Manajemen Rantai Pasok,3
+p67,Damar Anggoro,Kegigihan,2
+p67,Damar Anggoro,Pemantauan Kinerja Akun,2
+p67,Damar Anggoro,Rekayasa Perangkat Lunak,4
+p67,Damar Anggoro,Arsitektur & Rancangan Sistem,4
+p67,Damar Anggoro,Keandalan & Operasional Sistem,3
+p67,Damar Anggoro,Keamanan Informasi,3
 p67,Damar Anggoro,Pengelolaan Data,4
+p68,Rafi Alfarizi,Mendengar Aktif,1
+p68,Rafi Alfarizi,Inisiatif,4
 p68,Rafi Alfarizi,Keandalan,2
 p68,Rafi Alfarizi,Koordinasi Lintas Fungsi,4
-p68,Rafi Alfarizi,Pemantauan Kinerja Akun,4
-p68,Rafi Alfarizi,Inisiatif,4
-p68,Rafi Alfarizi,Mendengar Aktif,1
 p68,Rafi Alfarizi,Ketahanan Tekanan,1
-p68,Rafi Alfarizi,Orientasi Melayani,1
-p68,Rafi Alfarizi,Perbaikan Proses,3
-p68,Rafi Alfarizi,Kendali Mutu,5
-p68,Rafi Alfarizi,Manajemen Rantai Pasok,4
+p68,Rafi Alfarizi,Kegigihan,2
+p68,Rafi Alfarizi,Pemantauan Kinerja Akun,4
+p68,Rafi Alfarizi,Rekayasa Perangkat Lunak,3
+p68,Rafi Alfarizi,Arsitektur & Rancangan Sistem,3
+p68,Rafi Alfarizi,Keandalan & Operasional Sistem,2
+p68,Rafi Alfarizi,Keamanan Informasi,4
 p68,Rafi Alfarizi,Pengelolaan Data,3
-p69,Naufal Hidayat,Keandalan,2
+p69,Naufal Hidayat,Mendengar Aktif,2
+p69,Naufal Hidayat,Inisiatif,4
+p69,Naufal Hidayat,Kemitraan Strategis,2
 p69,Naufal Hidayat,Koordinasi Lintas Fungsi,3
 p69,Naufal Hidayat,Pemantauan Kinerja Akun,3
-p69,Naufal Hidayat,Inisiatif,4
-p69,Naufal Hidayat,Mendengar Aktif,2
-p69,Naufal Hidayat,Ketahanan Tekanan,3
-p69,Naufal Hidayat,Orientasi Melayani,2
-p69,Naufal Hidayat,Perbaikan Proses,4
-p69,Naufal Hidayat,Kendali Mutu,4
-p69,Naufal Hidayat,Manajemen Rantai Pasok,3
+p69,Naufal Hidayat,Kepekaan Sosial,3
+p69,Naufal Hidayat,Persuasi,3
+p69,Naufal Hidayat,Analisis Strategis,4
+p69,Naufal Hidayat,Riset Pasar & Wawasan Pelanggan,3
 p69,Naufal Hidayat,Pengelolaan Data,2
-p70,Zaki Ardiansyah,Keandalan,1
+p69,Naufal Hidayat,Tata Kelola & Manajemen Risiko,3
+p69,Naufal Hidayat,Analisis Kebutuhan Klien,4
+p70,Zaki Ardiansyah,Mendengar Aktif,1
+p70,Zaki Ardiansyah,Inisiatif,3
+p70,Zaki Ardiansyah,Kemitraan Strategis,4
 p70,Zaki Ardiansyah,Koordinasi Lintas Fungsi,2
 p70,Zaki Ardiansyah,Pemantauan Kinerja Akun,2
-p70,Zaki Ardiansyah,Inisiatif,3
-p70,Zaki Ardiansyah,Mendengar Aktif,1
-p70,Zaki Ardiansyah,Ketahanan Tekanan,4
-p70,Zaki Ardiansyah,Orientasi Melayani,3
-p70,Zaki Ardiansyah,Perbaikan Proses,3
-p70,Zaki Ardiansyah,Kendali Mutu,3
-p70,Zaki Ardiansyah,Manajemen Rantai Pasok,2
+p70,Zaki Ardiansyah,Kepekaan Sosial,4
+p70,Zaki Ardiansyah,Persuasi,2
+p70,Zaki Ardiansyah,Analisis Strategis,3
+p70,Zaki Ardiansyah,Riset Pasar & Wawasan Pelanggan,5
 p70,Zaki Ardiansyah,Pengelolaan Data,5
-p71,Kirana Sekar,Keandalan,2
+p70,Zaki Ardiansyah,Tata Kelola & Manajemen Risiko,5
+p70,Zaki Ardiansyah,Analisis Kebutuhan Klien,5
+p71,Kirana Sekar,Mendengar Aktif,2
+p71,Kirana Sekar,Inisiatif,4
+p71,Kirana Sekar,Kemitraan Strategis,1
 p71,Kirana Sekar,Koordinasi Lintas Fungsi,1
 p71,Kirana Sekar,Pemantauan Kinerja Akun,1
-p71,Kirana Sekar,Inisiatif,4
-p71,Kirana Sekar,Mendengar Aktif,2
-p71,Kirana Sekar,Ketahanan Tekanan,2
-p71,Kirana Sekar,Orientasi Melayani,4
-p71,Kirana Sekar,Perbaikan Proses,5
-p71,Kirana Sekar,Kendali Mutu,2
-p71,Kirana Sekar,Manajemen Rantai Pasok,3
+p71,Kirana Sekar,Kepekaan Sosial,4
+p71,Kirana Sekar,Persuasi,4
+p71,Kirana Sekar,Analisis Strategis,4
+p71,Kirana Sekar,Riset Pasar & Wawasan Pelanggan,3
 p71,Kirana Sekar,Pengelolaan Data,5
-p72,Lidya Simatupang,Keandalan,2
+p71,Kirana Sekar,Tata Kelola & Manajemen Risiko,4
+p71,Kirana Sekar,Analisis Kebutuhan Klien,2
+p72,Lidya Simatupang,Mendengar Aktif,2
+p72,Lidya Simatupang,Inisiatif,4
+p72,Lidya Simatupang,Kemitraan Strategis,4
 p72,Lidya Simatupang,Koordinasi Lintas Fungsi,2
 p72,Lidya Simatupang,Pemantauan Kinerja Akun,4
-p72,Lidya Simatupang,Inisiatif,4
-p72,Lidya Simatupang,Mendengar Aktif,2
-p72,Lidya Simatupang,Ketahanan Tekanan,2
-p72,Lidya Simatupang,Orientasi Melayani,1
-p72,Lidya Simatupang,Perbaikan Proses,4
-p72,Lidya Simatupang,Kendali Mutu,5
-p72,Lidya Simatupang,Manajemen Rantai Pasok,2
+p72,Lidya Simatupang,Kepekaan Sosial,1
+p72,Lidya Simatupang,Persuasi,1
+p72,Lidya Simatupang,Analisis Strategis,5
+p72,Lidya Simatupang,Riset Pasar & Wawasan Pelanggan,3
 p72,Lidya Simatupang,Pengelolaan Data,4
+p72,Lidya Simatupang,Tata Kelola & Manajemen Risiko,3
+p72,Lidya Simatupang,Analisis Kebutuhan Klien,5
 p73,Priska Sihombing,Mendengar Aktif,3
-p73,Priska Sihombing,Kepekaan Sosial,4
-p73,Priska Sihombing,Orientasi Melayani,2
-p73,Priska Sihombing,Enablement Klien,1
+p73,Priska Sihombing,Inisiatif,1
+p73,Priska Sihombing,Kemitraan Strategis,2
 p73,Priska Sihombing,Koordinasi Lintas Fungsi,4
-p73,Priska Sihombing,Keandalan,3
 p73,Priska Sihombing,Pemantauan Kinerja Akun,3
-p73,Priska Sihombing,Negosiasi,1
-p73,Priska Sihombing,Rekrutmen & Seleksi,4
-p73,Priska Sihombing,Pengembangan Talenta,3
-p73,Priska Sihombing,Manajemen Kinerja & Remunerasi,5
+p73,Priska Sihombing,Kepekaan Sosial,4
+p73,Priska Sihombing,Persuasi,3
+p73,Priska Sihombing,Analisis Strategis,4
+p73,Priska Sihombing,Riset Pasar & Wawasan Pelanggan,5
+p73,Priska Sihombing,Pengelolaan Data,3
+p73,Priska Sihombing,Tata Kelola & Manajemen Risiko,5
+p73,Priska Sihombing,Analisis Kebutuhan Klien,5
 p74,Ni Luh Ayu Savitri,Mendengar Aktif,3
-p74,Ni Luh Ayu Savitri,Kepekaan Sosial,4
-p74,Ni Luh Ayu Savitri,Orientasi Melayani,3
-p74,Ni Luh Ayu Savitri,Enablement Klien,2
+p74,Ni Luh Ayu Savitri,Inisiatif,2
+p74,Ni Luh Ayu Savitri,Kemitraan Strategis,3
 p74,Ni Luh Ayu Savitri,Koordinasi Lintas Fungsi,1
-p74,Ni Luh Ayu Savitri,Keandalan,3
 p74,Ni Luh Ayu Savitri,Pemantauan Kinerja Akun,2
-p74,Ni Luh Ayu Savitri,Negosiasi,2
-p74,Ni Luh Ayu Savitri,Rekrutmen & Seleksi,5
-p74,Ni Luh Ayu Savitri,Pengembangan Talenta,5
-p74,Ni Luh Ayu Savitri,Manajemen Kinerja & Remunerasi,4
+p74,Ni Luh Ayu Savitri,Kepekaan Sosial,4
+p74,Ni Luh Ayu Savitri,Persuasi,4
+p74,Ni Luh Ayu Savitri,Analisis Strategis,5
+p74,Ni Luh Ayu Savitri,Riset Pasar & Wawasan Pelanggan,3
+p74,Ni Luh Ayu Savitri,Pengelolaan Data,4
+p74,Ni Luh Ayu Savitri,Tata Kelola & Manajemen Risiko,4
+p74,Ni Luh Ayu Savitri,Analisis Kebutuhan Klien,4
 p75,Ni Kadek Sriani,Mendengar Aktif,4
-p75,Ni Kadek Sriani,Kepekaan Sosial,1
-p75,Ni Kadek Sriani,Orientasi Melayani,3
-p75,Ni Kadek Sriani,Enablement Klien,4
+p75,Ni Kadek Sriani,Inisiatif,2
+p75,Ni Kadek Sriani,Kemitraan Strategis,4
 p75,Ni Kadek Sriani,Koordinasi Lintas Fungsi,4
-p75,Ni Kadek Sriani,Keandalan,4
 p75,Ni Kadek Sriani,Pemantauan Kinerja Akun,4
-p75,Ni Kadek Sriani,Negosiasi,2
-p75,Ni Kadek Sriani,Rekrutmen & Seleksi,2
-p75,Ni Kadek Sriani,Pengembangan Talenta,5
-p75,Ni Kadek Sriani,Manajemen Kinerja & Remunerasi,3
+p75,Ni Kadek Sriani,Kepekaan Sosial,1
+p75,Ni Kadek Sriani,Persuasi,2
+p75,Ni Kadek Sriani,Analisis Strategis,3
+p75,Ni Kadek Sriani,Riset Pasar & Wawasan Pelanggan,3
+p75,Ni Kadek Sriani,Pengelolaan Data,3
+p75,Ni Kadek Sriani,Tata Kelola & Manajemen Risiko,3
+p75,Ni Kadek Sriani,Analisis Kebutuhan Klien,5
 p76,Denny Kurniawan,Mendengar Aktif,4
-p76,Denny Kurniawan,Kepekaan Sosial,2
-p76,Denny Kurniawan,Orientasi Melayani,4
-p76,Denny Kurniawan,Enablement Klien,3
+p76,Denny Kurniawan,Inisiatif,3
+p76,Denny Kurniawan,Kemitraan Strategis,1
 p76,Denny Kurniawan,Koordinasi Lintas Fungsi,4
-p76,Denny Kurniawan,Keandalan,4
 p76,Denny Kurniawan,Pemantauan Kinerja Akun,3
-p76,Denny Kurniawan,Negosiasi,3
-p76,Denny Kurniawan,Rekrutmen & Seleksi,3
-p76,Denny Kurniawan,Pengembangan Talenta,4
-p76,Denny Kurniawan,Manajemen Kinerja & Remunerasi,2
+p76,Denny Kurniawan,Kepekaan Sosial,2
+p76,Denny Kurniawan,Persuasi,4
+p76,Denny Kurniawan,Analisis Strategis,4
+p76,Denny Kurniawan,Riset Pasar & Wawasan Pelanggan,4
+p76,Denny Kurniawan,Pengelolaan Data,5
+p76,Denny Kurniawan,Tata Kelola & Manajemen Risiko,4
+p76,Denny Kurniawan,Analisis Kebutuhan Klien,4
 p77,Ni Made Wulandari,Mendengar Aktif,3
-p77,Ni Made Wulandari,Kepekaan Sosial,2
-p77,Ni Made Wulandari,Orientasi Melayani,1
-p77,Ni Made Wulandari,Enablement Klien,4
+p77,Ni Made Wulandari,Inisiatif,3
+p77,Ni Made Wulandari,Kemitraan Strategis,2
 p77,Ni Made Wulandari,Koordinasi Lintas Fungsi,3
-p77,Ni Made Wulandari,Keandalan,1
 p77,Ni Made Wulandari,Pemantauan Kinerja Akun,2
-p77,Ni Made Wulandari,Negosiasi,3
-p77,Ni Made Wulandari,Rekrutmen & Seleksi,4
-p77,Ni Made Wulandari,Pengembangan Talenta,2
-p77,Ni Made Wulandari,Manajemen Kinerja & Remunerasi,5
+p77,Ni Made Wulandari,Kepekaan Sosial,2
+p77,Ni Made Wulandari,Persuasi,1
+p77,Ni Made Wulandari,Analisis Strategis,5
+p77,Ni Made Wulandari,Riset Pasar & Wawasan Pelanggan,4
+p77,Ni Made Wulandari,Pengelolaan Data,4
+p77,Ni Made Wulandari,Tata Kelola & Manajemen Risiko,3
+p77,Ni Made Wulandari,Analisis Kebutuhan Klien,4
 p78,Ridho Setiadi,Mendengar Aktif,4
 p78,Ridho Setiadi,Inisiatif,4
 p78,Ridho Setiadi,Persuasi,3
@@ -893,28 +899,28 @@ p78,Ridho Setiadi,Penguasaan Produk & Pasar,5
 p78,Ridho Setiadi,Ketajaman Komersial,5
 p79,Ulfa Nabilah,Mendengar Aktif,4
 p79,Ulfa Nabilah,Inisiatif,4
-p79,Ulfa Nabilah,Persuasi,4
-p79,Ulfa Nabilah,Koordinasi Lintas Fungsi,3
-p79,Ulfa Nabilah,Kepekaan Sosial,3
 p79,Ulfa Nabilah,Kemitraan Strategis,4
+p79,Ulfa Nabilah,Koordinasi Lintas Fungsi,3
 p79,Ulfa Nabilah,Pemantauan Kinerja Akun,4
-p79,Ulfa Nabilah,Strategi Merek & Komunikasi,3
-p79,Ulfa Nabilah,Pemasaran Digital & Analitik,3
+p79,Ulfa Nabilah,Kepekaan Sosial,3
+p79,Ulfa Nabilah,Persuasi,4
+p79,Ulfa Nabilah,Analisis Strategis,5
 p79,Ulfa Nabilah,Riset Pasar & Wawasan Pelanggan,2
-p79,Ulfa Nabilah,Penguasaan Produk & Pasar,5
-p79,Ulfa Nabilah,Ketajaman Komersial,2
+p79,Ulfa Nabilah,Pengelolaan Data,4
+p79,Ulfa Nabilah,Tata Kelola & Manajemen Risiko,4
+p79,Ulfa Nabilah,Analisis Kebutuhan Klien,4
 p80,Vera Anggita,Mendengar Aktif,2
 p80,Vera Anggita,Inisiatif,3
-p80,Vera Anggita,Persuasi,3
-p80,Vera Anggita,Koordinasi Lintas Fungsi,2
-p80,Vera Anggita,Kepekaan Sosial,3
 p80,Vera Anggita,Kemitraan Strategis,2
+p80,Vera Anggita,Koordinasi Lintas Fungsi,2
 p80,Vera Anggita,Pemantauan Kinerja Akun,1
-p80,Vera Anggita,Strategi Merek & Komunikasi,5
-p80,Vera Anggita,Pemasaran Digital & Analitik,2
+p80,Vera Anggita,Kepekaan Sosial,3
+p80,Vera Anggita,Persuasi,3
+p80,Vera Anggita,Analisis Strategis,4
 p80,Vera Anggita,Riset Pasar & Wawasan Pelanggan,3
-p80,Vera Anggita,Penguasaan Produk & Pasar,3
-p80,Vera Anggita,Ketajaman Komersial,4
+p80,Vera Anggita,Pengelolaan Data,3
+p80,Vera Anggita,Tata Kelola & Manajemen Risiko,3
+p80,Vera Anggita,Analisis Kebutuhan Klien,5
 p81,Josua Tampubolon,Mendengar Aktif,4
 p81,Josua Tampubolon,Inisiatif,4
 p81,Josua Tampubolon,Persuasi,1
@@ -939,302 +945,294 @@ p82,Wulan Ramadhani,Pemasaran Digital & Analitik,3
 p82,Wulan Ramadhani,Riset Pasar & Wawasan Pelanggan,4
 p82,Wulan Ramadhani,Penguasaan Produk & Pasar,3
 p82,Wulan Ramadhani,Ketajaman Komersial,2
-p83,Ruben Simanjuntak,Mendengar Aktif,3
-p83,Ruben Simanjuntak,Inisiatif,3
-p83,Ruben Simanjuntak,Negosiasi,4
-p83,Ruben Simanjuntak,Kegigihan,5
-p83,Ruben Simanjuntak,Persuasi,5
-p83,Ruben Simanjuntak,Kemitraan Strategis,5
-p83,Ruben Simanjuntak,Ketahanan Tekanan,5
-p83,Ruben Simanjuntak,Pemahaman Organisasi Klien,4
-p83,Ruben Simanjuntak,Penguasaan Sales Technology,3
-p83,Ruben Simanjuntak,Ketajaman Komersial,2
-p83,Ruben Simanjuntak,Analisis Kebutuhan Klien,5
+p83,Ruben Simanjuntak,Mendengar Aktif,2
+p83,Ruben Simanjuntak,Inisiatif,1
+p83,Ruben Simanjuntak,Persuasi,4
+p83,Ruben Simanjuntak,Koordinasi Lintas Fungsi,4
+p83,Ruben Simanjuntak,Kepekaan Sosial,4
+p83,Ruben Simanjuntak,Kemitraan Strategis,4
+p83,Ruben Simanjuntak,Pemantauan Kinerja Akun,2
+p83,Ruben Simanjuntak,Strategi Merek & Komunikasi,5
+p83,Ruben Simanjuntak,Pemasaran Digital & Analitik,4
+p83,Ruben Simanjuntak,Riset Pasar & Wawasan Pelanggan,2
 p83,Ruben Simanjuntak,Penguasaan Produk & Pasar,3
-p84,Yasmin Khairunnisa,Mendengar Aktif,3
-p84,Yasmin Khairunnisa,Inisiatif,5
-p84,Yasmin Khairunnisa,Negosiasi,5
-p84,Yasmin Khairunnisa,Kegigihan,4
-p84,Yasmin Khairunnisa,Persuasi,5
-p84,Yasmin Khairunnisa,Kemitraan Strategis,2
-p84,Yasmin Khairunnisa,Ketahanan Tekanan,3
-p84,Yasmin Khairunnisa,Pemahaman Organisasi Klien,4
-p84,Yasmin Khairunnisa,Penguasaan Sales Technology,3
-p84,Yasmin Khairunnisa,Ketajaman Komersial,2
-p84,Yasmin Khairunnisa,Analisis Kebutuhan Klien,4
+p83,Ruben Simanjuntak,Ketajaman Komersial,3
+p84,Yasmin Khairunnisa,Mendengar Aktif,2
+p84,Yasmin Khairunnisa,Inisiatif,4
+p84,Yasmin Khairunnisa,Persuasi,4
+p84,Yasmin Khairunnisa,Koordinasi Lintas Fungsi,1
+p84,Yasmin Khairunnisa,Kepekaan Sosial,1
+p84,Yasmin Khairunnisa,Kemitraan Strategis,1
+p84,Yasmin Khairunnisa,Pemantauan Kinerja Akun,4
+p84,Yasmin Khairunnisa,Strategi Merek & Komunikasi,5
+p84,Yasmin Khairunnisa,Pemasaran Digital & Analitik,4
+p84,Yasmin Khairunnisa,Riset Pasar & Wawasan Pelanggan,2
 p84,Yasmin Khairunnisa,Penguasaan Produk & Pasar,3
-p85,Kevin Napitupulu,Mendengar Aktif,4
-p85,Kevin Napitupulu,Inisiatif,5
-p85,Kevin Napitupulu,Negosiasi,5
-p85,Kevin Napitupulu,Kegigihan,5
-p85,Kevin Napitupulu,Persuasi,5
-p85,Kevin Napitupulu,Kemitraan Strategis,3
-p85,Kevin Napitupulu,Ketahanan Tekanan,5
-p85,Kevin Napitupulu,Pemahaman Organisasi Klien,2
-p85,Kevin Napitupulu,Penguasaan Sales Technology,3
-p85,Kevin Napitupulu,Ketajaman Komersial,3
-p85,Kevin Napitupulu,Analisis Kebutuhan Klien,5
+p84,Yasmin Khairunnisa,Ketajaman Komersial,3
+p85,Kevin Napitupulu,Mendengar Aktif,3
+p85,Kevin Napitupulu,Inisiatif,4
+p85,Kevin Napitupulu,Persuasi,3
+p85,Kevin Napitupulu,Koordinasi Lintas Fungsi,4
+p85,Kevin Napitupulu,Kepekaan Sosial,4
+p85,Kevin Napitupulu,Kemitraan Strategis,2
+p85,Kevin Napitupulu,Pemantauan Kinerja Akun,3
+p85,Kevin Napitupulu,Strategi Merek & Komunikasi,5
+p85,Kevin Napitupulu,Pemasaran Digital & Analitik,5
+p85,Kevin Napitupulu,Riset Pasar & Wawasan Pelanggan,4
 p85,Kevin Napitupulu,Penguasaan Produk & Pasar,3
-p86,Zulfa Amalia,Mendengar Aktif,4
-p86,Zulfa Amalia,Inisiatif,3
-p86,Zulfa Amalia,Negosiasi,2
-p86,Zulfa Amalia,Kegigihan,5
-p86,Zulfa Amalia,Persuasi,5
-p86,Zulfa Amalia,Kemitraan Strategis,4
-p86,Zulfa Amalia,Ketahanan Tekanan,5
-p86,Zulfa Amalia,Pemahaman Organisasi Klien,2
-p86,Zulfa Amalia,Penguasaan Sales Technology,3
-p86,Zulfa Amalia,Ketajaman Komersial,4
-p86,Zulfa Amalia,Analisis Kebutuhan Klien,4
+p85,Kevin Napitupulu,Ketajaman Komersial,4
+p86,Zulfa Amalia,Mendengar Aktif,3
+p86,Zulfa Amalia,Inisiatif,1
+p86,Zulfa Amalia,Persuasi,3
+p86,Zulfa Amalia,Koordinasi Lintas Fungsi,4
+p86,Zulfa Amalia,Kepekaan Sosial,4
+p86,Zulfa Amalia,Kemitraan Strategis,3
+p86,Zulfa Amalia,Pemantauan Kinerja Akun,2
+p86,Zulfa Amalia,Strategi Merek & Komunikasi,5
+p86,Zulfa Amalia,Pemasaran Digital & Analitik,3
+p86,Zulfa Amalia,Riset Pasar & Wawasan Pelanggan,4
 p86,Zulfa Amalia,Penguasaan Produk & Pasar,3
-p87,Marco Silalahi,Mendengar Aktif,5
-p87,Marco Silalahi,Inisiatif,4
-p87,Marco Silalahi,Negosiasi,3
-p87,Marco Silalahi,Kegigihan,5
-p87,Marco Silalahi,Persuasi,4
-p87,Marco Silalahi,Kemitraan Strategis,5
-p87,Marco Silalahi,Ketahanan Tekanan,3
-p87,Marco Silalahi,Pemahaman Organisasi Klien,2
-p87,Marco Silalahi,Penguasaan Sales Technology,3
-p87,Marco Silalahi,Ketajaman Komersial,1
-p87,Marco Silalahi,Analisis Kebutuhan Klien,4
+p86,Zulfa Amalia,Ketajaman Komersial,5
+p87,Marco Silalahi,Mendengar Aktif,4
+p87,Marco Silalahi,Inisiatif,2
+p87,Marco Silalahi,Persuasi,2
+p87,Marco Silalahi,Koordinasi Lintas Fungsi,3
+p87,Marco Silalahi,Kepekaan Sosial,1
+p87,Marco Silalahi,Kemitraan Strategis,4
+p87,Marco Silalahi,Pemantauan Kinerja Akun,1
+p87,Marco Silalahi,Strategi Merek & Komunikasi,5
+p87,Marco Silalahi,Pemasaran Digital & Analitik,4
+p87,Marco Silalahi,Riset Pasar & Wawasan Pelanggan,5
 p87,Marco Silalahi,Penguasaan Produk & Pasar,3
-p88,Amelia Rizki,Mendengar Aktif,5
-p88,Amelia Rizki,Inisiatif,4
-p88,Amelia Rizki,Negosiasi,3
-p88,Amelia Rizki,Kegigihan,5
-p88,Amelia Rizki,Persuasi,5
-p88,Amelia Rizki,Kemitraan Strategis,3
-p88,Amelia Rizki,Ketahanan Tekanan,4
-p88,Amelia Rizki,Pemahaman Organisasi Klien,2
-p88,Amelia Rizki,Penguasaan Sales Technology,3
-p88,Amelia Rizki,Ketajaman Komersial,2
-p88,Amelia Rizki,Analisis Kebutuhan Klien,3
+p87,Marco Silalahi,Ketajaman Komersial,2
+p88,Amelia Rizki,Mendengar Aktif,4
+p88,Amelia Rizki,Inisiatif,2
+p88,Amelia Rizki,Persuasi,4
+p88,Amelia Rizki,Koordinasi Lintas Fungsi,4
+p88,Amelia Rizki,Kepekaan Sosial,2
+p88,Amelia Rizki,Kemitraan Strategis,2
+p88,Amelia Rizki,Pemantauan Kinerja Akun,4
+p88,Amelia Rizki,Strategi Merek & Komunikasi,5
+p88,Amelia Rizki,Pemasaran Digital & Analitik,4
+p88,Amelia Rizki,Riset Pasar & Wawasan Pelanggan,5
 p88,Amelia Rizki,Penguasaan Produk & Pasar,3
-p89,Gerry Panggabean,Mendengar Aktif,2
-p89,Gerry Panggabean,Inisiatif,5
-p89,Gerry Panggabean,Negosiasi,4
-p89,Gerry Panggabean,Kegigihan,3
-p89,Gerry Panggabean,Persuasi,5
-p89,Gerry Panggabean,Kemitraan Strategis,4
-p89,Gerry Panggabean,Ketahanan Tekanan,2
-p89,Gerry Panggabean,Pemahaman Organisasi Klien,2
-p89,Gerry Panggabean,Penguasaan Sales Technology,3
-p89,Gerry Panggabean,Ketajaman Komersial,3
-p89,Gerry Panggabean,Analisis Kebutuhan Klien,4
+p88,Amelia Rizki,Ketajaman Komersial,3
+p89,Gerry Panggabean,Mendengar Aktif,1
+p89,Gerry Panggabean,Inisiatif,3
+p89,Gerry Panggabean,Persuasi,4
+p89,Gerry Panggabean,Koordinasi Lintas Fungsi,3
+p89,Gerry Panggabean,Kepekaan Sosial,2
+p89,Gerry Panggabean,Kemitraan Strategis,3
+p89,Gerry Panggabean,Pemantauan Kinerja Akun,3
+p89,Gerry Panggabean,Strategi Merek & Komunikasi,5
+p89,Gerry Panggabean,Pemasaran Digital & Analitik,5
+p89,Gerry Panggabean,Riset Pasar & Wawasan Pelanggan,3
 p89,Gerry Panggabean,Penguasaan Produk & Pasar,3
-p90,Bunga Lestari,Mendengar Aktif,5
-p90,Bunga Lestari,Inisiatif,4
-p90,Bunga Lestari,Negosiasi,3
-p90,Bunga Lestari,Kegigihan,5
-p90,Bunga Lestari,Persuasi,5
-p90,Bunga Lestari,Kemitraan Strategis,5
-p90,Bunga Lestari,Ketahanan Tekanan,3
-p90,Bunga Lestari,Pemahaman Organisasi Klien,3
-p90,Bunga Lestari,Penguasaan Sales Technology,4
-p90,Bunga Lestari,Ketajaman Komersial,1
-p90,Bunga Lestari,Analisis Kebutuhan Klien,5
+p89,Gerry Panggabean,Ketajaman Komersial,4
+p90,Bunga Lestari,Mendengar Aktif,4
+p90,Bunga Lestari,Inisiatif,2
+p90,Bunga Lestari,Persuasi,3
+p90,Bunga Lestari,Koordinasi Lintas Fungsi,2
+p90,Bunga Lestari,Kepekaan Sosial,2
+p90,Bunga Lestari,Kemitraan Strategis,4
+p90,Bunga Lestari,Pemantauan Kinerja Akun,2
+p90,Bunga Lestari,Strategi Merek & Komunikasi,5
+p90,Bunga Lestari,Pemasaran Digital & Analitik,4
+p90,Bunga Lestari,Riset Pasar & Wawasan Pelanggan,2
 p90,Bunga Lestari,Penguasaan Produk & Pasar,3
-p91,Chika Ardhana,Mendengar Aktif,2
-p91,Chika Ardhana,Inisiatif,4
-p91,Chika Ardhana,Negosiasi,3
-p91,Chika Ardhana,Kegigihan,5
-p91,Chika Ardhana,Persuasi,4
-p91,Chika Ardhana,Kemitraan Strategis,3
-p91,Chika Ardhana,Ketahanan Tekanan,3
-p91,Chika Ardhana,Pemahaman Organisasi Klien,4
-p91,Chika Ardhana,Penguasaan Sales Technology,4
-p91,Chika Ardhana,Ketajaman Komersial,2
-p91,Chika Ardhana,Analisis Kebutuhan Klien,2
+p90,Bunga Lestari,Ketajaman Komersial,2
+p91,Chika Ardhana,Mendengar Aktif,1
+p91,Chika Ardhana,Inisiatif,2
+p91,Chika Ardhana,Persuasi,2
+p91,Chika Ardhana,Koordinasi Lintas Fungsi,1
+p91,Chika Ardhana,Kepekaan Sosial,2
+p91,Chika Ardhana,Kemitraan Strategis,2
+p91,Chika Ardhana,Pemantauan Kinerja Akun,4
+p91,Chika Ardhana,Strategi Merek & Komunikasi,5
+p91,Chika Ardhana,Pemasaran Digital & Analitik,5
+p91,Chika Ardhana,Riset Pasar & Wawasan Pelanggan,4
 p91,Chika Ardhana,Penguasaan Produk & Pasar,3
-p92,Wayan Suardika,Mendengar Aktif,3
-p92,Wayan Suardika,Inisiatif,5
-p92,Wayan Suardika,Negosiasi,4
-p92,Wayan Suardika,Kegigihan,3
-p92,Wayan Suardika,Persuasi,4
-p92,Wayan Suardika,Kemitraan Strategis,4
-p92,Wayan Suardika,Ketahanan Tekanan,5
-p92,Wayan Suardika,Pemahaman Organisasi Klien,4
-p92,Wayan Suardika,Penguasaan Sales Technology,4
-p92,Wayan Suardika,Ketajaman Komersial,3
-p92,Wayan Suardika,Analisis Kebutuhan Klien,5
+p91,Chika Ardhana,Ketajaman Komersial,3
+p92,Wayan Suardika,Mendengar Aktif,2
+p92,Wayan Suardika,Inisiatif,3
+p92,Wayan Suardika,Persuasi,2
+p92,Wayan Suardika,Koordinasi Lintas Fungsi,2
+p92,Wayan Suardika,Kepekaan Sosial,3
+p92,Wayan Suardika,Kemitraan Strategis,3
+p92,Wayan Suardika,Pemantauan Kinerja Akun,3
+p92,Wayan Suardika,Strategi Merek & Komunikasi,5
+p92,Wayan Suardika,Pemasaran Digital & Analitik,5
+p92,Wayan Suardika,Riset Pasar & Wawasan Pelanggan,4
 p92,Wayan Suardika,Penguasaan Produk & Pasar,3
-p93,Diah Ayu Kusuma,Mendengar Aktif,3
-p93,Diah Ayu Kusuma,Inisiatif,5
-p93,Diah Ayu Kusuma,Negosiasi,4
-p93,Diah Ayu Kusuma,Kegigihan,4
-p93,Diah Ayu Kusuma,Persuasi,5
-p93,Diah Ayu Kusuma,Kemitraan Strategis,3
-p93,Diah Ayu Kusuma,Ketahanan Tekanan,3
-p93,Diah Ayu Kusuma,Pemahaman Organisasi Klien,4
-p93,Diah Ayu Kusuma,Penguasaan Sales Technology,4
-p93,Diah Ayu Kusuma,Ketajaman Komersial,4
-p93,Diah Ayu Kusuma,Analisis Kebutuhan Klien,5
+p92,Wayan Suardika,Ketajaman Komersial,4
+p93,Diah Ayu Kusuma,Mendengar Aktif,2
+p93,Diah Ayu Kusuma,Inisiatif,3
+p93,Diah Ayu Kusuma,Persuasi,4
+p93,Diah Ayu Kusuma,Koordinasi Lintas Fungsi,4
+p93,Diah Ayu Kusuma,Kepekaan Sosial,3
+p93,Diah Ayu Kusuma,Kemitraan Strategis,2
+p93,Diah Ayu Kusuma,Pemantauan Kinerja Akun,2
+p93,Diah Ayu Kusuma,Strategi Merek & Komunikasi,5
+p93,Diah Ayu Kusuma,Pemasaran Digital & Analitik,2
+p93,Diah Ayu Kusuma,Riset Pasar & Wawasan Pelanggan,5
 p93,Diah Ayu Kusuma,Penguasaan Produk & Pasar,3
-p94,Made Arsana,Mendengar Aktif,2
-p94,Made Arsana,Inisiatif,5
-p94,Made Arsana,Negosiasi,5
-p94,Made Arsana,Kegigihan,4
-p94,Made Arsana,Persuasi,3
-p94,Made Arsana,Kemitraan Strategis,4
-p94,Made Arsana,Ketahanan Tekanan,4
-p94,Made Arsana,Pemahaman Organisasi Klien,4
-p94,Made Arsana,Penguasaan Sales Technology,4
-p94,Made Arsana,Ketajaman Komersial,2
-p94,Made Arsana,Analisis Kebutuhan Klien,4
+p93,Diah Ayu Kusuma,Ketajaman Komersial,5
+p94,Made Arsana,Mendengar Aktif,1
+p94,Made Arsana,Inisiatif,4
+p94,Made Arsana,Persuasi,1
+p94,Made Arsana,Koordinasi Lintas Fungsi,1
+p94,Made Arsana,Kepekaan Sosial,4
+p94,Made Arsana,Kemitraan Strategis,3
+p94,Made Arsana,Pemantauan Kinerja Akun,1
+p94,Made Arsana,Strategi Merek & Komunikasi,5
+p94,Made Arsana,Pemasaran Digital & Analitik,3
+p94,Made Arsana,Riset Pasar & Wawasan Pelanggan,3
 p94,Made Arsana,Penguasaan Produk & Pasar,3
-p95,Erika Wijayanti,Mendengar Aktif,3
-p95,Erika Wijayanti,Inisiatif,5
-p95,Erika Wijayanti,Negosiasi,5
-p95,Erika Wijayanti,Kegigihan,5
-p95,Erika Wijayanti,Persuasi,5
-p95,Erika Wijayanti,Kemitraan Strategis,5
-p95,Erika Wijayanti,Ketahanan Tekanan,4
-p95,Erika Wijayanti,Pemahaman Organisasi Klien,4
-p95,Erika Wijayanti,Penguasaan Sales Technology,4
-p95,Erika Wijayanti,Ketajaman Komersial,1
-p95,Erika Wijayanti,Analisis Kebutuhan Klien,5
+p94,Made Arsana,Ketajaman Komersial,3
+p95,Erika Wijayanti,Mendengar Aktif,2
+p95,Erika Wijayanti,Inisiatif,4
+p95,Erika Wijayanti,Persuasi,3
+p95,Erika Wijayanti,Koordinasi Lintas Fungsi,4
+p95,Erika Wijayanti,Kepekaan Sosial,4
+p95,Erika Wijayanti,Kemitraan Strategis,4
+p95,Erika Wijayanti,Pemantauan Kinerja Akun,4
+p95,Erika Wijayanti,Strategi Merek & Komunikasi,5
+p95,Erika Wijayanti,Pemasaran Digital & Analitik,3
+p95,Erika Wijayanti,Riset Pasar & Wawasan Pelanggan,3
 p95,Erika Wijayanti,Penguasaan Produk & Pasar,3
-p96,Komang Aditya,Mendengar Aktif,3
-p96,Komang Aditya,Inisiatif,3
-p96,Komang Aditya,Negosiasi,2
-p96,Komang Aditya,Kegigihan,5
-p96,Komang Aditya,Persuasi,5
-p96,Komang Aditya,Kemitraan Strategis,3
-p96,Komang Aditya,Ketahanan Tekanan,2
-p96,Komang Aditya,Pemahaman Organisasi Klien,2
-p96,Komang Aditya,Penguasaan Sales Technology,4
-p96,Komang Aditya,Ketajaman Komersial,2
-p96,Komang Aditya,Analisis Kebutuhan Klien,4
+p95,Erika Wijayanti,Ketajaman Komersial,2
+p96,Komang Aditya,Mendengar Aktif,2
+p96,Komang Aditya,Inisiatif,1
+p96,Komang Aditya,Persuasi,4
+p96,Komang Aditya,Koordinasi Lintas Fungsi,4
+p96,Komang Aditya,Kepekaan Sosial,1
+p96,Komang Aditya,Kemitraan Strategis,2
+p96,Komang Aditya,Pemantauan Kinerja Akun,3
+p96,Komang Aditya,Strategi Merek & Komunikasi,5
+p96,Komang Aditya,Pemasaran Digital & Analitik,5
+p96,Komang Aditya,Riset Pasar & Wawasan Pelanggan,5
 p96,Komang Aditya,Penguasaan Produk & Pasar,3
-p97,Putu Darmawan,Mendengar Aktif,4
-p97,Putu Darmawan,Inisiatif,4
-p97,Putu Darmawan,Negosiasi,3
-p97,Putu Darmawan,Kegigihan,5
-p97,Putu Darmawan,Persuasi,4
-p97,Putu Darmawan,Kemitraan Strategis,4
-p97,Putu Darmawan,Ketahanan Tekanan,4
-p97,Putu Darmawan,Pemahaman Organisasi Klien,2
-p97,Putu Darmawan,Penguasaan Sales Technology,4
-p97,Putu Darmawan,Ketajaman Komersial,3
-p97,Putu Darmawan,Analisis Kebutuhan Klien,4
+p96,Komang Aditya,Ketajaman Komersial,3
+p97,Putu Darmawan,Mendengar Aktif,3
+p97,Putu Darmawan,Inisiatif,2
+p97,Putu Darmawan,Persuasi,2
+p97,Putu Darmawan,Koordinasi Lintas Fungsi,3
+p97,Putu Darmawan,Kepekaan Sosial,2
+p97,Putu Darmawan,Kemitraan Strategis,3
+p97,Putu Darmawan,Pemantauan Kinerja Akun,2
+p97,Putu Darmawan,Strategi Merek & Komunikasi,5
+p97,Putu Darmawan,Pemasaran Digital & Analitik,2
+p97,Putu Darmawan,Riset Pasar & Wawasan Pelanggan,5
 p97,Putu Darmawan,Penguasaan Produk & Pasar,3
-p98,Fani Nurhaliza,Mendengar Aktif,4
-p98,Fani Nurhaliza,Inisiatif,4
-p98,Fani Nurhaliza,Negosiasi,3
-p98,Fani Nurhaliza,Kegigihan,5
-p98,Fani Nurhaliza,Persuasi,5
-p98,Fani Nurhaliza,Kemitraan Strategis,5
-p98,Fani Nurhaliza,Ketahanan Tekanan,5
-p98,Fani Nurhaliza,Pemahaman Organisasi Klien,2
-p98,Fani Nurhaliza,Penguasaan Sales Technology,4
-p98,Fani Nurhaliza,Ketajaman Komersial,4
-p98,Fani Nurhaliza,Analisis Kebutuhan Klien,3
+p97,Putu Darmawan,Ketajaman Komersial,4
+p98,Fani Nurhaliza,Mendengar Aktif,3
+p98,Fani Nurhaliza,Inisiatif,2
+p98,Fani Nurhaliza,Persuasi,4
+p98,Fani Nurhaliza,Koordinasi Lintas Fungsi,4
+p98,Fani Nurhaliza,Kepekaan Sosial,4
+p98,Fani Nurhaliza,Kemitraan Strategis,4
+p98,Fani Nurhaliza,Pemantauan Kinerja Akun,4
+p98,Fani Nurhaliza,Strategi Merek & Komunikasi,5
+p98,Fani Nurhaliza,Pemasaran Digital & Analitik,3
+p98,Fani Nurhaliza,Riset Pasar & Wawasan Pelanggan,3
 p98,Fani Nurhaliza,Penguasaan Produk & Pasar,3
-p99,Rendra Pratama,Mendengar Aktif,5
-p99,Rendra Pratama,Koordinasi Lintas Fungsi,4
-p99,Rendra Pratama,Keandalan,5
-p99,Rendra Pratama,Enablement Klien,1
-p99,Rendra Pratama,Pemantauan Kinerja Akun,4
-p99,Rendra Pratama,Kemitraan Strategis,3
-p99,Rendra Pratama,Orientasi Melayani,5
-p99,Rendra Pratama,Kepekaan Sosial,2
-p99,Rendra Pratama,Pemahaman Organisasi Klien,2
-p99,Rendra Pratama,Penguasaan Sales Technology,4
-p99,Rendra Pratama,Manajemen Layanan Klien,4
-p99,Rendra Pratama,Evaluasi Kesehatan Akun,2
-p99,Rendra Pratama,Penguasaan Produk & Pasar,2
-p100,Gina Puspasari,Mendengar Aktif,3
-p100,Gina Puspasari,Koordinasi Lintas Fungsi,3
-p100,Gina Puspasari,Keandalan,3
-p100,Gina Puspasari,Enablement Klien,2
-p100,Gina Puspasari,Pemantauan Kinerja Akun,3
-p100,Gina Puspasari,Kemitraan Strategis,4
-p100,Gina Puspasari,Orientasi Melayani,5
-p100,Gina Puspasari,Kepekaan Sosial,4
-p100,Gina Puspasari,Pemahaman Organisasi Klien,3
-p100,Gina Puspasari,Penguasaan Sales Technology,4
-p100,Gina Puspasari,Manajemen Layanan Klien,5
-p100,Gina Puspasari,Evaluasi Kesehatan Akun,5
-p100,Gina Puspasari,Penguasaan Produk & Pasar,4
+p98,Fani Nurhaliza,Ketajaman Komersial,5
+p99,Rendra Pratama,Mendengar Aktif,4
+p99,Rendra Pratama,Inisiatif,3
+p99,Rendra Pratama,Persuasi,1
+p99,Rendra Pratama,Koordinasi Lintas Fungsi,3
+p99,Rendra Pratama,Kepekaan Sosial,1
+p99,Rendra Pratama,Kemitraan Strategis,1
+p99,Rendra Pratama,Pemantauan Kinerja Akun,3
+p99,Rendra Pratama,Strategi Merek & Komunikasi,5
+p99,Rendra Pratama,Pemasaran Digital & Analitik,3
+p99,Rendra Pratama,Riset Pasar & Wawasan Pelanggan,3
+p99,Rendra Pratama,Penguasaan Produk & Pasar,3
+p99,Rendra Pratama,Ketajaman Komersial,3
+p100,Gina Puspasari,Mendengar Aktif,2
+p100,Gina Puspasari,Inisiatif,3
+p100,Gina Puspasari,Persuasi,2
+p100,Gina Puspasari,Koordinasi Lintas Fungsi,2
+p100,Gina Puspasari,Kepekaan Sosial,3
+p100,Gina Puspasari,Kemitraan Strategis,2
+p100,Gina Puspasari,Pemantauan Kinerja Akun,2
+p100,Gina Puspasari,Strategi Merek & Komunikasi,2
+p100,Gina Puspasari,Pemasaran Digital & Analitik,4
+p100,Gina Puspasari,Riset Pasar & Wawasan Pelanggan,4
+p100,Gina Puspasari,Penguasaan Produk & Pasar,5
+p100,Gina Puspasari,Ketajaman Komersial,4
 p101,Doni Saputra,Mendengar Aktif,3
-p101,Doni Saputra,Koordinasi Lintas Fungsi,2
-p101,Doni Saputra,Keandalan,4
-p101,Doni Saputra,Enablement Klien,4
-p101,Doni Saputra,Pemantauan Kinerja Akun,2
-p101,Doni Saputra,Kemitraan Strategis,5
-p101,Doni Saputra,Orientasi Melayani,4
-p101,Doni Saputra,Kepekaan Sosial,4
+p101,Doni Saputra,Inisiatif,5
+p101,Doni Saputra,Negosiasi,5
+p101,Doni Saputra,Kegigihan,4
+p101,Doni Saputra,Persuasi,5
+p101,Doni Saputra,Kemitraan Strategis,4
+p101,Doni Saputra,Ketahanan Tekanan,5
 p101,Doni Saputra,Pemahaman Organisasi Klien,3
 p101,Doni Saputra,Penguasaan Sales Technology,4
-p101,Doni Saputra,Manajemen Layanan Klien,5
-p101,Doni Saputra,Evaluasi Kesehatan Akun,4
-p101,Doni Saputra,Penguasaan Produk & Pasar,4
+p101,Doni Saputra,Ketajaman Komersial,4
+p101,Doni Saputra,Analisis Kebutuhan Klien,2
+p101,Doni Saputra,Penguasaan Produk & Pasar,5
 p102,Hesti Nuraini,Mendengar Aktif,2
-p102,Hesti Nuraini,Koordinasi Lintas Fungsi,3
-p102,Hesti Nuraini,Keandalan,4
-p102,Hesti Nuraini,Enablement Klien,3
-p102,Hesti Nuraini,Pemantauan Kinerja Akun,5
-p102,Hesti Nuraini,Kemitraan Strategis,5
-p102,Hesti Nuraini,Orientasi Melayani,3
-p102,Hesti Nuraini,Kepekaan Sosial,5
+p102,Hesti Nuraini,Inisiatif,5
+p102,Hesti Nuraini,Negosiasi,5
+p102,Hesti Nuraini,Kegigihan,5
+p102,Hesti Nuraini,Persuasi,5
+p102,Hesti Nuraini,Kemitraan Strategis,4
+p102,Hesti Nuraini,Ketahanan Tekanan,5
 p102,Hesti Nuraini,Pemahaman Organisasi Klien,3
 p102,Hesti Nuraini,Penguasaan Sales Technology,4
-p102,Hesti Nuraini,Manajemen Layanan Klien,4
-p102,Hesti Nuraini,Evaluasi Kesehatan Akun,3
-p102,Hesti Nuraini,Penguasaan Produk & Pasar,4
+p102,Hesti Nuraini,Ketajaman Komersial,1
+p102,Hesti Nuraini,Analisis Kebutuhan Klien,3
+p102,Hesti Nuraini,Penguasaan Produk & Pasar,5
 p103,Ferdi Ahmad,Mendengar Aktif,3
-p103,Ferdi Ahmad,Koordinasi Lintas Fungsi,5
-p103,Ferdi Ahmad,Keandalan,5
-p103,Ferdi Ahmad,Enablement Klien,4
-p103,Ferdi Ahmad,Pemantauan Kinerja Akun,4
+p103,Ferdi Ahmad,Inisiatif,3
+p103,Ferdi Ahmad,Negosiasi,2
+p103,Ferdi Ahmad,Kegigihan,5
+p103,Ferdi Ahmad,Persuasi,5
 p103,Ferdi Ahmad,Kemitraan Strategis,5
-p103,Ferdi Ahmad,Orientasi Melayani,4
-p103,Ferdi Ahmad,Kepekaan Sosial,5
+p103,Ferdi Ahmad,Ketahanan Tekanan,3
 p103,Ferdi Ahmad,Pemahaman Organisasi Klien,1
 p103,Ferdi Ahmad,Penguasaan Sales Technology,4
-p103,Ferdi Ahmad,Manajemen Layanan Klien,3
-p103,Ferdi Ahmad,Evaluasi Kesehatan Akun,5
-p103,Ferdi Ahmad,Penguasaan Produk & Pasar,4
+p103,Ferdi Ahmad,Ketajaman Komersial,2
+p103,Ferdi Ahmad,Analisis Kebutuhan Klien,5
+p103,Ferdi Ahmad,Penguasaan Produk & Pasar,5
 p104,Ika Damayanti,Mendengar Aktif,3
-p104,Ika Damayanti,Koordinasi Lintas Fungsi,2
-p104,Ika Damayanti,Keandalan,5
-p104,Ika Damayanti,Enablement Klien,3
-p104,Ika Damayanti,Pemantauan Kinerja Akun,3
-p104,Ika Damayanti,Kemitraan Strategis,3
-p104,Ika Damayanti,Orientasi Melayani,5
-p104,Ika Damayanti,Kepekaan Sosial,2
+p104,Ika Damayanti,Inisiatif,4
+p104,Ika Damayanti,Negosiasi,3
+p104,Ika Damayanti,Kegigihan,5
+p104,Ika Damayanti,Persuasi,5
+p104,Ika Damayanti,Kemitraan Strategis,2
+p104,Ika Damayanti,Ketahanan Tekanan,4
 p104,Ika Damayanti,Pemahaman Organisasi Klien,1
 p104,Ika Damayanti,Penguasaan Sales Technology,4
-p104,Ika Damayanti,Manajemen Layanan Klien,5
-p104,Ika Damayanti,Evaluasi Kesehatan Akun,4
-p104,Ika Damayanti,Penguasaan Produk & Pasar,4
+p104,Ika Damayanti,Ketajaman Komersial,2
+p104,Ika Damayanti,Analisis Kebutuhan Klien,2
+p104,Ika Damayanti,Penguasaan Produk & Pasar,5
 p105,Irfan Maulidin,Mendengar Aktif,4
-p105,Irfan Maulidin,Koordinasi Lintas Fungsi,5
-p105,Irfan Maulidin,Keandalan,5
-p105,Irfan Maulidin,Enablement Klien,2
-p105,Irfan Maulidin,Pemantauan Kinerja Akun,5
-p105,Irfan Maulidin,Kemitraan Strategis,4
-p105,Irfan Maulidin,Orientasi Melayani,5
-p105,Irfan Maulidin,Kepekaan Sosial,3
+p105,Irfan Maulidin,Inisiatif,4
+p105,Irfan Maulidin,Negosiasi,3
+p105,Irfan Maulidin,Kegigihan,5
+p105,Irfan Maulidin,Persuasi,4
+p105,Irfan Maulidin,Kemitraan Strategis,3
+p105,Irfan Maulidin,Ketahanan Tekanan,2
 p105,Irfan Maulidin,Pemahaman Organisasi Klien,1
 p105,Irfan Maulidin,Penguasaan Sales Technology,4
-p105,Irfan Maulidin,Manajemen Layanan Klien,5
-p105,Irfan Maulidin,Evaluasi Kesehatan Akun,3
-p105,Irfan Maulidin,Penguasaan Produk & Pasar,4
+p105,Irfan Maulidin,Ketajaman Komersial,3
+p105,Irfan Maulidin,Analisis Kebutuhan Klien,5
+p105,Irfan Maulidin,Penguasaan Produk & Pasar,5
 p106,Jasmine Aulia,Mendengar Aktif,4
-p106,Jasmine Aulia,Koordinasi Lintas Fungsi,5
-p106,Jasmine Aulia,Keandalan,5
-p106,Jasmine Aulia,Enablement Klien,2
-p106,Jasmine Aulia,Pemantauan Kinerja Akun,4
-p106,Jasmine Aulia,Kemitraan Strategis,5
-p106,Jasmine Aulia,Orientasi Melayani,4
-p106,Jasmine Aulia,Kepekaan Sosial,5
+p106,Jasmine Aulia,Inisiatif,5
+p106,Jasmine Aulia,Negosiasi,4
+p106,Jasmine Aulia,Kegigihan,3
+p106,Jasmine Aulia,Persuasi,5
+p106,Jasmine Aulia,Kemitraan Strategis,4
+p106,Jasmine Aulia,Ketahanan Tekanan,2
 p106,Jasmine Aulia,Pemahaman Organisasi Klien,1
 p106,Jasmine Aulia,Penguasaan Sales Technology,4
-p106,Jasmine Aulia,Manajemen Layanan Klien,4
-p106,Jasmine Aulia,Evaluasi Kesehatan Akun,2
-p106,Jasmine Aulia,Penguasaan Produk & Pasar,4
+p106,Jasmine Aulia,Ketajaman Komersial,4
+p106,Jasmine Aulia,Analisis Kebutuhan Klien,5
+p106,Jasmine Aulia,Penguasaan Produk & Pasar,5
 p107,Yusuf Abdillah,Mendengar Aktif,5
 p107,Yusuf Abdillah,Koordinasi Lintas Fungsi,4
 p107,Yusuf Abdillah,Keandalan,3

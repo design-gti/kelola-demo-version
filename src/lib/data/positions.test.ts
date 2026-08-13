@@ -24,20 +24,22 @@ describe("findPositionHolders", () => {
     expect(result.matches).toHaveLength(0);
   });
 
-  // Regression test: "Operation Analyst" (singular) returned zero matches
-  // even though "Operations Analyst" (Ahmad Al-Faruq's real title, verified
-  // against src/data/model/generated.ts) exists — the old substring-only
-  // match requires an exact contiguous match, so a single missing "s" broke
-  // it silently instead of still finding the position.
+  // Regression test: kueri bentuk tunggal ("Operation Lead") dulu mengembalikan
+  // nol hasil padahal "Operations Lead" ada — pencocokan lama menuntut potongan
+  // teks yang sama persis, jadi satu huruf "s" saja sudah mematahkannya tanpa
+  // pesan apa pun.
   it("matches a title despite a singular/plural mismatch", () => {
-    const result = findPositionHolders("Operation Analyst");
+    const result = findPositionHolders("Operation Lead");
     expect(result.matches.length).toBeGreaterThan(0);
-    expect(result.matches[0].position).toBe("Operations Analyst");
-    expect(result.matches[0].name).toBe("Bintang Mahesa");
+    expect(result.matches[0].position).toBe("Operations Lead");
+    expect(result.matches[0].name).toBe("Ratna Juwita");
   });
 
   it("does not over-match unrelated titles that share only one word", () => {
-    const result = findPositionHolders("Operation Manager");
-    expect(result.matches.every(m => m.position === "Operations Manager")).toBe(true);
+    // "Operation Lead" tidak boleh ikut menarik "Recruitment Lead" atau
+    // "Backend Lead" cuma karena sama-sama mengandung kata "Lead".
+    const result = findPositionHolders("Operation Lead");
+    expect(result.matches.length).toBeGreaterThan(0);
+    expect(result.matches.every(m => m.position === "Operations Lead")).toBe(true);
   });
 });

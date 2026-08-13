@@ -11,38 +11,38 @@ export const CANONICAL: CanonicalData = {
     },
     {
       "id": "pos-p02",
-      "title": "Senior Engineer",
-      "department": "Teknologi"
+      "title": "Operations Lead",
+      "department": "Operasional"
     },
     {
       "id": "pos-p03",
-      "title": "Frontend Lead",
-      "department": "Teknologi"
+      "title": "Operations #1",
+      "department": "Operasional"
     },
     {
       "id": "pos-p04",
-      "title": "Backend Lead",
-      "department": "Teknologi"
+      "title": "Operations #2",
+      "department": "Operasional"
     },
     {
       "id": "pos-p05",
       "title": "Chief Executive Officer",
-      "department": "Strategi"
+      "department": "Operasional"
     },
     {
       "id": "pos-p06",
-      "title": "Chief Strategy Officer",
-      "department": "Strategi"
+      "title": "Chief Product Officer",
+      "department": "Produk"
     },
     {
       "id": "pos-p07",
-      "title": "VP Corporate Strategy",
-      "department": "Strategi"
+      "title": "Operations #3",
+      "department": "Operasional"
     },
     {
       "id": "pos-p08",
-      "title": "Head of Governance",
-      "department": "Strategi"
+      "title": "Head of Product",
+      "department": "Produk"
     },
     {
       "id": "pos-p09",
@@ -51,123 +51,123 @@ export const CANONICAL: CanonicalData = {
     },
     {
       "id": "pos-p10",
-      "title": "Senior Finance Analyst",
-      "department": "Keuangan"
+      "title": "Logistics Lead",
+      "department": "Operasional"
     },
     {
       "id": "pos-p11",
-      "title": "Finance Analyst",
-      "department": "Keuangan"
+      "title": "Logistics #1",
+      "department": "Operasional"
     },
     {
       "id": "pos-p12",
-      "title": "Controller",
-      "department": "Keuangan"
+      "title": "Logistics #2",
+      "department": "Operasional"
     },
     {
       "id": "pos-p13",
-      "title": "HR Business Partner",
-      "department": "SDM"
+      "title": "Logistics #3",
+      "department": "Operasional"
     },
     {
       "id": "pos-p14",
-      "title": "HR Manager",
-      "department": "SDM"
+      "title": "Quality Lead",
+      "department": "Operasional"
     },
     {
       "id": "pos-p15",
-      "title": "Talent Acquisition Lead",
-      "department": "SDM"
+      "title": "Quality #1",
+      "department": "Operasional"
     },
     {
       "id": "pos-p16",
-      "title": "People Ops Specialist",
-      "department": "SDM"
+      "title": "Quality #2",
+      "department": "Operasional"
     },
     {
       "id": "pos-p17",
-      "title": "VP Operations",
+      "title": "Quality #3",
       "department": "Operasional"
     },
     {
       "id": "pos-p18",
-      "title": "Operations Manager",
-      "department": "Operasional"
+      "title": "Recruitment Lead",
+      "department": "SDM"
     },
     {
       "id": "pos-p19",
-      "title": "Supply Chain Lead",
-      "department": "Operasional"
+      "title": "Recruitment #1",
+      "department": "SDM"
     },
     {
       "id": "pos-p20",
-      "title": "Operations Analyst",
-      "department": "Operasional"
+      "title": "Recruitment #2",
+      "department": "SDM"
     },
     {
       "id": "pos-p21",
       "title": "Head of Marketing",
-      "department": "Pemasaran"
+      "department": "Marketing"
     },
     {
       "id": "pos-p22",
-      "title": "Senior Marketing Manager",
-      "department": "Pemasaran"
+      "title": "Recruitment #3",
+      "department": "SDM"
     },
     {
       "id": "pos-p23",
-      "title": "Brand Manager",
-      "department": "Pemasaran"
+      "title": "Recruitment #4",
+      "department": "SDM"
     },
     {
       "id": "pos-p24",
-      "title": "Growth Marketing Lead",
-      "department": "Pemasaran"
+      "title": "People Development Lead",
+      "department": "SDM"
     },
     {
       "id": "pos-p25",
-      "title": "Senior Brand Strategist",
-      "department": "Pemasaran"
+      "title": "People Development #1",
+      "department": "SDM"
     },
     {
       "id": "pos-p26",
-      "title": "Chief Revenue Officer",
-      "department": "Pemasaran"
+      "title": "Chief Marketing Officer",
+      "department": "Marketing"
     },
     {
       "id": "pos-p27",
-      "title": "Creative Director",
-      "department": "Pemasaran"
+      "title": "People Development #2",
+      "department": "SDM"
     },
     {
       "id": "pos-p28",
-      "title": "Principal Engineer",
-      "department": "Teknologi"
+      "title": "People Development #3",
+      "department": "SDM"
     },
     {
       "id": "pos-p29",
-      "title": "Operations Strategist",
-      "department": "Operasional"
+      "title": "Accounting Lead",
+      "department": "Keuangan"
     },
     {
       "id": "pos-p30",
-      "title": "Growth Marketing Manager",
-      "department": "Pemasaran"
+      "title": "Accounting #1",
+      "department": "Keuangan"
     },
     {
       "id": "pos-p31",
-      "title": "Senior Finance Manager",
+      "title": "Accounting #2",
       "department": "Keuangan"
     },
     {
       "id": "pos-p32",
-      "title": "Supply Chain Manager",
-      "department": "Operasional"
+      "title": "Accounting #3",
+      "department": "Keuangan"
     },
     {
       "id": "pos-p33",
-      "title": "Digital Content Specialist",
-      "department": "Pemasaran"
+      "title": "Treasury Lead",
+      "department": "Keuangan"
     },
     {
       "id": "pos-p34",
@@ -186,393 +186,386 @@ export const CANONICAL: CanonicalData = {
     },
     {
       "id": "pos-p37",
-      "title": "Chief Human Resources Officer",
+      "title": "Head of People",
       "department": "SDM"
     },
     {
       "id": "pos-p38",
-      "title": "Strategy Manager",
-      "department": "Strategi"
+      "title": "Treasury #1",
+      "department": "Keuangan"
     },
     {
       "id": "pos-p39",
-      "title": "Governance Manager",
-      "department": "Strategi"
+      "title": "Treasury #2",
+      "department": "Keuangan"
     },
     {
       "id": "pos-p40",
-      "title": "Strategy Analyst",
-      "department": "Strategi"
+      "title": "Tax Lead",
+      "department": "Keuangan"
     },
     {
       "id": "pos-p41",
-      "title": "Strategy Analyst",
-      "department": "Strategi"
+      "title": "Tax #1",
+      "department": "Keuangan"
     },
     {
       "id": "pos-p42",
-      "title": "Head of Infrastructure & Security",
+      "title": "Head of Infrastructure",
       "department": "Teknologi"
     },
     {
       "id": "pos-p43",
-      "title": "QA Lead",
-      "department": "Teknologi"
+      "title": "Tax #2",
+      "department": "Keuangan"
     },
     {
       "id": "pos-p44",
-      "title": "DevOps Lead",
-      "department": "Teknologi"
+      "title": "Tax #3",
+      "department": "Keuangan"
     },
     {
       "id": "pos-p45",
-      "title": "Security Lead",
+      "title": "Backend Lead",
       "department": "Teknologi"
     },
     {
       "id": "pos-p46",
-      "title": "Backend Engineer",
+      "title": "Backend #1",
       "department": "Teknologi"
     },
     {
       "id": "pos-p47",
-      "title": "Backend Engineer",
+      "title": "Backend #2",
       "department": "Teknologi"
     },
     {
       "id": "pos-p48",
-      "title": "Backend Engineer",
+      "title": "Backend #3",
       "department": "Teknologi"
     },
     {
       "id": "pos-p49",
-      "title": "Frontend Engineer",
+      "title": "Backend #4",
       "department": "Teknologi"
     },
     {
       "id": "pos-p50",
-      "title": "Frontend Engineer",
+      "title": "Frontend Lead",
       "department": "Teknologi"
     },
     {
       "id": "pos-p51",
-      "title": "Frontend Engineer",
+      "title": "Frontend #1",
       "department": "Teknologi"
     },
     {
       "id": "pos-p52",
-      "title": "Software Engineer",
+      "title": "Frontend #2",
       "department": "Teknologi"
     },
     {
       "id": "pos-p53",
-      "title": "QA Engineer",
+      "title": "Frontend #3",
       "department": "Teknologi"
     },
     {
       "id": "pos-p54",
-      "title": "QA Engineer",
+      "title": "QA Lead",
       "department": "Teknologi"
     },
     {
       "id": "pos-p55",
-      "title": "QA Engineer",
+      "title": "QA #1",
       "department": "Teknologi"
     },
     {
       "id": "pos-p56",
-      "title": "DevOps Engineer",
+      "title": "QA #2",
       "department": "Teknologi"
     },
     {
       "id": "pos-p57",
-      "title": "DevOps Engineer",
+      "title": "QA #3",
       "department": "Teknologi"
     },
     {
       "id": "pos-p58",
-      "title": "Security Analyst",
+      "title": "DevOps Lead",
       "department": "Teknologi"
     },
     {
       "id": "pos-p59",
-      "title": "Security Analyst",
+      "title": "DevOps #1",
       "department": "Teknologi"
     },
     {
       "id": "pos-p60",
-      "title": "Head of Accounting",
-      "department": "Keuangan"
+      "title": "DevOps #2",
+      "department": "Teknologi"
     },
     {
       "id": "pos-p61",
-      "title": "Accounting Manager",
-      "department": "Keuangan"
+      "title": "DevOps #3",
+      "department": "Teknologi"
     },
     {
       "id": "pos-p62",
-      "title": "Finance Analyst",
-      "department": "Keuangan"
+      "title": "Security Lead",
+      "department": "Teknologi"
     },
     {
       "id": "pos-p63",
-      "title": "Internal Auditor",
-      "department": "Keuangan"
+      "title": "Security #1",
+      "department": "Teknologi"
     },
     {
       "id": "pos-p64",
-      "title": "Accounting Staff",
-      "department": "Keuangan"
+      "title": "Security #2",
+      "department": "Teknologi"
     },
     {
       "id": "pos-p65",
-      "title": "Tax Staff",
-      "department": "Keuangan"
+      "title": "Data Lead",
+      "department": "Teknologi"
     },
     {
       "id": "pos-p66",
-      "title": "Head of Supply Chain",
+      "title": "Head of Operations",
       "department": "Operasional"
     },
     {
       "id": "pos-p67",
-      "title": "Service Quality Manager",
-      "department": "Operasional"
+      "title": "Data #1",
+      "department": "Teknologi"
     },
     {
       "id": "pos-p68",
-      "title": "Operations Staff",
-      "department": "Operasional"
+      "title": "Data #2",
+      "department": "Teknologi"
     },
     {
       "id": "pos-p69",
-      "title": "Service Quality Officer",
-      "department": "Operasional"
+      "title": "Product Management Lead",
+      "department": "Produk"
     },
     {
       "id": "pos-p70",
-      "title": "Logistics Staff",
-      "department": "Operasional"
+      "title": "Product Management #1",
+      "department": "Produk"
     },
     {
       "id": "pos-p71",
-      "title": "Logistics Staff",
-      "department": "Operasional"
+      "title": "Product Management #2",
+      "department": "Produk"
     },
     {
       "id": "pos-p72",
-      "title": "Procurement Staff",
-      "department": "Operasional"
+      "title": "Product Management #3",
+      "department": "Produk"
     },
     {
       "id": "pos-p73",
-      "title": "People Development Manager",
-      "department": "SDM"
+      "title": "Product Design Lead",
+      "department": "Produk"
     },
     {
       "id": "pos-p74",
-      "title": "HR Operations Staff",
-      "department": "SDM"
+      "title": "Product Design #1",
+      "department": "Produk"
     },
     {
       "id": "pos-p75",
-      "title": "Recruiter",
-      "department": "SDM"
+      "title": "Product Design #2",
+      "department": "Produk"
     },
     {
       "id": "pos-p76",
-      "title": "Recruiter",
-      "department": "SDM"
+      "title": "Product Design #3",
+      "department": "Produk"
     },
     {
       "id": "pos-p77",
-      "title": "Learning & Development Specialist",
-      "department": "SDM"
+      "title": "Product Analytics Lead",
+      "department": "Produk"
     },
     {
       "id": "pos-p78",
       "title": "Head of Sales",
-      "department": "Pemasaran"
+      "department": "Marketing"
     },
     {
       "id": "pos-p79",
-      "title": "Graphic Designer",
-      "department": "Pemasaran"
+      "title": "Product Analytics #1",
+      "department": "Produk"
     },
     {
       "id": "pos-p80",
-      "title": "Digital Marketing Executive",
-      "department": "Pemasaran"
+      "title": "Product Analytics #2",
+      "department": "Produk"
     },
     {
       "id": "pos-p81",
-      "title": "Digital Marketing Executive",
-      "department": "Pemasaran"
+      "title": "Digital Marketing Lead",
+      "department": "Marketing"
     },
     {
       "id": "pos-p82",
-      "title": "Market Research Analyst",
-      "department": "Pemasaran"
+      "title": "Digital Marketing #1",
+      "department": "Marketing"
     },
     {
       "id": "pos-p83",
-      "title": "Hunting Manager Enterprise",
-      "department": "Hunter"
+      "title": "Digital Marketing #2",
+      "department": "Marketing"
     },
     {
       "id": "pos-p84",
-      "title": "Hunting Manager SMB",
-      "department": "Hunter"
+      "title": "Digital Marketing #3",
+      "department": "Marketing"
     },
     {
       "id": "pos-p85",
-      "title": "Hunting Manager Government",
-      "department": "Hunter"
+      "title": "Digital Marketing #4",
+      "department": "Marketing"
     },
     {
       "id": "pos-p86",
-      "title": "Account Executive Enterprise",
-      "department": "Hunter"
+      "title": "Digital Marketing #5",
+      "department": "Marketing"
     },
     {
       "id": "pos-p87",
-      "title": "Account Executive Enterprise",
-      "department": "Hunter"
+      "title": "Digital Marketing #6",
+      "department": "Marketing"
     },
     {
       "id": "pos-p88",
-      "title": "Account Executive Enterprise",
-      "department": "Hunter"
+      "title": "Digital Marketing #7",
+      "department": "Marketing"
     },
     {
       "id": "pos-p89",
-      "title": "Account Executive SMB",
-      "department": "Hunter"
+      "title": "Brand & Content Lead",
+      "department": "Marketing"
     },
     {
       "id": "pos-p90",
-      "title": "Account Executive SMB",
-      "department": "Hunter"
+      "title": "Brand & Content #1",
+      "department": "Marketing"
     },
     {
       "id": "pos-p91",
-      "title": "Business Development Representative",
-      "department": "Hunter"
+      "title": "Brand & Content #2",
+      "department": "Marketing"
     },
     {
       "id": "pos-p92",
-      "title": "Business Development Representative",
-      "department": "Hunter"
+      "title": "Brand & Content #3",
+      "department": "Marketing"
     },
     {
       "id": "pos-p93",
-      "title": "Business Development Representative",
-      "department": "Hunter"
+      "title": "Brand & Content #4",
+      "department": "Marketing"
     },
     {
       "id": "pos-p94",
-      "title": "Business Development Representative",
-      "department": "Hunter"
+      "title": "Brand & Content #5",
+      "department": "Marketing"
     },
     {
       "id": "pos-p95",
-      "title": "Sales Development Representative",
-      "department": "Hunter"
+      "title": "Brand & Content #6",
+      "department": "Marketing"
     },
     {
       "id": "pos-p96",
-      "title": "Sales Development Representative",
-      "department": "Hunter"
+      "title": "Market Research Lead",
+      "department": "Marketing"
     },
     {
       "id": "pos-p97",
-      "title": "Government Relations Specialist",
-      "department": "Hunter"
+      "title": "Market Research #1",
+      "department": "Marketing"
     },
     {
       "id": "pos-p98",
-      "title": "Government Relations Specialist",
-      "department": "Hunter"
+      "title": "Market Research #2",
+      "department": "Marketing"
     },
     {
       "id": "pos-p99",
-      "title": "Farming Manager Enterprise",
-      "department": "Farmer"
+      "title": "Market Research #3",
+      "department": "Marketing"
     },
     {
       "id": "pos-p100",
-      "title": "Farming Manager SMB",
-      "department": "Farmer"
+      "title": "Market Research #4",
+      "department": "Marketing"
     },
     {
       "id": "pos-p101",
-      "title": "Account Manager Enterprise",
-      "department": "Farmer"
+      "title": "Hunter",
+      "department": "Hunter"
     },
     {
       "id": "pos-p102",
-      "title": "Account Manager Enterprise",
-      "department": "Farmer"
+      "title": "Hunter #1",
+      "department": "Hunter"
     },
     {
       "id": "pos-p103",
-      "title": "Account Manager Enterprise",
-      "department": "Farmer"
+      "title": "Hunter #2",
+      "department": "Hunter"
     },
     {
       "id": "pos-p104",
-      "title": "Account Manager SMB",
-      "department": "Farmer"
+      "title": "Hunter #3",
+      "department": "Hunter"
     },
     {
       "id": "pos-p105",
-      "title": "Account Manager SMB",
-      "department": "Farmer"
+      "title": "Hunter #4",
+      "department": "Hunter"
     },
     {
       "id": "pos-p106",
-      "title": "Customer Success Officer",
-      "department": "Farmer"
+      "title": "Hunter #5",
+      "department": "Hunter"
     },
     {
       "id": "pos-p107",
-      "title": "Customer Success Officer",
+      "title": "Farmer",
       "department": "Farmer"
     },
     {
       "id": "pos-p108",
-      "title": "Customer Success Officer",
+      "title": "Farmer #1",
       "department": "Farmer"
     },
     {
       "id": "pos-p109",
-      "title": "Customer Success Officer",
+      "title": "Farmer #2",
       "department": "Farmer"
     },
     {
       "id": "pos-p110",
-      "title": "Renewal Specialist",
+      "title": "Farmer #3",
       "department": "Farmer"
     },
     {
       "id": "pos-p111",
-      "title": "Renewal Specialist",
+      "title": "Farmer #4",
       "department": "Farmer"
     },
     {
       "id": "pos-p112",
-      "title": "Renewal Specialist",
+      "title": "Farmer #5",
       "department": "Farmer"
     }
   ],
   "teams": [
-    {
-      "id": "ENG",
-      "name": "Engineering Team",
-      "type": "FUNCTIONAL",
-      "leaderId": "p01",
-      "reportToId": "p05"
-    },
     {
       "id": "EXE",
       "name": "Executive Office Team",
@@ -581,45 +574,59 @@ export const CANONICAL: CanonicalData = {
       "reportToId": null
     },
     {
-      "id": "FIN",
-      "name": "Finance Team",
-      "type": "FUNCTIONAL",
-      "leaderId": "p09",
+      "id": "OPS",
+      "name": "Operations Team",
+      "type": "STRUCTURAL",
+      "leaderId": "p36",
       "reportToId": "p05"
     },
     {
       "id": "HR",
       "name": "Human Resources Team",
       "type": "FUNCTIONAL",
-      "leaderId": "p13",
-      "reportToId": "p05"
+      "leaderId": "p37",
+      "reportToId": "p36"
     },
     {
-      "id": "OPS",
-      "name": "Operations Team",
-      "type": "STRUCTURAL",
-      "leaderId": "p17",
-      "reportToId": "p05"
-    },
-    {
-      "id": "SNM",
-      "name": "Sales & Marketing Team",
+      "id": "FIN",
+      "name": "Finance Team",
       "type": "FUNCTIONAL",
-      "leaderId": "p21",
+      "leaderId": "p35",
+      "reportToId": "p05"
+    },
+    {
+      "id": "ENG",
+      "name": "Engineering Team",
+      "type": "FUNCTIONAL",
+      "leaderId": "p34",
+      "reportToId": "p05"
+    },
+    {
+      "id": "PRD",
+      "name": "Product Team",
+      "type": "FUNCTIONAL",
+      "leaderId": "p06",
+      "reportToId": "p05"
+    },
+    {
+      "id": "MKT",
+      "name": "Marketing Team",
+      "type": "FUNCTIONAL",
+      "leaderId": "p26",
       "reportToId": "p05"
     },
     {
       "id": "HUN",
       "name": "Hunter Team",
       "type": "STRUCTURAL",
-      "leaderId": "p83",
+      "leaderId": "p101",
       "reportToId": "p78"
     },
     {
       "id": "FAR",
       "name": "Farmer Team",
       "type": "STRUCTURAL",
-      "leaderId": "p99",
+      "leaderId": "p107",
       "reportToId": "p78"
     }
   ],
@@ -639,8 +646,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p02",
       "name": "Ratna Juwita",
       "positionId": "pos-p02",
-      "teamId": "ENG",
-      "managerId": "p28",
+      "teamId": "OPS",
+      "managerId": "p66",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",
@@ -650,8 +657,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p03",
       "name": "Citra Ayu Ningsih",
       "positionId": "pos-p03",
-      "teamId": "ENG",
-      "managerId": "p01",
+      "teamId": "OPS",
+      "managerId": "p02",
       "successorForId": null,
       "disc": "D",
       "potential": "low",
@@ -661,8 +668,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p04",
       "name": "Aditya Wibowo",
       "positionId": "pos-p04",
-      "teamId": "ENG",
-      "managerId": "p01",
+      "teamId": "OPS",
+      "managerId": "p02",
       "successorForId": null,
       "disc": "I",
       "potential": "low",
@@ -683,7 +690,7 @@ export const CANONICAL: CanonicalData = {
       "id": "p06",
       "name": "Bagus Prakoso",
       "positionId": "pos-p06",
-      "teamId": "EXE",
+      "teamId": "PRD",
       "managerId": "p05",
       "successorForId": null,
       "disc": "C",
@@ -694,9 +701,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p07",
       "name": "Putri Maharani",
       "positionId": "pos-p07",
-      "teamId": "EXE",
-      "managerId": "p06",
-      "successorForId": "p06",
+      "teamId": "OPS",
+      "managerId": "p02",
+      "successorForId": "p02",
       "disc": "DI",
       "potential": "high",
       "photoUrl": null
@@ -705,9 +712,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p08",
       "name": "Rina Kartika",
       "positionId": "pos-p08",
-      "teamId": "EXE",
+      "teamId": "PRD",
       "managerId": "p06",
-      "successorForId": null,
+      "successorForId": "p06",
       "disc": "CI",
       "potential": "high",
       "photoUrl": null
@@ -718,7 +725,7 @@ export const CANONICAL: CanonicalData = {
       "positionId": "pos-p09",
       "teamId": "FIN",
       "managerId": "p35",
-      "successorForId": null,
+      "successorForId": "p35",
       "disc": "SC",
       "potential": "medium",
       "photoUrl": null
@@ -727,8 +734,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p10",
       "name": "Wisnu Baskoro",
       "positionId": "pos-p10",
-      "teamId": "FIN",
-      "managerId": "p31",
+      "teamId": "OPS",
+      "managerId": "p66",
       "successorForId": null,
       "disc": "DI",
       "potential": "low",
@@ -738,8 +745,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p11",
       "name": "Cindy Pratiwi",
       "positionId": "pos-p11",
-      "teamId": "FIN",
-      "managerId": "p31",
+      "teamId": "OPS",
+      "managerId": "p10",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -749,8 +756,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p12",
       "name": "Anisa Rahmadani",
       "positionId": "pos-p12",
-      "teamId": "FIN",
-      "managerId": "p09",
+      "teamId": "OPS",
+      "managerId": "p10",
       "successorForId": null,
       "disc": "SC",
       "potential": "medium",
@@ -760,9 +767,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p13",
       "name": "Meliana Sianturi",
       "positionId": "pos-p13",
-      "teamId": "HR",
-      "managerId": "p37",
-      "successorForId": "p37",
+      "teamId": "OPS",
+      "managerId": "p10",
+      "successorForId": "p10",
       "disc": "DC",
       "potential": "high",
       "photoUrl": null
@@ -771,9 +778,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p14",
       "name": "Novita Hutagalung",
       "positionId": "pos-p14",
-      "teamId": "HR",
-      "managerId": "p13",
-      "successorForId": "p13",
+      "teamId": "OPS",
+      "managerId": "p66",
+      "successorForId": "p66",
       "disc": "D",
       "potential": "medium",
       "photoUrl": null
@@ -782,8 +789,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p15",
       "name": "Olivia Manurung",
       "positionId": "pos-p15",
-      "teamId": "HR",
-      "managerId": "p13",
+      "teamId": "OPS",
+      "managerId": "p14",
       "successorForId": null,
       "disc": "I",
       "potential": "low",
@@ -793,7 +800,7 @@ export const CANONICAL: CanonicalData = {
       "id": "p16",
       "name": "Farhan Hakim",
       "positionId": "pos-p16",
-      "teamId": "HR",
+      "teamId": "OPS",
       "managerId": "p14",
       "successorForId": null,
       "disc": "S",
@@ -805,7 +812,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Farah Salsabila",
       "positionId": "pos-p17",
       "teamId": "OPS",
-      "managerId": "p36",
+      "managerId": "p14",
       "successorForId": null,
       "disc": "C",
       "potential": "low",
@@ -815,8 +822,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p18",
       "name": "Gilang Saputro",
       "positionId": "pos-p18",
-      "teamId": "OPS",
-      "managerId": "p17",
+      "teamId": "HR",
+      "managerId": "p37",
       "successorForId": null,
       "disc": "DI",
       "potential": "low",
@@ -826,8 +833,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p19",
       "name": "Indah Purnama",
       "positionId": "pos-p19",
-      "teamId": "OPS",
-      "managerId": "p66",
+      "teamId": "HR",
+      "managerId": "p18",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -837,7 +844,7 @@ export const CANONICAL: CanonicalData = {
       "id": "p20",
       "name": "Bintang Mahesa",
       "positionId": "pos-p20",
-      "teamId": "OPS",
+      "teamId": "HR",
       "managerId": "p18",
       "successorForId": null,
       "disc": "C",
@@ -848,7 +855,7 @@ export const CANONICAL: CanonicalData = {
       "id": "p21",
       "name": "Desak Putu Ariani",
       "positionId": "pos-p21",
-      "teamId": "SNM",
+      "teamId": "MKT",
       "managerId": "p26",
       "successorForId": "p26",
       "disc": "DI",
@@ -859,8 +866,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p22",
       "name": "Ahmad Al-Faruq",
       "positionId": "pos-p22",
-      "teamId": "SNM",
-      "managerId": "p21",
+      "teamId": "HR",
+      "managerId": "p18",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -870,8 +877,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p23",
       "name": "Ida Ayu Prameswari",
       "positionId": "pos-p23",
-      "teamId": "SNM",
-      "managerId": "p21",
+      "teamId": "HR",
+      "managerId": "p18",
       "successorForId": null,
       "disc": "SC",
       "potential": "low",
@@ -881,8 +888,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p24",
       "name": "Hafiz Ramadhan",
       "positionId": "pos-p24",
-      "teamId": "SNM",
-      "managerId": "p21",
+      "teamId": "HR",
+      "managerId": "p37",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",
@@ -892,8 +899,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p25",
       "name": "Sabrina Yulianti",
       "positionId": "pos-p25",
-      "teamId": "SNM",
-      "managerId": "p23",
+      "teamId": "HR",
+      "managerId": "p24",
       "successorForId": null,
       "disc": "D",
       "potential": "low",
@@ -903,7 +910,7 @@ export const CANONICAL: CanonicalData = {
       "id": "p26",
       "name": "Siti Rahmawati",
       "positionId": "pos-p26",
-      "teamId": "SNM",
+      "teamId": "MKT",
       "managerId": "p05",
       "successorForId": null,
       "disc": "I",
@@ -914,8 +921,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p27",
       "name": "Bram Sitorus",
       "positionId": "pos-p27",
-      "teamId": "SNM",
-      "managerId": "p21",
+      "teamId": "HR",
+      "managerId": "p24",
       "successorForId": null,
       "disc": "S",
       "potential": "medium",
@@ -925,9 +932,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p28",
       "name": "Galih Kusuma",
       "positionId": "pos-p28",
-      "teamId": "ENG",
-      "managerId": "p01",
-      "successorForId": "p01",
+      "teamId": "HR",
+      "managerId": "p24",
+      "successorForId": "p24",
       "disc": "C",
       "potential": "medium",
       "photoUrl": null
@@ -936,8 +943,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p29",
       "name": "Jihan Azzahra",
       "positionId": "pos-p29",
-      "teamId": "OPS",
-      "managerId": "p18",
+      "teamId": "FIN",
+      "managerId": "p09",
       "successorForId": null,
       "disc": "DI",
       "potential": "low",
@@ -947,9 +954,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p30",
       "name": "Rani Oktarina",
       "positionId": "pos-p30",
-      "teamId": "SNM",
-      "managerId": "p21",
-      "successorForId": "p21",
+      "teamId": "FIN",
+      "managerId": "p29",
+      "successorForId": null,
       "disc": "S",
       "potential": "medium",
       "photoUrl": null
@@ -959,8 +966,8 @@ export const CANONICAL: CanonicalData = {
       "name": "Zahra Amelia",
       "positionId": "pos-p31",
       "teamId": "FIN",
-      "managerId": "p09",
-      "successorForId": "p09",
+      "managerId": "p29",
+      "successorForId": null,
       "disc": "C",
       "potential": "medium",
       "photoUrl": null
@@ -969,9 +976,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p32",
       "name": "Hana Fadhilah",
       "positionId": "pos-p32",
-      "teamId": "OPS",
-      "managerId": "p66",
-      "successorForId": "p66",
+      "teamId": "FIN",
+      "managerId": "p29",
+      "successorForId": "p29",
       "disc": "DI",
       "potential": "high",
       "photoUrl": null
@@ -980,8 +987,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p33",
       "name": "Tania Kirana",
       "positionId": "pos-p33",
-      "teamId": "SNM",
-      "managerId": "p27",
+      "teamId": "FIN",
+      "managerId": "p09",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -1025,8 +1032,8 @@ export const CANONICAL: CanonicalData = {
       "name": "Fajar Nugroho",
       "positionId": "pos-p37",
       "teamId": "HR",
-      "managerId": "p05",
-      "successorForId": null,
+      "managerId": "p36",
+      "successorForId": "p36",
       "disc": "I",
       "potential": "high",
       "photoUrl": null
@@ -1035,8 +1042,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p38",
       "name": "Dimas Prasetyo",
       "positionId": "pos-p38",
-      "teamId": "EXE",
-      "managerId": "p07",
+      "teamId": "FIN",
+      "managerId": "p33",
       "successorForId": null,
       "disc": "S",
       "potential": "low",
@@ -1046,8 +1053,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p39",
       "name": "Yoga Pratama",
       "positionId": "pos-p39",
-      "teamId": "EXE",
-      "managerId": "p08",
+      "teamId": "FIN",
+      "managerId": "p33",
       "successorForId": null,
       "disc": "C",
       "potential": "low",
@@ -1057,8 +1064,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p40",
       "name": "Bayu Setiawan",
       "positionId": "pos-p40",
-      "teamId": "EXE",
-      "managerId": "p38",
+      "teamId": "FIN",
+      "managerId": "p09",
       "successorForId": null,
       "disc": "I",
       "potential": "low",
@@ -1068,9 +1075,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p41",
       "name": "Nadia Safitri",
       "positionId": "pos-p41",
-      "teamId": "EXE",
-      "managerId": "p38",
-      "successorForId": "p38",
+      "teamId": "FIN",
+      "managerId": "p40",
+      "successorForId": "p40",
       "disc": "S",
       "potential": "medium",
       "photoUrl": null
@@ -1090,8 +1097,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p43",
       "name": "Fitri Handayani",
       "positionId": "pos-p43",
-      "teamId": "ENG",
-      "managerId": "p01",
+      "teamId": "FIN",
+      "managerId": "p40",
       "successorForId": null,
       "disc": "DI",
       "potential": "low",
@@ -1101,8 +1108,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p44",
       "name": "Hendra Gunawan",
       "positionId": "pos-p44",
-      "teamId": "ENG",
-      "managerId": "p42",
+      "teamId": "FIN",
+      "managerId": "p40",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -1113,7 +1120,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Iqbal Maulana",
       "positionId": "pos-p45",
       "teamId": "ENG",
-      "managerId": "p42",
+      "managerId": "p01",
       "successorForId": null,
       "disc": "SC",
       "potential": "low",
@@ -1124,7 +1131,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Laras Wulandari",
       "positionId": "pos-p46",
       "teamId": "ENG",
-      "managerId": "p04",
+      "managerId": "p45",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",
@@ -1135,8 +1142,8 @@ export const CANONICAL: CanonicalData = {
       "name": "Krisna Wijaya",
       "positionId": "pos-p47",
       "teamId": "ENG",
-      "managerId": "p04",
-      "successorForId": "p04",
+      "managerId": "p45",
+      "successorForId": "p45",
       "disc": "D",
       "potential": "medium",
       "photoUrl": null
@@ -1146,7 +1153,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Maya Puspita",
       "positionId": "pos-p48",
       "teamId": "ENG",
-      "managerId": "p04",
+      "managerId": "p45",
       "successorForId": null,
       "disc": "I",
       "potential": "low",
@@ -1157,7 +1164,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Lukman Hakim",
       "positionId": "pos-p49",
       "teamId": "ENG",
-      "managerId": "p03",
+      "managerId": "p45",
       "successorForId": null,
       "disc": "S",
       "potential": "low",
@@ -1168,7 +1175,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Nur Aisyah",
       "positionId": "pos-p50",
       "teamId": "ENG",
-      "managerId": "p03",
+      "managerId": "p01",
       "successorForId": null,
       "disc": "D",
       "potential": "low",
@@ -1179,7 +1186,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Bimo Santoso",
       "positionId": "pos-p51",
       "teamId": "ENG",
-      "managerId": "p03",
+      "managerId": "p50",
       "successorForId": null,
       "disc": "I",
       "potential": "low",
@@ -1190,7 +1197,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Arif Budiman",
       "positionId": "pos-p52",
       "teamId": "ENG",
-      "managerId": "p28",
+      "managerId": "p50",
       "successorForId": null,
       "disc": "S",
       "potential": "low",
@@ -1201,7 +1208,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Salma Nabila",
       "positionId": "pos-p53",
       "teamId": "ENG",
-      "managerId": "p43",
+      "managerId": "p50",
       "successorForId": null,
       "disc": "C",
       "potential": "medium",
@@ -1212,8 +1219,8 @@ export const CANONICAL: CanonicalData = {
       "name": "Panji Nugraha",
       "positionId": "pos-p54",
       "teamId": "ENG",
-      "managerId": "p43",
-      "successorForId": "p43",
+      "managerId": "p01",
+      "successorForId": "p01",
       "disc": "DI",
       "potential": "medium",
       "photoUrl": null
@@ -1223,7 +1230,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Tiara Ramadhani",
       "positionId": "pos-p55",
       "teamId": "ENG",
-      "managerId": "p43",
+      "managerId": "p54",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -1234,8 +1241,8 @@ export const CANONICAL: CanonicalData = {
       "name": "Rangga Aditama",
       "positionId": "pos-p56",
       "teamId": "ENG",
-      "managerId": "p44",
-      "successorForId": "p44",
+      "managerId": "p54",
+      "successorForId": "p54",
       "disc": "SC",
       "potential": "medium",
       "photoUrl": null
@@ -1245,7 +1252,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Vina Oktaviani",
       "positionId": "pos-p57",
       "teamId": "ENG",
-      "managerId": "p44",
+      "managerId": "p54",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",
@@ -1256,7 +1263,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Winda Sari",
       "positionId": "pos-p58",
       "teamId": "ENG",
-      "managerId": "p45",
+      "managerId": "p42",
       "successorForId": null,
       "disc": "D",
       "potential": "low",
@@ -1267,7 +1274,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Satria Utomo",
       "positionId": "pos-p59",
       "teamId": "ENG",
-      "managerId": "p45",
+      "managerId": "p58",
       "successorForId": null,
       "disc": "I",
       "potential": "low",
@@ -1277,9 +1284,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p60",
       "name": "Yulia Andini",
       "positionId": "pos-p60",
-      "teamId": "FIN",
-      "managerId": "p35",
-      "successorForId": "p35",
+      "teamId": "ENG",
+      "managerId": "p58",
+      "successorForId": null,
       "disc": "DC",
       "potential": "medium",
       "photoUrl": null
@@ -1288,9 +1295,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p61",
       "name": "Bella Kusumawati",
       "positionId": "pos-p61",
-      "teamId": "FIN",
-      "managerId": "p60",
-      "successorForId": "p60",
+      "teamId": "ENG",
+      "managerId": "p58",
+      "successorForId": "p58",
       "disc": "D",
       "potential": "high",
       "photoUrl": null
@@ -1299,8 +1306,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p62",
       "name": "Yudha Permana",
       "positionId": "pos-p62",
-      "teamId": "FIN",
-      "managerId": "p31",
+      "teamId": "ENG",
+      "managerId": "p42",
       "successorForId": null,
       "disc": "I",
       "potential": "low",
@@ -1310,8 +1317,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p63",
       "name": "Dinda Alifia",
       "positionId": "pos-p63",
-      "teamId": "FIN",
-      "managerId": "p12",
+      "teamId": "ENG",
+      "managerId": "p62",
       "successorForId": null,
       "disc": "S",
       "potential": "low",
@@ -1321,8 +1328,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p64",
       "name": "Ilham Rahmadi",
       "positionId": "pos-p64",
-      "teamId": "FIN",
-      "managerId": "p61",
+      "teamId": "ENG",
+      "managerId": "p62",
       "successorForId": null,
       "disc": "C",
       "potential": "low",
@@ -1332,9 +1339,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p65",
       "name": "Elsa Nuraini",
       "positionId": "pos-p65",
-      "teamId": "FIN",
-      "managerId": "p61",
-      "successorForId": "p61",
+      "teamId": "ENG",
+      "managerId": "p42",
+      "successorForId": "p42",
       "disc": "DI",
       "potential": "medium",
       "photoUrl": null
@@ -1345,7 +1352,7 @@ export const CANONICAL: CanonicalData = {
       "positionId": "pos-p66",
       "teamId": "OPS",
       "managerId": "p36",
-      "successorForId": "p36",
+      "successorForId": null,
       "disc": "CI",
       "potential": "medium",
       "photoUrl": null
@@ -1354,9 +1361,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p67",
       "name": "Damar Anggoro",
       "positionId": "pos-p67",
-      "teamId": "OPS",
-      "managerId": "p17",
-      "successorForId": "p17",
+      "teamId": "ENG",
+      "managerId": "p65",
+      "successorForId": "p65",
       "disc": "SC",
       "potential": "high",
       "photoUrl": null
@@ -1365,8 +1372,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p68",
       "name": "Rafi Alfarizi",
       "positionId": "pos-p68",
-      "teamId": "OPS",
-      "managerId": "p18",
+      "teamId": "ENG",
+      "managerId": "p65",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",
@@ -1376,8 +1383,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p69",
       "name": "Naufal Hidayat",
       "positionId": "pos-p69",
-      "teamId": "OPS",
-      "managerId": "p67",
+      "teamId": "PRD",
+      "managerId": "p08",
       "successorForId": null,
       "disc": "D",
       "potential": "low",
@@ -1387,8 +1394,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p70",
       "name": "Zaki Ardiansyah",
       "positionId": "pos-p70",
-      "teamId": "OPS",
-      "managerId": "p32",
+      "teamId": "PRD",
+      "managerId": "p69",
       "successorForId": null,
       "disc": "SC",
       "potential": "low",
@@ -1398,8 +1405,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p71",
       "name": "Kirana Sekar",
       "positionId": "pos-p71",
-      "teamId": "OPS",
-      "managerId": "p32",
+      "teamId": "PRD",
+      "managerId": "p69",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",
@@ -1409,8 +1416,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p72",
       "name": "Lidya Simatupang",
       "positionId": "pos-p72",
-      "teamId": "OPS",
-      "managerId": "p19",
+      "teamId": "PRD",
+      "managerId": "p69",
       "successorForId": null,
       "disc": "D",
       "potential": "low",
@@ -1420,8 +1427,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p73",
       "name": "Priska Sihombing",
       "positionId": "pos-p73",
-      "teamId": "HR",
-      "managerId": "p13",
+      "teamId": "PRD",
+      "managerId": "p08",
       "successorForId": null,
       "disc": "I",
       "potential": "medium",
@@ -1431,8 +1438,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p74",
       "name": "Ni Luh Ayu Savitri",
       "positionId": "pos-p74",
-      "teamId": "HR",
-      "managerId": "p14",
+      "teamId": "PRD",
+      "managerId": "p73",
       "successorForId": null,
       "disc": "S",
       "potential": "low",
@@ -1442,8 +1449,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p75",
       "name": "Ni Kadek Sriani",
       "positionId": "pos-p75",
-      "teamId": "HR",
-      "managerId": "p15",
+      "teamId": "PRD",
+      "managerId": "p73",
       "successorForId": null,
       "disc": "C",
       "potential": "low",
@@ -1453,9 +1460,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p76",
       "name": "Denny Kurniawan",
       "positionId": "pos-p76",
-      "teamId": "HR",
-      "managerId": "p15",
-      "successorForId": "p15",
+      "teamId": "PRD",
+      "managerId": "p73",
+      "successorForId": "p73",
       "disc": "DI",
       "potential": "medium",
       "photoUrl": null
@@ -1464,8 +1471,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p77",
       "name": "Ni Made Wulandari",
       "positionId": "pos-p77",
-      "teamId": "HR",
-      "managerId": "p73",
+      "teamId": "PRD",
+      "managerId": "p08",
       "successorForId": null,
       "disc": "CI",
       "potential": "medium",
@@ -1475,7 +1482,7 @@ export const CANONICAL: CanonicalData = {
       "id": "p78",
       "name": "Ridho Setiadi",
       "positionId": "pos-p78",
-      "teamId": "SNM",
+      "teamId": "MKT",
       "managerId": "p26",
       "successorForId": null,
       "disc": "SC",
@@ -1486,8 +1493,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p79",
       "name": "Ulfa Nabilah",
       "positionId": "pos-p79",
-      "teamId": "SNM",
-      "managerId": "p27",
+      "teamId": "PRD",
+      "managerId": "p77",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",
@@ -1497,8 +1504,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p80",
       "name": "Vera Anggita",
       "positionId": "pos-p80",
-      "teamId": "SNM",
-      "managerId": "p30",
+      "teamId": "PRD",
+      "managerId": "p77",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -1508,8 +1515,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p81",
       "name": "Josua Tampubolon",
       "positionId": "pos-p81",
-      "teamId": "SNM",
-      "managerId": "p30",
+      "teamId": "MKT",
+      "managerId": "p21",
       "successorForId": null,
       "disc": "SC",
       "potential": "medium",
@@ -1519,8 +1526,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p82",
       "name": "Wulan Ramadhani",
       "positionId": "pos-p82",
-      "teamId": "SNM",
-      "managerId": "p22",
+      "teamId": "MKT",
+      "managerId": "p81",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",
@@ -1530,8 +1537,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p83",
       "name": "Ruben Simanjuntak",
       "positionId": "pos-p83",
-      "teamId": "HUN",
-      "managerId": "p78",
+      "teamId": "MKT",
+      "managerId": "p81",
       "successorForId": null,
       "disc": "D",
       "potential": "low",
@@ -1541,8 +1548,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p84",
       "name": "Yasmin Khairunnisa",
       "positionId": "pos-p84",
-      "teamId": "HUN",
-      "managerId": "p78",
+      "teamId": "MKT",
+      "managerId": "p81",
       "successorForId": null,
       "disc": "I",
       "potential": "low",
@@ -1552,9 +1559,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p85",
       "name": "Kevin Napitupulu",
       "positionId": "pos-p85",
-      "teamId": "HUN",
-      "managerId": "p78",
-      "successorForId": "p78",
+      "teamId": "MKT",
+      "managerId": "p81",
+      "successorForId": "p81",
       "disc": "S",
       "potential": "medium",
       "photoUrl": null
@@ -1563,8 +1570,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p86",
       "name": "Zulfa Amalia",
       "positionId": "pos-p86",
-      "teamId": "HUN",
-      "managerId": "p83",
+      "teamId": "MKT",
+      "managerId": "p81",
       "successorForId": null,
       "disc": "C",
       "potential": "low",
@@ -1574,8 +1581,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p87",
       "name": "Marco Silalahi",
       "positionId": "pos-p87",
-      "teamId": "HUN",
-      "managerId": "p83",
+      "teamId": "MKT",
+      "managerId": "p81",
       "successorForId": null,
       "disc": "DI",
       "potential": "low",
@@ -1585,8 +1592,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p88",
       "name": "Amelia Rizki",
       "positionId": "pos-p88",
-      "teamId": "HUN",
-      "managerId": "p83",
+      "teamId": "MKT",
+      "managerId": "p81",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -1596,8 +1603,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p89",
       "name": "Gerry Panggabean",
       "positionId": "pos-p89",
-      "teamId": "HUN",
-      "managerId": "p84",
+      "teamId": "MKT",
+      "managerId": "p21",
       "successorForId": null,
       "disc": "SC",
       "potential": "low",
@@ -1607,9 +1614,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p90",
       "name": "Bunga Lestari",
       "positionId": "pos-p90",
-      "teamId": "HUN",
-      "managerId": "p84",
-      "successorForId": "p84",
+      "teamId": "MKT",
+      "managerId": "p89",
+      "successorForId": "p89",
       "disc": "DI",
       "potential": "medium",
       "photoUrl": null
@@ -1618,8 +1625,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p91",
       "name": "Chika Ardhana",
       "positionId": "pos-p91",
-      "teamId": "HUN",
-      "managerId": "p84",
+      "teamId": "MKT",
+      "managerId": "p89",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -1629,8 +1636,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p92",
       "name": "Wayan Suardika",
       "positionId": "pos-p92",
-      "teamId": "HUN",
-      "managerId": "p84",
+      "teamId": "MKT",
+      "managerId": "p89",
       "successorForId": null,
       "disc": "SC",
       "potential": "low",
@@ -1640,8 +1647,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p93",
       "name": "Diah Ayu Kusuma",
       "positionId": "pos-p93",
-      "teamId": "HUN",
-      "managerId": "p84",
+      "teamId": "MKT",
+      "managerId": "p89",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",
@@ -1651,8 +1658,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p94",
       "name": "Made Arsana",
       "positionId": "pos-p94",
-      "teamId": "HUN",
-      "managerId": "p84",
+      "teamId": "MKT",
+      "managerId": "p89",
       "successorForId": null,
       "disc": "D",
       "potential": "medium",
@@ -1662,8 +1669,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p95",
       "name": "Erika Wijayanti",
       "positionId": "pos-p95",
-      "teamId": "HUN",
-      "managerId": "p83",
+      "teamId": "MKT",
+      "managerId": "p89",
       "successorForId": null,
       "disc": "I",
       "potential": "low",
@@ -1673,9 +1680,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p96",
       "name": "Komang Aditya",
       "positionId": "pos-p96",
-      "teamId": "HUN",
-      "managerId": "p83",
-      "successorForId": "p83",
+      "teamId": "MKT",
+      "managerId": "p21",
+      "successorForId": "p21",
       "disc": "S",
       "potential": "medium",
       "photoUrl": null
@@ -1684,8 +1691,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p97",
       "name": "Putu Darmawan",
       "positionId": "pos-p97",
-      "teamId": "HUN",
-      "managerId": "p85",
+      "teamId": "MKT",
+      "managerId": "p96",
       "successorForId": null,
       "disc": "C",
       "potential": "low",
@@ -1695,8 +1702,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p98",
       "name": "Fani Nurhaliza",
       "positionId": "pos-p98",
-      "teamId": "HUN",
-      "managerId": "p85",
+      "teamId": "MKT",
+      "managerId": "p96",
       "successorForId": null,
       "disc": "DI",
       "potential": "low",
@@ -1706,8 +1713,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p99",
       "name": "Rendra Pratama",
       "positionId": "pos-p99",
-      "teamId": "FAR",
-      "managerId": "p78",
+      "teamId": "MKT",
+      "managerId": "p96",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -1717,8 +1724,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p100",
       "name": "Gina Puspasari",
       "positionId": "pos-p100",
-      "teamId": "FAR",
-      "managerId": "p78",
+      "teamId": "MKT",
+      "managerId": "p96",
       "successorForId": null,
       "disc": "SC",
       "potential": "low",
@@ -1728,8 +1735,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p101",
       "name": "Doni Saputra",
       "positionId": "pos-p101",
-      "teamId": "FAR",
-      "managerId": "p99",
+      "teamId": "HUN",
+      "managerId": "p78",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",
@@ -1739,9 +1746,9 @@ export const CANONICAL: CanonicalData = {
       "id": "p102",
       "name": "Hesti Nuraini",
       "positionId": "pos-p102",
-      "teamId": "FAR",
-      "managerId": "p99",
-      "successorForId": "p99",
+      "teamId": "HUN",
+      "managerId": "p101",
+      "successorForId": "p101",
       "disc": "D",
       "potential": "medium",
       "photoUrl": null
@@ -1750,8 +1757,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p103",
       "name": "Ferdi Ahmad",
       "positionId": "pos-p103",
-      "teamId": "FAR",
-      "managerId": "p99",
+      "teamId": "HUN",
+      "managerId": "p101",
       "successorForId": null,
       "disc": "I",
       "potential": "low",
@@ -1761,8 +1768,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p104",
       "name": "Ika Damayanti",
       "positionId": "pos-p104",
-      "teamId": "FAR",
-      "managerId": "p100",
+      "teamId": "HUN",
+      "managerId": "p101",
       "successorForId": null,
       "disc": "S",
       "potential": "low",
@@ -1772,8 +1779,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p105",
       "name": "Irfan Maulidin",
       "positionId": "pos-p105",
-      "teamId": "FAR",
-      "managerId": "p100",
+      "teamId": "HUN",
+      "managerId": "p101",
       "successorForId": null,
       "disc": "C",
       "potential": "low",
@@ -1783,8 +1790,8 @@ export const CANONICAL: CanonicalData = {
       "id": "p106",
       "name": "Jasmine Aulia",
       "positionId": "pos-p106",
-      "teamId": "FAR",
-      "managerId": "p99",
+      "teamId": "HUN",
+      "managerId": "p101",
       "successorForId": null,
       "disc": "DI",
       "potential": "low",
@@ -1795,7 +1802,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Yusuf Abdillah",
       "positionId": "pos-p107",
       "teamId": "FAR",
-      "managerId": "p99",
+      "managerId": "p78",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -1806,8 +1813,8 @@ export const CANONICAL: CanonicalData = {
       "name": "Karina Dewanti",
       "positionId": "pos-p108",
       "teamId": "FAR",
-      "managerId": "p99",
-      "successorForId": null,
+      "managerId": "p107",
+      "successorForId": "p107",
       "disc": "SC",
       "potential": "medium",
       "photoUrl": null
@@ -1817,7 +1824,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Adam Nurhakim",
       "positionId": "pos-p109",
       "teamId": "FAR",
-      "managerId": "p99",
+      "managerId": "p107",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",
@@ -1828,7 +1835,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Rio Sanjaya",
       "positionId": "pos-p110",
       "teamId": "FAR",
-      "managerId": "p100",
+      "managerId": "p107",
       "successorForId": null,
       "disc": "CI",
       "potential": "low",
@@ -1839,7 +1846,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Lita Puspaningrum",
       "positionId": "pos-p111",
       "teamId": "FAR",
-      "managerId": "p100",
+      "managerId": "p107",
       "successorForId": null,
       "disc": "SC",
       "potential": "low",
@@ -1850,7 +1857,7 @@ export const CANONICAL: CanonicalData = {
       "name": "Tio Wicaksono",
       "positionId": "pos-p112",
       "teamId": "FAR",
-      "managerId": "p100",
+      "managerId": "p107",
       "successorForId": null,
       "disc": "DC",
       "potential": "low",

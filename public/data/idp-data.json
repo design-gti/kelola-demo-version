@@ -3,8 +3,8 @@
     {
       "id": 0,
       "name": "Ratna Juwita",
-      "role": "Senior Engineer",
-      "dept": "Engineering Team",
+      "role": "Operations Lead",
+      "dept": "Operations Team",
       "avatar": "/avatars/employee/p02.png",
       "programs": 4,
       "statuses": [],
@@ -23,7 +23,7 @@
               "name": "Gina Puspasari",
               "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Farming Manager SMB",
+              "position": "Market Research #4",
               "photoUrl": "/avatars/employee/p100.png"
             },
             {
@@ -37,14 +37,14 @@
               "name": "Bagus Prakoso",
               "initials": "BP",
               "color": "#10B981",
-              "position": "Chief Strategy Officer",
+              "position": "Chief Product Officer",
               "photoUrl": "/avatars/employee/p06.png"
             },
             {
               "name": "Maya Puspita",
               "initials": "MP",
               "color": "#F59E0B",
-              "position": "Backend Engineer",
+              "position": "Backend #3",
               "photoUrl": "/avatars/employee/p48.png"
             }
           ],
@@ -70,7 +70,7 @@
               "name": "Gina Puspasari",
               "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Farming Manager SMB",
+              "position": "Market Research #4",
               "photoUrl": "/avatars/employee/p100.png"
             }
           ],
@@ -145,8 +145,8 @@
     {
       "id": 1,
       "name": "Yoga Pratama",
-      "role": "Governance Manager",
-      "dept": "Executive Office Team",
+      "role": "Treasury #2",
+      "dept": "Finance Team",
       "avatar": "/avatars/employee/p39.png",
       "programs": 4,
       "statuses": [],
@@ -161,7 +161,7 @@
               "name": "Gina Puspasari",
               "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Farming Manager SMB",
+              "position": "Market Research #4",
               "photoUrl": "/avatars/employee/p100.png"
             }
           ],
@@ -187,7 +187,7 @@
               "name": "Gina Puspasari",
               "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Farming Manager SMB",
+              "position": "Market Research #4",
               "photoUrl": "/avatars/employee/p100.png"
             }
           ],
@@ -262,7 +262,7 @@
     {
       "id": 2,
       "name": "Winda Sari",
-      "role": "Security Analyst",
+      "role": "DevOps Lead",
       "dept": "Engineering Team",
       "avatar": "/avatars/employee/p58.png",
       "programs": 3,
@@ -353,8 +353,8 @@
     {
       "id": 3,
       "name": "Nadia Safitri",
-      "role": "Strategy Analyst",
-      "dept": "Executive Office Team",
+      "role": "Tax #1",
+      "dept": "Finance Team",
       "avatar": "/avatars/employee/p41.png",
       "programs": 3,
       "statuses": [],
@@ -369,7 +369,7 @@
               "name": "Gina Puspasari",
               "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Farming Manager SMB",
+              "position": "Market Research #4",
               "photoUrl": "/avatars/employee/p100.png"
             }
           ],
@@ -395,7 +395,7 @@
               "name": "Gina Puspasari",
               "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Farming Manager SMB",
+              "position": "Market Research #4",
               "photoUrl": "/avatars/employee/p100.png"
             }
           ],
@@ -444,8 +444,8 @@
     {
       "id": 4,
       "name": "Rendra Pratama",
-      "role": "Farming Manager Enterprise",
-      "dept": "Farmer Team",
+      "role": "Market Research #3",
+      "dept": "Marketing Team",
       "avatar": "/avatars/employee/p99.png",
       "programs": 3,
       "statuses": [],
@@ -535,8 +535,8 @@
     {
       "id": 5,
       "name": "Marco Silalahi",
-      "role": "Account Executive Enterprise",
-      "dept": "Hunter Team",
+      "role": "Digital Marketing #6",
+      "dept": "Marketing Team",
       "avatar": "/avatars/employee/p87.png",
       "programs": 3,
       "statuses": [],
@@ -551,7 +551,7 @@
               "name": "Gina Puspasari",
               "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Farming Manager SMB",
+              "position": "Market Research #4",
               "photoUrl": "/avatars/employee/p100.png"
             }
           ],
@@ -577,7 +577,7 @@
               "name": "Gina Puspasari",
               "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Farming Manager SMB",
+              "position": "Market Research #4",
               "photoUrl": "/avatars/employee/p100.png"
             }
           ],
@@ -626,8 +626,8 @@
     {
       "id": 6,
       "name": "Ni Luh Ayu Savitri",
-      "role": "HR Operations Staff",
-      "dept": "Human Resources Team",
+      "role": "Product Design #1",
+      "dept": "Product Team",
       "avatar": "/avatars/employee/p74.png",
       "programs": 3,
       "statuses": [],
@@ -694,7 +694,7 @@
               "name": "Gina Puspasari",
               "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Farming Manager SMB",
+              "position": "Market Research #4",
               "photoUrl": "/avatars/employee/p100.png"
             }
           ],
@@ -717,8 +717,8 @@
     {
       "id": 7,
       "name": "Bagus Prakoso",
-      "role": "Chief Strategy Officer",
-      "dept": "Executive Office Team",
+      "role": "Chief Product Officer",
+      "dept": "Product Team",
       "avatar": "/avatars/employee/p06.png",
       "programs": 3,
       "statuses": [],
@@ -733,7 +733,7 @@
               "name": "Gina Puspasari",
               "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Farming Manager SMB",
+              "position": "Market Research #4",
               "photoUrl": "/avatars/employee/p100.png"
             }
           ],
@@ -808,8 +808,8 @@
     {
       "id": 8,
       "name": "Siti Rahmawati",
-      "role": "Chief Revenue Officer",
-      "dept": "Sales & Marketing Team",
+      "role": "Chief Marketing Officer",
+      "dept": "Marketing Team",
       "avatar": "/avatars/employee/p26.png",
       "programs": 3,
       "statuses": [],
@@ -824,7 +824,7 @@
               "name": "Gina Puspasari",
               "initials": "GP",
               "color": "#0EA5E9",
-              "position": "Farming Manager SMB",
+              "position": "Market Research #4",
               "photoUrl": "/avatars/employee/p100.png"
             }
           ],
@@ -1696,9 +1696,9 @@
     {
       "reqby": {
         "name": "Erika Wijayanti",
-        "role": "Sales Development Representative",
+        "role": "Brand & Content #6",
         "color": "#4C6EF5",
-        "position": "Sales Development Representative",
+        "position": "Brand & Content #6",
         "photoUrl": "/avatars/employee/p95.png"
       },
       "participants": [
@@ -1717,9 +1717,9 @@
     {
       "reqby": {
         "name": "Winda Sari",
-        "role": "Security Analyst",
+        "role": "DevOps Lead",
         "color": "#10b981",
-        "position": "Security Analyst",
+        "position": "DevOps Lead",
         "photoUrl": "/avatars/employee/p58.png"
       },
       "participants": [
@@ -1740,9 +1740,9 @@
     {
       "reqby": {
         "name": "Winda Sari",
-        "role": "Security Analyst",
+        "role": "DevOps Lead",
         "color": "#10b981",
-        "position": "Security Analyst",
+        "position": "DevOps Lead",
         "photoUrl": "/avatars/employee/p58.png"
       },
       "participants": [
@@ -1773,7 +1773,7 @@
       "color": "",
       "time": "Apr 20, 2026, 11:39 AM",
       "text": "tolong sekali lage cek dokumentasinya dan lampirkan kembali",
-      "position": "Farming Manager SMB",
+      "position": "Market Research #4",
       "photoUrl": "/avatars/employee/p100.png"
     },
     {
@@ -1782,7 +1782,7 @@
       "color": "#B0B1B2",
       "time": "Apr 20, 2026, 11:39 AM",
       "text": "dokumentasi trainingnya kah Pak?",
-      "position": "Operations Manager",
+      "position": "Recruitment Lead",
       "photoUrl": "/avatars/employee/p18.png"
     },
     {
@@ -1791,7 +1791,7 @@
       "color": "",
       "time": "Apr 20, 2026, 11:40 AM",
       "text": "Iya",
-      "position": "Farming Manager SMB",
+      "position": "Market Research #4",
       "photoUrl": "/avatars/employee/p100.png"
     },
     {
@@ -1800,7 +1800,7 @@
       "color": "#B0B1B2",
       "time": "Apr 20, 2026, 11:41 AM",
       "text": "Baik Pak, saya lampirkan kembali",
-      "position": "Operations Manager",
+      "position": "Recruitment Lead",
       "photoUrl": "/avatars/employee/p18.png"
     }
   ],

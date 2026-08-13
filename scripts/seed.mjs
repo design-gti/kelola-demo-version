@@ -18,18 +18,20 @@ function parseCSV(text) {
 
 const num = (v) => (v === "" || v == null ? null : Number(v));
 
+// Satu tim per bidang, mengikuti kerangka organisasi di gen-participants.mjs:
+// CEO → lima Chief → Head → unit. Kalau kerangka itu berubah, daftar ini ikut.
 const TEAMS = {
-  ENG: { name: "Engineering Team", type: "FUNCTIONAL", leaderId: "p01", reportToId: "p05" },
   EXE: { name: "Executive Office Team", type: "FUNCTIONAL", leaderId: "p05", reportToId: null },
-  FIN: { name: "Finance Team", type: "FUNCTIONAL", leaderId: "p09", reportToId: "p05" },
-  HR: { name: "Human Resources Team", type: "FUNCTIONAL", leaderId: "p13", reportToId: "p05" },
-  OPS: { name: "Operations Team", type: "STRUCTURAL", leaderId: "p17", reportToId: "p05" },
-  SNM: { name: "Sales & Marketing Team", type: "FUNCTIONAL", leaderId: "p21", reportToId: "p05" },
-  // Hunter & Farmer: dua Job penjualan yang terpisah, sama-sama bernaung di
-  // bawah Head of Sales (p78) — Hunter mengejar klien baru, Farmer menggarap
-  // klien yang sudah ada.
-  HUN: { name: "Hunter Team", type: "STRUCTURAL", leaderId: "p83", reportToId: "p78" },
-  FAR: { name: "Farmer Team", type: "STRUCTURAL", leaderId: "p99", reportToId: "p78" },
+  OPS: { name: "Operations Team", type: "STRUCTURAL", leaderId: "p36", reportToId: "p05" },
+  HR: { name: "Human Resources Team", type: "FUNCTIONAL", leaderId: "p37", reportToId: "p36" },
+  FIN: { name: "Finance Team", type: "FUNCTIONAL", leaderId: "p35", reportToId: "p05" },
+  ENG: { name: "Engineering Team", type: "FUNCTIONAL", leaderId: "p34", reportToId: "p05" },
+  PRD: { name: "Product Team", type: "FUNCTIONAL", leaderId: "p06", reportToId: "p05" },
+  MKT: { name: "Marketing Team", type: "FUNCTIONAL", leaderId: "p26", reportToId: "p05" },
+  // Hunter & Farmer: dua unit penjualan terpisah, sama-sama di bawah Head of
+  // Sales (p78) — Hunter mengejar klien baru, Farmer menggarap klien yang ada.
+  HUN: { name: "Hunter Team", type: "STRUCTURAL", leaderId: "p101", reportToId: "p78" },
+  FAR: { name: "Farmer Team", type: "STRUCTURAL", leaderId: "p107", reportToId: "p78" },
 };
 
 const SCORE_KINDS = ["behavioral", "technical", "performance", "leadership", "competency", "prediction", "engagement"];
