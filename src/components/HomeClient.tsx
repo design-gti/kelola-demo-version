@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { ActionIcon } from "@mantine/core";
+import { Button } from "@mantine/core";
 import { IconSettings } from "@tabler/icons-react";
-import { HEADER_HEIGHT } from "@/components/AppHeader";
 import BannerInsight from "@/components/BannerInsight";
 import DraggableCardWrapper from "@/components/DraggableCardWrapper";
 import AspectScoreCard from "@/components/AspectScoreCard";
@@ -195,24 +194,6 @@ export default function HomeClient({
         document.body
       )}
 
-      <ActionIcon
-        onClick={() => setSettingsOpen(true)}
-        variant="filled"
-        color="primary"
-        radius="xl"
-        size={40}
-        aria-label="Pengaturan dashboard"
-        style={{
-          // top dihitung dari bawah AppHeader (fixed, zIndex 40): sebelumnya
-          // tombol ini duduk di top:16 — persis di dalam area header, jadi
-          // tertutup olehnya. Digeser ke bawah header + jarak yang sama.
-          position: "fixed", right: 24, top: HEADER_HEIGHT + 16, zIndex: 30,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-        }}
-      >
-        <IconSettings size={20} stroke={2} />
-      </ActionIcon>
-
       {/* Role switcher — bottom-left */}
       <RoleSwitcher initialRole={role} />
 
@@ -230,6 +211,19 @@ export default function HomeClient({
               tapi sudah dobel dengan AppHeader yang menampilkan nama menu dan
               lonceng yang sama di header aplikasi. */}
           <div className="px-4 pt-4 pb-8">
+            {/* Tombol pengaturan — dulu ikon bulat mengambang di pojok layar;
+                disamakan dengan tombol Configuration di iProfile: text button
+                biasa, duduk dalam alur halaman, rata kanan di atas grid. */}
+            <div className="flex justify-end mb-[8px]">
+              <Button
+                variant="subtle"
+                size="compact-sm"
+                leftSection={<IconSettings size={16} stroke={1.6} />}
+                onClick={() => setSettingsOpen(true)}
+              >
+                Configuration
+              </Button>
+            </div>
             <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
 
               {/* Left 2/3 */}
