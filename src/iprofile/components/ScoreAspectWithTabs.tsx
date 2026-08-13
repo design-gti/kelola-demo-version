@@ -9,7 +9,6 @@ import { KeyBehaviourBreakdown, type KeyBehaviour } from './KeyBehaviourBreakdow
 import { ProfileContext } from '../lib/ProfileContext';
 import { aspectsFor } from '../lib/aspects';
 
-type TabType = 'competency' | 'potency';
 /** Cara aspek ditampilkan: daftar kartu skor, atau spider/radar chart. */
 type ViewMode = 'list' | 'chart';
 
@@ -17,7 +16,8 @@ export type { KeyBehaviour };
 export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean; keyBehaviours?: KeyBehaviour[] };
 
 interface ScoreAspectProps {
-  Frame79: React.ComponentType;
+  /** Header kartu; judulnya dioper karena dipakai dua kartu dengan nama berbeda. */
+  Frame79: React.ComponentType<{ title: string }>;
   /** Baris toolbar tab Competency. `leftSlot` diisi toggle list/chart dari sini,
    *  Keduanya statis hasil import Figma, jadi bagian yang perlu state (toggle
    *  tampilan) dititipkan lewat slot dari sini. */
@@ -35,60 +35,48 @@ function byCategory(items: AspectItem[]): [string, AspectItem[]][] {
   return [...map.entries()];
 }
 
-export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects }: ScoreAspectProps) {
-  const [activeTab, setActiveTab] = useState<TabType>('competency');
-  // Satu state dipakai kedua tab — pilihan "cara lihat" terasa milik kartunya,
-  // bukan milik masing-masing tab.
-  const [viewMode, setViewMode] = useState<ViewMode>('chart');
+/** "All" berarti tanpa penyaringan; sisanya nama kategori apa adanya. */
+const ALL = 'all';
 
-  // Satu daftar aspek untuk orang ini — General dan Technical berbaur, karena
-  // keduanya cuma kategori. Aspek mana yang dinilai ditentukan posisinya, dan
-  // standarnya oleh Job-nya; keduanya diurus `aspectsFor`.
-  const { position, employeeId } = useContext(ProfileContext);
-  const competencyItems = aspectsFor(position, employeeId);
+/**
+ * Tab penyaring kategori. Isinya diturunkan dari data, bukan ditulis tetap:
+ * kategori bisa ditambah lewat halaman Aspect, dan tab di sini ikut sendiri.
+ */
+function CategoryTabs({
+  categories,
+  value,
+  onChange,
+}: {
+  categories: string[];
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  // Satu kategori saja tidak perlu penyaring — tabnya cuma jadi hiasan.
+  if (categories.length < 2) return null;
 
   return (
-    <div className="bg-white content-stretch flex flex-col gap-[12px] items-center overflow-clip p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Score Aspect">
-      <Frame79 />
-      
-      {/* Tab memakai komponen design system; gayanya dari tema (blok
-          .mantine-Tabs-* di globals.css), tidak ditulis ulang di sini.
-          `grow` membuat kedua tab membagi rata lebar kartu seperti rancangan. */}
-      <Tabs
-        value={activeTab}
-        onChange={(v) => setActiveTab((v as TabType) ?? 'competency')}
-        w="100%"
-      >
-        <Tabs.List grow>
-          <Tabs.Tab value="competency">Competency</Tabs.Tab>
-          <Tabs.Tab value="potency">Potency</Tabs.Tab>
-        </Tabs.List>
-      </Tabs>
+    <Tabs value={value} onChange={(v) => onChange(v ?? ALL)} w="100%">
+      <Tabs.List grow>
+        <Tabs.Tab value={ALL}>All</Tabs.Tab>
+        {categories.map((c) => (
+          <Tabs.Tab key={c} value={c}>
+            {c}
+          </Tabs.Tab>
+        ))}
+      </Tabs.List>
+    </Tabs>
+  );
+}
 
-      {activeTab === 'competency' ? (
-        <>
-          <Frame116
-            rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
-            showLegend={viewMode === 'list'}
-          />
-          {viewMode === 'chart'
-            ? <AspectRadarChart items={competencyItems} />
-            : <CompetencyContent items={competencyItems} />}
-          {/* Aksi kartu ditaruh paling bawah, di luar rangkaian kontrol. */}
-          <Frame153 />
-        </>
-      ) : (
-        <>
-          <PotencyFilter
-            rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
-            showLegend={viewMode === 'list'}
-          />
-          {viewMode === 'chart'
-            ? <AspectRadarChart items={scoreAspects.potency} />
-            : <PotencyContent items={scoreAspects.potency} />}
-        </>
-      )}
-      
+/** Kategori yang benar-benar ada di daftar aspek, urut kemunculan pertama. */
+const categoriesOf = (items: AspectItem[]) => [...new Set(items.map((a) => a.category))];
+
+/** Kerangka kartu skor — dipakai kartu Competency maupun Potency. */
+function ScoreCard({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="bg-white content-stretch flex flex-col gap-[12px] items-center overflow-clip p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Score Aspect">
+      {children}
+
       <div className="absolute left-0 overflow-clip size-[16px] top-[16px]" data-name="grip-vertical">
         <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
           <div className="absolute inset-[-7.03%_-14.06%]">
@@ -110,8 +98,74 @@ export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects 
 }
 
 /**
- * Toggle tampilan aspek: spider chart vs list. Dipakai di kedua tab —
- * di Competency lewat `leftSlot` Frame153, di Potency langsung (PotencyControls).
+ * Skor Competency — aspek yang dinilai untuk posisi orang ini beserta standar
+ * Job-nya. Berdiri sebagai kartu sendiri; dulu satu kartu bertab dengan Potency.
+ */
+export function CompetencyScoresCard({ Frame79, Frame153, Frame116 }: Omit<ScoreAspectProps, 'scoreAspects'>) {
+  const [viewMode, setViewMode] = useState<ViewMode>('chart');
+  const [category, setCategory] = useState<string>(ALL);
+
+  // Satu daftar aspek untuk orang ini — General dan Technical berbaur, karena
+  // keduanya cuma kategori. Aspek mana yang dinilai ditentukan posisinya, dan
+  // standarnya oleh Job-nya; keduanya diurus `aspectsFor`.
+  const { position, employeeId } = useContext(ProfileContext);
+  const all = aspectsFor(position, employeeId);
+  const items = category === ALL ? all : all.filter((a) => a.category === category);
+
+  return (
+    <ScoreCard>
+      <Frame79 title="Competency Scores" />
+      <CategoryTabs categories={categoriesOf(all)} value={category} onChange={setCategory} />
+      <Frame116
+        rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
+        showLegend={viewMode === 'list'}
+      />
+      {viewMode === 'chart' ? (
+        // Penanda kategori di lingkar luar cuma berarti saat kategorinya lebih
+        // dari satu; di tab General/Technical isinya sudah seragam.
+        <AspectRadarChart items={items} showCategories={category === ALL} />
+      ) : (
+        <CompetencyContent items={items} />
+      )}
+      {/* Aksi kartu ditaruh paling bawah, di luar rangkaian kontrol. */}
+      <Frame153 />
+    </ScoreCard>
+  );
+}
+
+/** Skor Potency — kartu terpisah dengan kontrol tampilannya sendiri. */
+export function PotencyScoresCard({
+  Frame79,
+  items: all,
+}: {
+  Frame79: React.ComponentType<{ title: string }>;
+  items: AspectItem[];
+}) {
+  // State tampilan milik kartu ini sendiri: sejak Competency dan Potency jadi
+  // dua kartu, mengubah salah satunya tidak lagi ikut mengubah yang lain.
+  const [viewMode, setViewMode] = useState<ViewMode>('chart');
+  const [category, setCategory] = useState<string>(ALL);
+  const items = category === ALL ? all : all.filter((a) => a.category === category);
+
+  return (
+    <ScoreCard>
+      <Frame79 title="Potency Scores" />
+      <CategoryTabs categories={categoriesOf(all)} value={category} onChange={setCategory} />
+      <PotencyFilter
+        rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
+        showLegend={viewMode === 'list'}
+      />
+      {viewMode === 'chart' ? (
+        <AspectRadarChart items={items} showCategories={category === ALL} />
+      ) : (
+        <PotencyContent items={items} />
+      )}
+    </ScoreCard>
+  );
+}
+
+/**
+ * Toggle tampilan aspek: spider chart vs list. Dipakai kedua kartu.
  * Ikonnya persis aset Figma yang sudah ada, cuma sekarang state aktifnya nyata.
  */
 export function ViewModeToggle({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode) => void }) {

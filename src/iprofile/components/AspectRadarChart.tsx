@@ -183,7 +183,18 @@ function WrappedTick({ payload, x, y, textAnchor, selectable, selected, hoveredL
     );
 }
 
-export function AspectRadarChart({ items }: { items: AspectItem[] }) {
+export function AspectRadarChart({
+  items,
+  showCategories = true,
+}: {
+  items: AspectItem[];
+  /**
+   * Penanda kategori di lingkar terluar (juring + busur). Dimatikan saat aspek
+   * sudah disaring ke satu kategori: busurnya akan mengelilingi seluruh chart
+   * dan tidak lagi membedakan apa pun.
+   */
+  showCategories?: boolean;
+}) {
   const [hovered, setHovered] = useState<{ category: string; x: number; y: number } | null>(null);
   /** Aspek yang breakdown KB-nya sedang dibuka; satu saja pada satu waktu. */
   const [openAspect, setOpenAspect] = useState<string | null>(null);
@@ -352,7 +363,7 @@ export function AspectRadarChart({ items }: { items: AspectItem[] }) {
           height={CHART_H}
           style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
         >
-          {groups.map((g) => {
+          {(showCategories ? groups : []).map((g) => {
             const active = hovered?.category === g.category;
             return (
               <path

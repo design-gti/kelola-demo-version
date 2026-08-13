@@ -1,7 +1,7 @@
 ﻿"use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import svgPaths from "./svg-djevy8uiqd";
-import { ScoreAspectWithTabs } from "../components/ScoreAspectWithTabs";
+import { CompetencyScoresCard, PotencyScoresCard } from "../components/ScoreAspectWithTabs";
 import { StandardPositionSelect } from "../components/StandardPositionSelect";
 import { ProfileMoreMenu } from "../components/ProfileMoreMenu";
 import { SuccessorsAccordion } from "../components/SuccessorsAccordion";
@@ -194,11 +194,13 @@ function Frame88() {
   );
 }
 
-function Frame83() {
+// Judul dioper, tidak ditulis tetap: header ini dipakai dua kartu — Competency
+// Scores dan Potency Scores — yang dulu masih satu kartu bertab "Score Aspect".
+function Frame83({ title }: { title: string }) {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">Score Aspect</p>
+        <p className="leading-[normal]">{title}</p>
       </div>
     </div>
   );
@@ -224,10 +226,10 @@ function Frame76() {
   );
 }
 
-function Frame79() {
+function Frame79({ title }: { title: string }) {
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-[336.333px]">
-      <Frame83 />
+      <Frame83 title={title} />
       <Frame76 />
     </div>
   );
@@ -313,12 +315,11 @@ function Frame118() {
         </div>
         <Frame88 />
       </div>
-      <ScoreAspectWithTabs
-        Frame79={Frame79}
-        Frame153={Frame153}
-        Frame116={Frame116}
-        scoreAspects={scoreAspects}
-      />
+      {/* Dua kartu terpisah, bertumpuk. Sebelumnya satu kartu dengan tab
+          Competency | Potency; dipisah supaya keduanya terbaca sekaligus tanpa
+          harus berpindah tab. */}
+      <CompetencyScoresCard Frame79={Frame79} Frame153={Frame153} Frame116={Frame116} />
+      <PotencyScoresCard Frame79={Frame79} items={scoreAspects.potency} />
     </div>
   );
 }
