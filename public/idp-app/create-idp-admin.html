@@ -27,13 +27,23 @@
     
     .page-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
     .page-topbar .breadcrumb { margin-bottom: 0; }
+    /* Button design system, varian outline warna primary: pill, garis dan
+       teks primary, terisi tipis saat di-hover. */
     .btn-program-library {
       display: flex; align-items: center; gap: 6px;
-      background: white; border: 1px solid var(--border); border-radius: var(--radius-pill);
-      color: var(--text-body); font-family: var(--font-body); font-size: 13px; font-weight: 600;
-      height: 32px; padding: 0 14px; cursor: pointer; white-space: nowrap;
+      background: transparent;
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-pill);
+      color: var(--primary);
+      font-family: var(--font-title);
+      font-size: 13px;
+      font-weight: var(--fw-semibold);
+      height: 32px; padding: 0 var(--space-md);
+      cursor: pointer; white-space: nowrap;
+      transition: background var(--duration-base), color var(--duration-base), border-color var(--duration-base);
     }
-    .btn-program-library:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-program-library:hover { background: var(--primary-1); }
+    .btn-program-library:active { background: var(--primary-2); border-color: var(--primary-6); color: var(--primary-6); }
 
     .breadcrumb { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; font-family: var(--font-body); font-size: 13px; }
     .breadcrumb-back { background: none; border: none; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; padding: 0; line-height: 1; }
