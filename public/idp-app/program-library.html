@@ -13,10 +13,12 @@
     body {
       font-family: var(--font-body);
       background: var(--surface-sunken);
-      padding: 24px;
+      padding: var(--space-md);
     }
 
-    .page-wrapper { max-width: 1290px; margin: 0 auto; padding-bottom: 80px; }
+    /* Rata kiri, bukan di tengah: halaman ini daftar kerja, dan menempel ke
+       sisi sidebar membuat kolomnya sejajar dengan menu di sebelahnya. */
+    .page-wrapper { width: 100%; padding-bottom: var(--space-2xl); }
 
     .breadcrumb { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; font-family: var(--font-body); font-size: 13px; }
     .breadcrumb-back { background: none; border: none; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; padding: 0; line-height: 1; }
@@ -79,19 +81,21 @@
 
     .lib-table th {
       text-align: left;
-      font-size: 11px;
-      font-weight: 600;
+      font-family: var(--font-title);
+      font-size: var(--type-label-size);
+      font-weight: var(--type-label-weight);
       color: var(--text-faint);
       text-transform: uppercase;
       letter-spacing: 0.02em;
-      padding: 10px 8px;
+      padding: var(--space-xs) var(--space-xs);
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
 
     .lib-table td {
-      padding: 12px 8px;
-      font-size: 12px;
+      padding: var(--space-sm) var(--space-xs);
+      font-size: var(--type-body-size);
+      line-height: var(--type-body-line);
       color: var(--text-body);
       border-bottom: 1px solid var(--border);
       vertical-align: top;
@@ -133,17 +137,26 @@
 
     .lib-level { display: inline-block; font-size: 10px; font-weight: 600; color: var(--text-faint); margin-right: 4px; }
 
+    /* Mengikuti IconButton design system: subtle, radius pill, dan warna
+       error untuk aksi merusak. Komponen aslinya React, jadi di halaman
+       statis ini speknya ditulis ulang memakai token yang sama. */
     .row-action {
       background: none;
       border: none;
       cursor: pointer;
-      padding: 4px;
-      border-radius: var(--radius-sm);
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-pill);
       color: var(--text-faint);
-      line-height: 1;
+      transition: background var(--duration-base), color var(--duration-base);
     }
     .row-action:hover { background: var(--surface-sunken); color: var(--primary); }
-    .row-action.danger:hover { color: var(--danger, #c0392b); }
+
+    .row-action.danger { color: var(--error); }
+    .row-action.danger:hover { background: var(--error-0); color: var(--error-7); }
 
     .lib-empty { padding: 32px 8px; text-align: center; font-size: 12px; color: var(--text-faint); }
 
@@ -187,7 +200,7 @@
       display: block; font-family: var(--font-body); font-size: 12px;
       font-weight: 600; color: var(--text-body); margin-bottom: 6px;
     }
-    .field .required { color: var(--danger, #c0392b); }
+    .field .required { color: var(--error); }
     .field input, .field select {
       width: 100%;
       font-family: var(--font-body); font-size: 13px; color: var(--text-strong);
@@ -197,7 +210,7 @@
     .field input:focus, .field select:focus { border-color: var(--primary); }
 
     .field-hint { font-size: 11px; color: var(--text-faint); margin-top: 5px; line-height: 1.4; }
-    .field-error { font-size: 11px; color: var(--danger, #c0392b); margin-top: 5px; display: none; }
+    .field-error { font-size: 11px; color: var(--error); margin-top: 5px; display: none; }
     .field-error.show { display: block; }
 
     .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
@@ -216,7 +229,8 @@
       font-size: 13px; font-weight: 600; color: white; cursor: pointer;
     }
     .btn-modal-submit:hover { opacity: 0.9; }
-    .btn-modal-submit.danger { background: var(--danger, #c0392b); }
+    .btn-modal-submit.danger { background: var(--error); }
+    .btn-modal-submit.danger:hover { background: var(--error-7); opacity: 1; }
 
     .confirm-text { font-family: var(--font-body); font-size: 13px; color: var(--text-body); line-height: 1.5; }
     .confirm-text strong { color: var(--text-strong); }
