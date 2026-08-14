@@ -950,37 +950,7 @@
       margin-bottom: 16px;
     }
     
-    .library-header-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
     
-    .add-program-library-btn {
-      background: white;
-      border: none;
-      color: var(--primary);
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 0;
-      white-space: nowrap;
-    }
-    
-    .add-program-library-btn:hover {
-      text-decoration: underline;
-    }
-    
-    .add-program-library-btn svg {
-      width: 16px;
-      height: 16px;
-      stroke: var(--primary);
-      stroke-width: 2;
-    }
     
     .lib-toolbar {
       display: flex;
@@ -1544,15 +1514,7 @@
     <div class="modal library-modal">
       <div class="library-header">
         <span class="modal-title">Program Library</span>
-        <div class="library-header-right">
-          <button class="add-program-library-btn" onclick="addProgramLibrary()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 5v14M5 12h14"/>
-            </svg>
-            Add Program
-          </button>
-          <button class="modal-close" onclick="closeProgramLibraryModal()">×</button>
-        </div>
+        <button class="modal-close" onclick="closeProgramLibraryModal()">×</button>
       </div>
 
       <div class="lib-toolbar">
@@ -2371,10 +2333,6 @@
       var asp = cell ? (cell.dataset.aspValue || '').split(',')[0].trim() : '';
       if (asp) q.set('aspect', asp);
       window.location.href = 'program-library.html?' + q.toString();
-    }
-
-    function addProgramLibrary() {
-      openProgramLibraryPage();
     }
     
     
