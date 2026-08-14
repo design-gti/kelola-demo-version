@@ -67,7 +67,7 @@ function CategoryChips({
       // kehabisan aspek untuk digambar.
       onChange={(v) => onChange((v as string) || ALL)}
     >
-      <Group gap={6} wrap="wrap" w="100%">
+      <Group gap={6} wrap="wrap" justify="center" w="100%">
         <Chip value={ALL} size="xs" radius="xl" variant="light">
           All
         </Chip>
@@ -112,14 +112,14 @@ export function CompetencyScoresCard({ Frame79, Frame153, Frame116 }: Omit<Score
   return (
     <ScoreCard>
       <Frame79 title="Competency Scores" />
-      <CategoryChips categories={categoriesOf(all)} value={category} onChange={setCategory} />
       <Frame116
         rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
         showLegend={viewMode === 'list'}
       />
+      <CategoryChips categories={categoriesOf(all)} value={category} onChange={setCategory} />
       {viewMode === 'chart' ? (
         // Penanda kategori di lingkar luar cuma berarti saat kategorinya lebih
-        // dari satu; di tab General/Technical isinya sudah seragam.
+        // dari satu; begitu disaring ke satu kategori isinya sudah seragam.
         <AspectRadarChart items={items} showCategories={category === ALL} />
       ) : (
         <CompetencyContent items={items} />
@@ -147,11 +147,11 @@ export function PotencyScoresCard({
   return (
     <ScoreCard>
       <Frame79 title="Potency Scores" />
-      <CategoryChips categories={categoriesOf(all)} value={category} onChange={setCategory} />
       <PotencyFilter
         rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
         showLegend={viewMode === 'list'}
       />
+      <CategoryChips categories={categoriesOf(all)} value={category} onChange={setCategory} />
       {viewMode === 'chart' ? (
         <AspectRadarChart items={items} showCategories={category === ALL} />
       ) : (
