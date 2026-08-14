@@ -351,20 +351,6 @@ function Frame46() {
   );
 }
 
-function Frame145() {
-  const { name } = useContext(ProfileContext);
-  return (
-    <div className="bg-[#e7f5ff] h-[24px] relative rounded-[8px] shrink-0 w-full">
-      <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[8px]" />
-      <div className="content-stretch flex flex-col items-start px-[8px] py-[4px] relative size-full">
-        <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] text-center whitespace-nowrap">
-          <p className="leading-[normal]">{name}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Frame49() {
   const { successors } = useContext(ProfileContext);
   const [isAddSuccessorsModalOpen, setIsAddSuccessorsModalOpen] = useState(false);
@@ -401,31 +387,6 @@ function Frame49() {
         onClose={() => setIsAddSuccessorsModalOpen(false)}
       />
     </>
-  );
-}
-
-/**
- * Isi kartu Career Plan: rencana karier di atas, pil nama orangnya di bawah.
- *
- * Pil nama muncul di kedua kartu, bukan hanya di salah satunya: ia yang
- * membuat daftarnya punya arti — ini rencana karier *milik siapa*.
- */
-function Frame47Career() {
-  return (
-    <div className="content-stretch flex flex-col gap-[20px] items-start relative shrink-0 w-full">
-      <Frame46 />
-      <Frame145 />
-    </div>
-  );
-}
-
-/** Isi kartu Succession Plan: pil nama di atas, calon penerusnya di bawah. */
-function Frame47Succession() {
-  return (
-    <div className="content-stretch flex flex-col gap-[20px] items-start relative shrink-0 w-full">
-      <Frame145 />
-      <Frame49 />
-    </div>
   );
 }
 
@@ -731,7 +692,7 @@ export function CareerPlanCard() {
   return (
   <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Career plan">
     <Frame80 title="Career Plan" />
-    <Frame47Career />
+    <Frame46 />
   </div>
   );
 }
@@ -741,7 +702,7 @@ export function SuccessionPlanCard() {
   return (
   <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Succession plan">
     <Frame80 title="Succession Plan" />
-    <Frame47Succession />
+    <Frame49 />
     <div className="relative rounded-[28px] shrink-0 w-full cursor-pointer hover:bg-[#f0f9ff] transition-colors" data-name="button"
       onClick={() => { window.location.href = '/tdp-view?tab=compare&from=iprofile'; }}>
       <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />
