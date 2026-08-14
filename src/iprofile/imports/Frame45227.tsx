@@ -8,7 +8,7 @@ import { SuccessorsAccordion } from "../components/SuccessorsAccordion";
 import { CareerPlanAccordion } from "../components/CareerPlanAccordion";
 import { AddCareerPlanModal } from "../components/AddCareerPlanModal";
 import { AddSuccessorsModal } from "../components/AddSuccessorsModal";
-import { useState, useContext, useRef, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { candidates } from "@/data/dummyData";
 import { getParticipant, scoreOf, allTeams } from "@/data/model/selectors";
 import {
@@ -330,7 +330,7 @@ function Frame46() {
     <>
       <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-full">
         {careerPlans.map((cp, i) => (
-          <div key={i} data-conn={i === 0 ? "career-structural" : "career-additional"} className="w-full"><CareerPlanAccordion label={`Career Plan ${i + 1}`} position={cp.position} name={cp.name} percentage={cp.percentage} status={cp.status} showAddedTag={i > 0} addedTagIcon={i % 2 === 0 ? "arrow-up-right" : "arrows-horizontal"} showDeleteIcon={i > 0} /></div>
+          <div key={i} className="w-full"><CareerPlanAccordion label={`Career Plan ${i + 1}`} position={cp.position} name={cp.name} percentage={cp.percentage} status={cp.status} showAddedTag={i > 0} addedTagIcon={i % 2 === 0 ? "arrow-up-right" : "arrows-horizontal"} showDeleteIcon={i > 0} /></div>
         ))}
         <button 
           className="block cursor-pointer overflow-clip relative shrink-0 size-[20px]" 
@@ -354,7 +354,7 @@ function Frame46() {
 function Frame145() {
   const { name } = useContext(ProfileContext);
   return (
-    <div data-conn="current" className="bg-[#e7f5ff] h-[24px] relative rounded-[8px] shrink-0 w-full">
+    <div className="bg-[#e7f5ff] h-[24px] relative rounded-[8px] shrink-0 w-full">
       <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[8px]" />
       <div className="content-stretch flex flex-col items-start px-[8px] py-[4px] relative size-full">
         <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] text-center whitespace-nowrap">
@@ -373,7 +373,7 @@ function Frame49() {
     <>
       <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-full">
         {successors.map((sx, i) => (
-          <div key={i} data-conn="succ-structural" className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full" data-name="Component successors">
+          <div key={i} className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full" data-name="Component successors">
             <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
               <p className="leading-[normal] whitespace-pre-wrap">{`Successors ${i + 1}`}</p>
             </div>
@@ -407,9 +407,8 @@ function Frame49() {
 /**
  * Isi kartu Career Plan: rencana karier di atas, pil nama orangnya di bawah.
  *
- * Pil nama muncul di kedua kartu, bukan hanya di salah satunya. Ia titik tambat
- * garis penghubung — tanpa dia garisnya berakhir di udara — dan sekaligus yang
- * membuat daftarnya punya arti: ini rencana karier *milik siapa*.
+ * Pil nama muncul di kedua kartu, bukan hanya di salah satunya: ia yang
+ * membuat daftarnya punya arti — ini rencana karier *milik siapa*.
  */
 function Frame47Career() {
   return (
@@ -426,105 +425,6 @@ function Frame47Succession() {
     <div className="content-stretch flex flex-col gap-[20px] items-start relative shrink-0 w-full">
       <Frame145 />
       <Frame49 />
-    </div>
-  );
-}
-
-function DynamicConnectors() {
-  const selfRef = useRef<HTMLDivElement>(null);
-  const [svgData, setSvgData] = useState<{
-    h: number;
-    career: { y: number; add: boolean }[];
-    current: number;
-    succ: { y: number; add: boolean }[];
-  }>({ h: 0, career: [], current: 0, succ: [] });
-
-  useEffect(() => {
-    const card = selfRef.current?.parentElement;
-    if (!card) return;
-
-    const measure = () => {
-      const cardRect = card.getBoundingClientRect();
-      const getY = (el: Element) => {
-        const r = el.getBoundingClientRect();
-        return r.top + r.height / 2 - cardRect.top;
-      };
-
-      const currentEl = card.querySelector('[data-conn="current"]');
-      const currentY = currentEl ? getY(currentEl) : cardRect.height / 2;
-
-      const career = Array.from(card.querySelectorAll('[data-conn^="career-"]')).map(el => ({
-        y: getY(el),
-        add: el.getAttribute('data-conn') === 'career-additional',
-      }));
-
-      const succ = Array.from(card.querySelectorAll('[data-conn^="succ-"]')).map(el => ({
-        y: getY(el),
-        add: el.getAttribute('data-conn') === 'succ-additional',
-      }));
-
-      setSvgData({ h: cardRect.height, career, current: currentY, succ });
-    };
-
-    const ro = new ResizeObserver(measure);
-    ro.observe(card);
-    measure();
-    return () => ro.disconnect();
-  }, []);
-
-  const { h, career, current, succ } = svgData;
-  const CX = 18;
-  const TICK = 17;
-  const A = 5;
-  const firstC = career[0]?.y;
-  const lastC = career[career.length - 1]?.y;
-  const firstS = succ[0]?.y;
-  const lastS = succ[succ.length - 1]?.y;
-
-  return (
-    <div ref={selfRef} className="absolute inset-0 pointer-events-none">
-      {h > 0 && (
-        <svg width={36} height={h} style={{ position: 'absolute', left: 0, top: 0, overflow: 'visible' }}>
-          {/* Career spine */}
-          {firstC != null && lastC != null && (
-            <line x1={CX} y1={firstC} x2={CX} y2={lastC} stroke="#495057" strokeWidth="1" />
-          )}
-          {/* Career upward arrow */}
-          {firstC != null && (
-            <path d={`M${CX - A} ${firstC + A * 2} L${CX} ${firstC} L${CX + A} ${firstC + A * 2}`} fill="#495057" />
-          )}
-          {/* Career ticks */}
-          {career.map((c, i) => (
-            <line key={i} x1={CX} y1={c.y} x2={CX + TICK} y2={c.y}
-              stroke={c.add ? '#2F95DE' : '#495057'} strokeWidth="1"
-              strokeDasharray={c.add ? '2 2' : undefined} />
-          ))}
-          {/* Spine: last career → current employee */}
-          {lastC != null && (
-            <line x1={CX} y1={lastC} x2={CX} y2={current} stroke="#495057" strokeWidth="1" />
-          )}
-          {/* Current employee node */}
-          <circle cx={CX} cy={current} r={3} fill="#495057" />
-          {/* Spine: current employee → first successor */}
-          {firstS != null && (
-            <line x1={CX} y1={current} x2={CX} y2={firstS} stroke="#495057" strokeWidth="1" />
-          )}
-          {/* Successor spine */}
-          {firstS != null && lastS != null && (
-            <line x1={CX} y1={firstS} x2={CX} y2={lastS} stroke="#495057" strokeWidth="1" />
-          )}
-          {/* Successor ticks */}
-          {succ.map((s, i) => (
-            <line key={i} x1={CX} y1={s.y} x2={CX + TICK} y2={s.y}
-              stroke={s.add ? '#2F95DE' : '#495057'} strokeWidth="1"
-              strokeDasharray={s.add ? '2 2' : undefined} />
-          ))}
-          {/* Successor downward arrow */}
-          {lastS != null && (
-            <path d={`M${CX - A} ${lastS - A * 2} L${CX} ${lastS} L${CX + A} ${lastS - A * 2}`} fill="#495057" />
-          )}
-        </svg>
-      )}
     </div>
   );
 }
@@ -826,17 +726,12 @@ function Frame94() {
  * Rencana karier orang ini. Dulu satu kartu bersama Succession Plan; dipisah
  * karena keduanya menjawab pertanyaan berbeda — ke mana orang ini bisa naik,
  * versus siapa yang bisa menggantikannya.
- *
- * `pl-[36px]` menyisakan selokan kiri untuk garis penghubung, dan
- * `DynamicConnectors` harus tetap anak langsung kartu: ia mengukur lewat
- * parentElement, bukan lewat ref atau context.
  */
 export function CareerPlanCard() {
   return (
-  <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto pl-[36px] pr-[16px] py-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Career plan">
+  <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Career plan">
     <Frame80 title="Career Plan" />
     <Frame47Career />
-    <DynamicConnectors />
   </div>
   );
 }
@@ -844,7 +739,7 @@ export function CareerPlanCard() {
 /** Calon penerus jabatan orang ini, beserta jalan ke perbandingannya. */
 export function SuccessionPlanCard() {
   return (
-  <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto pl-[36px] pr-[16px] py-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Succession plan">
+  <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Succession plan">
     <Frame80 title="Succession Plan" />
     <Frame47Succession />
     <div className="relative rounded-[28px] shrink-0 w-full cursor-pointer hover:bg-[#f0f9ff] transition-colors" data-name="button"
@@ -865,7 +760,6 @@ export function SuccessionPlanCard() {
         </div>
       </div>
     </div>
-    <DynamicConnectors />
   </div>
   );
 }
