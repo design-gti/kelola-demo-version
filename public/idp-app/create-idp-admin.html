@@ -1065,8 +1065,8 @@
       font-size: 12px;
       color: var(--text-strong);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 7px 10px;
+      border-radius: var(--radius-xl);
+      padding: 8px 14px;
       background: white;
       outline: none;
     }
@@ -1499,7 +1499,7 @@
       </div>
 
       <div class="lib-footer">
-        <span class="lib-selected-note" id="libSelectedNote">Belum ada program dipilih</span>
+        <span class="lib-selected-note" id="libSelectedNote">No program selected</span>
         <div style="display:flex; gap:8px;">
           <button class="btn-modal-cancel" onclick="closeProgramLibraryModal()">Cancel</button>
           <button class="btn-modal-submit" onclick="applyLibrarySelection()">Add to IDP</button>
@@ -2134,7 +2134,7 @@
       const modal = document.getElementById('programLibraryModal');
       modal.classList.add('active');
       _libSelectedId = null;
-      document.getElementById('libSelectedNote').textContent = 'Belum ada program dipilih';
+      document.getElementById('libSelectedNote').textContent = 'No program selected';
       initProgramLibrary();
     }
 
@@ -2157,7 +2157,7 @@
     var _libSelectedId = null;
     var _libWired = false;
 
-    /** Jumlah KB yang langsung terlihat; sisanya di balik tombol "Lihat semua". */
+    /** Jumlah KB yang langsung terlihat; sisanya di balik tombol "See all". */
     var LIB_KB_PREVIEW = 2;
 
     function libEsc(s) {
@@ -2179,7 +2179,7 @@
       });
 
       if (!rows.length) {
-        body.innerHTML = '<tr><td colspan="4" class="lib-empty">Tidak ada program yang cocok</td></tr>';
+        body.innerHTML = '<tr><td colspan="4" class="lib-empty">No matching program</td></tr>';
         return;
       }
 
@@ -2191,7 +2191,7 @@
         }).join('');
         var more = kb.length > LIB_KB_PREVIEW
           ? '<button type="button" class="lib-kb-toggle" onclick="toggleLibKb(event, this)">' +
-            'Lihat semua (' + kb.length + ')</button>'
+            'See all (' + kb.length + ')</button>'
           : '';
         return '<tr class="lib-row' + (p.id === _libSelectedId ? ' sel' : '') + '" data-id="' + p.id + '" ' +
           'onclick="selectLibProgram(\'' + p.id + '\')">' +
@@ -2199,7 +2199,7 @@
             (p.id === _libSelectedId ? ' checked' : '') + '></td>' +
           '<td><div class="lib-prog-name">' + libEsc(p.name) + '</div>' +
             '<div class="lib-prog-kind">' + libEsc(p.kind) + '</div></td>' +
-          '<td class="lib-col-aspect">' + libEsc(p.aspect) + '</td>' +
+          '<td class="lib-col-aspect"><span class="asp-chip">' + libEsc(p.aspect) + '</span></td>' +
           '<td>' + (kb.length ? '<ul class="lib-kb-list">' + items + '</ul>' + more : '—') + '</td>' +
           '</tr>';
       }).join('');
@@ -2210,7 +2210,7 @@
       var row = btn.closest('tr');
       var open = row.classList.toggle('open');
       var total = row.querySelectorAll('.lib-kb-list li').length;
-      btn.textContent = open ? 'Sembunyikan' : 'Lihat semua (' + total + ')';
+      btn.textContent = open ? 'Hide' : 'See all (' + total + ')';
     }
 
     /** Hanya satu program yang bisa aktif — satu baris IDP satu program. */
@@ -2219,7 +2219,7 @@
       renderLibTable();
       var picked = _libPrograms.find(function (p) { return p.id === _libSelectedId; });
       document.getElementById('libSelectedNote').textContent =
-        picked ? 'Dipilih: ' + picked.name : 'Belum ada program dipilih';
+        picked ? 'Selected: ' + picked.name : 'No program selected';
     }
 
     function applyLibrarySelection() {
@@ -2254,7 +2254,7 @@
       }).catch(function (e) {
         console.error('aspect library', e);
         document.getElementById('libTableBody').innerHTML =
-          '<tr><td colspan="4" class="lib-empty">Gagal memuat katalog aspek</td></tr>';
+          '<tr><td colspan="4" class="lib-empty">Failed to load aspect catalog</td></tr>';
       });
     }
 
