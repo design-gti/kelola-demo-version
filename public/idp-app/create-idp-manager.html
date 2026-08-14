@@ -3472,17 +3472,15 @@
 
   <script>
   (function(){
-    var GOALS = [
-      'Mampu menyusun analisis akar masalah secara terstruktur dalam setiap kasus.',
-      'Meningkatkan kemampuan komunikasi lintas tim untuk kolaborasi yang efektif.',
-      'Mengembangkan keterampilan kepemimpinan dalam mengelola tim proyek.',
-      'Mampu mengambil keputusan berbasis data dengan cepat dan akurat.',
-      'Meningkatkan kemampuan presentasi di hadapan stakeholder.',
-      'Mengelola waktu dan prioritas pekerjaan secara mandiri.',
-      'Mengembangkan pola pikir kritis dalam mengevaluasi solusi.',
-      'Mampu beradaptasi terhadap perubahan proses kerja dengan cepat.'
-    ];
-    var _picker = null, _input = null;
+    // Rekomendasi Development Goals adalah Key Behaviour milik aspek yang
+    // terisi di baris itu — persis seperti yang dijanjikan tooltipnya.
+    // Selama aspeknya kosong tidak ada yang bisa direkomendasikan, jadi
+    // pickernya tidak muncul dan user menulis sendiri.
+    var _kbByAspect = {};
+    AspectLibrary.ready().then(function(lib){ _kbByAspect = lib.kbByAspect; })
+      .catch(function(e){ console.error('aspect library', e); });
+
+    var _picker = null, _input = null, _goals = [];
 
     function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
@@ -3506,7 +3504,7 @@
     function renderList(){
       var list = document.getElementById('goalList');
       var q = (_input.value||'').toLowerCase();
-      var filtered = GOALS.filter(function(g){ return g.toLowerCase().indexOf(q) !== -1; });
+      var filtered = _goals.filter(function(g){ return g.toLowerCase().indexOf(q) !== -1; });
       list.innerHTML = filtered.map(function(g){ return '<div class="goal-item" data-value="'+esc(g)+'">'+esc(g)+'</div>'; }).join('');
       return filtered.length;
     }
@@ -3529,8 +3527,9 @@
       _input = input;
       var row = input.closest('tr');
       var aspCell = row && row.querySelector('td.col-aspect');
-      var hasAspect = !!(aspCell && (aspCell.dataset.aspValue || '').trim());
-      if(!hasAspect){ _picker.classList.remove('open'); _input = null; return; }
+      var aspect = aspCell ? (aspCell.dataset.aspValue || '').trim() : '';
+      if(!aspect){ _picker.classList.remove('open'); _input = null; return; }
+      _goals = (_kbByAspect[aspect] || []).map(function(kb){ return kb.label; });
       if(!renderList()){ _picker.classList.remove('open'); return; }
       position();
       _picker.classList.add('open');
