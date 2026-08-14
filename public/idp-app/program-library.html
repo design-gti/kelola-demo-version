@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Program Library - Talentlytica</title>
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="design-system/styles.css">
+  <script src="aspect-library.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--surface-sunken);
+      padding: 24px;
+    }
+
+    .page-wrapper { max-width: 1290px; margin: 0 auto; padding-bottom: 80px; }
+
+    .breadcrumb { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; font-family: var(--font-body); font-size: 13px; }
+    .breadcrumb-back { background: none; border: none; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; padding: 0; line-height: 1; }
+    .breadcrumb-back:hover { color: var(--primary); }
+    .breadcrumb-link { background: none; border: none; cursor: pointer; color: var(--text-muted); font-family: var(--font-body); font-size: 13px; font-weight: 500; padding: 0; }
+    .breadcrumb-link:hover { color: var(--primary); }
+    .breadcrumb-sep { color: var(--text-faint); font-size: 13px; user-select: none; }
+    .breadcrumb-current { font-weight: 600; color: var(--text-body); }
+
+    .program-card {
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .add-program-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+    }
+    .add-program-btn:hover { text-decoration: underline; }
+
+    .toolbar { display: flex; gap: 8px; align-items: center; }
+
+    .lib-search, .lib-aspect-filter {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-strong);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 8px 14px;
+      background: white;
+      outline: none;
+    }
+    .lib-search { width: 240px; }
+    .lib-search:focus, .lib-aspect-filter:focus { border-color: var(--primary); }
+    .lib-aspect-filter { max-width: 240px; cursor: pointer; }
+
+    .lib-table { width: 100%; border-collapse: collapse; font-family: var(--font-body); }
+
+    .lib-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .lib-table td {
+      padding: 12px 8px;
+      font-size: 12px;
+      color: var(--text-body);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .lib-table tbody tr:hover td { background: var(--surface-sunken); }
+
+    .lib-col-aspect { width: 200px; }
+    .lib-col-actions { width: 90px; text-align: right; }
+
+    .asp-chip {
+      background: var(--primary-1);
+      color: var(--primary);
+      padding: 2px 10px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .lib-prog-name { font-weight: 600; color: var(--text-strong); }
+    .lib-prog-kind { font-size: 11px; color: var(--text-faint); margin-top: 2px; }
+
+    .lib-kb-list { margin: 0; padding-left: 16px; color: var(--text-body); }
+    .lib-kb-list li { margin-bottom: 2px; }
+    .lib-kb-list li.hidden-kb { display: none; }
+    tr.open .lib-kb-list li.hidden-kb { display: list-item; }
+
+    .lib-kb-toggle {
+      background: none; border: none; padding: 2px 0 0;
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      color: var(--primary); cursor: pointer;
+    }
+    .lib-kb-toggle:hover { text-decoration: underline; }
+
+    .lib-level { display: inline-block; font-size: 10px; font-weight: 600; color: var(--text-faint); margin-right: 4px; }
+
+    .row-action {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: var(--radius-sm);
+      color: var(--text-faint);
+      line-height: 1;
+    }
+    .row-action:hover { background: var(--surface-sunken); color: var(--primary); }
+    .row-action.danger:hover { color: var(--danger, #c0392b); }
+
+    .lib-empty { padding: 32px 8px; text-align: center; font-size: 12px; color: var(--text-faint); }
+
+    .lib-count { font-family: var(--font-body); font-size: 12px; color: var(--text-faint); }
+
+    .reset-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-body); font-size: 12px; color: var(--text-faint);
+      padding: 0; text-decoration: underline;
+    }
+    .reset-btn:hover { color: var(--primary); }
+
+    .card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; padding-top: 12px; margin-top: 4px; border-top: 1px solid var(--border);
+    }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.5); z-index: 2000;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 20px;
+      width: 440px;
+      max-width: calc(100vw - 48px);
+    }
+
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .modal-title { font-family: var(--font-title); font-size: 16px; color: var(--text-body); font-weight: 500; }
+    .modal-close { background: none; border: none; cursor: pointer; width: 20px; height: 20px; padding: 0; color: var(--text-body); font-size: 24px; line-height: 1; }
+
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block; font-family: var(--font-body); font-size: 12px;
+      font-weight: 600; color: var(--text-body); margin-bottom: 6px;
+    }
+    .field .required { color: var(--danger, #c0392b); }
+    .field input, .field select {
+      width: 100%;
+      font-family: var(--font-body); font-size: 13px; color: var(--text-strong);
+      border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 9px 12px; background: white; outline: none;
+    }
+    .field input:focus, .field select:focus { border-color: var(--primary); }
+
+    .field-hint { font-size: 11px; color: var(--text-faint); margin-top: 5px; line-height: 1.4; }
+    .field-error { font-size: 11px; color: var(--danger, #c0392b); margin-top: 5px; display: none; }
+    .field-error.show { display: block; }
+
+    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+
+    .btn-modal-cancel {
+      padding: 8px 20px; border-radius: var(--radius-pill);
+      border: 1.5px solid var(--border); background: white;
+      font-family: var(--font-body); font-size: 13px; font-weight: 600;
+      color: var(--text-body); cursor: pointer;
+    }
+    .btn-modal-cancel:hover { border-color: var(--primary); }
+
+    .btn-modal-submit {
+      padding: 8px 24px; border-radius: var(--radius-pill); border: none;
+      background: var(--primary); font-family: var(--font-body);
+      font-size: 13px; font-weight: 600; color: white; cursor: pointer;
+    }
+    .btn-modal-submit:hover { opacity: 0.9; }
+    .btn-modal-submit.danger { background: var(--danger, #c0392b); }
+
+    .confirm-text { font-family: var(--font-body); font-size: 13px; color: var(--text-body); line-height: 1.5; }
+    .confirm-text strong { color: var(--text-strong); }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="breadcrumb">
+      <button class="breadcrumb-back" onclick="goBack()" title="Back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="breadcrumb-link" onclick="goBack()">Create IDP</button>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Program Library</span>
+    </nav>
+
+    <div class="program-card">
+      <div class="table-header">
+        <button class="add-program-btn" onclick="openProgramForm()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          Add Program
+        </button>
+        <div class="toolbar">
+          <input type="text" class="lib-search" id="libSearch" placeholder="Search program...">
+          <select class="lib-aspect-filter" id="libAspectFilter">
+            <option value="">All aspects</option>
+          </select>
+        </div>
+      </div>
+
+      <table class="lib-table">
+        <thead>
+          <tr>
+            <th>Program</th>
+            <th class="lib-col-aspect">Aspect</th>
+            <th>Key Behaviour</th>
+            <th class="lib-col-actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="libTableBody"></tbody>
+      </table>
+
+      <div class="card-footer">
+        <span class="lib-count" id="libCount"></span>
+        <button class="reset-btn" id="resetBtn" onclick="openResetConfirm()" style="display:none;">
+          Reset to default library
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Program -->
+  <div class="modal-overlay" id="programFormModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="programFormTitle">Add Program</span>
+        <button class="modal-close" onclick="closeProgramForm()">&times;</button>
+      </div>
+
+      <div class="field">
+        <label for="fieldName">Program Name <span class="required">*</span></label>
+        <input type="text" id="fieldName" placeholder="e.g. Pelatihan Negosiasi Lanjutan">
+        <div class="field-error" id="errorName">Program name is required</div>
+      </div>
+
+      <div class="field">
+        <label for="fieldKind">Type</label>
+        <select id="fieldKind"></select>
+      </div>
+
+      <div class="field">
+        <label for="fieldAspect">Aspect <span class="required">*</span></label>
+        <select id="fieldAspect"></select>
+        <div class="field-hint">Key Behaviour follows the selected aspect &mdash; it comes from the aspect catalog in Admin Settings and is not edited here.</div>
+        <div class="field-error" id="errorAspect">Aspect is required</div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-modal-cancel" onclick="closeProgramForm()">Cancel</button>
+        <button class="btn-modal-submit" id="programFormSubmit" onclick="submitProgramForm()">Add Program</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete confirmation -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal" style="width: 400px;">
+      <div class="modal-header">
+        <span class="modal-title" id="confirmTitle">Delete Program</span>
+        <button class="modal-close" onclick="closeConfirm()">&times;</button>
+      </div>
+      <p class="confirm-text" id="confirmText"></p>
+      <div class="modal-actions">
+        <button class="btn-modal-cancel" onclick="closeConfirm()">Cancel</button>
+        <button class="btn-modal-submit danger" id="confirmSubmit">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var LIB_KB_PREVIEW = 2;
+    var _lib = null;
+    var _editingId = null;
+
+    function esc(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    /** Kembali ke halaman Create IDP yang mengirim user ke sini. */
+    window.goBack = function () {
+      var from = new URLSearchParams(location.search).get('from');
+      // Hanya nama berkas yang diterima — parameter URL tidak boleh jadi
+      // jalan untuk mengarahkan user ke alamat lain.
+      var target = /^[a-z0-9-]+\.html$/i.test(from || '') ? from : 'create-idp-admin.html';
+      location.href = target;
+    };
+
+    // ── Tabel ────────────────────────────────────────────────────────────
+    function renderTable() {
+      var body = document.getElementById('libTableBody');
+      var q = (document.getElementById('libSearch').value || '').toLowerCase();
+      var aspect = document.getElementById('libAspectFilter').value || '';
+
+      var rows = _lib.programs.filter(function (p) {
+        if (aspect && p.aspect !== aspect) return false;
+        if (!q) return true;
+        return p.name.toLowerCase().indexOf(q) !== -1 || p.aspect.toLowerCase().indexOf(q) !== -1;
+      });
+
+      document.getElementById('libCount').textContent =
+        rows.length + ' of ' + _lib.programs.length + ' program' + (_lib.programs.length === 1 ? '' : 's');
+      document.getElementById('resetBtn').style.display =
+        AspectLibrary.isCustomized() ? '' : 'none';
+
+      if (!rows.length) {
+        body.innerHTML = '<tr><td colspan="4" class="lib-empty">No matching program</td></tr>';
+        return;
+      }
+
+      body.innerHTML = rows.map(function (p) {
+        var kb = p.keyBehaviours || [];
+        var items = kb.map(function (k, i) {
+          return '<li class="' + (i < LIB_KB_PREVIEW ? '' : 'hidden-kb') + '">' +
+            '<span class="lib-level">L' + k.level + '</span>' + esc(k.label) + '</li>';
+        }).join('');
+        var more = kb.length > LIB_KB_PREVIEW
+          ? '<button type="button" class="lib-kb-toggle" onclick="toggleKb(event, this)">See all (' + kb.length + ')</button>'
+          : '';
+        return '<tr data-id="' + p.id + '">' +
+          '<td><div class="lib-prog-name">' + esc(p.name) + '</div>' +
+            '<div class="lib-prog-kind">' + esc(p.kind) + '</div></td>' +
+          '<td class="lib-col-aspect"><span class="asp-chip">' + esc(p.aspect) + '</span></td>' +
+          '<td>' + (kb.length ? '<ul class="lib-kb-list">' + items + '</ul>' + more : '&mdash;') + '</td>' +
+          '<td class="lib-col-actions">' +
+            '<button class="row-action" title="Edit" onclick="openProgramForm(\'' + p.id + '\')">' +
+              '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>' +
+            '</button>' +
+            '<button class="row-action danger" title="Delete" onclick="openDeleteConfirm(\'' + p.id + '\')">' +
+              '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>' +
+            '</button>' +
+          '</td>' +
+          '</tr>';
+      }).join('');
+    }
+
+    window.toggleKb = function (ev, btn) {
+      ev.stopPropagation();
+      var row = btn.closest('tr');
+      var open = row.classList.toggle('open');
+      var total = row.querySelectorAll('.lib-kb-list li').length;
+      btn.textContent = open ? 'Hide' : 'See all (' + total + ')';
+    };
+
+    // ── Form tambah / ubah ───────────────────────────────────────────────
+    window.openProgramForm = function (id) {
+      _editingId = id || null;
+      var p = id ? _lib.programs.find(function (x) { return x.id === id; }) : null;
+
+      document.getElementById('programFormTitle').textContent = p ? 'Edit Program' : 'Add Program';
+      document.getElementById('programFormSubmit').textContent = p ? 'Save Changes' : 'Add Program';
+      document.getElementById('fieldName').value = p ? p.name : '';
+      document.getElementById('fieldKind').value = p ? p.kind : _lib.kinds[0];
+      document.getElementById('fieldAspect').value = p ? p.aspect : '';
+      clearErrors();
+      document.getElementById('programFormModal').classList.add('active');
+      setTimeout(function () { document.getElementById('fieldName').focus(); }, 30);
+    };
+
+    window.closeProgramForm = function () {
+      document.getElementById('programFormModal').classList.remove('active');
+      _editingId = null;
+    };
+
+    function clearErrors() {
+      document.getElementById('errorName').classList.remove('show');
+      document.getElementById('errorAspect').classList.remove('show');
+    }
+
+    window.submitProgramForm = function () {
+      var name = document.getElementById('fieldName').value.trim();
+      var kind = document.getElementById('fieldKind').value;
+      var aspect = document.getElementById('fieldAspect').value;
+
+      clearErrors();
+      var ok = true;
+      if (!name) { document.getElementById('errorName').classList.add('show'); ok = false; }
+      if (!aspect) { document.getElementById('errorAspect').classList.add('show'); ok = false; }
+      if (!ok) return;
+
+      if (_editingId) AspectLibrary.updateProgram(_editingId, { name: name, kind: kind, aspect: aspect });
+      else AspectLibrary.addProgram({ name: name, kind: kind, aspect: aspect });
+
+      closeProgramForm();
+      renderTable();
+    };
+
+    // ── Konfirmasi hapus / reset ─────────────────────────────────────────
+    window.openDeleteConfirm = function (id) {
+      var p = _lib.programs.find(function (x) { return x.id === id; });
+      if (!p) return;
+      document.getElementById('confirmTitle').textContent = 'Delete Program';
+      document.getElementById('confirmText').innerHTML =
+        'Delete <strong>' + esc(p.name) + '</strong> from the library? Programs already added to an IDP are not affected.';
+      var btn = document.getElementById('confirmSubmit');
+      btn.textContent = 'Delete';
+      btn.onclick = function () {
+        AspectLibrary.deleteProgram(id);
+        closeConfirm();
+        renderTable();
+      };
+      document.getElementById('confirmModal').classList.add('active');
+    };
+
+    window.openResetConfirm = function () {
+      document.getElementById('confirmTitle').textContent = 'Reset Library';
+      document.getElementById('confirmText').innerHTML =
+        'Discard every change and go back to the default library? This removes programs you added and restores the ones you deleted.';
+      var btn = document.getElementById('confirmSubmit');
+      btn.textContent = 'Reset';
+      btn.onclick = function () {
+        AspectLibrary.resetPrograms();
+        closeConfirm();
+        renderTable();
+      };
+      document.getElementById('confirmModal').classList.add('active');
+    };
+
+    window.closeConfirm = function () {
+      document.getElementById('confirmModal').classList.remove('active');
+    };
+
+    // ── Muat ─────────────────────────────────────────────────────────────
+    AspectLibrary.ready().then(function (lib) {
+      _lib = lib;
+
+      var filter = document.getElementById('libAspectFilter');
+      var optionsHtml = lib.aspects.map(function (a) {
+        return '<option value="' + esc(a.name) + '">' + esc(a.name) + '</option>';
+      }).join('');
+      filter.innerHTML = '<option value="">All aspects</option>' + optionsHtml;
+      document.getElementById('fieldAspect').innerHTML =
+        '<option value="">Choose aspect</option>' + optionsHtml;
+      document.getElementById('fieldKind').innerHTML = lib.kinds.map(function (k) {
+        return '<option value="' + esc(k) + '">' + esc(k) + '</option>';
+      }).join('');
+
+      document.getElementById('libSearch').addEventListener('input', renderTable);
+      filter.addEventListener('change', renderTable);
+
+      // Aspek yang sedang disaring di Create IDP ikut terbawa ke sini.
+      var preset = new URLSearchParams(location.search).get('aspect');
+      if (preset && lib.aspects.some(function (a) { return a.name === preset; })) filter.value = preset;
+
+      renderTable();
+    }).catch(function (e) {
+      console.error('aspect library', e);
+      document.getElementById('libTableBody').innerHTML =
+        '<tr><td colspan="4" class="lib-empty">Failed to load aspect catalog</td></tr>';
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      closeProgramForm();
+      closeConfirm();
+    });
+  })();
+  </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /**
- * Katalog aspek + Key Behaviour untuk halaman IDP statis.
+ * Katalog aspek + Key Behaviour dan daftar program untuk halaman IDP statis.
  *
  * Halaman idp-app bukan bagian dari app React, jadi ia tidak bisa mengimpor
  * src/data/model/aspects.generated.ts. Sumber yang sama dibaca langsung dari
@@ -7,10 +7,17 @@
  * selalu ikut berubah saat katalog di Admin Settings diperbarui, tanpa perlu
  * menyalin daftarnya ke dalam HTML.
  *
+ * Daftar programnya sendiri bisa disunting user lewat halaman Program Library.
+ * Tidak ada backend di sini, jadi hasil suntingannya disimpan di localStorage;
+ * selama belum pernah disunting, yang dipakai adalah daftar bawaan yang
+ * diturunkan dari katalog aspek.
+ *
  * Pakai: AspectLibrary.ready().then(function(lib){ lib.aspects; lib.programs; })
  */
 (function () {
   'use strict';
+
+  var STORAGE_KEY = 'idp-program-library-v1';
 
   /** Pembaca CSV seadanya: cukup untuk tanda kutip dan koma di dalam sel. */
   function parseCSV(text) {
@@ -31,21 +38,63 @@
     return rows.filter(function (r) { return r.length > 1 || (r[0] || '').trim() !== ''; });
   }
 
+  var KINDS = ['Training', 'Coaching', 'Job Assignment'];
+
   /**
-   * Nama program dibuat dari nama aspeknya.
+   * Program bawaan dibuat dari nama aspeknya.
    *
    * Katalog program sungguhan belum ada di data mana pun; yang dibutuhkan
    * halaman ini hanya isi yang masuk akal untuk dipilih, dan menautkannya ke
    * aspek membuat kolom Aspect terisi benar tanpa daftar terpisah yang harus
    * ikut dirawat.
    */
-  var PROGRAM_TEMPLATES = [
-    { prefix: 'Pelatihan ', kind: 'Training' },
-    { prefix: 'Coaching ', kind: 'Coaching' },
-    { prefix: 'Penugasan ', kind: 'Job Assignment' }
-  ];
+  var PREFIX = { 'Training': 'Pelatihan ', 'Coaching': 'Coaching ', 'Job Assignment': 'Penugasan ' };
+
+  function defaultPrograms(aspects) {
+    var out = [];
+    aspects.forEach(function (a) {
+      KINDS.forEach(function (kind, ki) {
+        // Satu jenis per aspek selalu ada; dua lainnya berselang supaya
+        // daftarnya tidak seragam kaku.
+        if (ki !== 0 && (a.name.length + ki) % 2 !== 0) return;
+        out.push({ id: 'p' + out.length, name: PREFIX[kind] + a.name, kind: kind, aspect: a.name });
+      });
+    });
+    return out;
+  }
+
+  function readStore() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      var parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : null;
+    } catch (e) { return null; }
+  }
+
+  function writeStore(programs) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(programs.map(function (p) {
+        // KB tidak ikut disimpan: ia milik katalog aspek, bukan milik program.
+        // Menyimpannya berarti daftar tersimpan jadi basi tiap katalog berubah.
+        return { id: p.id, name: p.name, kind: p.kind, aspect: p.aspect };
+      })));
+    } catch (e) { console.error('simpan program library', e); }
+  }
 
   var _promise = null;
+  var _state = null;
+
+  /** KB ditempelkan saat dibaca supaya selalu ikut katalog terbaru. */
+  function withKB(program) {
+    program.keyBehaviours = _state.kbByAspect[program.aspect] || [];
+    return program;
+  }
+
+  function refresh() {
+    _state.programs.forEach(withKB);
+    return _state;
+  }
 
   function load() {
     return Promise.all([
@@ -78,32 +127,70 @@
         };
       }).filter(function (a) { return a.name; });
 
-      var programs = [];
-      aspects.forEach(function (a) {
-        PROGRAM_TEMPLATES.forEach(function (t, ti) {
-          programs.push({
-            id: 'p' + programs.length,
-            name: t.prefix + a.name,
-            kind: t.kind,
-            aspect: a.name,
-            category: a.category,
-            keyBehaviours: a.keyBehaviours,
-            // Satu template per aspek saja yang selalu ada; dua lainnya
-            // dibuat berselang supaya daftarnya tidak seragam kaku.
-            _keep: ti === 0 || (a.name.length + ti) % 2 === 0
-          });
-        });
-      });
-      programs = programs.filter(function (p) { return p._keep; });
-
-      return { aspects: aspects, programs: programs, kbByAspect: kbByAspect };
+      _state = {
+        aspects: aspects,
+        kbByAspect: kbByAspect,
+        programs: readStore() || defaultPrograms(aspects),
+        kinds: KINDS
+      };
+      return refresh();
     });
+  }
+
+  function nextId(programs) {
+    var max = 0;
+    programs.forEach(function (p) {
+      var n = parseInt(String(p.id).replace(/^p/, ''), 10);
+      if (!isNaN(n) && n > max) max = n;
+    });
+    return 'p' + (max + 1);
   }
 
   window.AspectLibrary = {
     ready: function () {
       if (!_promise) _promise = load();
       return _promise;
-    }
+    },
+
+    addProgram: function (data) {
+      var p = {
+        id: nextId(_state.programs),
+        name: (data.name || '').trim(),
+        kind: data.kind || KINDS[0],
+        aspect: data.aspect || ''
+      };
+      _state.programs.push(withKB(p));
+      writeStore(_state.programs);
+      return p;
+    },
+
+    updateProgram: function (id, data) {
+      var p = _state.programs.find(function (x) { return x.id === id; });
+      if (!p) return null;
+      p.name = (data.name || '').trim();
+      p.kind = data.kind || p.kind;
+      p.aspect = data.aspect || p.aspect;
+      withKB(p);
+      writeStore(_state.programs);
+      return p;
+    },
+
+    deleteProgram: function (id) {
+      var i = _state.programs.findIndex(function (x) { return x.id === id; });
+      if (i === -1) return false;
+      _state.programs.splice(i, 1);
+      writeStore(_state.programs);
+      return true;
+    },
+
+    /** Kembali ke daftar bawaan — membuang seluruh suntingan user. */
+    resetPrograms: function () {
+      _state.programs = defaultPrograms(_state.aspects);
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      return refresh().programs;
+    },
+
+    /** True kalau daftarnya pernah disunting user. */
+    isCustomized: function () { return readStore() !== null; }
   };
 })();
