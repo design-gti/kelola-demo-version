@@ -2135,6 +2135,9 @@
       modal.classList.add('active');
       _libSelectedId = null;
       document.getElementById('libSelectedNote').textContent = 'No program selected';
+      // Baris review bisa punya lebih dari satu aspek; yang pertama dipakai.
+      var aspCell = currentLibraryRow && currentLibraryRow.querySelector('td.col-aspect');
+      _libPresetAspect = aspCell ? (aspCell.dataset.aspValue || '').split(',')[0].trim() : '';
       initProgramLibrary();
     }
 
@@ -2156,6 +2159,7 @@
     var _libPrograms = [];
     var _libSelectedId = null;
     var _libWired = false;
+    var _libPresetAspect = '';
 
     /** Jumlah KB yang langsung terlihat; sisanya di balik tombol "See all". */
     var LIB_KB_PREVIEW = 2;
@@ -2239,8 +2243,22 @@
       closeProgramLibraryModal();
     }
 
+    /**
+     * Kalau kolom Aspect baris itu sudah terisi, library dibuka langsung
+     * tersaring ke aspek tersebut — program yang relevan yang muncul lebih
+     * dulu, bukan seluruh katalog.
+     */
+    function applyLibAspectPreset() {
+      var sel = document.getElementById("libAspectFilter");
+      if (!sel) return;
+      var cocok = Array.prototype.some.call(sel.options, function (o) { return o.value === _libPresetAspect; });
+      sel.value = cocok ? _libPresetAspect : "";
+      var cari = document.getElementById("libSearch");
+      if (cari) cari.value = "";
+    }
+
     function initProgramLibrary() {
-      if (_libWired) return renderLibTable();
+      if (_libWired) { applyLibAspectPreset(); return renderLibTable(); }
       AspectLibrary.ready().then(function (lib) {
         _libPrograms = lib.programs;
         var sel = document.getElementById('libAspectFilter');
@@ -2250,6 +2268,7 @@
         document.getElementById('libSearch').addEventListener('input', renderLibTable);
         sel.addEventListener('change', renderLibTable);
         _libWired = true;
+        applyLibAspectPreset();
         renderLibTable();
       }).catch(function (e) {
         console.error('aspect library', e);
