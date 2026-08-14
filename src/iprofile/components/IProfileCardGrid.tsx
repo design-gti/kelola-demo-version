@@ -9,7 +9,8 @@ import { useCardDrag } from "@/hooks/useCardDrag";
 import { useIProfileConfig, type IProfileCardConfig } from "@/hooks/useIProfileConfig";
 import {
   ProfileCard,
-  CareerSuccessionCard,
+  CareerPlanCard,
+  SuccessionPlanCard,
   TeamsCard,
   ExtensionDataCard,
   DevelopmentCard,
@@ -52,7 +53,8 @@ export function IProfileCardGrid({
       case "profile":           return <ProfileCard />;
       case "competency-scores": return <CompetencyScoresCard Frame79={Frame79} Frame153={Frame153} Frame116={Frame116} />;
       case "potency-scores":    return <PotencyScoresCard Frame79={Frame79} items={scoreAspects.potency} />;
-      case "career-succession": return <CareerSuccessionCard />;
+      case "career-plan":       return <CareerPlanCard />;
+      case "succession-plan":  return <SuccessionPlanCard />;
       case "teams":             return <TeamsCard />;
       case "extension-data":    return <ExtensionDataCard />;
       case "development":       return <DevelopmentCard />;

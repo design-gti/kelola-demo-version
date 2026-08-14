@@ -25,7 +25,8 @@ const DEFAULT_CARDS: IProfileCardConfig[] = [
   { id: "profile",           label: "Profile",                 description: "Foto, jabatan, DISC, IQ, dan competency match",        enabled: true, col: 0, locked: true },
   { id: "competency-scores", label: "Competency Scores",       description: "Skor aspek kompetensi terhadap standar Job",           enabled: true, col: 0 },
   { id: "potency-scores",    label: "Potency Scores",          description: "Skor aspek potensi terhadap standar Job",              enabled: true, col: 0 },
-  { id: "career-succession", label: "Career & Succession Plan", description: "Rencana karier dan calon penerus jabatan",            enabled: true, col: 1 },
+  { id: "career-plan",       label: "Career Plan",             description: "Rencana karier karyawan ini",                          enabled: true, col: 1 },
+  { id: "succession-plan",   label: "Succession Plan",         description: "Calon penerus jabatan karyawan ini",                   enabled: true, col: 1 },
   { id: "teams",             label: "Teams",                   description: "Tim tempat karyawan ini tergabung",                    enabled: true, col: 1 },
   { id: "extension-data",    label: "Extension Data",          description: "Performa, engagement, potensi, dan medical checkup",   enabled: true, col: 1 },
   { id: "development",       label: "Development",             description: "Riwayat IDP beserta status dan periodenya",            enabled: true, col: 2 },
@@ -34,9 +35,22 @@ const DEFAULT_CARDS: IProfileCardConfig[] = [
 
 const STORAGE_KEY = "iprofile-card-config-v1";
 
+/**
+ * Kartu yang pernah dipecah jadi beberapa kartu. Tanpa ini simpanan lama
+ * kehilangan id-nya, dan kartu penggantinya menclok di dasar kolom alih-alih
+ * di tempat kartu asalnya.
+ */
+const SPLIT_CARDS: Record<string, string[]> = {
+  "career-succession": ["career-plan", "succession-plan"],
+};
+
 /** Gabungkan simpanan lama dengan bawaan, supaya kartu baru tetap muncul. */
 function mergeWithDefaults(stored: Partial<IProfileCardConfig>[]): IProfileCardConfig[] {
   const result = stored
+    .flatMap((s) => {
+      const heirs = s.id ? SPLIT_CARDS[s.id] : undefined;
+      return heirs ? heirs.map((id) => ({ ...s, id })) : [s];
+    })
     .map((s) => {
       const def = DEFAULT_CARDS.find((d) => d.id === s.id);
       if (!def) return null;

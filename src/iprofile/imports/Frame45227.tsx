@@ -287,11 +287,11 @@ export function ProfileCard() {
   );
 }
 
-function Frame84() {
+function Frame84({ title }: { title: string }) {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">{`Career & Succession Plan`}</p>
+        <p className="leading-[normal]">{title}</p>
       </div>
     </div>
   );
@@ -313,10 +313,10 @@ function Frame77() {
   );
 }
 
-function Frame80() {
+function Frame80({ title }: { title: string }) {
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-[336.333px]">
-      <Frame84 />
+      <Frame84 title={title} />
       <Frame77 />
     </div>
   );
@@ -404,10 +404,26 @@ function Frame49() {
   );
 }
 
-function Frame47() {
+/**
+ * Isi kartu Career Plan: rencana karier di atas, pil nama orangnya di bawah.
+ *
+ * Pil nama muncul di kedua kartu, bukan hanya di salah satunya. Ia titik tambat
+ * garis penghubung — tanpa dia garisnya berakhir di udara — dan sekaligus yang
+ * membuat daftarnya punya arti: ini rencana karier *milik siapa*.
+ */
+function Frame47Career() {
   return (
     <div className="content-stretch flex flex-col gap-[20px] items-start relative shrink-0 w-full">
       <Frame46 />
+      <Frame145 />
+    </div>
+  );
+}
+
+/** Isi kartu Succession Plan: pil nama di atas, calon penerusnya di bawah. */
+function Frame47Succession() {
+  return (
+    <div className="content-stretch flex flex-col gap-[20px] items-start relative shrink-0 w-full">
       <Frame145 />
       <Frame49 />
     </div>
@@ -806,11 +822,31 @@ function Frame94() {
   );
 }
 
-export function CareerSuccessionCard() {
+/**
+ * Rencana karier orang ini. Dulu satu kartu bersama Succession Plan; dipisah
+ * karena keduanya menjawab pertanyaan berbeda — ke mana orang ini bisa naik,
+ * versus siapa yang bisa menggantikannya.
+ *
+ * `pl-[36px]` menyisakan selokan kiri untuk garis penghubung, dan
+ * `DynamicConnectors` harus tetap anak langsung kartu: ia mengukur lewat
+ * parentElement, bukan lewat ref atau context.
+ */
+export function CareerPlanCard() {
   return (
-  <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto pl-[36px] pr-[16px] py-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Career & Succession plan">
-    <Frame80 />
-    <Frame47 />
+  <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto pl-[36px] pr-[16px] py-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Career plan">
+    <Frame80 title="Career Plan" />
+    <Frame47Career />
+    <DynamicConnectors />
+  </div>
+  );
+}
+
+/** Calon penerus jabatan orang ini, beserta jalan ke perbandingannya. */
+export function SuccessionPlanCard() {
+  return (
+  <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto pl-[36px] pr-[16px] py-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Succession plan">
+    <Frame80 title="Succession Plan" />
+    <Frame47Succession />
     <div className="relative rounded-[28px] shrink-0 w-full cursor-pointer hover:bg-[#f0f9ff] transition-colors" data-name="button"
       onClick={() => { window.location.href = '/tdp-view?tab=compare&from=iprofile'; }}>
       <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />
