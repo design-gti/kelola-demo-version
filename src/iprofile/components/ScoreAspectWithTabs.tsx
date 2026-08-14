@@ -17,10 +17,8 @@ export type AspectItem = { label: string; category: string; score: number; stand
 
 interface ScoreAspectProps {
   /** Header kartu; judulnya dioper karena dipakai dua kartu dengan nama berbeda. */
-  Frame79: React.ComponentType<{ title: string }>;
-  /** Baris toolbar tab Competency. `leftSlot` diisi toggle list/chart dari sini,
-   *  Keduanya statis hasil import Figma, jadi bagian yang perlu state (toggle
-   *  tampilan) dititipkan lewat slot dari sini. */
+  Frame79: React.ComponentType<{ title: string; rightSlot?: React.ReactNode }>;
+  /** Tombol Score Records, dipasang di sudut kanan atas kepala kartu. */
   Frame153: React.ComponentType;
   /** Baris dropdown standar jabatan; `rightSlot` diisi toggle list/spider,
    *  `showLegend` dimatikan di view chart (chart punya legend sendiri). */
@@ -111,7 +109,7 @@ export function CompetencyScoresCard({ Frame79, Frame153, Frame116 }: Omit<Score
 
   return (
     <ScoreCard>
-      <Frame79 title="Competency Scores" />
+      <Frame79 title="Competency Scores" rightSlot={<Frame153 />} />
       <Frame116
         rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
         showLegend={viewMode === 'list'}
@@ -124,8 +122,6 @@ export function CompetencyScoresCard({ Frame79, Frame153, Frame116 }: Omit<Score
       ) : (
         <CompetencyContent items={items} />
       )}
-      {/* Aksi kartu ditaruh paling bawah, di luar rangkaian kontrol. */}
-      <Frame153 />
     </ScoreCard>
   );
 }

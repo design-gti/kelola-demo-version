@@ -207,48 +207,34 @@ function Frame83({ title }: { title: string }) {
   );
 }
 
-function Frame76() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-center justify-end relative shrink-0 w-[70.083px]">
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="dots-vertical">
-        <div className="absolute inset-[16.67%_45.83%]" data-name="Vector">
-          <div className="absolute inset-[-7.03%_-56.25%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2.83333 12.1667">
-              <g id="Vector">
-                <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-              </g>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function Frame79({ title }: { title: string }) {
+/**
+ * Kepala kartu skor. `rightSlot` menempati sudut kanan atas — dulu diisi menu
+ * titik tiga yang tidak pernah membuka apa pun, sekarang tempat aksi kartunya.
+ */
+export function Frame79({ title, rightSlot }: { title: string; rightSlot?: React.ReactNode }) {
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-[336.333px]">
       <Frame83 title={title} />
-      <Frame76 />
+      {rightSlot}
     </div>
   );
 }
 
-// Toggle list/spider-chart pindah ke baris dropdown standar jabatan (Frame116),
-// jadi baris ini tinggal tombol Score Records saja, rata kanan.
-// Aksi kartu (bukan filter) — ditaruh sebagai footer, dipisah garis dari isi.
-// Sebelumnya berdiri di antara kontrol dan ikut terbaca sebagai filter, padahal
-// semua kontrol lain mengubah tampilan sementara tombol ini membuka data lain.
+/**
+ * Score Records — aksi kartu, bukan penyaring: ia membuka data lain, bukan
+ * mengubah tampilan yang sedang dilihat. Bergaya text button supaya tidak
+ * bersaing perhatian dengan isi kartu, dan duduk di kepala kartu bersama
+ * judulnya.
+ */
 export function Frame153() {
   return (
-    <div className="content-stretch flex items-center justify-end relative shrink-0 w-full pt-[12px] mt-[4px] border-t border-[#e9ecef]">
-      <div className="content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[4px] relative rounded-[28px] shrink-0 w-[135px] cursor-pointer" data-name="button">
-        <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />
-        <p className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#016699] text-[14px]">Score Records</p>
-      </div>
-    </div>
+    <button
+      type="button"
+      className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic shrink-0 text-[#016699] text-[14px] cursor-pointer bg-transparent border-none p-0 hover:underline"
+      data-name="button"
+    >
+      Score Records
+    </button>
   );
 }
 
