@@ -925,11 +925,14 @@
     
     /* ═══════════════ PROGRAM LIBRARY MODAL ═══════════════ */
     .library-modal {
-      width: 421px;
-      max-height: 500px;
-      overflow-y: auto;
+      width: 720px;
+      max-width: calc(100vw - 48px);
+      max-height: 560px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
-    
+
     .library-header {
       display: flex;
       justify-content: space-between;
@@ -969,68 +972,151 @@
       stroke-width: 2;
     }
     
-    .chips-row {
+    .lib-toolbar {
       display: flex;
       gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-      padding-bottom: 16px;
+      align-items: center;
+      padding-bottom: 12px;
+      margin-bottom: 4px;
       border-bottom: 1px solid var(--border);
     }
-    
-    .filter-chip {
-      padding: 6px 12px;
-      border-radius: var(--radius-pill);
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      cursor: pointer;
-      border: none;
-      transition: all var(--duration-base);
-    }
-    
-    .filter-chip.active {
-      background: var(--primary);
-      color: white;
-    }
-    
-    .filter-chip.inactive {
-      background: var(--border);
-      color: var(--text-body);
-    }
-    
-    .program-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    
-    .program-item {
-      padding: 12px;
-      background: var(--surface-sunken);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.2s;
-      border: 1px solid transparent;
-    }
-    
-    .program-item:hover {
-      background: var(--primary-1);
-      border-color: var(--primary);
-    }
-    
-    .program-title {
+
+    .lib-search,
+    .lib-aspect-filter {
       font-family: var(--font-body);
       font-size: 12px;
+      color: var(--text-strong);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 8px 14px;
+      background: white;
+      outline: none;
+    }
+
+    .lib-search { flex: 1; }
+    .lib-search:focus,
+    .lib-aspect-filter:focus { border-color: var(--primary); }
+
+    .lib-aspect-filter {
+      max-width: 240px;
+      cursor: pointer;
+    }
+
+    .lib-table-wrap {
+      flex: 1;
+      overflow-y: auto;
+      margin: 0 -4px;
+      padding: 0 4px;
+    }
+
+    .lib-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-body);
+    }
+
+    .lib-table th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: white;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .lib-table td {
+      padding: 10px 8px;
+      font-size: 12px;
+      color: var(--text-body);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .lib-row { cursor: pointer; }
+    .lib-row:hover td { background: var(--primary-1); }
+    .lib-row.sel td { background: var(--primary-1); }
+
+    .lib-col-check { width: 28px; }
+    .lib-col-aspect { width: 190px; }
+
+    .lib-check {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      margin-top: 1px;
+    }
+
+    .lib-prog-name {
       font-weight: 600;
       color: var(--text-strong);
-      margin-bottom: 4px;
     }
-    
-    .program-vendor {
+
+    .lib-prog-kind {
+      font-size: 11px;
+      color: var(--text-faint);
+      margin-top: 2px;
+    }
+
+    /* Tiap aspek punya belasan KB — ditampilkan ringkas supaya barisnya
+       tetap rendah, lalu dibuka penuh saat tombolnya ditekan. */
+    .lib-kb-list {
+      margin: 0;
+      padding-left: 16px;
+      color: var(--text-body);
+    }
+
+    .lib-kb-list li { margin-bottom: 2px; }
+    .lib-kb-list li.hidden-kb { display: none; }
+    .lib-row.open .lib-kb-list li.hidden-kb { display: list-item; }
+
+    .lib-kb-toggle {
+      background: none;
+      border: none;
+      padding: 2px 0 0;
       font-family: var(--font-body);
       font-size: 11px;
+      font-weight: 500;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .lib-kb-toggle:hover { text-decoration: underline; }
+
+    .lib-level {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-faint);
+      margin-right: 4px;
+    }
+
+    .lib-empty {
+      padding: 24px 8px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-faint);
+    }
+
+    .lib-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .lib-selected-note {
+      font-family: var(--font-body);
+      font-size: 12px;
       color: var(--text-faint);
     }
 
@@ -1362,6 +1448,7 @@
     .reject-modal-submit:not(:disabled):hover { opacity: 0.88; }
 
   </style>
+  <script src="aspect-library.js"></script>
 </head>
 <body>
   <!-- Add Column Modal -->
@@ -1417,36 +1504,32 @@
         </div>
       </div>
       
-      <div class="chips-row" style="padding: 16px 0px 8px">
-        <button class="filter-chip active" onclick="filterByCategory(this, 'training')">TRAINING</button>
-        <button class="filter-chip inactive" onclick="filterByCategory(this, 'coaching')">COACHING</button>
-        <button class="filter-chip inactive" onclick="filterByCategory(this, 'job-assignment')">JOB ASSIGNMENT</button>
+      <div class="lib-toolbar">
+        <input type="text" class="lib-search" id="libSearch" placeholder="Search program...">
+        <select class="lib-aspect-filter" id="libAspectFilter">
+          <option value="">All aspects</option>
+        </select>
       </div>
-      
-      <div class="program-list" id="programList">
-        <div class="program-item" data-category="training" data-vendor="Skilltup Academy" data-aspect="PROBLEM SOLVING" onclick="selectProgram(this, 'Root cause analysis training', 'Skilltup Academy', 'PROBLEM SOLVING')">
-          <div class="program-title">Root cause analysis training</div>
-          <div class="program-vendor">Vendor: Skilltup Academy</div>
-        </div>
-        <div class="program-item" data-category="training" data-vendor="Harvard Business Publishing" data-aspect="CRITICAL THINKING" onclick="selectProgram(this, 'Case study workshop', 'Harvard Business Publishing', 'CRITICAL THINKING')">
-          <div class="program-title">Case study workshop</div>
-          <div class="program-vendor">Vendor: Harvard Business Publishing</div>
-        </div>
-        <div class="program-item" data-category="coaching" data-vendor="Internal Coach" data-aspect="LEADERSHIP" onclick="selectProgram(this, 'Leadership coaching', 'Internal Coach', 'LEADERSHIP')">
-          <div class="program-title">Leadership coaching</div>
-          <div class="program-vendor">Vendor: Internal Coach</div>
-        </div>
-        <div class="program-item" data-category="coaching" data-vendor="External Mentor" data-aspect="COMMUNICATION" onclick="selectProgram(this, 'Communication coaching', 'External Mentor', 'COMMUNICATION')">
-          <div class="program-title">Communication coaching</div>
-          <div class="program-vendor">Vendor: External Mentor</div>
-        </div>
-        <div class="program-item" data-category="job-assignment" data-vendor="-" data-aspect="TEAMWORK" onclick="selectProgram(this, 'Lead project team', '-', 'TEAMWORK')">
-          <div class="program-title">Lead project team</div>
-          <div class="program-vendor">Vendor: -</div>
-        </div>
-        <div class="program-item" data-category="job-assignment" data-vendor="-" data-aspect="PROBLEM SOLVING" onclick="selectProgram(this, 'Cross-functional collaboration', '-', 'PROBLEM SOLVING')">
-          <div class="program-title">Cross-functional collaboration</div>
-          <div class="program-vendor">Vendor: -</div>
+
+      <div class="lib-table-wrap">
+        <table class="lib-table">
+          <thead>
+            <tr>
+              <th class="lib-col-check"></th>
+              <th>Program</th>
+              <th class="lib-col-aspect">Aspect</th>
+              <th>Key Behaviour</th>
+            </tr>
+          </thead>
+          <tbody id="libTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="lib-footer">
+        <span class="lib-selected-note" id="libSelectedNote">No program selected</span>
+        <div style="display:flex; gap:8px;">
+          <button class="btn-modal-cancel" onclick="closeProgramLibraryModal()">Cancel</button>
+          <button class="btn-modal-submit" onclick="applyLibrarySelection()">Add to IDP</button>
         </div>
       </div>
     </div>
@@ -1510,7 +1593,7 @@
               <td class="col-participant"><div class="participant-cell" data-participants='["Cody Gakpo","Virgil van Dijk"]' onclick="openParticipantPicker(event,this)" onmouseenter="showPcpTooltip(this)" onmouseleave="hidePcpTooltip()"></div></td>
               <td class="col-vendor"><input type="text" style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;" value="Skilltup Academy"></td>
               <td class="col-category" data-cat-value="TRAINING"></td>
-              <td class="col-aspect" data-asp-value="LEADERSHIP"></td>
+              <td class="col-aspect" data-asp-value="Pengembangan Talenta"></td>
               <td class="col-goals"><textarea class="goal-input" rows="1">Meningkatkan kemampuan memimpin tim</textarea></td>
               <td class="col-start-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-08"></td>
               <td class="col-end-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-15"></td>
@@ -1534,7 +1617,7 @@
               <td class="col-participant"><div class="participant-cell" data-participants='["Jamal Musiala","Kylian Mbappe","Erling Haaland"]' onclick="openParticipantPicker(event,this)" onmouseenter="showPcpTooltip(this)" onmouseleave="hidePcpTooltip()"></div></td>
               <td class="col-vendor"><input type="text" style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;" value="Internal Coach"></td>
               <td class="col-category" data-cat-value="COACHING"></td>
-              <td class="col-aspect" data-asp-value="LEADERSHIP,COMMUNICATION"></td>
+              <td class="col-aspect" data-asp-value="Pengembangan Talenta,Mendengar Aktif"></td>
               <td class="col-goals"><textarea class="goal-input" rows="1">Coaching 1-on-1 bersama mentor</textarea></td>
               <td class="col-start-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-10"></td>
               <td class="col-end-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-18"></td>
@@ -1558,7 +1641,7 @@
               <td class="col-participant"><div class="participant-cell" data-participants='["Julian Alvarez","Declan Rice"]' onclick="openParticipantPicker(event,this)" onmouseenter="showPcpTooltip(this)" onmouseleave="hidePcpTooltip()"></div></td>
               <td class="col-vendor"><input type="text" style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;" value="-"></td>
               <td class="col-category" data-cat-value="JOB ASSIGNMENT"></td>
-              <td class="col-aspect" data-asp-value="TEAMWORK"></td>
+              <td class="col-aspect" data-asp-value="Koordinasi Lintas Fungsi"></td>
               <td class="col-goals"><textarea class="goal-input" rows="1">Memimpin proyek lintas divisi</textarea></td>
               <td class="col-start-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-08"></td>
               <td class="col-end-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-20"></td>
@@ -1582,7 +1665,7 @@
               <td class="col-participant"><div class="participant-cell" data-participants='["Lautaro Martinez","Christian Pulisic","Antoine Griezmann","Virgil van Dijk"]' onclick="openParticipantPicker(event,this)" onmouseenter="showPcpTooltip(this)" onmouseleave="hidePcpTooltip()"></div></td>
               <td class="col-vendor"><input type="text" style="border:none;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-body);width:100%;outline:none;" value="Harvard Business Publishing"></td>
               <td class="col-category" data-cat-value="TRAINING"></td>
-              <td class="col-aspect" data-asp-value="CRITICAL THINKING"></td>
+              <td class="col-aspect" data-asp-value="Analisis Kebutuhan Klien"></td>
               <td class="col-goals"><textarea class="goal-input" rows="1">Analisis kasus pengambilan keputusan</textarea></td>
               <td class="col-start-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-12"></td>
               <td class="col-end-date"><input type="date" style="border: none; background: transparent; font-family: var(--font-body); font-size: 12px; color: var(--text-body); width: 100%; outline: none;" value="2026-06-19"></td>
@@ -1616,11 +1699,6 @@
         </label>
         <select id="aiAspectSelect" class="ai-select-field">
           <option value="">Choose aspect</option>
-          <option value="COMMUNICATION">COMMUNICATION</option>
-          <option value="LEADERSHIP">LEADERSHIP</option>
-          <option value="TEAMWORK">TEAMWORK</option>
-          <option value="PROBLEM_SOLVING">PROBLEM SOLVING</option>
-          <option value="CRITICAL_THINKING">CRITICAL THINKING</option>
         </select>
       </div>
 
@@ -1782,6 +1860,9 @@
     function updateChipOverflow() {
       var container = document.getElementById('employeeChips');
       var overflowBtn = document.getElementById('chipsOverflowBtn');
+      // Kedua elemen ini tidak ada di halaman review; fungsinya tetap dipanggil
+      // saat load, jadi tanpa penjaga ini setiap muat halaman melempar error.
+      if (!container || !overflowBtn) return;
       var chips = Array.from(container.querySelectorAll('.chip'));
 
       chips.forEach(function(c) { c.style.display = ''; });
@@ -2057,48 +2138,7 @@
                 <path d="M6 9l6 6 6-6"/>
               </svg>
             </div>
-            <div class="dropdown-menu" style="display: none;">
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-subtask" value="COMMUNICATION">
-                <label>COMMUNICATION</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-subtask" value="LEADERSHIP">
-                <label>LEADERSHIP</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-subtask" value="TEAMWORK">
-                <label>TEAMWORK</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-subtask" value="PROBLEM SOLVING">
-                <label>PROBLEM SOLVING</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-subtask" value="CRITICAL THINKING">
-                <label>CRITICAL THINKING</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-subtask" value="CREATIVITY">
-                <label>CREATIVITY</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-subtask" value="ANALYTICAL THINKING">
-                <label>ANALYTICAL THINKING</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-subtask" value="TIME MANAGEMENT">
-                <label>TIME MANAGEMENT</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-subtask" value="ADAPTABILITY">
-                <label>ADAPTABILITY</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-subtask" value="CUSTOMER FOCUS">
-                <label>CUSTOMER FOCUS</label>
-              </div>
-            </div>
+            <div class="dropdown-menu" style="display: none;">${aspectOptionsHtml('aspect-subtask')}</div>
           </div>
         </td>
         <td class="col-goals">
@@ -2133,12 +2173,16 @@
       currentLibraryRow = btn.closest('tr');
       const modal = document.getElementById('programLibraryModal');
       modal.classList.add('active');
+      _libSelectedId = null;
+      document.getElementById('libSelectedNote').textContent = 'No program selected';
+      initProgramLibrary();
     }
 
     function closeProgramLibraryModal() {
       const modal = document.getElementById('programLibraryModal');
       modal.classList.remove('active');
       currentLibraryRow = null;
+      _libSelectedId = null;
     }
     
     function openAIGenerateModal() {
@@ -2146,78 +2190,110 @@
       openAIGeneratorModal();
     }
     
-    function filterByCategory(btn, category) {
-      // Update filter chip state
-      document.querySelectorAll('.filter-chip').forEach(chip => {
-        chip.classList.remove('active');
-        chip.classList.add('inactive');
+    // ── Program Library (tabel program + aspek + Key Behaviour) ─────────
+    // Aspek dan KB-nya dibaca dari katalog yang sama dengan Admin Settings,
+    // supaya program yang dipilih di sini memakai aspek yang benar-benar ada.
+    var _libPrograms = [];
+    var _libSelectedId = null;
+    var _libWired = false;
+
+    /** Jumlah KB yang langsung terlihat; sisanya di balik tombol "See all". */
+    var LIB_KB_PREVIEW = 2;
+
+    function libEsc(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function renderLibTable() {
+      var body = document.getElementById('libTableBody');
+      if (!body) return;
+      var q = (document.getElementById('libSearch').value || '').toLowerCase();
+      var aspect = document.getElementById('libAspectFilter').value || '';
+
+      var rows = _libPrograms.filter(function (p) {
+        if (aspect && p.aspect !== aspect) return false;
+        if (!q) return true;
+        return p.name.toLowerCase().indexOf(q) !== -1 || p.aspect.toLowerCase().indexOf(q) !== -1;
       });
-      btn.classList.remove('inactive');
-      btn.classList.add('active');
 
-      // Filter program list
-      const programList = document.getElementById('programList');
-      const programItems = programList.querySelectorAll('.program-item');
+      if (!rows.length) {
+        body.innerHTML = '<tr><td colspan="4" class="lib-empty">No matching program</td></tr>';
+        return;
+      }
 
-      programItems.forEach(item => {
-        const itemCategory = item.getAttribute('data-category');
-        if (itemCategory === category) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
+      body.innerHTML = rows.map(function (p) {
+        var kb = p.keyBehaviours || [];
+        var items = kb.map(function (k, i) {
+          return '<li class="' + (i < LIB_KB_PREVIEW ? '' : 'hidden-kb') + '">' +
+            '<span class="lib-level">L' + k.level + '</span>' + libEsc(k.label) + '</li>';
+        }).join('');
+        var more = kb.length > LIB_KB_PREVIEW
+          ? '<button type="button" class="lib-kb-toggle" onclick="toggleLibKb(event, this)">' +
+            'See all (' + kb.length + ')</button>'
+          : '';
+        return '<tr class="lib-row' + (p.id === _libSelectedId ? ' sel' : '') + '" data-id="' + p.id + '" ' +
+          'onclick="selectLibProgram(\'' + p.id + '\')">' +
+          '<td class="lib-col-check"><input type="checkbox" class="lib-check"' +
+            (p.id === _libSelectedId ? ' checked' : '') + '></td>' +
+          '<td><div class="lib-prog-name">' + libEsc(p.name) + '</div>' +
+            '<div class="lib-prog-kind">' + libEsc(p.kind) + '</div></td>' +
+          '<td class="lib-col-aspect"><span class="asp-chip">' + libEsc(p.aspect) + '</span></td>' +
+          '<td>' + (kb.length ? '<ul class="lib-kb-list">' + items + '</ul>' + more : '—') + '</td>' +
+          '</tr>';
+      }).join('');
+    }
+
+    function toggleLibKb(ev, btn) {
+      ev.stopPropagation();
+      var row = btn.closest('tr');
+      var open = row.classList.toggle('open');
+      var total = row.querySelectorAll('.lib-kb-list li').length;
+      btn.textContent = open ? 'Hide' : 'See all (' + total + ')';
+    }
+
+    /** Hanya satu program yang bisa aktif — satu baris IDP satu program. */
+    function selectLibProgram(id) {
+      _libSelectedId = (_libSelectedId === id) ? null : id;
+      renderLibTable();
+      var picked = _libPrograms.find(function (p) { return p.id === _libSelectedId; });
+      document.getElementById('libSelectedNote').textContent =
+        picked ? 'Selected: ' + picked.name : 'No program selected';
+    }
+
+    function initProgramLibrary() {
+      if (_libWired) return renderLibTable();
+      AspectLibrary.ready().then(function (lib) {
+        _libPrograms = lib.programs;
+        var sel = document.getElementById('libAspectFilter');
+        sel.innerHTML = '<option value="">All aspects</option>' + lib.aspects.map(function (a) {
+          return '<option value="' + libEsc(a.name) + '">' + libEsc(a.name) + '</option>';
+        }).join('');
+        document.getElementById('libSearch').addEventListener('input', renderLibTable);
+        sel.addEventListener('change', renderLibTable);
+        _libWired = true;
+        renderLibTable();
+      }).catch(function (e) {
+        console.error('aspect library', e);
+        document.getElementById('libTableBody').innerHTML =
+          '<tr><td colspan="4" class="lib-empty">Failed to load aspect catalog</td></tr>';
       });
     }
 
-    function selectProgram(item, programName, vendor, aspect) {
+    function applyLibrarySelection() {
+      var picked = _libPrograms.find(function (p) { return p.id === _libSelectedId; });
+      if (!picked) { closeProgramLibraryModal(); return; }
       if (currentLibraryRow) {
-        // Update program name
-        const programInput = currentLibraryRow.querySelector('.program-name');
+        var programInput = currentLibraryRow.querySelector('.program-name');
         if (programInput) {
-          programInput.value = programName;
+          programInput.value = picked.name;
           updateProgramButtons(programInput);
         }
-
-        // Update vendor
-        const vendorCell = currentLibraryRow.querySelector('.col-vendor');
-        if (vendorCell) {
-          vendorCell.textContent = vendor;
-        }
-
-        // Update aspect with chip
-        const aspectCell = currentLibraryRow.querySelector('.col-aspect');
-        if (aspectCell) {
-          const aspectContainer = aspectCell.querySelector('.aspect-chips-container');
-          if (aspectContainer) {
-            aspectContainer.innerHTML = `
-              <span class="aspect-chip" style="border-radius: 10px">${aspect} <button class="aspect-chip-close" onclick="removeAspectChip(event)">×</button></span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            `;
-          }
-        }
-
-        // Update category - determine category from vendor/aspect relationship
-        const category = item.getAttribute('data-category').toUpperCase();
-        const categoryText = category === 'JOB-ASSIGNMENT' ? 'JOB ASSIGNMENT' : category;
-        const categoryCell = currentLibraryRow.querySelector('.col-category');
-        if (categoryCell) {
-          const categoryContainer = categoryCell.querySelector('div[style*="relative"]');
-          if (categoryContainer) {
-            categoryContainer.querySelector('div[style*="display"]').innerHTML = `
-              <span class="category-chip" style="border-radius: 10px">${categoryText}</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            `;
-            // Update hidden radio button
-            const radioInput = categoryContainer.querySelector(`input[value="${categoryText}"]`);
-            if (radioInput) {
-              radioInput.checked = true;
-            }
-          }
-        }
+        // Vendor dan Category sengaja dibiarkan kosong — katalog aspek tidak
+        // memuat keduanya, jadi keduanya tetap diisi manual oleh user.
+        var aspectCell = currentLibraryRow.querySelector('.col-aspect');
+        if (aspectCell && window._aspSet) window._aspSet(aspectCell, picked.aspect);
       }
       window.markDirty && window.markDirty();
       closeProgramLibraryModal();
@@ -2610,48 +2686,7 @@
                 <path d="M6 9l6 6 6-6"/>
               </svg>
             </div>
-            <div class="dropdown-menu" style="display: none;">
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-new" value="COMMUNICATION">
-                <label>COMMUNICATION</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-new" value="LEADERSHIP">
-                <label>LEADERSHIP</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-new" value="TEAMWORK">
-                <label>TEAMWORK</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-new" value="PROBLEM SOLVING">
-                <label>PROBLEM SOLVING</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-new" value="CRITICAL THINKING">
-                <label>CRITICAL THINKING</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-new" value="CREATIVITY">
-                <label>CREATIVITY</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-new" value="ANALYTICAL THINKING">
-                <label>ANALYTICAL THINKING</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-new" value="TIME MANAGEMENT">
-                <label>TIME MANAGEMENT</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-new" value="ADAPTABILITY">
-                <label>ADAPTABILITY</label>
-              </div>
-              <div class="dropdown-option">
-                <input type="checkbox" name="aspect-new" value="CUSTOMER FOCUS">
-                <label>CUSTOMER FOCUS</label>
-              </div>
-            </div>
+            <div class="dropdown-menu" style="display: none;">${aspectOptionsHtml('aspect-new')}</div>
           </div>
         </td>
         <td class="col-goals">
@@ -2865,11 +2900,39 @@
   <script>
   /* ═══ Aspect Picker (multi-select) ═══ */
   (function(){
-    var ASPECT_SECTIONS = [
-      { section: 'Kepemimpinan', items: ['LEADERSHIP','COMMUNICATION','TEAMWORK'] },
-      { section: 'Pengembangan Diri', items: ['PROBLEM SOLVING','CRITICAL THINKING','CREATIVITY','ANALYTICAL THINKING'] },
-      { section: 'Teknis', items: ['TIME MANAGEMENT','ADAPTABILITY','CUSTOMER FOCUS'] }
-    ];
+    // Diisi dari katalog aspek Admin Settings; dikelompokkan per kategori
+    // aspek (General / Technical) supaya daftarnya tetap terbaca.
+    var ASPECT_SECTIONS = [];
+    AspectLibrary.ready().then(function(lib){
+      var byCat = {};
+      lib.aspects.forEach(function(a){ (byCat[a.category] = byCat[a.category] || []).push(a.name); });
+      ASPECT_SECTIONS = Object.keys(byCat).map(function(c){ return { section: c, items: byCat[c] }; });
+      if(document.getElementById('aspList')) renderAspList('');
+      fillAspectCheckboxes(lib.aspects);
+    }).catch(function(e){ console.error('aspect library', e); });
+
+    function fillAspectCheckboxes(aspects){
+      var aiSel = document.getElementById('aiAspectSelect');
+      if(aiSel) aiSel.innerHTML = '<option value="">Choose aspect</option>' + aspects.map(function(a){
+        var v = esc(a.name);
+        return '<option value="'+v+'">'+v+'</option>';
+      }).join('');
+    }
+
+    /**
+     * Baris subtask dan program baru dirakit sebagai string HTML, dan aspeknya
+     * dipilih lewat daftar checkbox — bukan lewat asp-picker seperti baris
+     * utama. Daftarnya dibangun di sini supaya ketiga tempat pemilihan aspek
+     * menawarkan pilihan yang sama.
+     */
+    window.aspectOptionsHtml = function(fieldName){
+      var names = ASPECT_SECTIONS.reduce(function(all, sec){ return all.concat(sec.items); }, []);
+      return names.map(function(n){
+        var v = esc(n);
+        return '<div class="dropdown-option"><input type="checkbox" name="'+fieldName+'" value="'+v+'">' +
+               '<label>'+v+'</label></div>';
+      }).join('');
+    };
     var CHEV = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5" style="flex-shrink:0"><path d="M6 9l6 6 6-6"/></svg>';
     var _aspPicker = null, _aspActive = null;
 
