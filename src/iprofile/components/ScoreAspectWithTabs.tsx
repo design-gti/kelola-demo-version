@@ -1,6 +1,6 @@
 ﻿"use client";
 import { useContext, useState } from 'react';
-import { Tabs } from '@mantine/core';
+import { Chip, Group } from '@mantine/core';
 import svgPaths from '../imports/svg-djevy8uiqd';
 import svgPathsPotency from '../imports/svg-87qx2z9isd';
 import { StandardPositionSelect } from './StandardPositionSelect';
@@ -39,10 +39,15 @@ function byCategory(items: AspectItem[]): [string, AspectItem[]][] {
 const ALL = 'all';
 
 /**
- * Tab penyaring kategori. Isinya diturunkan dari data, bukan ditulis tetap:
- * kategori bisa ditambah lewat halaman Aspect, dan tab di sini ikut sendiri.
+ * Penyaring kategori. Isinya diturunkan dari data, bukan ditulis tetap:
+ * kategori bisa ditambah lewat halaman Aspect, dan penyaring di sini ikut
+ * sendiri.
+ *
+ * Berupa chip, bukan tab: tab berbagi lebar kartu sama rata, jadi begitu
+ * kategorinya bertambah labelnya saling menyempit sampai terpotong. Lebar
+ * chip mengikuti panjang namanya dan sisanya turun ke baris berikutnya.
  */
-function CategoryTabs({
+function CategoryChips({
   categories,
   value,
   onChange,
@@ -51,20 +56,28 @@ function CategoryTabs({
   value: string;
   onChange: (v: string) => void;
 }) {
-  // Satu kategori saja tidak perlu penyaring — tabnya cuma jadi hiasan.
+  // Satu kategori saja tidak perlu penyaring — chipnya cuma jadi hiasan.
   if (categories.length < 2) return null;
 
   return (
-    <Tabs value={value} onChange={(v) => onChange(v ?? ALL)} w="100%">
-      <Tabs.List grow>
-        <Tabs.Tab value={ALL}>All</Tabs.Tab>
+    <Chip.Group
+      multiple={false}
+      value={value}
+      // Nilai kosong dipulangkan ke "All" supaya kartunya tidak pernah
+      // kehabisan aspek untuk digambar.
+      onChange={(v) => onChange((v as string) || ALL)}
+    >
+      <Group gap={6} wrap="wrap" w="100%">
+        <Chip value={ALL} size="xs" radius="xl" variant="light">
+          All
+        </Chip>
         {categories.map((c) => (
-          <Tabs.Tab key={c} value={c}>
+          <Chip key={c} value={c} size="xs" radius="xl" variant="light">
             {c}
-          </Tabs.Tab>
+          </Chip>
         ))}
-      </Tabs.List>
-    </Tabs>
+      </Group>
+    </Chip.Group>
   );
 }
 
@@ -99,7 +112,7 @@ export function CompetencyScoresCard({ Frame79, Frame153, Frame116 }: Omit<Score
   return (
     <ScoreCard>
       <Frame79 title="Competency Scores" />
-      <CategoryTabs categories={categoriesOf(all)} value={category} onChange={setCategory} />
+      <CategoryChips categories={categoriesOf(all)} value={category} onChange={setCategory} />
       <Frame116
         rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
         showLegend={viewMode === 'list'}
@@ -134,7 +147,7 @@ export function PotencyScoresCard({
   return (
     <ScoreCard>
       <Frame79 title="Potency Scores" />
-      <CategoryTabs categories={categoriesOf(all)} value={category} onChange={setCategory} />
+      <CategoryChips categories={categoriesOf(all)} value={category} onChange={setCategory} />
       <PotencyFilter
         rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
         showLegend={viewMode === 'list'}
