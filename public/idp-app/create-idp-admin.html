@@ -1379,16 +1379,55 @@
     <div class="modal library-modal">
       <div class="library-header">
         <span class="modal-title">Program Library</span>
-        <button class="modal-close" onclick="closeProgramLibraryModal()">×</button>
+        <div class="library-header-right">
+          <button class="add-program-library-btn" onclick="addProgramLibrary()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Add Program
+          </button>
+          <button class="modal-close" onclick="closeProgramLibraryModal()">×</button>
+        </div>
       </div>
-      <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:48px 32px; text-align:center; gap:14px;">
-        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--border)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-        </svg>
-        <div>
-          <p style="font-family:var(--font-body); font-size:14px; font-weight:600; color:var(--text-body); margin:0 0 6px;">This feature is under development</p>
-          <p style="font-family:var(--font-body); font-size:12px; color:var(--text-faint); margin:0; line-height:1.6; max-width:260px;">The Program Library is actively being built and will be available soon. We appreciate your patience.</p>
+
+      <div class="chips-row" style="padding: 16px 0px 8px">
+        <button class="filter-chip active" onclick="filterByCategory(this, 'training')">TRAINING</button>
+        <button class="filter-chip inactive" onclick="filterByCategory(this, 'coaching')">COACHING</button>
+        <button class="filter-chip inactive" onclick="filterByCategory(this, 'job-assignment')">JOB ASSIGNMENT</button>
+      </div>
+
+      <div class="program-list" id="programList">
+        <div class="program-item" data-category="training" data-vendor="Skilltup Academy" data-aspect="PROBLEM SOLVING" onclick="selectProgram(this, 'Root cause analysis training', 'Skilltup Academy', 'PROBLEM SOLVING')">
+          <div class="program-title">Root cause analysis training</div>
+          <div class="program-vendor">Vendor: Skilltup Academy</div>
+        </div>
+        <div class="program-item" data-category="training" data-vendor="Harvard Business Publishing" data-aspect="CRITICAL THINKING" onclick="selectProgram(this, 'Case study workshop', 'Harvard Business Publishing', 'CRITICAL THINKING')">
+          <div class="program-title">Case study workshop</div>
+          <div class="program-vendor">Vendor: Harvard Business Publishing</div>
+        </div>
+        <div class="program-item" data-category="training" data-vendor="Prasetiya Mulya" data-aspect="COMMUNICATION" onclick="selectProgram(this, 'Communication Workshop', 'Prasetiya Mulya', 'COMMUNICATION')">
+          <div class="program-title">Communication Workshop</div>
+          <div class="program-vendor">Vendor: Prasetiya Mulya</div>
+        </div>
+        <div class="program-item" data-category="training" data-vendor="PPM Manajemen" data-aspect="LEADERSHIP" onclick="selectProgram(this, 'Leadership Essentials', 'PPM Manajemen', 'LEADERSHIP')">
+          <div class="program-title">Leadership Essentials</div>
+          <div class="program-vendor">Vendor: PPM Manajemen</div>
+        </div>
+        <div class="program-item" data-category="coaching" data-vendor="Internal Coach" data-aspect="LEADERSHIP" onclick="selectProgram(this, 'Leadership coaching', 'Internal Coach', 'LEADERSHIP')">
+          <div class="program-title">Leadership coaching</div>
+          <div class="program-vendor">Vendor: Internal Coach</div>
+        </div>
+        <div class="program-item" data-category="coaching" data-vendor="External Mentor" data-aspect="COMMUNICATION" onclick="selectProgram(this, 'Communication coaching', 'External Mentor', 'COMMUNICATION')">
+          <div class="program-title">Communication coaching</div>
+          <div class="program-vendor">Vendor: External Mentor</div>
+        </div>
+        <div class="program-item" data-category="job-assignment" data-vendor="-" data-aspect="TEAMWORK" onclick="selectProgram(this, 'Lead project team', '-', 'TEAMWORK')">
+          <div class="program-title">Lead project team</div>
+          <div class="program-vendor">Vendor: -</div>
+        </div>
+        <div class="program-item" data-category="job-assignment" data-vendor="-" data-aspect="PROBLEM SOLVING" onclick="selectProgram(this, 'Cross-functional collaboration', '-', 'PROBLEM SOLVING')">
+          <div class="program-title">Cross-functional collaboration</div>
+          <div class="program-vendor">Vendor: -</div>
         </div>
       </div>
     </div>
