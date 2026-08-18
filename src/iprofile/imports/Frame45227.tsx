@@ -689,13 +689,48 @@ export function CareerPlanCard() {
   );
 }
 
+/**
+ * iProfile mengenal orang lewat id `pNN`, TDP lewat `EMPnnn` — dua penomoran
+ * untuk orang yang sama. Lihat generateEmployeeId di tdp/data/tdpEmployees.ts.
+ */
+function toTdpId(pid: string): string {
+  const angka = pid.replace(/[^0-9]/g, '');
+  return angka ? `EMP${angka.padStart(3, '0')}` : pid;
+}
+
 /** Calon penerus jabatan orang ini, beserta jalan ke perbandingannya. */
 export function SuccessionPlanCard() {
+  const { successors } = useContext(ProfileContext);
+
+  /**
+   * Buka TDP dengan para successor sudah tersemat.
+   *
+   * TDP memungut pin dari localStorage `shared_pinned` saat Screener pertama
+   * kali dipasang, jadi cukup ditulis sebelum berpindah halaman — tidak perlu
+   * jalur khusus lewat URL, apalagi router TDP hanya di memori dan tidak
+   * membaca query param.
+   *
+   * `tableVisibleEmployeeIds` ikut dibersihkan: kalau tabel sedang menyaring
+   * karyawan, successor yang tidak lolos saringan itu tidak akan muncul di
+   * perbandingan meski sudah tersemat.
+   */
+  const bukaPerbandingan = () => {
+    const pinIds = successors.map((s) => s.id).filter(Boolean).map((id) => toTdpId(id as string));
+    try {
+      localStorage.setItem('shared_pinned', JSON.stringify(pinIds));
+      localStorage.removeItem('tableVisibleEmployeeIds');
+    } catch {
+      // localStorage bisa ditolak (mode privat); perbandingannya tetap dibuka,
+      // hanya tanpa sematan.
+    }
+    window.location.href = '/tdp-view?tab=compare&from=iprofile';
+  };
+
   return (
   <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Succession plan">
     <Frame49 />
     <div className="relative rounded-[28px] shrink-0 w-full cursor-pointer hover:bg-[#f0f9ff] transition-colors" data-name="button"
-      onClick={() => { window.location.href = '/tdp-view?tab=compare&from=iprofile'; }}>
+      onClick={bukaPerbandingan}>
       <div aria-hidden="true" className="absolute border border-[#016699] border-solid inset-0 pointer-events-none rounded-[28px]" />
       <div className="flex flex-row items-center justify-center size-full">
         <div className="content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[4px] relative w-full">
