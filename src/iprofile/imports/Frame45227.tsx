@@ -297,54 +297,56 @@ function Frame84({ title }: { title: string }) {
   );
 }
 
-function Frame77() {
-  return (
-    <div className="content-stretch flex items-center justify-end relative shrink-0 w-[70.083px]">
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="arrows-diagonal">
-        <div className="absolute inset-[16.67%]" data-name="Vector">
-          <div className="absolute inset-[-7.03%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.1667 12.1667">
-              <path d={svgPaths.p10ddf7c0} id="Vector" stroke="var(--stroke-0, #495057)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame80({ title }: { title: string }) {
+function Frame80({ title, rightSlot }: { title: string; rightSlot?: React.ReactNode }) {
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-[336.333px]">
       <Frame84 title={title} />
-      <Frame77 />
+      {rightSlot}
     </div>
   );
 }
 
+/** Tombol tambah di sudut kanan atas kartu. */
+function PlusButton({ onClick, title }: { onClick: () => void; title: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      title={title}
+      aria-label={title}
+      className="block cursor-pointer overflow-clip relative shrink-0 size-[20px] hover:opacity-70 transition-opacity"
+      data-name="plus"
+    >
+      <div className="absolute inset-[20.83%]" data-name="Vector">
+        <div className="absolute inset-[-6.43%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.1667 13.1667">
+            <path d={svgPaths.p2593f8c0} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+          </svg>
+        </div>
+      </div>
+    </button>
+  );
+}
+
+/**
+ * Isi kartu Career Plan, kepala kartunya sekalian: tombol tambah duduk di
+ * sudut kanan atas, dan yang membuka modalnya komponen ini juga — tombol dan
+ * state-nya tidak perlu berjauhan.
+ */
 function Frame46() {
   const { careerPlans } = useContext(ProfileContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
+      <Frame80
+        title="Career Plan"
+        rightSlot={<PlusButton onClick={() => setIsModalOpen(true)} title="Tambah career plan" />}
+      />
       <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-full">
         {careerPlans.map((cp, i) => (
           <div key={i} className="w-full"><CareerPlanAccordion label={`Career Plan ${i + 1}`} position={cp.position} name={cp.name} percentage={cp.percentage} status={cp.status} showAddedTag={i > 0} addedTagIcon={i % 2 === 0 ? "arrow-up-right" : "arrows-horizontal"} showDeleteIcon={i > 0} /></div>
         ))}
-        <button 
-          className="block cursor-pointer overflow-clip relative shrink-0 size-[20px]" 
-          data-name="plus"
-          onClick={() => setIsModalOpen(true)}
-        >
-          <div className="absolute inset-[20.83%]" data-name="Vector">
-            <div className="absolute inset-[-6.43%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.1667 13.1667">
-                <path d={svgPaths.p2593f8c0} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-              </svg>
-            </div>
-          </div>
-        </button>
       </div>
       <AddCareerPlanModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
@@ -357,6 +359,10 @@ function Frame49() {
 
   return (
     <>
+      <Frame80
+        title="Succession Plan"
+        rightSlot={<PlusButton onClick={() => setIsAddSuccessorsModalOpen(true)} title="Tambah successor" />}
+      />
       <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-full">
         {successors.map((sx, i) => (
           <div key={i} className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full" data-name="Component successors">
@@ -367,19 +373,6 @@ function Frame49() {
           </div>
         ))}
         {successors.length === 0 && <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: "#adb5bd", padding: "8px 0" }}>No successors yet.</div>}
-        <button 
-          onClick={() => setIsAddSuccessorsModalOpen(true)}
-          className="overflow-clip relative shrink-0 size-[20px] cursor-pointer hover:opacity-70 transition-opacity" 
-          data-name="plus"
-        >
-          <div className="absolute inset-[20.83%]" data-name="Vector">
-            <div className="absolute inset-[-6.43%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.1667 13.1667">
-                <path d={svgPaths.p2593f8c0} id="Vector" stroke="var(--stroke-0, #016699)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-              </svg>
-            </div>
-          </div>
-        </button>
       </div>
       
       <AddSuccessorsModal 
@@ -691,7 +684,6 @@ function Frame94() {
 export function CareerPlanCard() {
   return (
   <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Career plan">
-    <Frame80 title="Career Plan" />
     <Frame46 />
   </div>
   );
@@ -701,7 +693,6 @@ export function CareerPlanCard() {
 export function SuccessionPlanCard() {
   return (
   <div className="bg-white content-stretch flex flex-col gap-[16px] items-end overflow-x-clip overflow-y-auto p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Succession plan">
-    <Frame80 title="Succession Plan" />
     <Frame49 />
     <div className="relative rounded-[28px] shrink-0 w-full cursor-pointer hover:bg-[#f0f9ff] transition-colors" data-name="button"
       onClick={() => { window.location.href = '/tdp-view?tab=compare&from=iprofile'; }}>
