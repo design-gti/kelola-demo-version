@@ -1,70 +1,50 @@
 // @vitest-environment jsdom
 //
-// document.cookie di jsdom (via tough-cookie) tidak mereplikasi pengecualian
-// "localhost tepercaya" milik Chrome/Firefox untuk atribut Secure, jadi
-// menulis lalu membaca balik document.cookie di sini tidak bisa dipakai untuk
-// memverifikasi atributnya (assignment akan diam-diam ditolak jar). Sebagai
-// gantinya kita spy pada setter document.cookie dan periksa STRING mentah
-// yang dikirim saveConfig()/resetConfig() — sama presisinya, tanpa tunduk pada
-// kuirk cookie jar jsdom.
-import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
-import { saveConfig, resetConfig } from "./talentMappingConfig";
+// Konfigurasi Talent Mapping sengaja hanya hidup di memori sesi: berlaku penuh
+// selama demo berjalan, hilang begitu halaman dimuat ulang. Tes ini menjaga
+// justru sifat yang mudah "diperbaiki" keliru di kemudian hari — menambahkan
+// localStorage atau cookie akan membuat pengaturan selamat dari refresh dan
+// diam-diam membatalkan tujuannya.
+import { describe, expect, it, beforeEach, vi } from "vitest";
+import { getEffectiveConfig, saveConfig, resetConfig } from "./talentMappingConfig";
 import { TI_CONFIG } from "./talentMappingShared";
 
-describe("saveConfig / resetConfig — atribut cookie embed", () => {
-  let writes: string[];
-  let cookieSetter: ReturnType<typeof vi.fn>;
+const tweaked = { ...TI_CONFIG, boxes: TI_CONFIG.boxes.map(b => ({ ...b, label: `X-${b.order}` })) };
 
+describe("simpanan konfigurasi Talent Mapping — lingkup sesi", () => {
   beforeEach(() => {
-    writes = [];
-    cookieSetter = vi.fn((v: string) => writes.push(v));
-    Object.defineProperty(document, "cookie", {
-      configurable: true,
-      get: () => writes.join("; "),
-      set: cookieSetter,
-    });
+    resetConfig("TI");
+    resetConfig("TR");
   });
 
-  afterEach(() => {
-    // Pulihkan setter cookie bawaan jsdom supaya tidak membocor ke berkas tes lain.
+  it("menyimpan lalu membaca kembali suntingan dalam sesi yang sama", () => {
+    saveConfig("TI", tweaked);
+    expect(getEffectiveConfig("TI").boxes.map(b => b.label)).toEqual(tweaked.boxes.map(b => b.label));
+  });
+
+  it("tidak menyentuh localStorage maupun cookie", () => {
+    const setItem = vi.spyOn(Storage.prototype, "setItem");
+    const cookieSetter = vi.fn();
+    Object.defineProperty(document, "cookie", { configurable: true, get: () => "", set: cookieSetter });
+
+    saveConfig("TI", tweaked);
+
+    expect(setItem).not.toHaveBeenCalled();
+    expect(cookieSetter).not.toHaveBeenCalled();
+
+    setItem.mockRestore();
     Reflect.deleteProperty(document, "cookie");
   });
 
-  it("saveConfig menulis cookie tm-config-ti-v2 dengan atribut yang selamat di iframe lintas situs", () => {
-    saveConfig("TI", TI_CONFIG);
-
-    expect(cookieSetter).toHaveBeenCalledTimes(1);
-    const written = writes[0];
-
-    // Nama cookie memakai akhiran -v2 (lihat komentar di talentMappingConfig.ts
-    // ihwal cookie lama non-partitioned yang bertahan 180 hari di jar terpisah).
-    expect(written).toMatch(/^tm-config-ti-v2=/);
-
-    expect(written).toMatch(/SameSite=None/);
-    expect(written).toMatch(/Secure/);
-    expect(written).toMatch(/Partitioned/);
-    expect(written).toMatch(/path=\//);
-    expect(written).toMatch(`max-age=${60 * 60 * 24 * 180}`);
+  it("konfigurasi tiap box mapping berdiri sendiri", () => {
+    saveConfig("TI", tweaked);
+    expect(getEffectiveConfig("TR").boxes.map(b => b.label))
+      .not.toEqual(tweaked.boxes.map(b => b.label));
   });
 
-  it("saveConfig menulis cookie tm-config-tr-v2 untuk id TR", () => {
-    saveConfig("TR", { ...TI_CONFIG, id: "TR" });
-    expect(writes[0]).toMatch(/^tm-config-tr-v2=/);
-  });
-
-  it("resetConfig menghapus cookie dengan atribut yang SAMA seperti saat ditulis", () => {
+  it("resetConfig mengembalikan ke bawaan layout", () => {
+    saveConfig("TI", tweaked);
     resetConfig("TI");
-
-    expect(cookieSetter).toHaveBeenCalledTimes(1);
-    const written = writes[0];
-
-    // Browser mencocokkan atribut cookie saat menghapus. Kalau atribut
-    // penghapusan tidak sama dengan atribut penulisan, cookie Partitioned lama
-    // tidak benar-benar terhapus.
-    expect(written).toMatch(/^tm-config-ti-v2=/);
-    expect(written).toMatch(/SameSite=None/);
-    expect(written).toMatch(/Secure/);
-    expect(written).toMatch(/Partitioned/);
-    expect(written).toMatch(/max-age=0/);
+    expect(getEffectiveConfig("TI").boxes.map(b => b.label)).toEqual(TI_CONFIG.boxes.map(b => b.label));
   });
 });

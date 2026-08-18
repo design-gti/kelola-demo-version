@@ -11,6 +11,19 @@ export function resolveColor(token: string): string {
   return mantineColor[name]?.[Number(shade)] ?? token;
 }
 
+/**
+ * Shade DEFAULT (5) dari keluarga sebuah token warna.
+ *
+ * Dipakai penanda sumbu Z — cincin di 9-box maupun kotak warna di halaman
+ * setting. Keduanya harus menunjuk warna yang sama, jadi aturannya tinggal di
+ * satu tempat: kalau dihitung sendiri-sendiri, salah satu bisa bergeser tanpa
+ * ada yang menyadari. Shade 3 (yang dipakai garis sumbu) terlalu pucat begitu
+ * dibuat tembus.
+ */
+export function defaultShade(token: string): string {
+  return resolveColor(`${token.split(".")[0]}.5`);
+}
+
 export interface BoxDef {
   order: number;
   label: string;
@@ -36,8 +49,30 @@ export const METRICS: { key: MetricKey; label: string }[] = [
 ];
 export const metricLabel = (k: MetricKey) => METRICS.find(m => m.key === k)?.label ?? k;
 
+export const READINESS_BUCKETS: string[] = [
+  "Ready more than 2 year",
+  "Ready between 1 and 2 year",
+  "Ready under 1 year",
+  "Ready Now",
+];
+
+/** Tag yang menandai sebuah box berisi talent — dibandingkan tanpa peduli huruf. */
+export const TALENT_TAG = "Talent";
+export const isTalentTag = (t?: string | null) => (t ?? "").trim().toLowerCase() === TALENT_TAG.toLowerCase();
+
+/**
+ * Daftar tag siap pakai untuk box, bisa disunting user di halaman setting.
+ *
+ * Satu kolam untuk kedua mode: "Talent" menandai box talent di Talent
+ * Identification, sisanya menyatakan kesiapan di Talent Readiness. Menyatukan
+ * keduanya membuat user bisa menambah tag sendiri tanpa perlu tahu mode mana
+ * yang sedang dibuka.
+ */
+export const DEFAULT_TAG_OPTIONS: string[] = [TALENT_TAG, ...[...READINESS_BUCKETS].reverse()];
+
 export interface TMConfig {
-  id: "TI" | "TR";
+  /** "TI" / "TR" untuk dua tab bawaan; tab buatan user memakai id sendiri. */
+  id: string;
   name: string;
   tabLabel: string;
   unit: string;
@@ -50,6 +85,16 @@ export interface TMConfig {
   ordering: number[][];      // rows top→bottom of box orders
   rangesX: AxisBand[];       // left→right (bands, ascending)
   rangesY: AxisBand[];       // bottom→top
+  /** Tag siap pakai untuk box; bisa ditambah/disunting user. */
+  tagOptions?: string[];
+  /** Warna buatan user (hex) yang tersimpan di samping palet design system. */
+  colorOptions?: string[];
+  /** Sumbu ketiga, digambar sebagai tebal cincin — bukan posisi. Mati secara
+   *  bawaan; grafik dua sumbu tetap bacaan yang paling mudah. */
+  useZ?: boolean;
+  sumbuZ?: string;
+  sumbuZKey?: MetricKey;
+  rangesZ?: AxisBand[];
 }
 
 export interface TMPoint {
@@ -59,10 +104,25 @@ export interface TMPoint {
   team: string;
   rawX: number | null;
   rawY: number | null;
+  /** Nilai sumbu Z; null kalau sumbu Z mati atau datanya tidak ada. */
+  rawZ?: number | null;
   x: number | null;          // 0..100 plot position
   y: number | null;
   order: number | null;      // box order, null = no data
 }
+
+/**
+ * Metrik mentah per karyawan — cukup untuk menghitung titik sumbu apa pun.
+ *
+ * Dikirim server sekali; klien memakainya untuk tab buatan user, yang
+ * kombinasi sumbunya baru diketahui setelah halaman termuat.
+ */
+export type EmployeeMetrics = {
+  employeeId: string;
+  name: string;
+  positionTitle: string;
+  team: string;
+} & Record<MetricKey, number | null>;
 
 // ---------------------------------------------------------------------------
 // Layout registry — the 4 matrix templates captured from kelola-app.
@@ -159,16 +219,24 @@ export const getLayout = (id: string) => LAYOUTS.find(l => l.id === id) ?? LAYOU
 // Build a TMConfig from a layout id (deep-copied so callers can freely mutate).
 export function makeConfig(layoutId: string, overrides?: Partial<Pick<TMConfig, "sumbuXKey" | "sumbuYKey">>): TMConfig {
   const L = getLayout(layoutId);
-  const xKey = overrides?.sumbuXKey ?? "performance_score";
-  const yKey = overrides?.sumbuYKey ?? "leadership_score";
+  const xKey = overrides?.sumbuXKey ?? "technical_score";
+  const yKey = overrides?.sumbuYKey ?? "performance_score";
   return {
-    id: "TI", name: "Talent Identification", tabLabel: "Human Asset Value", unit: "Positions",
+    id: "TI", name: "Talent Identification", tabLabel: "Talent Identification", unit: "Positions",
     layout: L.id,
     sumbuX: metricLabel(xKey), sumbuY: metricLabel(yKey),
     sumbuXKey: xKey, sumbuYKey: yKey,
     ordering: L.ordering.map(r => [...r]),
     rangesX: mkBands(L.x), rangesY: mkBands(L.y),
-    boxes: L.boxes.map(b => ({ ...b })),
+    // Pita Z memakai skala yang sama dengan sumbu lain supaya angkanya
+    // terbaca sama; metriknya baru dipilih user saat sumbu Z dinyalakan.
+    useZ: false, sumbuZKey: undefined, sumbuZ: undefined, rangesZ: mkBands(B3),
+    tagOptions: [...DEFAULT_TAG_OPTIONS],
+    colorOptions: [],
+    // readiness dipakai sebagai tag yang terlihat user di KEDUA mode. Box TI
+    // hanya punya flag talent, jadi tagnya diturunkan dari situ — tanpa ini
+    // kolom Tag mode TI tampil kosong padahal boxnya sudah bertanda talent.
+    boxes: L.boxes.map(b => ({ ...b, readiness: b.readiness ?? (b.tag === "talent" ? TALENT_TAG : null) })),
   };
 }
 
@@ -201,10 +269,37 @@ export function orderFor(cfg: TMConfig, rawX: number, rawY: number): number {
   return cfg.ordering[rowFromTop][xi];
 }
 
+/**
+ * Titik 9-box untuk sebuah konfigurasi, dihitung dari tabel metrik.
+ *
+ * Kembaran klien dari getTalentIdentificationPoints di lib/data/talentMapping.ts.
+ * Ada dua karena sumbernya berbeda — yang di server membaca fixture candidates,
+ * yang ini membaca tabel metrik yang sudah dikirim — sedangkan rumus
+ * penempatannya sama dan tinggal di berkas ini.
+ */
+export function pointsFrom(cfg: TMConfig, rows: EmployeeMetrics[]): TMPoint[] {
+  return rows.map(r => {
+    const rawX = r[cfg.sumbuXKey];
+    const rawY = r[cfg.sumbuYKey];
+    const has = rawX != null && rawY != null;
+    return {
+      employeeId: r.employeeId,
+      name: r.name,
+      positionTitle: r.positionTitle,
+      team: r.team,
+      rawX, rawY,
+      rawZ: cfg.useZ && cfg.sumbuZKey ? r[cfg.sumbuZKey] : null,
+      x: has ? plotPos(rawX, cfg.rangesX) : null,
+      y: has ? plotPos(rawY, cfg.rangesY) : null,
+      order: has ? orderFor(cfg, rawX, rawY) : null,
+    };
+  });
+}
+
 // Default 9box config (client-safe — no per-employee data). Actual plot
 // points for a config are computed server-side; see
 // src/lib/data/talentMapping.ts's getTalentIdentificationPoints().
-export const TI_CONFIG: TMConfig = makeConfig("9box");
+export const TI_CONFIG: TMConfig = makeConfigById("TI");
 
 // TR (Talent Readiness): Competency × Potency, empty until a Job Target is picked.
 // A box's label, color, and readiness bucket are all determined by its GRID POSITION
@@ -242,23 +337,27 @@ export function trBoxesFor(ordering: number[][]): BoxDef[] {
 // Readiness buckets in display order (worst→best). Donut colors are NOT fixed
 // here — donutTags() pulls each bucket's color from its box, so it always tracks
 // the diagram (and any color edits made in Settings).
-export const READINESS_BUCKETS: string[] = [
-  "Ready more than 2 year",
-  "Ready between 1 and 2 year",
-  "Ready under 1 year",
-  "Ready Now",
-];
 
 export const TR_CONFIG: TMConfig = makeConfigById("TR");
 
 /** Base config for a box-mapping id: TI = plain layout; TR = same grid but with
  *  tier-derived readiness labels/colors/buckets (works for every layout). */
 export function makeConfigById(
-  id: "TI" | "TR",
+  id: string,
   layout = "9box",
   overrides?: Partial<Pick<TMConfig, "sumbuXKey" | "sumbuYKey">>,
 ): TMConfig {
-  if (id !== "TR") return makeConfig(layout, overrides);
+  // Talent Identification bawaan memakai TIGA sumbu: Competency (X) lawan
+  // Performance (Y), dengan Potency sebagai sumbu Z. Sumbu Z hanya dinyalakan
+  // di sini, bukan di makeConfig, supaya tab buatan user tetap mulai dari dua
+  // sumbu dan menyalakan Z hanya kalau pembuatnya memang memilih sumbu ketiga.
+  if (id === "TI") {
+    const zKey: MetricKey = "leadership_score";
+    return { ...makeConfig(layout, overrides), id: "TI", useZ: true, sumbuZKey: zKey, sumbuZ: metricLabel(zKey) };
+  }
+  // Tab buatan user bertingkah seperti TI — dua metrik lawan dua metrik. Yang
+  // membedakannya hanya id, nama, dan pilihan sumbunya; sisanya bawaan 9-box.
+  if (id !== "TR") return { ...makeConfig(layout, overrides), id };
   const base = makeConfig(layout, {
     sumbuXKey: overrides?.sumbuXKey ?? "technical_score",
     sumbuYKey: overrides?.sumbuYKey ?? "leadership_score",
@@ -276,11 +375,14 @@ export function makeConfigById(
 // tenure labels for talent/non/no-data counts.)
 export function donutTags(cfg: TMConfig, points: TMPoint[]) {
   const isTalent = (p: TMPoint) => boxByOrder(cfg, p.order)?.tag === "talent";
-  if (cfg.id === "TI") {
+  // Bukan TR berarti dua metrik lawan dua metrik — TI maupun tab buatan user.
+  if (cfg.id !== "TR") {
+    // Namanya dulu bergaya masa kerja ("<2 Years") padahal yang dihitung
+    // status talent — labelnya menyebut hal yang tidak diukurnya.
     return [
-      { name: "<2 Years", value: points.filter(isTalent).length, color: "primary.5" },
-      { name: "2 - 5 Years", value: points.filter(p => p.order != null && !isTalent(p)).length, color: "secondary.5" },
-      { name: ">5 Years", value: points.filter(p => p.order == null).length, color: "neutral.5" },
+      { name: "Talent", value: points.filter(isTalent).length, color: "primary.5" },
+      { name: "Non Talent", value: points.filter(p => p.order != null && !isTalent(p)).length, color: "secondary.5" },
+      { name: "No Data", value: points.filter(p => p.order == null).length, color: "neutral.5" },
     ];
   }
   // TR: one slice per readiness bucket present in this config's boxes, colored by
@@ -292,4 +394,63 @@ export function donutTags(cfg: TMConfig, points: TMPoint[]) {
     ...buckets.map(name => ({ name, value: points.filter(p => readinessOf(p) === name).length, color: boxColorFor(name) })),
     { name: "No Data", value: points.filter(p => p.order == null).length, color: "neutral.5" },
   ];
+}
+
+/**
+ * Warna tulisan yang terbaca di atas `bg`.
+ *
+ * Warna box kini bisa ditentukan user lewat color picker, jadi tidak lagi
+ * dijamin pucat seperti palet bawaan — teks gelap yang dulu dipaku jadi tak
+ * terbaca begitu user memilih warna tua.
+ */
+export function textOn(bg: string): string {
+  const hex = bg.replace("#", "");
+  if (hex.length !== 6) return "#fff";
+  const [r, g, b] = [0, 2, 4].map(i => parseInt(hex.slice(i, i + 2), 16));
+  // Luminansi perseptual (Rec. 601) — cukup untuk memilih dua warna teks.
+  return (r * 299 + g * 587 + b * 114) / 1000 > 150 ? "#495057" : "#fff";
+}
+
+// ─── Talent Readiness di klien ───────────────────────────────────────────────
+// Dulu hanya ada di src/lib/data/talentMapping.ts (server) karena titiknya
+// dihitung dari fixture candidates. Sejak tabel `EmployeeMetrics` dikirim ke
+// klien, klien punya semua angka yang dibutuhkan — dan konfigurasi Talent
+// Mapping kini hidup di memori klien, jadi titiknya harus bisa dihitung ulang
+// di sana setiap konfigurasi berubah.
+
+/** Syarat kompetensi sebuah target jabatan, dari kata kunci senioritasnya. */
+export function targetRequirement(title: string): number {
+  const t = title.toLowerCase();
+  if (/(chief|officer|\bceo\b|\bcxo\b)/.test(t)) return 95;
+  if (/\bvp\b|vice president/.test(t)) return 92;
+  if (/head|director/.test(t)) return 90;
+  if (/lead|principal/.test(t)) return 87;
+  if (/manager/.test(t)) return 84;
+  if (/senior/.test(t)) return 81;
+  return 78;
+}
+
+const clampPct = (v: number) => Math.min(100, Math.max(0, Math.round(v * 100) / 100));
+
+/** Titik readiness untuk satu target jabatan: X = %kecocokan kompetensi
+ *  terhadap syarat target, Y = potensi intrinsik karyawan. */
+export function readinessPointsFrom(cfg: TMConfig, targetId: string, rows: EmployeeMetrics[]): TMPoint[] {
+  const req = targetRequirement(targetId);
+  return rows.map(r => {
+    const comp = r[cfg.sumbuXKey];
+    const rawX = comp == null ? null : clampPct((comp / req) * 100);
+    const rawY = r[cfg.sumbuYKey];
+    const has = rawX != null && rawY != null;
+    return {
+      employeeId: r.employeeId,
+      name: r.name,
+      positionTitle: r.positionTitle,
+      team: r.team,
+      rawX, rawY,
+      rawZ: cfg.useZ && cfg.sumbuZKey ? r[cfg.sumbuZKey] : null,
+      x: has ? plotPos(rawX, cfg.rangesX) : null,
+      y: has ? plotPos(rawY, cfg.rangesY) : null,
+      order: has ? orderFor(cfg, rawX, rawY) : null,
+    };
+  });
 }

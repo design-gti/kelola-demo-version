@@ -2,7 +2,7 @@
 // Self-contained port of kelola-app Components/Organisme/Chart/TMTRBox — 9-box grid
 // with axis ranges and plotted employee bubbles (grouped + overlap-resolved).
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { TMConfig, TMPoint, boxByOrder, resolveColor } from "@/data/talentMappingShared";
+import { TMConfig, TMPoint, AxisRange, boxByOrder, resolveColor, defaultShade, textOn } from "@/data/talentMappingShared";
 import { mantineColor } from "@/components/team/mantineColor";
 
 const FONT = "'Open Sans', sans-serif";
@@ -14,13 +14,100 @@ function initials(name: string) {
 function darker(token: string) {
   return mantineColor[token.split(".")[0]]?.[6] ?? "#495057";
 }
+/** Tulisan di atas warna box; putih kalau warnanya tua. */
+const onBox = (color: string) => textOn(resolveColor(color));
+/** Nomor box ikut keluarga warnanya selama masih terang, putih di atas gelap. */
+const numberColor = (color: string) => (onBox(color) === "#fff" ? "#fff" : darker(color));
 
 const SIZE_AVATAR = 20;
-const MAX_GROUP = 56;
 
-function groupCircleSize(count: number) {
-  return count <= 1 ? SIZE_AVATAR : Math.min(SIZE_AVATAR + Math.log2(count) * 5, MAX_GROUP);
+/** Tinggi blok sumbu (pita warna + label + keterangan) dan jaraknya ke grid. */
+const AXIS_BLOCK = 50, AXIS_GAP = 16;
+
+/**
+ * Tebal pita cincin sumbu Z per tingkat, dalam px — bukan kelipatan tetap,
+ * jadi jarak antar tingkat bisa disetel sendiri. Indeks ke-4 dipakai layout
+ * 12-box yang sumbunya punya empat pita.
+ *
+ * Tidak ada cincin putih — baik di dalam maupun di luar. `box-shadow` dengan
+ * spread menggambar CAKRAM penuh, bukan cincin: satu lapisan putih di luar
+ * warna berarti cakram putih solid duduk di belakangnya, dan warna
+ * transparan itu bercampur dengan putih alih-alih dengan bulatan di
+ * belakangnya. Tanpa putih, transparansinya benar-benar terlihat.
+ */
+const Z_THICKNESS = [3, 5, 7, 9];
+/** Cincin dibuat tembus supaya titik yang bertumpuk tetap terbaca. */
+const Z_ALPHA = 0.35;
+
+/** Hex → rgba, untuk menembuskan warna pita tanpa mengubah token aslinya. */
+function withAlpha(hex: string, alpha: number): string {
+  const h = hex.replace("#", "");
+  if (h.length !== 6) return hex;
+  const [r, g, b] = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16));
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
+
+/**
+ * Cincin penanda sumbu Z: setebal apa, dan warnanya.
+ *
+ * Yang membedakan tingkat Z adalah tebal cincin, bukan ukuran avatarnya —
+ * wajah orang tetap terbaca sama besar di seluruh grafik. Warnanya diambil
+ * dari pita tempat nilainya jatuh, supaya cocok dengan penanda warna di
+ * halaman setting.
+ *
+ * Hanya dipakai untuk bulatan berisi SATU orang. Bulatan tumpukan tidak
+ * bercincin: rata-rata Z sekelompok orang bukan nilai milik siapa pun, dan
+ * mewarnainya hijau sementara sebagian anggotanya merah adalah pernyataan yang
+ * keliru. Sebaran Z tiap anggota dibaca di popover, bukan di bulatannya.
+ */
+function zRing(group: TMPoint[], bands: AxisRange[]): { thickness: number; color: string } | null {
+  const vals = group.map(p => p.rawZ).filter((v): v is number => v != null);
+  if (vals.length === 0 || bands.length === 0) return null;
+  const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+  let bi = bands.findIndex(b => avg <= b.max);
+  if (bi === -1) bi = bands.length - 1;
+  return {
+    thickness: Z_THICKNESS[Math.min(bi, Z_THICKNESS.length - 1)],
+    color: defaultShade(bands[bi].color),
+  };
+}
+
+/**
+ * Bayangan rapat di tepi avatar, menandai lingkaran terdalam itu sendiri.
+ * Ditaruh sebagai lapisan pertama supaya tergambar DI ATAS cincin warna —
+ * kalau di bawah, cincin menutupinya dan bayangannya tak terlihat.
+ */
+const AVATAR_DROP = "0 1px 3px rgba(0,0,0,0.4)";
+
+/**
+ * Bayangan luar yang mengangkat seluruh bulatan dari warna kotak. `spread`
+ * menyamakannya dengan tepi terluar cincin; tanpa itu bayangan tetap seukuran
+ * avatar dan tertutup penuh oleh cincin di atasnya.
+ */
+const outerDrop = (spread = 0) => `0 2px 6px ${spread}px rgba(0,0,0,0.22)`;
+
+/**
+ * Garis putih tipis di tepi terluar bulatan.
+ *
+ * Dipakai `outline`, bukan lapisan box-shadow lagi: outline menggambar garis
+ * saja, sedangkan box-shadow ber-spread menggambar cakram penuh yang akan
+ * kembali menutup apa pun di belakang cincin dan mematikan transparansinya.
+ * `outlineOffset` mendorongnya ke tepi luar pita warna.
+ */
+function zOutline(ring: { thickness: number; color: string } | null) {
+  return { outline: "1.5px solid #fff", outlineOffset: `${ring?.thickness ?? 0}px` };
+}
+
+function zShadow(ring: { thickness: number; color: string } | null): string {
+  if (!ring) return [AVATAR_DROP, outerDrop()].join(", ");
+  const band = ring.thickness;
+  return [
+    AVATAR_DROP,
+    `0 0 0 ${band}px ${withAlpha(ring.color, Z_ALPHA)}`,
+    outerDrop(band),
+  ].join(", ");
+}
+
 function groupFontSize(count: number, circle: number) {
   if (count >= 100) return Math.min(10, circle * 0.35);
   if (count >= 10) return Math.min(12, circle * 0.4);
@@ -56,7 +143,9 @@ function resolveOverlaps(groups: TMPoint[][], size: number, outbox: number) {
       if (infos[j].absorbed) continue;
       const a = infos[i], b = infos[j];
       const d = dist(a.cx, a.cy, b.cx, b.cy);
-      const largerR = Math.max(groupCircleSize(a.group.length), groupCircleSize(b.group.length)) / size * 50;
+      // Semua bubble sekarang digambar seukuran foto, jadi jarak peleburan pun
+      // memakai ukuran itu — bukan ukuran yang membesar mengikuti jumlah.
+      const largerR = (SIZE_AVATAR / size) * 50;
       if (d < largerR) {
         if (a.group.length >= b.group.length) { a.group = [...a.group, ...b.group]; b.absorbed = true; }
         else { b.group = [...b.group, ...a.group]; a.absorbed = true; break; }
@@ -79,12 +168,19 @@ function AxisDividers({ ranges, selected }: { ranges: { label: string; color: st
   );
 }
 
-export default function TMTRBox({ config, points, size = 360, selectedBox, onBoxClick }: {
+export default function TMTRBox({ config, points, size = 360, selectedBox, onBoxClick, emptyNotice }: {
   config: TMConfig;
   points: TMPoint[];
   size?: number;
   selectedBox: number | null;
   onBoxClick: (order: number | null) => void;
+  /**
+   * Keterangan di tengah grid saat grafik sengaja kosong — bukan karena tidak
+   * ada data, tapi karena masih menunggu pilihan user. Talent Readiness butuh
+   * satu jabatan target sebelum ada yang bisa ditempatkan; tanpa keterangan di
+   * sini, grid kosong terbaca sebagai "datanya tidak ada".
+   */
+  emptyNotice?: string;
 }) {
   const outbox = size * -0.01;
   const threshold = (SIZE_AVATAR / size) * 100;
@@ -113,6 +209,8 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
   }, [selectedBox, config, points, threshold, size, outbox]);
 
   const activeNodes = zoom ? zoom.nodes : nodes;
+  // Sumbu Z hanya berlaku kalau dinyalakan DAN metriknya sudah dipilih.
+  const zActive = !!config.useZ && !!config.sumbuZKey;
 
   // Clicking a bubble opens a small table of the people at that coordinate.
   const [popover, setPopover] = useState<{ group: TMPoint[]; x: number; y: number } | null>(null);
@@ -128,7 +226,9 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
   }, [popover]);
 
   return (
-    <div style={{ position: "relative", width: size + 50, height: size + 50, fontFamily: FONT }}>
+    // Tinggi = grid + jarak ke sumbu + blok sumbu itu sendiri. Lebar tidak
+    // ikut bertambah: jaraknya hanya perlu di bawah grid, bukan di sampingnya.
+    <div style={{ position: "relative", width: size + AXIS_BLOCK, height: size + AXIS_GAP + AXIS_BLOCK, fontFamily: FONT }}>
       {/* Y axis (label + ranges), rotated onto the left edge */}
       <div style={{ position: "absolute", top: 0, left: 0, width: size, transform: "rotate(270deg)", transformOrigin: `${size / 2}px ${size / 2}px` }}>
         <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", textAlign: "center", color: "#495057", marginBottom: 2 }}>{config.sumbuY}</div>
@@ -147,8 +247,8 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
             title="Klik untuk keluar dari zoom"
             style={{ width: size, height: size, position: "relative", cursor: "zoom-out", background: resolveColor(zoom.box.color) }}
           >
-            <span style={{ position: "absolute", top: 6, left: 8, fontSize: 22, fontWeight: 700, color: darker(zoom.box.color), opacity: 0.4 }}>{zoom.box.order}</span>
-            <span style={{ position: "absolute", top: 8, right: 10, fontSize: 12, fontWeight: 700, color: "#495057" }}>{zoom.box.label}</span>
+            <span style={{ position: "absolute", top: 6, left: 8, fontSize: 22, fontWeight: 700, color: numberColor(zoom.box.color), opacity: 0.4 }}>{zoom.box.order}</span>
+            <span style={{ position: "absolute", top: 8, right: 10, fontSize: 12, fontWeight: 700, color: onBox(zoom.box.color) }}>{zoom.box.label}</span>
           </div>
         ) : (
           <div style={{ width: size, height: size, display: "flex", flexDirection: "column" }}>
@@ -166,13 +266,21 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
                         transition: "opacity .2s",
                       }}
                     >
-                      <span style={{ position: "absolute", top: 4, left: 4, fontSize: 15, fontWeight: 700, color: darker(box.color), opacity: 0.4 }}>{order}</span>
-                      <span style={{ position: "absolute", top: "50%", left: "50%", maxWidth: "90%", transform: "translate(-50%,-50%)", textAlign: "center", fontSize: 11, color: "#495057" }}>{box.label}</span>
+                      <span style={{ position: "absolute", top: 4, left: 4, fontSize: 15, fontWeight: 700, color: numberColor(box.color), opacity: 0.4 }}>{order}</span>
+                      <span style={{ position: "absolute", top: "50%", left: "50%", maxWidth: "90%", transform: "translate(-50%,-50%)", textAlign: "center", fontSize: 11, color: onBox(box.color) }}>{box.label}</span>
                     </div>
                   );
                 })}
               </div>
             ))}
+          </div>
+        )}
+
+        {emptyNotice && (
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: 24, pointerEvents: "none" }}>
+            <span style={{ background: "rgba(255,255,255,0.94)", border: "1px solid #dee2e6", borderRadius: 10, padding: "10px 18px", fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#495057", textAlign: "center", maxWidth: "80%", boxShadow: "0 2px 10px rgba(0,0,0,0.08)" }}>
+              {emptyNotice}
+            </span>
           </div>
         )}
 
@@ -183,20 +291,27 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
           const x = gx < 0 ? outbox : gx, y = gy < 0 ? outbox : gy;
           const outside = x === outbox && y === outbox;
           if (g.length > 1) {
-            const cs = outside ? SIZE_AVATAR : groupCircleSize(g.length);
+            // Bubble tumpukan seukuran foto biasa dan TANPA cincin Z. Ukuran dan
+            // warna cincin adalah bacaan tentang SATU orang; pada tumpukan
+            // keduanya jadi rata-rata yang tidak mewakili siapa pun — lingkaran
+            // besar berpita hijau bisa berisi orang dengan skor Z terendah.
+            // Angkanya sendiri sudah menyatakan "ada beberapa orang di sini";
+            // rinciannya dibuka lewat popover.
             return (
               <div key={i} title={g.map(p => p.name).join(", ")}
                 onClick={(e) => { e.stopPropagation(); setPopover({ group: g, x, y }); }}
-                style={{ position: "absolute", bottom: `${y}%`, left: `${x}%`, transform: "translate(-50%,50%)", width: cs, height: cs, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: outside ? 10 : groupFontSize(g.length, cs), fontWeight: 700, zIndex: outside ? 10 : 100, cursor: "pointer" }}>
+                style={{ position: "absolute", bottom: `${y}%`, left: `${x}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: groupFontSize(g.length, SIZE_AVATAR), fontWeight: 700, zIndex: outside ? 10 : 100, cursor: "pointer", boxShadow: zShadow(null), ...zOutline(null) }}>
                 {g.length}
               </div>
             );
           }
           const p = g[0];
+          const outsideOne = (p.x ?? outbox) === outbox && (p.y ?? outbox) === outbox;
+          const ring = zActive && !outsideOne ? zRing(g, config.rangesZ ?? []) : null;
           return (
             <div key={i} title={p.name}
               onClick={(e) => { e.stopPropagation(); setPopover({ group: g, x: p.x ?? outbox, y: p.y ?? outbox }); }}
-              style={{ position: "absolute", bottom: `${p.y ?? outbox}%`, left: `${p.x ?? outbox}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 700, zIndex: 100, overflow: "hidden", cursor: "pointer" }}>
+              style={{ position: "absolute", bottom: `${p.y ?? outbox}%`, left: `${p.x ?? outbox}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 700, zIndex: 100, overflow: "hidden", cursor: "pointer", boxShadow: zShadow(ring), ...zOutline(ring) }}>
               <span>{initials(p.name)}</span>
               {p.employeeId && (
                 <img
@@ -215,12 +330,13 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
           <>
             <div ref={popoverRef} onClick={(e) => e.stopPropagation()}
               style={{ position: "absolute", bottom: `${popover.y}%`, left: `${popover.x}%`, transform: "translate(10px, 50%)", zIndex: 300, background: "#fff", borderRadius: 8, boxShadow: "0 6px 20px rgba(0,0,0,0.18)", border: "1px solid #e9ecef", minWidth: 300, maxWidth: 400, overflow: "hidden", fontFamily: FONT }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 58px 58px", gap: 4, padding: "8px 10px", borderBottom: "1px solid #e9ecef", fontSize: 9.5, fontWeight: 700, color: "#adb5bd", textTransform: "uppercase" }}>
+              <div style={{ display: "grid", gridTemplateColumns: zActive ? "1fr 58px 58px 58px" : "1fr 58px 58px", gap: 4, padding: "8px 10px", borderBottom: "1px solid #e9ecef", fontSize: 9.5, fontWeight: 700, color: "#adb5bd", textTransform: "uppercase" }}>
                 <span>Employee</span><span style={{ textAlign: "right" }}>{config.sumbuX}</span><span style={{ textAlign: "right" }}>{config.sumbuY}</span>
+                {zActive && <span style={{ textAlign: "right" }}>{config.sumbuZ}</span>}
               </div>
               <div style={{ maxHeight: 176, overflowY: "auto" }}>
                 {popover.group.map((p) => (
-                  <div key={p.employeeId} style={{ display: "grid", gridTemplateColumns: "1fr 58px 58px", gap: 4, alignItems: "center", padding: "6px 10px", fontSize: 11, color: "#495057" }}>
+                  <div key={p.employeeId} style={{ display: "grid", gridTemplateColumns: zActive ? "1fr 58px 58px 58px" : "1fr 58px 58px", gap: 4, alignItems: "center", padding: "6px 10px", fontSize: 11, color: "#495057" }}>
                     <span style={{ display: "flex", alignItems: "center", gap: 6, minWidth: 0 }}>
                       <span style={{ width: 22, height: 22, borderRadius: "50%", background: NODE_BG, color: "#fff", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 8, fontWeight: 700, overflow: "hidden", position: "relative" }}>
                         <span>{initials(p.name)}</span>
@@ -230,6 +346,7 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
                     </span>
                     <span style={{ textAlign: "right" }}>{p.rawX ?? "-"}</span>
                     <span style={{ textAlign: "right" }}>{p.rawY ?? "-"}</span>
+                    {zActive && <span style={{ textAlign: "right" }}>{p.rawZ ?? "-"}</span>}
                   </div>
                 ))}
               </div>
@@ -245,6 +362,11 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
           selected={selectedBox != null}
         />
         <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", textAlign: "center", color: "#495057", marginTop: 14 }}>{config.sumbuX}</div>
+        {zActive && (
+          <div style={{ fontSize: 10, textAlign: "center", color: "#adb5bd", marginTop: 4 }}>
+            Lapis cincin = {config.sumbuZ}
+          </div>
+        )}
       </div>
     </div>
   );

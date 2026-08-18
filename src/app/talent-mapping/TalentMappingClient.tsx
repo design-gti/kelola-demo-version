@@ -1,19 +1,26 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ActionIcon, Paper, Badge, Avatar as MantineAvatar, Select, Pagination, Table, Text, Button, Modal, Checkbox, ScrollArea, Tabs } from "@mantine/core";
-import { IconArrowUpRight, IconSettings, IconFilter } from "@tabler/icons-react";
+import { ActionIcon, Paper, Badge, Avatar as MantineAvatar, Select, TextInput, Pagination, Table, Text, Button, Modal, Checkbox, ScrollArea, Tabs } from "@mantine/core";
+import { IconArrowUpRight, IconSettings, IconPlus, IconPencil, IconTrash } from "@tabler/icons-react";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
-import DonutChart from "@/components/talent/DonutChart";
+import DistributionBar from "@/components/talent/DistributionBar";
+import MappingSidePanel from "@/components/talent/MappingSidePanel";
 import { matchesFuzzy } from "@/lib/data/textMatch";
-import { donutTags, boxByOrder, resolveColor, TMConfig, TMPoint } from "@/data/talentMappingShared";
+import { donutTags, boxByOrder, bandIndex, pointsFrom, readinessPointsFrom, METRICS,
+  type TMConfig, type TMPoint, type MetricKey, type EmployeeMetrics, type AxisBand } from "@/data/talentMappingShared";
+import { BUILT_IN_TABS, getCustomTabs, addCustomTab, renameCustomTab, removeCustomTab,
+  getEffectiveConfig, TM_CONFIG_EVENT, TM_TABS_EVENT, type CustomTab } from "@/data/talentMappingConfig";
 
 /** How long the deep-link highlight (colored outline + auto-scroll) stays visible before fading — mirrors Vismap's OrgChartCard highlight timing. */
 const HIGHLIGHT_DURATION_MS = 3000;
 
 const FONT = "'Open Sans', sans-serif";
 const ACCENT = "#016699";
+
+/** 9-box kini kartu utama halaman, jadi digambar lebih besar dari bawaannya (360). */
+const BOX_SIZE = 460;
 
 function initials(name: string) {
   return name.split(" ").slice(0, 2).map(w => w[0] || "").join("").toUpperCase();
@@ -48,9 +55,13 @@ function Avatar({ name, employeeId }: { name: string; employeeId?: string }) {
   );
 }
 
-/** Judul kolom per mode; urutannya sama dengan urutan sel di badan tabel. */
-const TI_HEADERS = ["Position", "Employee", "Performance (X)", "Potency (Y)", "Box Category", "HAV status", "Action"];
-const TR_HEADERS = ["Employee", "Position", "Competency (X)%", "Potency (Y)", "Box Category", "Readiness", "Action"];
+/**
+ * Judul kolom per mode; urutannya sama dengan urutan sel di badan tabel.
+ * Nama sumbu diambil dari konfigurasi, bukan ditulis tetap — tab buatan user
+ * bisa memakai kombinasi metrik apa pun.
+ */
+const tiHeaders = (cfg: TMConfig) => ["Position", "Employee", cfg.sumbuX + " (X)", cfg.sumbuY + " (Y)", "Box Category", "HAV status", "Action"];
+const trHeaders = (cfg: TMConfig) => ["Employee", "Position", cfg.sumbuX + " (X)%", cfg.sumbuY + " (Y)", "Box Category", "Readiness", "Action"];
 
 function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean }) {
   return <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: muted ? "#ced4da" : "#495057" }}>{children}</span>;
@@ -58,7 +69,8 @@ function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean 
 
 function TablePanel({ config, points, highlightId, emptyMessage = "No data." }: { config: TMConfig; points: TMPoint[]; highlightId?: string | null; emptyMessage?: string }) {
   const router = useRouter();
-  const isTI = config.id === "TI";
+  // Tab buatan user memakai bentuk yang sama dengan TI.
+  const isTI = config.id !== "TR";
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const pageCount = Math.max(1, Math.ceil(points.length / limit));
@@ -84,7 +96,7 @@ function TablePanel({ config, points, highlightId, emptyMessage = "No data." }: 
       <Table verticalSpacing="sm" horizontalSpacing="md" highlightOnHover>
         <Table.Thead>
           <Table.Tr>
-            {(isTI ? TI_HEADERS : TR_HEADERS).map((h) => (
+            {(isTI ? tiHeaders(config) : trHeaders(config)).map((h) => (
               <Table.Th key={h}>{h}</Table.Th>
             ))}
           </Table.Tr>
@@ -194,6 +206,7 @@ function Panel({
   initialBox = null,
   initialHighlight = null,
   onSettings,
+  tabBar,
 }: {
   config: TMConfig;
   points: TMPoint[];
@@ -202,6 +215,8 @@ function Panel({
   initialBox?: number | null;
   initialHighlight?: string | null;
   onSettings?: () => void;
+  /** Baris tab box mapping, dirender induk dan ditaruh di kepala kartu ini. */
+  tabBar?: React.ReactNode;
 }) {
   const isTR = config.id === "TR";
   // TR: employees are benchmarked against the picked Job Target. Empty until picked.
@@ -220,12 +235,19 @@ function Panel({
   const resolveHighlightMatch = () =>
     initialHighlight ? basePoints.find(p => p.employeeId === initialHighlight || matchesFuzzy(p.name, initialHighlight)) : undefined;
   const [selectedBox, setSelectedBox] = useState<number | null>(() => initialBox ?? resolveHighlightMatch()?.order ?? null);
-  // Filter (by team & job) — applied values + modal draft.
+  // Filter (team, job, kriteria per sumbu) — nilai terpakai + draft modal.
   const [filterOpen, setFilterOpen] = useState(false);
   const [teams, setTeams] = useState<string[]>([]);
   const [jobs, setJobs] = useState<string[]>([]);
+  /**
+   * Kriteria per sumbu: { X: ["2"], Y: ["0","1"] } — nilainya INDEKS pita
+   * sebagai string, bukan nama pitanya, supaya mengganti nama pita di Setting
+   * tidak membatalkan saringan yang sedang aktif. Kosong = semua lolos.
+   */
+  const [axisPicks, setAxisPicks] = useState<Record<string, string[]>>({});
   const [draftTeams, setDraftTeams] = useState<string[]>([]);
   const [draftJobs, setDraftJobs] = useState<string[]>([]);
+  const [draftAxisPicks, setDraftAxisPicks] = useState<Record<string, string[]>>({});
 
   const [highlightId, setHighlightId] = useState<string | null>(() => resolveHighlightMatch()?.employeeId ?? null);
   useEffect(() => {
@@ -242,15 +264,66 @@ function Panel({
     (teams.length === 0 || teams.includes(p.team)) &&
     (jobs.length === 0 || jobs.includes(p.positionTitle))
   ), [basePoints, teams, jobs]);
-  const activeCount = teams.length + jobs.length;
+  /**
+   * Sumbu yang sedang dipakai tab ini, lengkap dengan pita dan cara mengambil
+   * nilainya dari sebuah titik. Ini yang membuat modal Filter kontekstual:
+   * dulu kolomnya dipaku ke sumbu Y dan berjudul "Potency" apa pun metriknya,
+   * jadi mengganti sumbu di Setting menghasilkan saringan yang menyaring hal
+   * lain dari yang tertulis. Sumbu Z hanya ikut kalau memang dinyalakan.
+   */
+  const axes = useMemo(() => {
+    const list: { id: string; label: string; bands: AxisBand[]; valueOf: (p: TMPoint) => number | null }[] = [
+      { id: "X", label: config.sumbuX, bands: config.rangesX, valueOf: p => p.rawX },
+      { id: "Y", label: config.sumbuY, bands: config.rangesY, valueOf: p => p.rawY },
+    ];
+    if (config.useZ && config.sumbuZ && config.rangesZ?.length) {
+      list.push({ id: "Z", label: config.sumbuZ, bands: config.rangesZ, valueOf: p => p.rawZ ?? null });
+    }
+    return list;
+  }, [config]);
 
-  const tags = useMemo(() => donutTags(config, filtered), [config, filtered]);
-  const tableRows = selectedBox != null ? filtered.filter(p => p.order === selectedBox) : filtered;
+  /**
+   * Pilihan yang masih sah untuk sebuah sumbu. Jumlah pita bisa berubah di
+   * Setting (ganti layout, misalnya) tanpa membongkar state ini, dan indeks
+   * yang sudah tidak ada akan menyaring habis semua orang tanpa penjelasan —
+   * jadi indeks basi dibuang, bukan dipakai.
+   */
+  const picksFor = (a: { id: string; bands: AxisBand[] }, source: Record<string, string[]>) =>
+    (source[a.id] ?? []).filter(v => Number(v) < a.bands.length);
 
-  const openFilter = () => { setDraftTeams(teams); setDraftJobs(jobs); setFilterOpen(true); };
-  const applyFilter = () => { setTeams(draftTeams); setJobs(draftJobs); setSelectedBox(null); setFilterOpen(false); };
+  const activeCount = teams.length + jobs.length + axes.reduce((n, a) => n + picksFor(a, axisPicks).length, 0);
+
+  // Centang dalam satu sumbu bersifat "atau", antar sumbu bersifat "dan".
+  const banded = useMemo(
+    () => filtered.filter(p => axes.every(a => {
+      const picked = picksFor(a, axisPicks);
+      if (picked.length === 0) return true;
+      const v = a.valueOf(p);
+      return v != null && picked.includes(String(bandIndex(v, a.bands)));
+    })),
+    [filtered, axes, axisPicks],
+  );
+
+  /**
+   * Talent Readiness mengukur orang TERHADAP satu jabatan target, jadi sumbu X
+   * baru punya nilai setelah targetnya dipilih — gridnya kosong karena menunggu
+   * pilihan, bukan karena datanya tidak ada. Keterangannya dipakai di grafik
+   * DAN di tabel dari satu sumber supaya keduanya tidak pernah berbeda kata.
+   */
+  const awaitingTarget = isTR && !jobTarget;
+  const AWAITING_TARGET_NOTICE = "No job target selected yet, please choose one first";
+
+  const tags = useMemo(() => donutTags(config, banded), [config, banded]);
+  const tableRows = selectedBox != null ? banded.filter(p => p.order === selectedBox) : banded;
+  // Panel kiri mengikuti kotak yang sedang dipilih, sama seperti tabel.
+  const panelRows = tableRows;
+
+  const openFilter = () => { setDraftTeams(teams); setDraftJobs(jobs); setDraftAxisPicks(axisPicks); setFilterOpen(true); };
+  const applyFilter = () => { setTeams(draftTeams); setJobs(draftJobs); setAxisPicks(draftAxisPicks); setSelectedBox(null); setFilterOpen(false); };
   const toggle = (arr: string[], v: string) => arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v];
-  const clearAll = () => { setTeams([]); setJobs([]); setSelectedBox(null); };
+  const toggleAxis = (axisId: string, v: string) =>
+    setDraftAxisPicks(prev => ({ ...prev, [axisId]: toggle(prev[axisId] ?? [], v) }));
+  const clearAll = () => { setTeams([]); setJobs([]); setAxisPicks({}); setSelectedBox(null); };
 
   // Active-filter chips: >3 of a kind collapses to a single "N Team/Job" chip (mirrors kelola-app).
   const chips: { label: string; onRemove: () => void }[] = [];
@@ -258,50 +331,44 @@ function Panel({
   else teams.forEach(t => chips.push({ label: `Team: ${t}`, onRemove: () => setTeams(prev => prev.filter(x => x !== t)) }));
   if (jobs.length > 3) chips.push({ label: `${jobs.length} Job`, onRemove: () => setJobs([]) });
   else jobs.forEach(j => chips.push({ label: `Job: ${j}`, onRemove: () => setJobs(prev => prev.filter(x => x !== j)) }));
+  axes.forEach(a => {
+    picksFor(a, axisPicks).forEach(v => {
+      const band = a.bands[Number(v)];
+      if (!band) return;
+      chips.push({
+        label: `${a.label}: ${band.label}`,
+        onRemove: () => setAxisPicks(prev => ({ ...prev, [a.id]: (prev[a.id] ?? []).filter(x => x !== v) })),
+      });
+    });
+  });
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div style={{ display: "flex", gap: 16, alignItems: "stretch", flexWrap: "wrap" }}>
-        {/* Grid card */}
-        <div style={{ flex: "1 1 420px", background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 20 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 8 }}>
-            {isTR ? (
-              <div style={{ display: "flex", alignItems: "flex-end", gap: 10 }}>
-                <div>
-                  <div style={{ fontSize: 11, color: "#adb5bd", marginBottom: 4 }}>Job Target</div>
-                  <select
-                    value={jobTarget ?? ""}
-                    onChange={e => { setJobTarget(e.currentTarget.value || null); setSelectedBox(null); }}
-                    style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #e9ecef", fontFamily: FONT, fontSize: 12, color: jobTarget ? "#495057" : "#adb5bd", minWidth: 200, background: "#fff" }}
-                  >
-                    <option value="" disabled>Select job target</option>
-                    {jobTargets.map(t => <option key={t.id} value={t.id} style={{ color: "#495057" }}>{t.title}</option>)}
-                  </select>
-                </div>
-                <span role="button" title="Filter" onClick={openFilter} style={{ position: "relative", cursor: "pointer", color: ACCENT, display: "inline-flex", paddingBottom: 8 }}>
-                  <IconFilter size={18} />
-                  {activeCount > 0 && (
-                    <Badge size="xs" circle color="primary" style={{ position: "absolute", top: -4, right: -8 }}>{activeCount}</Badge>
-                  )}
-                </span>
-              </div>
-            ) : (
-              <Button
-                variant="subtle"
-                color="primary"
-                size="compact-sm"
-                onClick={openFilter}
-                leftSection={<IconFilter size={14} />}
-                rightSection={activeCount > 0 ? <Badge size="xs" circle color="primary">{activeCount}</Badge> : null}
-                styles={{ root: { fontFamily: FONT, fontSize: 12, fontWeight: 600, color: ACCENT, paddingLeft: 0 } }}
-              >
-                Filter
-              </Button>
-            )}
+        {/* Panel kendali — menyaring, mengurutkan, memilih untuk dibandingkan */}
+        <div style={{ flex: "0 1 260px", minWidth: 240, background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 16 }}>
+          <MappingSidePanel
+            config={config}
+            points={panelRows}
+            jobTargets={isTR ? jobTargets : undefined}
+            jobTarget={isTR ? jobTarget : undefined}
+            onJobTargetChange={isTR ? (v => { setJobTarget(v); setSelectedBox(null); }) : undefined}
+            onOpenFilter={openFilter}
+            activeFilterCount={activeCount}
+          />
+        </div>
+
+        {/* Kartu 9-box — sekarang mengambil sisa lebar, bukan separuh */}
+        <div style={{ flex: "1 1 520px", background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 20, display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+            {/* Baris tab box mapping — dioper dari induk, karena tab menentukan
+                konfigurasi mana yang dipakai Panel ini. */}
+            {tabBar}
             <IconSettings onClick={onSettings} title={`Setting ${config.name}`} size={16} style={{ color: "#adb5bd", cursor: onSettings ? "pointer" : undefined }} />
           </div>
+
           {chips.length > 0 && (
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8 }}>
               {chips.map((c, i) => (
                 <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#e6f3f8", color: ACCENT, borderRadius: 999, padding: "3px 10px", fontSize: 11, fontFamily: FONT }}>
                   {c.label}
@@ -311,23 +378,12 @@ function Panel({
               <span role="button" onClick={clearAll} style={{ color: ACCENT, fontSize: 11, fontWeight: 700, fontFamily: FONT, cursor: "pointer" }}>Clear All</span>
             </div>
           )}
-          <div style={{ display: "flex", justifyContent: "center", paddingTop: 8 }}>
-            <TMTRBox config={config} points={filtered} selectedBox={selectedBox} onBoxClick={setSelectedBox} />
-          </div>
-        </div>
 
-        {/* Donut card */}
-        <div style={{ flex: "1 1 320px", background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
-          <div style={{ fontFamily: FONT, fontWeight: 700, fontSize: 13, color: "#495057", textAlign: "center" }}>{config.name} Distribution</div>
-          <DonutChart data={tags} centerLabel={`${filtered.length} ${config.unit}`} />
-          <div style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%", maxWidth: 250 }}>
-            {tags.map((t, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: FONT, fontSize: 12, color: "#495057" }}>
-                <span style={{ width: 12, height: 12, borderRadius: "50%", background: resolveColor(t.color), flexShrink: 0 }} />
-                <span style={{ flex: 1 }}>{t.name}</span>
-                <span>({t.value})</span>
-              </div>
-            ))}
+          {/* Ringkasan sebaran, di atas 9-box */}
+          <DistributionBar data={tags} />
+
+          <div style={{ display: "flex", justifyContent: "center", paddingTop: 4 }}>
+            <TMTRBox config={config} points={banded} selectedBox={selectedBox} onBoxClick={setSelectedBox} size={BOX_SIZE} emptyNotice={awaitingTarget ? AWAITING_TARGET_NOTICE : undefined} />
           </div>
         </div>
       </div>
@@ -336,11 +392,33 @@ function Panel({
         config={config}
         points={tableRows}
         highlightId={highlightId}
-        emptyMessage={isTR && !jobTarget ? "No job target selected yet, please choose one first" : "No data."}
+        emptyMessage={awaitingTarget ? AWAITING_TARGET_NOTICE : "No data."}
       />
 
       {/* Judul & radius datang dari tema — cukup oper string. */}
       <Modal opened={filterOpen} onClose={() => setFilterOpen(false)} title="Filter" size="lg">
+        {/* Sumbu sebaris sendiri di atas: jumlahnya ikut tab (dua, atau tiga
+            kalau sumbu Z menyala), dan menyejajarkannya dengan Teams/Jobs
+            membuat kolomnya terlalu sempit begitu sumbu Z ikut muncul. */}
+        <div style={{ display: "grid", gridTemplateColumns: `repeat(${axes.length}, 1fr)`, gap: 24, fontFamily: FONT, marginBottom: 24 }}>
+          {axes.map(a => (
+            <div key={a.id}>
+              {/* Sumbunya disebut supaya kolom ini bisa dicocokkan dengan
+                  grafik: nama metrik saja tidak memberi tahu yang mana yang
+                  mendatar, tegak, atau digambar sebagai cincin. */}
+              <Text fw={700} size="sm" c="#495057" mb={10}>{a.label} ({a.id} Axis)</Text>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {/* Pita tertinggi di atas — urutan yang sama dengan sumbunya di grafik. */}
+                {a.bands.map((b, i) => ({ value: String(i), label: b.label })).reverse().map(o => (
+                  <Checkbox key={o.value} label={o.label}
+                    checked={(draftAxisPicks[a.id] ?? []).includes(o.value)}
+                    onChange={() => toggleAxis(a.id, o.value)}
+                    color="primary" size="sm" />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, fontFamily: FONT }}>
           <div>
             <Text fw={700} size="sm" c="#495057" mb={10}>Teams</Text>
@@ -373,40 +451,170 @@ function Panel({
   );
 }
 
+/**
+ * Modal pembuat tab box mapping.
+ *
+ * Hanya menanyakan yang membedakan sebuah tab: namanya dan kombinasi
+ * sumbunya. Sisanya (layout, kriteria, nama box, tag) mewarisi bawaan 9-box
+ * dan disunting lewat ikon setting, sama seperti dua tab bawaan — jadi user
+ * bisa langsung melihat hasilnya tanpa mengisi formulir panjang.
+ */
+function AddTabModal({ onClose, onCreate }: {
+  onClose: () => void;
+  onCreate: (t: { name: string; sumbuXKey: MetricKey; sumbuYKey: MetricKey; sumbuZKey?: MetricKey }) => void;
+}) {
+  const [name, setName] = useState("");
+  const [xKey, setXKey] = useState<MetricKey>("performance_score");
+  const [yKey, setYKey] = useState<MetricKey>("leadership_score");
+  const [zKey, setZKey] = useState<MetricKey | null>(null);
+  const [touched, setTouched] = useState(false);
+
+  const trimmed = name.trim();
+  const sameAxis = xKey === yKey;
+  const options = METRICS.map(m => ({ value: m.key, label: m.label }));
+
+  const submit = () => {
+    setTouched(true);
+    if (!trimmed || sameAxis) return;
+    onCreate({ name: trimmed, sumbuXKey: xKey, sumbuYKey: yKey, ...(zKey ? { sumbuZKey: zKey } : {}) });
+  };
+
+  return (
+    <Modal opened onClose={onClose} title="New Box Mapping Tab" size="sm">
+      <div style={{ display: "flex", flexDirection: "column", gap: 12, fontFamily: FONT }}>
+        <TextInput
+          label="Tab Name"
+          placeholder="e.g. Performance vs Behavioral"
+          value={name}
+          onChange={e => setName(e.currentTarget.value)}
+          onKeyDown={e => { if (e.key === "Enter") submit(); }}
+          error={touched && !trimmed ? "Nama tab wajib diisi" : null}
+          size="sm" radius="xl"
+          styles={{ label: { fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#495057", marginBottom: 4 }, input: { fontFamily: FONT } }}
+        />
+        <Select label="X Axis (Horizontal)" data={options} value={xKey} onChange={v => v && setXKey(v as MetricKey)}
+          allowDeselect={false} size="sm" radius="xl"
+          styles={{ label: { fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#495057", marginBottom: 4 }, input: { fontFamily: FONT } }} />
+        <Select label="Y Axis (Vertical)" data={options} value={yKey} onChange={v => v && setYKey(v as MetricKey)}
+          allowDeselect={false} size="sm" radius="xl"
+          error={sameAxis ? "Sumbu X dan Y harus metrik berbeda" : null}
+          styles={{ label: { fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#495057", marginBottom: 4 }, input: { fontFamily: FONT } }} />
+        <Select label="Z Axis (Radius) — opsional" data={options} value={zKey} onChange={v => setZKey((v as MetricKey) ?? null)}
+          placeholder="Tanpa sumbu Z" clearable size="sm" radius="xl"
+          styles={{ label: { fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#495057", marginBottom: 4 }, input: { fontFamily: FONT } }} />
+      </div>
+      <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 20 }}>
+        <Button variant="outline" color="primary" radius="xl" onClick={onClose}>Cancel</Button>
+        <Button color="primary" radius="xl" onClick={submit}>Create Tab</Button>
+      </div>
+    </Modal>
+  );
+}
+
 export default function TalentMappingClient({
-  tiConfig,
-  tiPoints,
-  trConfig,
   jobTargets,
-  trByTarget,
+  metrics,
   initialBox,
   initialHighlight,
 }: {
-  tiConfig: TMConfig;
-  tiPoints: TMPoint[];
-  trConfig: TMConfig;
   jobTargets: { id: string; title: string }[];
-  trByTarget: Record<string, TMPoint[]>;
+  metrics: EmployeeMetrics[];
   initialBox: number | null;
   initialHighlight: string | null;
 }) {
   const router = useRouter();
-  const [tab, setTab] = useState<"TI" | "TR">("TI");
-  const config = tab === "TI" ? tiConfig : trConfig;
-  const points = tab === "TI" ? tiPoints : [];
+  const [tab, setTab] = useState<string>("TI");
+
+  // Registry tab custom hidup di memori sesi; dibaca setelah mount supaya
+  // server merender daftar kosong dan klien daftar sebenarnya tanpa render
+  // tambahan — pola yang sama dengan useIProfileConfig.
+  const [customTabs, setCustomTabs] = useState<CustomTab[]>([]);
+  useEffect(() => {
+    const read = () => setCustomTabs(getCustomTabs());
+    read();
+    window.addEventListener(TM_TABS_EVENT, read);
+    return () => window.removeEventListener(TM_TABS_EVENT, read);
+  }, []);
+
+  const [addOpen, setAddOpen] = useState(false);
+
+  const activeCustom = customTabs.find(t => t.id === tab);
+
+  /**
+   * Konfigurasi tab aktif, dibaca dari simpanan sesi. Ditaruh di state dan
+   * disegarkan lewat TM_CONFIG_EVENT: halaman Setting menyimpan lalu kembali ke
+   * sini dengan navigasi klien, jadi tanpa langganan ini komponen akan memakai
+   * konfigurasi lama sampai halaman dimuat ulang — dan memuat ulang justru yang
+   * mengosongkan simpanannya.
+   *
+   * Nilai awalnya sengaja bawaan layout, bukan hasil bacaan: server merender
+   * lebih dulu dan tidak punya akses ke simpanan sesi, jadi membacanya saat
+   * render pertama akan menimbulkan beda hidrasi.
+   */
+  const [configVersion, setConfigVersion] = useState(0);
+  useEffect(() => {
+    const bump = () => setConfigVersion(v => v + 1);
+    bump();
+    window.addEventListener(TM_CONFIG_EVENT, bump);
+    return () => window.removeEventListener(TM_CONFIG_EVENT, bump);
+  }, []);
+  const config = useMemo(
+    () => getEffectiveConfig(tab),
+    // configVersion sengaja jadi pemicu: isinya di luar React.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tab, configVersion],
+  );
+
+  // Titik dihitung di klien untuk SEMUA tab — server tidak tahu konfigurasinya.
+  const points = useMemo(() => (tab === "TR" ? [] : pointsFrom(config, metrics)), [tab, config, metrics]);
+  const trByTarget = useMemo(() => {
+    if (tab !== "TR") return {};
+    return Object.fromEntries(jobTargets.map(t => [t.id, readinessPointsFrom(config, t.id, metrics)]));
+  }, [tab, config, jobTargets, metrics]);
+
+  const tabBar = (
+    <div style={{ display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap" }}>
+      <Tabs value={tab} onChange={v => setTab(v ?? "TI")} variant="default">
+        <Tabs.List style={{ borderBottom: "none" }}>
+          {BUILT_IN_TABS.map(t => (
+            <Tabs.Tab key={t.id} value={t.id} styles={{ tab: { fontFamily: FONT, fontSize: 12 } }}>{t.label}</Tabs.Tab>
+          ))}
+          {customTabs.map(t => (
+            <Tabs.Tab key={t.id} value={t.id} styles={{ tab: { fontFamily: FONT, fontSize: 12 } }}>{t.name}</Tabs.Tab>
+          ))}
+        </Tabs.List>
+      </Tabs>
+      <ActionIcon variant="subtle" color="primary" size="sm" title="Tambah tab" aria-label="Tambah tab" onClick={() => setAddOpen(true)}>
+        <IconPlus size={16} />
+      </ActionIcon>
+      {/* Ubah nama & hapus hanya untuk tab custom — halaman ini kehilangan
+          artinya tanpa dua tab bawaannya. */}
+      {activeCustom && (
+        <>
+          <ActionIcon variant="subtle" color="gray" size="sm" title="Ubah nama tab" aria-label="Ubah nama tab"
+            onClick={() => {
+              const name = window.prompt("Nama tab", activeCustom.name)?.trim();
+              if (name) renameCustomTab(activeCustom.id, name);
+            }}>
+            <IconPencil size={15} />
+          </ActionIcon>
+          <ActionIcon variant="subtle" color="red" size="sm" title="Hapus tab" aria-label="Hapus tab"
+            onClick={() => {
+              if (!window.confirm(`Hapus tab "${activeCustom.name}" beserta pengaturannya?`)) return;
+              removeCustomTab(activeCustom.id);
+              setTab("TI");
+            }}>
+            <IconTrash size={15} />
+          </ActionIcon>
+        </>
+      )}
+    </div>
+  );
 
   return (
     <div style={{ fontFamily: FONT }}>
       <AppBreadcrumb items={[{ label: "Talent Mapping" }]} />
       <div style={{ padding: "12px 16px 40px" }}>
-      {/* Tab memakai komponen design system; gayanya datang dari tema
-          (lihat blok .mantine-Tabs-* di globals.css), bukan ditulis di sini. */}
-      <Tabs value={tab} onChange={(v) => setTab((v as "TI" | "TR") ?? "TI")} mb={16}>
-        <Tabs.List>
-          <Tabs.Tab value="TI">Human Asset Value</Tabs.Tab>
-          <Tabs.Tab value="TR">Talent Readiness</Tabs.Tab>
-        </Tabs.List>
-      </Tabs>
       <Panel
         key={tab}
         config={config}
@@ -415,8 +623,17 @@ export default function TalentMappingClient({
         trByTarget={trByTarget}
         initialBox={initialBox}
         initialHighlight={initialHighlight}
-        onSettings={() => router.push(tab === "TI" ? "/talent-mapping/config" : "/talent-mapping/config?config=TR")}
+        tabBar={tabBar}
+        onSettings={() => router.push(`/talent-mapping/config?config=${encodeURIComponent(tab)}`)}
       />
+      {/* Dirender hanya saat terbuka, jadi tiap kali dibuka isinya segar —
+          tanpa perlu effect yang mengosongkan state. */}
+      {addOpen && (
+        <AddTabModal
+          onClose={() => setAddOpen(false)}
+          onCreate={t => { const created = addCustomTab(t); setTab(created.id); setAddOpen(false); }}
+        />
+      )}
       </div>
     </div>
   );
