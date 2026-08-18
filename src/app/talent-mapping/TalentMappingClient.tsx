@@ -364,7 +364,7 @@ function Panel({
             {/* Baris tab box mapping — dioper dari induk, karena tab menentukan
                 konfigurasi mana yang dipakai Panel ini. */}
             {tabBar}
-            <IconSettings onClick={onSettings} title={`Setting ${config.name}`} size={16} style={{ color: "#adb5bd", cursor: onSettings ? "pointer" : undefined }} />
+            <IconSettings onClick={onSettings} title={`Setting ${config.name}`} size={16} style={{ color: ACCENT, cursor: onSettings ? "pointer" : undefined }} />
           </div>
 
           {chips.length > 0 && (
