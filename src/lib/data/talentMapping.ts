@@ -1,5 +1,5 @@
 import { candidates, type Candidate } from "@/data/dummyData";
-import { TI_CONFIG, TR_CONFIG, boxByOrder, orderFor, plotPos, resolveColor, type MetricKey, type TMConfig, type TMPoint } from "@/data/talentMappingShared";
+import { TI_CONFIG, TR_CONFIG, boxByOrder, orderFor, plotPos, resolveColor, targetRequirement, type EmployeeMetrics, type MetricKey, type TMConfig, type TMPoint } from "@/data/talentMappingShared";
 import { mantineColor } from "@/components/team/mantineColor";
 import { allTeams, getParticipant } from "@/data/model/selectors";
 
@@ -15,7 +15,29 @@ const teamNameOf = (participantId: string): string => {
   return (tid ? _teamNameById.get(tid) : "") ?? "";
 };
 
-/** TI (Human Asset Value): whichever two metrics `cfg` selects (default: Performance × Potency). */
+/**
+ * Tabel metrik ringkas per karyawan untuk dihitung di klien.
+ *
+ * Tab buatan user bisa memilih kombinasi sumbu apa pun, dan kombinasinya baru
+ * diketahui setelah halaman terkirim — server tidak bisa menyiapkan titiknya
+ * lebih dulu. Yang dikirim cuma empat angka per orang, bukan seluruh fixture
+ * candidates, jadi klien bisa menghitung titik untuk kombinasi apa pun tanpa
+ * perlu tahu data lainnya.
+ */
+export function getEmployeeMetrics(pool: Candidate[] = candidates): EmployeeMetrics[] {
+  return pool.map(c => ({
+    employeeId: c.id,
+    name: c.name,
+    positionTitle: c.position,
+    team: teamNameOf(c.id),
+    performance_score: val(c, "performance_score"),
+    leadership_score: val(c, "leadership_score"),
+    technical_score: val(c, "technical_score"),
+    behavioral_score: val(c, "behavioral_score"),
+  }));
+}
+
+/** TI (Talent Identification): whichever two metrics `cfg` selects (default: Performance × Potency). */
 export function getTalentIdentificationPoints(cfg: TMConfig = TI_CONFIG, pool: Candidate[] = candidates): TMPoint[] {
   return pool.map(c => {
     const rawX = val(c, cfg.sumbuXKey);
@@ -27,6 +49,9 @@ export function getTalentIdentificationPoints(cfg: TMConfig = TI_CONFIG, pool: C
       positionTitle: c.position,
       team: teamNameOf(c.id),
       rawX, rawY,
+      // Sumbu Z tidak menempatkan titik, hanya membesarkannya — jadi ia tidak
+      // ikut menentukan `has` maupun kotaknya.
+      rawZ: cfg.useZ && cfg.sumbuZKey ? val(c, cfg.sumbuZKey) : null,
       x: has ? plotPos(rawX!, cfg.rangesX) : null,
       y: has ? plotPos(rawY!, cfg.rangesY) : null,
       order: has ? orderFor(cfg, rawX!, rawY!) : null,
@@ -50,18 +75,9 @@ export function getJobTargets(pool: Candidate[] = candidates): JobTarget[] {
     .map(title => ({ id: title, title }));
 }
 
-/** Deterministic competency requirement for a target, by seniority keyword —
- *  senior targets demand more, so everyone's match% (and readiness) drops. */
-export function targetRequirement(title: string): number {
-  const t = title.toLowerCase();
-  if (/(chief|officer|\bceo\b|\bcxo\b)/.test(t)) return 95;
-  if (/\bvp\b|vice president/.test(t)) return 92;
-  if (/head|director/.test(t)) return 90;
-  if (/lead|principal/.test(t)) return 87;
-  if (/manager/.test(t)) return 84;
-  if (/senior/.test(t)) return 81;
-  return 78;
-}
+/** Syarat kompetensi target jabatan. Definisi tunggalnya ada di
+ *  talentMappingShared supaya hitungan server dan klien tidak bercabang. */
+export { targetRequirement } from "@/data/talentMappingShared";
 
 const clampPct = (v: number) => Math.min(100, Math.max(0, Math.round(v * 100) / 100));
 
@@ -79,6 +95,7 @@ export function getTalentReadinessPoints(targetId: string, cfg: TMConfig = TR_CO
       positionTitle: c.position,
       team: teamNameOf(c.id),
       rawX, rawY,
+      rawZ: cfg.useZ && cfg.sumbuZKey ? val(c, cfg.sumbuZKey) : null,
       x: has ? plotPos(rawX!, cfg.rangesX) : null,
       y: has ? plotPos(rawY!, cfg.rangesY) : null,
       order: has ? orderFor(cfg, rawX!, rawY!) : null,

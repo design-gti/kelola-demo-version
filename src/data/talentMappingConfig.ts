@@ -1,27 +1,80 @@
-// Effective box-mapping config (TI or TR): the layout default merged with the
-// user's saved overrides (layout + metrics + band thresholds + box labels/tags/
-// readiness) from localStorage. The Setting page writes here; the Talent Mapping
-// page reads getEffective{TI,TR}Config(). Config is INDEPENDENT per box mapping
-// (separate key/cookie), mirroring kelola-app.
+// Konfigurasi box mapping efektif (TI/TR/tab custom): bawaan layout ditimpa
+// suntingan user. Halaman Setting menulis ke sini; halaman Talent Mapping
+// membacanya lewat getEffectiveConfig(). Konfigurasi TERPISAH per box mapping,
+// meniru kelola-app.
 //
-// Each save also mirrors into a plain cookie (same JSON) so the Server Component
-// at src/app/talent-mapping/page.tsx can read the choice via
-// src/lib/data/talentMappingConfig.ts (localStorage doesn't exist on the server).
-// Keep the cookie names in sync with that file by hand.
-import { TMConfig, makeConfigById } from "./talentMappingShared";
+// SIMPANANNYA HANYA DI MEMORI, SENGAJA. Untuk keperluan demo, semua pengaturan
+// berlaku penuh selama sesi berjalan — pindah halaman, bolak-balik antar tab,
+// semuanya bertahan — tapi refresh browser atau login ulang mengembalikannya ke
+// setelan awal, sehingga setiap demo mulai dari kondisi yang sama tanpa perlu
+// membersihkan apa pun. localStorage dan cookie tidak dipakai justru karena
+// keduanya selamat dari reload; peta modul di bawah ini tidak.
+//
+// Konsekuensinya server tidak bisa lagi membaca konfigurasi ini (tidak ada
+// cookie yang dikirim), jadi titik 9-box dihitung di klien dari tabel metrik —
+// lihat pointsFrom()/readinessPointsFrom() di talentMappingShared.
+import { TMConfig, MetricKey, makeConfigById, metricLabel } from "./talentMappingShared";
 
-export type ConfigId = "TI" | "TR";
+/** "TI" / "TR" untuk dua tab bawaan; tab buatan user memakai id sendiri. */
+export type ConfigId = string;
 
-const key = (id: ConfigId) => `tm-config-${id}`;
-// `-v2` bukan sisa eksperimen: sama seperti kelola-role-v2 (lihat setRole.ts),
-// cookie lama non-partitioned bertahan sampai 180 hari di jar terpisah dari
-// cookie Partitioned yang baru dan MENANG saat server membacanya di luar
-// iframe. Ganti nama memaksa pengguna lama mulai dari cookie baru yang benar,
-// bukan bertabrakan diam-diam dengan cookie lama yang salah atribut.
-const cookie = (id: ConfigId) => `tm-config-${id.toLowerCase()}-v2`;
+/** Dua tab yang selalu ada dan tidak bisa dihapus. */
+export const BUILT_IN_TABS: { id: string; label: string }[] = [
+  { id: "TI", label: "Talent Identification" },
+  { id: "TR", label: "Talent Readiness" },
+];
+export const isBuiltInTab = (id: string) => BUILT_IN_TABS.some(t => t.id === id);
+
+/** Tab box mapping buatan user: nama plus kombinasi sumbunya. */
+export interface CustomTab {
+  id: string;
+  name: string;
+  sumbuXKey: MetricKey;
+  sumbuYKey: MetricKey;
+  sumbuZKey?: MetricKey;
+}
+
+export const TM_TABS_EVENT = "tm-tabs-changed";
+
+/** Registry tab custom untuk sesi ini. Hilang saat halaman dimuat ulang. */
+let memTabs: CustomTab[] = [];
+
+export function getCustomTabs(): CustomTab[] {
+  return memTabs;
+}
+
+function writeCustomTabs(tabs: CustomTab[]): void {
+  memTabs = tabs;
+  window.dispatchEvent(new Event(TM_TABS_EVENT));
+}
+
+/**
+ * Id diturunkan dari cap waktu, bukan dari namanya: nama boleh diganti, dan
+ * konfigurasi tersimpan menempel pada id — kalau id ikut berubah, seluruh
+ * pengaturan tab itu hilang begitu namanya disunting.
+ */
+export function addCustomTab(tab: Omit<CustomTab, "id">): CustomTab {
+  const created: CustomTab = { ...tab, id: "TC" + Date.now().toString(36) };
+  writeCustomTabs([...getCustomTabs(), created]);
+  return created;
+}
+
+export function renameCustomTab(id: string, name: string): void {
+  writeCustomTabs(getCustomTabs().map(t => (t.id === id ? { ...t, name } : t)));
+}
+
+/** Menghapus tab sekalian membuang konfigurasi tersimpannya. */
+export function removeCustomTab(id: string): void {
+  writeCustomTabs(getCustomTabs().filter(t => t.id !== id));
+  resetConfig(id);
+}
+
+/** Konfigurasi tersimpan per box mapping, sebagai JSON. Sengaja di memori:
+ *  lihat catatan di kepala berkas. */
+const memConfig = new Map<ConfigId, string>();
 export const TM_CONFIG_EVENT = "tm-config-changed";
 
-type Saved = Pick<TMConfig, "layout" | "sumbuX" | "sumbuY" | "sumbuXKey" | "sumbuYKey" | "rangesX" | "rangesY" | "boxes">;
+type Saved = Pick<TMConfig, "layout" | "sumbuX" | "sumbuY" | "sumbuXKey" | "sumbuYKey" | "rangesX" | "rangesY" | "boxes" | "useZ" | "sumbuZ" | "sumbuZKey" | "rangesZ" | "tagOptions" | "colorOptions" | "ordering">;
 
 function mergeSaved(id: ConfigId, raw: string): TMConfig {
   const s = JSON.parse(raw) as Saved;
@@ -30,21 +83,45 @@ function mergeSaved(id: ConfigId, raw: string): TMConfig {
   const cfg = makeConfigById(id, s.layout, { sumbuXKey: s.sumbuXKey, sumbuYKey: s.sumbuYKey });
   if (s.rangesX?.length === cfg.rangesX.length) cfg.rangesX = s.rangesX;
   if (s.rangesY?.length === cfg.rangesY.length) cfg.rangesY = s.rangesY;
+  // Sumbu Z: pilihan metrik dan pitanya ikut dipulihkan.
+  cfg.useZ = !!s.useZ;
+  cfg.sumbuZKey = s.sumbuZKey;
+  cfg.sumbuZ = s.sumbuZ;
+  if (s.rangesZ?.length) cfg.rangesZ = s.rangesZ;
+  if (s.tagOptions?.length) cfg.tagOptions = s.tagOptions;
+    if (s.colorOptions?.length) cfg.colorOptions = s.colorOptions;
+  // Nomor box bisa ditukar user; urutannya tinggal di ordering, jadi harus
+  // ikut tersimpan — kalau tidak, penukaran nomor hilang saat halaman dimuat.
+  if (s.ordering?.length === cfg.ordering.length) cfg.ordering = s.ordering;
   if (s.boxes?.length === cfg.boxes.length) {
     cfg.boxes = cfg.boxes.map(b => {
       const o = s.boxes.find(x => x.order === b.order);
-      return o ? { ...b, label: o.label, tag: o.tag, readiness: o.readiness } : b;
+      // readiness = tag yang terlihat user. Simpanan lama belum punya medan
+      // ini; tanpa fallback, tag bawaan box tertimpa kosong.
+      return o ? { ...b, label: o.label, tag: o.tag, color: o.color ?? b.color, readiness: o.readiness ?? b.readiness } : b;
     });
   }
   return cfg;
 }
 
 export function getEffectiveConfig(id: ConfigId): TMConfig {
-  const base = makeConfigById(id);
-  if (typeof window === "undefined") return base;
+  let base = makeConfigById(id);
+  // Nama dan sumbu tab custom tinggal di registry tab, bukan di simpanan
+  // konfigurasi — supaya mengganti nama tab tidak menyentuh konfigurasinya.
+  const custom = getCustomTabs().find(t => t.id === id);
+  if (custom) {
+    base = {
+      ...base,
+      name: custom.name, tabLabel: custom.name,
+      sumbuXKey: custom.sumbuXKey, sumbuX: metricLabel(custom.sumbuXKey),
+      sumbuYKey: custom.sumbuYKey, sumbuY: metricLabel(custom.sumbuYKey),
+      ...(custom.sumbuZKey ? { useZ: true, sumbuZKey: custom.sumbuZKey, sumbuZ: metricLabel(custom.sumbuZKey) } : {}),
+    };
+  }
+  const raw = memConfig.get(id);
+  if (!raw) return base;
   try {
-    const raw = localStorage.getItem(key(id));
-    return raw ? mergeSaved(id, raw) : base;
+    return mergeSaved(id, raw);
   } catch {
     return base;
   }
@@ -56,30 +133,15 @@ export function saveConfig(id: ConfigId, cfg: TMConfig): void {
     layout: cfg.layout, sumbuX: cfg.sumbuX, sumbuY: cfg.sumbuY,
     sumbuXKey: cfg.sumbuXKey, sumbuYKey: cfg.sumbuYKey,
     rangesX: cfg.rangesX, rangesY: cfg.rangesY, boxes: cfg.boxes,
+    useZ: cfg.useZ, sumbuZ: cfg.sumbuZ, sumbuZKey: cfg.sumbuZKey, rangesZ: cfg.rangesZ,
+    tagOptions: cfg.tagOptions, colorOptions: cfg.colorOptions, ordering: cfg.ordering,
   };
-  const json = JSON.stringify(s);
-  localStorage.setItem(key(id), json);
-  // Halaman ini di-embed sebagai iframe lintas situs di Integro. Dengan
-  // SameSite=Lax browser memperlakukan cookie ini sebagai pihak ketiga dan
-  // tidak menyimpannya, sehingga getEffectiveConfigServer() di
-  // src/lib/data/talentMappingConfig.ts selalu jatuh ke default — pengguna
-  // mengatur sumbu/rentang/box TI/TR, reload, dan pengaturannya hilang senyap
-  // tanpa error. `Partitioned` (CHIPS) membuat Chrome/Firefox tetap
-  // menyimpannya, terisolasi per situs induk. SameSite=None MEWAJIBKAN Secure;
-  // localhost tetap dianggap tepercaya jadi `next dev` biasa tidak terdampak
-  // (lihat komentar sejenis di api/session/route.ts untuk kasus non-localhost).
-  document.cookie = `${cookie(id)}=${encodeURIComponent(json)}; path=/; max-age=${60 * 60 * 24 * 180}; SameSite=None; Secure; Partitioned`;
+  memConfig.set(id, JSON.stringify(s));
   window.dispatchEvent(new Event(TM_CONFIG_EVENT));
 }
 
 export function resetConfig(id: ConfigId): void {
-  if (typeof window === "undefined") return;
-  localStorage.removeItem(key(id));
-  // Atribut penghapusan HARUS sama (SameSite/Secure/Partitioned) dengan atribut
-  // penulisan di atas — browser mencocokkan atribut cookie saat menghapus, jadi
-  // max-age=0 tanpa atribut yang cocok hanya menghapus (atau membuat) cookie di
-  // jar yang salah dan cookie Partitioned lama tetap hidup.
-  document.cookie = `${cookie(id)}=; path=/; max-age=0; SameSite=None; Secure; Partitioned`;
+  memConfig.delete(id);
   window.dispatchEvent(new Event(TM_CONFIG_EVENT));
 }
 

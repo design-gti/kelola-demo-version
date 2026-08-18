@@ -1,7 +1,14 @@
-import { getTalentIdentificationPoints, getTalentReadinessByTarget, getJobTargets } from "@/lib/data/talentMapping";
-import { getEffectiveTIConfigServer, getEffectiveTRConfigServer } from "@/lib/data/talentMappingConfig";
+import { getJobTargets, getEmployeeMetrics } from "@/lib/data/talentMapping";
 import TalentMappingClient from "./TalentMappingClient";
 
+/**
+ * Konfigurasi box mapping hidup di memori klien selama satu sesi (lihat catatan
+ * di src/data/talentMappingConfig.ts), jadi server tidak punya cara — dan tidak
+ * perlu — mengetahuinya. Yang dikirim dari sini cuma bahan mentahnya: tabel
+ * metrik per karyawan dan daftar target jabatan. Titik 9-box untuk konfigurasi
+ * apa pun dihitung di klien, sehingga setiap perubahan pengaturan langsung
+ * terlihat tanpa memuat ulang halaman.
+ */
 export default async function TalentMappingPage({
   searchParams,
 }: {
@@ -10,21 +17,10 @@ export default async function TalentMappingPage({
   const { box, highlight } = await searchParams;
   const initialBox = box ? Number(box) : null;
 
-  const tiConfig = await getEffectiveTIConfigServer();
-  const tiPoints = getTalentIdentificationPoints(tiConfig);
-
-  const trConfig = await getEffectiveTRConfigServer();
-  const jobTargets = getJobTargets();
-  // Precompute readiness per target server-side (raw scores never reach the client).
-  const trByTarget = getTalentReadinessByTarget(trConfig);
-
   return (
     <TalentMappingClient
-      tiConfig={tiConfig}
-      tiPoints={tiPoints}
-      trConfig={trConfig}
-      jobTargets={jobTargets}
-      trByTarget={trByTarget}
+      jobTargets={getJobTargets()}
+      metrics={getEmployeeMetrics()}
       initialBox={initialBox}
       initialHighlight={highlight ?? null}
     />
