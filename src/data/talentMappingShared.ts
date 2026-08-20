@@ -49,6 +49,9 @@ export const METRICS: { key: MetricKey; label: string }[] = [
 ];
 export const metricLabel = (k: MetricKey) => METRICS.find(m => m.key === k)?.label ?? k;
 
+/** Persen dijaga di 0..100 dengan dua angka desimal. */
+const clampPct = (v: number) => Math.min(100, Math.max(0, Math.round(v * 100) / 100));
+
 export const READINESS_BUCKETS: string[] = [
   "Ready more than 2 year",
   "Ready between 1 and 2 year",
@@ -217,6 +220,24 @@ function box12_3x4(): BoxDef[] {
 export const getLayout = (id: string) => LAYOUTS.find(l => l.id === id) ?? LAYOUTS[0];
 
 // Build a TMConfig from a layout id (deep-copied so callers can freely mutate).
+/**
+ * Tag bawaan untuk box yang tidak bertanda talent, diturunkan dari posisinya.
+ *
+ * "Kekuatan" sebuah box = seberapa jauh ia ke kanan dan ke atas dalam grid.
+ * Dipakai rumus ini, bukan daftar per nomor box, supaya aturannya berlaku untuk
+ * layout apa pun — 9-box, 12-box, atau layout yang ditambahkan nanti.
+ */
+function tierTagFor(order: number, ordering: number[][]): string {
+  let rowFromTop = 0;
+  let col = 0;
+  ordering.forEach((row, r) => {
+    const c = row.indexOf(order);
+    if (c !== -1) { rowFromTop = r; col = c; }
+  });
+  const strength = col + (ordering.length - 1 - rowFromTop);
+  return READINESS_BUCKETS[Math.min(strength, READINESS_BUCKETS.length - 1)];
+}
+
 export function makeConfig(layoutId: string, overrides?: Partial<Pick<TMConfig, "sumbuXKey" | "sumbuYKey">>): TMConfig {
   const L = getLayout(layoutId);
   const xKey = overrides?.sumbuXKey ?? "technical_score";
@@ -233,10 +254,17 @@ export function makeConfig(layoutId: string, overrides?: Partial<Pick<TMConfig, 
     useZ: false, sumbuZKey: undefined, sumbuZ: undefined, rangesZ: mkBands(B3),
     tagOptions: [...DEFAULT_TAG_OPTIONS],
     colorOptions: [],
-    // readiness dipakai sebagai tag yang terlihat user di KEDUA mode. Box TI
-    // hanya punya flag talent, jadi tagnya diturunkan dari situ — tanpa ini
-    // kolom Tag mode TI tampil kosong padahal boxnya sudah bertanda talent.
-    boxes: L.boxes.map(b => ({ ...b, readiness: b.readiness ?? (b.tag === "talent" ? TALENT_TAG : null) })),
+    // readiness dipakai sebagai tag yang terlihat user di KEDUA mode.
+    //
+    // SETIAP box diberi tag bawaan, bukan hanya yang bertanda talent: bar
+    // ringkasan di halaman Talent Mapping dihitung per tag, jadi box tanpa tag
+    // membuat orang di dalamnya jatuh ke keranjang "Tanpa Tag" alih-alih
+    // terbaca sebagai kategori yang berarti. Box bertanda talent tetap memakai
+    // tag Talent supaya kolom HAV status dan hitungan talent tidak bergeser.
+    boxes: L.boxes.map(b => ({
+      ...b,
+      readiness: b.readiness ?? (b.tag === "talent" ? TALENT_TAG : tierTagFor(b.order, L.ordering)),
+    })),
   };
 }
 
@@ -277,10 +305,44 @@ export function orderFor(cfg: TMConfig, rawX: number, rawY: number): number {
  * yang ini membaca tabel metrik yang sudah dikirim — sedangkan rumus
  * penempatannya sama dan tinggal di berkas ini.
  */
-export function pointsFrom(cfg: TMConfig, rows: EmployeeMetrics[]): TMPoint[] {
+/** Metrik yang dibaca relatif terhadap jabatan target, bukan apa adanya. */
+export const COMPETENCY_KEY: MetricKey = "technical_score";
+
+/**
+ * Apakah salah satu sumbu box mapping ini memakai data Competency.
+ *
+ * Menentukan muncul-tidaknya pemilih jabatan target: angka Competency hanya
+ * punya arti relatif — "cukup" atau "kurang" itu selalu terhadap tuntutan
+ * sebuah jabatan. Sumbu lain (Performance, Potency, Behavioral) berdiri sendiri,
+ * jadi tab yang tidak memakai Competency tidak perlu target sama sekali.
+ */
+export const usesCompetency = (cfg: TMConfig): boolean =>
+  cfg.sumbuXKey === COMPETENCY_KEY ||
+  cfg.sumbuYKey === COMPETENCY_KEY ||
+  (!!cfg.useZ && cfg.sumbuZKey === COMPETENCY_KEY);
+
+/**
+ * Titik untuk sebuah konfigurasi.
+ *
+ * targetId mengubah pembacaan sumbu Competency — DI SUMBU MANA PUN ia
+ * dipasang — dari skor mentah menjadi persen kecocokan terhadap syarat jabatan
+ * itu. Dulu perubahan ini terkurung di jalur Talent Readiness dan hanya berlaku
+ * untuk sumbu X, jadi tab lain yang memakai Competency tidak bisa dibandingkan
+ * terhadap jabatan apa pun.
+ *
+ * Tanpa target, nilainya dipakai apa adanya — itulah kelakuan Talent
+ * Identification selama ini, dan ia tetap berarti tanpa memilih jabatan.
+ */
+export function pointsFrom(cfg: TMConfig, rows: EmployeeMetrics[], targetId?: string | null): TMPoint[] {
+  const req = targetId ? targetRequirement(targetId) : null;
+  const read = (r: EmployeeMetrics, key: MetricKey): number | null => {
+    const v = r[key];
+    if (v == null) return null;
+    return req != null && key === COMPETENCY_KEY ? clampPct((v / req) * 100) : v;
+  };
   return rows.map(r => {
-    const rawX = r[cfg.sumbuXKey];
-    const rawY = r[cfg.sumbuYKey];
+    const rawX = read(r, cfg.sumbuXKey);
+    const rawY = read(r, cfg.sumbuYKey);
     const has = rawX != null && rawY != null;
     return {
       employeeId: r.employeeId,
@@ -288,7 +350,7 @@ export function pointsFrom(cfg: TMConfig, rows: EmployeeMetrics[]): TMPoint[] {
       positionTitle: r.positionTitle,
       team: r.team,
       rawX, rawY,
-      rawZ: cfg.useZ && cfg.sumbuZKey ? r[cfg.sumbuZKey] : null,
+      rawZ: cfg.useZ && cfg.sumbuZKey ? read(r, cfg.sumbuZKey) : null,
       x: has ? plotPos(rawX, cfg.rangesX) : null,
       y: has ? plotPos(rawY, cfg.rangesY) : null,
       order: has ? orderFor(cfg, rawX, rawY) : null,
@@ -369,31 +431,46 @@ export function makeConfigById(
   };
 }
 
-// Donut tags. Colors are FULL tokens (no ".5" suffix appended downstream) so the
-// TR legend mirrors the diagram box colors exactly — "Ready Now" is box 9's blue,
-// never green — keeping donut ↔ 9-box ↔ table visually consistent. (TI keeps its
-// tenure labels for talent/non/no-data counts.)
+/**
+ * Ringkasan sebaran per TAG — satu tag yang terpakai, satu batang.
+ *
+ * Dulu mode TI dipaku ke tiga kategori (Talent / Non Talent / No Data) dan hanya
+ * TR yang menghitung per tag. Akibatnya tag yang disetel user di halaman Setting
+ * tidak terlihat pengaruhnya di TI: memberi tag baru pada sebuah box tidak
+ * mengubah apa pun di ringkasannya. Sekarang kedua mode memakai jalur yang sama,
+ * jadi jumlah batang selalu sebanyak tag yang benar-benar dipakai box.
+ *
+ * Warna diambil dari box pemilik tag itu (token utuh, tanpa imbuhan ".5") supaya
+ * warna batang, warna kotak di grid, dan warna di tabel selalu satu cerita.
+ */
 export function donutTags(cfg: TMConfig, points: TMPoint[]) {
-  const isTalent = (p: TMPoint) => boxByOrder(cfg, p.order)?.tag === "talent";
-  // Bukan TR berarti dua metrik lawan dua metrik — TI maupun tab buatan user.
-  if (cfg.id !== "TR") {
-    // Namanya dulu bergaya masa kerja ("<2 Years") padahal yang dihitung
-    // status talent — labelnya menyebut hal yang tidak diukurnya.
-    return [
-      { name: "Talent", value: points.filter(isTalent).length, color: "primary.5" },
-      { name: "Non Talent", value: points.filter(p => p.order != null && !isTalent(p)).length, color: "secondary.5" },
-      { name: "No Data", value: points.filter(p => p.order == null).length, color: "neutral.5" },
-    ];
-  }
-  // TR: one slice per readiness bucket present in this config's boxes, colored by
-  // that box's own color (so the legend dot matches the cell), + a grey No Data slice.
-  const readinessOf = (p: TMPoint) => boxByOrder(cfg, p.order)?.readiness || null;
-  const boxColorFor = (name: string) => cfg.boxes.find(x => x.readiness === name)?.color ?? "neutral.5";
-  const buckets = READINESS_BUCKETS.filter(name => cfg.boxes.some(x => x.readiness === name));
-  return [
-    ...buckets.map(name => ({ name, value: points.filter(p => readinessOf(p) === name).length, color: boxColorFor(name) })),
-    { name: "No Data", value: points.filter(p => p.order == null).length, color: "neutral.5" },
-  ];
+  const tagOf = (p: TMPoint) => boxByOrder(cfg, p.order)?.readiness || null;
+  const colorFor = (tag: string) => cfg.boxes.find(b => b.readiness === tag)?.color ?? "neutral.5";
+
+  // Urutannya mengikuti daftar tag di halaman Setting, bukan urutan kemunculan
+  // di grid: itu daftar yang sama yang dilihat user saat memilih tag, jadi
+  // urutan batang di sini tidak mengejutkan. Tag buatan sendiri yang tidak ada
+  // di daftar menyusul di belakang.
+  const options = cfg.tagOptions ?? DEFAULT_TAG_OPTIONS;
+  const used = cfg.boxes.map(b => b.readiness).filter((t): t is string => !!t);
+  const ordered = [...options.filter(t => used.includes(t)), ...used.filter(t => !options.includes(t))]
+    .filter((t, i, arr) => arr.indexOf(t) === i);
+
+  const bars = ordered.map(tag => ({
+    name: tag,
+    value: points.filter(p => tagOf(p) === tag).length,
+    color: colorFor(tag),
+  }));
+
+  // Dua keranjang terakhir hanya muncul kalau memang ada isinya. Satu tag satu
+  // batang adalah aturan yang dibaca user; menambah batang yang bukan tag saat
+  // isinya nol hanya mengaburkan hitungan itu — tapi menyembunyikannya saat
+  // BERISI orang akan menghilangkan orang dari ringkasan.
+  const untagged = points.filter(p => p.order != null && !tagOf(p)).length;
+  const outside = points.filter(p => p.order == null).length;
+  if (untagged > 0) bars.push({ name: "Tanpa Tag", value: untagged, color: "neutral.3" });
+  if (outside > 0) bars.push({ name: "No Data", value: outside, color: "neutral.5" });
+  return bars;
 }
 
 /**
@@ -430,27 +507,6 @@ export function targetRequirement(title: string): number {
   return 78;
 }
 
-const clampPct = (v: number) => Math.min(100, Math.max(0, Math.round(v * 100) / 100));
-
-/** Titik readiness untuk satu target jabatan: X = %kecocokan kompetensi
- *  terhadap syarat target, Y = potensi intrinsik karyawan. */
-export function readinessPointsFrom(cfg: TMConfig, targetId: string, rows: EmployeeMetrics[]): TMPoint[] {
-  const req = targetRequirement(targetId);
-  return rows.map(r => {
-    const comp = r[cfg.sumbuXKey];
-    const rawX = comp == null ? null : clampPct((comp / req) * 100);
-    const rawY = r[cfg.sumbuYKey];
-    const has = rawX != null && rawY != null;
-    return {
-      employeeId: r.employeeId,
-      name: r.name,
-      positionTitle: r.positionTitle,
-      team: r.team,
-      rawX, rawY,
-      rawZ: cfg.useZ && cfg.sumbuZKey ? r[cfg.sumbuZKey] : null,
-      x: has ? plotPos(rawX, cfg.rangesX) : null,
-      y: has ? plotPos(rawY, cfg.rangesY) : null,
-      order: has ? orderFor(cfg, rawX, rawY) : null,
-    };
-  });
-}
+// Talent Readiness dulu punya fungsi titiknya sendiri di sini. Sekarang ia cuma
+// pointsFrom() dengan target terpilih — perbedaannya hanya bahwa di TR target
+// itu WAJIB, sementara di tab lain ia pilihan.

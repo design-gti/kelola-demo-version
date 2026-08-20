@@ -12,7 +12,7 @@
 //
 // Konsekuensinya server tidak bisa lagi membaca konfigurasi ini (tidak ada
 // cookie yang dikirim), jadi titik 9-box dihitung di klien dari tabel metrik —
-// lihat pointsFrom()/readinessPointsFrom() di talentMappingShared.
+// lihat pointsFrom() di talentMappingShared.
 import { TMConfig, MetricKey, makeConfigById, metricLabel } from "./talentMappingShared";
 
 /** "TI" / "TR" untuk dua tab bawaan; tab buatan user memakai id sendiri. */
@@ -94,11 +94,21 @@ function mergeSaved(id: ConfigId, raw: string): TMConfig {
   // ikut tersimpan — kalau tidak, penukaran nomor hilang saat halaman dimuat.
   if (s.ordering?.length === cfg.ordering.length) cfg.ordering = s.ordering;
   if (s.boxes?.length === cfg.boxes.length) {
-    cfg.boxes = cfg.boxes.map(b => {
-      const o = s.boxes.find(x => x.order === b.order);
-      // readiness = tag yang terlihat user. Simpanan lama belum punya medan
-      // ini; tanpa fallback, tag bawaan box tertimpa kosong.
-      return o ? { ...b, label: o.label, tag: o.tag, color: o.color ?? b.color, readiness: o.readiness ?? b.readiness } : b;
+    // Box tersimpan yang jadi acuan, NOMORNYA ikut.
+    //
+    // Dulu pasangannya dicari lewat nomor box (`find(x => x.order === b.order)`).
+    // Itu cuma bekerja selama nomor hanya ditukar-tukar di dalam deret bawaan
+    // layout. Nomor box sekarang bisa disetel sampai 27, jadi begitu ada nomor di
+    // luar deret itu pencariannya tidak menemukan pasangan, nomor box kembali ke
+    // bawaan, sementara `ordering` sudah memakai nomor baru — grid lalu menunjuk
+    // box yang tidak ada dan halaman berhenti dengan galat.
+    //
+    // Pasangannya sekarang lewat POSISI dalam daftar, yang tidak berubah oleh
+    // penomoran ulang. Simpanan lama belum punya medan readiness, jadi nilainya
+    // tetap diambil dari bawaan kalau kosong.
+    cfg.boxes = s.boxes.map((o, i) => {
+      const base = cfg.boxes[i];
+      return { ...base, ...o, color: o.color ?? base.color, readiness: o.readiness ?? base.readiness };
     });
   }
   return cfg;

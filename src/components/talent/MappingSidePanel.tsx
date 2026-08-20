@@ -2,20 +2,66 @@
 import { useMemo, useState } from "react";
 import { Badge, Button, Checkbox, ScrollArea, Select, TextInput } from "@mantine/core";
 import { IconFilter, IconArrowsSort, IconSearch, IconUsers } from "@tabler/icons-react";
-import { boxByOrder, resolveColor, TMConfig, TMPoint } from "@/data/talentMappingShared";
+import { boxByOrder, defaultShade, TMConfig, TMPoint } from "@/data/talentMappingShared";
+import EmployeeIdentity from "./EmployeeIdentity";
 
 const FONT = "'Open Sans', sans-serif";
 
 /** Jumlah minimal orang sebelum perbandingan punya arti. */
 const MIN_COMPARE = 2;
 
-type SortKey = "name" | "x-desc" | "y-desc";
+/**
+ * Pilihan urutan mengikuti SUMBU yang sedang dipakai box mapping.
+ *
+ * Dulu isinya ditulis tetap ("Potency tertinggi", "Performance tertinggi"),
+ * padahal sumbunya bisa diganti di halaman Setting — daftarnya lalu menawarkan
+ * pengurutan atas metrik yang tidak ada di grafik, dan menyembunyikan yang ada.
+ * Sumbu Z hanya ikut kalau memang dinyalakan.
+ */
+type SortAxis = "x" | "y" | "z";
+type SortKey = "name" | `${SortAxis}-desc` | `${SortAxis}-asc`;
 
-const SORT_OPTIONS: { value: SortKey; label: string }[] = [
-  { value: "y-desc", label: "Potency tertinggi" },
-  { value: "x-desc", label: "Performance tertinggi" },
-  { value: "name", label: "Nama (A-Z)" },
-];
+const AXIS_VALUE: Record<SortAxis, (p: TMPoint) => number | null> = {
+  x: p => p.rawX,
+  y: p => p.rawY,
+  z: p => p.rawZ ?? null,
+};
+
+function sortOptions(config: TMConfig): { value: SortKey; label: string }[] {
+  const axes: { axis: SortAxis; label: string }[] = [
+    { axis: "x", label: config.sumbuX },
+    { axis: "y", label: config.sumbuY },
+  ];
+  if (config.useZ && config.sumbuZ) axes.push({ axis: "z", label: config.sumbuZ });
+  return [
+    ...axes.flatMap(a => [
+      { value: `${a.axis}-desc` as SortKey, label: `${a.label} tertinggi` },
+      { value: `${a.axis}-asc` as SortKey, label: `${a.label} terendah` },
+    ]),
+    { value: "name" as SortKey, label: "Nama (A-Z)" },
+  ];
+}
+
+/**
+ * Pembanding untuk satu pilihan urutan.
+ *
+ * Yang belum punya nilai selalu di BELAKANG, di kedua arah. Kalau null
+ * diperlakukan sebagai angka terkecil, "skor terendah" akan diisi orang yang
+ * skornya belum ada sama sekali — bukan orang yang skornya rendah.
+ */
+function comparatorFor(sort: SortKey): (a: TMPoint, b: TMPoint) => number {
+  if (sort === "name") return (a, b) => a.name.localeCompare(b.name);
+  const [axis, dir] = sort.split("-") as [SortAxis, "asc" | "desc"];
+  const read = AXIS_VALUE[axis];
+  return (a, b) => {
+    const va = read(a);
+    const vb = read(b);
+    if (va == null && vb == null) return 0;
+    if (va == null) return 1;
+    if (vb == null) return -1;
+    return dir === "desc" ? vb - va : va - vb;
+  };
+}
 
 /**
  * iProfile menomori orang `pNN`, TDP `EMPnnn`. Sama dengan toTdpId di
@@ -55,6 +101,13 @@ export default function MappingSidePanel({
 }) {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortKey>("y-desc");
+  const options = useMemo(() => sortOptions(config), [config]);
+  /**
+   * Pilihan yang tersimpan bisa menunjuk sumbu yang sudah tidak ada — misal
+   * sumbu Z dimatikan setelah "Potency terendah" dipilih. Diperiksa saat dipakai,
+   * bukan dibetulkan lewat effect, supaya tidak ada render tambahan.
+   */
+  const activeSort = options.some(o => o.value === sort) ? sort : options[0].value;
   const [picked, setPicked] = useState<string[]>([]);
 
   const shown = useMemo(() => {
@@ -62,13 +115,8 @@ export default function MappingSidePanel({
     const list = points.filter(
       p => !q || p.name.toLowerCase().includes(q) || p.positionTitle.toLowerCase().includes(q),
     );
-    const by: Record<SortKey, (a: TMPoint, b: TMPoint) => number> = {
-      name: (a, b) => a.name.localeCompare(b.name),
-      "x-desc": (a, b) => (b.rawX ?? -1) - (a.rawX ?? -1),
-      "y-desc": (a, b) => (b.rawY ?? -1) - (a.rawY ?? -1),
-    };
-    return [...list].sort(by[sort]);
-  }, [points, query, sort]);
+    return [...list].sort(comparatorFor(activeSort));
+  }, [points, query, activeSort]);
 
   // Pilihan yang orangnya sudah tidak tampil (tersaring keluar) tidak ikut
   // terbawa ke TDP — yang dibandingkan harus yang benar-benar terlihat.
@@ -105,9 +153,9 @@ export default function MappingSidePanel({
         </Button>
         <Select
           size="xs"
-          value={sort}
-          onChange={v => setSort((v as SortKey) ?? "y-desc")}
-          data={SORT_OPTIONS}
+          value={activeSort}
+          onChange={v => setSort((v as SortKey) ?? options[0].value)}
+          data={options}
           leftSection={<IconArrowsSort size={14} />}
           allowDeselect={false}
           comboboxProps={{ withinPortal: true }}
@@ -159,22 +207,27 @@ export default function MappingSidePanel({
                   onChange={() => toggle(p.employeeId)}
                   styles={{ input: { cursor: "pointer" } }}
                 />
-                {/* Nama dapat seluruh lebar; kategori box turun ke baris
-                    sendiri — nama orang yang terpotong lebih merugikan
-                    daripada daftar yang sedikit lebih tinggi. */}
-                <span style={{ flex: 1, minWidth: 0 }}>
-                  <span style={{ display: "block", fontFamily: FONT, fontSize: 12, fontWeight: 600, color: "#495057", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                    {p.name}
-                  </span>
-                  <span style={{ display: "block", fontFamily: FONT, fontSize: 10, color: "#adb5bd", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                    {p.positionTitle}
-                  </span>
-                  {box && (
-                    <span style={{ display: "inline-block", marginTop: 3, background: "#f1f3f5", color: resolveColor(box.color), fontFamily: FONT, fontSize: 9, fontWeight: 700, borderRadius: 999, padding: "1px 8px" }}>
+                {/* Tag kategori kotak duduk di bawah jabatan, bukan di sisi kanan
+                    baris: panel ini hanya 300px dan sudah berisi checkbox, foto,
+                    nama, serta jabatan — tag seperti "Emerging Star" di kanan
+                    terpotong 24px oleh tepi area gulir. Di bawah jabatan ia dapat
+                    seluruh lebar yang tersisa.
+
+                    Warna tulisannya memakai shade 5, bukan warna box apa adanya:
+                    warna box sengaja pucat supaya avatar di atasnya terbaca, dan
+                    warna pucat itu di atas latar chip yang juga abu muda praktis
+                    tak terbaca. Keluarga warnanya tetap sama, jadi kaitan ke
+                    kotaknya tidak hilang. */}
+                <EmployeeIdentity
+                  employeeId={p.employeeId}
+                  name={p.name}
+                  position={p.positionTitle}
+                  meta={box ? (
+                    <span style={{ display: "inline-block", marginTop: 3, maxWidth: "100%", background: "#f1f3f5", color: defaultShade(box.color), fontFamily: FONT, fontSize: 9, fontWeight: 700, borderRadius: 999, padding: "2px 8px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       {box.label}
                     </span>
-                  )}
-                </span>
+                  ) : undefined}
+                />
               </label>
             );
           })}

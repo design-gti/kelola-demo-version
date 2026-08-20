@@ -21,6 +21,22 @@ const numberColor = (color: string) => (onBox(color) === "#fff" ? "#fff" : darke
 
 const SIZE_AVATAR = 20;
 
+/**
+ * Lebar kolom nilai di popover, dan susunan gridnya.
+ *
+ * Judul kolomnya adalah NAMA METRIK dari konfigurasi — "Performance",
+ * "Competency", atau apa pun yang dipilih user — jadi panjangnya tidak bisa
+ * ditebak. Dengan 58px judul seperti "PERFORMANCE" meluap dan menabrak kolom
+ * sebelahnya; 72px memuat nama terpanjang di katalog, dan judul yang masih lebih
+ * panjang turun ke baris kedua alih-alih menimpa tetangganya.
+ *
+ * Susunannya dipakai bersama oleh kepala dan baris isi. Dulu keduanya menulis
+ * template sendiri-sendiri, jadi mengubah lebar di satu tempat langsung membuat
+ * angka tidak lagi sejajar dengan judulnya.
+ */
+const POP_VALUE_COL = 72;
+const popGrid = (zActive: boolean) => `1fr repeat(${zActive ? 3 : 2}, ${POP_VALUE_COL}px)`;
+
 /** Tinggi blok sumbu (pita warna + label + keterangan) dan jaraknya ke grid. */
 const AXIS_BLOCK = 50, AXIS_GAP = 16;
 
@@ -255,7 +271,16 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
             {config.ordering.map((row, ri) => (
               <div key={ri} style={{ flex: 1, display: "flex" }}>
                 {row.map(order => {
-                  const box = boxByOrder(config, order)!;
+                  const box = boxByOrder(config, order);
+                  // Nomor box bisa disetel user, jadi sel yang menunjuk box tak
+                  // dikenal bukan hal mustahil. Digambar sebagai sel kosong
+                  // daripada menghentikan seluruh halaman dengan galat.
+                  if (!box) {
+                    return (
+                      <div key={order} title={`Box #${order} tidak ditemukan di konfigurasi`}
+                        style={{ flex: 1, border: "1px solid #ADB5BD", background: "#f8f9fa" }} />
+                    );
+                  }
                   return (
                     <div
                       key={order}
@@ -329,14 +354,16 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
         {popover && (
           <>
             <div ref={popoverRef} onClick={(e) => e.stopPropagation()}
-              style={{ position: "absolute", bottom: `${popover.y}%`, left: `${popover.x}%`, transform: "translate(10px, 50%)", zIndex: 300, background: "#fff", borderRadius: 8, boxShadow: "0 6px 20px rgba(0,0,0,0.18)", border: "1px solid #e9ecef", minWidth: 300, maxWidth: 400, overflow: "hidden", fontFamily: FONT }}>
-              <div style={{ display: "grid", gridTemplateColumns: zActive ? "1fr 58px 58px 58px" : "1fr 58px 58px", gap: 4, padding: "8px 10px", borderBottom: "1px solid #e9ecef", fontSize: 9.5, fontWeight: 700, color: "#adb5bd", textTransform: "uppercase" }}>
-                <span>Employee</span><span style={{ textAlign: "right" }}>{config.sumbuX}</span><span style={{ textAlign: "right" }}>{config.sumbuY}</span>
-                {zActive && <span style={{ textAlign: "right" }}>{config.sumbuZ}</span>}
+              style={{ position: "absolute", bottom: `${popover.y}%`, left: `${popover.x}%`, transform: "translate(10px, 50%)", zIndex: 300, background: "#fff", borderRadius: 8, boxShadow: "0 6px 20px rgba(0,0,0,0.18)", border: "1px solid #e9ecef", minWidth: zActive ? 360 : 300, maxWidth: 440, overflow: "hidden", fontFamily: FONT }}>
+              <div style={{ display: "grid", gridTemplateColumns: popGrid(zActive), gap: 8, alignItems: "end", padding: "8px 10px", borderBottom: "1px solid #e9ecef", fontSize: 9.5, fontWeight: 700, color: "#adb5bd", textTransform: "uppercase", lineHeight: 1.15 }}>
+                <span>Employee</span>
+                <span style={{ textAlign: "right", overflowWrap: "anywhere" }}>{config.sumbuX}</span>
+                <span style={{ textAlign: "right", overflowWrap: "anywhere" }}>{config.sumbuY}</span>
+                {zActive && <span style={{ textAlign: "right", overflowWrap: "anywhere" }}>{config.sumbuZ}</span>}
               </div>
               <div style={{ maxHeight: 176, overflowY: "auto" }}>
                 {popover.group.map((p) => (
-                  <div key={p.employeeId} style={{ display: "grid", gridTemplateColumns: zActive ? "1fr 58px 58px 58px" : "1fr 58px 58px", gap: 4, alignItems: "center", padding: "6px 10px", fontSize: 11, color: "#495057" }}>
+                  <div key={p.employeeId} style={{ display: "grid", gridTemplateColumns: popGrid(zActive), gap: 8, alignItems: "center", padding: "6px 10px", fontSize: 11, color: "#495057" }}>
                     <span style={{ display: "flex", alignItems: "center", gap: 6, minWidth: 0 }}>
                       <span style={{ width: 22, height: 22, borderRadius: "50%", background: NODE_BG, color: "#fff", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 8, fontWeight: 700, overflow: "hidden", position: "relative" }}>
                         <span>{initials(p.name)}</span>

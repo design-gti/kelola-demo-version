@@ -2,13 +2,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ActionIcon, Paper, Badge, Avatar as MantineAvatar, Select, TextInput, Pagination, Table, Text, Button, Modal, Checkbox, ScrollArea, Tabs } from "@mantine/core";
-import { IconArrowUpRight, IconSettings, IconPlus, IconPencil, IconTrash } from "@tabler/icons-react";
+import { IconArrowUpRight, IconSettings, IconPlus, IconPencil, IconTrash, IconSparkles } from "@tabler/icons-react";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
-import DistributionBar from "@/components/talent/DistributionBar";
+import DistributionSummary from "@/components/talent/DistributionSummary";
 import MappingSidePanel from "@/components/talent/MappingSidePanel";
 import { matchesFuzzy } from "@/lib/data/textMatch";
-import { donutTags, boxByOrder, bandIndex, pointsFrom, readinessPointsFrom, METRICS,
+import { donutTags, boxByOrder, bandIndex, pointsFrom, usesCompetency, COMPETENCY_KEY, METRICS,
   type TMConfig, type TMPoint, type MetricKey, type EmployeeMetrics, type AxisBand } from "@/data/talentMappingShared";
 import { BUILT_IN_TABS, getCustomTabs, addCustomTab, renameCustomTab, removeCustomTab,
   getEffectiveConfig, TM_CONFIG_EVENT, TM_TABS_EVENT, type CustomTab } from "@/data/talentMappingConfig";
@@ -19,8 +19,14 @@ const HIGHLIGHT_DURATION_MS = 3000;
 const FONT = "'Open Sans', sans-serif";
 const ACCENT = "#016699";
 
-/** 9-box kini kartu utama halaman, jadi digambar lebih besar dari bawaannya (360). */
-const BOX_SIZE = 460;
+/**
+ * 9-box adalah kartu utama halaman, jadi digambar jauh lebih besar dari bawaan
+ * komponennya (360). Batas atasnya bukan selera: grid ditambah blok sumbu 50px,
+ * lalu jarak 24px, lalu lebar minimum kolom ringkasan, semuanya harus tetap muat
+ * di kartu — begitu tidak muat, ringkasannya turun ke bawah grid. Pada lebar
+ * kartu sekarang, 520 sudah melewati batas itu dan ringkasannya jatuh ke bawah.
+ */
+const BOX_SIZE = 500;
 
 function initials(name: string) {
   return name.split(" ").slice(0, 2).map(w => w[0] || "").join("").toUpperCase();
@@ -59,15 +65,21 @@ function Avatar({ name, employeeId }: { name: string; employeeId?: string }) {
  * Judul kolom per mode; urutannya sama dengan urutan sel di badan tabel.
  * Nama sumbu diambil dari konfigurasi, bukan ditulis tetap — tab buatan user
  * bisa memakai kombinasi metrik apa pun.
+ *
+ * Tanda "%" hanya dipasang pada sumbu yang memang dibaca relatif terhadap
+ * jabatan target. Kalau dipaku, kolom Competency tetap bertanda persen padahal
+ * targetnya belum dipilih dan angkanya masih skor mentah.
  */
-const tiHeaders = (cfg: TMConfig) => ["Position", "Employee", cfg.sumbuX + " (X)", cfg.sumbuY + " (Y)", "Box Category", "HAV status", "Action"];
-const trHeaders = (cfg: TMConfig) => ["Employee", "Position", cfg.sumbuX + " (X)%", cfg.sumbuY + " (Y)", "Box Category", "Readiness", "Action"];
+const axisHead = (label: string, key: MetricKey, axis: string, relative: boolean) =>
+  label + " (" + axis + ")" + (relative && key === COMPETENCY_KEY ? "%" : "");
+const tiHeaders = (cfg: TMConfig, rel: boolean) => ["Position", "Employee", axisHead(cfg.sumbuX, cfg.sumbuXKey, "X", rel), axisHead(cfg.sumbuY, cfg.sumbuYKey, "Y", rel), "Box Category", "HAV status", "Action"];
+const trHeaders = (cfg: TMConfig, rel: boolean) => ["Employee", "Position", axisHead(cfg.sumbuX, cfg.sumbuXKey, "X", rel), axisHead(cfg.sumbuY, cfg.sumbuYKey, "Y", rel), "Box Category", "Readiness", "Action"];
 
 function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean }) {
   return <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: muted ? "#ced4da" : "#495057" }}>{children}</span>;
 }
 
-function TablePanel({ config, points, highlightId, emptyMessage = "No data." }: { config: TMConfig; points: TMPoint[]; highlightId?: string | null; emptyMessage?: string }) {
+function TablePanel({ config, points, highlightId, relativeToTarget = false, emptyMessage = "No data." }: { config: TMConfig; points: TMPoint[]; highlightId?: string | null; relativeToTarget?: boolean; emptyMessage?: string }) {
   const router = useRouter();
   // Tab buatan user memakai bentuk yang sama dengan TI.
   const isTI = config.id !== "TR";
@@ -96,7 +108,7 @@ function TablePanel({ config, points, highlightId, emptyMessage = "No data." }: 
       <Table verticalSpacing="sm" horizontalSpacing="md" highlightOnHover>
         <Table.Thead>
           <Table.Tr>
-            {(isTI ? tiHeaders(config) : trHeaders(config)).map((h) => (
+            {(isTI ? tiHeaders(config, relativeToTarget) : trHeaders(config, relativeToTarget)).map((h) => (
               <Table.Th key={h}>{h}</Table.Th>
             ))}
           </Table.Tr>
@@ -200,18 +212,16 @@ function TablePanel({ config, points, highlightId, emptyMessage = "No data." }: 
 
 function Panel({
   config,
-  points,
   jobTargets = [],
-  trByTarget = {},
+  metrics,
   initialBox = null,
   initialHighlight = null,
   onSettings,
   tabBar,
 }: {
   config: TMConfig;
-  points: TMPoint[];
   jobTargets?: { id: string; title: string }[];
-  trByTarget?: Record<string, TMPoint[]>;
+  metrics: EmployeeMetrics[];
   initialBox?: number | null;
   initialHighlight?: string | null;
   onSettings?: () => void;
@@ -219,11 +229,18 @@ function Panel({
   tabBar?: React.ReactNode;
 }) {
   const isTR = config.id === "TR";
-  // TR: employees are benchmarked against the picked Job Target. Empty until picked.
+  /**
+   * Pemilih jabatan target muncul mengikuti SUMBU, bukan nama tab: tab apa pun
+   * yang memakai data Competency menawarkannya, dan tab yang tidak memakainya
+   * tidak menampilkannya sama sekali.
+   */
+  const needsTarget = usesCompetency(config);
   const [jobTarget, setJobTarget] = useState<string | null>(null);
+  /** Di TR target WAJIB — tanpa itu tidak ada kecocokan yang bisa dihitung. */
+  const relativeToTarget = needsTarget && !!jobTarget;
   const basePoints = useMemo(
-    () => (isTR ? (jobTarget ? trByTarget[jobTarget] ?? [] : []) : points),
-    [isTR, jobTarget, trByTarget, points],
+    () => (isTR && !jobTarget ? [] : pointsFrom(config, metrics, needsTarget ? jobTarget : null)),
+    [isTR, jobTarget, needsTarget, config, metrics],
   );
   // Deep-link highlight: resolve the name/id once against the initial data
   // (lazy useState initializers, computed only on mount — not an effect,
@@ -313,7 +330,22 @@ function Panel({
   const awaitingTarget = isTR && !jobTarget;
   const AWAITING_TARGET_NOTICE = "No job target selected yet, please choose one first";
 
-  const tags = useMemo(() => donutTags(config, banded), [config, banded]);
+  /**
+   * Ringkasan ikut apa yang sedang dilihat. Saat satu kotak difokuskan, yang
+   * dipertanyakan bukan lagi sebaran antar tag melainkan "kotak ini isinya
+   * berapa dari keseluruhan" — jadi barnya tinggal satu, memakai nama dan warna
+   * kotak itu sendiri.
+   *
+   * Pembaginya tetap SELURUH orang yang lolos saringan, bukan isi kotaknya,
+   * supaya persentasenya menjawab pertanyaan itu dan tidak selalu 100%.
+   */
+  const focusedBox = selectedBox != null ? boxByOrder(config, selectedBox) : null;
+  const tags = useMemo(
+    () => (focusedBox
+      ? [{ name: focusedBox.label, value: banded.filter(p => p.order === selectedBox).length, color: focusedBox.color }]
+      : donutTags(config, banded)),
+    [focusedBox, selectedBox, config, banded],
+  );
   const tableRows = selectedBox != null ? banded.filter(p => p.order === selectedBox) : banded;
   // Panel kiri mengikuti kotak yang sedang dipilih, sama seperti tabel.
   const panelRows = tableRows;
@@ -346,20 +378,20 @@ function Panel({
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div style={{ display: "flex", gap: 16, alignItems: "stretch", flexWrap: "wrap" }}>
         {/* Panel kendali — menyaring, mengurutkan, memilih untuk dibandingkan */}
-        <div style={{ flex: "0 1 260px", minWidth: 240, background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 16 }}>
+        <div style={{ flex: "0 1 300px", minWidth: 280, background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 16 }}>
           <MappingSidePanel
             config={config}
             points={panelRows}
-            jobTargets={isTR ? jobTargets : undefined}
-            jobTarget={isTR ? jobTarget : undefined}
-            onJobTargetChange={isTR ? (v => { setJobTarget(v); setSelectedBox(null); }) : undefined}
+            jobTargets={needsTarget ? jobTargets : undefined}
+            jobTarget={needsTarget ? jobTarget : undefined}
+            onJobTargetChange={needsTarget ? (v => { setJobTarget(v); setSelectedBox(null); }) : undefined}
             onOpenFilter={openFilter}
             activeFilterCount={activeCount}
           />
         </div>
 
         {/* Kartu 9-box — sekarang mengambil sisa lebar, bukan separuh */}
-        <div style={{ flex: "1 1 520px", background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 20, display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ flex: "1 1 520px", background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 16, display: "flex", flexDirection: "column", gap: 12 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
             {/* Baris tab box mapping — dioper dari induk, karena tab menentukan
                 konfigurasi mana yang dipakai Panel ini. */}
@@ -380,10 +412,37 @@ function Panel({
           )}
 
           {/* Ringkasan sebaran, di atas 9-box */}
-          <DistributionBar data={tags} />
 
-          <div style={{ display: "flex", justifyContent: "center", paddingTop: 4 }}>
+          {/* 9-box dan ringkasannya bersebelahan. Ringkasan dipindah ke samping
+              karena di atas ia memakan tinggi yang lebih berguna untuk grid, dan
+              berdampingan begini ia terbaca sebagai keterangan grid di
+              sebelahnya — bukan sesuatu yang berdiri sendiri.
+              flex-wrap dibiarkan menyala: di layar sempit ringkasan turun ke
+              bawah grid daripada menghimpitnya. */}
+          <div style={{ display: "flex", gap: 24, alignItems: "flex-start", paddingTop: 4, flexWrap: "wrap" }}>
             <TMTRBox config={config} points={banded} selectedBox={selectedBox} onBoxClick={setSelectedBox} size={BOX_SIZE} emptyNotice={awaitingTarget ? AWAITING_TARGET_NOTICE : undefined} />
+            {/* Tanpa batas lebar: ringkasan mengisi sisa ruang di kanan 9-box.
+                9-box lebarnya tetap (BOX_SIZE), jadi kalau ringkasannya juga
+                dibatasi, sisa ruang kartu tertinggal kosong. */}
+            {/* flex-basis DAN minWidth dibuat sama. Keputusan membungkus baris
+                diambil dari basis, bukan dari minWidth — basis 220 dengan minWidth
+                190 membuat kolom ini terlempar ke bawah grid meski ruang tersisa
+                masih 243px, karena 550 + 24 + 220 lewat 1px dari lebar barisnya. */}
+            <div style={{ flex: "1 1 190px", minWidth: 190, display: "flex", flexDirection: "column", gap: 20 }}>
+              <DistributionSummary data={tags} total={banded.length} />
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "#495057", textDecoration: "underline", textUnderlineOffset: 3 }}>
+                    INSIGHT
+                  </span>
+                  <IconSparkles size={14} stroke={1.7} style={{ color: ACCENT }} />
+                </div>
+                {/* Isinya masih penanda tempat; logikanya menyusul. Ditulis apa
+                    adanya, bukan kalimat contoh yang bisa terbaca seolah
+                    kesimpulan sungguhan tentang data di sebelahnya. */}
+                <p style={{ fontSize: 12, color: "#adb5bd", margin: 0 }}>Ringkasan Data</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -392,6 +451,7 @@ function Panel({
         config={config}
         points={tableRows}
         highlightId={highlightId}
+        relativeToTarget={relativeToTarget}
         emptyMessage={awaitingTarget ? AWAITING_TARGET_NOTICE : "No data."}
       />
 
@@ -565,12 +625,8 @@ export default function TalentMappingClient({
     [tab, configVersion],
   );
 
-  // Titik dihitung di klien untuk SEMUA tab — server tidak tahu konfigurasinya.
-  const points = useMemo(() => (tab === "TR" ? [] : pointsFrom(config, metrics)), [tab, config, metrics]);
-  const trByTarget = useMemo(() => {
-    if (tab !== "TR") return {};
-    return Object.fromEntries(jobTargets.map(t => [t.id, readinessPointsFrom(config, t.id, metrics)]));
-  }, [tab, config, jobTargets, metrics]);
+  // Titik dihitung di Panel: ia yang memegang pilihan jabatan target, dan target
+  // itu ikut menentukan pembacaan sumbu Competency.
 
   const tabBar = (
     <div style={{ display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap" }}>
@@ -618,9 +674,8 @@ export default function TalentMappingClient({
       <Panel
         key={tab}
         config={config}
-        points={points}
         jobTargets={jobTargets}
-        trByTarget={trByTarget}
+        metrics={metrics}
         initialBox={initialBox}
         initialHighlight={initialHighlight}
         tabBar={tabBar}

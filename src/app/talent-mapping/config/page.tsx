@@ -16,6 +16,9 @@ const ACCENT = "#016699";
 /** Lama sorotan kartu yang barusan bertukar nomor, dalam ms. */
 const SWAP_FLASH_MS = 1200;
 
+/** Nomor box tertinggi yang bisa dipilih. */
+const MAX_BOX_NUMBER = 27;
+
 // recompute derived mins (min[0]=0, min[i]=prev.max+0.01) after a max edit
 function withMins(bands: AxisBand[]): AxisBand[] {
   return bands.map((b, i) => ({ ...b, min: i === 0 ? 0 : bands[i - 1].max + 0.01 }));
@@ -483,8 +486,17 @@ function ConfigInner() {
   const resetAxes = () => setCfg(c => { const d = makeConfigById(configId, c.layout, { sumbuXKey: c.sumbuXKey, sumbuYKey: c.sumbuYKey }); return { ...c, rangesX: d.rangesX, rangesY: d.rangesY, rangesZ: d.rangesZ }; });
   const resetBoxes = () => setCfg(c => ({ ...c, boxes: makeConfigById(configId, c.layout).boxes }));
 
-  /** Nomor box yang tersedia, urut naik — isi dropdown nomor di tiap kartu. */
-  const allOrders = [...cfg.ordering.flat()].sort((a, b) => a - b);
+  /**
+   * Nomor yang bisa dipilih di tiap kartu box: 1..27, bukan hanya nomor yang
+   * sedang terpakai.
+   *
+   * Layout terbesar cuma punya 12 kotak, jadi membatasi pilihan ke nomor yang
+   * ada berarti nomor box hanya bisa DITUKAR antar kotak — tidak bisa dinaikkan
+   * ke deret lain, misalnya menomori ulang mengikuti kode internal organisasi.
+   * Memilih nomor yang belum terpakai memindahkan nomornya saja, tanpa menukar
+   * dengan siapa pun (lihat swapBoxOrder).
+   */
+  const allOrders = Array.from({ length: MAX_BOX_NUMBER }, (_, i) => i + 1);
 
   /**
    * Tukar nomor dua box.
