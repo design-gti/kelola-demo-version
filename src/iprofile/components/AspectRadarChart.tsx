@@ -63,26 +63,21 @@ function polar(angleDeg: number, r: number): Pt {
 const angleAt = (i: number, n: number) => 90 - (360 / n) * i;
 
 /**
- * Path tertutup yang melengkung mulus melewati semua titik (Catmull-Rom
- * dikonversi ke kurva Bezier kubik). Inilah yang bikin bentuknya "blob"
- * seperti referensi, bukan poligon bersudut.
+ * Path tertutup bersisi lurus: titik disambung garis, bukan kurva.
+ *
+ * Sebelumnya dipakai kurva Catmull-Rom supaya bentuknya "blob" mulus. Masalahnya
+ * kurva itu MELESET dari datanya: ruas antara dua titik menggelembung melewati
+ * cincin skala, sehingga bentuknya terbaca seperti skor yang lebih tinggi dari
+ * angka sebenarnya di antara dua sumbu. Garis lurus hanya melewati titik yang
+ * memang ada datanya.
  */
-function smoothClosedPath(points: Pt[]): string {
-  const n = points.length;
-  if (n < 3) return "";
-  const at = (i: number) => points[((i % n) + n) % n];
-  let d = `M ${at(0).x.toFixed(2)} ${at(0).y.toFixed(2)}`;
-  for (let i = 0; i < n; i++) {
-    const p0 = at(i - 1);
-    const p1 = at(i);
-    const p2 = at(i + 1);
-    const p3 = at(i + 2);
-    const cp1 = { x: p1.x + (p2.x - p0.x) / 6, y: p1.y + (p2.y - p0.y) / 6 };
-    const cp2 = { x: p2.x - (p3.x - p1.x) / 6, y: p2.y - (p3.y - p1.y) / 6 };
-    d += ` C ${cp1.x.toFixed(2)} ${cp1.y.toFixed(2)}, ${cp2.x.toFixed(2)} ${cp2.y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
-  }
-  return d + " Z";
+function closedPath(points: Pt[]): string {
+  if (points.length < 3) return "";
+  return (
+    points.map((pt, i) => `${i === 0 ? "M" : "L"} ${pt.x.toFixed(2)} ${pt.y.toFixed(2)}`).join(" ") + " Z"
+  );
 }
+
 
 /** Jeda sudut di tiap ujung busur kategori — bikin batas antar kategori kebaca. */
 const ARC_PAD_DEG = 2.5;
@@ -233,14 +228,25 @@ export function AspectRadarChart({
   const toPoints = (pick: (a: AspectItem) => number): Pt[] =>
     ordered.map((a, i) => polar(angleAt(i, n), radiusOf(pick(a))));
 
-  const scorePath = smoothClosedPath(toPoints((a) => a.score));
-  const standardPath = smoothClosedPath(toPoints((a) => a.standardScore));
+  const scorePath = closedPath(toPoints((a) => a.score));
+  const standardPath = closedPath(toPoints((a) => a.standardScore));
   /** Cincin skala 1..5 — dipakai sebagai grid, radiusnya dari rumus yang sama dengan bentuk area. */
   const levels = Array.from({ length: MAX_SCORE }, (_, k) => k + 1);
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div style={{ position: "relative", width: CHART_W, height: CHART_H }}>
+      {/*
+        Kedua penanda hover dibersihkan saat pointer meninggalkan area chart.
+        onMouseLeave milik tiap label saja tidak cukup: label adalah <text> yang
+        dirender ulang oleh recharts, dan begitu daftar aspek berubah (ganti tab
+        kategori) atau tata letak bergeser (panel breakdown terbuka), label yang
+        sedang di-hover hilang tanpa pernah mengirim mouseleave — tooltipnya
+        tertinggal menggantung di layar.
+      */}
+      <div
+        style={{ position: "relative", width: CHART_W, height: CHART_H }}
+        onMouseLeave={() => { setHoveredLabel(null); setHovered(null); }}
+      >
         {/* Lapisan gambar sendiri: juring kategori + area melengkung. Ditaruh di
             bawah recharts supaya grid & label tetap terbaca di atasnya. */}
         <svg width={CHART_W} height={CHART_H} style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
@@ -269,7 +275,12 @@ export function AspectRadarChart({
 
           {/* Grid digambar sendiri (bukan PolarGrid recharts) supaya radius tiap
               cincin memakai rumus yang sama persis dengan bentuk area —
-              skor 3 dijamin mendarat tepat di cincin ke-3. */}
+              skor 3 dijamin mendarat tepat di cincin ke-3.
+
+              Cincinnya tetap LINGKARAN meski bentuk areanya bersisi lurus: yang
+              dibaca dari cincin adalah jaraknya dari pusat, dan lingkaran
+              menyatakan jarak itu sama di segala arah. Titik data selalu duduk
+              di sumbunya, jadi di situ pula ia menyentuh cincin dengan tepat. */}
           {levels.map((lv) => (
             <circle
               key={lv}
@@ -335,7 +346,10 @@ export function AspectRadarChart({
                 selectable={hasKb}
                 selected={openAspect}
                 hoveredLabel={hoveredLabel?.label ?? null}
-                onSelect={(label) => setOpenAspect((prev) => (prev === label ? null : label))}
+                onSelect={(label) => {
+                  setOpenAspect((prev) => (prev === label ? null : label));
+                  setHoveredLabel(null);
+                }}
                 onHover={setHoveredLabel}
               />
             }
