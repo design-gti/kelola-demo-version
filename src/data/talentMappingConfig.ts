@@ -115,26 +115,38 @@ function mergeSaved(id: ConfigId, raw: string): TMConfig {
 }
 
 export function getEffectiveConfig(id: ConfigId): TMConfig {
-  let base = makeConfigById(id);
-  // Nama dan sumbu tab custom tinggal di registry tab, bukan di simpanan
-  // konfigurasi — supaya mengganti nama tab tidak menyentuh konfigurasinya.
   const custom = getCustomTabs().find(t => t.id === id);
+
+  // Sumbu dari registry tab hanya berlaku sebagai NILAI AWAL: halaman Setting
+  // boleh menggantinya, dan gantinya tersimpan di blob konfigurasi.
+  let base = makeConfigById(id);
   if (custom) {
     base = {
       ...base,
-      name: custom.name, tabLabel: custom.name,
       sumbuXKey: custom.sumbuXKey, sumbuX: metricLabel(custom.sumbuXKey),
       sumbuYKey: custom.sumbuYKey, sumbuY: metricLabel(custom.sumbuYKey),
       ...(custom.sumbuZKey ? { useZ: true, sumbuZKey: custom.sumbuZKey, sumbuZ: metricLabel(custom.sumbuZKey) } : {}),
     };
   }
+
   const raw = memConfig.get(id);
-  if (!raw) return base;
-  try {
-    return mergeSaved(id, raw);
-  } catch {
-    return base;
+  let cfg = base;
+  if (raw) {
+    try { cfg = mergeSaved(id, raw); } catch { cfg = base; }
   }
+
+  /**
+   * Nama tab SELALU dari registry, dan ditimpa SETELAH merge.
+   *
+   * Nama tidak ikut tersimpan di blob konfigurasi — ia diubah lewat
+   * renameCustomTab. Sementara mergeSaved membangun ulang dari bawaan layout,
+   * yang namanya Talent Identification. Dulu penimpaan ini hanya kena ke base,
+   * jadi begitu sebuah tab custom pernah disimpan, namanya kembali jadi nama
+   * bawaan di mana pun cfg.name dipakai — antara lain breadcrumb halaman
+   * Setting, yang lalu menyebut mapping yang salah.
+   */
+  if (custom) cfg = { ...cfg, name: custom.name, tabLabel: custom.name };
+  return cfg;
 }
 
 export function saveConfig(id: ConfigId, cfg: TMConfig): void {

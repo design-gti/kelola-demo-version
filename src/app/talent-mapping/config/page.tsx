@@ -1,14 +1,14 @@
 "use client";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Paper, Select, TextInput, NumberInput, Switch, Button, Badge, ColorPicker as MantineColorPicker } from "@mantine/core";
+import { Paper, Select, TextInput, NumberInput, Switch, Button, Badge, Modal, Text, ColorPicker as MantineColorPicker } from "@mantine/core";
 import { IconChevronDown, IconPencil, IconTrash, IconPlus, IconColorPicker } from "@tabler/icons-react";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import {
   LAYOUTS, METRICS, DEFAULT_TAG_OPTIONS, isTalentTag, makeConfigById, boxByOrder, resolveColor, defaultShade, metricLabel,
   TMConfig, MetricKey, AxisBand,
 } from "@/data/talentMappingShared";
-import { getEffectiveConfig, saveConfig, type ConfigId } from "@/data/talentMappingConfig";
+import { getEffectiveConfig, saveConfig, getCustomTabs, isBuiltInTab, renameCustomTab, removeCustomTab, type ConfigId } from "@/data/talentMappingConfig";
 
 const FONT = "'Open Sans', sans-serif";
 const ACCENT = "#016699";
@@ -18,6 +18,15 @@ const SWAP_FLASH_MS = 1200;
 
 /** Nomor box tertinggi yang bisa dipilih. */
 const MAX_BOX_NUMBER = 27;
+
+/**
+ * Bayangan kartu, sama dengan kartu di halaman Talent Mapping dan halaman lain.
+ *
+ * Kartu di sini sebelumnya memakai garis tepi (withBorder). Di antara halaman
+ * yang semua kartunya berbayang tanpa garis, kartu bergaris terbaca seperti
+ * komponen dari sistem yang lain.
+ */
+const CARD_SHADOW = "2px 4px 10px rgba(0,0,0,0.07)";
 
 // recompute derived mins (min[0]=0, min[i]=prev.max+0.01) after a max edit
 function withMins(bands: AxisBand[]): AxisBand[] {
@@ -534,12 +543,89 @@ function ConfigInner() {
     return () => clearTimeout(t);
   }, [swapped]);
 
-  const persistAndGo = () => { saveConfig(configId, cfg); router.push("/talent-mapping"); };
+  /**
+   * Nama box mapping ini. Tab bawaan namanya bagian dari aplikasi — mengganti
+   * "Talent Identification" akan membuat istilah di halaman lain (kolom tabel,
+   * keterangan sumbu) tidak lagi cocok, jadi field-nya dikunci. Tab buatan user
+   * namanya miliknya sendiri.
+   */
+  const builtIn = isBuiltInTab(configId);
+  const [name, setName] = useState("");
+  const [nameTouched, setNameTouched] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  /** Nama tab custom tinggal di registry tab, bukan di simpanan konfigurasi. */
+  useEffect(() => {
+    if (builtIn) return;
+    const read = () => {
+      const tab = getCustomTabs().find(t => t.id === configId);
+      if (tab) setName(tab.name);
+    };
+    read();
+  }, [builtIn, configId]);
+
+  const nameShown = builtIn ? cfg.name : name;
+  const nameInvalid = !builtIn && nameTouched && name.trim() === "";
+
+  /**
+   * Nama ikut tersimpan bersama tombol Save yang sama dengan sisa halaman —
+   * satu halaman satu tombol simpan. Nama kosong ditolak: tab tanpa nama tidak
+   * bisa diklik lagi di baris tab.
+   */
+  const persistAndGo = () => {
+    if (!builtIn) {
+      if (name.trim() === "") { setNameTouched(true); return; }
+      renameCustomTab(configId, name.trim());
+    }
+    saveConfig(configId, cfg);
+    router.push("/talent-mapping");
+  };
+
+  /**
+   * Hapus berlaku langsung, tidak menunggu Save: tidak ada gunanya menyimpan
+   * pengaturan tab yang barusan dihapus. Halaman ini pun kehilangan tab
+   * pemiliknya, jadi ia harus ditinggalkan.
+   */
+  const deleteTab = () => {
+    removeCustomTab(configId);
+    router.push("/talent-mapping");
+  };
 
   return (
     <div style={{ fontFamily: FONT }}>
       <AppBreadcrumb items={[{ label: "Talent Mapping", href: "/talent-mapping" }, { label: `Setting ${cfg.name}` }]} />
       <div style={{ padding: "12px 16px 40px", maxWidth: 1000, margin: "0 auto" }}>
+
+        {/* Nama mapping — paling atas, karena ia yang menamai seluruh isi
+            halaman ini. Tombol hapus duduk di sini pula: keduanya mengurus tab
+            itu sendiri, bukan isi konfigurasinya. */}
+        <Paper radius={12} p={16} mb={16} style={{ boxShadow: CARD_SHADOW }}>
+          <div style={{ display: "flex", alignItems: "flex-end", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ flex: "1 1 260px", minWidth: 220 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>
+                Mapping Name{!builtIn && <span style={{ color: "#e03131" }}> *</span>}
+              </div>
+              <TextInput
+                value={nameShown}
+                onChange={e => { setName(e.currentTarget.value); setNameTouched(true); }}
+                disabled={builtIn}
+                error={nameInvalid ? "Nama mapping belum diisi" : undefined}
+                radius="xl"
+                size="xs"
+                styles={{ input: { fontFamily: FONT } }}
+              />
+            </div>
+            {!builtIn && (
+              <Button
+                variant="outline" color="red" radius="xl" size="xs"
+                leftSection={<IconTrash size={14} />}
+                onClick={() => setConfirmDelete(true)}
+              >
+                Hapus Mapping
+              </Button>
+            )}
+          </div>
+        </Paper>
 
         {/* Layout carousel */}
         <div style={{ display: "flex", gap: 12, overflowX: "auto", paddingBottom: 8, marginBottom: 16 }}>
@@ -564,7 +650,7 @@ function ConfigInner() {
         </div>
 
         {/* Axis card */}
-        <Paper radius={12} p={20} mb={16} withBorder>
+        <Paper radius={12} p={20} mb={16} style={{ boxShadow: CARD_SHADOW }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
             <Switch
               checked={!!cfg.useZ}
@@ -592,7 +678,7 @@ function ConfigInner() {
         </Paper>
 
         {/* Box grid — arranged to match the matrix (ordering rows top→bottom) */}
-        <Paper radius={12} p={20} mb={16} withBorder>
+        <Paper radius={12} p={20} mb={16} style={{ boxShadow: CARD_SHADOW }}>
           <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}><DefaultBtn onClick={resetBoxes} /></div>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {cfg.ordering.map((row, ri) => (
@@ -630,6 +716,24 @@ function ConfigInner() {
             ))}
           </div>
         </Paper>
+
+        {/* Konfirmasi hapus memakai modal design system, bukan window.confirm:
+            dialog bawaan browser tidak bisa didandani dan tidak menyebut apa
+            saja yang ikut hilang. */}
+        {confirmDelete && (
+          <Modal opened onClose={() => setConfirmDelete(false)} title="Hapus Mapping" radius={12} centered>
+            <Text size="sm" c="#495057">
+              Mapping <b>{nameShown}</b> beserta seluruh pengaturannya akan dihapus.
+            </Text>
+            <Text size="xs" c="#adb5bd" mt={6}>
+              Data karyawan tidak terpengaruh — yang hilang hanya tab dan pengaturan box mapping ini.
+            </Text>
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 16 }}>
+              <Button variant="outline" color="primary" radius="xl" onClick={() => setConfirmDelete(false)}>Cancel</Button>
+              <Button color="red" radius="xl" onClick={deleteTab}>Hapus</Button>
+            </div>
+          </Modal>
+        )}
 
         {/* Footer */}
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 12, alignItems: "center" }}>

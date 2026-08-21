@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ActionIcon, Paper, Badge, Avatar as MantineAvatar, Select, TextInput, Pagination, Table, Text, Button, Modal, Checkbox, ScrollArea, Tabs } from "@mantine/core";
-import { IconArrowUpRight, IconSettings, IconPlus, IconPencil, IconTrash, IconSparkles } from "@tabler/icons-react";
+import { IconArrowUpRight, IconSettings, IconPlus, IconSparkles } from "@tabler/icons-react";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
 import DistributionSummary from "@/components/talent/DistributionSummary";
@@ -10,7 +10,7 @@ import MappingSidePanel from "@/components/talent/MappingSidePanel";
 import { matchesFuzzy } from "@/lib/data/textMatch";
 import { donutTags, boxByOrder, bandIndex, pointsFrom, usesCompetency, defaultShade, COMPETENCY_KEY, METRICS,
   type TMConfig, type TMPoint, type MetricKey, type EmployeeMetrics, type AxisBand } from "@/data/talentMappingShared";
-import { BUILT_IN_TABS, getCustomTabs, addCustomTab, renameCustomTab, removeCustomTab,
+import { BUILT_IN_TABS, getCustomTabs, addCustomTab,
   getEffectiveConfig, TM_CONFIG_EVENT, TM_TABS_EVENT, type CustomTab } from "@/data/talentMappingConfig";
 
 /** How long the deep-link highlight (colored outline + auto-scroll) stays visible before fading — mirrors Vismap's OrgChartCard highlight timing. */
@@ -621,8 +621,6 @@ export default function TalentMappingClient({
 
   const [addOpen, setAddOpen] = useState(false);
 
-  const activeCustom = customTabs.find(t => t.id === tab);
-
   /**
    * Konfigurasi tab aktif, dibaca dari simpanan sesi. Ditaruh di state dan
    * disegarkan lewat TM_CONFIG_EVENT: halaman Setting menyimpan lalu kembali ke
@@ -666,27 +664,11 @@ export default function TalentMappingClient({
       <ActionIcon variant="subtle" color="primary" size="sm" title="Tambah tab" aria-label="Tambah tab" onClick={() => setAddOpen(true)}>
         <IconPlus size={16} />
       </ActionIcon>
-      {/* Ubah nama & hapus hanya untuk tab custom — halaman ini kehilangan
-          artinya tanpa dua tab bawaannya. */}
-      {activeCustom && (
-        <>
-          <ActionIcon variant="subtle" color="gray" size="sm" title="Ubah nama tab" aria-label="Ubah nama tab"
-            onClick={() => {
-              const name = window.prompt("Nama tab", activeCustom.name)?.trim();
-              if (name) renameCustomTab(activeCustom.id, name);
-            }}>
-            <IconPencil size={15} />
-          </ActionIcon>
-          <ActionIcon variant="subtle" color="red" size="sm" title="Hapus tab" aria-label="Hapus tab"
-            onClick={() => {
-              if (!window.confirm(`Hapus tab "${activeCustom.name}" beserta pengaturannya?`)) return;
-              removeCustomTab(activeCustom.id);
-              setTab("TI");
-            }}>
-            <IconTrash size={15} />
-          </ActionIcon>
-        </>
-      )}
+      {/* Ubah nama dan hapus tab TIDAK di sini lagi, melainkan di halaman
+          Setting tab itu. Dulu keduanya ikon di baris ini dan memakai
+          window.prompt/window.confirm — dialog bawaan browser yang tidak
+          mengikuti design system, tidak bisa dibatalkan dengan rapi, dan
+          menempatkan aksi merusak tepat di sebelah aksi berpindah tab. */}
     </div>
   );
 
