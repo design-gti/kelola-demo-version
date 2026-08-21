@@ -8,7 +8,7 @@ import TMTRBox from "@/components/talent/TMTRBox";
 import DistributionSummary from "@/components/talent/DistributionSummary";
 import MappingSidePanel from "@/components/talent/MappingSidePanel";
 import { matchesFuzzy } from "@/lib/data/textMatch";
-import { donutTags, boxByOrder, bandIndex, pointsFrom, usesCompetency, COMPETENCY_KEY, METRICS,
+import { donutTags, boxByOrder, bandIndex, pointsFrom, usesCompetency, defaultShade, COMPETENCY_KEY, METRICS,
   type TMConfig, type TMPoint, type MetricKey, type EmployeeMetrics, type AxisBand } from "@/data/talentMappingShared";
 import { BUILT_IN_TABS, getCustomTabs, addCustomTab, renameCustomTab, removeCustomTab,
   getEffectiveConfig, TM_CONFIG_EVENT, TM_TABS_EVENT, type CustomTab } from "@/data/talentMappingConfig";
@@ -31,10 +31,16 @@ const BOX_SIZE = 500;
 function initials(name: string) {
   return name.split(" ").slice(0, 2).map(w => w[0] || "").join("").toUpperCase();
 }
-function darker(token: string) {
-  const shades: Record<string, string> = { error: "#DE350B", secondary: "#F28700", primary: "#016699", success: "#00875A", neutral: "#868E96" };
-  return shades[token.split(".")[0]] ?? "#495057";
-}
+/**
+ * Warna pil di tabel, diambil dari warna kotaknya.
+ *
+ * Dulu ada peta warna lokal di berkas ini. Dua masalahnya: ia harus dijaga tetap
+ * sama dengan palet di modul bersama, dan ia tidak mengenal warna buatan user —
+ * warna hex dari color picker jatuh ke abu-abu bawaan, jadi pil di tabel
+ * kehilangan kaitannya dengan kotak di grid persis pada kasus yang paling
+ * membutuhkannya.
+ */
+const pillColor = (token: string) => defaultShade(token);
 
 function OutlinePill({ color, children }: { color: string; children: React.ReactNode }) {
   return (
@@ -72,8 +78,14 @@ function Avatar({ name, employeeId }: { name: string; employeeId?: string }) {
  */
 const axisHead = (label: string, key: MetricKey, axis: string, relative: boolean) =>
   label + " (" + axis + ")" + (relative && key === COMPETENCY_KEY ? "%" : "");
-const tiHeaders = (cfg: TMConfig, rel: boolean) => ["Position", "Employee", axisHead(cfg.sumbuX, cfg.sumbuXKey, "X", rel), axisHead(cfg.sumbuY, cfg.sumbuYKey, "Y", rel), "Box Category", "HAV status", "Action"];
-const trHeaders = (cfg: TMConfig, rel: boolean) => ["Employee", "Position", axisHead(cfg.sumbuX, cfg.sumbuXKey, "X", rel), axisHead(cfg.sumbuY, cfg.sumbuYKey, "Y", rel), "Box Category", "Readiness", "Action"];
+/**
+ * Kolom terakhir sebelum Action bernama "Tag" di KEDUA mode, karena isinya sama:
+ * tag yang disetel per kotak di halaman Setting. Dulu ia "HAV status" di TI —
+ * berisi Talent/Non Talent yang ditulis tetap dan tidak ikut tag yang disetel
+ * user — dan "Readiness" di TR, padahal keduanya membaca medan yang sama.
+ */
+const tiHeaders = (cfg: TMConfig, rel: boolean) => ["Position", "Employee", axisHead(cfg.sumbuX, cfg.sumbuXKey, "X", rel), axisHead(cfg.sumbuY, cfg.sumbuYKey, "Y", rel), "Box Category", "Tag", "Action"];
+const trHeaders = (cfg: TMConfig, rel: boolean) => ["Employee", "Position", axisHead(cfg.sumbuX, cfg.sumbuXKey, "X", rel), axisHead(cfg.sumbuY, cfg.sumbuYKey, "Y", rel), "Box Category", "Tag", "Action"];
 
 function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean }) {
   return <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: muted ? "#ced4da" : "#495057" }}>{children}</span>;
@@ -116,7 +128,7 @@ function TablePanel({ config, points, highlightId, relativeToTarget = false, emp
         <Table.Tbody>
           {pageRows.map((p, i) => {
             const box = boxByOrder(config, p.order);
-            const boxColor = box ? darker(box.color) : "#adb5bd";
+            const boxColor = box ? pillColor(box.color) : "#adb5bd";
             const isHighlighted = i === highlightIndex;
             const openProfile = () => router.push(`/iprofile?id=${encodeURIComponent(p.employeeId)}&from=talent-mapping`);
             const person = (
@@ -151,8 +163,15 @@ function TablePanel({ config, points, highlightId, relativeToTarget = false, emp
                       <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
                     </Table.Td>
                     <Table.Td>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</Table.Td>
+                    {/* Tag kotaknya apa adanya. Sebelumnya kolom ini memaksa
+                        setiap orang jadi Talent atau Non Talent — dua nilai yang
+                        ditulis tetap di sini, jadi tag apa pun yang disetel user
+                        di halaman Setting tidak pernah terlihat, dan kotak yang
+                        tagnya sengaja dikosongkan tetap terbaca "Non Talent". */}
                     <Table.Td>
-                      {box?.tag === "talent" ? <OutlinePill color="#00875A">Talent</OutlinePill> : <OutlinePill color="#F28700">Non Talent</OutlinePill>}
+                      {box?.readiness
+                        ? <OutlinePill color={boxColor}>{box.readiness}</OutlinePill>
+                        : <Cell muted>-</Cell>}
                     </Table.Td>
                     <Table.Td>{action}</Table.Td>
                   </>
@@ -169,8 +188,12 @@ function TablePanel({ config, points, highlightId, relativeToTarget = false, emp
                       <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
                     </Table.Td>
                     <Table.Td>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</Table.Td>
+                    {/* Bentuknya disamakan dengan mode TI: pil berwarna kotaknya,
+                        bukan teks biasa. Isinya medan yang sama. */}
                     <Table.Td>
-                      <Cell muted={!box?.readiness}>{box?.readiness || "{No data}"}</Cell>
+                      {box?.readiness
+                        ? <OutlinePill color={boxColor}>{box.readiness}</OutlinePill>
+                        : <Cell muted>-</Cell>}
                     </Table.Td>
                     <Table.Td>{action}</Table.Td>
                   </>
