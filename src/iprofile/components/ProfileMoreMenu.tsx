@@ -1,7 +1,6 @@
 ﻿"use client";
 import { useState, useRef, useEffect, useContext } from 'react';
 import { createPortal } from 'react-dom';
-import svgPaths from '../imports/svg-djevy8uiqd';
 import { ProfileContext } from '../lib/ProfileContext';
 import { getEditedPhoto, setEditedPhoto } from '../lib/photoStore';
 import { ChangePhotoModal } from './ChangePhotoModal';
@@ -27,16 +26,25 @@ export function ProfileMoreMenu() {
     setChangeOpen(false);
   };
 
-  // Update dropdown position when opened
-  useEffect(() => {
-    if (isOpen && buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-      setDropdownPosition({
-        top: rect.bottom + 4, // 4px gap below the button
-        left: rect.right - 180, // 180px is the dropdown width, align to right
-      });
-    }
-  }, [isOpen]);
+  /**
+   * Menu muncul di titik klik, bukan di bawah kotak pemicunya.
+   *
+   * Pemicunya sekarang seluruh bidang foto (300×300), bukan tombol 16px. Kalau
+   * posisinya dihitung dari tepi bawah pemicu, menunya melompat ~300px ke bawah
+   * dari tempat kursor menekan dan terbaca seperti milik kartu di bawahnya.
+   *
+   * Dijepit ke dalam viewport supaya klik di dekat tepi kanan/bawah tidak
+   * mendorong menunya keluar layar.
+   */
+  const openAt = (e: React.MouseEvent) => {
+    const W = 180;
+    const H = 92;
+    setDropdownPosition({
+      top: Math.min(e.clientY + 4, window.innerHeight - H - 8),
+      left: Math.max(8, Math.min(e.clientX - W / 2, window.innerWidth - W - 8)),
+    });
+    setIsOpen(v => !v);
+  };
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -62,24 +70,19 @@ export function ProfileMoreMenu() {
 
   return (
     <>
+      {/*
+        Pemicunya bidang tembus pandang yang mengisi wadahnya, bukan tombol
+        titik-tiga. Wadahnya (kartu Profile) menaruhnya tepat di atas foto, jadi
+        yang diklik user adalah fotonya sendiri.
+      */}
       <button
         ref={buttonRef}
-        onClick={() => setIsOpen(!isOpen)}
-        className="overflow-clip relative shrink-0 size-[16px] cursor-pointer"
-        data-name="dots-vertical"
-      >
-        <div className="absolute inset-[16.67%_45.83%]" data-name="Vector">
-          <div className="absolute inset-[-7.03%_-56.25%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2.83333 12.1667">
-              <g id="Vector">
-                <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-              </g>
-            </svg>
-          </div>
-        </div>
-      </button>
+        onClick={openAt}
+        className="absolute inset-0 cursor-pointer"
+        style={{ background: "transparent", border: "none", padding: 0 }}
+        aria-label="Opsi foto profil"
+        title="Klik untuk lihat atau ubah foto profil"
+      />
 
       {isOpen &&
         createPortal(

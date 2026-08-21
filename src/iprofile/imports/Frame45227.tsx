@@ -46,6 +46,44 @@ function competencyMatchFromAspects(aspects: ScoreAspects["competency"]): string
   return Math.round(avg * 100).toString();
 }
 
+/**
+ * Tata letak kartu Profile.
+ *
+ * Kartu ini tidak memakai latar putih, bayangan, maupun baris kepala: fotonya
+ * sendiri sudah punya bidang dan bayangan, jadi kotak putih di belakangnya cuma
+ * menambah kerangka yang tidak memberi keterangan apa pun.
+ *
+ * Angka-angkanya saling terikat, jadi dikumpulkan di sini:
+ * - top 0 karena tidak ada baris kepala yang perlu diberi ruang.
+ * - size 300 adalah batas praktisnya: wadahnya ber-overflow-clip, jadi tinggi
+ *   apa pun di atas ini terpotong di bawah.
+ * - CARD_HEIGHT 302 dihitung dari isi paling bawah (chip berakhir di 286),
+ *   bukan ditebak; sisa 16px sama dengan proporsi rancangan aslinya.
+ *
+ * Menggeser salah satu tanpa yang lain meninggalkan ruang kosong di kaki kartu
+ * atau memotong isinya.
+ */
+const PHOTO = { left: 8, top: 0, size: 300 } as const;
+const CARD_HEIGHT = 302;
+const CHIPS_TOP = 103.83;
+
+/**
+ * Perbandingan radius sudut terhadap sisi bidang foto, dari rancangan aslinya
+ * (164.89 pada bidang 269px). Ditulis sebagai rasio, bukan angka mati: dipakai
+ * apa adanya pada bidang 300px, lengkung besar di sudutnya jadi lebih dangkal
+ * dan bentuk khas foto itu berubah.
+ */
+const PHOTO_CORNER_RATIO = 164.89 / 269;
+
+/**
+ * Latar tiga chip (Personality, Intelligence, Competency match).
+ *
+ * Putih karena yang di belakangnya halaman yang abu muda. Waktu kartu ini masih
+ * berlatar putih, chip-nya justru abu muda — putih di atas putih tidak terbaca
+ * sebagai bidang tersendiri.
+ */
+const CHIP_BG = "#ffffff";
+
 function Frame151() {
   const { name, position, employeeId } = useContext(ProfileContext);
   // Per-person WC photo keyed by canonical p-id; falls back to the generic photo.
@@ -67,8 +105,16 @@ function Frame151() {
   }, [employeeId]);
 
   return (
-    <div className="absolute left-[18px] top-[44px] w-[269px] h-[269px] overflow-hidden"
-      style={{ borderRadius: "8px 8px 164.89px 8px" }}>
+    <div
+      className="absolute overflow-hidden"
+      style={{
+        top: PHOTO.top,
+        left: PHOTO.left,
+        width: PHOTO.size,
+        height: PHOTO.size,
+        borderRadius: `8px 8px ${(PHOTO.size * PHOTO_CORNER_RATIO).toFixed(2)}px 8px`,
+      }}
+    >
 
       {/* Layer 1 — background biru, 3/4 tinggi dari bawah */}
       <div className="absolute bottom-0 left-0 right-0 rounded-[8px]" style={{ height: "75%", background: "#197fc9" }} />
@@ -93,46 +139,10 @@ function Frame151() {
   );
 }
 
-function Frame81() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">Profile</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame82() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-center justify-end relative shrink-0 w-[70.083px]">
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="arrows-diagonal">
-        <div className="absolute inset-[16.67%]" data-name="Vector">
-          <div className="absolute inset-[-7.03%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12.1667 12.1667">
-              <path d={svgPaths.p10ddf7c0} id="Vector" stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <ProfileMoreMenu />
-    </div>
-  );
-}
-
-function Frame78() {
-  return (
-    <div className="-translate-x-1/2 absolute content-stretch flex items-center justify-between left-[calc(50%+0.17px)] top-[16px] w-[336.333px]">
-      <Frame81 />
-      <Frame82 />
-    </div>
-  );
-}
-
 function Frame26() {
   const { personality } = useContext(ProfileContext);
   return (
-    <div className="bg-[#f8f9fa] h-[50px] leading-[0] overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-full whitespace-nowrap">
+    <div className="h-[50px] leading-[0] overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-full whitespace-nowrap" style={{ background: CHIP_BG }}>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center left-[13px] text-[#495057] text-[10px] top-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">Personality</p>
       </div>
@@ -146,7 +156,7 @@ function Frame26() {
 function Frame102() {
   const { iq, gtq } = useContext(ProfileContext);
   return (
-    <div className="bg-[#f8f9fa] h-[50px] leading-[0] overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[135px] whitespace-nowrap">
+    <div className="h-[50px] leading-[0] overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[135px] whitespace-nowrap" style={{ background: CHIP_BG }}>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center left-[13px] text-[#495057] text-[10px] top-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">Intelligence</p>
       </div>
@@ -165,7 +175,7 @@ function Frame102() {
 function Frame25() {
   const { competencyMatch } = useContext(ProfileContext);
   return (
-    <div className="bg-[#f8f9fa] h-[50px] overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-full">
+    <div className="h-[50px] overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-full" style={{ background: CHIP_BG }}>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] left-[13px] text-[#495057] text-[10px] top-[12px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[normal]">Competency match</p>
       </div>
@@ -187,7 +197,10 @@ function Frame25() {
 
 function Frame88() {
   return (
-    <div className="absolute content-stretch flex flex-col gap-[16px] items-end left-[217px] top-[147.83px] w-[135px]">
+    <div
+      className="absolute content-stretch flex flex-col gap-[16px] items-end left-[217px] w-[135px]"
+      style={{ top: CHIPS_TOP }}
+    >
       <Frame26 />
       <Frame102 />
       <Frame25 />
@@ -276,12 +289,36 @@ export function Frame116({ rightSlot, showLegend = true }: { rightSlot?: React.R
 }
 
 
+/** Kartu Profile — tanpa latar putih, bayangan, maupun baris kepala. */
 export function ProfileCard() {
   return (
-  <div className="bg-white overflow-clip relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Profile">
-    <div style={{ height: 346 }} />
+  <div className="overflow-clip relative rounded-[8px] shrink-0 w-[368px]" data-name="Profile">
+    <div style={{ height: CARD_HEIGHT }} />
     <Frame151 />
-    <Frame78 />
+    {/*
+      Bidang foto adalah pemicu menu foto (lihat/ubah foto profil) — tidak ada
+      lagi tombol titik-tiga. Menu itu satu-satunya jalan ke ubah foto profil di
+      seluruh aplikasi, jadi ia tidak boleh hilang bersama tombolnya.
+
+      Ditaruh SEBELUM Frame88 supaya chip di kanan tetap tergambar di atasnya:
+      chip menimpa sisi kanan foto, dan pemicu yang menutupinya akan membuat klik
+      di atas chip terasa seperti klik pada foto.
+
+      Radiusnya disamakan dengan fotonya supaya daerah kliknya berhenti di tempat
+      fotonya berhenti, bukan di kotak siku yang tak terlihat.
+    */}
+    <div
+      className="absolute"
+      style={{
+        top: PHOTO.top,
+        left: PHOTO.left,
+        width: PHOTO.size,
+        height: PHOTO.size,
+        borderRadius: `8px 8px ${(PHOTO.size * PHOTO_CORNER_RATIO).toFixed(2)}px 8px`,
+      }}
+    >
+      <ProfileMoreMenu />
+    </div>
     <Frame88 />
   </div>
   );
@@ -773,7 +810,7 @@ function Frame98() {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
       <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">Development</p>
+        <p className="leading-[normal]">Development Plan</p>
       </div>
     </div>
   );
@@ -850,7 +887,9 @@ function IdpCard({ program, competencies, pic, dateRange, status }: { program: s
   const done = status.toLowerCase() === "done";
   return (
     <div
-      className="bg-[#f8f9fa] content-stretch flex flex-col gap-[12px] items-start p-[16px] relative rounded-[8px] shrink-0 w-[336.333px] cursor-pointer transition-all hover:shadow-md"
+      // w-full, bukan lebar tetap: wadahnya menyusut sebesar batang gulir, dan
+      // item berlebar tetap akan melebihinya sehingga muncul gulir MENDATAR.
+      className="bg-[#f8f9fa] content-stretch flex flex-col gap-[12px] items-start p-[16px] relative rounded-[8px] w-full cursor-pointer transition-all hover:shadow-md"
       data-name="IDP List"
       onClick={() => router.push(`/idp?page=detail-idp-admin.html&name=${encodeURIComponent(employeeName)}`)}
     >
@@ -901,10 +940,23 @@ function IdpCard({ program, competencies, pic, dateRange, status }: { program: s
   );
 }
 
+/**
+ * Tinggi maksimum daftar IDP sebelum ia menggulir sendiri.
+ *
+ * Yang dibatasi DAFTARNYA, bukan seluruh kartu. Kalau kartunya yang menggulir,
+ * judul dan tombol "Create New IDP" ikut hanyut ke atas — tombol utama kartu ini
+ * jadi tidak terjangkau tepat ketika daftarnya panjang, yaitu saat orang paling
+ * mungkin ingin menambah IDP.
+ */
+const IDP_LIST_MAX_HEIGHT = 420;
+
 function Frame105() {
   const { idpHistory } = useContext(ProfileContext);
   return (
-    <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-[336.333px]">
+    <div
+      className="content-stretch flex flex-col gap-[12px] items-stretch relative shrink-0 w-full overflow-y-auto"
+      style={{ maxHeight: IDP_LIST_MAX_HEIGHT }}
+    >
       {idpHistory.map((h, i) => (
         <IdpCard key={i} program={h.program} competencies={h.competencies} pic={h.pic} dateRange={h.dateRange} status={h.status} />
       ))}
