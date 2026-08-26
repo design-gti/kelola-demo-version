@@ -16,11 +16,26 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { ImageLoader } from './ImageLoader';
+import ReadinessPill from './ReadinessPill';
 import { generateAIRecommendation, AIGeneratedRecommendation } from "../utils/aiIDPGenerator";
 
 interface SuccessionPanelProps {
   employee: Employee | null;
   onClose: () => void;
+  /**
+   * Tampilkan persentase kesiapan sebagai pil filled `ReadinessPill` — elemen
+   * yang sama dengan pil di kanvas Vismap V3, termasuk pada baris successor yang
+   * belum di-expand. OPSIONAL dan default mati: V1 tidak mengirimnya, jadi
+   * chip outline dan teks persentase V1 tetap apa adanya.
+   */
+  filledReadinessPill?: boolean;
+  /**
+   * Judul konteks di atas nama karyawan, mis. "Succession" — supaya user tahu
+   * panel ini dibuka dari aksi apa. OPSIONAL dan default mati: V1 tidak
+   * mengirimnya, jadi render V1 tidak berubah sama sekali. Dipakai Vismap V3,
+   * yang membuka panel yang sama dari beberapa aksi berbeda.
+   */
+  contextLabel?: string;
   onCompare?: (manager: Employee, successors: Employee[]) => void;
   onIDPDialogChange?: (isOpen: boolean) => void;
   onAddSuccessorDialogChange?: (isOpen: boolean) => void;
@@ -217,9 +232,11 @@ interface SuccessorCardProps {
   onNavigateToIDP?: (employeeId: string) => void;
   onShowIDPProgress?: (employeeId: string) => void;
   onNavigateToProfile?: (employeeId: string) => void; // New handler for employee profile navigation
+  /** Lihat SuccessionPanelProps.filledReadinessPill. */
+  filledReadinessPill?: boolean;
 }
 
-function SuccessorCard({ successor, index, onIDPDialogChange, isAdditional, onRemove, heatmapConfig, onNavigateToDetail, onNavigateToIDP, onShowIDPProgress, onNavigateToProfile }: SuccessorCardProps) {
+function SuccessorCard({ successor, index, onIDPDialogChange, isAdditional, onRemove, heatmapConfig, filledReadinessPill, onNavigateToDetail, onNavigateToIDP, onShowIDPProgress, onNavigateToProfile }: SuccessorCardProps) {
   const [isExpanded, setIsExpanded] = useState(false); // All successors collapsed by default
   const [isIDPProgressDialogOpen, setIsIDPProgressDialogOpen] = useState(false);
   const [aiRecommendations, setAiRecommendations] = useState<AIGeneratedRecommendation[]>([]);
@@ -282,6 +299,12 @@ function SuccessorCard({ successor, index, onIDPDialogChange, isAdditional, onRe
   };
 
   const badge = getReadinessBadge(promotionReadinessPercentage);
+
+  // Warna pil filled diambil dari range readiness yang berlaku, supaya angka di
+  // panel dan di kanvas V3 memakai skala warna yang sama.
+  const readinessRangeColor: string =
+    heatmapConfig?.readinessScore?.find((r: { color: string; min: number; max: number }) => promotionReadinessPercentage >= r.min && promotionReadinessPercentage <= r.max)?.color
+    ?? (badge.label === 'READY' ? '#00875A' : '#FD9F28');
 
   // Get cluster scores with defaults if not available
   const getClusterScores = () => {
@@ -353,6 +376,14 @@ function SuccessorCard({ successor, index, onIDPDialogChange, isAdditional, onRe
                   </div>
                 </div>
                 <div className="content-stretch flex items-center justify-center relative shrink-0">
+                  {filledReadinessPill ? (
+                    <ReadinessPill
+                      percentage={promotionReadinessPercentage}
+                      color={readinessRangeColor}
+                      showIDPIcon={!!successor.activeIDP}
+                      size="sm"
+                    />
+                  ) : (
                   <div 
                     className="box-border content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[800px] shrink-0" 
                     data-name="Chip"
@@ -372,6 +403,7 @@ function SuccessorCard({ successor, index, onIDPDialogChange, isAdditional, onRe
                       />
                     )}
                   </div>
+                  )}
                 </div>
                 {isAdditional && onRemove && (
                   <button 
@@ -421,10 +453,19 @@ function SuccessorCard({ successor, index, onIDPDialogChange, isAdditional, onRe
                 </div>
               </div>
               <div className="content-stretch flex gap-[4px] items-center justify-center relative shrink-0">
+                {filledReadinessPill ? (
+                  <ReadinessPill
+                    percentage={promotionReadinessPercentage}
+                    color={readinessRangeColor}
+                    showIDPIcon={!!successor.activeIDP}
+                    size="sm"
+                  />
+                ) : (
                 <p className="font-['Open_Sans',_sans-serif] font-bold leading-[normal] relative shrink-0 text-[#495057] text-[10px] text-nowrap uppercase whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {promotionReadinessPercentage}%
                 </p>
-                {successor.activeIDP && (
+                )}
+                {!filledReadinessPill && successor.activeIDP && (
                   <TrendingUp 
                     className="w-[10px] h-[10px]" 
                     style={{ color: badge.text }}
@@ -729,7 +770,7 @@ function getSuccessors(employee: Employee): Employee[] {
   return directReports;
 }
 
-export default function SuccessionPanel({ employee, onClose, onCompare, onIDPDialogChange, onAddSuccessorDialogChange, heatmapConfig, onNavigateToDetail, onNavigateToIDP, onShowIDPProgress, allEmployees: propEmployees, onEmployeesChange }: SuccessionPanelProps) {
+export default function SuccessionPanel({ employee, onClose, contextLabel, filledReadinessPill, onCompare, onIDPDialogChange, onAddSuccessorDialogChange, heatmapConfig, onNavigateToDetail, onNavigateToIDP, onShowIDPProgress, allEmployees: propEmployees, onEmployeesChange }: SuccessionPanelProps) {
   const [isAddSuccessorDialogOpen, setIsAddSuccessorDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -900,6 +941,11 @@ export default function SuccessionPanel({ employee, onClose, onCompare, onIDPDia
           className={`flex flex-col font-['Avenir:Heavy',_sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] text-nowrap text-right cursor-pointer hover:opacity-70 transition-opacity`}
           onClick={() => handleNavigateToEmployeeProfile(employee.id)}
         >
+          {contextLabel && (
+            <p className="leading-[normal] whitespace-pre font-bold text-[10px] uppercase tracking-[0.08em] text-[#016699] mb-1">
+              {contextLabel}
+            </p>
+          )}
           <p className="leading-[normal] whitespace-pre font-bold">{employee.name}</p>
         </div>
         <button 
@@ -944,6 +990,7 @@ export default function SuccessionPanel({ employee, onClose, onCompare, onIDPDia
               {/* Primary Successors (CSV-based or direct reports fallback) */}
               {primarySuccessors.map((successor, idx) => (
                 <SuccessorCard
+                  filledReadinessPill={filledReadinessPill}
                   key={successor.id}
                   successor={successor}
                   index={idx}
@@ -959,6 +1006,7 @@ export default function SuccessionPanel({ employee, onClose, onCompare, onIDPDia
               {/* Manually Added Successors */}
               {additionalSuccessors.map((successor, idx) => (
                 <SuccessorCard
+                  filledReadinessPill={filledReadinessPill}
                   key={successor.id}
                   successor={successor}
                   index={primarySuccessors.length + idx}
