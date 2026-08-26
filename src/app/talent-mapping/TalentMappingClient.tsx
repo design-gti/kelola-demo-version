@@ -275,6 +275,12 @@ function Panel({
   const resolveHighlightMatch = () =>
     initialHighlight ? basePoints.find(p => p.employeeId === initialHighlight || matchesFuzzy(p.name, initialHighlight)) : undefined;
   const [selectedBox, setSelectedBox] = useState<number | null>(() => initialBox ?? resolveHighlightMatch()?.order ?? null);
+  /**
+   * Karyawan yang disorot dari panel kiri. Berbeda dari highlightId di bawah:
+   * yang itu sorotan sekali-pakai dari tautan luar dan memudar sendiri,
+   * sedangkan ini dikendalikan user dan menetap sampai ia melepasnya.
+   */
+  const [spotlightId, setSpotlightId] = useState<string | null>(null);
   // Filter (team, job, kriteria per sumbu) — nilai terpakai + draft modal.
   const [filterOpen, setFilterOpen] = useState(false);
   const [teams, setTeams] = useState<string[]>([]);
@@ -410,6 +416,11 @@ function Panel({
             onJobTargetChange={needsTarget ? (v => { setJobTarget(v); setSelectedBox(null); }) : undefined}
             onOpenFilter={openFilter}
             activeFilterCount={activeCount}
+            spotlightId={spotlightId}
+            /* Tidak perlu ikut memindahkan box yang difokuskan: daftar di panel
+               ini sudah menyempit ke box yang sedang di-zoom, jadi orang yang
+               bisa disorot dari sana pasti ada di dalam box itu. */
+            onSpotlight={setSpotlightId}
           />
         </div>
 
@@ -443,7 +454,7 @@ function Panel({
               flex-wrap dibiarkan menyala: di layar sempit ringkasan turun ke
               bawah grid daripada menghimpitnya. */}
           <div style={{ display: "flex", gap: 24, alignItems: "flex-start", paddingTop: 4, flexWrap: "wrap" }}>
-            <TMTRBox config={config} points={banded} selectedBox={selectedBox} onBoxClick={setSelectedBox} size={BOX_SIZE} emptyNotice={awaitingTarget ? AWAITING_TARGET_NOTICE : undefined} />
+            <TMTRBox config={config} points={banded} selectedBox={selectedBox} onBoxClick={setSelectedBox} spotlightId={spotlightId} size={BOX_SIZE} emptyNotice={awaitingTarget ? AWAITING_TARGET_NOTICE : undefined} />
             {/* Tanpa batas lebar: ringkasan mengisi sisa ruang di kanan 9-box.
                 9-box lebarnya tetap (BOX_SIZE), jadi kalau ringkasannya juga
                 dibatasi, sisa ruang kartu tertinggal kosong. */}
@@ -597,16 +608,23 @@ function AddTabModal({ onClose, onCreate }: {
 export default function TalentMappingClient({
   jobTargets,
   metrics,
+  initialTab = null,
   initialBox,
   initialHighlight,
 }: {
   jobTargets: { id: string; title: string }[];
   metrics: EmployeeMetrics[];
+  /**
+   * Tab yang dibuka dari tautan — kartu Employee Mapping di Beranda mengirim
+   * tab yang sedang dilihatnya, supaya berpindah ke halaman penuh tidak
+   * melempar user kembali ke Talent Identification.
+   */
+  initialTab?: string | null;
   initialBox: number | null;
   initialHighlight: string | null;
 }) {
   const router = useRouter();
-  const [tab, setTab] = useState<string>("TI");
+  const [tab, setTab] = useState<string>(initialTab ?? "TI");
 
   // Registry tab custom hidup di memori sesi; dibaca setelah mount supaya
   // server merender daftar kosong dan klien daftar sebenarnya tanpa render
@@ -681,7 +699,9 @@ export default function TalentMappingClient({
         config={config}
         jobTargets={jobTargets}
         metrics={metrics}
-        initialBox={initialBox}
+        /* Hanya untuk tab yang memang dituju tautannya; pindah tab setelah itu
+           mulai tanpa box terpilih, bukan mengulang fokus dari URL lama. */
+        initialBox={tab === (initialTab ?? "TI") ? initialBox : null}
         initialHighlight={initialHighlight}
         tabBar={tabBar}
         onSettings={() => router.push(`/talent-mapping/config?config=${encodeURIComponent(tab)}`)}

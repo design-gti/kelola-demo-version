@@ -7,6 +7,7 @@ import BannerInsight from "@/components/BannerInsight";
 import DraggableCardWrapper from "@/components/DraggableCardWrapper";
 import AspectScoreCard from "@/components/AspectScoreCard";
 import EmployeeMapping, { type CellData } from "@/components/EmployeeMapping";
+import type { EmployeeMetrics } from "@/data/talentMappingShared";
 import LineChartCard from "@/components/LineChartCard";
 import ProfileCompletion from "@/components/ProfileCompletion";
 import ScaleWrapper from "@/components/ScaleWrapper";
@@ -53,6 +54,8 @@ interface HomeClientProps {
   managerAspects: { label: string; below: number; meet: number; exceed: number }[] | null;
   /** Always computed server-side (getTalentMappingCells for HR, managerMappingCells for a manager). */
   mappingCells: CellData[];
+  /** Null untuk manager — kartunya tidak mengikuti konfigurasi tingkat organisasi. */
+  mappingMetrics: EmployeeMetrics[] | null;
   criticalPositions: SuccessionRiskPosition[] | null;
   activityLog: ActivityEntry[] | null;
 }
@@ -67,6 +70,7 @@ export default function HomeClient({
   defaultQuickAccess,
   managerAspects,
   mappingCells,
+  mappingMetrics,
   criticalPositions,
   activityLog,
 }: HomeClientProps) {
@@ -111,7 +115,7 @@ export default function HomeClient({
       case "performance-chart":      return <LineChartCard title={isManager ? "Team Avg. Performance Score" : "Avg. Performance Score"} value="3.18" chipColor="#016699" data={performanceData} areaColor="#016699" lineColor="#016699" hideDeptFilter={isManager} />;
       case "engagement-chart":       return <LineChartCard title={isManager ? "Team Avg. Engagement Score"  : "Avg. Engagement Score"}  value="3.18" chipColor="#fd9f28" data={engagementData}  areaColor="#fd9f28" lineColor="#fd9f28" hideDeptFilter={isManager} />;
       case "aspect-score":           return <AspectScoreCard title={isManager ? "Team Aspect Score Percentage" : "Percentage of Aspect Score"} hideDeptFilter={isManager} customAspects={managerAspects ?? undefined} />;
-      case "employee-mapping":       return <EmployeeMapping title={isManager ? "Team Mapping" : "Employee Mapping"} cells={mappingCells} axisY={isManager ? "Competency" : undefined} />;
+      case "employee-mapping":       return <EmployeeMapping title={isManager ? "Team Mapping" : "Employee Mapping"} cells={mappingCells} metrics={mappingMetrics ?? undefined} axisY={isManager ? "Competency" : undefined} />;
       case "committee-readiness":    return <CommitteeReadinessCard candidates={pool} />;
       case "critical-position-risk": return criticalPositions ? <CriticalPositionRiskCard positions={criticalPositions} /> : null;
       case "profile-completeness":   return <ProfileCompletenessTrackerCard title={isManager ? "Team Profile Completeness Tracker" : "Profile Completeness Tracker"} employees={pool} />;

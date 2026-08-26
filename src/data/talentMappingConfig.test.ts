@@ -36,6 +36,20 @@ describe("simpanan konfigurasi Talent Mapping — lingkup sesi", () => {
     Reflect.deleteProperty(document, "cookie");
   });
 
+  it("deskripsi box dan deskripsi tag ikut tersimpan", () => {
+    // Keduanya opsional, jadi mudah terlewat saat daftar medan tersimpan
+    // diperbarui — dan kalau terlewat, keterangan yang sudah diketik user
+    // lenyap begitu ia berpindah halaman lalu kembali.
+    saveConfig("TI", {
+      ...TI_CONFIG,
+      boxes: TI_CONFIG.boxes.map((b, i) => (i === 0 ? { ...b, description: "Catatan box pertama" } : b)),
+      tagDescriptions: { Talent: "Karyawan berpotensi tinggi" },
+    });
+
+    const back = getEffectiveConfig("TI");
+    expect(back.boxes[0].description).toBe("Catatan box pertama");
+    expect(back.tagDescriptions).toEqual({ Talent: "Karyawan berpotensi tinggi" });
+  });
   it("konfigurasi tiap box mapping berdiri sendiri", () => {
     saveConfig("TI", tweaked);
     expect(getEffectiveConfig("TR").boxes.map(b => b.label))

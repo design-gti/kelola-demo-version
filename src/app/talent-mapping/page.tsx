@@ -12,15 +12,16 @@ import TalentMappingClient from "./TalentMappingClient";
 export default async function TalentMappingPage({
   searchParams,
 }: {
-  searchParams: Promise<{ box?: string; highlight?: string }>;
+  searchParams: Promise<{ tab?: string; box?: string; highlight?: string }>;
 }) {
-  const { box, highlight } = await searchParams;
+  const { tab, box, highlight } = await searchParams;
   const initialBox = box ? Number(box) : null;
 
   return (
     <TalentMappingClient
       jobTargets={getJobTargets()}
       metrics={getEmployeeMetrics()}
+      initialTab={tab ?? null}
       initialBox={initialBox}
       initialHighlight={highlight ?? null}
     />

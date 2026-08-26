@@ -32,6 +32,12 @@ export interface BoxDef {
   // TR (Talent Readiness): the readiness bucket this box maps to
   // ("Ready Now" / "Ready under 1 year" / ...). Unused (undefined) for TI.
   readiness?: string | null;
+  /**
+   * Keterangan bebas tentang box ini — opsional, dan hanya milik box ini.
+   * Berbeda dari deskripsi tag (TMConfig.tagDescriptions), yang dipakai
+   * bersama oleh setiap box bertag sama.
+   */
+  description?: string;
 }
 
 // A criteria band on an axis. min is derived (prev band max + 0.01); max is editable.
@@ -90,6 +96,18 @@ export interface TMConfig {
   rangesY: AxisBand[];       // bottom→top
   /** Tag siap pakai untuk box; bisa ditambah/disunting user. */
   tagOptions?: string[];
+  /**
+   * Keterangan per tag, dikunci dengan NAMA tagnya.
+   *
+   * Tinggal di config, bukan di box, karena satu tag dipakai banyak box
+   * sekaligus: kalau keterangannya diisi per box, tag yang sama akan punya
+   * beberapa keterangan yang bisa saling bertentangan dan user tidak punya
+   * cara tahu mana yang benar.
+   *
+   * Konsekuensinya, mengganti nama tag harus memindahkan kuncinya — dikerjakan
+   * di satu tempat, renameTag di halaman Setting.
+   */
+  tagDescriptions?: Record<string, string>;
   /** Warna buatan user (hex) yang tersimpan di samping palet design system. */
   colorOptions?: string[];
   /** Sumbu ketiga, digambar sebagai tebal cincin — bukan posisi. Mati secara
@@ -429,6 +447,93 @@ export function makeConfigById(
     id: "TR", name: "Talent Readiness", tabLabel: "Talent Readiness", unit: "Employees",
     boxes: trBoxesFor(base.ordering),
   };
+}
+
+/**
+ * Tebal pita cincin sumbu Z per tingkat, dalam px. Indeks ke-4 dipakai layout
+ * 12-box yang sumbunya punya empat pita.
+ */
+export const Z_THICKNESS = [3, 5, 7, 9];
+/** Cincin dibuat tembus supaya titik yang bertumpuk tetap terbaca. */
+export const Z_ALPHA = 0.35;
+
+export interface ZRing { thickness: number; color: string }
+
+/** Hex → rgba, untuk menembuskan warna pita tanpa mengubah token aslinya. */
+export function withAlpha(hex: string, alpha: number): string {
+  const h = hex.replace("#", "");
+  if (h.length !== 6) return hex;
+  const [r, g, b] = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16));
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+/**
+ * Cincin penanda sumbu Z untuk satu nilai: setebal apa, dan warnanya.
+ *
+ * Tinggal di sini, bukan di komponen 9-box, karena kartu ringkas di Beranda
+ * menggambar cincin yang sama. Dua salinan berarti tingkat yang sama bisa
+ * tergambar dengan tebal atau warna berbeda di dua tempat tanpa ada yang
+ * menyadarinya.
+ */
+export function zRingFor(value: number | null | undefined, bands: AxisBand[]): ZRing | null {
+  if (value == null || bands.length === 0) return null;
+  let bi = bands.findIndex(b => value <= b.max);
+  if (bi === -1) bi = bands.length - 1;
+  return {
+    thickness: Z_THICKNESS[Math.min(bi, Z_THICKNESS.length - 1)],
+    color: defaultShade(bands[bi].color),
+  };
+}
+
+export interface TMCell {
+  /** Nomor box — dipakai untuk menautkan sel ke box yang sama di halaman penuh. */
+  order: number;
+  count: number;
+  label: string;
+  countColor: string;
+  bg: string;
+  avatars: string[];
+  names: string[];
+  /**
+   * Cincin sumbu Z per avatar yang ditampilkan, sejajar indeks dengan `avatars`.
+   * null kalau sumbu Z mati atau orang itu tidak punya nilainya.
+   */
+  rings: (ZRing | null)[];
+}
+
+/**
+ * Sel 9-box untuk kartu ringkas (Employee Mapping di Beranda).
+ *
+ * Menerima titik yang sudah dihitung, jadi ia tidak menyentuh fixture apa pun
+ * dan bisa dipanggil dari komponen klien. Sebelumnya perhitungan ini hanya ada
+ * di jalur server, sehingga kartu Beranda selalu memakai konfigurasi BAWAAN —
+ * tab dan pengaturan box mapping yang dipilih user tidak terlihat di sana.
+ */
+export function cellsFrom(cfg: TMConfig, points: TMPoint[]): TMCell[] {
+  const byOrder = new Map<number, TMPoint[]>();
+  points.forEach(p => {
+    if (p.order == null) return;
+    const arr = byOrder.get(p.order) ?? [];
+    arr.push(p);
+    byOrder.set(p.order, arr);
+  });
+  const zBands = cfg.useZ ? (cfg.rangesZ ?? []) : [];
+  return cfg.ordering.flat().map(order => {
+    const box = boxByOrder(cfg, order);
+    const members = byOrder.get(order) ?? [];
+    const shown = members.slice(0, 2);
+    return {
+      order,
+      count: members.length,
+      label: box?.label ?? `#${order}`,
+      // Shade 6 dari keluarga warna box; angka harus lebih tua dari latarnya.
+      countColor: box ? (mantineColor[box.color.split(".")[0]]?.[6] ?? "#495057") : "#495057",
+      bg: box ? resolveColor(box.color) : "#f1f3f5",
+      avatars: shown.map(m => `/avatars/employee/${m.employeeId}.png`),
+      names: members.map(m => m.name),
+      rings: shown.map(m => zRingFor(m.rawZ, zBands)),
+    };
+  });
 }
 
 /**

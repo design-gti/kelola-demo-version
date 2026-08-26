@@ -1,5 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Badge, Button, Checkbox, ScrollArea, Select, TextInput } from "@mantine/core";
 import { IconFilter, IconArrowsSort, IconSearch, IconUsers } from "@tabler/icons-react";
 import { boxByOrder, defaultShade, TMConfig, TMPoint } from "@/data/talentMappingShared";
@@ -89,6 +90,8 @@ export default function MappingSidePanel({
   onJobTargetChange,
   onOpenFilter,
   activeFilterCount,
+  spotlightId = null,
+  onSpotlight,
 }: {
   config: TMConfig;
   points: TMPoint[];
@@ -98,7 +101,16 @@ export default function MappingSidePanel({
   onJobTargetChange?: (v: string | null) => void;
   onOpenFilter: () => void;
   activeFilterCount: number;
+  /** Karyawan yang sedang disorot di 9-box; barisnya ikut ditandai di sini. */
+  spotlightId?: string | null;
+  /** Klik baris (di luar checkbox dan nama) menyorot orangnya di 9-box. */
+  onSpotlight?: (employeeId: string | null) => void;
 }) {
+  const router = useRouter();
+  /* Chip ini menampilkan NAMA box, jadi deskripsi box yang diutamakan;
+     keterangan tagnya dipakai kalau box itu sendiri belum diberi keterangan. */
+  const tagDescriptions = config.tagDescriptions ?? {};
+
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortKey>("y-desc");
   const options = useMemo(() => sortOptions(config), [config]);
@@ -193,20 +205,39 @@ export default function MappingSidePanel({
           {shown.map(p => {
             const box = p.order != null ? boxByOrder(config, p.order) : null;
             return (
-              <label
+              /*
+               * Sengaja <div>, dulu <label>. <label> meneruskan klik di mana pun
+               * di dalamnya ke checkbox-nya, jadi seluruh kartu ini ikut
+               * mencentang — padahal ketiga area punya arti berbeda: checkbox
+               * mencentang, nama membuka iProfile, sisanya menyorot orangnya di
+               * 9-box.
+               *
+               * Tercentang dan tersorot ditandai berbeda (latar biru muda vs
+               * garis biru): keduanya bisa aktif bersamaan pada baris yang sama,
+               * jadi satu penanda untuk dua keadaan akan menyesatkan.
+               */
+              <div
                 key={p.employeeId}
+                onClick={() => onSpotlight?.(spotlightId === p.employeeId ? null : p.employeeId)}
+                title="Klik untuk menyorot di box mapping"
                 style={{
                   display: "flex", alignItems: "center", gap: 8,
                   padding: "6px 8px", borderRadius: 8, cursor: "pointer",
-                  border: "1px solid #e9ecef", background: picked.includes(p.employeeId) ? "#e6f3f8" : "#fff",
+                  border: `1px solid ${spotlightId === p.employeeId ? "#1971c2" : "#e9ecef"}`,
+                  background: picked.includes(p.employeeId) ? "#e6f3f8" : "#fff",
                 }}
               >
-                <Checkbox
-                  size="xs"
-                  checked={picked.includes(p.employeeId)}
-                  onChange={() => toggle(p.employeeId)}
-                  styles={{ input: { cursor: "pointer" } }}
-                />
+                {/* Klik di sini TIDAK ikut menyorot: mencentang untuk
+                    dibandingkan adalah aksi yang berdiri sendiri. */}
+                <span onClick={e => e.stopPropagation()} style={{ display: "flex", alignItems: "center" }}>
+                  <Checkbox
+                    size="xs"
+                    checked={picked.includes(p.employeeId)}
+                    onChange={() => toggle(p.employeeId)}
+                    aria-label={`Pilih ${p.name} untuk dibandingkan`}
+                    styles={{ input: { cursor: "pointer" } }}
+                  />
+                </span>
                 {/* Tag kategori kotak duduk di bawah jabatan, bukan di sisi kanan
                     baris: panel ini hanya 300px dan sudah berisi checkbox, foto,
                     nama, serta jabatan — tag seperti "Emerging Star" di kanan
@@ -222,13 +253,20 @@ export default function MappingSidePanel({
                   employeeId={p.employeeId}
                   name={p.name}
                   position={p.positionTitle}
+                  /* Hanya teks NAMA yang menuju iProfile; jabatan dan tag ikut
+                     area "sorot". stopPropagation supaya tidak sekalian
+                     menyorot orangnya sambil berpindah halaman. */
+                  onNameClick={e => {
+                    e.stopPropagation();
+                    router.push(`/iprofile?id=${encodeURIComponent(p.employeeId)}&from=talent-mapping`);
+                  }}
                   meta={box ? (
-                    <span style={{ display: "inline-block", marginTop: 3, maxWidth: "100%", background: "#f1f3f5", color: defaultShade(box.color), fontFamily: FONT, fontSize: 9, fontWeight: 700, borderRadius: 999, padding: "2px 8px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    <span title={box.description || (box.readiness ? tagDescriptions[box.readiness] : undefined) || undefined} style={{ display: "inline-block", marginTop: 3, maxWidth: "100%", background: "#f1f3f5", color: defaultShade(box.color), fontFamily: FONT, fontSize: 9, fontWeight: 700, borderRadius: 999, padding: "2px 8px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       {box.label}
                     </span>
                   ) : undefined}
                 />
-              </label>
+              </div>
             );
           })}
           {shown.length === 0 && (

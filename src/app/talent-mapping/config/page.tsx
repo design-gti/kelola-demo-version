@@ -1,8 +1,8 @@
 "use client";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Paper, Select, TextInput, NumberInput, Switch, Button, Badge, Modal, Text, ColorPicker as MantineColorPicker } from "@mantine/core";
-import { IconChevronDown, IconPencil, IconTrash, IconPlus, IconColorPicker } from "@tabler/icons-react";
+import { Paper, Select, TextInput, Textarea, NumberInput, Switch, Button, Badge, Modal, Text, ColorPicker as MantineColorPicker } from "@mantine/core";
+import { IconChevronDown, IconPencil, IconTrash, IconPlus, IconColorPicker, IconRotate2 } from "@tabler/icons-react";
 import AppBreadcrumb from "@/components/Breadcrumb";
 import {
   LAYOUTS, METRICS, DEFAULT_TAG_OPTIONS, isTalentTag, makeConfigById, boxByOrder, resolveColor, defaultShade, metricLabel,
@@ -150,7 +150,7 @@ function CustomColorModal({ initial, onCancel, onSave }: {
       </div>
 
       <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 14 }}>
-        <button onClick={onCancel} style={{ background: "none", border: "none", cursor: "pointer", color: ACCENT, fontFamily: FONT, fontWeight: 700, fontSize: 12 }}>Cancel</button>
+        <Button onClick={onCancel} variant="subtle" color="primary" size="xs" radius="xl" styles={{ root: { fontFamily: FONT, fontWeight: 700 } }}>Cancel</Button>
         <Button size="xs" radius="xl" color={ACCENT} disabled={!HEX_RE.test(hex)} onClick={() => onSave(withOpacity(hex, opacity))}>Save</Button>
       </div>
     </div>
@@ -221,15 +221,178 @@ function BoxColorPicker({ value, customs, onPick, onAddCustom }: {
 }
 
 /**
+ * Field yang tidak disunting di tempat: ia menampilkan nilai yang berlaku, dan
+ * ikon pensil di kanannya membuka modal tempat nilai itu diubah.
+ *
+ * Satu-satunya jalan menyunting adalah modal itu. Kalau field ini juga bisa
+ * diketik langsung, ada dua jalur yang mengubah nilai yang sama — dan yang di
+ * modal punya Cancel sementara yang inline tidak, jadi "batal" akan berarti dua
+ * hal berbeda tergantung dari mana user mengubahnya.
+ */
+function FieldButton({ onEdit, title, children }: { onEdit: () => void; title: string; children: React.ReactNode }) {
+  return (
+    <div
+      role="button"
+      onClick={onEdit}
+      title={title}
+      style={{
+        display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8,
+        minHeight: 30, padding: "4px 10px", border: "1px solid #dee2e6", borderRadius: 999,
+        background: "#fff", cursor: "pointer", marginBottom: 10,
+      }}
+    >
+      <span style={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: FONT, fontSize: 12, color: "#495057" }}>
+        {children}
+      </span>
+      <IconPencil size={14} style={{ color: ACCENT, flexShrink: 0 }} />
+    </div>
+  );
+}
+
+/**
+ * Kaki modal: Cancel di kiri Save, keduanya rata kanan.
+ *
+ * Keduanya Button design system dengan ukuran yang sama — Cancel varian
+ * `subtle`, Save varian isi. Cancel sempat ditulis sebagai `<button>` polos
+ * bergaya inline: ia terlihat mirip, tapi kehilangan tinggi, padding, radius,
+ * keadaan hover/aktif, dan cincin fokus milik komponennya, jadi tingginya tidak
+ * sama dengan Save dan keyboard tidak menunjukkan di mana fokusnya berada.
+ */
+function ModalFooter({ onCancel, onSave }: { onCancel: () => void; onSave: () => void }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 8, marginTop: 20 }}>
+      <Button onClick={onCancel} variant="subtle" color="primary" radius="xl" size="sm"
+        styles={{ root: { fontFamily: FONT, fontWeight: 600 } }}>
+        Cancel
+      </Button>
+      <Button onClick={onSave} color="primary" radius="xl" size="sm"
+        styles={{ root: { fontFamily: FONT, fontWeight: 600 } }}>
+        Save
+      </Button>
+    </div>
+  );
+}
+
+/**
+ * Modal nama box: nama dan keterangannya disunting bersama, lalu disimpan
+ * sekali jalan.
+ *
+ * Draft-nya lokal supaya Cancel benar-benar membatalkan — termasuk perubahan
+ * nama, bukan cuma keterangannya.
+ */
+function BoxNameModal({ name, description, onClose, onSave }: {
+  name: string;
+  description: string;
+  onClose: () => void;
+  onSave: (name: string, description: string) => void;
+}) {
+  const [draftName, setDraftName] = useState(name);
+  const [draftDesc, setDraftDesc] = useState(description);
+
+  return (
+    <Modal opened onClose={onClose} title="Box Name" radius={12} centered
+      styles={{ title: { fontFamily: FONT, fontWeight: 700, color: "#343a40" } }}>
+      <div style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Box Name</div>
+      <TextInput value={draftName} onChange={e => setDraftName(e.currentTarget.value)} size="sm" radius="xl" mb={14}
+        autoFocus styles={{ input: { fontFamily: FONT } }} />
+
+      <div style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Description</div>
+      <Textarea value={draftDesc} onChange={e => setDraftDesc(e.currentTarget.value)} placeholder="Edit text"
+        autosize minRows={3} maxRows={6} size="sm" radius={12} styles={{ input: { fontFamily: FONT } }} />
+
+      <ModalFooter onCancel={onClose} onSave={() => {
+        // Nama kosong ditolak diam-diam: box tanpa nama tidak bisa dibaca di
+        // grid mana pun, jadi nilai lamanya dipertahankan.
+        onSave(draftName.trim() || name, draftDesc.trim());
+        onClose();
+      }} />
+    </Modal>
+  );
+}
+
+/**
+ * Modal tag: memilih tag untuk box ini, sekaligus menyunting keterangan tag
+ * yang terpilih.
+ *
+ * Keterangan itu milik TAG, bukan box — satu tag dipakai banyak box, jadi
+ * mengubahnya di sini mengubahnya di semua box bertag sama. Itu memang yang
+ * diinginkan; kalau keterangan disimpan per box, satu tag akan punya beberapa
+ * keterangan yang bisa saling bertentangan.
+ *
+ * Menambah, mengubah nama, dan menghapus tag di dalam daftar tetap berlaku
+ * SEKETIKA (tidak menunggu Save), karena ketiganya mengubah daftar tag milik
+ * seluruh mapping, bukan pilihan box ini saja.
+ */
+function TagModal({ value, options, descriptions, onPick, onRename, onRemove, onAdd, onDescribe, onClose }: {
+  value: string | null;
+  options: string[];
+  descriptions: Record<string, string>;
+  onPick: (v: string) => void;
+  onRename: (from: string, to: string) => void;
+  onRemove: (v: string) => void;
+  onAdd: (v: string) => void;
+  onDescribe: (tag: string, text: string) => void;
+  onClose: () => void;
+}) {
+  const [draftTag, setDraftTag] = useState<string | null>(value);
+  const [draftDesc, setDraftDesc] = useState(value ? descriptions[value] ?? "" : "");
+
+  /** Ganti tag = ganti pula keterangan yang sedang ditampilkan. */
+  const pickDraft = (v: string) => {
+    setDraftTag(v);
+    setDraftDesc(descriptions[v] ?? "");
+  };
+
+  return (
+    <Modal opened onClose={onClose} title="Tag" radius={12} centered
+      styles={{ title: { fontFamily: FONT, fontWeight: 700, color: "#343a40" } }}>
+      <div style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Tag</div>
+      <div style={{ marginBottom: 14 }}>
+        <TagPicker
+          value={draftTag}
+          options={options}
+          descriptions={descriptions}
+          onPick={pickDraft}
+          onRename={(from, to) => {
+            onRename(from, to);
+            // Tag yang sedang dipilih ikut berganti nama, kalau dia yang diubah.
+            if (draftTag === from) setDraftTag(to);
+          }}
+          onRemove={v => {
+            onRemove(v);
+            if (draftTag === v) { setDraftTag(null); setDraftDesc(""); }
+          }}
+          onAdd={onAdd}
+        />
+      </div>
+
+      <div style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Description</div>
+      <Textarea value={draftDesc} onChange={e => setDraftDesc(e.currentTarget.value)} placeholder="Edit text"
+        autosize minRows={3} maxRows={6} size="sm" radius={12} styles={{ input: { fontFamily: FONT } }} />
+
+      <ModalFooter onCancel={onClose} onSave={() => {
+        if (draftTag) {
+          onPick(draftTag);
+          onDescribe(draftTag, draftDesc.trim());
+        }
+        onClose();
+      }} />
+    </Modal>
+  );
+}
+
+/**
  * Pemilih tag box: daftar tag siap pakai yang bisa disunting, dihapus, dan
  * ditambah sendiri lewat baris isian di bawahnya.
  *
  * Bukan `Select` bawaan karena tiap baris membawa aksinya sendiri (ubah,
  * hapus) dan ada baris isian di kaki daftar — Select hanya tahu memilih.
  */
-function TagPicker({ value, options, onPick, onRename, onRemove, onAdd }: {
+function TagPicker({ value, options, descriptions, onPick, onRename, onRemove, onAdd }: {
   value: string | null;
   options: string[];
+  /** Keterangan per tag, dikunci nama tag. Kosong = tag itu belum diberi. */
+  descriptions: Record<string, string>;
   onPick: (v: string) => void;
   onRename: (from: string, to: string) => void;
   onRemove: (v: string) => void;
@@ -279,26 +442,36 @@ function TagPicker({ value, options, onPick, onRename, onRemove, onAdd }: {
         <div style={{ position: "absolute", zIndex: 20, top: "calc(100% + 4px)", left: 0, right: 0, minWidth: 220, background: "#fff", border: "1px solid #e9ecef", borderRadius: 10, boxShadow: "0 6px 20px rgba(0,0,0,0.12)", overflow: "hidden" }}>
           <div style={{ maxHeight: 200, overflowY: "auto" }}>
             {options.map(opt => (
-              <div key={opt} style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 10px" }}>
+              /* Mode sunting memakai seluruh lebar baris: dua field bertumpuk
+                 tidak muat di samping ikon ubah/hapus, dan ikon itu pun tidak
+                 ada gunanya selama barisnya sedang disunting. */
+              <div key={opt} style={{ padding: "6px 10px" }}>
                 {editing === opt ? (
                   <TextInput
                     value={draft}
                     onChange={e => setDraft(e.currentTarget.value)}
                     onBlur={commitRename}
                     onKeyDown={e => { if (e.key === "Enter") commitRename(); if (e.key === "Escape") setEditing(null); }}
-                    autoFocus size="xs" radius="xl" style={{ flex: 1 }} styles={{ input: { fontFamily: FONT } }}
+                    autoFocus size="xs" radius="xl" styles={{ input: { fontFamily: FONT } }}
                   />
                 ) : (
-                  <span role="button" onClick={() => { onPick(opt); setOpen(false); }} style={{ flex: 1, cursor: "pointer" }}>
-                    <TagChip>{opt}</TagChip>
-                  </span>
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                    <span role="button" onClick={() => { onPick(opt); setOpen(false); }} style={{ flex: 1, minWidth: 0, cursor: "pointer" }}>
+                      <TagChip>{opt}</TagChip>
+                      {descriptions[opt] && (
+                        <span style={{ display: "block", marginTop: 3, fontFamily: FONT, fontSize: 10, lineHeight: 1.35, color: "#adb5bd" }}>
+                          {descriptions[opt]}
+                        </span>
+                      )}
+                    </span>
+                    <IconPencil size={15} role="button" title="Ubah nama tag"
+                      onClick={() => { setEditing(opt); setDraft(opt); }}
+                      style={{ color: "#868e96", cursor: "pointer", flexShrink: 0 }} />
+                    <IconTrash size={15} role="button" title="Hapus tag"
+                      onClick={() => onRemove(opt)}
+                      style={{ color: "#e03131", cursor: "pointer", flexShrink: 0 }} />
+                  </div>
                 )}
-                <IconPencil size={15} role="button" title="Ubah tag"
-                  onClick={() => { setEditing(opt); setDraft(opt); }}
-                  style={{ color: "#868e96", cursor: "pointer", flexShrink: 0 }} />
-                <IconTrash size={15} role="button" title="Hapus tag"
-                  onClick={() => onRemove(opt)}
-                  style={{ color: "#e03131", cursor: "pointer", flexShrink: 0 }} />
               </div>
             ))}
             {options.length === 0 && (
@@ -386,11 +559,31 @@ function BoxNumberPicker({ value, options, onPick }: {
   );
 }
 
+/**
+ * Kembalikan satu bagian ke pengaturan bawaan.
+ *
+ * Button design system varian `subtle`, seperti Cancel — bukan `<button>` polos
+ * lagi. Ukurannya `compact-xs` karena ia duduk di kepala kartu, bukan di kaki
+ * modal: yang perlu seragam adalah komponennya (tinggi, radius, hover, cincin
+ * fokus), bukan besarnya.
+ *
+ * Ikon panah balik dari Tabler, bukan huruf "↺" — huruf itu tergambar dengan
+ * font teksnya, jadi ukuran dan tebalnya tidak pernah persis sama dengan ikon
+ * lain di halaman ini.
+ */
 function DefaultBtn({ onClick }: { onClick: () => void }) {
   return (
-    <button onClick={onClick} style={{ background: "none", border: "none", cursor: "pointer", color: ACCENT, fontFamily: FONT, fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
-      ↺ Default
-    </button>
+    <Button
+      onClick={onClick}
+      variant="subtle"
+      color="primary"
+      size="compact-xs"
+      radius="xl"
+      leftSection={<IconRotate2 size={14} />}
+      styles={{ root: { fontFamily: FONT }, label: { fontSize: 12, fontWeight: 700 } }}
+    >
+      Default
+    </Button>
   );
 }
 
@@ -475,19 +668,52 @@ function ConfigInner() {
   const addColorOption = (hex: string) =>
     setCfg(c => (colorOptions.includes(hex) ? c : { ...c, colorOptions: [...colorOptions, hex] }));
 
+  /** Box yang modal namanya / modal tagnya sedang terbuka. */
+  const [editName, setEditName] = useState<number | null>(null);
+  const [editTag, setEditTag] = useState<number | null>(null);
+
+  const setBoxDescription = (order: number, v: string) =>
+    setCfg(c => ({ ...c, boxes: c.boxes.map(b => (b.order === order ? { ...b, description: v } : b)) }));
+
   const tagOptions = cfg.tagOptions ?? DEFAULT_TAG_OPTIONS;
+  const tagDescriptions = cfg.tagDescriptions ?? {};
+  const describeTag = (tag: string, text: string) =>
+    setCfg(c => {
+      const next = { ...(c.tagDescriptions ?? {}) };
+      // Keterangan kosong dihapus, bukan disimpan sebagai string kosong: yang
+      // tersimpan harus mencerminkan tag mana yang benar-benar punya keterangan.
+      if (text) next[tag] = text; else delete next[tag];
+      return { ...c, tagDescriptions: next };
+    });
   const addTag = (v: string) =>
     setCfg(c => (tagOptions.includes(v) ? c : { ...c, tagOptions: [...tagOptions, v] }));
   /** Mengubah nama tag ikut memperbarui box yang memakainya — kalau tidak,
    *  box itu menyimpan tag yang sudah tidak ada di daftar. */
   const renameTag = (from: string, to: string) =>
     setCfg(c => ({
+      // Keterangan dikunci NAMA tag, jadi kuncinya ikut pindah — kalau tidak,
+      // keterangannya jadi yatim dan tag barunya tampak tak pernah diberi.
+      tagDescriptions: (() => {
+        const d = c.tagDescriptions ?? {};
+        if (!(from in d)) return d;
+        const next = { ...d };
+        next[to] = next[from];
+        delete next[from];
+        return next;
+      })(),
       ...c,
       tagOptions: tagOptions.map(t => (t === from ? to : t)),
       boxes: c.boxes.map(b => (b.readiness === from ? { ...b, readiness: to, tag: isTalentTag(to) ? "talent" : null } : b)),
     }));
   const removeTag = (v: string) =>
     setCfg(c => ({
+      tagDescriptions: (() => {
+        const d = c.tagDescriptions ?? {};
+        if (!(v in d)) return d;
+        const next = { ...d };
+        delete next[v];
+        return next;
+      })(),
       ...c,
       tagOptions: tagOptions.filter(t => t !== v),
       boxes: c.boxes.map(b => (b.readiness === v ? { ...b, readiness: null, tag: null } : b)),
@@ -698,17 +924,14 @@ function ConfigInner() {
                       </div>
 
                       <div style={{ fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Box Name</div>
-                      <TextInput value={b.label} onChange={e => setBoxLabel(order, e.currentTarget.value)} size="xs" radius="xl" mb={10} styles={{ input: { fontFamily: FONT } }} />
+                      <FieldButton onEdit={() => setEditName(order)} title="Ubah nama & deskripsi box">
+                        {b.label}
+                      </FieldButton>
 
                       <div style={{ fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Tag</div>
-                      <TagPicker
-                        value={b.readiness ?? null}
-                        options={tagOptions}
-                        onPick={v => setBoxTag(order, v)}
-                        onRename={renameTag}
-                        onRemove={removeTag}
-                        onAdd={addTag}
-                      />
+                      <FieldButton onEdit={() => setEditTag(order)} title="Ubah tag & deskripsinya">
+                        {b.readiness ? <TagChip>{b.readiness}</TagChip> : <span style={{ color: "#adb5bd", fontSize: 11 }}>Choose tag</span>}
+                      </FieldButton>
                     </div>
                   );
                 })}
@@ -716,6 +939,40 @@ function ConfigInner() {
             ))}
           </div>
         </Paper>
+
+        {/* Modal disunting per box, dirender hanya saat terbuka supaya draft-nya
+            selalu berangkat dari nilai yang berlaku sekarang — tanpa perlu
+            effect yang menyalin prop ke state tiap kali box lain dibuka. */}
+        {editName != null && (() => {
+          const b = boxByOrder(cfg, editName);
+          if (!b) return null;
+          return (
+            <BoxNameModal
+              name={b.label}
+              description={b.description ?? ""}
+              onClose={() => setEditName(null)}
+              onSave={(name, desc) => { setBoxLabel(b.order, name); setBoxDescription(b.order, desc); }}
+            />
+          );
+        })()}
+
+        {editTag != null && (() => {
+          const b = boxByOrder(cfg, editTag);
+          if (!b) return null;
+          return (
+            <TagModal
+              value={b.readiness ?? null}
+              options={tagOptions}
+              descriptions={tagDescriptions}
+              onPick={v => setBoxTag(b.order, v)}
+              onRename={renameTag}
+              onRemove={removeTag}
+              onAdd={addTag}
+              onDescribe={describeTag}
+              onClose={() => setEditTag(null)}
+            />
+          );
+        })()}
 
         {/* Konfirmasi hapus memakai modal design system, bukan window.confirm:
             dialog bawaan browser tidak bisa didandani dan tidak menyebut apa
@@ -737,7 +994,7 @@ function ConfigInner() {
 
         {/* Footer */}
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 12, alignItems: "center" }}>
-          <button onClick={() => router.push("/talent-mapping")} style={{ background: "none", border: "none", cursor: "pointer", color: ACCENT, fontFamily: FONT, fontWeight: 700, fontSize: 13 }}>Cancel</button>
+          <Button onClick={() => router.push("/talent-mapping")} variant="subtle" color="primary" radius="xl" styles={{ root: { fontFamily: FONT, fontWeight: 700 } }}>Cancel</Button>
           {/* ponytail: Preview == Save (persist + view) for now; add a non-persisted preview mode if needed. */}
           <Button onClick={persistAndGo} radius="xl" color="orange">Preview</Button>
           <Button onClick={persistAndGo} radius="xl" color={ACCENT}>Save</Button>

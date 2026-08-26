@@ -1,10 +1,8 @@
 import { candidates, type Candidate } from "@/data/dummyData";
-import { TI_CONFIG, TR_CONFIG, boxByOrder, orderFor, plotPos, resolveColor, targetRequirement, type EmployeeMetrics, type MetricKey, type TMConfig, type TMPoint } from "@/data/talentMappingShared";
-import { mantineColor } from "@/components/team/mantineColor";
+import { TI_CONFIG, TR_CONFIG, cellsFrom, orderFor, plotPos, targetRequirement, type EmployeeMetrics, type MetricKey, type TMConfig, type TMPoint } from "@/data/talentMappingShared";
 import { allTeams, getParticipant } from "@/data/model/selectors";
 
 const val = (c: Candidate, key: MetricKey): number | null => c[key];
-const darker = (token: string) => mantineColor[token.split(".")[0]]?.[6] ?? "#495057";
 
 // Team karyawan = nama Team KANONIK (Engineering Team, Sales & Marketing Team, …),
 // bukan department posisi (Teknologi/Keuangan). Menyamakan filter Teams di Talent
@@ -126,24 +124,8 @@ export interface TalentMappingCell {
  * client" EmployeeMapping.tsx bundle directly.
  */
 export function getTalentMappingCells(cfg: TMConfig = TI_CONFIG, pool: Candidate[] = candidates): TalentMappingCell[] {
-  const points = getTalentIdentificationPoints(cfg, pool);
-  const byOrder = new Map<number, TMPoint[]>();
-  points.forEach(p => {
-    if (p.order == null) return;
-    const arr = byOrder.get(p.order) ?? [];
-    arr.push(p);
-    byOrder.set(p.order, arr);
-  });
-  return cfg.ordering.flat().map(order => {
-    const box = boxByOrder(cfg, order)!;
-    const members = byOrder.get(order) ?? [];
-    return {
-      count: members.length,
-      label: box.label,
-      countColor: darker(box.color),
-      bg: resolveColor(box.color),
-      avatars: members.slice(0, 2).map(m => `/avatars/employee/${m.employeeId}.png`),
-      names: members.map(m => m.name),
-    };
-  });
+  // Perhitungan selnya tinggal di talentMappingShared supaya kartu Beranda —
+  // yang menghitungnya di klien mengikuti tab aktif — memakai jalur yang sama
+  // persis. Dua salinan berarti dua tampilan yang bisa berbeda diam-diam.
+  return cellsFrom(cfg, getTalentIdentificationPoints(cfg, pool));
 }

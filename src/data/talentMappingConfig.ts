@@ -74,7 +74,7 @@ export function removeCustomTab(id: string): void {
 const memConfig = new Map<ConfigId, string>();
 export const TM_CONFIG_EVENT = "tm-config-changed";
 
-type Saved = Pick<TMConfig, "layout" | "sumbuX" | "sumbuY" | "sumbuXKey" | "sumbuYKey" | "rangesX" | "rangesY" | "boxes" | "useZ" | "sumbuZ" | "sumbuZKey" | "rangesZ" | "tagOptions" | "colorOptions" | "ordering">;
+type Saved = Pick<TMConfig, "layout" | "sumbuX" | "sumbuY" | "sumbuXKey" | "sumbuYKey" | "rangesX" | "rangesY" | "boxes" | "useZ" | "sumbuZ" | "sumbuZKey" | "rangesZ" | "tagOptions" | "tagDescriptions" | "colorOptions" | "ordering">;
 
 function mergeSaved(id: ConfigId, raw: string): TMConfig {
   const s = JSON.parse(raw) as Saved;
@@ -89,6 +89,7 @@ function mergeSaved(id: ConfigId, raw: string): TMConfig {
   cfg.sumbuZ = s.sumbuZ;
   if (s.rangesZ?.length) cfg.rangesZ = s.rangesZ;
   if (s.tagOptions?.length) cfg.tagOptions = s.tagOptions;
+  if (s.tagDescriptions) cfg.tagDescriptions = s.tagDescriptions;
     if (s.colorOptions?.length) cfg.colorOptions = s.colorOptions;
   // Nomor box bisa ditukar user; urutannya tinggal di ordering, jadi harus
   // ikut tersimpan — kalau tidak, penukaran nomor hilang saat halaman dimuat.
@@ -108,7 +109,7 @@ function mergeSaved(id: ConfigId, raw: string): TMConfig {
     // tetap diambil dari bawaan kalau kosong.
     cfg.boxes = s.boxes.map((o, i) => {
       const base = cfg.boxes[i];
-      return { ...base, ...o, color: o.color ?? base.color, readiness: o.readiness ?? base.readiness };
+      return { ...base, ...o, color: o.color ?? base.color, readiness: o.readiness ?? base.readiness, description: o.description ?? base.description };
     });
   }
   return cfg;
@@ -156,7 +157,8 @@ export function saveConfig(id: ConfigId, cfg: TMConfig): void {
     sumbuXKey: cfg.sumbuXKey, sumbuYKey: cfg.sumbuYKey,
     rangesX: cfg.rangesX, rangesY: cfg.rangesY, boxes: cfg.boxes,
     useZ: cfg.useZ, sumbuZ: cfg.sumbuZ, sumbuZKey: cfg.sumbuZKey, rangesZ: cfg.rangesZ,
-    tagOptions: cfg.tagOptions, colorOptions: cfg.colorOptions, ordering: cfg.ordering,
+    tagOptions: cfg.tagOptions, tagDescriptions: cfg.tagDescriptions,
+    colorOptions: cfg.colorOptions, ordering: cfg.ordering,
   };
   memConfig.set(id, JSON.stringify(s));
   window.dispatchEvent(new Event(TM_CONFIG_EVENT));

@@ -2,7 +2,7 @@
 // Self-contained port of kelola-app Components/Organisme/Chart/TMTRBox — 9-box grid
 // with axis ranges and plotted employee bubbles (grouped + overlap-resolved).
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { TMConfig, TMPoint, AxisRange, boxByOrder, resolveColor, defaultShade, textOn } from "@/data/talentMappingShared";
+import { TMConfig, TMPoint, AxisRange, boxByOrder, resolveColor, textOn, withAlpha, zRingFor, Z_ALPHA } from "@/data/talentMappingShared";
 import { mantineColor } from "@/components/team/mantineColor";
 
 const FONT = "'Open Sans', sans-serif";
@@ -40,28 +40,16 @@ const popGrid = (zActive: boolean) => `1fr repeat(${zActive ? 3 : 2}, ${POP_VALU
 /** Tinggi blok sumbu (pita warna + label + keterangan) dan jaraknya ke grid. */
 const AXIS_BLOCK = 50, AXIS_GAP = 16;
 
-/**
- * Tebal pita cincin sumbu Z per tingkat, dalam px — bukan kelipatan tetap,
- * jadi jarak antar tingkat bisa disetel sendiri. Indeks ke-4 dipakai layout
- * 12-box yang sumbunya punya empat pita.
+/*
+ * Tebal dan warna cincin sumbu Z tinggal di talentMappingShared (Z_THICKNESS,
+ * zRingFor) karena kartu ringkas di Beranda menggambar cincin yang sama.
  *
  * Tidak ada cincin putih — baik di dalam maupun di luar. `box-shadow` dengan
  * spread menggambar CAKRAM penuh, bukan cincin: satu lapisan putih di luar
- * warna berarti cakram putih solid duduk di belakangnya, dan warna
- * transparan itu bercampur dengan putih alih-alih dengan bulatan di
- * belakangnya. Tanpa putih, transparansinya benar-benar terlihat.
+ * warna berarti cakram putih solid duduk di belakangnya, dan warna transparan
+ * itu bercampur dengan putih alih-alih dengan bulatan di belakangnya. Tanpa
+ * putih, transparansinya benar-benar terlihat.
  */
-const Z_THICKNESS = [3, 5, 7, 9];
-/** Cincin dibuat tembus supaya titik yang bertumpuk tetap terbaca. */
-const Z_ALPHA = 0.35;
-
-/** Hex → rgba, untuk menembuskan warna pita tanpa mengubah token aslinya. */
-function withAlpha(hex: string, alpha: number): string {
-  const h = hex.replace("#", "");
-  if (h.length !== 6) return hex;
-  const [r, g, b] = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16));
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
 
 /**
  * Cincin penanda sumbu Z: setebal apa, dan warnanya.
@@ -78,14 +66,8 @@ function withAlpha(hex: string, alpha: number): string {
  */
 function zRing(group: TMPoint[], bands: AxisRange[]): { thickness: number; color: string } | null {
   const vals = group.map(p => p.rawZ).filter((v): v is number => v != null);
-  if (vals.length === 0 || bands.length === 0) return null;
-  const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
-  let bi = bands.findIndex(b => avg <= b.max);
-  if (bi === -1) bi = bands.length - 1;
-  return {
-    thickness: Z_THICKNESS[Math.min(bi, Z_THICKNESS.length - 1)],
-    color: defaultShade(bands[bi].color),
-  };
+  if (vals.length === 0) return null;
+  return zRingFor(vals.reduce((a, b) => a + b, 0) / vals.length, bands);
 }
 
 /**
@@ -122,6 +104,33 @@ function zShadow(ring: { thickness: number; color: string } | null): string {
     `0 0 0 ${band}px ${withAlpha(ring.color, Z_ALPHA)}`,
     outerDrop(band),
   ].join(", ");
+}
+
+/**
+ * Penanda "orang ini yang sedang dilihat", dipakai saat satu baris di panel
+ * kiri diklik.
+ *
+ * Dibuat lapisan biru pekat di luar cincin sumbu Z, bukan menggantinya: cincin
+ * Z adalah bacaan tentang skornya dan tidak boleh hilang hanya karena orangnya
+ * sedang disorot. Titiknya juga diangkat ke z-index tertinggi supaya tidak
+ * tertutup titik lain yang berdekatan.
+ */
+const SPOTLIGHT_COLOR = "#1971c2";
+const SPOTLIGHT_BAND = 3;
+function spotlightShadow(base: string): string {
+  return `${base}, 0 0 0 ${SPOTLIGHT_BAND}px ${SPOTLIGHT_COLOR}`;
+}
+
+/**
+ * Berkas cahaya yang menyapu titik yang sedang disorot. Kelas dan keyframe-nya
+ * di globals.css (tm-sweep) — animasi butuh @keyframes, yang tidak bisa ditulis
+ * sebagai gaya inline.
+ *
+ * Ditaruh setelah foto supaya menyapu DI ATAS wajahnya, dan induknya harus
+ * overflow:hidden agar berkasnya terpotong mengikuti lingkaran.
+ */
+function SpotlightSweep() {
+  return <span className="tm-spotlight-sweep" aria-hidden="true" />;
 }
 
 function groupFontSize(count: number, circle: number) {
@@ -184,12 +193,18 @@ function AxisDividers({ ranges, selected }: { ranges: { label: string; color: st
   );
 }
 
-export default function TMTRBox({ config, points, size = 360, selectedBox, onBoxClick, emptyNotice }: {
+export default function TMTRBox({ config, points, size = 360, selectedBox, onBoxClick, spotlightId = null, emptyNotice }: {
   config: TMConfig;
   points: TMPoint[];
   size?: number;
   selectedBox: number | null;
   onBoxClick: (order: number | null) => void;
+  /**
+   * Karyawan yang sedang disorot dari panel kiri. Kalau orangnya terlebur ke
+   * bubble tumpukan, bubble ITU yang disorot — avatarnya memang tidak tergambar
+   * sendiri di sana, jadi menyorot "avatarnya" bukan pilihan yang tersedia.
+   */
+  spotlightId?: string | null;
   /**
    * Keterangan di tengah grid saat grafik sengaja kosong — bukan karena tidak
    * ada data, tapi karena masih menunggu pilihan user. Talent Readiness butuh
@@ -285,6 +300,11 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
                     <div
                       key={order}
                       onClick={() => onBoxClick(order)}
+                      /* Deskripsi box muncul sebagai tooltip. Keterangan yang diisi
+                         di halaman Setting harus bisa dibaca di tempat box itu
+                         dipakai — kalau tidak, ia jadi data yang ditulis tapi
+                         tak pernah terlihat. */
+                      title={box.description || undefined}
                       style={{
                         flex: 1, position: "relative", cursor: "zoom-in",
                         border: "1px solid #ADB5BD", background: resolveColor(box.color),
@@ -322,21 +342,24 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
             // besar berpita hijau bisa berisi orang dengan skor Z terendah.
             // Angkanya sendiri sudah menyatakan "ada beberapa orang di sini";
             // rinciannya dibuka lewat popover.
+            const lit = !!spotlightId && g.some(m => m.employeeId === spotlightId);
             return (
               <div key={i} title={g.map(p => p.name).join(", ")}
                 onClick={(e) => { e.stopPropagation(); setPopover({ group: g, x, y }); }}
-                style={{ position: "absolute", bottom: `${y}%`, left: `${x}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: groupFontSize(g.length, SIZE_AVATAR), fontWeight: 700, zIndex: outside ? 10 : 100, cursor: "pointer", boxShadow: zShadow(null), ...zOutline(null) }}>
+                style={{ position: "absolute", bottom: `${y}%`, left: `${x}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: groupFontSize(g.length, SIZE_AVATAR), fontWeight: 700, zIndex: lit ? 200 : outside ? 10 : 100, cursor: "pointer", overflow: "hidden", boxShadow: lit ? spotlightShadow(zShadow(null)) : zShadow(null), ...zOutline(null) }}>
                 {g.length}
+                {lit && <SpotlightSweep />}
               </div>
             );
           }
           const p = g[0];
           const outsideOne = (p.x ?? outbox) === outbox && (p.y ?? outbox) === outbox;
           const ring = zActive && !outsideOne ? zRing(g, config.rangesZ ?? []) : null;
+          const lit = !!spotlightId && p.employeeId === spotlightId;
           return (
             <div key={i} title={p.name}
               onClick={(e) => { e.stopPropagation(); setPopover({ group: g, x: p.x ?? outbox, y: p.y ?? outbox }); }}
-              style={{ position: "absolute", bottom: `${p.y ?? outbox}%`, left: `${p.x ?? outbox}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 700, zIndex: 100, overflow: "hidden", cursor: "pointer", boxShadow: zShadow(ring), ...zOutline(ring) }}>
+              style={{ position: "absolute", bottom: `${p.y ?? outbox}%`, left: `${p.x ?? outbox}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 700, zIndex: lit ? 200 : 100, overflow: "hidden", cursor: "pointer", boxShadow: lit ? spotlightShadow(zShadow(ring)) : zShadow(ring), ...zOutline(ring) }}>
               <span>{initials(p.name)}</span>
               {p.employeeId && (
                 <img
@@ -346,6 +369,7 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
                   style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
                 />
               )}
+              {lit && <SpotlightSweep />}
             </div>
           );
         })}

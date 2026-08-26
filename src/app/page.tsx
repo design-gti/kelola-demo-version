@@ -9,7 +9,7 @@ import {
   getSyncSystems,
   getRecentlyViewed,
 } from "@/lib/data";
-import { getTalentMappingCells } from "@/lib/data/talentMapping";
+import { getTalentMappingCells, getEmployeeMetrics } from "@/lib/data/talentMapping";
 import { getRole } from "@/lib/role";
 import HomeClient from "@/components/HomeClient";
 
@@ -29,6 +29,17 @@ export default async function Home() {
   // Employee Mapping card cells — always computed server-side (raw scores never
   // reach the "use client" EmployeeMapping.tsx directly); role picks which pool/algorithm.
   const mappingCells = isManager ? managerMappingCells : getTalentMappingCells();
+  /**
+   * Tabel metrik per karyawan untuk kartu Employee Mapping.
+   *
+   * Kartu itu menghitung selnya sendiri di klien supaya ikut tab dan pengaturan
+   * box mapping yang dipilih user — keduanya hidup di memori sesi dan tidak bisa
+   * dibaca server. mappingCells di atas tetap dikirim sebagai keadaan render
+   * pertama sebelum klien mengambil alih, dan sebagai satu-satunya sumber untuk
+   * tampilan manager. Manager tidak menerima metrik ini: kartunya memakai
+   * kumpulan karyawannya sendiri.
+   */
+  const mappingMetrics = isManager ? null : getEmployeeMetrics();
 
   // HR-only card data — only computed when the cards that need it would actually render
   // (mirrors MANAGER_EXCLUDED_CARDS), so a manager session never receives it as an unused prop.
@@ -46,6 +57,7 @@ export default async function Home() {
       defaultQuickAccess={defaultQuickAccess}
       managerAspects={managerAspectsForRole}
       mappingCells={mappingCells}
+      mappingMetrics={mappingMetrics}
       criticalPositions={criticalPositions}
       activityLog={activityLog}
     />

@@ -26,6 +26,48 @@ html, body {
   animation: pulse-alert 2.4s ease-in-out infinite;
 }
 
+/*
+ * Sorotan karyawan di box mapping: seberkas cahaya putih menyapu dari kiri ke
+ * kanan, terus-menerus.
+ *
+ * Dipakai karena titik di 9-box hanya berdiameter 20px — pada ukuran itu warna
+ * atau garis diam nyaris tidak tertangkap mata di antara puluhan titik lain,
+ * sedangkan GERAKAN tertangkap langsung. Yang bergerak adalah lapisan di ATAS
+ * foto, jadi wajah orangnya tetap terlihat.
+ *
+ * Sudut 20deg membuat berkasnya miring seperti pantulan cahaya di kaca, bukan
+ * palang lurus yang terbaca sebagai elemen UI.
+ */
+@keyframes tm-sweep {
+  0%   { transform: translateX(-160%) rotate(20deg); }
+  100% { transform: translateX(160%) rotate(20deg); }
+}
+.tm-spotlight-sweep {
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 55%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: tm-sweep 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Gerak tanpa henti melelahkan sebagian orang, dan sebagian lagi memang
+   memintanya berhenti lewat setelan sistem. Sorotannya tetap ada — cahayanya
+   diam di tengah titik alih-alih menyapu. */
+@media (prefers-reduced-motion: reduce) {
+  .tm-spotlight-sweep {
+    animation: none;
+    transform: translateX(85%) rotate(20deg);
+  }
+}
+
 /* CopilotChat's own root class defaults to content-based height (no
    flex-grow), so it keeps growing with every message instead of filling the
    panel's flex column — the inner message list never gets a bounded height
