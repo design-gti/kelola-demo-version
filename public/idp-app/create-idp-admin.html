@@ -3116,22 +3116,73 @@
       var params = new URLSearchParams(window.location.search);
       var aspect = params.get('aspect');
       var participants = params.get('participants');
-      if (!aspect && !participants) return;
+      /* `prefill` (base64 JSON: [{aspect, goals:[...]}, ...]) dipakai Vismap V3:
+         Key Behaviour yang dicentang di panel Development ikut terbawa sebagai
+         satu baris program per aspek, dengan Development Goals sudah terisi.
+         base64 dipakai karena label KB panjang dan berisi tanda baca.
+         Param lama (`aspect`, `participants`) tetap berlaku apa adanya. */
+      var prefill = params.get('prefill');
+      if (!aspect && !participants && !prefill) return;
 
-      var firstRow = document.querySelector('#programTableBody tr:not(.subtask-row)');
-      if (!firstRow) return;
+      var names = participants
+        ? participants.split(',').map(function(n){ return n.trim(); }).filter(Boolean)
+        : null;
 
-      /* ── Fill aspect ── */
-      if (aspect && window._aspSet) {
-        var aspCell = firstRow.querySelector('.col-aspect');
-        if (aspCell) window._aspSet(aspCell, aspect);
+      var entries = null;
+      if (prefill) {
+        try {
+          entries = JSON.parse(decodeURIComponent(escape(atob(prefill))));
+        } catch (e) {
+          console.error('prefill tidak bisa dibaca', e);
+        }
       }
 
-      /* ── Fill participants ── */
-      if (participants && window._pcpPrefill) {
-        var cell = firstRow.querySelector('.participant-cell');
-        if (cell) window._pcpPrefill(cell, participants.split(',').map(function(n){ return n.trim(); }).filter(Boolean));
+      function mainRows() {
+        return document.querySelectorAll('#programTableBody tr:not(.subtask-row)');
       }
+
+      function fillRow(row, entry) {
+        if (!row || !entry) return;
+        if (entry.aspect && window._aspSet) {
+          var aspCell = row.querySelector('.col-aspect');
+          if (aspCell) window._aspSet(aspCell, entry.aspect);
+        }
+        if (entry.goals && entry.goals.length) {
+          var ta = row.querySelector('.col-goals textarea');
+          if (ta) {
+            ta.value = entry.goals.join('\n');
+            ta.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        }
+      }
+
+      /* Sel Participant disuntikkan oleh MutationObserver, jadi pada baris yang
+         baru dibuat addProgram() sel itu belum ada saat baris diisi. Pengisian
+         participant ditunda satu macrotask supaya observer sudah jalan. */
+      function fillParticipantsLater() {
+        if (!names || !names.length || !window._pcpPrefill) return;
+        setTimeout(function() {
+          Array.prototype.forEach.call(mainRows(), function(row) {
+            var cell = row.querySelector('.participant-cell');
+            if (cell) window._pcpPrefill(cell, names);
+          });
+        }, 0);
+      }
+
+      if (entries && entries.length) {
+        entries.forEach(function(entry, i) {
+          /* Baris pertama sudah ada; sisanya ditambahkan lewat addProgram()
+             yang juga menegakkan batas 5 baris program milik form ini. */
+          if (i > 0 && typeof addProgram === 'function') addProgram();
+          var rows = mainRows();
+          fillRow(rows[i] || rows[rows.length - 1], entry);
+        });
+        fillParticipantsLater();
+        return;
+      }
+
+      fillRow(mainRows()[0], aspect ? { aspect: aspect } : null);
+      fillParticipantsLater();
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', prefillFromUrl);

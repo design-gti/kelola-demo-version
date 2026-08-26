@@ -1,41 +1,50 @@
-﻿import { useState, useRef, useEffect } from "react";
-import OrgChartCard from "./components/OrgChartCard";
-import EmployeeDetailPanel from "./components/EmployeeDetailPanel";
-import SuccessionPanel from "./components/SuccessionPanel";
-import SuccessorComparison from "./components/SuccessorComparison";
-import EmployeeDetail from "./components/EmployeeDetail";
-import IDPCreation from "./components/IDPCreation";
-import TabFilter from "./components/TabFilter";
-import TableView from "./components/TableView";
-import DataEditor from "./components/DataEditor";
-import SuccessionRiskModal from "./components/SuccessionRiskModal";
-import NeedDevelopModal from "./components/NeedDevelopModal";
-import { buildOrgChart, type Employee, type OrgChartNode } from "./data/orgChartData";
-import { dataManager } from "./data/dataManager";
-import { loadEmployeesFromCanonical } from "./data/canonicalAdapter";
-import { ChevronDown, ChevronRight, ZoomIn, ZoomOut, Maximize2, Table as TableIcon, Network, Search, Settings, TrendingUp, Plus, Shuffle } from "lucide-react";
+﻿// Vismap V3 — sandbox eksplorasi desain, disalin dari V1 (src/vismap/App.tsx)
+// pada titik awal yang identik. Lihat docs/vismap-v3.md untuk PRD-nya.
+//
+// V1 TIDAK BOLEH ikut berubah saat file ini dieksplorasi. Komponen yang masih
+// dipakai bersama (EmployeeDetail, TableView, SimulationPanel, modal-modal,
+// components/ui/*) diimpor dari ../components — begitu salah satunya perlu
+// diubah untuk V3, SALIN dulu ke src/vismap/v3/components/ dengan sufiks V3,
+// lalu ubah salinannya. Jangan pernah mengedit aslinya.
+//
+// Host-nya tetap App.tsx (V1): file itu yang memegang switch versi dan
+// merender komponen ini saat V3 dipilih, sama seperti pola V2.
+import { useState, useRef, useEffect } from "react";
+import OrgChartCardV3 from "./components/OrgChartCardV3";
+import EmployeeDetailPanel from "../components/EmployeeDetailPanel";
+import SuccessionPanel from "../components/SuccessionPanel";
+import SuccessorComparison from "../components/SuccessorComparison";
+import EmployeeDetail from "../components/EmployeeDetail";
+import IDPCreation from "../components/IDPCreation";
+import TableView from "../components/TableView";
+import DataEditor from "../components/DataEditor";
+import SuccessionRiskModal from "../components/SuccessionRiskModal";
+import NeedDevelopModal from "../components/NeedDevelopModal";
+import { buildOrgChart, type Employee, type OrgChartNode } from "../data/orgChartData";
+import { dataManager } from "../data/dataManager";
+import { loadEmployeesFromCanonical } from "../data/canonicalAdapter";
+import { ChevronDown, ChevronRight, ZoomIn, ZoomOut, Maximize2, Table as TableIcon, Network, Search, Settings, Filter, Shuffle } from "lucide-react";
 import { HEADER_HEIGHT } from "@/components/AppHeader";
-import { Button } from "./components/ui/button";
-import { Switch } from "./components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./components/ui/tooltip";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./components/ui/dropdown-menu";
-import DataVisibilityModal from "./components/DataVisibilityModal";
-import { Toaster } from "./components/ui/sonner";
+import { Button } from "../components/ui/button";
+import { Switch } from "../components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../components/ui/tooltip";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../components/ui/dropdown-menu";
+import DataVisibilityModal from "../components/DataVisibilityModal";
+import { Toaster } from "../components/ui/sonner";
 import { toast } from "sonner";
-import HeatmapSettings, { type HeatmapConfig, type HeatmapRange } from "./components/HeatmapSettings";
-import SimulationPanel, { type SimulationSwap } from "./components/SimulationPanel";
-import VismapV2 from "./v2/VismapV2";
-import VismapV3 from "./v3/VismapV3";
-import { type LayerId } from "./v2/layers";
+import HeatmapSettings, { type HeatmapConfig } from "../components/HeatmapSettings";
+import SimulationPanel, { type SimulationSwap } from "../components/SimulationPanel";
+import ReadinessPill from "../components/ReadinessPill";
+import PositionActionMenu, { type SimulationAction } from "./components/PositionActionMenu";
+import DevelopmentPanelV3 from "./components/DevelopmentPanelV3";
+import { OVERLAYS, toggleOverlay, type OverlayId } from "./overlays";
+import { isTalent, teamsOf, tenureOf } from "./employeeFacts";
 
 
 interface OrgNodeProps {
   employee: OrgChartNode;
   level: number;
-  showHeatmap: boolean;
-  heatmapStyle: 'gradient' | 'border' | 'glow';
-  heatmapMode: 'performance' | 'successor-risk' | 'need-successors' | 'need-develop' | 'need-successors-copy';
   onEmployeeClick: (employee: Employee) => void;
   managerPosition?: string;
   visibleColumns: {
@@ -48,48 +57,41 @@ interface OrgNodeProps {
     commitment: boolean;
     contribution: boolean;
   };
-  heatmapRanges: HeatmapRange[];
   heatmapConfig: HeatmapConfig;
   allEmployees: Employee[];
-  selectedCardInV2Mode?: string | null;
-  onCardClickInV2Mode?: (employeeId: string) => void;
+  /** Overlay yang sedang menyala — mengganti model tab/heatmapMode milik V1. */
+  overlays: Set<OverlayId>;
+  /** Card position yang sedang dipilih (anchor menu aksi). */
+  actionMenuId: string | null;
+  /** Posisi yang sedang di-focus lewat aksi Succession (di luar toggle overlay). */
+  successionFocusId?: string | null;
+  /** Calon suksesor posisi yang di-focus — card employee-nya diberi heatmap kesiapan. */
+  focusSuccessorIds?: Set<string>;
+  simulationMenuOpen: boolean;
+  onPositionClick: (employeeId: string) => void;
+  onToggleSimulationMenu: () => void;
+  onAction: (kind: 'succession' | 'development' | 'iprofile', employee: Employee) => void;
+  onSimulationAction: (action: SimulationAction, employee: Employee) => void;
   highlightedEmployeeId?: string | null;
   isSimulationMode?: boolean;
   simulatedEmployeeIds?: Set<string>;
 }
 
-function OrgNode({ employee, level, showHeatmap, heatmapStyle, heatmapMode, onEmployeeClick, managerPosition, visibleColumns, heatmapRanges, heatmapConfig, allEmployees, selectedCardInV2Mode, onCardClickInV2Mode, highlightedEmployeeId, isSimulationMode, simulatedEmployeeIds }: OrgNodeProps) {
+function OrgNode({ employee, level, onEmployeeClick, managerPosition, visibleColumns, heatmapConfig, allEmployees, overlays, actionMenuId, successionFocusId, focusSuccessorIds, simulationMenuOpen, onPositionClick, onToggleSimulationMenu, onAction, onSimulationAction, highlightedEmployeeId, isSimulationMode, simulatedEmployeeIds }: OrgNodeProps) {
   const [isExpanded, setIsExpanded] = useState(true); // Expand all by default
   const hasReports = employee.reports && employee.reports.length > 0;
-  
-  // Calculate maximum card height based on all employees and visible columns
-  const calculateMaxCardHeight = (): number => {
-    let maxAdditionalFields = 0;
-    
-    allEmployees.forEach(emp => {
-      let fieldCount = 0;
-      if (visibleColumns.gender) fieldCount++;
-      if (visibleColumns.city) fieldCount++;
-      if (visibleColumns.maritalStatus) fieldCount++;
-      if (visibleColumns.performance) fieldCount++;
-      if (visibleColumns.iq) fieldCount++;
-      if (visibleColumns.capability) fieldCount++;
-      if (visibleColumns.commitment) fieldCount++;
-      if (visibleColumns.contribution) fieldCount++;
-      
-      if (fieldCount > maxAdditionalFields) {
-        maxAdditionalFields = fieldCount;
-      }
-    });
-    
-    const baseHeight = 200;
-    const additionalHeight = maxAdditionalFields * 12; // 12px per additional field
-    return baseHeight + additionalHeight;
-  };
-  
-  const maxCardHeight = calculateMaxCardHeight();
-  
-  // For successor-risk mode: Red when NO direct report has green readiness tag (>= 81)
+
+  // Tinggi kartu diseragamkan lintas node supaya barisnya tetap rata saat
+  // Filter Card Data menambah baris data.
+  const maxCardHeight = (() => {
+    const fieldCount = [
+      visibleColumns.gender, visibleColumns.city, visibleColumns.maritalStatus,
+      visibleColumns.performance, visibleColumns.iq, visibleColumns.capability,
+      visibleColumns.commitment, visibleColumns.contribution,
+    ].filter(Boolean).length;
+    return 214 + fieldCount * 12;
+  })();
+
   const getReportReadiness = (report: Employee): number => {
     if (report.readinessScore != null) return report.readinessScore;
     const s = report.competencyScore;
@@ -98,236 +100,103 @@ function OrgNode({ employee, level, showHeatmap, heatmapStyle, heatmapMode, onEm
     if (s >= 66) return Math.round(s * 0.80);
     return Math.round(s * 0.72);
   };
-  const hasLowPerformingSubordinates = hasReports && !employee.reports.some(r => getReportReadiness(r) >= 81);
-  
-  // Find the lowest scale among subordinates (for determining heatmap color)
-  // Scale 1 (0-65), Scale 2 (66-70), Scale 3 (71-75), Scale 4 (76-85), Scale 5 (86-90), Scale 6 (91-100)
-  const getLowestSubordinateScale = (): number => {
-    if (!hasReports) return 0;
-    
-    const hasScale1 = employee.reports.some(report => report.competencyScore <= 65);
-    const hasScale2 = employee.reports.some(report => report.competencyScore >= 66 && report.competencyScore <= 70);
-    const hasScale3 = employee.reports.some(report => report.competencyScore >= 71 && report.competencyScore <= 75);
-    const hasScale4 = employee.reports.some(report => report.competencyScore >= 76 && report.competencyScore <= 85);
-    const hasScale5 = employee.reports.some(report => report.competencyScore >= 86 && report.competencyScore <= 90);
-    const hasScale6 = employee.reports.some(report => report.competencyScore >= 91);
-    
-    if (hasScale1) return 1;
-    if (hasScale2) return 2;
-    if (hasScale3) return 3;
-    if (hasScale4) return 4;
-    if (hasScale5) return 5;
-    if (hasScale6) return 6;
-    return 0; // No subordinates
-  };
-  
-  const lowestSubordinateScale = getLowestSubordinateScale();
-  
-  // For need-successors mode: Calculate color based on subordinates' readiness scores
-  const getNeedSuccessorsColor = (): string | null => {
-    // Only applies to managers (employees with at least 1 subordinate)
+
+  // Overlay Succession Risk — warna frame job position, dihitung dari kesiapan
+  // para calon suksesor posisi ini. Logic dan ambangnya dipertahankan sama
+  // dengan tab "Succession Risk" di V1 supaya angkanya tidak berubah arti.
+  const getSuccessionRiskColor = (): string | null => {
     if (!hasReports) return null;
-    
-    // Get thresholds from heatmap config
-    const readinessRanges = heatmapConfig.readinessScore;
-    // Assume ranges are ordered: [red, orange, green] based on min values
-    const sortedRanges = [...readinessRanges].sort((a, b) => a.min - b.min);
-    const redRange = sortedRanges[0]; // Lowest range
-    const greenRange = sortedRanges[sortedRanges.length - 1]; // Highest range (READY)
-    
-    // Calculate readiness score for each subordinate
-    const subordinatesWithReadiness = employee.reports.map(report => {
-      // Use readiness score from data if available, otherwise calculate fallback
-      if (report.readinessScore !== undefined && report.readinessScore !== null) {
-        return report.readinessScore;
-      }
-      
-      // Fallback calculation based on competency score
-      const currentScore = report.competencyScore;
-      if (currentScore >= 91) {
-        return Math.round(currentScore * 0.92);
-      } else if (currentScore >= 76) {
-        return Math.round(currentScore * 0.88);
-      } else if (currentScore >= 66) {
-        return Math.round(currentScore * 0.80);
-      } else {
-        return Math.round(currentScore * 0.72);
-      }
-    });
-    
-    // Classify subordinates based on threshold
-    const greenCount = subordinatesWithReadiness.filter(score => 
-      score >= greenRange.min && score <= greenRange.max
-    ).length;
-    const redCount = subordinatesWithReadiness.filter(score => 
-      score >= redRange.min && score <= redRange.max
-    ).length;
-    const totalCount = subordinatesWithReadiness.length;
-    const greenPercentage = (greenCount / totalCount) * 100;
-    
-    // Logic untuk menentukan warna manager:
-    // 1. Manager HIJAU jika: >= 50% bawahan READY (hijau) ATAU minimal 2 bawahan READY
-    if (greenPercentage >= 50 || greenCount >= 2) {
-      return '#88E113'; // Green
-    }
-    
-    // 4. Manager MERAH jika: tidak ada bawahan READY DAN minimal ada 1 bawahan merah
-    if (greenCount === 0 && redCount > 0) {
-      return '#FE0D00'; // Red
-    }
-    
-    // 3 & 5. Manager ORANGE untuk kondisi lainnya
-    // (bawahan READY < 50% dan < 2 orang, atau semua orange)
-    return '#F59E02'; // Orange
-  };
-  
-  const needSuccessorsColor = getNeedSuccessorsColor();
-  
-  // Use readiness score from employee data (editable in Data Editor)
-  // If not available, use calculated fallback based on competency score
-  const getPromotionReadinessPercentage = (): number => {
-    // If readinessScore exists in data, use it
-    if (employee.readinessScore !== undefined && employee.readinessScore !== null) {
-      return employee.readinessScore;
-    }
-    
-    // Fallback calculation based on competency score
-    const currentScore = employee.competencyScore;
-    if (currentScore >= 91) {
-      return Math.round(currentScore * 0.92);
-    } else if (currentScore >= 76) {
-      return Math.round(currentScore * 0.88);
-    } else if (currentScore >= 66) {
-      return Math.round(currentScore * 0.80);
-    } else {
-      return Math.round(currentScore * 0.72);
-    }
-  };
-  
-  const promotionReadinessPercentage = getPromotionReadinessPercentage();
 
-  // Check if this is a vacant position
-  const isVacant = employee.name === '(Vacant)';
+    const sortedRanges = [...heatmapConfig.readinessScore].sort((a, b) => a.min - b.min);
+    const redRange = sortedRanges[0];
+    const greenRange = sortedRanges[sortedRanges.length - 1];
+    if (!redRange || !greenRange) return null;
 
-  // Check if employee has actual readiness data from CSV (not calculated fallback)
+    const readiness = employee.reports.map(getReportReadiness);
+    const greenCount = readiness.filter(s => s >= greenRange.min && s <= greenRange.max).length;
+    const redCount = readiness.filter(s => s >= redRange.min && s <= redRange.max).length;
+    const greenPercentage = (greenCount / readiness.length) * 100;
+
+    if (greenPercentage >= 50 || greenCount >= 2) return '#88E113';
+    if (greenCount === 0 && redCount > 0) return '#FE0D00';
+    return '#F59E02';
+  };
+
+  const isVacant = employee.name === '(Vacant)' || !employee.name?.trim();
+  const firstName = employee.name?.split(' ')[0] ?? '';
   const hasReadinessData = employee.readinessScore !== undefined && employee.readinessScore !== null;
 
-  // Show promotion tag on ALL cards in all tabs
-  const showPromotionTag = true;
+  const promotionReadinessPercentage = hasReadinessData
+    ? (employee.readinessScore as number)
+    : getReportReadiness(employee);
 
-  // Get color based on percentage range using readiness score heatmap config
   const getTagColor = (percentage: number): string => {
-    // For vacant positions or no data, always return red
-    if (isVacant || !hasReadinessData) {
-      return '#FF0004'; // Red for vacant
-    }
-    
     const ranges = heatmapConfig.readinessScore;
-    
-    // Find which range the percentage falls into
-    for (const range of ranges) {
-      if (percentage >= range.min && percentage <= range.max) {
-        return range.color;
-      }
-    }
-    
-    // Fallback: use first or last range
-    if (percentage < ranges[0].min) {
-      return ranges[0].color;
-    }
-    return ranges[ranges.length - 1].color;
+    const hit = ranges.find(r => percentage >= r.min && percentage <= r.max);
+    return hit?.color ?? '#6c757d';
   };
-  
-  const tagColor = getTagColor(promotionReadinessPercentage);
-  
-  // Extract first name from full name
-  const firstName = employee.name.split(' ')[0];
+  const tagColor = (isVacant || !hasReadinessData) ? '#adb5bd' : getTagColor(promotionReadinessPercentage);
 
-  // For need-successors-copy mode: determine if this card should show heatmap
-  const shouldShowHeatmapInV2Mode = (): boolean => {
-    if (heatmapMode !== 'need-successors-copy') {
-      return true; // Not in v2 mode, show normally
-    }
-    
-    if (!selectedCardInV2Mode) {
-      // No card selected: show heatmap for all managers (like need-successors mode)
-      return hasReports;
-    }
-    
-    // A card is selected
-    // Show heatmap if:
-    // 1. This is the selected card
-    if (employee.id === selectedCardInV2Mode) {
-      return true;
-    }
-    
-    // 2. This card is a subordinate (direct report) of the selected card
-    if (employee.managerId === selectedCardInV2Mode) {
-      return true;
-    }
-    
-    // 3. This card is an additional successor of the selected card
-    const selectedEmployee = allEmployees.find(emp => emp.id === selectedCardInV2Mode);
-    if (selectedEmployee?.additionalSuccessors?.includes(employee.id)) {
-      return true;
-    }
-    
-    return false; // Don't show heatmap for this card
-  };
-  
-  const showHeatmapForThisCard = shouldShowHeatmapInV2Mode();
-  
-  // Determine if this is a successor/subordinate (not the manager itself) in V2 mode
-  const isSubordinateInV2Mode = !!(heatmapMode === 'need-successors-copy'
-    && selectedCardInV2Mode
-    && employee.id !== selectedCardInV2Mode
-    && (employee.managerId === selectedCardInV2Mode || allEmployees.find(emp => emp.id === selectedCardInV2Mode)?.additionalSuccessors?.includes(employee.id)));
-  
-  // Handle card click in V2 mode
-  const handleCardClick = () => {
-    // Always open employee detail panel
-    onEmployeeClick(employee);
-    
-    if (heatmapMode === 'need-successors-copy' && onCardClickInV2Mode) {
-      // Only allow selection of managers (employees with subordinates)
-      if (!hasReports) {
-        // Non-manager card - just open panel, don't change selection
-        return;
-      }
-      
-      // Toggle: if clicking the same card, deselect it
-      if (selectedCardInV2Mode === employee.id) {
-        onCardClickInV2Mode(null as any); // Will reset to null
-      } else {
-        onCardClickInV2Mode(employee.id);
-      }
-    }
-  };
+  // Jumlah suksesor yang sudah READY (range tertinggi) — ditampilkan di footer card.
+  const readySuccessorsCount = (() => {
+    if (!hasReports) return 0;
+    const sortedRanges = [...heatmapConfig.readinessScore].sort((a, b) => a.min - b.min);
+    const readyRange = sortedRanges[sortedRanges.length - 1];
+    if (!readyRange) return 0;
+    return employee.reports.filter(r => {
+      const score = getReportReadiness(r);
+      return score >= readyRange.min && score <= readyRange.max;
+    }).length;
+  })();
+
+  // ——— Overlay aktif → properti kartu ———
+  // Dua sumber yang menyalakan heatmap: toggle global di toolbar, DAN focus
+  // suksesi setempat dari aksi "Succession". Focus tidak mengubah toggle.
+  const isSuccessionFocus = successionFocusId === employee.id;
+  const isFocusSuccessor = !!focusSuccessorIds?.has(employee.id);
+
+  // Saat ada posisi yang di-focus, heatmap Succession Risk EKSKLUSIF milik posisi
+  // itu — posisi lain dimatikan meski toggle-nya menyala. Alasannya: focus berarti
+  // user sedang membaca suksesi SATU posisi, dan warna di posisi lain hanya
+  // menambah derau pada bacaan itu. Di luar focus, toggle yang menentukan.
+  const positionHeatmapColor = successionFocusId
+    ? (isSuccessionFocus ? getSuccessionRiskColor() : null)
+    : (overlays.has('succession-risk') ? getSuccessionRiskColor() : null);
+
+  // Pembagian indikator yang disepakati:
+  //   heatmap card employee  → kesiapan terhadap posisi SAAT INI (competency)
+  //   pil %Ready to Promote  → kesiapan terhadap posisi DI ATASNYA (succession)
+  // Karena itu, calon suksesor pada mode focus TIDAK lagi diberi heatmap card
+  // employee (versi sebelumnya begitu), melainkan pil persentase — indikator
+  // yang memang mengukur succession readiness.
+  const employeeHeatmapScore = !isVacant && overlays.has('need-development')
+    ? employee.competencyScore
+    : null;
+  const showCriticalIcon = overlays.has('critical-position') && !!employee.criticalPosition;
+  const showTalentIcon = overlays.has('talent') && isTalent(employee.id);
+  // Saat ada posisi yang di-focus, pil persentase EKSKLUSIF milik calon
+  // suksesornya — sama seperti heatmap succession risk yang eksklusif milik
+  // posisi focus. Di luar focus, toggle yang menentukan.
+  const showPromotionTag = level > 0 && (
+    successionFocusId ? isFocusSuccessor : overlays.has('ready-to-promote')
+  );
+
+  const isMenuOpen = actionMenuId === employee.id;
 
   return (
     <div className="flex flex-col items-center">
-      {/* Promotion Readiness Tag - Above card, on the connector line */}
+      {/* Overlay %Ready to Promote — pada garis struktur di atas card position */}
       {showPromotionTag && (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div 
-                className="mb-1 px-2 py-0.5 border rounded-full bg-white z-20 text-[8px] cursor-help flex items-center gap-1"
-                style={{ borderColor: tagColor }}
-              >
-                {employee.activeIDP && !isVacant && (
-                  <TrendingUp 
-                    className="w-[10px] h-[10px]" 
-                    style={{ color: tagColor }}
-                    strokeWidth={2.5}
-                  />
-                )}
-                <span
-                  className="font-['Open_Sans',_sans-serif] text-[8px] font-bold font-normal"
-                  style={{ color: tagColor }}
-                >
-                  {(isVacant || !hasReadinessData) ? '-' : `${promotionReadinessPercentage}%`}
-                </span>
+              <div className="mb-1 z-20 cursor-help">
+                <ReadinessPill
+                  percentage={(isVacant || !hasReadinessData) ? null : promotionReadinessPercentage}
+                  color={tagColor}
+                  showIDPIcon={!!employee.activeIDP && !isVacant}
+                  size="md"
+                />
               </div>
             </TooltipTrigger>
             <TooltipContent>
@@ -342,7 +211,7 @@ function OrgNode({ employee, level, showHeatmap, heatmapStyle, heatmapMode, onEm
                     {employee.activeIDP && (
                       <>
                         <br />
-                        <span className="text-[#016699] font-bold">ðŸš€ Sedang menjalankan IDP</span>
+                        <span className="text-[#016699] font-bold">Sedang menjalankan IDP</span>
                       </>
                     )}
                   </>
@@ -352,9 +221,8 @@ function OrgNode({ employee, level, showHeatmap, heatmapStyle, heatmapMode, onEm
           </Tooltip>
         </TooltipProvider>
       )}
-      
+
       <div className="flex flex-col items-center gap-2">
-        {/* Employee Card */}
         <div
           className="relative"
           style={isSimulationMode && simulatedEmployeeIds?.has(employee.id) ? {
@@ -364,21 +232,22 @@ function OrgNode({ employee, level, showHeatmap, heatmapStyle, heatmapMode, onEm
             background: 'rgba(1,102,153,0.06)',
           } : undefined}
         >
-          <OrgChartCard
+          <OrgChartCardV3
             name={employee.name}
             position={employee.position}
             jobTitle={employee.jobTitle}
             competencyScore={employee.competencyScore}
             successors={allEmployees.filter(e => e.managerId === employee.id).length}
+            readySuccessorsCount={readySuccessorsCount}
             imageUrl={employee.imageUrl}
-            performanceRating={employee.performanceRating}
-            showHeatmap={showHeatmapForThisCard && showHeatmap}
-            heatmapStyle={heatmapStyle}
-            heatmapMode={heatmapMode}
-            hasLowPerformingSubordinates={hasLowPerformingSubordinates}
-            lowestSubordinateScale={lowestSubordinateScale}
-            criticalPosition={employee.criticalPosition}
-            onClick={handleCardClick}
+            employeeId={employee.id}
+            positionHeatmapColor={positionHeatmapColor}
+            employeeHeatmapScore={employeeHeatmapScore}
+            employeeHeatmapRanges={heatmapConfig.needDevelop}
+            showCriticalIcon={showCriticalIcon}
+            showTalentIcon={showTalentIcon}
+            teams={teamsOf(employee.id, employee.department)}
+            tenure={tenureOf(employee.id)}
             visibleColumns={visibleColumns}
             gender={employee.gender}
             city={employee.city}
@@ -388,22 +257,28 @@ function OrgNode({ employee, level, showHeatmap, heatmapStyle, heatmapMode, onEm
             capability={employee.capabilityScore}
             commitment={employee.commitmentScore}
             contribution={employee.contributionScore}
-            heatmapRanges={heatmapRanges}
-            readinessScore={promotionReadinessPercentage}
-            needSuccessorsColor={isSubordinateInV2Mode ? null : needSuccessorsColor}
-            employeeId={employee.id}
-            allEmployees={allEmployees}
-            readinessScoreRanges={heatmapConfig.readinessScore}
-            isSubordinateInV2Mode={isSubordinateInV2Mode}
-            selectedCardInV2Mode={selectedCardInV2Mode}
-            maxCardHeight={maxCardHeight}
+            selected={isMenuOpen || isSuccessionFocus}
             highlighted={highlightedEmployeeId === employee.id}
+            maxCardHeight={maxCardHeight}
+            onClick={() => onPositionClick(employee.id)}
           />
-          
+
+          {/* Menu aksi — muncul saat card position ini dipilih */}
+          {isMenuOpen && (
+            <PositionActionMenu
+              simulationOpen={simulationMenuOpen}
+              onToggleSimulation={onToggleSimulationMenu}
+              onSuccession={() => onAction('succession', employee)}
+              onDevelopment={() => onAction('development', employee)}
+              onIProfile={() => onAction('iprofile', employee)}
+              onSimulationAction={(action) => onSimulationAction(action, employee)}
+            />
+          )}
+
           {/* Expand/Collapse Button */}
           {hasReports && (
             <button
-              onClick={() => setIsExpanded(!isExpanded)}
+              onClick={(e) => { e.stopPropagation(); setIsExpanded(!isExpanded); }}
               className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-[rgb(230,230,230)] border-2 border-[#016699] rounded-full p-1 hover:bg-blue-50 transition-colors z-10 text-[15px]"
             >
               {isExpanded ? (
@@ -430,24 +305,38 @@ function OrgNode({ employee, level, showHeatmap, heatmapStyle, heatmapMode, onEm
             const isLast = index === employee.reports.length - 1;
             return (
               <div key={report.id} className="relative flex flex-col items-center px-4">
-                {/* Horizontal connector segments drawn from card center outward to siblings.
-                    Each column draws its own half-segment, so the line always aligns
-                    with the actual card centers regardless of column width. */}
                 {!isOnly && (
                   <>
-                    {/* Left half-segment: connects to the sibling on the left */}
                     {!isFirst && (
                       <div className="absolute h-px bg-[#016699]" style={{ top: 0, left: 0, right: '50%' }} />
                     )}
-                    {/* Right half-segment: connects to the sibling on the right */}
                     {!isLast && (
                       <div className="absolute h-px bg-[#016699]" style={{ top: 0, left: '50%', right: 0 }} />
                     )}
                   </>
                 )}
-                {/* Vertical stalk from horizontal connector down to child card */}
                 <div className="w-px bg-[#016699] h-6" />
-                <OrgNode employee={report} level={level + 1} showHeatmap={showHeatmap} heatmapStyle={heatmapStyle} heatmapMode={heatmapMode} onEmployeeClick={onEmployeeClick} managerPosition={employee.position} visibleColumns={visibleColumns} heatmapRanges={heatmapRanges} heatmapConfig={heatmapConfig} allEmployees={allEmployees} selectedCardInV2Mode={selectedCardInV2Mode} onCardClickInV2Mode={onCardClickInV2Mode} highlightedEmployeeId={highlightedEmployeeId} isSimulationMode={isSimulationMode} simulatedEmployeeIds={simulatedEmployeeIds} />
+                <OrgNode
+                  employee={report}
+                  level={level + 1}
+                  onEmployeeClick={onEmployeeClick}
+                  managerPosition={employee.position}
+                  visibleColumns={visibleColumns}
+                  heatmapConfig={heatmapConfig}
+                  allEmployees={allEmployees}
+                  overlays={overlays}
+                  actionMenuId={actionMenuId}
+                  successionFocusId={successionFocusId}
+                  focusSuccessorIds={focusSuccessorIds}
+                  simulationMenuOpen={simulationMenuOpen}
+                  onPositionClick={onPositionClick}
+                  onToggleSimulationMenu={onToggleSimulationMenu}
+                  onAction={onAction}
+                  onSimulationAction={onSimulationAction}
+                  highlightedEmployeeId={highlightedEmployeeId}
+                  isSimulationMode={isSimulationMode}
+                  simulatedEmployeeIds={simulatedEmployeeIds}
+                />
               </div>
             );
           })}
@@ -472,7 +361,7 @@ function resolveTabState(param: string | null): {
   return { tab: 'all', heatmap: false, mode: 'performance' };
 }
 
-export default function App({ initialTab }: { initialTab?: string } = {}) {
+export default function VismapV3({ initialTab }: { initialTab?: string } = {}) {
   const [zoom, setZoom] = useState(45);
   const [position, setPosition] = useState({ x: 0, y: 150 });
   const [isDragging, setIsDragging] = useState(false);
@@ -495,21 +384,22 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
     setShowHeatmap(s.heatmap);
     setHeatmapMode(s.mode);
   }, [initialTab]);
-  const [selectedCardInV2Mode, setSelectedCardInV2Mode] = useState<string | null>(null);
-  // Vismap V2 (WIP): v1 = perilaku Vismap saat ini (default, tidak berubah).
-  // v2 baru placeholder — akan dibangun bertahap di sini tanpa menyentuh logic v1.
-  // v3 = sandbox eksplorasi desain, salinan v1 di src/vismap/v3/ (docs/vismap-v3.md).
-  const [vismapVersion, setVismapVersion] = useState<'v1' | 'v2' | 'v3'>('v1');
-  // V2: tab-nya cuma Default / Heatmap. Heatmap-nya multi-layer (lihat src/vismap/v2/layers.ts)
-  const [v2Tab, setV2Tab] = useState<'default' | 'heatmap'>('default');
-  const [v2Layers, setV2Layers] = useState<Set<LayerId>>(new Set());
-  const toggleV2Layer = (id: LayerId) => {
-    setV2Layers(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id); else next.add(id);
-      return next;
-    });
-  };
+  // V3: overlay indikator menggantikan 3 tab view V1 — semuanya bisa menyala
+  // bersamaan di atas satu struktur organisasi (lihat ./overlays.ts).
+  const [overlays, setOverlays] = useState<Set<OverlayId>>(new Set());
+  const flipOverlay = (id: OverlayId) => setOverlays(prev => toggleOverlay(prev, id));
+  // Card position yang diklik → menu aksi di sampingnya.
+  const [actionMenuId, setActionMenuId] = useState<string | null>(null);
+  const [simulationMenuOpen, setSimulationMenuOpen] = useState(false);
+  // Panel samping tidak lagi ditentukan tab (V1), tapi oleh aksi yang dipilih.
+  const [sidePanel, setSidePanel] = useState<'succession' | 'development' | null>(null);
+  // Focus suksesi: aksi "Succession" menyalakan heatmap SETEMPAT tanpa menyentuh
+  // toggle overlay — frame posisi ini memakai heatmap Succession Risk, dan card
+  // employee para calon suksesornya memakai heatmap kesiapan terhadap posisi ini
+  // (standar posisi di atasnya). Menyalin perilaku V1: mode Succession Risk +
+  // satu posisi diklik → terlihat suksesor mana yang ready dan mana yang perlu
+  // dikembangkan.
+  const [successionFocusId, setSuccessionFocusId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'chart' | 'table'>('chart');
   const [isDataEditorOpen, setIsDataEditorOpen] = useState(false);
   const [isHeatmapSettingsOpen, setIsHeatmapSettingsOpen] = useState(false);
@@ -533,6 +423,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
     commitment: false,
     contribution: false,
   });
+  const visibleFieldCount = Object.values(visibleColumns).filter(Boolean).length;
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const [highlightedEmployeeId, setHighlightedEmployeeId] = useState<string | null>(null);
   const [isVariableDialogOpen, setIsVariableDialogOpen] = useState(false);
@@ -688,18 +579,6 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
   };
 
   // Get current heatmap ranges based on heatmap mode
-  const getCurrentHeatmapRanges = (): HeatmapRange[] => {
-    // Performance and Need-develop modes use Competency Score (5-level gradasi)
-    if (heatmapMode === 'performance' || heatmapMode === 'need-develop') {
-      return heatmapConfig.needDevelop;
-    }
-    // Successor-risk and need-successors modes use Readiness Score (3-level)
-    else if (heatmapMode === 'successor-risk' || heatmapMode === 'need-successors' || heatmapMode === 'need-successors-copy') {
-      return heatmapConfig.readinessScore;
-    }
-    // Fallback to needDevelop ranges (Competency Score)
-    return heatmapConfig.needDevelop;
-  };
 
   // Handle compare successors
   const handleCompareSuccessors = (manager: Employee, successors: Employee[]) => {
@@ -830,6 +709,66 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
     setPendingSwaps([]);
     setSimulationApplied(false);
   };
+
+  // Klik card position → pilih card itu dan buka menu aksi. Klik ulang card yang
+  // sama menutup menunya, jadi tidak perlu tombol close terpisah.
+  const handlePositionClick = (employeeId: string) => {
+    setActionMenuId(prev => (prev === employeeId ? null : employeeId));
+    setSimulationMenuOpen(false);
+    if (employeeId !== successionFocusId) setSuccessionFocusId(null);
+  };
+
+  // Aksi Succession / Development / iProfile dari menu.
+  const handleMenuAction = (kind: 'succession' | 'development' | 'iprofile', employee: Employee) => {
+    setActionMenuId(null);
+    setSimulationMenuOpen(false);
+    if (kind === 'iprofile') {
+      setSuccessionFocusId(null);
+      handleNavigateToDetail(employee.id);
+      return;
+    }
+    setSelectedEmployee(employee);
+    setSidePanel(kind === 'succession' ? 'succession' : 'development');
+    // Focus suksesi hanya hidup untuk aksi Succession.
+    setSuccessionFocusId(kind === 'succession' ? employee.id : null);
+  };
+
+  // Submenu Simulation. TAHAP INI: hanya Exchange yang benar-benar tersambung ke
+  // SimulationPanel V1; empat lainnya sengaja placeholder (docs/vismap-v3.md §8)
+  // supaya tidak ada aksi yang tampak berhasil padahal tidak mengubah apa pun.
+  const handleSimulationAction = (action: SimulationAction, employee: Employee) => {
+    if (action === 'exchange') {
+      setActionMenuId(null);
+      setSimulationMenuOpen(false);
+      setSelectedEmployee(null);
+      setSidePanel(null);
+      setSuccessionFocusId(null);
+      setPendingSwaps([]);
+      setInitialSimulationTargetId(employee.id);
+      setIsSimulationMode(true);
+      return;
+    }
+    const labels: Record<Exclude<SimulationAction, 'exchange'>, string> = {
+      'cut-replace': 'Cut & Replace',
+      'promote': 'Promote',
+      'mutation': 'Mutation',
+      'change-job-criteria': 'Change Job Criteria',
+    };
+    toast.info(`${labels[action]} belum tersedia di V3 — masih tahap rancangan.`);
+  };
+
+  // Kumpulan calon suksesor posisi yang di-focus. Aturannya sama dengan V1:
+  // successorIds dari data kalau ada, kalau tidak bawahan langsung, ditambah
+  // suksesor yang ditambahkan manual.
+  const focusSuccessorIds = (() => {
+    if (!successionFocusId) return new Set<string>();
+    const pool = isSimulationMode ? simulatedEmployees : employees;
+    const target = pool.find(e => e.id === successionFocusId);
+    if (!target) return new Set<string>();
+    const fromCsv = target.successorIds ?? [];
+    const primary = fromCsv.length > 0 ? fromCsv : pool.filter(e => e.managerId === successionFocusId).map(e => e.id);
+    return new Set<string>([...primary, ...(target.additionalSuccessors ?? [])]);
+  })();
 
   const orgChart = buildOrgChart(employees);
   
@@ -1071,61 +1010,6 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
 
   return (
     <TooltipProvider>
-      {/* Vismap V1/V2/V3 switch — floating pojok kiri bawah, gaya sama dengan
-          user-switcher di modul IDP. Selalu di atas kanvas V2/V3 supaya bisa
-          kapan saja balik ke V1. */}
-      <div
-        data-no-drag
-        className="fixed flex items-center gap-1 bg-white rounded-full border border-[#dee2e6] p-1 shadow-lg"
-        style={{ bottom: 20, left: "calc(var(--sidebar-w, 220px) + 20px)", zIndex: 1000, fontFamily: "'Open Sans', sans-serif" }}
-      >
-        {(['v1', 'v2', 'v3'] as const).map((v) => (
-          <button
-            key={v}
-            onClick={() => {
-              // Halaman detail/comparison V1 dirender DI LUAR container kanvas
-              // V1, jadi menyembunyikan container saja tidak cukup: tanpa reset
-              // ini, masuk ke V3 sambil membuka detail karyawan akan
-              // menampilkan detail V1 di atas kanvas V3. Hanya berlaku untuk
-              // v3 — jalur v1↔v2 sengaja dibiarkan apa adanya.
-              if (v === 'v3') {
-                setShowEmployeeDetail(false);
-                setComparisonData(null);
-              }
-              setVismapVersion(v);
-            }}
-            style={{
-              padding: '6px 12px', borderRadius: 800, border: 'none', cursor: 'pointer',
-              fontSize: 11, fontWeight: 700, whiteSpace: 'nowrap',
-              background: vismapVersion === v ? '#016699' : 'transparent',
-              color: vismapVersion === v ? 'white' : '#016699',
-            }}
-          >
-            {v === 'v1' ? 'V1 (Current)' : v === 'v2' ? 'V2' : 'V3'}
-          </button>
-        ))}
-      </div>
-
-      {/* Vismap V2 — canvas sendiri, menutup UI V1 di bawahnya (V1 tetap ter-mount
-          supaya logic/canvas lamanya tidak perlu disentuh). Tab-nya di-render di
-          top bar bersama breadcrumb. */}
-      {vismapVersion === 'v2' && !showEmployeeDetail && !comparisonData && (
-        <VismapV2
-          orgChart={orgChart}
-          heatmapConfig={heatmapConfig}
-          tab={v2Tab}
-          activeLayers={v2Layers}
-          onToggleLayer={toggleV2Layer}
-          top={HEADER_HEIGHT + 108}
-        />
-      )}
-
-      {/* Vismap V3 — sandbox eksplorasi desain, salinan V1 yang berdiri sendiri
-          (src/vismap/v3/). Membawa top bar, search, zoom, dan kartunya sendiri,
-          jadi UI V1 di bawahnya disembunyikan sepenuhnya (lihat gate
-          `vismapVersion === 'v3'` pada top bar dan container kanvas V1).
-          V1 tetap ter-mount sebagai host switch versi, sama seperti pola V2. */}
-      {vismapVersion === 'v3' && <VismapV3 initialTab={initialTab} />}
 
       {/* Comparison View - Full screen overlay (works in all views) */}
       {comparisonData && (
@@ -1156,17 +1040,12 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
         onMouseLeave={viewMode === 'chart' && !isAnyDialogOpen ? handleMouseLeave : undefined}
         onDoubleClick={viewMode === 'chart' && !isAnyDialogOpen ? handleDoubleClick : undefined}
         onWheel={viewMode === 'chart' && !isAnyDialogOpen ? handleWheel : undefined}
-        // display:none saat V3 — V3 punya kanvas sendiri, dan V1 dibiarkan
-        // ter-mount (bukan di-unmount) supaya state/datanya utuh saat kembali.
-        style={{
-          cursor: viewMode === 'chart' && !isAnyDialogOpen && isDragging ? 'grabbing' : viewMode === 'chart' && !isAnyDialogOpen ? 'grab' : 'default',
-          display: vismapVersion === 'v3' ? 'none' : undefined,
-        }}
+        style={{ cursor: viewMode === 'chart' && !isAnyDialogOpen && isDragging ? 'grabbing' : viewMode === 'chart' && !isAnyDialogOpen ? 'grab' : 'default' }}
       >
         <Toaster position="top-center" />
         
         {/* Search Field - Top left corner (only in chart view) */}
-        {vismapVersion === 'v1' && viewMode === 'chart' && (
+        {viewMode === 'chart' && (
           <div 
             ref={searchInputRef}
             data-no-drag
@@ -1232,17 +1111,19 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
             <div className="bg-[rgba(255,255,255,0)] rounded-lg p-3 flex items-center">
               <button
                 onClick={() => setIsVariableDialogOpen(true)}
-                className="flex gap-[8px] items-center px-[12px] py-[8px] rounded-[28px] hover:bg-gray-50"
+                className="flex gap-[8px] items-center rounded-[28px] border border-[#dee2e6] bg-white px-[12px] py-[8px] hover:bg-gray-50"
               >
-                <Plus className="w-5 h-5 text-[#016699]" />
-                <span className="font-['Avenir',_sans-serif] font-black text-[14px] text-[#016699] font-bold">Variable</span>
+                <Filter className="w-4 h-4 text-[#016699]" />
+                <span className="font-['Open_Sans',_sans-serif] text-[13px] font-bold text-[#016699]">
+                  Filter Card Data{visibleFieldCount > 0 ? ` (${visibleFieldCount})` : ''}
+                </span>
               </button>
             </div>
           </div>
         )}
 
         {/* Succession Risk Modal - Top right corner (only in Succession Risk tab) */}
-        {viewMode === 'chart' && activeTab === 'need-successors-copy' && showHeatmap && (
+        {viewMode === 'chart' && overlays.has('succession-risk') && (
           <div
             data-no-drag
             className={`fixed top-20 z-50 transition-all duration-300 ${
@@ -1258,7 +1139,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
         )}
 
         {/* Need Develop Modal - Top right corner (only in Need Develop tab) */}
-        {viewMode === 'chart' && activeTab === 'need-develop' && showHeatmap && (
+        {viewMode === 'chart' && overlays.has('need-development') && (
           <div
             data-no-drag
             className={`fixed top-20 z-50 transition-all duration-300 ${
@@ -1277,10 +1158,12 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
 
       {/* Employee Detail Panel */}
       <div data-no-drag>
-        {(activeTab === 'need-successors' || activeTab === 'need-successors-copy') ? (
+        {sidePanel === 'succession' ? (
           <SuccessionPanel
+            contextLabel="Succession"
+            filledReadinessPill
             employee={selectedEmployee}
-            onClose={() => setSelectedEmployee(null)}
+            onClose={() => { setSelectedEmployee(null); setSidePanel(null); setSuccessionFocusId(null); }}
             onCompare={handleCompareSuccessors}
             onIDPDialogChange={setIsIDPDialogOpen}
             onAddSuccessorDialogChange={setIsAddSuccessorDialogOpen}
@@ -1291,13 +1174,16 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
             allEmployees={employees}
             onEmployeesChange={setEmployees}
           />
-        ) : activeTab === 'need-develop' ? (
-          <EmployeeDetailPanel
-            employee={selectedEmployee}
-            onClose={() => setSelectedEmployee(null)}
-            onNavigateToDetail={handleNavigateToDetail}
-            onNavigateToIDP={handleNavigateToIDP}
-            onShowIDPProgress={handleShowIDPProgress}
+        ) : sidePanel === 'development' && selectedEmployee ? (
+          <DevelopmentPanelV3
+            employeeId={selectedEmployee.id}
+            employeeName={selectedEmployee.name}
+            employeePosition={selectedEmployee.position}
+            managerPosition={
+              // Default tab Target Position = jabatan atasan langsung.
+              employees.find(e => e.id === selectedEmployee.managerId)?.position ?? null
+            }
+            onClose={() => { setSelectedEmployee(null); setSidePanel(null); setSuccessionFocusId(null); }}
           />
         ) : null}
       </div>
@@ -1323,58 +1209,40 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
         className="fixed right-0 bg-white shadow-lg z-50 px-4 flex flex-col"
         // Digeser turun setinggi header aplikasi: bilah ini `fixed`, jadi kalau
         // tetap di top:0 ia menutupi header dan judul menunya tidak terlihat.
-        // V3 membawa top bar salinannya sendiri — tanpa gate ini keduanya
-        // bertumpuk di posisi yang sama.
-        style={{ left: "var(--sidebar-w, 220px)", top: HEADER_HEIGHT, display: vismapVersion === 'v3' ? 'none' : undefined }}
+        style={{ left: "var(--sidebar-w, 220px)", top: HEADER_HEIGHT }}
       >
         {/* Tab Filter row */}
         <div className="flex items-center justify-between py-2">
-        {vismapVersion === 'v2' ? (
-          /* Tab V2: cuma Default & Heatmap. Pilihan heatmap-nya ada di panel kiri. */
-          <div className="flex gap-[12px] items-center">
-            {([['default', 'Default'], ['heatmap', 'Heatmap']] as const).map(([id, label]) => (
-              <button
-                key={id}
-                onClick={() => setV2Tab(id)}
-                className={`flex gap-[8px] items-center px-[8px] py-[4px] rounded-[28px] transition-colors ${
-                  v2Tab === id ? 'bg-[#016699]' : 'bg-transparent hover:bg-[#016699]/10'
-                }`}
-              >
-                <p className={`font-['Open_Sans',_sans-serif] font-semibold text-[14px] text-nowrap ${
-                  v2Tab === id ? 'text-white' : 'text-[#016699]'
-                }`}>
-                  {label}
-                </p>
-              </button>
-            ))}
-          </div>
-        ) : (
-        <TabFilter activeTab={activeTab} onTabChange={(tab) => {
-          setActiveTab(tab);
-          if (tab === 'need-develop') {
-            setShowHeatmap(true);
-            setHeatmapMode('need-develop');
-            setSelectedCardInV2Mode(null); // Reset selection when changing tabs
-          } else if (tab === 'need-successors') {
-            setShowHeatmap(true);
-            setHeatmapMode('need-successors');
-            setSelectedCardInV2Mode(null); // Reset selection when changing tabs
-          } else if (tab === 'need-successors-copy') {
-            setShowHeatmap(true);
-            setHeatmapMode('need-successors-copy');
-            // Don't reset selectedCardInV2Mode here - keep it when staying in the same tab
-          } else if (tab === 'all') {
-            setShowHeatmap(false);
-            setHeatmapMode('performance'); // Reset to default mode
-            setSelectedCardInV2Mode(null); // Reset selection when changing tabs
-          }
-        }} />
-        )}
+        {/* Overlay indikator — pengganti 3 tab view V1. Semua bisa menyala
+            bersamaan karena tiap overlay menempel pada elemen yang berbeda
+            (frame job position, card employee, atau garis struktur). */}
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          {OVERLAYS.map(o => (
+            <TooltipProvider key={o.id}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <label className="flex cursor-pointer items-center gap-2">
+                    <Switch
+                      checked={overlays.has(o.id)}
+                      onCheckedChange={() => flipOverlay(o.id)}
+                    />
+                    <span className="font-['Open_Sans',_sans-serif] text-[13px] font-semibold text-[#016699] whitespace-nowrap">
+                      {o.label}
+                    </span>
+                  </label>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <p className="font-['Open_Sans',_sans-serif] max-w-[240px]">{o.hint}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          ))}
+        </div>
 
         {/* View Mode Toggle */}
         <div className="flex gap-2 items-center">
           {/* Simulate Button */}
-          {vismapVersion === 'v1' && viewMode === 'chart' && (
+          {viewMode === 'chart' && (
             <button
               onClick={() => {
                 if (isSimulationMode) {
@@ -1398,7 +1266,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
               {isSimulationMode ? 'Stop Simulate' : 'Simulate'}
             </button>
           )}
-          <div className="flex gap-1 p-1 bg-gray-50 rounded-lg" style={vismapVersion === 'v2' ? { display: 'none' } : undefined}>
+          <div className="flex gap-1 p-1 bg-gray-50 rounded-lg">
             <Button
               variant={viewMode === 'chart' ? 'default' : 'ghost'}
               size="icon"
@@ -1443,7 +1311,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
       </div>
 
       {/* Zoom Controls - Only show in chart view */}
-      {vismapVersion === 'v1' && viewMode === 'chart' && (
+      {viewMode === 'chart' && (
         <div
           data-no-drag
           className={`fixed bottom-4 bg-white rounded-lg shadow-lg p-2 flex flex-col items-center gap-2 z-50 transition-all duration-300 ${
@@ -1537,27 +1405,19 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
                     key={root.id}
                     employee={root}
                     level={0}
-                    showHeatmap={showHeatmap}
-                    heatmapStyle={heatmapStyle}
-                    heatmapMode={heatmapMode}
-                    onEmployeeClick={(emp) => {
-                      // Only allow card selection on tabs with panels
-                      if (activeTab !== 'all' && !isSimulationMode) {
-                        setSelectedEmployee(emp);
-                      }
-                    }}
+                    onEmployeeClick={(emp) => setSelectedEmployee(emp)}
                     visibleColumns={visibleColumns}
-                    heatmapRanges={getCurrentHeatmapRanges()}
                     heatmapConfig={heatmapConfig}
                     allEmployees={isSimulationMode ? simulatedEmployees : employees}
-                    selectedCardInV2Mode={selectedCardInV2Mode}
-                    onCardClickInV2Mode={(employeeId) => {
-                      if (employeeId === null) {
-                        setSelectedCardInV2Mode(null);
-                      } else {
-                        setSelectedCardInV2Mode(employeeId);
-                      }
-                    }}
+                    overlays={overlays}
+                    actionMenuId={actionMenuId}
+                    successionFocusId={successionFocusId}
+                    focusSuccessorIds={focusSuccessorIds}
+                    simulationMenuOpen={simulationMenuOpen}
+                    onPositionClick={handlePositionClick}
+                    onToggleSimulationMenu={() => setSimulationMenuOpen(prev => !prev)}
+                    onAction={handleMenuAction}
+                    onSimulationAction={handleSimulationAction}
                     highlightedEmployeeId={highlightedEmployeeId}
                     isSimulationMode={isSimulationMode}
                     simulatedEmployeeIds={simulatedEmployeeIds}
