@@ -2,6 +2,7 @@
 // Self-contained port of kelola-app Components/Organisme/Chart/TMTRBox — 9-box grid
 // with axis ranges and plotted employee bubbles (grouped + overlap-resolved).
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Tooltip } from "@mantine/core";
 import { TMConfig, TMPoint, AxisRange, boxByOrder, resolveColor, textOn, withAlpha, zRingFor, Z_ALPHA } from "@/data/talentMappingShared";
 import { mantineColor } from "@/components/team/mantineColor";
 
@@ -133,10 +134,70 @@ function SpotlightSweep() {
   return <span className="tm-spotlight-sweep" aria-hidden="true" />;
 }
 
-function groupFontSize(count: number, circle: number) {
-  if (count >= 100) return Math.min(10, circle * 0.35);
-  if (count >= 10) return Math.min(12, circle * 0.4);
-  return 14;
+/**
+ * Ukuran angka pada bubble tumpukan: 10px, dan mengecil hanya kalau angkanya
+ * tidak muat.
+ *
+ * Bulatannya cuma 20px; tiga digit pada 10px meluber keluar lingkaran, jadi
+ * ukuran itu satu-satunya alasan angkanya boleh menyusut.
+ */
+const GROUP_FONT_SIZE = 10;
+/**
+ * Isi tooltip satu titik: nama orangnya, lalu skor pada SUMBU YANG AKTIF.
+ *
+ * Nama saja tidak menerangkan kenapa titik itu berada di posisi tersebut,
+ * padahal justru itu yang dicari orang saat menunjuk satu titik. Sumbunya
+ * dibaca dari konfigurasi, jadi mengganti metrik di halaman Setting langsung
+ * mengganti isi tooltip ini.
+ */
+function PointDetail({ point, config, zActive }: { point: TMPoint; config: TMConfig; zActive: boolean }) {
+  const rows: [string, number | null | undefined][] = [
+    [config.sumbuX, point.rawX],
+    [config.sumbuY, point.rawY],
+  ];
+  if (zActive) rows.push([config.sumbuZ ?? "Sumbu Z", point.rawZ]);
+
+  return (
+    <div style={{ fontFamily: FONT, fontSize: 11, lineHeight: 1.6 }}>
+      <div style={{ fontWeight: 700, marginBottom: 2 }}>{point.name}</div>
+      {rows.map(([label, value]) => (
+        <div key={label}>
+          {label} : {value ?? "-"}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Batas orang yang dirinci di tooltip tumpukan; sisanya cukup dihitung. */
+const TOOLTIP_MAX_PEOPLE = 4;
+
+/**
+ * Isi tooltip bubble tumpukan: tiap penghuninya beserta skornya.
+ *
+ * Dibatasi beberapa orang — tumpukan bisa berisi puluhan, dan tooltip
+ * setinggi layar tidak bisa dibaca. Daftar utuhnya dibuka dengan mengklik
+ * bubble-nya, yang memang sudah membuka popover berisi tabel.
+ */
+function GroupDetail({ group, config, zActive }: { group: TMPoint[]; config: TMConfig; zActive: boolean }) {
+  const shown = group.slice(0, TOOLTIP_MAX_PEOPLE);
+  const rest = group.length - shown.length;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      {shown.map(p => (
+        <PointDetail key={p.employeeId} point={p} config={config} zActive={zActive} />
+      ))}
+      {rest > 0 && (
+        <div style={{ fontFamily: FONT, fontSize: 10, opacity: 0.75 }}>
+          +{rest} orang lagi — klik untuk melihat semuanya
+        </div>
+      )}
+    </div>
+  );
+}
+
+function groupFontSize(count: number) {
+  return count >= 100 ? 8 : GROUP_FONT_SIZE;
 }
 const dist = (x1: number, y1: number, x2: number, y2: number) => Math.hypot(x1 - x2, y1 - y2);
 
@@ -344,12 +405,21 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
             // rinciannya dibuka lewat popover.
             const lit = !!spotlightId && g.some(m => m.employeeId === spotlightId);
             return (
-              <div key={i} title={g.map(p => p.name).join(", ")}
+              <Tooltip
+                key={i}
+                openDelay={0}
+                transitionProps={{ duration: 80 }}
+                withArrow
+                position="top"
+                label={<GroupDetail group={g} config={config} zActive={zActive} />}
+              >
+              <div
                 onClick={(e) => { e.stopPropagation(); setPopover({ group: g, x, y }); }}
-                style={{ position: "absolute", bottom: `${y}%`, left: `${x}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: groupFontSize(g.length, SIZE_AVATAR), fontWeight: 700, zIndex: lit ? 200 : outside ? 10 : 100, cursor: "pointer", overflow: "hidden", boxShadow: lit ? spotlightShadow(zShadow(null)) : zShadow(null), ...zOutline(null) }}>
+                style={{ position: "absolute", bottom: `${y}%`, left: `${x}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: groupFontSize(g.length), fontWeight: 400, zIndex: lit ? 200 : outside ? 10 : 100, cursor: "pointer", overflow: "hidden", boxShadow: lit ? spotlightShadow(zShadow(null)) : zShadow(null), ...zOutline(null) }}>
                 {g.length}
                 {lit && <SpotlightSweep />}
               </div>
+              </Tooltip>
             );
           }
           const p = g[0];
@@ -357,7 +427,15 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
           const ring = zActive && !outsideOne ? zRing(g, config.rangesZ ?? []) : null;
           const lit = !!spotlightId && p.employeeId === spotlightId;
           return (
-            <div key={i} title={p.name}
+            <Tooltip
+              key={i}
+              openDelay={0}
+              transitionProps={{ duration: 80 }}
+              withArrow
+              position="top"
+              label={<PointDetail point={p} config={config} zActive={zActive} />}
+            >
+            <div
               onClick={(e) => { e.stopPropagation(); setPopover({ group: g, x: p.x ?? outbox, y: p.y ?? outbox }); }}
               style={{ position: "absolute", bottom: `${p.y ?? outbox}%`, left: `${p.x ?? outbox}%`, transform: "translate(-50%,50%)", width: SIZE_AVATAR, height: SIZE_AVATAR, borderRadius: "50%", background: NODE_BG, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 700, zIndex: lit ? 200 : 100, overflow: "hidden", cursor: "pointer", boxShadow: lit ? spotlightShadow(zShadow(ring)) : zShadow(ring), ...zOutline(ring) }}>
               <span>{initials(p.name)}</span>
@@ -371,6 +449,7 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
               )}
               {lit && <SpotlightSweep />}
             </div>
+            </Tooltip>
           );
         })}
 

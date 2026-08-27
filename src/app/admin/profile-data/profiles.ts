@@ -60,8 +60,20 @@ export interface ProfileEntry {
 }
 
 /** Tipe data satu kolom bidang tambahan. */
-export type ExtensionColumnType = "Text" | "Number" | "Date";
-export const EXTENSION_COLUMN_TYPES: ExtensionColumnType[] = ["Text", "Number", "Date"];
+export type ExtensionColumnType =
+  | "Text"
+  | "Long Text"
+  | "Number (Whole)"
+  | "Number (Decimal)"
+  | "Date";
+
+export const EXTENSION_COLUMN_TYPES: ExtensionColumnType[] = [
+  "Text",
+  "Long Text",
+  "Number (Whole)",
+  "Number (Decimal)",
+  "Date",
+];
 
 export interface ExtensionColumn {
   label: string;
@@ -212,20 +224,44 @@ function extensionSeed(participantId: string, key: string): number {
   return (h >>> 0) % 100;
 }
 
-/** Empat tingkat untuk kolom bertipe Text; dipilih dari angka semunya. */
+/** Isi contoh kolom Text: pendek, cukup untuk satu sel tabel. */
 const TEXT_SAMPLES = ["Sangat Baik", "Baik", "Cukup", "Perlu Perhatian"];
+
+/**
+ * Isi contoh kolom Long Text: satu kalimat.
+ *
+ * Dibedakan dari Text bukan sekadar demi panjangnya, tapi karena itu memang
+ * bedanya kedua tipe ini — Long Text menampung catatan, bukan label.
+ */
+const LONG_TEXT_SAMPLES = [
+  "Menunjukkan hasil konsisten di seluruh periode penilaian.",
+  "Perlu pendampingan pada aspek teknis tertentu sebelum promosi.",
+  "Berkembang cepat sejak rotasi terakhir, cocok untuk peran lebih luas.",
+  "Hasil memadai, namun belum terlihat inisiatif di luar tugas rutin.",
+];
 
 /** Menulis angka semu sesuai tipe kolomnya. */
 export function formatExtensionValue(value: number | null, type: ExtensionColumnType): string {
   if (value == null) return "-";
-  if (type === "Number") return String(value);
-  if (type === "Text") return TEXT_SAMPLES[value % TEXT_SAMPLES.length];
-  // Date: tanggal tetap dalam rentang dua tahun terakhir dari tanggal acuan.
-  // Acuannya ditulis tetap, bukan hari ini, supaya tampilan server dan klien
-  // sama dan tidak berubah tiap hari.
-  const d = new Date(DATE_ANCHOR);
-  d.setDate(d.getDate() - value * 7);
-  return d.toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" });
+  switch (type) {
+    case "Number (Whole)":
+      return String(value);
+    case "Number (Decimal)":
+      // Satu angka di belakang koma; angka semunya 0–99 jadi hasilnya 0,0–9,9.
+      return (value / 10).toFixed(1).replace(".", ",");
+    case "Long Text":
+      return LONG_TEXT_SAMPLES[value % LONG_TEXT_SAMPLES.length];
+    case "Date": {
+      // Tanggal dalam rentang dua tahun ke belakang dari tanggal acuan. Acuannya
+      // ditulis tetap, bukan hari ini, supaya tampilan server dan klien sama
+      // dan tidak berubah tiap hari.
+      const d = new Date(DATE_ANCHOR);
+      d.setDate(d.getDate() - value * 7);
+      return d.toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" });
+    }
+    default:
+      return TEXT_SAMPLES[value % TEXT_SAMPLES.length];
+  }
 }
 
 const DATE_ANCHOR = "2026-06-30T00:00:00Z";

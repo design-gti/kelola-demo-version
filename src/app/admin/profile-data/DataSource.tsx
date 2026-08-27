@@ -173,7 +173,9 @@ function AddDataModal({ onClose, onCreate }: {
               data={EXTENSION_COLUMN_TYPES}
               radius="xl"
               withAsterisk
-              w={130}
+              /* Cukup untuk "Number (Decimal)", pilihan terpanjang; di 130px
+                 tulisannya terpotong di tengah kata. */
+              w={168}
             />
           </div>
         ))}
