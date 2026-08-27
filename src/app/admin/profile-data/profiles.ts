@@ -78,6 +78,16 @@ export const EXTENSION_COLUMN_TYPES: ExtensionColumnType[] = [
 export interface ExtensionColumn {
   label: string;
   type: ExtensionColumnType;
+  /**
+   * Rentang nilai untuk kolom angka, kalau 0–99 bawaan tidak masuk akal —
+   * "Tinggi Badan: 4" terbaca sebagai data rusak, bukan data contoh.
+   *
+   * Hanya diisi bidang bawaan demo; kolom yang dibuat user lewat modal tidak
+   * punya cara menyatakan rentang, dan memang tidak perlu.
+   */
+  range?: [number, number];
+  /** Daftar nilai untuk kolom teks, menggantikan contoh umum. */
+  options?: string[];
 }
 
 /**
@@ -139,7 +149,25 @@ const DEFAULT_PROFILES: (Omit<ProfileEntry, "enabled"> & { fields: () => Profile
 const SEED_EXTENSIONS: Omit<ProfileEntry, "kind">[] = [
   { slug: "tenure", name: "Tenure", description: "Masa Kerja", enabled: true },
   { slug: "test", name: "test", description: "-", enabled: false },
-  { slug: "medical-checkup", name: "Medical Checkup", description: "medcheck", enabled: false },
+  {
+    slug: "medical-checkup",
+    name: "Medical Checkup",
+    description: "Hasil pemeriksaan kesehatan tahunan",
+    enabled: true,
+    /*
+     * Satu bidang tambahan bawaan yang benar-benar berisi, supaya alur "data
+     * extension → kartu di iProfile" bisa dilihat tanpa harus membuatnya dulu.
+     *
+     * Rentang tiap kolom ditulis di sini karena angka semu 0–99 tidak masuk
+     * akal untuk tinggi dan berat badan.
+     */
+    columns: [
+      { label: "Tinggi Badan", type: "Number (Whole)", range: [150, 190] },
+      { label: "Berat Badan", type: "Number (Whole)", range: [45, 95] },
+      { label: "Status Kesehatan", type: "Text", options: ["Sehat", "Perlu Pemantauan", "Perlu Tindak Lanjut"] },
+      { label: "Golongan Darah", type: "Text", options: ["A", "B", "AB", "O"] },
+    ],
+  },
 ];
 
 // ─── Simpanan sesi ───────────────────────────────────────────────────────────
@@ -240,17 +268,32 @@ const LONG_TEXT_SAMPLES = [
   "Hasil memadai, namun belum terlihat inisiatif di luar tugas rutin.",
 ];
 
-/** Menulis angka semu sesuai tipe kolomnya. */
-export function formatExtensionValue(value: number | null, type: ExtensionColumnType): string {
+/**
+ * Menulis angka semu sesuai tipe kolomnya.
+ *
+ * `column` opsional: kolom bawaan demo bisa membawa rentang angka atau daftar
+ * nilainya sendiri, sedangkan kolom buatan user memakai bawaan umum.
+ */
+export function formatExtensionValue(
+  value: number | null,
+  type: ExtensionColumnType,
+  column?: Pick<ExtensionColumn, "range" | "options">,
+): string {
   if (value == null) return "-";
+  // Angka semunya 0–99; dipetakan ke rentang kolom kalau kolomnya punya.
+  const scaled = column?.range
+    ? column.range[0] + (value / 100) * (column.range[1] - column.range[0])
+    : value;
+  const words = column?.options;
+
   switch (type) {
     case "Number (Whole)":
-      return String(value);
+      return String(Math.round(scaled));
     case "Number (Decimal)":
-      // Satu angka di belakang koma; angka semunya 0–99 jadi hasilnya 0,0–9,9.
-      return (value / 10).toFixed(1).replace(".", ",");
+      // Satu angka di belakang koma. Tanpa rentang, 0–99 jadi 0,0–9,9.
+      return (column?.range ? scaled : value / 10).toFixed(1).replace(".", ",");
     case "Long Text":
-      return LONG_TEXT_SAMPLES[value % LONG_TEXT_SAMPLES.length];
+      return (words ?? LONG_TEXT_SAMPLES)[value % (words ?? LONG_TEXT_SAMPLES).length];
     case "Date": {
       // Tanggal dalam rentang dua tahun ke belakang dari tanggal acuan. Acuannya
       // ditulis tetap, bukan hari ini, supaya tampilan server dan klien sama
@@ -259,8 +302,10 @@ export function formatExtensionValue(value: number | null, type: ExtensionColumn
       d.setDate(d.getDate() - value * 7);
       return d.toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" });
     }
-    default:
-      return TEXT_SAMPLES[value % TEXT_SAMPLES.length];
+    default: {
+      const list = words ?? TEXT_SAMPLES;
+      return list[value % list.length];
+    }
   }
 }
 
@@ -286,7 +331,7 @@ export function fieldsOf(slug: string): ProfileField[] {
     key: `${slug}:col${i + 1}`,
     label: c.label,
     valueOf: (id: string) => extensionSeed(id, `${slug}:${i}:${c.label}`),
-    format: (v: number | null) => formatExtensionValue(v, c.type),
+    format: (v: number | null) => formatExtensionValue(v, c.type, c),
   }));
 }
 

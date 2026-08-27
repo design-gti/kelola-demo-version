@@ -863,11 +863,14 @@ function EmpDataRow({ label, value, border = true }: { label: string; value: str
   return (
     <div className="relative shrink-0 w-full">
       {border && <div aria-hidden="true" className="absolute border-[#dee2e6] border-b border-solid inset-0 pointer-events-none" />}
-      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] font-normal gap-[4px] items-start leading-[0] p-[8px] relative text-[#495057] text-[12px] w-full">
-        <div className="flex flex-col justify-center relative shrink-0 w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      {/* Label abu tipis, nilainya tebal dan lebih tua — sama dengan baris di
+          kartu data extension, supaya dua kartu yang sama-sama berisi pasangan
+          label-nilai tidak terbaca sebagai dua sistem yang berbeda. */}
+      <div className="content-stretch flex font-['Open_Sans:Regular',sans-serif] gap-[4px] items-start leading-[0] p-[8px] relative text-[12px] w-full">
+        <div className="flex flex-col font-normal justify-center relative shrink-0 text-[#868e96] w-[118px]" style={{ fontVariationSettings: "'wdth' 100" }}>
           <p className="leading-[normal] whitespace-pre-wrap">{label}</p>
         </div>
-        <div className="flex flex-[1_0_0] flex-col justify-center min-h-px min-w-px relative text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
+        <div className="flex flex-[1_0_0] flex-col font-bold justify-center min-h-px min-w-px relative text-[#495057] text-right" style={{ fontVariationSettings: "'wdth' 100" }}>
           <p className="leading-[normal] whitespace-pre-wrap">{value}</p>
         </div>
       </div>

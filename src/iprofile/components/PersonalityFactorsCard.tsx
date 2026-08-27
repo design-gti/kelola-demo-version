@@ -1,6 +1,5 @@
 "use client";
 import { useContext, useMemo } from "react";
-import { Tooltip } from "@mantine/core";
 import { ProfileContext } from "../lib/ProfileContext";
 import {
   PERSONALITY_FACTORS,
@@ -25,9 +24,72 @@ const ACCENT = "#016699";
  */
 const LIST_MAX_HEIGHT = 420;
 
-/** Panjang trek skala, dalam px — sisa lebar setelah kode, nama, dan angka. */
+/** Tebal trek skala dan garis condongnya, serta besar marker — dalam px. */
 const TRACK_HEIGHT = 3;
 const MARKER = 16;
+
+/** Titik netral skala STEN, dalam persen lebar trek. */
+const CENTER_PCT = 50;
+
+/** Gelembung kutub: lebar tetap supaya kiri dan kanan seimbang. */
+const POLE_BUBBLE_WIDTH = 116;
+
+/**
+ * Gelembung keterangan kutub, muncul mengapit trek saat barisnya di-hover.
+ *
+ * Dua-duanya ditampilkan sekaligus karena skala 16PF memang bipolar: satu
+ * kutub tidak berarti apa-apa tanpa lawannya. Sisi yang DICAPAI orang ini
+ * diberi warna aksen, sisi lawannya abu tua — kalau keduanya digambar sama
+ * kuat, pembaca masih harus menebak mana yang berlaku.
+ *
+ * Ditempel di dalam TREK (absolute), bukan lewat portal: keduanya masih berada
+ * di dalam lebar kartu, jadi tidak ada yang perlu dijepit ke tepi layar.
+ *
+ * Digantung di bawah treknya, bukan di atas: kalau di atas, ia menutupi nama
+ * faktor — padahal nama itulah yang sedang ditunjuk kursor, dan menutupinya
+ * membuat orang lupa keterangan ini milik baris yang mana.
+ */
+function PoleBubble({ side, text, active }: { side: "left" | "right"; text: string; active: boolean }) {
+  return (
+    <span
+      className={`pointer-events-none absolute z-[3] opacity-0 transition-opacity duration-100 group-hover/factor:opacity-100 ${side === "left" ? "left-0" : "right-0"}`}
+      style={{
+        top: MARKER + 6,
+        width: POLE_BUBBLE_WIDTH,
+        background: active ? ACCENT : "#343a40",
+        color: "#fff",
+        borderRadius: 4,
+        padding: "5px 7px",
+        fontFamily: FONT,
+        fontSize: 9,
+        fontStyle: "italic",
+        lineHeight: 1.35,
+        boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+      }}
+    >
+      {text}
+      {/* Ekor gelembung: kotak diputar, jadi warnanya selalu ikut induknya. */}
+      <span
+        className="absolute"
+        style={{
+          top: -3,
+          [side]: 10,
+          width: 7,
+          height: 7,
+          transform: "rotate(45deg)",
+          background: active ? ACCENT : "#343a40",
+        } as React.CSSProperties}
+      />
+    </span>
+  );
+}
+
+/** Hex → rgba, untuk menipiskan pangkal garis di titik tengah. */
+function withAlpha(hex: string, alpha: number): string {
+  const h = hex.replace("#", "");
+  const [r, g, b] = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16));
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
 
 /**
  * Satu baris faktor: kode, nama, skala STEN, dan keterangan kutub yang berlaku.
@@ -44,31 +106,38 @@ function FactorRow({ factor, sten }: { factor: PersonalityFactor; sten: number }
   // ujung kiri trek dan STEN 10 tidak terpotong di ujung kanan.
   const pct = ((sten - STEN_MIN + 0.5) / (STEN_MAX - STEN_MIN + 1)) * 100;
 
+  /*
+   * Garis biru dari TITIK TENGAH skala ke posisi skornya.
+   *
+   * Yang dibaca dari 16PF bukan "tinggi atau rendah", melainkan condong ke kutub
+   * mana — dan itu sulit ditangkap dari sebuah titik yang berdiri sendiri di
+   * atas garis abu. Dengan pangkalnya selalu di tengah, arah dan panjang garis
+   * langsung menyatakan ke mana dan seberapa jauh orangnya condong, tanpa perlu
+   * membandingkan posisi titik antar baris.
+   *
+   * Gradiennya menipis ke arah tengah supaya pangkalnya tidak terbaca sebagai
+   * batas keras — tengah adalah titik netral, bukan awal sebuah nilai.
+   */
+  const leansRight = pct >= CENTER_PCT;
+  const fill = {
+    left: `${Math.min(CENTER_PCT, pct)}%`,
+    width: `${Math.abs(pct - CENTER_PCT)}%`,
+    background: leansRight
+      ? `linear-gradient(to right, ${withAlpha(ACCENT, 0.15)}, ${ACCENT})`
+      : `linear-gradient(to left, ${withAlpha(ACCENT, 0.15)}, ${ACCENT})`,
+  };
+
+  const leansLow = sten <= POLE_LOW_MAX;
+  const leansHigh = sten >= POLE_HIGH_MIN;
+
   return (
     /*
-     * Tooltip design system, bukan atribut `title` bawaan browser: title
-     * menunggu sekitar satu detik sebelum muncul dan jedanya tidak bisa disetel
-     * sama sekali. Di daftar 16 baris yang justru ditelusuri dengan menyapukan
-     * kursor, jeda itu membuat keterangannya praktis tak pernah terlihat.
+     * Keterangan kedua kutub muncul lewat hover pada barisnya — memakai
+     * group-hover, bukan state React: yang berubah hanya keterlihatan dua
+     * elemen, dan menyimpannya di state berarti seluruh daftar 16 baris
+     * dirender ulang setiap kali kursor berpindah baris.
      */
-    <Tooltip
-      openDelay={0}
-      transitionProps={{ duration: 80 }}
-      position="left"
-      withArrow
-      multiline
-      w={230}
-      label={
-        <span style={{ fontFamily: FONT, fontSize: 11, lineHeight: 1.5 }}>
-          <b>{factor.name}</b> ({factor.code}) — STEN {sten}
-          <br />
-          {STEN_MIN}: {factor.low}
-          <br />
-          {STEN_MAX}: {factor.high}
-        </span>
-      }
-    >
-    <div className="flex items-start gap-[8px] py-[7px]">
+    <div className="group/factor relative flex items-start gap-[8px] py-[7px]">
       {/* Kode faktor: penanda baku 16PF, dipakai orang yang sudah hafal
           kodenya untuk menemukan barisnya tanpa membaca namanya. */}
       <span
@@ -101,16 +170,39 @@ function FactorRow({ factor, sten }: { factor: PersonalityFactor; sten: number }
               style={{ left: `${((i + 1) / (STEN_MAX - STEN_MIN + 1)) * 100}%`, top: (MARKER - 7) / 2, width: 1, height: 7 }}
             />
           ))}
+          {/* Penanda titik tengah — pangkal garis biru harus terlihat, kalau
+              tidak, garisnya terbaca sebagai bar biasa yang mulai dari kiri. */}
           <span
-            className="absolute flex items-center justify-center rounded-full"
+            className="absolute bg-[#ced4da]"
+            style={{ left: `${CENTER_PCT}%`, top: (MARKER - 11) / 2, width: 1, height: 11 }}
+          />
+          <span
+            className="absolute rounded-full"
+            style={{ ...fill, top: (MARKER - TRACK_HEIGHT) / 2, height: TRACK_HEIGHT }}
+          />
+          {/* Kelas pf-marker dipakai aturan hover di globals.css: menaikkan
+              skala butuh transform, sedangkan transform di sini sudah dipakai
+              untuk menengahkan titiknya — keduanya harus ditulis bersamaan,
+              dan itu tidak bisa dilakukan dari dua tempat berbeda. */}
+          <span
+            className="pf-marker absolute flex items-center justify-center rounded-full"
             style={{
-              left: `${pct}%`, transform: "translateX(-50%)", top: 0,
+              // transform TIDAK ditulis di sini: gaya inline mengalahkan
+              // stylesheet, jadi aturan hover di globals.css tidak akan pernah
+              // bisa menambahkan scale. Penengahan -50% ikut tinggal di sana.
+              left: `${pct}%`, top: 0,
               width: MARKER, height: MARKER, background: ACCENT,
               fontFamily: FONT, fontSize: 9, fontWeight: 700, color: "#fff",
             }}
           >
             {sten}
           </span>
+
+          {/* Kutub rendah di kiri, kutub tinggi di kanan — sejajar dengan arah
+              skalanya, jadi letak gelembungnya sendiri sudah menyatakan sisi
+              mana yang sedang diterangkan. */}
+          <PoleBubble side="left" text={factor.low} active={leansLow} />
+          <PoleBubble side="right" text={factor.high} active={leansHigh} />
         </span>
 
         <span
@@ -121,7 +213,6 @@ function FactorRow({ factor, sten }: { factor: PersonalityFactor; sten: number }
         </span>
       </span>
     </div>
-    </Tooltip>
   );
 }
 

@@ -14,7 +14,7 @@ const tweaked = { ...TI_CONFIG, boxes: TI_CONFIG.boxes.map(b => ({ ...b, label: 
 describe("simpanan konfigurasi Talent Mapping — lingkup sesi", () => {
   beforeEach(() => {
     resetConfig("TI");
-    resetConfig("TR");
+    resetConfig("HIPO");
   });
 
   it("menyimpan lalu membaca kembali suntingan dalam sesi yang sama", () => {
@@ -52,7 +52,7 @@ describe("simpanan konfigurasi Talent Mapping — lingkup sesi", () => {
   });
   it("konfigurasi tiap box mapping berdiri sendiri", () => {
     saveConfig("TI", tweaked);
-    expect(getEffectiveConfig("TR").boxes.map(b => b.label))
+    expect(getEffectiveConfig("HIPO").boxes.map(b => b.label))
       .not.toEqual(tweaked.boxes.map(b => b.label));
   });
 

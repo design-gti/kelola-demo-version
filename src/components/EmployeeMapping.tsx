@@ -288,17 +288,9 @@ export default function EmployeeMapping({
     [synced, activeTab, version],
   );
 
-  /**
-   * Talent Readiness mengukur orang TERHADAP satu jabatan target, dan kartu ini
-   * tidak punya pemilih target. Jadi selnya memang kosong di sini, dan itu
-   * dinyatakan lewat keterangan — bukan dibiarkan terbaca sebagai "tidak ada
-   * siapa pun di kotak mana pun".
-   */
-  const awaitingTarget = !!config && config.id === "TR";
-
   const points = useMemo(
-    () => (config && metrics && !awaitingTarget ? pointsFrom(config, metrics) : []),
-    [config, metrics, awaitingTarget],
+    () => (config && metrics ? pointsFrom(config, metrics) : []),
+    [config, metrics],
   );
 
   const cells = useMemo(
@@ -384,14 +376,6 @@ export default function EmployeeMapping({
               />
             ))}
           </div>
-          {awaitingTarget && (
-            // Grid TR memang kosong tanpa jabatan target, dan kartu ini tidak
-            // punya pemilihnya. Dikatakan, bukan dibiarkan terbaca sebagai
-            // "tidak ada siapa pun di kotak mana pun".
-            <p className="text-[#adb5bd] text-[10px] text-center mt-[6px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-              Pilih jabatan target di Talent Mapping untuk melihat sebarannya.
-            </p>
-          )}
           <div className="h-px bg-[#adb5bd] mt-[2px]" />
           <p className="text-[#58595b] text-[12px] text-center mt-[2px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
             {xLabel}

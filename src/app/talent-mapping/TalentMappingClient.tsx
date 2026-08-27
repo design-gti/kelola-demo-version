@@ -7,6 +7,7 @@ import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
 import DistributionSummary from "@/components/talent/DistributionSummary";
 import MappingSidePanel from "@/components/talent/MappingSidePanel";
+import { mantineColor } from "@/components/team/mantineColor";
 import { matchesFuzzy } from "@/lib/data/textMatch";
 import { donutTags, boxByOrder, bandIndex, pointsFrom, usesCompetency, defaultShade, COMPETENCY_KEY, METRICS,
   type TMConfig, type TMPoint, type MetricKey, type EmployeeMetrics, type AxisBand } from "@/data/talentMappingShared";
@@ -18,6 +19,16 @@ const HIGHLIGHT_DURATION_MS = 3000;
 
 const FONT = "'Open Sans', sans-serif";
 const ACCENT = "#016699";
+
+/**
+ * Latar panel kendali — neutral.1 dari palet design system.
+ *
+ * Kartu ini memuat dua hal yang berbeda sifatnya: alat untuk menyaring dan
+ * memilih di kiri, dan bacaan datanya di kanan. Bidang abu muda memisahkan
+ * keduanya lebih jelas daripada garis tipis, tanpa memecahnya kembali jadi dua
+ * kartu.
+ */
+const PANEL_BG = mantineColor.neutral[1];
 
 /**
  * 9-box adalah kartu utama halaman, jadi digambar jauh lebih besar dari bawaan
@@ -84,8 +95,7 @@ const axisHead = (label: string, key: MetricKey, axis: string, relative: boolean
  * berisi Talent/Non Talent yang ditulis tetap dan tidak ikut tag yang disetel
  * user — dan "Readiness" di TR, padahal keduanya membaca medan yang sama.
  */
-const tiHeaders = (cfg: TMConfig, rel: boolean) => ["Position", "Employee", axisHead(cfg.sumbuX, cfg.sumbuXKey, "X", rel), axisHead(cfg.sumbuY, cfg.sumbuYKey, "Y", rel), "Box Category", "Tag", "Action"];
-const trHeaders = (cfg: TMConfig, rel: boolean) => ["Employee", "Position", axisHead(cfg.sumbuX, cfg.sumbuXKey, "X", rel), axisHead(cfg.sumbuY, cfg.sumbuYKey, "Y", rel), "Box Category", "Tag", "Action"];
+const tableHeaders = (cfg: TMConfig, rel: boolean) => ["Position", "Employee", axisHead(cfg.sumbuX, cfg.sumbuXKey, "X", rel), axisHead(cfg.sumbuY, cfg.sumbuYKey, "Y", rel), "Box Category", "Tag", "Action"];
 
 function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean }) {
   return <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: muted ? "#ced4da" : "#495057" }}>{children}</span>;
@@ -93,8 +103,6 @@ function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean 
 
 function TablePanel({ config, points, highlightId, relativeToTarget = false, emptyMessage = "No data." }: { config: TMConfig; points: TMPoint[]; highlightId?: string | null; relativeToTarget?: boolean; emptyMessage?: string }) {
   const router = useRouter();
-  // Tab buatan user memakai bentuk yang sama dengan TI.
-  const isTI = config.id !== "TR";
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const pageCount = Math.max(1, Math.ceil(points.length / limit));
@@ -120,7 +128,7 @@ function TablePanel({ config, points, highlightId, relativeToTarget = false, emp
       <Table verticalSpacing="sm" horizontalSpacing="md" highlightOnHover>
         <Table.Thead>
           <Table.Tr>
-            {(isTI ? tiHeaders(config, relativeToTarget) : trHeaders(config, relativeToTarget)).map((h) => (
+            {tableHeaders(config, relativeToTarget).map((h) => (
               <Table.Th key={h}>{h}</Table.Th>
             ))}
           </Table.Tr>
@@ -150,54 +158,28 @@ function TablePanel({ config, points, highlightId, relativeToTarget = false, emp
                 // <tr> tidak bisa membawa border-radius maupun box-shadow.
                 style={isHighlighted ? { background: "#e6f3f8", transition: "background 0.3s" } : undefined}
               >
-                {isTI ? (
-                  <>
-                    <Table.Td>
-                      <Cell>{p.positionTitle}</Cell>
-                    </Table.Td>
-                    <Table.Td>{person}</Table.Td>
-                    <Table.Td>
-                      <Cell muted={p.rawX == null}>{p.rawX ?? "{No data}"}</Cell>
-                    </Table.Td>
-                    <Table.Td>
-                      <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
-                    </Table.Td>
-                    <Table.Td>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</Table.Td>
-                    {/* Tag kotaknya apa adanya. Sebelumnya kolom ini memaksa
-                        setiap orang jadi Talent atau Non Talent — dua nilai yang
-                        ditulis tetap di sini, jadi tag apa pun yang disetel user
-                        di halaman Setting tidak pernah terlihat, dan kotak yang
-                        tagnya sengaja dikosongkan tetap terbaca "Non Talent". */}
-                    <Table.Td>
-                      {box?.readiness
-                        ? <OutlinePill color={boxColor}>{box.readiness}</OutlinePill>
-                        : <Cell muted>-</Cell>}
-                    </Table.Td>
-                    <Table.Td>{action}</Table.Td>
-                  </>
-                ) : (
-                  <>
-                    <Table.Td>{person}</Table.Td>
-                    <Table.Td>
-                      <Cell>{p.positionTitle}</Cell>
-                    </Table.Td>
-                    <Table.Td>
-                      <Cell muted={p.rawX == null}>{p.rawX != null ? `${p.rawX}%` : "{No data}"}</Cell>
-                    </Table.Td>
-                    <Table.Td>
-                      <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
-                    </Table.Td>
-                    <Table.Td>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</Table.Td>
-                    {/* Bentuknya disamakan dengan mode TI: pil berwarna kotaknya,
-                        bukan teks biasa. Isinya medan yang sama. */}
-                    <Table.Td>
-                      {box?.readiness
-                        ? <OutlinePill color={boxColor}>{box.readiness}</OutlinePill>
-                        : <Cell muted>-</Cell>}
-                    </Table.Td>
-                    <Table.Td>{action}</Table.Td>
-                  </>
-                )}
+                <Table.Td>
+                  <Cell>{p.positionTitle}</Cell>
+                </Table.Td>
+                <Table.Td>{person}</Table.Td>
+                <Table.Td>
+                  <Cell muted={p.rawX == null}>{p.rawX ?? "{No data}"}</Cell>
+                </Table.Td>
+                <Table.Td>
+                  <Cell muted={p.rawY == null}>{p.rawY ?? "{No data}"}</Cell>
+                </Table.Td>
+                <Table.Td>{box ? <OutlinePill color={boxColor}>{box.label}</OutlinePill> : <Cell muted>-</Cell>}</Table.Td>
+                {/* Tag kotaknya apa adanya. Sebelumnya kolom ini memaksa setiap
+                    orang jadi Talent atau Non Talent — dua nilai yang ditulis
+                    tetap di sini, jadi tag apa pun yang disetel user di halaman
+                    Setting tidak pernah terlihat, dan kotak yang tagnya sengaja
+                    dikosongkan tetap terbaca "Non Talent". */}
+                <Table.Td>
+                  {box?.readiness
+                    ? <OutlinePill color={boxColor}>{box.readiness}</OutlinePill>
+                    : <Cell muted>-</Cell>}
+                </Table.Td>
+                <Table.Td>{action}</Table.Td>
               </Table.Tr>
             );
           })}
@@ -251,7 +233,6 @@ function Panel({
   /** Baris tab box mapping, dirender induk dan ditaruh di kepala kartu ini. */
   tabBar?: React.ReactNode;
 }) {
-  const isTR = config.id === "TR";
   /**
    * Pemilih jabatan target muncul mengikuti SUMBU, bukan nama tab: tab apa pun
    * yang memakai data Competency menawarkannya, dan tab yang tidak memakainya
@@ -259,11 +240,10 @@ function Panel({
    */
   const needsTarget = usesCompetency(config);
   const [jobTarget, setJobTarget] = useState<string | null>(null);
-  /** Di TR target WAJIB — tanpa itu tidak ada kecocokan yang bisa dihitung. */
   const relativeToTarget = needsTarget && !!jobTarget;
   const basePoints = useMemo(
-    () => (isTR && !jobTarget ? [] : pointsFrom(config, metrics, needsTarget ? jobTarget : null)),
-    [isTR, jobTarget, needsTarget, config, metrics],
+    () => pointsFrom(config, metrics, needsTarget ? jobTarget : null),
+    [jobTarget, needsTarget, config, metrics],
   );
   // Deep-link highlight: resolve the name/id once against the initial data
   // (lazy useState initializers, computed only on mount — not an effect,
@@ -290,7 +270,15 @@ function Panel({
    * sebagai string, bukan nama pitanya, supaya mengganti nama pita di Setting
    * tidak membatalkan saringan yang sedang aktif. Kosong = semua lolos.
    */
-  const [axisPicks, setAxisPicks] = useState<Record<string, string[]>>({});
+  /*
+   * Berangkat dari saringan bawaan tabnya, kalau ada.
+   *
+   * Tab seperti High-Po memang berarti "orang dengan Potency tinggi", jadi
+   * saringan itu bagian dari definisi tabnya — bukan sesuatu yang harus dipasang
+   * ulang tiap kali dibuka. Komponen ini di-remount tiap ganti tab (key={tab} di
+   * induknya), jadi nilai awal ini benar-benar dibaca ulang per tab.
+   */
+  const [axisPicks, setAxisPicks] = useState<Record<string, string[]>>(() => config.defaultAxisPicks ?? {});
   const [draftTeams, setDraftTeams] = useState<string[]>([]);
   const [draftJobs, setDraftJobs] = useState<string[]>([]);
   const [draftAxisPicks, setDraftAxisPicks] = useState<Record<string, string[]>>({});
@@ -351,15 +339,6 @@ function Panel({
   );
 
   /**
-   * Talent Readiness mengukur orang TERHADAP satu jabatan target, jadi sumbu X
-   * baru punya nilai setelah targetnya dipilih — gridnya kosong karena menunggu
-   * pilihan, bukan karena datanya tidak ada. Keterangannya dipakai di grafik
-   * DAN di tabel dari satu sumber supaya keduanya tidak pernah berbeda kata.
-   */
-  const awaitingTarget = isTR && !jobTarget;
-  const AWAITING_TARGET_NOTICE = "No job target selected yet, please choose one first";
-
-  /**
    * Ringkasan ikut apa yang sedang dilihat. Saat satu kotak difokuskan, yang
    * dipertanyakan bukan lagi sebaran antar tag melainkan "kotak ini isinya
    * berapa dari keseluruhan" — jadi barnya tinggal satu, memakai nama dan warna
@@ -382,32 +361,63 @@ function Panel({
   const openFilter = () => { setDraftTeams(teams); setDraftJobs(jobs); setDraftAxisPicks(axisPicks); setFilterOpen(true); };
   const applyFilter = () => { setTeams(draftTeams); setJobs(draftJobs); setAxisPicks(draftAxisPicks); setSelectedBox(null); setFilterOpen(false); };
   const toggle = (arr: string[], v: string) => arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v];
+  /** Berapa centang yang sedang dipasang DI MODAL; menyalakan tombol Clear All. */
+  const draftCount = draftTeams.length + draftJobs.length + axes.reduce((n, a) => n + picksFor(a, draftAxisPicks).length, 0);
+
   const toggleAxis = (axisId: string, v: string) =>
     setDraftAxisPicks(prev => ({ ...prev, [axisId]: toggle(prev[axisId] ?? [], v) }));
-  const clearAll = () => { setTeams([]); setJobs([]); setAxisPicks({}); setSelectedBox(null); };
-
-  // Active-filter chips: >3 of a kind collapses to a single "N Team/Job" chip (mirrors kelola-app).
-  const chips: { label: string; onRemove: () => void }[] = [];
-  if (teams.length > 3) chips.push({ label: `${teams.length} Team`, onRemove: () => setTeams([]) });
-  else teams.forEach(t => chips.push({ label: `Team: ${t}`, onRemove: () => setTeams(prev => prev.filter(x => x !== t)) }));
-  if (jobs.length > 3) chips.push({ label: `${jobs.length} Job`, onRemove: () => setJobs([]) });
-  else jobs.forEach(j => chips.push({ label: `Job: ${j}`, onRemove: () => setJobs(prev => prev.filter(x => x !== j)) }));
-  axes.forEach(a => {
-    picksFor(a, axisPicks).forEach(v => {
-      const band = a.bands[Number(v)];
-      if (!band) return;
-      chips.push({
-        label: `${a.label}: ${band.label}`,
-        onRemove: () => setAxisPicks(prev => ({ ...prev, [a.id]: (prev[a.id] ?? []).filter(x => x !== v) })),
-      });
-    });
-  });
+  /*
+   * Saringan yang sedang aktif TIDAK dijabarkan di luar modal.
+   *
+   * Dulu tiap saringan jadi satu chip di kepala kartu; begitu beberapa saringan
+   * dipasang, barisnya membungkus dan mendorong seluruh grafik ke bawah — dan
+   * itu terjadi tepat saat user sedang membandingkan sebaran. Yang tersisa di
+   * luar cuma angka pada tombol Filter (activeCount): cukup untuk menjawab
+   * "sedang tersaring atau tidak", dan rinciannya ada di modalnya sendiri.
+   */
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <div style={{ display: "flex", gap: 16, alignItems: "stretch", flexWrap: "wrap" }}>
-        {/* Panel kendali — menyaring, mengurutkan, memilih untuk dibandingkan */}
-        <div style={{ flex: "0 1 300px", minWidth: 280, background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 16 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      {/* Baris tab di LUAR kartu.
+          Tab memilih mapping mana yang sedang dilihat, jadi ia berdiri di atas
+          seluruh kartu — bukan di dalamnya seperti sebuah kendali kartu. Kartu
+          di bawahnya adalah isi tab yang sedang aktif. */}
+      {tabBar}
+
+      {/*
+       * SATU kartu untuk panel kiri, 9-box, dan ringkasannya.
+       *
+       * Ketiganya menceritakan hal yang sama: daftar di kiri adalah orang-orang
+       * yang sedang diplot di grid, dan ringkasan di kanan menghitung mereka.
+       * Dulu panelnya kartu tersendiri, dan dua kartu bersebelahan terbaca
+       * seperti dua bacaan yang kebetulan berdampingan.
+       */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 12, background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 16 }}>
+        {/* Kepala kartu — melintang selebar kartu, bukan milik kolom kanan saja.
+            Dengan begitu panel kiri dan 9-box berangkat dari garis atas yang
+            sama; waktu kepala ini tinggal di kolom kanan, grid selalu turun
+            setinggi baris ini sementara panel di kiri tidak. */}
+        <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
+          {/* Pintu ke halaman Setting. Diberi tulisan, bukan ikon telanjang:
+              ikon roda gigi sendirian bisa berarti apa saja, dan ini satu-satunya
+              jalan menuju pengaturan mapping. */}
+          <span
+            role="button"
+            onClick={onSettings}
+            title={`Setting ${config.name}`}
+            style={{ display: "inline-flex", alignItems: "center", gap: 6, color: ACCENT, cursor: onSettings ? "pointer" : undefined, fontFamily: FONT, fontSize: 13, fontWeight: 700 }}
+          >
+            <IconSettings size={16} />
+            Configuration
+          </span>
+        </div>
+
+        <div style={{ display: "flex", gap: 0, alignItems: "stretch", flexWrap: "wrap" }}>
+        {/* Panel kendali — menyaring, mengurutkan, memilih untuk dibandingkan.
+            Pemisahnya garis, bukan jarak antar kartu: keduanya kini satu bidang.
+            Garis dimatikan saat barisnya membungkus (layar sempit), karena di
+            sana panel duduk DI ATAS grid, bukan di sebelahnya. */}
+        <div style={{ flex: "0 1 300px", minWidth: 280, background: PANEL_BG, borderRadius: 12, padding: 12 }}>
           <MappingSidePanel
             config={config}
             points={panelRows}
@@ -424,27 +434,11 @@ function Panel({
           />
         </div>
 
-        {/* Kartu 9-box — sekarang mengambil sisa lebar, bukan separuh */}
-        <div style={{ flex: "1 1 520px", background: "#fff", borderRadius: 12, boxShadow: "2px 4px 10px rgba(0,0,0,0.07)", padding: 16, display: "flex", flexDirection: "column", gap: 12 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-            {/* Baris tab box mapping — dioper dari induk, karena tab menentukan
-                konfigurasi mana yang dipakai Panel ini. */}
-            {tabBar}
-            <IconSettings onClick={onSettings} title={`Setting ${config.name}`} size={16} style={{ color: ACCENT, cursor: onSettings ? "pointer" : undefined }} />
-          </div>
-
-          {chips.length > 0 && (
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8 }}>
-              {chips.map((c, i) => (
-                <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#e6f3f8", color: ACCENT, borderRadius: 999, padding: "3px 10px", fontSize: 11, fontFamily: FONT }}>
-                  {c.label}
-                  <span role="button" title="Remove filter" onClick={c.onRemove} style={{ cursor: "pointer", display: "inline-flex", opacity: 0.7 }}>✕</span>
-                </span>
-              ))}
-              <span role="button" onClick={clearAll} style={{ color: ACCENT, fontSize: 11, fontWeight: 700, fontFamily: FONT, cursor: "pointer" }}>Clear All</span>
-            </div>
-          )}
-
+        {/* Sisi kanan: 9-box beserta ringkasannya. */}
+        {/* paddingTop menyamai padding dalam panel kiri: isi kedua sisi harus
+            berangkat dari garis yang sama, dan panel kini punya bidang sendiri
+            yang mendorong isinya masuk 12px. */}
+        <div style={{ flex: "1 1 520px", paddingLeft: 16, paddingTop: 12, display: "flex", flexDirection: "column", gap: 12 }}>
           {/* Ringkasan sebaran, di atas 9-box */}
 
           {/* 9-box dan ringkasannya bersebelahan. Ringkasan dipindah ke samping
@@ -453,8 +447,11 @@ function Panel({
               sebelahnya — bukan sesuatu yang berdiri sendiri.
               flex-wrap dibiarkan menyala: di layar sempit ringkasan turun ke
               bawah grid daripada menghimpitnya. */}
-          <div style={{ display: "flex", gap: 24, alignItems: "flex-start", paddingTop: 4, flexWrap: "wrap" }}>
-            <TMTRBox config={config} points={banded} selectedBox={selectedBox} onBoxClick={setSelectedBox} spotlightId={spotlightId} size={BOX_SIZE} emptyNotice={awaitingTarget ? AWAITING_TARGET_NOTICE : undefined} />
+          {/* Tanpa padding atas: grid harus berangkat dari garis yang sama dengan
+              panel di kiri, dan 4px di sini cukup untuk membuat keduanya terbaca
+              tidak sejajar. */}
+          <div style={{ display: "flex", gap: 24, alignItems: "flex-start", flexWrap: "wrap" }}>
+            <TMTRBox config={config} points={banded} selectedBox={selectedBox} onBoxClick={setSelectedBox} spotlightId={spotlightId} size={BOX_SIZE} />
             {/* Tanpa batas lebar: ringkasan mengisi sisa ruang di kanan 9-box.
                 9-box lebarnya tetap (BOX_SIZE), jadi kalau ringkasannya juga
                 dibatasi, sisa ruang kartu tertinggal kosong. */}
@@ -479,6 +476,7 @@ function Panel({
             </div>
           </div>
         </div>
+        </div>
       </div>
 
       <TablePanel
@@ -486,7 +484,6 @@ function Panel({
         points={tableRows}
         highlightId={highlightId}
         relativeToTarget={relativeToTarget}
-        emptyMessage={awaitingTarget ? AWAITING_TARGET_NOTICE : "No data."}
       />
 
       {/* Judul & radius datang dari tema — cukup oper string. */}
@@ -536,9 +533,25 @@ function Panel({
             </ScrollArea.Autosize>
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 20 }}>
-          <Button variant="outline" color="primary" radius="xl" onClick={() => setFilterOpen(false)}>Cancel</Button>
-          <Button color="primary" radius="xl" onClick={applyFilter}>Save</Button>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, marginTop: 20 }}>
+          {/* Mengosongkan seluruh centang di modal ini, BUKAN saringan yang
+              sedang berlaku — seperti centangnya sendiri, ia baru berlaku
+              setelah Save. Jadi "Clear All" lalu Cancel meninggalkan saringan
+              lama utuh, sama seperti mencentang lalu Cancel.
+              Ditaruh di sisi kiri, jauh dari Save: ia membuang seluruh pilihan,
+              dan aksi seperti itu tidak boleh bersebelahan dengan aksi yang
+              paling sering ditekan. Redup saat memang belum ada yang dicentang. */}
+          <Button
+            variant="subtle" color="primary" radius="xl"
+            disabled={draftCount === 0}
+            onClick={() => { setDraftTeams([]); setDraftJobs([]); setDraftAxisPicks({}); }}
+          >
+            Clear All
+          </Button>
+          <div style={{ display: "flex", gap: 10 }}>
+            <Button variant="outline" color="primary" radius="xl" onClick={() => setFilterOpen(false)}>Cancel</Button>
+            <Button color="primary" radius="xl" onClick={applyFilter}>Save</Button>
+          </div>
         </div>
       </Modal>
     </div>

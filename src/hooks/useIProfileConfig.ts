@@ -140,13 +140,26 @@ function onProfileDataChanged() {
   listeners.forEach((l) => l());
 }
 
+/**
+ * Langganan peristiwa dipasang SEKALI seumur tab, bukan mengikuti ada-tidaknya
+ * komponen yang memakai hook ini.
+ *
+ * Dulu ia dilepas begitu pemakai terakhir dilepas. Akibatnya, bidang yang
+ * dibuat di halaman Admin selagi iProfile tidak terpasang tidak pernah masuk ke
+ * snapshot — dan karena snapshot itu tersimpan di modul, kembali ke iProfile
+ * menampilkan daftar kartu yang basi, tanpa kartu bidang baru itu.
+ */
+let subscribedToProfileData = false;
+function ensureProfileDataSubscription() {
+  if (subscribedToProfileData || typeof window === "undefined") return;
+  subscribedToProfileData = true;
+  window.addEventListener(PROFILE_DATA_EVENT, onProfileDataChanged);
+}
+
 function subscribe(listener: () => void) {
-  if (listeners.size === 0) window.addEventListener(PROFILE_DATA_EVENT, onProfileDataChanged);
+  ensureProfileDataSubscription();
   listeners.add(listener);
-  return () => {
-    listeners.delete(listener);
-    if (listeners.size === 0) window.removeEventListener(PROFILE_DATA_EVENT, onProfileDataChanged);
-  };
+  return () => { listeners.delete(listener); };
 }
 
 function setCards(next: IProfileCardConfig[]) {

@@ -15,13 +15,17 @@
 // lihat pointsFrom() di talentMappingShared.
 import { TMConfig, MetricKey, makeConfigById, metricLabel } from "./talentMappingShared";
 
-/** "TI" / "TR" untuk dua tab bawaan; tab buatan user memakai id sendiri. */
+/** Id tab bawaan (lihat BUILT_IN_TABS); tab buatan user memakai id sendiri. */
 export type ConfigId = string;
 
 /** Dua tab yang selalu ada dan tidak bisa dihapus. */
 export const BUILT_IN_TABS: { id: string; label: string }[] = [
   { id: "TI", label: "Talent Identification" },
-  { id: "TR", label: "Talent Readiness" },
+  // Tiga tab Po: grid yang sama persis dengan TI, hanya sudah tersaring ke satu
+  // pita Potency sejak dibuka (lihat BUILT_IN_CONFIGS di talentMappingShared).
+  { id: "HIPO", label: "High-Po" },
+  { id: "MIPO", label: "Mi-Po" },
+  { id: "LOPO", label: "Low-Po" },
 ];
 export const isBuiltInTab = (id: string) => BUILT_IN_TABS.some(t => t.id === id);
 

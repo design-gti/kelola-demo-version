@@ -110,6 +110,17 @@ export interface TMConfig {
   tagDescriptions?: Record<string, string>;
   /** Warna buatan user (hex) yang tersimpan di samping palet design system. */
   colorOptions?: string[];
+  /**
+   * Saringan pita sumbu yang sudah menyala begitu tab ini dibuka, dikunci id
+   * sumbu ("X" / "Y" / "Z") berisi INDEKS pita sebagai string.
+   *
+   * Dipakai tab seperti High-Po, yang memang tab "orang dengan Potency tinggi" —
+   * saringannya bagian dari definisi tabnya, bukan sesuatu yang harus dipasang
+   * ulang oleh user tiap kali membukanya. Indeks, bukan nama pita, dengan alasan
+   * yang sama seperti saringan biasa: mengganti nama pita di Setting tidak boleh
+   * membatalkan saringannya.
+   */
+  defaultAxisPicks?: Record<string, string[]>;
   /** Sumbu ketiga, digambar sebagai tebal cincin — bukan posisi. Mati secara
    *  bawaan; grafik dua sumbu tetap bacaan yang paling mudah. */
   useZ?: boolean;
@@ -379,6 +390,23 @@ export function pointsFrom(cfg: TMConfig, rows: EmployeeMetrics[], targetId?: st
 // Default 9box config (client-safe — no per-employee data). Actual plot
 // points for a config are computed server-side; see
 // src/lib/data/talentMapping.ts's getTalentIdentificationPoints().
+/**
+ * Tab bawaan: semuanya Competency (X) lawan Performance (Y) dengan Potency
+ * sebagai sumbu Z. Yang membedakan ketiga tab Po adalah pita Potency yang sudah
+ * tersaring sejak dibuka — itulah artinya "High-Po": orang yang sama, dilihat
+ * lewat satu lapis Potency saja.
+ *
+ * Indeks pita mengikuti urutan pita dari rendah ke tinggi (0 = LOW, 1 = MID,
+ * 2 = HIGH); ditulis sebagai indeks supaya tetap sah kalau nama pitanya diubah
+ * di halaman Setting.
+ */
+const BUILT_IN_CONFIGS: Record<string, { name: string; zBand?: string }> = {
+  TI: { name: "Talent Identification" },
+  HIPO: { name: "High-Po", zBand: "2" },
+  MIPO: { name: "Mi-Po", zBand: "1" },
+  LOPO: { name: "Low-Po", zBand: "0" },
+};
+
 export const TI_CONFIG: TMConfig = makeConfigById("TI");
 
 // TR (Talent Readiness): Competency × Potency, empty until a Job Target is picked.
@@ -401,52 +429,38 @@ function trTierFor(compTop: boolean, potTop: boolean) {
   return TR_TIERS.find(t => t.readiness === readiness)!;
 }
 
-/** TR boxes for a layout ordering: label/color/readiness by grid tier
- *  (top competency column and/or top potency row ⇒ readier). */
-export function trBoxesFor(ordering: number[][]): BoxDef[] {
-  const boxes: BoxDef[] = [];
-  ordering.forEach((row, rowFromTop) => {
-    row.forEach((order, col) => {
-      const tier = trTierFor(col === row.length - 1, rowFromTop === 0);
-      boxes.push({ order, label: tier.label, color: tier.color, tag: null, readiness: tier.readiness });
-    });
-  });
-  return boxes.sort((a, b) => a.order - b.order);
-}
-
 // Readiness buckets in display order (worst→best). Donut colors are NOT fixed
 // here — donutTags() pulls each bucket's color from its box, so it always tracks
 // the diagram (and any color edits made in Settings).
 
-export const TR_CONFIG: TMConfig = makeConfigById("TR");
-
 /** Base config for a box-mapping id: TI = plain layout; TR = same grid but with
  *  tier-derived readiness labels/colors/buckets (works for every layout). */
+
 export function makeConfigById(
   id: string,
   layout = "9box",
   overrides?: Partial<Pick<TMConfig, "sumbuXKey" | "sumbuYKey">>,
 ): TMConfig {
-  // Talent Identification bawaan memakai TIGA sumbu: Competency (X) lawan
-  // Performance (Y), dengan Potency sebagai sumbu Z. Sumbu Z hanya dinyalakan
-  // di sini, bukan di makeConfig, supaya tab buatan user tetap mulai dari dua
-  // sumbu dan menyalakan Z hanya kalau pembuatnya memang memilih sumbu ketiga.
-  if (id === "TI") {
+  const builtIn = BUILT_IN_CONFIGS[id];
+  // Sumbu Z hanya dinyalakan untuk tab bawaan, bukan di makeConfig, supaya tab
+  // buatan user tetap mulai dari dua sumbu dan menyalakan Z hanya kalau
+  // pembuatnya memang memilih sumbu ketiga.
+  if (builtIn) {
     const zKey: MetricKey = "leadership_score";
-    return { ...makeConfig(layout, overrides), id: "TI", useZ: true, sumbuZKey: zKey, sumbuZ: metricLabel(zKey) };
+    return {
+      ...makeConfig(layout, overrides),
+      id,
+      name: builtIn.name,
+      tabLabel: builtIn.name,
+      useZ: true,
+      sumbuZKey: zKey,
+      sumbuZ: metricLabel(zKey),
+      ...(builtIn.zBand ? { defaultAxisPicks: { Z: [builtIn.zBand] } } : null),
+    };
   }
   // Tab buatan user bertingkah seperti TI — dua metrik lawan dua metrik. Yang
   // membedakannya hanya id, nama, dan pilihan sumbunya; sisanya bawaan 9-box.
-  if (id !== "TR") return { ...makeConfig(layout, overrides), id };
-  const base = makeConfig(layout, {
-    sumbuXKey: overrides?.sumbuXKey ?? "technical_score",
-    sumbuYKey: overrides?.sumbuYKey ?? "leadership_score",
-  });
-  return {
-    ...base,
-    id: "TR", name: "Talent Readiness", tabLabel: "Talent Readiness", unit: "Employees",
-    boxes: trBoxesFor(base.ordering),
-  };
+  return { ...makeConfig(layout, overrides), id };
 }
 
 /**

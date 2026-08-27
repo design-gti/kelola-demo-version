@@ -313,3 +313,28 @@ html, body {
 html[data-embed] aside[data-app-sidebar] {
   display: none !important;
 }
+
+/*
+ * Titik skor 16PF membesar saat barisnya di-hover.
+ *
+ * Penanda arah: dua gelembung kutub muncul bersamaan di bawah trek, dan tanpa
+ * ini tidak ada yang menunjukkan titik mana yang sedang diterangkan — di daftar
+ * 16 baris yang rapat, baris yang di-hover mudah tertukar dengan tetangganya.
+ *
+ * transform-nya ditulis lengkap berikut translateX(-50%): nilai itu yang
+ * menengahkan titik pada posisi skornya, dan menimpanya dengan scale saja akan
+ * menggeser titiknya setengah lebar ke kanan.
+ */
+.pf-marker {
+  /* Penengah titik pada posisi skornya; ditulis di sini, bukan sebagai gaya
+     inline, supaya aturan hover di bawah bisa menambahkan scale tanpa
+     menghilangkannya. */
+  transform: translateX(-50%);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.group\/factor:hover .pf-marker {
+  transform: translateX(-50%) scale(1.2);
+  box-shadow: 0 0 0 3px rgba(1, 102, 153, 0.18);
+}
+
+
