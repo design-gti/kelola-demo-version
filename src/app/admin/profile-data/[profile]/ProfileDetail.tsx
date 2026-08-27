@@ -169,7 +169,12 @@ export function ProfileDetail({ slug }: { slug: string }) {
               </div>
             ) : (
               <>
-                <div className="mb-[12px] flex flex-wrap items-center gap-[12px]">
+                {/* Tiga kolom, bukan flex ber-ml-auto: pemilih lapisan harus
+                    berada di TENGAH baris, dan itu hanya benar kalau ruang di
+                    kiri dan kanannya dipaksa sama lebar. Dengan flex, letaknya
+                    ikut bergeser tiap kali panjang isi di salah satu sisi
+                    berubah — misalnya pencarian yang melebar. */}
+                <div className="mb-[12px] grid grid-cols-[1fr_auto_1fr] items-center gap-[12px]">
                   <TextInput
                     value={query}
                     onChange={(e) => { setQuery(e.currentTarget.value); setPage(1); }}
@@ -178,11 +183,12 @@ export function ProfileDetail({ slug }: { slug: string }) {
                     w={260}
                     rightSection={<IconSearch size={16} stroke={1.6} color="#adb5bd" />}
                   />
-                  {/* Ketiga kendali tabel dikumpulkan di satu wadah kanan: pemilih
-                      lapisan, pemilih kolom, dan mode fokus semuanya mengatur
-                      tampilan tabel yang sama, jadi mereka satu kelompok — bukan
-                      tersebar mengikuti sisa ruang. */}
-                  <div className="ml-auto flex flex-wrap items-center gap-[10px]">
+                  {/* Kolom tengah: pemilih lapisan. Ia menentukan APA yang
+                      ditabelkan — bukan sekadar mengatur tampilannya seperti dua
+                      kendali di kanan — jadi ia berdiri sendiri di tengah.
+                      Dirender walau kosong supaya kolom tengahnya tetap ada dan
+                      kendali di kanan tidak bergeser di profil tanpa lapisan KB. */}
+                  <div className="flex justify-center">
                   {kbLayer && (
                     <SegmentedControl
                       value={layer}
@@ -196,6 +202,11 @@ export function ProfileDetail({ slug }: { slug: string }) {
                       color="primary"
                     />
                   )}
+                  </div>
+
+                  {/* Pemilih kolom dan mode fokus: keduanya mengatur tampilan
+                      tabel yang sama, jadi tetap satu kelompok di kanan. */}
+                  <div className="flex flex-wrap items-center justify-end gap-[10px]">
                   <Menu shadow="md" width={260} closeOnItemClick={false}>
                     <Menu.Target>
                       <ActionIcon variant="subtle" color="gray" aria-label="Pilih kolom yang tampil">
@@ -293,16 +304,16 @@ export function ProfileDetail({ slug }: { slug: string }) {
                           // dititipkan ke title: nama aspek bisa panjang, dan
                           // membiarkannya melebar membuat tabel tak terbaca.
                           <Table.Th key={f.key} style={{ minWidth: VALUE_COL, maxWidth: VALUE_COL }}>
-                            {/* Aspek dan taraf ikut disebut di kolom KB. Tanpa
-                                aspeknya, 195 kolom KB kehilangan konteks; tanpa
-                                tarafnya, butir yang mirip di taraf berbeda
-                                terbaca sama. */}
-                            {f.aspect && (
-                              <span className="block truncate text-[10px] font-normal text-[#adb5bd]" title={f.aspect}>
-                                {f.aspect}
-                              </span>
-                            )}
-                            <span className="block truncate" title={f.label}>
+                            {/* Judulnya nama KB saja. Aspek pemiliknya tidak
+                                ikut ditulis: di kolom selebar 120px, dua baris
+                                terpangkas membuat keduanya sama-sama tak
+                                terbaca. Aspeknya tetap bisa ditelusuri lewat
+                                pemilih kolom, yang mengelompokkan KB per aspek,
+                                dan lewat title lengkap di bawah ini.
+
+                                Taraf tetap disebut — butir yang mirip di taraf
+                                berbeda akan terbaca sama tanpa penandanya. */}
+                            <span className="block truncate" title={f.aspect ? `${f.aspect} — ${f.label}` : f.label}>
                               {f.level != null && <span className="mr-[4px] text-[10px] text-[#adb5bd]">L{f.level}</span>}
                               {f.label}
                             </span>
@@ -324,7 +335,11 @@ export function ProfileDetail({ slug }: { slug: string }) {
                           <Table.Td className="text-[#adb5bd]">{r.lastUpdate}</Table.Td>
                           {shown.map((f) => (
                             <Table.Td key={f.key}>
-                              {r.values[f.index] ?? <span className="text-[#ced4da]">-</span>}
+                              {/* Kolom bertipe Date atau Text membawa cara
+                                  tulisnya sendiri; sisanya angka apa adanya. */}
+                              {f.format
+                                ? f.format(r.values[f.index])
+                                : r.values[f.index] ?? <span className="text-[#ced4da]">-</span>}
                             </Table.Td>
                           ))}
                           <Table.Td>

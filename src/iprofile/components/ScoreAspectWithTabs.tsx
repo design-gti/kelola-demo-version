@@ -82,6 +82,19 @@ function CategoryChips({
 /** Kategori yang benar-benar ada di daftar aspek, urut kemunculan pertama. */
 const categoriesOf = (items: AspectItem[]) => [...new Set(items.map((a) => a.category))];
 
+/**
+ * Tinggi maksimum daftar aspek di mode list, dalam px.
+ *
+ * Satu orang bisa dinilai belasan aspek dan tiap aspek satu blok, jadi daftarnya
+ * jauh lebih tinggi daripada radar chart di mode satunya — kolom kiri memanjang
+ * melewati dua kolom lain. Angkanya didekatkan ke tinggi radar chart supaya
+ * berganti mode tidak membuat halaman melompat.
+ *
+ * Gulir mendatar sengaja dimatikan: yang dimaksud hanya gulir tegak, dan kartu
+ * selebar 368px tidak boleh ikut bergeser ke samping.
+ */
+const LIST_MAX_HEIGHT = 420;
+
 /** Kerangka kartu skor — dipakai kartu Competency maupun Potency. */
 function ScoreCard({ children }: { children: React.ReactNode }) {
   return (
@@ -251,7 +264,7 @@ function CategorySection({ title, children }: { title: string; children: React.R
 // Potency Content Component (data-driven)
 function PotencyContent({ items }: { items: AspectItem[] }) {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start overflow-clip relative shrink-0 w-full">
+    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full overflow-y-auto overflow-x-hidden pr-[4px]" style={{ maxHeight: LIST_MAX_HEIGHT }}>
       {byCategory(items).map(([cat, group]) => (
         <CategorySection key={cat} title={cat}>
           {group.map((a, i) => (
@@ -266,7 +279,7 @@ function PotencyContent({ items }: { items: AspectItem[] }) {
 // Competency Content Component (data-driven)
 function CompetencyContent({ items }: { items: AspectItem[] }) {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start overflow-clip relative shrink-0 w-full">
+    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full overflow-y-auto overflow-x-hidden pr-[4px]" style={{ maxHeight: LIST_MAX_HEIGHT }}>
       {byCategory(items).map(([cat, group]) => (
         <CategorySection key={cat} title={cat}>
           {group.map((a, i) => (

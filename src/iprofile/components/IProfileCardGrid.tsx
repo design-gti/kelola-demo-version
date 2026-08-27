@@ -12,7 +12,6 @@ import {
   CareerPlanCard,
   SuccessionPlanCard,
   TeamsCard,
-  ExtensionDataCard,
   DevelopmentCard,
   EmployeeDataCard,
   Frame79,
@@ -20,6 +19,8 @@ import {
   Frame153,
 } from "../imports/Frame45227";
 import { CompetencyScoresCard, PotencyScoresCard, type AspectItem } from "./ScoreAspectWithTabs";
+import { PersonalityFactorsCard } from "./PersonalityFactorsCard";
+import { ExtensionCard, extensionSlugOf } from "./ExtensionDataCards";
 
 /** Lebar satu kartu iProfile — dipakai juga sebagai lebar pratinjau di panel. */
 const CARD_WIDTH = 368;
@@ -56,10 +57,15 @@ export function IProfileCardGrid({
       case "career-plan":       return <CareerPlanCard />;
       case "succession-plan":  return <SuccessionPlanCard />;
       case "teams":             return <TeamsCard />;
-      case "extension-data":    return <ExtensionDataCard />;
       case "development":       return <DevelopmentCard />;
       case "employee-data":     return <EmployeeDataCard />;
-      default: return null;
+      case "personality-factors": return <PersonalityFactorsCard />;
+      default: {
+        // Kartu data extension tidak punya case sendiri: id-nya dibentuk dari
+        // slug bidangnya, dan bidangnya baru ada setelah user membuatnya.
+        const slug = extensionSlugOf(id);
+        return slug ? <ExtensionCard slug={slug} /> : null;
+      }
     }
   }
 

@@ -10,6 +10,7 @@ import { AddCareerPlanModal } from "../components/AddCareerPlanModal";
 import { AddSuccessorsModal } from "../components/AddSuccessorsModal";
 import { useState, useContext, useEffect } from "react";
 import { candidates } from "@/data/dummyData";
+import TextButton from "@/components/ui/TextButton";
 import { getParticipant, scoreOf, allTeams } from "@/data/model/selectors";
 import {
   ProfileContext,
@@ -240,15 +241,17 @@ export function Frame79({ title, rightSlot }: { title: string; rightSlot?: React
  * judulnya.
  */
 export function Frame153() {
-  return (
-    <button
-      type="button"
-      className="font-['Avenir:Heavy',sans-serif] leading-[normal] not-italic shrink-0 text-[#016699] text-[14px] cursor-pointer bg-transparent border-none p-0 hover:underline"
-      data-name="button"
-    >
-      Score Records
-    </button>
-  );
+  /*
+   * TextButton design system, bukan <button> bergaya sendiri. Yang ditiru dulu
+   * hanya warna dan tebal hurufnya; tinggi, padding, radius, keadaan hover
+   * dan aktif, serta cincin fokus keyboard semuanya hilang.
+   *
+   * Hurufnya ikut berganti ke Open Sans, dan itu justru membetulkan: berkas
+   * ini menyebut "Avenir:Heavy" bawaan Figma, sedangkan tidak ada @font-face
+   * Avenir di proyek ini — jadi yang tergambar selama ini sans-serif bawaan
+   * browser, bukan Avenir.
+   */
+  return <TextButton fontSize={14}>Score Records</TextButton>;
 }
 
 function Frame9() {
@@ -523,196 +526,6 @@ function Frame87() {
   );
 }
 
-function Frame92() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">Extension Data</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame93() {
-  return (
-    <div className="content-stretch flex gap-[4px] items-center justify-end relative shrink-0 w-[70.083px]">
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="dots-vertical">
-        <div className="absolute inset-[16.67%_45.83%]" data-name="Vector">
-          <div className="absolute inset-[-7.03%_-56.25%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2.83333 12.1667">
-              <g id="Vector">
-                <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-              </g>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame91() {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <Frame92 />
-      <Frame93 />
-    </div>
-  );
-}
-
-function Frame34() {
-  const { extension } = useContext(ProfileContext);
-  return (
-    <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal]">Performance</p>
-      </div>
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#016699] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">{extension.performance}</p>
-      </div>
-      <div className="absolute flex items-center justify-center left-[21px] size-[10px] top-[20px]">
-        <div className="flex-none rotate-180">
-          <div className="overflow-clip relative size-[10px]" data-name="arrow-up">
-            <div className="absolute bottom-[20.83%] left-1/4 right-1/4 top-[20.83%]" data-name="Vector">
-              <div className="absolute inset-[-8.04%_-9.38%]">
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 5.9375 6.77083">
-                  <path d={svgPaths.pe7b5200} id="Vector" stroke="var(--stroke-0, #DE350B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.9375" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Component1() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] h-[51.5px] min-h-px min-w-px relative rounded-[8px]" data-name="Component 104">
-      <div className="content-stretch flex items-start justify-between px-[16px] py-[4px] relative size-full">
-        <Frame34 />
-      </div>
-    </div>
-  );
-}
-
-function Frame35() {
-  const { extension } = useContext(ProfileContext);
-  return (
-    <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#495057] text-[10px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal]">Engagement</p>
-      </div>
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#016699] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">{extension.engagement}</p>
-      </div>
-      <div className="absolute flex items-center justify-center left-[21px] size-[10px] top-[20px]">
-        <div className="flex-none rotate-180">
-          <div className="overflow-clip relative size-[10px]" data-name="arrow-up">
-            <div className="absolute bottom-[20.83%] left-1/4 right-1/4 top-[20.83%]" data-name="Vector">
-              <div className="absolute inset-[-8.04%_-9.38%]">
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 5.9375 6.77083">
-                  <path d={svgPaths.pe7b5200} id="Vector" stroke="var(--stroke-0, #DE350B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.9375" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Component() {
-  return (
-    <div className="bg-[#f8f9fa] flex-[1_0_0] h-[51.5px] min-h-px min-w-px relative rounded-[8px]" data-name="Component 103">
-      <div className="content-stretch flex items-start justify-between px-[16px] py-[4px] relative size-full">
-        <Frame35 />
-      </div>
-    </div>
-  );
-}
-
-function Frame95() {
-  return (
-    <div className="content-stretch flex gap-[16px] items-center relative shrink-0 w-full">
-      <Component1 />
-      <Component />
-    </div>
-  );
-}
-
-function Frame36() {
-  const { extension } = useContext(ProfileContext);
-  return (
-    <div className="content-stretch flex flex-col gap-[6px] items-start leading-[0] relative shrink-0 whitespace-nowrap">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal]">Potency</p>
-      </div>
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[14px]">
-        <p className="leading-[normal]">{extension.potency}</p>
-      </div>
-    </div>
-  );
-}
-
-function Component3() {
-  return (
-    <div className="bg-[#f8f9fa] content-stretch flex h-[51.5px] items-start justify-between px-[16px] py-[4px] relative rounded-[8px] shrink-0 w-[160.167px]" data-name="Component 106">
-      <Frame36 />
-    </div>
-  );
-}
-
-function Frame37() {
-  const { extension } = useContext(ProfileContext);
-  return (
-    <div className="content-stretch flex flex-col gap-[6px] items-start leading-[0] relative shrink-0 whitespace-nowrap">
-      <div className="flex flex-col font-['Open_Sans:Regular',sans-serif] font-normal justify-center relative shrink-0 text-[#495057] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[normal]">Medical Checkup</p>
-      </div>
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center not-italic relative shrink-0 text-[#016699] text-[0px]">
-        <p>
-          <span className="font-['Open_Sans:Regular',sans-serif] font-normal leading-[normal] text-[10px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-            Tinggi Badan
-          </span>
-          <span className="font-['Open_Sans:Regular',sans-serif] font-normal leading-[normal] text-[12px]" style={{ fontVariationSettings: "'wdth' 100" }}>{` `}</span>
-          <span className="leading-[normal] text-[14px]">{extension.height}</span>
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function Component2() {
-  return (
-    <div className="bg-[#f8f9fa] content-stretch flex h-[51.5px] items-start justify-between px-[16px] py-[4px] relative rounded-[8px] shrink-0 w-[160.167px]" data-name="Component 104">
-      <Frame37 />
-    </div>
-  );
-}
-
-function Frame96() {
-  return (
-    <div className="content-stretch flex gap-[16px] items-center relative shrink-0 w-full">
-      <Component3 />
-      <Component2 />
-    </div>
-  );
-}
-
-function Frame94() {
-  return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full">
-      <Frame95 />
-      <Frame96 />
-    </div>
-  );
-}
-
 /**
  * Rencana karier orang ini. Dulu satu kartu bersama Succession Plan; dipisah
  * karena keduanya menjawab pertanyaan berbeda — ke mana orang ini bisa naik,
@@ -793,15 +606,6 @@ export function TeamsCard() {
   <div className="bg-white content-stretch flex flex-col gap-[23px] items-start p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Teams">
     <Frame117 />
     <Frame87 />
-  </div>
-  );
-}
-
-export function ExtensionDataCard() {
-  return (
-  <div className="bg-white content-stretch flex flex-col gap-[23px] h-[216.313px] items-start p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368.333px]" data-name="Data Extension">
-    <Frame91 />
-    <Frame94 />
   </div>
   );
 }

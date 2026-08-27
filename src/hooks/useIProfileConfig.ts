@@ -1,5 +1,7 @@
 "use client";
 import { useSyncExternalStore } from "react";
+import { allProfiles, PROFILE_DATA_EVENT } from "@/app/admin/profile-data/profiles";
+import { extensionCardId } from "@/iprofile/components/ExtensionDataCards";
 
 /**
  * Susunan kartu halaman iProfile: kartu mana yang tampil dan di kolom mana.
@@ -21,17 +23,39 @@ export interface IProfileCardConfig {
   locked?: boolean;
 }
 
-const DEFAULT_CARDS: IProfileCardConfig[] = [
+const STATIC_CARDS: IProfileCardConfig[] = [
   { id: "profile",           label: "Profile",                 description: "Foto, jabatan, DISC, IQ, dan competency match",        enabled: true, col: 0, locked: true },
   { id: "competency-scores", label: "Competency Scores",       description: "Skor aspek kompetensi terhadap standar Job",           enabled: true, col: 0 },
   { id: "potency-scores",    label: "Potency Scores",          description: "Skor aspek potensi terhadap standar Job",              enabled: true, col: 0 },
   { id: "career-plan",       label: "Career Plan",             description: "Rencana karier karyawan ini",                          enabled: true, col: 1 },
   { id: "succession-plan",   label: "Succession Plan",         description: "Calon penerus jabatan karyawan ini",                   enabled: true, col: 1 },
   { id: "teams",             label: "Teams",                   description: "Tim tempat karyawan ini tergabung",                    enabled: true, col: 1 },
-  { id: "extension-data",    label: "Extension Data",          description: "Performa, engagement, potensi, dan medical checkup",   enabled: true, col: 1 },
   { id: "development",       label: "Development",             description: "Riwayat IDP beserta status dan periodenya",            enabled: true, col: 2 },
   { id: "employee-data",     label: "Employee Data",           description: "Data pribadi dan riwayat kepegawaian",                 enabled: true, col: 2 },
+  { id: "personality-factors", label: "16 Personality Factors", description: "Skor STEN 16PF beserta kecenderungan tiap faktor",     enabled: true, col: 2 },
 ];
+
+/**
+ * Kartu data extension: satu per bidang tambahan yang aktif di Admin > Profile
+ * Data, dihitung saat dipakai — bukan didaftar tetap seperti kartu lainnya.
+ *
+ * Daftar bidangnya memang bisa berubah kapan saja selama sesi berjalan, jadi
+ * daftar kartu di sini harus ikut. Bidang yang dimatikan di halaman admin tidak
+ * menghasilkan kartu sama sekali; itulah arti sakelar di sana.
+ */
+function extensionCards(): IProfileCardConfig[] {
+  return allProfiles()
+    .filter((p) => p.kind === "extension" && p.enabled)
+    .map((p) => ({
+      id: extensionCardId(p.slug),
+      label: p.name,
+      description: p.description === "-" ? "Data extension" : p.description,
+      enabled: true,
+      col: 2 as const,
+    }));
+}
+
+const defaultCards = (): IProfileCardConfig[] => [...STATIC_CARDS, ...extensionCards()];
 
 const STORAGE_KEY = "iprofile-card-config-v1";
 
@@ -46,13 +70,14 @@ const SPLIT_CARDS: Record<string, string[]> = {
 
 /** Gabungkan simpanan lama dengan bawaan, supaya kartu baru tetap muncul. */
 function mergeWithDefaults(stored: Partial<IProfileCardConfig>[]): IProfileCardConfig[] {
+  const defaults = defaultCards();
   const result = stored
     .flatMap((s) => {
       const heirs = s.id ? SPLIT_CARDS[s.id] : undefined;
       return heirs ? heirs.map((id) => ({ ...s, id })) : [s];
     })
     .map((s) => {
-      const def = DEFAULT_CARDS.find((d) => d.id === s.id);
+      const def = defaults.find((d) => d.id === s.id);
       if (!def) return null;
       return {
         ...def,
@@ -63,7 +88,7 @@ function mergeWithDefaults(stored: Partial<IProfileCardConfig>[]): IProfileCardC
     })
     .filter((c): c is IProfileCardConfig => c !== null);
 
-  DEFAULT_CARDS.forEach((def) => {
+  defaults.forEach((def) => {
     if (!result.find((c) => c.id === def.id)) result.push(def);
   });
   return result;
@@ -81,22 +106,47 @@ function mergeWithDefaults(stored: Partial<IProfileCardConfig>[]): IProfileCardC
 let snapshot: IProfileCardConfig[] | null = null;
 const listeners = new Set<() => void>();
 
-function getSnapshot(): IProfileCardConfig[] {
-  if (snapshot) return snapshot;
+function build(): IProfileCardConfig[] {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    snapshot = stored ? mergeWithDefaults(JSON.parse(stored)) : DEFAULT_CARDS;
+    return stored ? mergeWithDefaults(JSON.parse(stored)) : defaultCards();
   } catch {
-    snapshot = DEFAULT_CARDS;
+    return defaultCards();
   }
+}
+
+function getSnapshot(): IProfileCardConfig[] {
+  if (!snapshot) snapshot = build();
   return snapshot;
 }
 
-const getServerSnapshot = () => DEFAULT_CARDS;
+/**
+ * Snapshot server disimpan sekali dan dipakai ulang.
+ *
+ * useSyncExternalStore membandingkan hasilnya antar render dengan Object.is;
+ * mengembalikan array baru tiap panggilan akan membuatnya menganggap datanya
+ * berubah terus dan merender tanpa henti.
+ */
+let serverSnapshot: IProfileCardConfig[] | null = null;
+const getServerSnapshot = () => (serverSnapshot ??= defaultCards());
+
+/**
+ * Daftar bidang tambahan bisa berubah di halaman admin selagi tab ini terbuka.
+ * Saat itu terjadi, daftar kartu dihitung ulang — kartu bidang baru langsung
+ * muncul di panel pengaturan, dan kartu bidang yang dihapus ikut lenyap.
+ */
+function onProfileDataChanged() {
+  snapshot = build();
+  listeners.forEach((l) => l());
+}
 
 function subscribe(listener: () => void) {
+  if (listeners.size === 0) window.addEventListener(PROFILE_DATA_EVENT, onProfileDataChanged);
   listeners.add(listener);
-  return () => listeners.delete(listener);
+  return () => {
+    listeners.delete(listener);
+    if (listeners.size === 0) window.removeEventListener(PROFILE_DATA_EVENT, onProfileDataChanged);
+  };
 }
 
 function setCards(next: IProfileCardConfig[]) {
@@ -135,7 +185,7 @@ export function useIProfileConfig() {
     setCards(next);
   };
 
-  const reset = () => setCards(DEFAULT_CARDS);
+  const reset = () => setCards(defaultCards());
 
   return { cards, toggle, insertAt, reset };
 }

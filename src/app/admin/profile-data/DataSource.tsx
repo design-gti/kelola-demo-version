@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ActionIcon, Badge, Button, Modal, Switch, Table, Text, TextInput } from "@mantine/core";
+import { ActionIcon, Badge, Button, Modal, NativeSelect, NumberInput, Switch, Table, Text, TextInput } from "@mantine/core";
 import { IconPlus, IconRefresh, IconPencil, IconTrash, IconSearch } from "@tabler/icons-react";
 import {
   allProfiles,
@@ -9,8 +9,19 @@ import {
   removeExtension,
   toggleProfile,
   PROFILE_DATA_EVENT,
+  EXTENSION_COLUMN_TYPES,
+  type ExtensionColumn,
   type ProfileEntry,
 } from "./profiles";
+
+/**
+ * Batas atas jumlah kolom bidang tambahan.
+ *
+ * Bukan angka keramat, tapi tabel detail menggulir mendatar per kolom 120px —
+ * di atas seratus kolom tabelnya tidak lagi bisa ditelusuri, dan kolom kosong
+ * sebanyak itu tidak menerangkan apa pun.
+ */
+const MAX_EXTENSION_COLUMNS = 100;
 
 const ACCENT = "var(--mantine-color-primary-5)";
 /** Kartu di halaman ini memakai gaya kartu menu utama: bayangan, tanpa garis tepi. */
@@ -64,46 +75,114 @@ function ProfileCard({ profile, onToggle, onRemove }: {
 
 function AddDataModal({ onClose, onCreate }: {
   onClose: () => void;
-  onCreate: (name: string, description: string) => void;
+  onCreate: (name: string, description: string, columns: ExtensionColumn[]) => void;
 }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  /**
+   * Daftar kolom ITU SENDIRI yang jadi sumber kebenaran; angka "Jumlah Kolom"
+   * hanyalah panjangnya.
+   *
+   * Kalau angkanya disimpan terpisah lalu daftar disamakan lewat effect, ada
+   * satu render di mana keduanya tidak cocok — dan menyetel state di dalam
+   * effect juga ditolak lint di proyek ini. Menyesuaikan panjang daftar tepat
+   * saat angkanya diubah membuat keduanya tidak pernah berbeda.
+   */
+  const [columns, setColumns] = useState<ExtensionColumn[]>([]);
   const [touched, setTouched] = useState(false);
-  const invalid = touched && name.trim() === "";
+
+  const resize = (v: number | string) => {
+    const n = Math.max(0, Math.min(MAX_EXTENSION_COLUMNS, Math.trunc(Number(v) || 0)));
+    // Isi kolom yang sudah diketik dipertahankan saat jumlahnya bertambah, dan
+    // saat berkurang lalu ditambah lagi kolom yang kembali muncul memang kosong.
+    setColumns((prev) => Array.from({ length: n }, (_, i) => prev[i] ?? { label: "", type: "Text" }));
+  };
+
+  const setColumn = (i: number, patch: Partial<ExtensionColumn>) =>
+    setColumns((prev) => prev.map((c, j) => (j === i ? { ...c, ...patch } : c)));
+
+  /* Semua wajib. Ditandai hanya setelah user menekan Create — memerahkan form
+     yang belum sempat diisi menuduh orang atas kesalahan yang belum ia buat. */
+  const missingName = touched && name.trim() === "";
+  const missingDesc = touched && description.trim() === "";
+  const missingColumn = (i: number) => touched && columns[i].label.trim() === "";
 
   const submit = () => {
     setTouched(true);
-    if (name.trim() === "") return;
-    onCreate(name, description);
+    if (name.trim() === "" || description.trim() === "") return;
+    if (columns.some((c) => c.label.trim() === "")) return;
+    onCreate(name, description, columns);
   };
 
   return (
-    <Modal opened onClose={onClose} title="Tambah Data Profile" radius={12} centered>
+    <Modal opened onClose={onClose} title="Create Data Extension" radius={12} centered>
       <div className="flex flex-col gap-[12px]">
         <TextInput
-          label="Nama Data"
-          placeholder="Misal: Medical Checkup"
+          label="Name"
+          placeholder="Masukan name"
           value={name}
           onChange={(e) => setName(e.currentTarget.value)}
-          error={invalid ? "Nama data belum diisi" : undefined}
+          error={missingName ? "Name belum diisi" : undefined}
           radius="xl"
           withAsterisk
         />
         <TextInput
-          label="Keterangan"
-          placeholder="Penjelasan singkat isi datanya"
+          label="Description"
+          placeholder="Masukan description"
           value={description}
           onChange={(e) => setDescription(e.currentTarget.value)}
+          error={missingDesc ? "Description belum diisi" : undefined}
           radius="xl"
+          withAsterisk
         />
-        <div className="mt-[4px] flex justify-end gap-[8px]">
-          <Button variant="outline" color="primary" radius="xl" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button color="primary" radius="xl" onClick={submit}>
-            Save
-          </Button>
-        </div>
+        {/* Jumlah kolom menentukan bentuk tabel detailnya. Dibatasi bilangan
+            bulat tak negatif: kolom pecahan atau minus tidak punya arti, dan
+            NumberInput yang tak dibatasi akan meneruskannya apa adanya. */}
+        <NumberInput
+          label="Jumlah Kolom"
+          value={columns.length}
+          onChange={resize}
+          min={0}
+          max={MAX_EXTENSION_COLUMNS}
+          allowDecimal={false}
+          allowNegative={false}
+          clampBehavior="strict"
+          radius="xl"
+          withAsterisk
+        />
+
+        {/* Satu baris per kolom, muncul mengikuti angka di atas. Nama dan tipe
+            disandingkan dalam satu baris: keduanya menerangkan kolom yang sama,
+            dan menumpuknya membuat daftar sepuluh kolom jadi dua puluh baris. */}
+        {columns.map((c, i) => (
+          <div key={i} className="flex items-start gap-[10px]">
+            <TextInput
+              label={`Kolom ${i + 1}`}
+              placeholder={`Masukan kolom ${i + 1}`}
+              value={c.label}
+              onChange={(e) => setColumn(i, { label: e.currentTarget.value })}
+              error={missingColumn(i) ? "Nama kolom belum diisi" : undefined}
+              radius="xl"
+              withAsterisk
+              className="flex-1"
+            />
+            <NativeSelect
+              label="Tipe Data"
+              value={c.type}
+              onChange={(e) => setColumn(i, { type: e.currentTarget.value as ExtensionColumn["type"] })}
+              data={EXTENSION_COLUMN_TYPES}
+              radius="xl"
+              withAsterisk
+              w={130}
+            />
+          </div>
+        ))}
+        {/* Satu tombol saja, seperti rancangannya. Menutup modal tetap bisa
+            lewat tombol silang di kepala dan lewat Escape, jadi jalan keluarnya
+            tidak hilang. */}
+        <Button color="primary" radius="xl" onClick={submit} className="mt-[4px] self-start">
+          Create
+        </Button>
       </div>
     </Modal>
   );
@@ -270,7 +349,7 @@ export function DataSource() {
       {addOpen && (
         <AddDataModal
           onClose={() => setAddOpen(false)}
-          onCreate={(name, description) => { addExtension(name, description); setAddOpen(false); }}
+          onCreate={(name, description, columns) => { addExtension(name, description, columns); setAddOpen(false); }}
         />
       )}
 

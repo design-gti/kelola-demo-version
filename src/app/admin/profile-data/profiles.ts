@@ -31,6 +31,14 @@ export interface ProfileField {
   level?: number;
   /** Nilai satu karyawan untuk kolom ini; null = belum ada datanya. */
   valueOf: (participantId: string) => number | null;
+  /**
+   * Cara menulis nilainya, kalau angka mentahnya bukan yang ingin dibaca orang.
+   *
+   * Kolom bidang tambahan bisa bertipe Date atau Text, sedangkan seluruh jalur
+   * data di sini — tabel, riwayat nilai — bekerja dengan angka. Jadi angkanya
+   * tetap yang disimpan, dan ini yang menerjemahkannya saat digambar.
+   */
+  format?: (value: number | null) => string;
 }
 
 export interface ProfileEntry {
@@ -40,6 +48,24 @@ export interface ProfileEntry {
   description: string;
   kind: ProfileKind;
   enabled: boolean;
+  /**
+   * Kolom-kolom nilai, hanya untuk bidang tambahan.
+   *
+   * Bidang bawaan tidak punya ini: kolomnya diturunkan dari data yang memang
+   * dimilikinya (satu aspek satu kolom, dan seterusnya), bukan dinamai user.
+   * Bidang tambahan belum punya sumber angka, jadi nama dan tipe kolomnya
+   * dinyatakan saat dibuat.
+   */
+  columns?: ExtensionColumn[];
+}
+
+/** Tipe data satu kolom bidang tambahan. */
+export type ExtensionColumnType = "Text" | "Number" | "Date";
+export const EXTENSION_COLUMN_TYPES: ExtensionColumnType[] = ["Text", "Number", "Date"];
+
+export interface ExtensionColumn {
+  label: string;
+  type: ExtensionColumnType;
 }
 
 /**
@@ -147,12 +173,20 @@ export function toggleProfile(slug: string): void {
 }
 
 /** Slug diturunkan dari namanya, dengan akhiran angka kalau sudah terpakai. */
-export function addExtension(name: string, description: string): ProfileEntry {
+export function addExtension(name: string, description: string, columns: ExtensionColumn[] = []): ProfileEntry {
   const base = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "data";
   const taken = new Set(allProfiles().map((p) => p.slug));
   let slug = base;
   for (let i = 2; taken.has(slug); i++) slug = `${base}-${i}`;
-  const created = { slug, name: name.trim(), description: description.trim() || "-", enabled: true };
+  const created = {
+    slug,
+    name: name.trim(),
+    description: description.trim() || "-",
+    enabled: true,
+    // Kolom tanpa nama tidak bisa jadi judul apa pun, jadi disaring di sini —
+    // bukan diandalkan pada pemeriksaan di UI, yang bisa dilewati pemanggil lain.
+    columns: columns.filter((c) => c.label.trim() !== "").map((c) => ({ label: c.label.trim(), type: c.type })),
+  };
   extensions = [...extensions, created];
   announce();
   return { ...created, kind: "extension" };
@@ -163,12 +197,61 @@ export function removeExtension(slug: string): void {
   announce();
 }
 
+/**
+ * Nilai semu satu karyawan untuk satu kolom bidang tambahan: 0–99.
+ *
+ * Bidang tambahan belum punya sumber angka sungguhan. Angkanya diturunkan dari
+ * id karyawan dan kunci kolomnya, BUKAN diacak: angka acak berubah tiap render,
+ * jadi orang yang sama akan menunjukkan nilai berbeda setiap kali dibuka dan
+ * tidak ada yang bisa dibandingkan — termasuk antara tabel admin dan kartu di
+ * iProfile, yang harus menyebut angka yang sama.
+ */
+function extensionSeed(participantId: string, key: string): number {
+  let h = 2166136261;
+  for (const ch of `${participantId}|${key}`) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
+  return (h >>> 0) % 100;
+}
+
+/** Empat tingkat untuk kolom bertipe Text; dipilih dari angka semunya. */
+const TEXT_SAMPLES = ["Sangat Baik", "Baik", "Cukup", "Perlu Perhatian"];
+
+/** Menulis angka semu sesuai tipe kolomnya. */
+export function formatExtensionValue(value: number | null, type: ExtensionColumnType): string {
+  if (value == null) return "-";
+  if (type === "Number") return String(value);
+  if (type === "Text") return TEXT_SAMPLES[value % TEXT_SAMPLES.length];
+  // Date: tanggal tetap dalam rentang dua tahun terakhir dari tanggal acuan.
+  // Acuannya ditulis tetap, bukan hari ini, supaya tampilan server dan klien
+  // sama dan tidak berubah tiap hari.
+  const d = new Date(DATE_ANCHOR);
+  d.setDate(d.getDate() - value * 7);
+  return d.toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" });
+}
+
+const DATE_ANCHOR = "2026-06-30T00:00:00Z";
+
 /** Kolom tabel detail untuk sebuah bidang. */
 export function fieldsOf(slug: string): ProfileField[] {
   const def = DEFAULT_PROFILES.find((p) => p.slug === slug);
   if (def) return def.fields();
-  // Bidang tambahan didaftarkan user lewat UI dan belum punya sumber angka.
-  return [];
+
+  /*
+   * Bidang tambahan didaftarkan user lewat UI dan belum punya sumber angka,
+   * jadi kolomnya sebanyak yang ia nyatakan saat membuat — bernama "Kolom 1",
+   * "Kolom 2", dan seterusnya, dengan nilai kosong sampai datanya diunggah.
+   *
+   * Kolom kosong tetap lebih berguna daripada tabel tanpa kolom: ia menunjukkan
+   * bentuk data yang ditunggu, dan tempat angkanya akan mendarat.
+   */
+  const ext = extensions.find((e) => e.slug === slug);
+  return (ext?.columns ?? []).map((c, i) => ({
+    // Indeks ikut jadi kunci: dua kolom boleh bernama sama, dan kunci kembar
+    // membuat keduanya saling menimpa saat disembunyikan lewat pemilih kolom.
+    key: `${slug}:col${i + 1}`,
+    label: c.label,
+    valueOf: (id: string) => extensionSeed(id, `${slug}:${i}:${c.label}`),
+    format: (v: number | null) => formatExtensionValue(v, c.type),
+  }));
 }
 
 // ─── Lapisan Key Behaviour ───────────────────────────────────────────────────
