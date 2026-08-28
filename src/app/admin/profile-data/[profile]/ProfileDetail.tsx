@@ -153,8 +153,8 @@ export function ProfileDetail({ slug }: { slug: string }) {
       <div className={`${CARD} p-[16px]`}>
         <Tabs value={tab} onChange={setTab} variant="default">
           <Tabs.List grow>
-            <Tabs.Tab value="data" fw={700} fz={13}>Data</Tabs.Tab>
-            <Tabs.Tab value="upload" fw={700} fz={13}>Upload File</Tabs.Tab>
+            <Tabs.Tab value="data" fw={700} fz={14}>Data</Tabs.Tab>
+            <Tabs.Tab value="upload" fw={700} fz={14}>Upload File</Tabs.Tab>
           </Tabs.List>
 
           <Tabs.Panel value="data" pt="md">
@@ -237,7 +237,7 @@ export function ProfileDetail({ slug }: { slug: string }) {
                                 mempersempit tabelnya. */}
                             {g.aspect && (
                               <div className="mb-[4px] flex items-center justify-between">
-                                <span className="text-[11px] font-bold text-[#495057]">{g.aspect}</span>
+                                <span className="text-[12px] font-bold text-[#495057]">{g.aspect}</span>
                                 <Button
                                   variant="subtle" size="compact-xs" color="primary"
                                   onClick={() => {
@@ -391,7 +391,7 @@ export function ProfileDetail({ slug }: { slug: string }) {
           <Tabs.Panel value="upload" pt="md">
             <div className="flex flex-col items-center gap-[10px] rounded-[8px] border border-dashed border-[#dee2e6] px-[16px] py-[36px] text-center">
               <IconFileSpreadsheet size={30} stroke={1.4} color="#adb5bd" />
-              <p className="text-[13px] font-bold text-[#495057]">Unggah data {profile.name}</p>
+              <p className="text-[14px] font-bold text-[#495057]">Unggah data {profile.name}</p>
               <p className="max-w-[420px] text-[12px] text-[#6c757d]">
                 Berkas .xlsx atau .csv dengan satu kolom Employee dan satu kolom per bidang data.
               </p>

@@ -233,7 +233,7 @@ export function DataSource() {
     <div className="flex flex-col gap-[16px]">
       {/* App Integration */}
       <section className={`${CARD} p-[16px]`}>
-        <p className="mb-[12px] text-[13px] font-bold text-[#495057]">App Integration</p>
+        <p className="mb-[12px] text-[14px] font-bold text-[#495057]">App Integration</p>
         <Table verticalSpacing="sm" horizontalSpacing="md" className="text-[12px]">
           <Table.Thead>
             <Table.Tr>
@@ -251,11 +251,11 @@ export function DataSource() {
                 </Table.Td>
                 <Table.Td>
                   {row.syncedAt ? (
-                    <Badge color="green" variant="light" radius="sm" tt="uppercase" fz={9}>
+                    <Badge color="green" variant="light" radius="sm" tt="uppercase" fz={10}>
                       Synced {row.syncedAt}
                     </Badge>
                   ) : (
-                    <Badge color="gray" variant="filled" radius="sm" tt="uppercase" fz={9}>
+                    <Badge color="gray" variant="filled" radius="sm" tt="uppercase" fz={10}>
                       Not sync yet
                     </Badge>
                   )}

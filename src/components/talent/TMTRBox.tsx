@@ -158,7 +158,7 @@ function PointDetail({ point, config, zActive }: { point: TMPoint; config: TMCon
   if (zActive) rows.push([config.sumbuZ ?? "Sumbu Z", point.rawZ]);
 
   return (
-    <div style={{ fontFamily: FONT, fontSize: 11, lineHeight: 1.6 }}>
+    <div style={{ fontFamily: FONT, fontSize: 12, lineHeight: 1.6 }}>
       <div style={{ fontWeight: 700, marginBottom: 2 }}>{point.name}</div>
       {rows.map(([label, value]) => (
         <div key={label}>
@@ -323,7 +323,7 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
     <div style={{ position: "relative", width: size + AXIS_BLOCK, height: size + AXIS_GAP + AXIS_BLOCK, fontFamily: FONT }}>
       {/* Y axis (label + ranges), rotated onto the left edge */}
       <div style={{ position: "absolute", top: 0, left: 0, width: size, transform: "rotate(270deg)", transformOrigin: `${size / 2}px ${size / 2}px` }}>
-        <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", textAlign: "center", color: "#495057", marginBottom: 2 }}>{config.sumbuY}</div>
+        <div style={{ fontSize: 12, fontWeight: 700, textTransform: "uppercase", textAlign: "center", color: "#495057", marginBottom: 2 }}>{config.sumbuY}</div>
         <AxisDividers
           ranges={zoom ? [{ label: `${zoom.bandY.min} - ${zoom.bandY.max}`, color: zoom.box.color }] : config.rangesY}
           selected={selectedBox != null}
@@ -373,7 +373,7 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
                       }}
                     >
                       <span style={{ position: "absolute", top: 4, left: 4, fontSize: 15, fontWeight: 700, color: numberColor(box.color), opacity: 0.4 }}>{order}</span>
-                      <span style={{ position: "absolute", top: "50%", left: "50%", maxWidth: "90%", transform: "translate(-50%,-50%)", textAlign: "center", fontSize: 11, color: onBox(box.color) }}>{box.label}</span>
+                      <span style={{ position: "absolute", top: "50%", left: "50%", maxWidth: "90%", transform: "translate(-50%,-50%)", textAlign: "center", fontSize: 12, color: onBox(box.color) }}>{box.label}</span>
                     </div>
                   );
                 })}
@@ -466,7 +466,7 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
               </div>
               <div style={{ maxHeight: 176, overflowY: "auto" }}>
                 {popover.group.map((p) => (
-                  <div key={p.employeeId} style={{ display: "grid", gridTemplateColumns: popGrid(zActive), gap: 8, alignItems: "center", padding: "6px 10px", fontSize: 11, color: "#495057" }}>
+                  <div key={p.employeeId} style={{ display: "grid", gridTemplateColumns: popGrid(zActive), gap: 8, alignItems: "center", padding: "6px 10px", fontSize: 12, color: "#495057" }}>
                     <span style={{ display: "flex", alignItems: "center", gap: 6, minWidth: 0 }}>
                       <span style={{ width: 22, height: 22, borderRadius: "50%", background: NODE_BG, color: "#fff", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 8, fontWeight: 700, overflow: "hidden", position: "relative" }}>
                         <span>{initials(p.name)}</span>
@@ -491,7 +491,7 @@ export default function TMTRBox({ config, points, size = 360, selectedBox, onBox
           ranges={zoom ? [{ label: `${zoom.bandX.min} - ${zoom.bandX.max}`, color: zoom.box.color }] : config.rangesX}
           selected={selectedBox != null}
         />
-        <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", textAlign: "center", color: "#495057", marginTop: 14 }}>{config.sumbuX}</div>
+        <div style={{ fontSize: 12, fontWeight: 700, textTransform: "uppercase", textAlign: "center", color: "#495057", marginTop: 14 }}>{config.sumbuX}</div>
         {zActive && (
           <div style={{ fontSize: 10, textAlign: "center", color: "#adb5bd", marginTop: 4 }}>
             Lapis cincin = {config.sumbuZ}

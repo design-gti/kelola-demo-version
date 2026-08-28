@@ -41,7 +41,7 @@ export function ExtensionCard({ slug }: { slug: string }) {
       <div>
         <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 700, color: "#495057" }}>{profile.name}</p>
         {profile.description && profile.description !== "-" && (
-          <p style={{ fontFamily: FONT, fontSize: 11, color: "#adb5bd", marginTop: 2 }}>{profile.description}</p>
+          <p style={{ fontFamily: FONT, fontSize: 12, color: "#adb5bd", marginTop: 2 }}>{profile.description}</p>
         )}
       </div>
 

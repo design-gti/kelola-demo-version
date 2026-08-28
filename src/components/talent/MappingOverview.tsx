@@ -51,10 +51,10 @@ export default function MappingOverview({ views }: { views: MappingView[] }) {
               style={{ boxShadow: "2px 4px 10px rgba(0,0,0,0.07)" }}
             >
               <div className="mb-[8px] flex items-baseline justify-between gap-[12px]">
-                <span style={{ fontSize: 13, fontWeight: 700, color: "#495057" }}>{v.label}</span>
+                <span style={{ fontSize: 14, fontWeight: 700, color: "#495057" }}>{v.label}</span>
                 {/* Jumlah orang SETELAH saringan — angka inilah yang sedang
                     digambar, jadi menyebut total mentah malah menyesatkan. */}
-                <span style={{ fontSize: 11, color: "#adb5bd", whiteSpace: "nowrap" }}>
+                <span style={{ fontSize: 12, color: "#adb5bd", whiteSpace: "nowrap" }}>
                   {v.points.length} karyawan
                 </span>
               </div>

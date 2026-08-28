@@ -129,7 +129,7 @@ function CustomColorModal({ initial, onCancel, onSave }: {
       style={{ position: "fixed", inset: 0, zIndex: 400, background: "rgba(0,0,0,0.35)", display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}
     >
     <div style={{ width: 300, maxWidth: "100%", maxHeight: "100%", overflowY: "auto", background: "#fff", border: "1px solid #e9ecef", borderRadius: 12, boxShadow: "0 10px 30px rgba(0,0,0,0.16)", padding: 14 }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 8 }}>Custom color</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: "#868e96", marginBottom: 8 }}>Custom color</div>
       <MantineColorPicker value={hex} onChange={v => { setHex(v); setDraft(v); }} format="hex" fullWidth size="sm" />
 
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 12 }}>
@@ -292,11 +292,11 @@ function BoxNameModal({ name, description, onClose, onSave }: {
   return (
     <Modal opened onClose={onClose} title="Box Name" radius={12} centered
       styles={{ title: { fontFamily: FONT, fontWeight: 700, color: "#343a40" } }}>
-      <div style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Box Name</div>
+      <div style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Box Name</div>
       <TextInput value={draftName} onChange={e => setDraftName(e.currentTarget.value)} size="sm" radius="xl" mb={14}
         autoFocus styles={{ input: { fontFamily: FONT } }} />
 
-      <div style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Description</div>
+      <div style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Description</div>
       <Textarea value={draftDesc} onChange={e => setDraftDesc(e.currentTarget.value)} placeholder="Edit text"
         autosize minRows={3} maxRows={6} size="sm" radius={12} styles={{ input: { fontFamily: FONT } }} />
 
@@ -346,7 +346,7 @@ function TagModal({ value, options, descriptions, onPick, onRename, onRemove, on
   return (
     <Modal opened onClose={onClose} title="Tag" radius={12} centered
       styles={{ title: { fontFamily: FONT, fontWeight: 700, color: "#343a40" } }}>
-      <div style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Tag</div>
+      <div style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Tag</div>
       <div style={{ marginBottom: 14 }}>
         <TagPicker
           value={draftTag}
@@ -366,7 +366,7 @@ function TagModal({ value, options, descriptions, onPick, onRename, onRemove, on
         />
       </div>
 
-      <div style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Description</div>
+      <div style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Description</div>
       <Textarea value={draftDesc} onChange={e => setDraftDesc(e.currentTarget.value)} placeholder="Edit text"
         autosize minRows={3} maxRows={6} size="sm" radius={12} styles={{ input: { fontFamily: FONT } }} />
 
@@ -434,7 +434,7 @@ function TagPicker({ value, options, descriptions, onPick, onRename, onRemove, o
         onClick={() => setOpen(o => !o)}
         style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, minHeight: 30, padding: "4px 10px", border: "1px solid #dee2e6", borderRadius: 999, cursor: "pointer", background: "#fff" }}
       >
-        {value ? <TagChip>{value}</TagChip> : <span style={{ fontSize: 11, color: "#adb5bd" }}>Choose tag</span>}
+        {value ? <TagChip>{value}</TagChip> : <span style={{ fontSize: 12, color: "#adb5bd" }}>Choose tag</span>}
         <IconChevronDown size={14} style={{ color: "#adb5bd", flexShrink: 0 }} />
       </div>
 
@@ -475,7 +475,7 @@ function TagPicker({ value, options, descriptions, onPick, onRename, onRemove, o
               </div>
             ))}
             {options.length === 0 && (
-              <div style={{ padding: "10px", fontSize: 11, color: "#adb5bd", textAlign: "center" }}>Belum ada tag</div>
+              <div style={{ padding: "10px", fontSize: 12, color: "#adb5bd", textAlign: "center" }}>Belum ada tag</div>
             )}
           </div>
           <div style={{ borderTop: "1px solid #e9ecef", padding: "6px 10px" }}>
@@ -534,7 +534,7 @@ function BoxNumberPicker({ value, options, onPick }: {
         <div style={{ position: "absolute", zIndex: 30, top: "calc(100% + 4px)", left: 0, minWidth: 200, background: "#fff", border: "1px solid #e9ecef", borderRadius: 10, boxShadow: "0 6px 20px rgba(0,0,0,0.12)", overflow: "hidden" }}>
           <div style={{ padding: "10px 12px 8px" }}>
             <div style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#343a40" }}>Select Box Number</div>
-            <div style={{ fontFamily: FONT, fontSize: 11, color: "#adb5bd", lineHeight: 1.4, marginTop: 2 }}>
+            <div style={{ fontFamily: FONT, fontSize: 12, color: "#adb5bd", lineHeight: 1.4, marginTop: 2 }}>
               If the number is already in use, it will be swapped.
             </div>
           </div>
@@ -546,7 +546,7 @@ function BoxNumberPicker({ value, options, onPick }: {
                   key={o}
                   role="button"
                   onClick={() => { if (!active) onPick(o); setOpen(false); }}
-                  style={{ padding: "8px 12px", cursor: "pointer", background: active ? ACCENT : "transparent", color: active ? "#fff" : "#868e96", fontFamily: FONT, fontSize: 13, fontWeight: 700 }}
+                  style={{ padding: "8px 12px", cursor: "pointer", background: active ? ACCENT : "transparent", color: active ? "#fff" : "#868e96", fontFamily: FONT, fontSize: 12, fontWeight: 700 }}
                 >
                   #{o}
                 </div>
@@ -604,7 +604,7 @@ function AxisCard({ title, keyVal, onKey, bands, onMax, onLabel, placeholder, sw
         placeholder={placeholder}
         size="sm" radius="xl" mb={14} styles={{ input: { fontFamily: FONT } }}
       />
-      <div style={{ display: "grid", gridTemplateColumns: `${swatches ? "10px " : ""}1fr 70px 70px`, gap: 8, fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>
+      <div style={{ display: "grid", gridTemplateColumns: `${swatches ? "10px " : ""}1fr 70px 70px`, gap: 8, fontSize: 12, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>
         {swatches && <span />}
         <span>Criteria *</span><span>Min</span><span>Max *</span>
       </div>
@@ -828,7 +828,7 @@ function ConfigInner() {
         <Paper radius={12} p={16} mb={16} style={{ boxShadow: CARD_SHADOW }}>
           <div style={{ display: "flex", alignItems: "flex-end", gap: 12, flexWrap: "wrap" }}>
             <div style={{ flex: "1 1 260px", minWidth: 220 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>
                 Mapping Name{!builtIn && <span style={{ color: "#e03131" }}> *</span>}
               </div>
               <TextInput
@@ -865,7 +865,7 @@ function ConfigInner() {
                     {active && <span style={{ width: 8, height: 8, borderRadius: "50%", background: ACCENT }} />}
                   </span>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: "#343a40" }}>{l.label}</div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#343a40" }}>{l.label}</div>
                     {l.recommended && <Badge size="xs" radius="sm" color="blue" variant="light" mt={2}>RECOMENDED</Badge>}
                   </div>
                 </div>
@@ -923,14 +923,14 @@ function ConfigInner() {
                         <BoxColorPicker value={b.color} customs={colorOptions} onPick={c => setBoxColor(order, c)} onAddCustom={addColorOption} />
                       </div>
 
-                      <div style={{ fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Box Name</div>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Box Name</div>
                       <FieldButton onEdit={() => setEditName(order)} title="Ubah nama & deskripsi box">
                         {b.label}
                       </FieldButton>
 
-                      <div style={{ fontSize: 11, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Tag</div>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: "#868e96", marginBottom: 4 }}>Tag</div>
                       <FieldButton onEdit={() => setEditTag(order)} title="Ubah tag & deskripsinya">
-                        {b.readiness ? <TagChip>{b.readiness}</TagChip> : <span style={{ color: "#adb5bd", fontSize: 11 }}>Choose tag</span>}
+                        {b.readiness ? <TagChip>{b.readiness}</TagChip> : <span style={{ color: "#adb5bd", fontSize: 12 }}>Choose tag</span>}
                       </FieldButton>
                     </div>
                   );

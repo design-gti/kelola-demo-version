@@ -61,7 +61,7 @@ function PoleBubble({ side, text, active }: { side: "left" | "right"; text: stri
         borderRadius: 4,
         padding: "5px 7px",
         fontFamily: FONT,
-        fontSize: 9,
+        fontSize: 10,
         fontStyle: "italic",
         lineHeight: 1.35,
         boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
@@ -142,7 +142,7 @@ function FactorRow({ factor, sten }: { factor: PersonalityFactor; sten: number }
           kodenya untuk menemukan barisnya tanpa membaca namanya. */}
       <span
         className="flex shrink-0 items-center justify-center rounded-[4px] bg-[#f1f3f5]"
-        style={{ width: 26, height: 18, fontFamily: FONT, fontSize: 9, fontWeight: 700, color: "#868e96" }}
+        style={{ width: 26, height: 18, fontFamily: FONT, fontSize: 10, fontWeight: 700, color: "#868e96" }}
       >
         {factor.code}
       </span>
@@ -151,7 +151,7 @@ function FactorRow({ factor, sten }: { factor: PersonalityFactor; sten: number }
         {/* Angkanya tidak ditulis di samping nama: ia sudah ada di dalam
             marker, dan dua kali angka yang sama di satu baris membuat pembaca
             mencari perbedaan yang tidak ada. */}
-        <span className="block truncate" style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#495057" }}>
+        <span className="block truncate" style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#495057" }}>
           {factor.name}
         </span>
 
@@ -249,7 +249,7 @@ export function PersonalityFactorsCard() {
         ))}
       </div>
 
-      <p style={{ fontFamily: FONT, fontSize: 9, color: "#adb5bd", lineHeight: 1.5 }}>
+      <p style={{ fontFamily: FONT, fontSize: 10, color: "#adb5bd", lineHeight: 1.5 }}>
         1&ndash;{POLE_LOW_MAX} condong ke kutub kiri, {POLE_HIGH_MIN}&ndash;{STEN_MAX} ke kutub kanan,
         {" "}{POLE_LOW_MAX + 1}&ndash;{POLE_HIGH_MIN - 1} rata-rata. Arahkan kursor ke satu baris untuk melihat kedua kutubnya.
       </p>

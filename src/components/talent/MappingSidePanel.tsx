@@ -171,7 +171,7 @@ export default function MappingSidePanel({
           leftSection={<IconArrowsSort size={14} />}
           allowDeselect={false}
           comboboxProps={{ withinPortal: true }}
-          styles={{ root: { flex: 1 }, input: { fontFamily: FONT, fontSize: 11 } }}
+          styles={{ root: { flex: 1 }, input: { fontFamily: FONT, fontSize: 12 } }}
         />
       </div>
 
@@ -261,7 +261,7 @@ export default function MappingSidePanel({
                     router.push(`/iprofile?id=${encodeURIComponent(p.employeeId)}&from=talent-mapping`);
                   }}
                   meta={box ? (
-                    <span title={box.description || (box.readiness ? tagDescriptions[box.readiness] : undefined) || undefined} style={{ display: "inline-block", marginTop: 3, maxWidth: "100%", background: "#f1f3f5", color: defaultShade(box.color), fontFamily: FONT, fontSize: 9, fontWeight: 700, borderRadius: 999, padding: "2px 8px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    <span title={box.description || (box.readiness ? tagDescriptions[box.readiness] : undefined) || undefined} style={{ display: "inline-block", marginTop: 3, maxWidth: "100%", background: "#f1f3f5", color: defaultShade(box.color), fontFamily: FONT, fontSize: 10, fontWeight: 700, borderRadius: 999, padding: "2px 8px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       {box.label}
                     </span>
                   ) : undefined}
@@ -270,7 +270,7 @@ export default function MappingSidePanel({
             );
           })}
           {shown.length === 0 && (
-            <div style={{ fontFamily: FONT, fontSize: 11, color: "#adb5bd", padding: "12px 0", textAlign: "center" }}>
+            <div style={{ fontFamily: FONT, fontSize: 12, color: "#adb5bd", padding: "12px 0", textAlign: "center" }}>
               No matching employee
             </div>
           )}

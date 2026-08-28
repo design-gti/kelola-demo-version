@@ -133,7 +133,7 @@ export default function AllMappingTable({ views, metrics }: { views: MappingView
                 {r.boxes.map((b, i) => (
                   <Table.Td key={views[i].id}>
                     {b ? (
-                      <Badge variant="outline" radius="xl" style={{ fontSize: 9, fontFamily: FONT, color: b.color, borderColor: b.color, background: "#fff", whiteSpace: "nowrap" }}>
+                      <Badge variant="outline" radius="xl" style={{ fontSize: 10, fontFamily: FONT, color: b.color, borderColor: b.color, background: "#fff", whiteSpace: "nowrap" }}>
                         {b.label}
                       </Badge>
                     ) : (

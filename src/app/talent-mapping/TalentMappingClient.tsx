@@ -62,7 +62,7 @@ function OutlinePill({ color, children }: { color: string; children: React.React
     <Badge
       variant="outline"
       radius="xl"
-      style={{ fontSize: 9, fontFamily: FONT, color, borderColor: color, background: "#fff", whiteSpace: "nowrap" }}
+      style={{ fontSize: 10, fontFamily: FONT, color, borderColor: color, background: "#fff", whiteSpace: "nowrap" }}
     >
       {children}
     </Badge>
@@ -374,7 +374,7 @@ function Panel({
             role="button"
             onClick={onSettings}
             title={`Setting ${config.name}`}
-            style={{ display: "inline-flex", alignItems: "center", gap: 6, color: ACCENT, cursor: onSettings ? "pointer" : undefined, fontFamily: FONT, fontSize: 13, fontWeight: 700 }}
+            style={{ display: "inline-flex", alignItems: "center", gap: 6, color: ACCENT, cursor: onSettings ? "pointer" : undefined, fontFamily: FONT, fontSize: 14, fontWeight: 700 }}
           >
             <IconSettings size={16} />
             Configuration

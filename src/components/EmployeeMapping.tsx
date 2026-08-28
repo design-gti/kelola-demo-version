@@ -96,7 +96,7 @@ function AvatarStack({ avatars, names, count, rings }: { avatars: string[]; name
           minWidth: 140,
           boxShadow: "0 4px 16px rgba(0,0,0,0.25)",
           fontFamily: "'Open Sans', sans-serif",
-          fontSize: 11,
+          fontSize: 12,
           lineHeight: "1.6",
         }}>
           {names.map((name, i) => (
@@ -149,7 +149,7 @@ function GridCell({ cell, rowIdx, colIdx, rows, cols, onOpen }: { cell: CellData
         style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 700, color: cell.countColor }}>
         {cell.count}
       </span>
-      <span className="absolute inset-0 flex items-center justify-center text-[#495057] text-[9px] text-center px-1 pt-2"
+      <span className="absolute inset-0 flex items-center justify-center text-[#495057] text-[10px] text-center px-1 pt-2"
         style={{ fontFamily: "'Open Sans', sans-serif" }}>
         {cell.label}
       </span>
@@ -196,7 +196,7 @@ function FocusedBox({ config, points, order, onBack }: {
           type="button"
           onClick={onBack}
           aria-label="Kembali ke semua box"
-          className="flex items-center gap-[2px] text-[#495057] text-[11px] hover:text-[#1971c2]"
+          className="flex items-center gap-[2px] text-[#495057] text-[12px] hover:text-[#1971c2]"
           style={{ fontFamily: "'Open Sans', sans-serif" }}
         >
           <IconChevronLeft size={14} />
@@ -328,7 +328,7 @@ export default function EmployeeMapping({
               <Tabs.Tab
                 key={t.id}
                 value={t.id}
-                styles={{ tab: { fontFamily: "'Open Sans', sans-serif", fontSize: 11, padding: "4px 8px" } }}
+                styles={{ tab: { fontFamily: "'Open Sans', sans-serif", fontSize: 12, padding: "4px 8px" } }}
               >
                 {t.label}
               </Tabs.Tab>
