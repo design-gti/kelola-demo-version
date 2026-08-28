@@ -7,10 +7,14 @@ import AppBreadcrumb from "@/components/Breadcrumb";
 import TMTRBox from "@/components/talent/TMTRBox";
 import DistributionSummary from "@/components/talent/DistributionSummary";
 import MappingSidePanel from "@/components/talent/MappingSidePanel";
+import MappingOverview from "@/components/talent/MappingOverview";
+import AllMappingTable from "@/components/talent/AllMappingTable";
+import { buildMappingViews } from "@/components/talent/mappingViews";
 import { mantineColor } from "@/components/team/mantineColor";
 import { matchesFuzzy } from "@/lib/data/textMatch";
-import { donutTags, boxByOrder, bandIndex, pointsFrom, usesCompetency, defaultShade, COMPETENCY_KEY, METRICS,
-  type TMConfig, type TMPoint, type MetricKey, type EmployeeMetrics, type AxisBand } from "@/data/talentMappingShared";
+import { donutTags, boxByOrder, pointsFrom, usesCompetency, defaultShade, COMPETENCY_KEY, METRICS,
+  applyFilter, axesOf, emptyFilter, filterCount, picksFor,
+  type TMConfig, type TMPoint, type MetricKey, type EmployeeMetrics, type TMFilter } from "@/data/talentMappingShared";
 import { BUILT_IN_TABS, getCustomTabs, addCustomTab,
   getEffectiveConfig, TM_CONFIG_EVENT, TM_TABS_EVENT, type CustomTab } from "@/data/talentMappingConfig";
 
@@ -95,7 +99,7 @@ const axisHead = (label: string, key: MetricKey, axis: string, relative: boolean
  * berisi Talent/Non Talent yang ditulis tetap dan tidak ikut tag yang disetel
  * user — dan "Readiness" di TR, padahal keduanya membaca medan yang sama.
  */
-const tableHeaders = (cfg: TMConfig, rel: boolean) => ["Position", "Employee", axisHead(cfg.sumbuX, cfg.sumbuXKey, "X", rel), axisHead(cfg.sumbuY, cfg.sumbuYKey, "Y", rel), "Box Category", "Tag", "Action"];
+const tableHeaders = (cfg: TMConfig, rel: boolean) => ["Employee", "Position", axisHead(cfg.sumbuX, cfg.sumbuXKey, "X", rel), axisHead(cfg.sumbuY, cfg.sumbuYKey, "Y", rel), "Box Category", "Tag", "Action"];
 
 function Cell({ children, muted }: { children: React.ReactNode; muted?: boolean }) {
   return <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: muted ? "#ced4da" : "#495057" }}>{children}</span>;
@@ -158,10 +162,13 @@ function TablePanel({ config, points, highlightId, relativeToTarget = false, emp
                 // <tr> tidak bisa membawa border-radius maupun box-shadow.
                 style={isHighlighted ? { background: "#e6f3f8", transition: "background 0.3s" } : undefined}
               >
+                {/* Employee kolom pertama: baris tabel ini bercerita tentang
+                    ORANG, dan jabatan cuma salah satu keterangannya. Kolom
+                    pertama adalah yang dipakai mata menelusuri tabel ke bawah. */}
+                <Table.Td>{person}</Table.Td>
                 <Table.Td>
                   <Cell>{p.positionTitle}</Cell>
                 </Table.Td>
-                <Table.Td>{person}</Table.Td>
                 <Table.Td>
                   <Cell muted={p.rawX == null}>{p.rawX ?? "{No data}"}</Cell>
                 </Table.Td>
@@ -223,6 +230,8 @@ function Panel({
   initialHighlight = null,
   onSettings,
   tabBar,
+  filter,
+  onFilterChange,
 }: {
   config: TMConfig;
   jobTargets?: { id: string; title: string }[];
@@ -232,6 +241,14 @@ function Panel({
   onSettings?: () => void;
   /** Baris tab box mapping, dirender induk dan ditaruh di kepala kartu ini. */
   tabBar?: React.ReactNode;
+  /**
+   * Saringan tab ini. Dipegang induk, bukan komponen ini, karena dua hal:
+   * saringannya harus bertahan saat user berpindah tab lalu kembali (komponen
+   * ini di-remount tiap pindah tab), dan tampilan Semua Mapping harus bisa
+   * membaca saringan SETIAP tab sekaligus.
+   */
+  filter: TMFilter;
+  onFilterChange: (next: TMFilter) => void;
 }) {
   /**
    * Pemilih jabatan target muncul mengikuti SUMBU, bukan nama tab: tab apa pun
@@ -239,7 +256,8 @@ function Panel({
    * tidak menampilkannya sama sekali.
    */
   const needsTarget = usesCompetency(config);
-  const [jobTarget, setJobTarget] = useState<string | null>(null);
+  const jobTarget = filter.jobTarget;
+  const setJobTarget = (v: string | null) => onFilterChange({ ...filter, jobTarget: v });
   const relativeToTarget = needsTarget && !!jobTarget;
   const basePoints = useMemo(
     () => pointsFrom(config, metrics, needsTarget ? jobTarget : null),
@@ -261,24 +279,9 @@ function Panel({
    * sedangkan ini dikendalikan user dan menetap sampai ia melepasnya.
    */
   const [spotlightId, setSpotlightId] = useState<string | null>(null);
-  // Filter (team, job, kriteria per sumbu) — nilai terpakai + draft modal.
+  // Saringan terpakai datang dari induk; draft modal tetap milik komponen ini.
   const [filterOpen, setFilterOpen] = useState(false);
-  const [teams, setTeams] = useState<string[]>([]);
-  const [jobs, setJobs] = useState<string[]>([]);
-  /**
-   * Kriteria per sumbu: { X: ["2"], Y: ["0","1"] } — nilainya INDEKS pita
-   * sebagai string, bukan nama pitanya, supaya mengganti nama pita di Setting
-   * tidak membatalkan saringan yang sedang aktif. Kosong = semua lolos.
-   */
-  /*
-   * Berangkat dari saringan bawaan tabnya, kalau ada.
-   *
-   * Tab seperti High-Po memang berarti "orang dengan Potency tinggi", jadi
-   * saringan itu bagian dari definisi tabnya — bukan sesuatu yang harus dipasang
-   * ulang tiap kali dibuka. Komponen ini di-remount tiap ganti tab (key={tab} di
-   * induknya), jadi nilai awal ini benar-benar dibaca ulang per tab.
-   */
-  const [axisPicks, setAxisPicks] = useState<Record<string, string[]>>(() => config.defaultAxisPicks ?? {});
+  const { teams, jobs, axisPicks } = filter;
   const [draftTeams, setDraftTeams] = useState<string[]>([]);
   const [draftJobs, setDraftJobs] = useState<string[]>([]);
   const [draftAxisPicks, setDraftAxisPicks] = useState<Record<string, string[]>>({});
@@ -294,49 +297,11 @@ function Panel({
   const allTeams = useMemo(() => Array.from(new Set(basePoints.map(p => p.team).filter(Boolean))).sort(), [basePoints]);
   const allJobs = useMemo(() => Array.from(new Set(basePoints.map(p => p.positionTitle).filter(Boolean))).sort(), [basePoints]);
 
-  const filtered = useMemo(() => basePoints.filter(p =>
-    (teams.length === 0 || teams.includes(p.team)) &&
-    (jobs.length === 0 || jobs.includes(p.positionTitle))
-  ), [basePoints, teams, jobs]);
-  /**
-   * Sumbu yang sedang dipakai tab ini, lengkap dengan pita dan cara mengambil
-   * nilainya dari sebuah titik. Ini yang membuat modal Filter kontekstual:
-   * dulu kolomnya dipaku ke sumbu Y dan berjudul "Potency" apa pun metriknya,
-   * jadi mengganti sumbu di Setting menghasilkan saringan yang menyaring hal
-   * lain dari yang tertulis. Sumbu Z hanya ikut kalau memang dinyalakan.
-   */
-  const axes = useMemo(() => {
-    const list: { id: string; label: string; bands: AxisBand[]; valueOf: (p: TMPoint) => number | null }[] = [
-      { id: "X", label: config.sumbuX, bands: config.rangesX, valueOf: p => p.rawX },
-      { id: "Y", label: config.sumbuY, bands: config.rangesY, valueOf: p => p.rawY },
-    ];
-    if (config.useZ && config.sumbuZ && config.rangesZ?.length) {
-      list.push({ id: "Z", label: config.sumbuZ, bands: config.rangesZ, valueOf: p => p.rawZ ?? null });
-    }
-    return list;
-  }, [config]);
+  const axes = useMemo(() => axesOf(config), [config]);
+  const activeCount = filterCount(config, filter);
 
-  /**
-   * Pilihan yang masih sah untuk sebuah sumbu. Jumlah pita bisa berubah di
-   * Setting (ganti layout, misalnya) tanpa membongkar state ini, dan indeks
-   * yang sudah tidak ada akan menyaring habis semua orang tanpa penjelasan —
-   * jadi indeks basi dibuang, bukan dipakai.
-   */
-  const picksFor = (a: { id: string; bands: AxisBand[] }, source: Record<string, string[]>) =>
-    (source[a.id] ?? []).filter(v => Number(v) < a.bands.length);
-
-  const activeCount = teams.length + jobs.length + axes.reduce((n, a) => n + picksFor(a, axisPicks).length, 0);
-
-  // Centang dalam satu sumbu bersifat "atau", antar sumbu bersifat "dan".
-  const banded = useMemo(
-    () => filtered.filter(p => axes.every(a => {
-      const picked = picksFor(a, axisPicks);
-      if (picked.length === 0) return true;
-      const v = a.valueOf(p);
-      return v != null && picked.includes(String(bandIndex(v, a.bands)));
-    })),
-    [filtered, axes, axisPicks],
-  );
+  // Satu jalur penyaringan, dipakai bersama tampilan Semua Mapping.
+  const banded = useMemo(() => applyFilter(config, basePoints, filter), [config, basePoints, filter]);
 
   /**
    * Ringkasan ikut apa yang sedang dilihat. Saat satu kotak difokuskan, yang
@@ -359,7 +324,11 @@ function Panel({
   const panelRows = tableRows;
 
   const openFilter = () => { setDraftTeams(teams); setDraftJobs(jobs); setDraftAxisPicks(axisPicks); setFilterOpen(true); };
-  const applyFilter = () => { setTeams(draftTeams); setJobs(draftJobs); setAxisPicks(draftAxisPicks); setSelectedBox(null); setFilterOpen(false); };
+  const submitFilter = () => {
+    onFilterChange({ ...filter, teams: draftTeams, jobs: draftJobs, axisPicks: draftAxisPicks });
+    setSelectedBox(null);
+    setFilterOpen(false);
+  };
   const toggle = (arr: string[], v: string) => arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v];
   /** Berapa centang yang sedang dipasang DI MODAL; menyalakan tombol Clear All. */
   const draftCount = draftTeams.length + draftJobs.length + axes.reduce((n, a) => n + picksFor(a, draftAxisPicks).length, 0);
@@ -550,7 +519,7 @@ function Panel({
           </Button>
           <div style={{ display: "flex", gap: 10 }}>
             <Button variant="outline" color="primary" radius="xl" onClick={() => setFilterOpen(false)}>Cancel</Button>
-            <Button color="primary" radius="xl" onClick={applyFilter}>Save</Button>
+            <Button color="primary" radius="xl" onClick={submitFilter}>Save</Button>
           </div>
         </div>
       </Modal>
@@ -671,14 +640,48 @@ export default function TalentMappingClient({
     return () => window.removeEventListener(TM_CONFIG_EVENT, bump);
   }, []);
   const config = useMemo(
-    () => getEffectiveConfig(tab),
+    () => getEffectiveConfig(tab === "ALL" ? "TI" : tab),
     // configVersion sengaja jadi pemicu: isinya di luar React.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [tab, configVersion],
   );
 
-  // Titik dihitung di Panel: ia yang memegang pilihan jabatan target, dan target
-  // itu ikut menentukan pembacaan sumbu Competency.
+  /**
+   * Saringan tiap tab, dikunci id tab.
+   *
+   * Ditaruh di sini karena dua alasan: Panel di-remount tiap ganti tab (key={tab}),
+   * jadi saringan yang tinggal di dalamnya akan hilang tiap kali user berpindah
+   * lalu kembali; dan tampilan Semua Mapping harus membaca saringan SETIAP tab
+   * sekaligus, bukan hanya tab yang sedang terbuka.
+   */
+  const [filters, setFilters] = useState<Record<string, TMFilter>>({});
+  const filterFor = (id: string, cfg: TMConfig) => filters[id] ?? emptyFilter(cfg);
+  const setFilterFor = (id: string, next: TMFilter) => setFilters(prev => ({ ...prev, [id]: next }));
+
+  /**
+   * Tab semu berisi SELURUH mapping sekaligus.
+   *
+   * Id-nya tidak boleh bertabrakan dengan id tab sungguhan; tab buatan user
+   * dibuat dengan awalan "TC" + waktu, jadi "ALL" aman.
+   */
+  const ALL_TAB = { id: "ALL", label: "All Box Mapping" };
+  const showingAll = tab === ALL_TAB.id;
+
+  const allTabs = [...BUILT_IN_TABS, ...customTabs.map(t => ({ id: t.id, label: t.name }))];
+  /** Kunci sederhana untuk daftar tab; array-nya sendiri dibuat baru tiap render. */
+  const tabIds = allTabs.map(t => t.id).join(",");
+
+  /**
+   * Isi tiap mapping untuk tab All — dihitung SEKALI, dipakai grafik dan
+   * tabelnya. Kalau keduanya menghitung sendiri, tabel bisa menyebut orang yang
+   * tidak tergambar di grafik tepat di atasnya.
+   */
+  const mappingViews = useMemo(
+    () => (showingAll ? buildMappingViews(allTabs, metrics, filterFor) : []),
+    // configVersion sengaja jadi pemicu: konfigurasi tab hidup di luar React.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [showingAll, tabIds, metrics, filters, configVersion],
+  );
 
   const tabBar = (
     <div style={{ display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap" }}>
@@ -690,11 +693,18 @@ export default function TalentMappingClient({
           {customTabs.map(t => (
             <Tabs.Tab key={t.id} value={t.id} styles={{ tab: { fontFamily: FONT, fontSize: 12 } }}>{t.name}</Tabs.Tab>
           ))}
+          {/* Paling kanan, setelah mapping yang sungguhan: ia bacaan turunan
+              dari tab-tab di kirinya, bukan salah satu di antaranya. Baru
+              berarti kalau mappingnya lebih dari satu. */}
+          {allTabs.length > 1 && (
+            <Tabs.Tab value={ALL_TAB.id} styles={{ tab: { fontFamily: FONT, fontSize: 12 } }}>{ALL_TAB.label}</Tabs.Tab>
+          )}
         </Tabs.List>
       </Tabs>
       <ActionIcon variant="subtle" color="primary" size="sm" title="Tambah tab" aria-label="Tambah tab" onClick={() => setAddOpen(true)}>
         <IconPlus size={16} />
       </ActionIcon>
+
       {/* Ubah nama dan hapus tab TIDAK di sini lagi, melainkan di halaman
           Setting tab itu. Dulu keduanya ikon di baris ini dan memakai
           window.prompt/window.confirm — dialog bawaan browser yang tidak
@@ -707,6 +717,13 @@ export default function TalentMappingClient({
     <div style={{ fontFamily: FONT }}>
       <AppBreadcrumb items={[{ label: "Talent Mapping" }]} />
       <div style={{ padding: "12px 16px 40px" }}>
+      {showingAll ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {tabBar}
+          <MappingOverview views={mappingViews} />
+          <AllMappingTable views={mappingViews} metrics={metrics} />
+        </div>
+      ) : (
       <Panel
         key={tab}
         config={config}
@@ -717,8 +734,11 @@ export default function TalentMappingClient({
         initialBox={tab === (initialTab ?? "TI") ? initialBox : null}
         initialHighlight={initialHighlight}
         tabBar={tabBar}
+        filter={filterFor(tab, config)}
+        onFilterChange={next => setFilterFor(tab, next)}
         onSettings={() => router.push(`/talent-mapping/config?config=${encodeURIComponent(tab)}`)}
       />
+      )}
       {/* Dirender hanya saat terbuka, jadi tiap kali dibuka isinya segar —
           tanpa perlu effect yang mengosongkan state. */}
       {addOpen && (

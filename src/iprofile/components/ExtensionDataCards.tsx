@@ -25,9 +25,12 @@ export function ExtensionCard({ slug }: { slug: string }) {
   const profile = useMemo(() => findProfile(slug), [slug]);
   const fields = useMemo(() => fieldsOf(slug), [slug]);
 
-  // Bidangnya bisa lenyap saat sesi disegarkan — daftar bidang hidup di memori.
-  // Kartu tanpa bidang tidak digambar sama sekali, bukan digambar kosong.
-  if (!profile) return null;
+  /*
+   * Tidak digambar sama sekali kalau bidangnya lenyap (daftar bidang hidup di
+   * memori sesi) ATAU belum punya kolom — kartu kosong tidak menerangkan apa
+   * pun, dan ia muncul sendiri begitu kolomnya ditambahkan di Admin.
+   */
+  if (!profile || fields.length === 0) return null;
 
   return (
     <div
@@ -42,12 +45,7 @@ export function ExtensionCard({ slug }: { slug: string }) {
         )}
       </div>
 
-      {fields.length === 0 ? (
-        <p style={{ fontFamily: FONT, fontSize: 11, color: "#adb5bd" }}>
-          Belum ada kolom. Tambahkan kolomnya di Admin &gt; Profile Data.
-        </p>
-      ) : (
-        <div className="flex flex-col">
+      <div className="flex flex-col">
           {fields.map((f, i) => {
             const raw = f.valueOf(employeeId || "default");
             return (
@@ -67,8 +65,7 @@ export function ExtensionCard({ slug }: { slug: string }) {
               </div>
             );
           })}
-        </div>
-      )}
+      </div>
     </div>
   );
 }

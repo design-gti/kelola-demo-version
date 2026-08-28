@@ -1,6 +1,6 @@
 "use client";
 import { useSyncExternalStore } from "react";
-import { allProfiles, PROFILE_DATA_EVENT } from "@/app/admin/profile-data/profiles";
+import { allProfiles, fieldsOf, PROFILE_DATA_EVENT } from "@/app/admin/profile-data/profiles";
 import { extensionCardId } from "@/iprofile/components/ExtensionDataCards";
 
 /**
@@ -23,16 +23,27 @@ export interface IProfileCardConfig {
   locked?: boolean;
 }
 
+/**
+ * Susunan bawaan: urutan di dalam kolom mengikuti urutan daftar ini.
+ *
+ * Kiri berisi siapa orangnya dan skornya, tengah rencana ke depan beserta
+ * kepribadiannya, kanan data kepegawaian dan riwayat pengembangannya.
+ *
+ * Potency Scores mati secara bawaan — bacaannya sudah terwakili sumbu Potency di
+ * kartu lain, dan menyalakan dua radar chart sekaligus membuat kolom kiri jauh
+ * lebih panjang dari dua kolom lainnya. User yang memerlukannya tinggal
+ * menyalakan lewat panel Configuration.
+ */
 const STATIC_CARDS: IProfileCardConfig[] = [
-  { id: "profile",           label: "Profile",                 description: "Foto, jabatan, DISC, IQ, dan competency match",        enabled: true, col: 0, locked: true },
-  { id: "competency-scores", label: "Competency Scores",       description: "Skor aspek kompetensi terhadap standar Job",           enabled: true, col: 0 },
-  { id: "potency-scores",    label: "Potency Scores",          description: "Skor aspek potensi terhadap standar Job",              enabled: true, col: 0 },
-  { id: "career-plan",       label: "Career Plan",             description: "Rencana karier karyawan ini",                          enabled: true, col: 1 },
-  { id: "succession-plan",   label: "Succession Plan",         description: "Calon penerus jabatan karyawan ini",                   enabled: true, col: 1 },
-  { id: "teams",             label: "Teams",                   description: "Tim tempat karyawan ini tergabung",                    enabled: true, col: 1 },
-  { id: "development",       label: "Development",             description: "Riwayat IDP beserta status dan periodenya",            enabled: true, col: 2 },
-  { id: "employee-data",     label: "Employee Data",           description: "Data pribadi dan riwayat kepegawaian",                 enabled: true, col: 2 },
-  { id: "personality-factors", label: "16 Personality Factors", description: "Skor STEN 16PF beserta kecenderungan tiap faktor",     enabled: true, col: 2 },
+  { id: "profile",           label: "Profile",                 description: "Foto, jabatan, DISC, IQ, dan competency match",        enabled: true,  col: 0, locked: true },
+  { id: "competency-scores", label: "Competency Scores",       description: "Skor aspek kompetensi terhadap standar Job",           enabled: true,  col: 0 },
+  { id: "potency-scores",    label: "Potency Scores",          description: "Skor aspek potensi terhadap standar Job",              enabled: false, col: 0 },
+  { id: "teams",             label: "Teams",                   description: "Tim tempat karyawan ini tergabung",                    enabled: true,  col: 0 },
+  { id: "career-plan",       label: "Career Plan",             description: "Rencana karier karyawan ini",                          enabled: true,  col: 1 },
+  { id: "succession-plan",   label: "Succession Plan",         description: "Calon penerus jabatan karyawan ini",                   enabled: true,  col: 1 },
+  { id: "personality-factors", label: "16 Personality Factors", description: "Skor STEN 16PF beserta kecenderungan tiap faktor",     enabled: true,  col: 1 },
+  { id: "employee-data",     label: "Employee Data",           description: "Data pribadi dan riwayat kepegawaian",                 enabled: true,  col: 2 },
+  { id: "development",       label: "Development",             description: "Riwayat IDP beserta status dan periodenya",            enabled: true,  col: 2 },
 ];
 
 /**
@@ -45,19 +56,39 @@ const STATIC_CARDS: IProfileCardConfig[] = [
  */
 function extensionCards(): IProfileCardConfig[] {
   return allProfiles()
-    .filter((p) => p.kind === "extension" && p.enabled)
+    // Bidang tanpa kolom tidak menghasilkan kartu: kartunya akan kosong, dan
+    // wadah kosong itu tetap memakan jarak antar kartu di kolomnya. Begitu
+    // kolomnya ditambahkan di Admin, kartunya muncul sendiri.
+    .filter((p) => p.kind === "extension" && p.enabled && fieldsOf(p.slug).length > 0)
     .map((p) => ({
       id: extensionCardId(p.slug),
       label: p.name,
       description: p.description === "-" ? "Data extension" : p.description,
       enabled: true,
-      col: 2 as const,
+      col: 0 as const,
     }));
 }
 
-const defaultCards = (): IProfileCardConfig[] => [...STATIC_CARDS, ...extensionCards()];
+/**
+ * Kartu data extension disisipkan tepat setelah Competency Scores, bukan
+ * ditempel di ujung daftar: keduanya sama-sama "angka tentang orang ini", jadi
+ * mereka duduk berdekatan di kolom kiri, dan Teams tetap menutup kolom itu.
+ */
+const defaultCards = (): IProfileCardConfig[] => {
+  const out = [...STATIC_CARDS];
+  const at = out.findIndex((c) => c.id === "potency-scores");
+  out.splice(at + 1, 0, ...extensionCards());
+  return out;
+};
 
-const STORAGE_KEY = "iprofile-card-config-v1";
+/*
+ * v2: susunan bawaannya berubah (kolom, urutan, dan Potency Scores yang kini
+ * mati secara bawaan). Kunci dinaikkan supaya susunan baru itu benar-benar
+ * terlihat; simpanan v1 memuat kolom lama untuk setiap kartu, dan mergeWithDefaults
+ * mempertahankannya — jadi tanpa kunci baru, tata letak bawaan yang baru tidak
+ * akan pernah muncul di browser yang pernah membuka halaman ini.
+ */
+const STORAGE_KEY = "iprofile-card-config-v2";
 
 /**
  * Kartu yang pernah dipecah jadi beberapa kartu. Tanpa ini simpanan lama

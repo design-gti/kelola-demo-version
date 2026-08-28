@@ -421,14 +421,6 @@ export const TR_TIERS = [
   { readiness: "Ready Now", label: "Ready for bigger role", color: BLU3 },
 ] as const;
 
-function trTierFor(compTop: boolean, potTop: boolean) {
-  const readiness = compTop && potTop ? "Ready Now"
-    : potTop ? "Ready under 1 year"
-      : compTop ? "Ready between 1 and 2 year"
-        : "Ready more than 2 year";
-  return TR_TIERS.find(t => t.readiness === readiness)!;
-}
-
 // Readiness buckets in display order (worst→best). Donut colors are NOT fixed
 // here — donutTags() pulls each bucket's color from its box, so it always tracks
 // the diagram (and any color edits made in Settings).
@@ -472,6 +464,98 @@ export const Z_THICKNESS = [3, 5, 7, 9];
 export const Z_ALPHA = 0.35;
 
 export interface ZRing { thickness: number; color: string }
+
+/**
+ * Saringan satu tab box mapping: tim, jabatan, dan pita per sumbu.
+ *
+ * Pita disimpan sebagai INDEKS pita ("X": ["2"]), bukan namanya, supaya
+ * mengganti nama pita di halaman Setting tidak membatalkan saringan yang
+ * sedang aktif.
+ */
+export interface TMFilter {
+  teams: string[];
+  jobs: string[];
+  axisPicks: Record<string, string[]>;
+  /**
+   * Jabatan target untuk sumbu Competency. Ikut di sini, bukan state tersendiri,
+   * karena ia sama-sama "apa yang sedang dilihat di tab ini" — dan tampilan
+   * Semua Mapping harus bisa membacanya bersama saringan lainnya.
+   */
+  jobTarget: string | null;
+}
+
+/** Saringan kosong untuk sebuah tab: hanya pita bawaan tabnya yang menyala. */
+export const emptyFilter = (cfg: TMConfig): TMFilter => ({
+  teams: [],
+  jobs: [],
+  axisPicks: cfg.defaultAxisPicks ?? {},
+  jobTarget: null,
+});
+
+/**
+ * Sumbu yang sedang dipakai sebuah konfigurasi, lengkap dengan pita dan cara
+ * mengambil nilainya dari satu titik.
+ *
+ * Ini yang membuat modal Filter kontekstual: dulu kolomnya dipaku ke sumbu Y
+ * dan berjudul "Potency" apa pun metriknya, jadi mengganti sumbu di Setting
+ * menghasilkan saringan yang menyaring hal lain dari yang tertulis. Sumbu Z
+ * hanya ikut kalau memang dinyalakan.
+ */
+export interface TMAxis {
+  id: string;
+  label: string;
+  bands: AxisBand[];
+  valueOf: (p: TMPoint) => number | null;
+}
+
+export function axesOf(cfg: TMConfig): TMAxis[] {
+  const list: TMAxis[] = [
+    { id: "X", label: cfg.sumbuX, bands: cfg.rangesX, valueOf: p => p.rawX },
+    { id: "Y", label: cfg.sumbuY, bands: cfg.rangesY, valueOf: p => p.rawY },
+  ];
+  if (cfg.useZ && cfg.sumbuZ && cfg.rangesZ?.length) {
+    list.push({ id: "Z", label: cfg.sumbuZ, bands: cfg.rangesZ, valueOf: p => p.rawZ ?? null });
+  }
+  return list;
+}
+
+/**
+ * Pilihan pita yang masih sah untuk sebuah sumbu.
+ *
+ * Jumlah pita bisa berubah di Setting (ganti layout, misalnya) tanpa membongkar
+ * saringan yang tersimpan, dan indeks yang sudah tidak ada akan menyaring habis
+ * semua orang tanpa penjelasan — jadi indeks basi dibuang, bukan dipakai.
+ */
+export const picksFor = (a: Pick<TMAxis, "id" | "bands">, source: Record<string, string[]>) =>
+  (source[a.id] ?? []).filter(v => Number(v) < a.bands.length);
+
+/** Berapa kriteria yang sedang menyaring — mengisi angka pada tombol Filter. */
+export function filterCount(cfg: TMConfig, f: TMFilter): number {
+  return f.teams.length + f.jobs.length + axesOf(cfg).reduce((n, a) => n + picksFor(a, f.axisPicks).length, 0);
+}
+
+/**
+ * Menerapkan saringan sebuah tab pada titik-titiknya.
+ *
+ * Satu jalur untuk halaman Talent Mapping DAN tampilan Semua Mapping: kalau
+ * masing-masing menyaring sendiri, dua tampilan yang mengaku menunjukkan tab
+ * yang sama bisa menampilkan orang yang berbeda.
+ *
+ * Centang dalam satu sumbu bersifat "atau", antar sumbu bersifat "dan".
+ */
+export function applyFilter(cfg: TMConfig, points: TMPoint[], f: TMFilter): TMPoint[] {
+  const axes = axesOf(cfg);
+  return points.filter(p => {
+    if (f.teams.length > 0 && !f.teams.includes(p.team)) return false;
+    if (f.jobs.length > 0 && !f.jobs.includes(p.positionTitle)) return false;
+    return axes.every(a => {
+      const picked = picksFor(a, f.axisPicks);
+      if (picked.length === 0) return true;
+      const v = a.valueOf(p);
+      return v != null && picked.includes(String(bandIndex(v, a.bands)));
+    });
+  });
+}
 
 /** Hex → rgba, untuk menembuskan warna pita tanpa mengubah token aslinya. */
 export function withAlpha(hex: string, alpha: number): string {
