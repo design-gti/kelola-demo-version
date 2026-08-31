@@ -13,6 +13,7 @@ import {
   SuccessionPlanCard,
   TeamsCard,
   DevelopmentCard,
+  PersonalDataCard,
   EmployeeDataCard,
   Frame79,
   Frame116,
@@ -58,6 +59,7 @@ export function IProfileCardGrid({
       case "succession-plan":  return <SuccessionPlanCard />;
       case "teams":             return <TeamsCard />;
       case "development":       return <DevelopmentCard />;
+      case "personal-data":     return <PersonalDataCard />;
       case "employee-data":     return <EmployeeDataCard />;
       case "personality-factors": return <PersonalityFactorsCard />;
       default: {

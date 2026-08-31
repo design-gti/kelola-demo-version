@@ -13,14 +13,22 @@ import NeedDevelopModal from "./components/NeedDevelopModal";
 import { buildOrgChart, type Employee, type OrgChartNode } from "./data/orgChartData";
 import { dataManager } from "./data/dataManager";
 import { loadEmployeesFromCanonical } from "./data/canonicalAdapter";
-import { ChevronDown, ChevronRight, ZoomIn, ZoomOut, Maximize2, Table as TableIcon, Network, Search, Settings, TrendingUp, Plus, Shuffle } from "lucide-react";
+import { ChevronDown, ChevronRight, ZoomIn, ZoomOut, Maximize2, Table as TableIcon, Network, Search, Settings, TrendingUp, Plus, Shuffle, History, X, Filter } from "lucide-react";
 import { HEADER_HEIGHT } from "@/components/AppHeader";
 import { Button } from "./components/ui/button";
+/*
+ * Kendali Vismap V2 memakai komponen design system Prodigy (Button/ActionIcon
+ * adalah re-export Mantine — lihat dist/components/Button/index.d.ts). Di sana
+ * "Ghost" = variant="subtle", jadi jangan menulis tombol sendiri dengan style
+ * inline: warna, tinggi, radius, dan state hover-nya sudah dikunci di theme.
+ */
+import { ActionIcon, Tooltip as DsTooltip, Indicator } from "@mantine/core";
 import { Switch } from "./components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./components/ui/tooltip";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./components/ui/dropdown-menu";
 import DataVisibilityModal from "./components/DataVisibilityModal";
+import { LAYER_REQUIRES, isLayerLocked } from "./v2/layers";
 import { Toaster } from "./components/ui/sonner";
 import { toast } from "sonner";
 import HeatmapSettings, { type HeatmapConfig, type HeatmapRange } from "./components/HeatmapSettings";
@@ -500,13 +508,24 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
   // v2 baru placeholder — akan dibangun bertahap di sini tanpa menyentuh logic v1.
   // v3 = sandbox eksplorasi desain, salinan v1 di src/vismap/v3/ (docs/vismap-v3.md).
   const [vismapVersion, setVismapVersion] = useState<'v1' | 'v2' | 'v3'>('v1');
-  // V2: tab-nya cuma Default / Heatmap. Heatmap-nya multi-layer (lihat src/vismap/v2/layers.ts)
-  const [v2Tab, setV2Tab] = useState<'default' | 'heatmap'>('default');
+  // V2 selalu mode heatmap; yang dipilih user tinggal layer mana yang menyala
+  // (lihat src/vismap/v2/layers.ts dan panel di sisi kiri kanvasnya).
   const [v2Layers, setV2Layers] = useState<Set<LayerId>>(new Set());
+  // Mode riwayat V2: kanvas penuh layar + timeline peristiwa di bawah.
+  const [orgHistoryMode, setOrgHistoryMode] = useState(false);
   const toggleV2Layer = (id: LayerId) => {
     setV2Layers(prev => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id); else next.add(id);
+      if (next.has(id)) {
+        // Layer yang sedang dikunci layer lain tidak bisa dimatikan sendiri —
+        // matikan dulu layer yang menyalakannya (lihat LAYER_REQUIRES).
+        if (isLayerLocked(id, prev)) return prev;
+        next.delete(id);
+      } else {
+        next.add(id);
+        const required = LAYER_REQUIRES[id];
+        if (required) next.add(required);
+      }
       return next;
     });
   };
@@ -536,6 +555,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const [highlightedEmployeeId, setHighlightedEmployeeId] = useState<string | null>(null);
   const [isVariableDialogOpen, setIsVariableDialogOpen] = useState(false);
+  const visibleFieldCount = Object.values(visibleColumns).filter(Boolean).length;
 
   // Simulation mode state
   const [isSimulationMode, setIsSimulationMode] = useState(false);
@@ -1073,11 +1093,18 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
     <TooltipProvider>
       {/* Vismap V1/V2/V3 switch — floating pojok kiri bawah, gaya sama dengan
           user-switcher di modul IDP. Selalu di atas kanvas V2/V3 supaya bisa
-          kapan saja balik ke V1. */}
+          kapan saja balik ke V1 — kecuali di mode Org History, yang memang
+          menutup seluruh layar dan hanya punya satu jalan keluar: Exit History. */}
       <div
         data-no-drag
         className="fixed flex items-center gap-1 bg-white rounded-full border border-[#dee2e6] p-1 shadow-lg"
-        style={{ bottom: 20, left: "calc(var(--sidebar-w, 220px) + 20px)", zIndex: 1000, fontFamily: "'Open Sans', sans-serif" }}
+        style={{
+          bottom: 20,
+          left: "calc(var(--sidebar-w, 220px) + 20px)",
+          zIndex: 1000,
+          fontFamily: "'Open Sans', sans-serif",
+          display: orgHistoryMode ? 'none' : undefined,
+        }}
       >
         {(['v1', 'v2', 'v3'] as const).map((v) => (
           <button
@@ -1113,10 +1140,11 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
         <VismapV2
           orgChart={orgChart}
           heatmapConfig={heatmapConfig}
-          tab={v2Tab}
           activeLayers={v2Layers}
+          historyMode={orgHistoryMode}
+          visibleColumns={visibleColumns}
           onToggleLayer={toggleV2Layer}
-          top={HEADER_HEIGHT + 108}
+          top={HEADER_HEIGHT}
         />
       )}
 
@@ -1325,29 +1353,34 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
         // tetap di top:0 ia menutupi header dan judul menunya tidak terlihat.
         // V3 membawa top bar salinannya sendiri — tanpa gate ini keduanya
         // bertumpuk di posisi yang sama.
-        style={{ left: "var(--sidebar-w, 220px)", top: HEADER_HEIGHT, display: vismapVersion === 'v3' ? 'none' : undefined }}
+        style={{
+          // Mode riwayat menutupi sidebar dan header, jadi bilah kendalinya ikut
+          // pindah ke pojok layar dan naik di atas kanvas riwayat (z-index 60).
+          left: orgHistoryMode ? 0 : "var(--sidebar-w, 220px)",
+          top: orgHistoryMode ? 0 : HEADER_HEIGHT,
+          zIndex: orgHistoryMode ? 70 : undefined,
+          display: vismapVersion === 'v3' ? 'none' : undefined,
+          /*
+           * Di V2 bilah ini tinggal berisi tombol Settings — baris tabnya sudah
+           * dihapus. Latar putih selebar layar untuk satu tombol cuma memotong
+           * kanvas, jadi latarnya ditanggalkan dan tombolnya melayang.
+           *
+           * pointer-events dimatikan bersama latarnya: bilah tak terlihat yang
+           * masih menangkap klik akan memakan geseran kanvas di jalur setinggi
+           * dirinya. Kendali di dalamnya menyalakannya kembali sendiri.
+           */
+          background: vismapVersion === 'v2' ? 'transparent' : undefined,
+          boxShadow: vismapVersion === 'v2' ? 'none' : undefined,
+          pointerEvents: vismapVersion === 'v2' ? 'none' : undefined,
+        }}
       >
         {/* Tab Filter row */}
         <div className="flex items-center justify-between py-2">
+        {/* V2 tidak punya baris tab: modenya selalu heatmap, dan layer mana
+            yang menyala dipilih di panel kiri kanvasnya. Sisi kiri dibiarkan
+            kosong supaya kendali di kanan (view mode, dll) tetap di tempatnya. */}
         {vismapVersion === 'v2' ? (
-          /* Tab V2: cuma Default & Heatmap. Pilihan heatmap-nya ada di panel kiri. */
-          <div className="flex gap-[12px] items-center">
-            {([['default', 'Default'], ['heatmap', 'Heatmap']] as const).map(([id, label]) => (
-              <button
-                key={id}
-                onClick={() => setV2Tab(id)}
-                className={`flex gap-[8px] items-center px-[8px] py-[4px] rounded-[28px] transition-colors ${
-                  v2Tab === id ? 'bg-[#016699]' : 'bg-transparent hover:bg-[#016699]/10'
-                }`}
-              >
-                <p className={`font-['Open_Sans',_sans-serif] font-semibold text-[14px] text-nowrap ${
-                  v2Tab === id ? 'text-white' : 'text-[#016699]'
-                }`}>
-                  {label}
-                </p>
-              </button>
-            ))}
-          </div>
+          <div />
         ) : (
         <TabFilter activeTab={activeTab} onTabChange={(tab) => {
           setActiveTab(tab);
@@ -1372,7 +1405,7 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
         )}
 
         {/* View Mode Toggle */}
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center" style={{ pointerEvents: "auto" }}>
           {/* Simulate Button */}
           {vismapVersion === 'v1' && viewMode === 'chart' && (
             <button
@@ -1418,16 +1451,57 @@ export default function App({ initialTab }: { initialTab?: string } = {}) {
               <TableIcon className="w-4 h-4" style={{ color: viewMode === 'table' ? 'white' : '#016699' }} />
             </Button>
           </div>
+          {/* Filter Card Data — modal yang sama dengan V1/V3, jadi kolom yang
+              dipilih tetap sama saat berpindah versi. Di mode riwayat tombolnya
+              disembunyikan: layarnya sedang dipakai menonton pergerakan kartu.
+
+              Tombol ikon: barisnya berdiri di atas kanvas, jadi tiap teks di sini
+              memakan lebar peta. Jumlah kolom aktif tetap terbaca lewat Indicator
+              dan label tooltip-nya. */}
+          {vismapVersion === 'v2' && !orgHistoryMode && (
+            <DsTooltip
+              label={`Filter Card Data${visibleFieldCount > 0 ? ` — ${visibleFieldCount} data aktif` : ''}`}
+            >
+              <Indicator label={visibleFieldCount} size={16} disabled={visibleFieldCount === 0} color="primary">
+                <ActionIcon
+                  data-no-drag
+                  variant="subtle"
+                  size="lg"
+                  aria-label="Filter Card Data"
+                  onClick={() => setIsVariableDialogOpen(true)}
+                >
+                  <Filter className="w-4 h-4" />
+                </ActionIcon>
+              </Indicator>
+            </DsTooltip>
+          )}
+
+          {/* Org History — hanya V2 yang punya riwayat struktur. Ghost = variant
+              "subtle"; saat modenya aktif jadi "filled" supaya keadaan
+              menyala/mati terbaca tanpa warna buatan sendiri. */}
+          {vismapVersion === 'v2' && (
+            <DsTooltip label={orgHistoryMode ? "Keluar dari Org History" : "Org History — riwayat perubahan struktur"}>
+              <ActionIcon
+                data-no-drag
+                variant={orgHistoryMode ? "filled" : "subtle"}
+                size="lg"
+                aria-label={orgHistoryMode ? "Keluar dari Org History" : "Org History"}
+                onClick={() => setOrgHistoryMode(v => !v)}
+              >
+                {orgHistoryMode ? <X className="w-4 h-4" /> : <History className="w-4 h-4" />}
+              </ActionIcon>
+            </DsTooltip>
+          )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                data-no-drag
-                title="Settings"
-                size="icon"
-                style={{ backgroundColor: 'white' }}
-              >
-                <Settings className="w-4 h-4" style={{ color: '#016699' }} />
-              </Button>
+              {/* Tombol ikon tanpa teks → ActionIcon (design system mewajibkan
+                  aria-label karena tidak ada teks yang bisa dibaca). Tooltip-nya
+                  tetap pakai atribut title: Radix dan Mantine sama-sama meminta
+                  ref pada anak tunggal ini, dan menumpuk keduanya membuat menu
+                  dropdown-nya berhenti terbuka. */}
+              <ActionIcon data-no-drag variant="subtle" size="lg" title="Settings" aria-label="Settings">
+                <Settings className="w-4 h-4" />
+              </ActionIcon>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="font-['Open_Sans',_sans-serif]">
               <DropdownMenuItem onClick={() => setIsDataEditorOpen(true)}>

@@ -1,5 +1,6 @@
 "use client";
 import { useContext, useMemo } from "react";
+import { Text } from "@mantine/core";
 import { ProfileContext } from "../lib/ProfileContext";
 import {
   PERSONALITY_FACTORS,
@@ -235,7 +236,7 @@ export function PersonalityFactorsCard() {
       data-name="16 Personality Factors"
     >
       <div className="flex items-baseline justify-between gap-[8px]">
-        <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 700, color: "#495057" }}>16 Personality Factors</p>
+        <Text size="sm" fw={700}>16 Personality Factors</Text>
         {/* Keterangan skala ditulis SEKALI di kepala kartu, bukan diulang di
             setiap baris seperti di laporan cetak. */}
         <p style={{ fontFamily: FONT, fontSize: 10, color: "#adb5bd", whiteSpace: "nowrap" }}>STEN 1–10</p>

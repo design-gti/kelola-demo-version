@@ -11,6 +11,7 @@ import { AddSuccessorsModal } from "../components/AddSuccessorsModal";
 import { useState, useContext, useEffect } from "react";
 import { candidates } from "@/data/dummyData";
 import TextButton from "@/components/ui/TextButton";
+import { Text } from "@mantine/core";
 import { getParticipant, scoreOf, allTeams } from "@/data/model/selectors";
 import {
   ProfileContext,
@@ -214,9 +215,7 @@ function Frame88() {
 function Frame83({ title }: { title: string }) {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">{title}</p>
-      </div>
+      <Text size="sm" fw={700} style={{ whiteSpace: "nowrap" }}>{title}</Text>
     </div>
   );
 }
@@ -330,9 +329,7 @@ export function ProfileCard() {
 function Frame84({ title }: { title: string }) {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">{title}</p>
-      </div>
+      <Text size="sm" fw={700} style={{ whiteSpace: "nowrap" }}>{title}</Text>
     </div>
   );
 }
@@ -426,9 +423,7 @@ function Frame49() {
 function Frame85() {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">Teams</p>
-      </div>
+      <Text size="sm" fw={700} style={{ whiteSpace: "nowrap" }}>Teams</Text>
     </div>
   );
 }
@@ -613,9 +608,7 @@ export function TeamsCard() {
 function Frame98() {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">Development Plan</p>
-      </div>
+      <Text size="sm" fw={700} style={{ whiteSpace: "nowrap" }}>Development Plan</Text>
     </div>
   );
 }
@@ -768,47 +761,6 @@ function Frame105() {
   );
 }
 
-function Frame112() {
-  return (
-    <div className="content-stretch flex items-center relative shrink-0">
-      <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[14px] whitespace-nowrap">
-        <p className="leading-[normal]">Employee Data</p>
-      </div>
-    </div>
-  );
-}
-
-function Frame113() {
-  return (
-    <div className="content-stretch flex items-center justify-end relative shrink-0 w-[70.083px]">
-      <div className="overflow-clip relative shrink-0 size-[16px]" data-name="dots-vertical">
-        <div className="absolute inset-[16.67%_45.83%]" data-name="Vector">
-          <div className="absolute inset-[-7.03%_-56.25%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2.83333 12.1667">
-              <g id="Vector">
-                <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #58595B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-              </g>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Frame111() {
-  return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-[336.333px]">
-      <Frame112 />
-      <Frame113 />
-    </div>
-  );
-}
-
-
-
 /**
  * Baris "Personal Data" (NIK s/d Marital Status), dibangun sebagai data supaya
  * bisa dipotong saat kartu dilipat lewat tombol Less/More. Nilainya sama
@@ -899,9 +851,7 @@ function EmpDataGroup({
   return (
     <div className="content-stretch flex flex-col gap-[2px] items-start py-[4px] relative shrink-0 w-full">
       <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-        <div className="flex flex-col font-['Avenir:Heavy',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#495057] text-[12px] whitespace-nowrap">
-          <p className="leading-[normal]">{title}</p>
-        </div>
+        <Text size="sm" fw={700} style={{ whiteSpace: "nowrap" }}>{title}</Text>
         <div className="overflow-clip relative shrink-0 size-[16px]" data-name="edit">
           <div className="absolute inset-[12.5%_12.5%_16.67%_16.67%]" data-name="Vector">
             <div className="absolute inset-[-6.62%]">
@@ -932,34 +882,29 @@ export function DevelopmentCard() {
 /** Baris yang tampil saat dilipat — cukup untuk memberi gambaran tanpa memenuhi kartu. */
 const COLLAPSED_ROW_COUNT = 6;
 
-export function EmployeeDataCard() {
-  const { employee } = useContext(ProfileContext);
+/**
+ * Kartu berisi satu kelompok baris label-nilai.
+ *
+ * Dulu Personal Data dan Employee Data berbagi SATU kartu, dengan satu tombol
+ * More/Less yang menjatah enam baris dari atas — jatah itu selalu habis di
+ * Personal Data (sembilan baris), jadi melipat kartu membuat seluruh grup
+ * Employee Data lenyap tanpa penjelasan. Sebagai dua kartu, masing-masing
+ * melipat isinya sendiri, dan keduanya bisa disembunyikan atau digeser
+ * terpisah lewat panel Configuration.
+ */
+function DataCard({ title, rows }: { title: string; rows: { label: string; value: string }[] }) {
   // Default terbuka: perilaku sebelum tombol ini hidup adalah menampilkan
   // semua baris, jadi keadaan awal harus tetap begitu.
   const [expanded, setExpanded] = useState(true);
-
-  const personalRows = personalDataRows(employee);
-  const employeeRows = employeeDataRows(employee);
-  const totalRows = personalRows.length + employeeRows.length;
-
-  // Jatah 6 baris dihabiskan dari grup Personal Data dulu, sisanya baru
-  // dipakai Employee Data — begitu Personal Data sendiri sudah >= 6 baris
-  // (selalu benar di data ini: 9 baris), grup Employee Data tidak tampil sama
-  // sekali saat dilipat, judulnya pun ikut hilang lewat EmpDataGroup.
-  const personalVisible = expanded ? personalRows.length : Math.min(COLLAPSED_ROW_COUNT, personalRows.length);
-  const employeeVisible = expanded
-    ? employeeRows.length
-    : Math.max(0, COLLAPSED_ROW_COUNT - personalRows.length);
+  const visible = expanded ? rows.length : Math.min(COLLAPSED_ROW_COUNT, rows.length);
 
   return (
-  <div className="bg-white content-stretch flex flex-col gap-[16px] items-center p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Employee Data">
-    <Frame111 />
-    <div className="content-stretch flex flex-col gap-[24px] items-start overflow-clip relative shrink-0 w-full">
-      <EmpDataGroup title="Personal Data" rows={personalRows} visible={personalVisible} />
-      <EmpDataGroup title="Employee Data" rows={employeeRows} visible={employeeVisible} />
+  <div className="bg-white content-stretch flex flex-col gap-[16px] items-center p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name={title}>
+    <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
+      <EmpDataGroup title={title} rows={rows} visible={visible} />
     </div>
     {/* Tombol cuma berarti kalau ada sesuatu yang bisa disembunyikan. */}
-    {totalRows > COLLAPSED_ROW_COUNT && (
+    {rows.length > COLLAPSED_ROW_COUNT && (
       <button
         onClick={() => setExpanded((v) => !v)}
         className="content-stretch cursor-pointer flex gap-[8px] items-center px-[8px] py-[4px] relative rounded-[28px] shrink-0"
@@ -988,7 +933,17 @@ export function EmployeeDataCard() {
   );
 }
 
+/** Data pribadi: NIK sampai status pernikahan. */
+export function PersonalDataCard() {
+  const { employee } = useContext(ProfileContext);
+  return <DataCard title="Personal Data" rows={personalDataRows(employee)} />;
+}
 
+/** Data kepegawaian: atasan, masa kerja, dan riwayat jabatan. */
+export function EmployeeDataCard() {
+  const { employee } = useContext(ProfileContext);
+  return <DataCard title="Employee Data" rows={employeeDataRows(employee)} />;
+}
 export default function Frame120() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");

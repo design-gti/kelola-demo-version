@@ -42,7 +42,8 @@ const STATIC_CARDS: IProfileCardConfig[] = [
   { id: "career-plan",       label: "Career Plan",             description: "Rencana karier karyawan ini",                          enabled: true,  col: 1 },
   { id: "succession-plan",   label: "Succession Plan",         description: "Calon penerus jabatan karyawan ini",                   enabled: true,  col: 1 },
   { id: "personality-factors", label: "16 Personality Factors", description: "Skor STEN 16PF beserta kecenderungan tiap faktor",     enabled: true,  col: 1 },
-  { id: "employee-data",     label: "Employee Data",           description: "Data pribadi dan riwayat kepegawaian",                 enabled: true,  col: 2 },
+  { id: "personal-data",     label: "Personal Data",           description: "NIK, kontak, domisili, dan data pribadi lainnya",      enabled: true,  col: 2 },
+  { id: "employee-data",     label: "Employee Data",           description: "Atasan, masa kerja, dan riwayat jabatan",              enabled: true,  col: 2 },
   { id: "development",       label: "Development",             description: "Riwayat IDP beserta status dan periodenya",            enabled: true,  col: 2 },
 ];
 
@@ -97,6 +98,10 @@ const STORAGE_KEY = "iprofile-card-config-v2";
  */
 const SPLIT_CARDS: Record<string, string[]> = {
   "career-succession": ["career-plan", "succession-plan"],
+  // Satu kartu berisi dua kelompok baris, kini dua kartu terpisah. Tanpa entri
+  // ini, simpanan lama kehilangan id "employee-data" dan kedua penggantinya
+  // menclok di dasar kolom alih-alih di tempat kartu asalnya.
+  "employee-data": ["personal-data", "employee-data"],
 };
 
 /** Gabungkan simpanan lama dengan bawaan, supaya kartu baru tetap muncul. */

@@ -1,5 +1,6 @@
 "use client";
 import { useContext, useMemo } from "react";
+import { Text } from "@mantine/core";
 import { ProfileContext } from "../lib/ProfileContext";
 import { fieldsOf, findProfile } from "@/app/admin/profile-data/profiles";
 
@@ -39,7 +40,7 @@ export function ExtensionCard({ slug }: { slug: string }) {
       data-name={`Extension ${profile.name}`}
     >
       <div>
-        <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 700, color: "#495057" }}>{profile.name}</p>
+        <Text size="sm" fw={700}>{profile.name}</Text>
         {profile.description && profile.description !== "-" && (
           <p style={{ fontFamily: FONT, fontSize: 12, color: "#adb5bd", marginTop: 2 }}>{profile.description}</p>
         )}

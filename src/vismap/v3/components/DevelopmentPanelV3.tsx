@@ -16,7 +16,25 @@
 // sebagai baris program di form Create IDP.
 import { useEffect, useMemo, useState } from 'react';
 import { ChevronDown, ChevronUp, Info, Star, TrendingUp, X } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../components/ui/tooltip';
+/*
+ * Komponen design system Prodigy (re-export tipis Mantine). Ukuran teks lewat
+ * PROP "size" — xs 10px / sm 12px / md 14px — bukan class utility, supaya panel
+ * ini ikut berubah kalau tokennya berubah.
+ */
+import {
+  ActionIcon,
+  Badge,
+  Button,
+  Checkbox,
+  Group,
+  Select,
+  Stack,
+  Tabs,
+  Text,
+  Title,
+  Tooltip,
+  UnstyledButton,
+} from '@mantine/core';
 import { devAspectsFor, hasCompetencyData, matchPercentFor, positionOptions, type DevAspect } from '../competency';
 
 interface DevelopmentPanelV3Props {
@@ -60,42 +78,41 @@ function AspectRow({ aspect, checked, onToggleKb }: {
 
   return (
     <div className="rounded-[8px] border border-[#dee2e6] overflow-hidden">
-      <button
+      <UnstyledButton
         onClick={() => hasKb && setExpanded(v => !v)}
-        className="w-full flex items-center gap-[8px] px-[12px] py-[10px] bg-white hover:bg-[#f8f9fa] transition-colors text-left"
+        w="100%"
+        px={12}
+        py={10}
+        bg="white"
+        style={{ textAlign: 'left' }}
       >
-        <span className="flex items-center gap-[5px] flex-1 min-w-0">
-          <span className="font-['Open_Sans',_sans-serif] text-[12px] font-semibold text-[#212529] truncate">
-            {aspect.label}
-          </span>
-          {aspect.description && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span className="shrink-0 cursor-help"><Info className="w-[12px] h-[12px] text-[#adb5bd]" /></span>
-                </TooltipTrigger>
-                <TooltipContent side="left" className="max-w-[260px]">
-                  <p className="font-['Open_Sans',_sans-serif] text-xs">{aspect.description}</p>
-                </TooltipContent>
+        <Group gap={8} wrap="nowrap">
+          <Group gap={5} wrap="nowrap" style={{ flex: 1, minWidth: 0 }}>
+            <Text size="sm" fw={600} c="neutral.9" truncate>{aspect.label}</Text>
+            {aspect.description && (
+              <Tooltip label={aspect.description} position="left" multiline w={260}>
+                <span style={{ display: 'flex', flexShrink: 0, cursor: 'help' }}>
+                  <Info className="w-[12px] h-[12px] text-[#adb5bd]" />
+                </span>
               </Tooltip>
-            </TooltipProvider>
-          )}
-        </span>
+            )}
+          </Group>
 
-        {/* Selisih yang harus ditutup untuk mencapai standar jabatan */}
-        <span className="shrink-0 rounded-full border border-[#F59E02] px-[6px] py-[1px] font-['Open_Sans',_sans-serif] text-[10px] font-bold text-[#B5721C]">
-          +{aspect.gap}
-        </span>
-        <StarRow score={aspect.score} />
-        <span className="shrink-0 rounded-[4px] bg-[#f1f3f5] px-[6px] py-[1px] font-['Open_Sans',_sans-serif] text-[11px] font-bold text-[#495057]">
-          {aspect.score}
-        </span>
-        {hasKb && (
-          expanded
-            ? <ChevronUp className="w-[14px] h-[14px] text-[#016699] shrink-0" />
-            : <ChevronDown className="w-[14px] h-[14px] text-[#016699] shrink-0" />
-        )}
-      </button>
+          {/* Selisih yang harus ditutup untuk mencapai standar jabatan */}
+          <Badge size="sm" radius="xl" variant="outline" color="warning" styles={{ root: { flexShrink: 0 } }}>
+            +{aspect.gap}
+          </Badge>
+          <StarRow score={aspect.score} />
+          <Badge size="sm" radius="sm" variant="light" color="neutral" styles={{ root: { flexShrink: 0 } }}>
+            {aspect.score}
+          </Badge>
+          {hasKb && (
+            expanded
+              ? <ChevronUp className="w-[14px] h-[14px] text-[#016699] shrink-0" />
+              : <ChevronDown className="w-[14px] h-[14px] text-[#016699] shrink-0" />
+          )}
+        </Group>
+      </UnstyledButton>
 
       {expanded && hasKb && (
         <div className="flex flex-col border-t border-[#dee2e6]">
@@ -103,23 +120,24 @@ function AspectRow({ aspect, checked, onToggleKb }: {
             const key = kbKey(aspect.label, kb.label);
             const isChecked = checked.has(key);
             return (
-              <label
+              <Group
                 key={key}
-                className="flex items-start gap-[8px] px-[12px] py-[8px] bg-[#f8f9fa] border-b border-[#e9ecef] last:border-b-0 cursor-pointer hover:bg-[#f1f3f5]"
+                align="flex-start"
+                gap={8}
+                wrap="nowrap"
+                px={12}
+                py={8}
+                className="bg-[#f8f9fa] border-b border-[#e9ecef] last:border-b-0"
               >
-                <input
-                  type="checkbox"
+                <Checkbox
+                  size="xs"
                   checked={isChecked}
                   onChange={() => onToggleKb(aspect.label, kb.label)}
-                  className="mt-[2px] size-[13px] accent-[#016699] shrink-0"
+                  label={<Text size="xs" c="neutral.7">{kb.label}</Text>}
+                  styles={{ body: { alignItems: 'flex-start' }, root: { flex: 1, minWidth: 0 } }}
                 />
-                <span className="flex-1 font-['Open_Sans',_sans-serif] text-[11px] leading-[1.45] text-[#495057]">
-                  {kb.label}
-                </span>
-                <span className="shrink-0 font-['Open_Sans',_sans-serif] text-[10px] font-bold text-[#6c757d]">
-                  Taraf {kb.level}
-                </span>
-              </label>
+                <Text size="xs" fw={700} c="neutral.6" style={{ flexShrink: 0 }}>Taraf {kb.level}</Text>
+              </Group>
             );
           })}
         </div>
@@ -127,9 +145,7 @@ function AspectRow({ aspect, checked, onToggleKb }: {
 
       {expanded && checkedCount > 0 && (
         <div className="px-[12px] py-[6px] bg-white border-t border-[#e9ecef]">
-          <p className="font-['Open_Sans',_sans-serif] text-[10px] text-[#016699]">
-            {checkedCount} key behaviour dipilih untuk IDP
-          </p>
+          <Text size="xs" c="primary.5">{checkedCount} key behaviour dipilih untuk IDP</Text>
         </div>
       )}
     </div>
@@ -212,88 +228,74 @@ export default function DevelopmentPanelV3({
           tidak saling tertimpa seperti pada panel versi sebelumnya. */}
       <div className="shrink-0 px-[17px] pt-[18px] pb-[12px] border-b border-[#e9ecef]">
         <div className="flex items-start justify-between gap-[12px]">
-          <div className="min-w-0">
-            <p className="font-['Open_Sans',_sans-serif] text-[10px] font-bold uppercase tracking-[0.08em] text-[#016699]">
+          <Stack gap={0} style={{ minWidth: 0 }}>
+            <Text size="xs" fw={700} c="primary.5" tt="uppercase" style={{ letterSpacing: '0.08em' }}>
               Development
-            </p>
-            <p className="mt-[4px] font-['Open_Sans',_sans-serif] text-[14px] font-bold text-[#212529] truncate">
-              {employeeName}
-            </p>
-            <p className="font-['Open_Sans',_sans-serif] text-[11px] text-[#6c757d] truncate">
-              {employeePosition}
-            </p>
-          </div>
-          <button onClick={onClose} className="shrink-0 hover:opacity-70 transition-opacity" title="Tutup">
-            <X className="size-5 text-[#016699]" />
-          </button>
+            </Text>
+            <Title order={5} mt={4} c="neutral.9" style={{ minWidth: 0 }}>
+              <Text size="md" fw={700} truncate>{employeeName}</Text>
+            </Title>
+            <Text size="xs" c="neutral.6" truncate>{employeePosition}</Text>
+          </Stack>
+          <ActionIcon variant="subtle" onClick={onClose} aria-label="Tutup panel Development" style={{ flexShrink: 0 }}>
+            <X className="size-5" />
+          </ActionIcon>
         </div>
 
-        {/* Tab */}
-        <div className="mt-[14px] flex gap-[18px]">
-          {([['current', 'Current Position'], ['target', 'Target Position']] as const).map(([id, label]) => (
-            <button
-              key={id}
-              onClick={() => setTab(id)}
-              className="pb-[6px] font-['Open_Sans',_sans-serif] text-[12px] font-semibold transition-colors"
-              style={{
-                color: tab === id ? '#016699' : '#adb5bd',
-                borderBottom: tab === id ? '2px solid #016699' : '2px solid transparent',
-              }}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
+        {/* Tab — komponen Tabs design system, bukan deretan tombol bergaris bawah
+            buatan sendiri. */}
+        <Tabs value={tab} onChange={(v) => v && setTab(v as TabId)} mt={14} styles={{ list: { borderBottom: 'none' } }}>
+          <Tabs.List>
+            <Tabs.Tab value="current">Current Position</Tabs.Tab>
+            <Tabs.Tab value="target">Target Position</Tabs.Tab>
+          </Tabs.List>
+        </Tabs>
       </div>
 
       {/* Isi */}
       <div className="flex-1 overflow-y-auto px-[17px] py-[14px] flex flex-col gap-[14px]">
         {/* Competency Match */}
         <div className="rounded-[8px] border border-[#dee2e6] p-[12px]">
-          <div className="flex items-center justify-between gap-[10px]">
-            <p className="font-['Open_Sans',_sans-serif] text-[12px] font-semibold text-[#495057]">Competency Match</p>
-            <p className="font-['Open_Sans',_sans-serif] text-[26px] font-bold leading-none text-[#016699]">
+          <Group justify="space-between" gap={10} wrap="nowrap">
+            <Text size="sm" fw={600} c="neutral.7">Competency Match</Text>
+            <Title order={2} c="primary.5" style={{ lineHeight: 1 }}>
               {match == null ? '-' : `${match}%`}
-            </p>
-          </div>
+            </Title>
+          </Group>
 
-          {tab === 'current' ? (
-            <select
-              value={employeePosition}
-              disabled
-              className="mt-[10px] w-full rounded-[6px] border border-[#dee2e6] bg-[#f1f3f5] px-[8px] py-[6px] font-['Open_Sans',_sans-serif] text-[11px] text-[#6c757d] cursor-not-allowed"
-            >
-              <option value={employeePosition}>{employeePosition}</option>
-            </select>
-          ) : (
-            <select
-              value={targetPosition}
-              onChange={e => setTargetPosition(e.target.value)}
-              className="mt-[10px] w-full rounded-[6px] border border-[#016699] bg-white px-[8px] py-[6px] font-['Open_Sans',_sans-serif] text-[11px] text-[#212529]"
-            >
-              {allPositions.map(p => <option key={p} value={p}>{p}</option>)}
-            </select>
-          )}
+          {/* Tab Current mengunci pilihannya: yang dibandingkan memang jabatan
+              yang sedang diduduki, bukan pilihan bebas. */}
+          <Select
+            mt={10}
+            size="xs"
+            data={tab === 'current' ? [employeePosition] : allPositions}
+            value={tab === 'current' ? employeePosition : targetPosition}
+            onChange={(v) => v && setTargetPosition(v)}
+            disabled={tab === 'current'}
+            allowDeselect={false}
+            searchable={tab === 'target'}
+            comboboxProps={{ zIndex: 200 }}
+          />
 
-          <p className="mt-[6px] font-['Open_Sans',_sans-serif] text-[10px] text-[#adb5bd]">
+          <Text size="xs" c="neutral.5" mt={6}>
             {tab === 'current'
               ? 'Kecocokan terhadap standar jabatan yang diisi saat ini.'
               : 'Kecocokan terhadap standar jabatan yang dituju.'}
-          </p>
+          </Text>
         </div>
 
         {/* Need Development */}
         <div className="flex flex-col gap-[8px]">
-          <p className="font-['Open_Sans',_sans-serif] text-[12px] font-semibold text-[#495057]">Need Development</p>
+          <Text size="sm" fw={600} c="neutral.7">Need Development</Text>
 
           {!hasCompetencyData(comparedPosition) ? (
             <div className="rounded-[8px] bg-[#f8f9fa] px-[12px] py-[18px] text-center">
-              <p className="font-['Open_Sans',_sans-serif] text-[12px] text-[#6c757d]">Data aspek jabatan ini belum tersedia</p>
+              <Text size="sm" c="neutral.6">Data aspek jabatan ini belum tersedia</Text>
             </div>
           ) : devAspects.length === 0 ? (
             <div className="rounded-[8px] bg-[#f8f9fa] px-[12px] py-[18px] text-center">
-              <p className="font-['Open_Sans',_sans-serif] text-[12px] font-semibold text-[#495057]">Tidak ada aspek yang perlu dikembangkan</p>
-              <p className="mt-[2px] font-['Open_Sans',_sans-serif] text-[11px] text-[#adb5bd]">Semua aspek sudah memenuhi standar jabatan</p>
+              <Text size="sm" fw={600} c="neutral.7">Tidak ada aspek yang perlu dikembangkan</Text>
+              <Text size="xs" c="neutral.5" mt={2}>Semua aspek sudah memenuhi standar jabatan</Text>
             </div>
           ) : (
             devAspects.map(a => (
@@ -305,18 +307,15 @@ export default function DevelopmentPanelV3({
 
       {/* Create IDP */}
       <div className="shrink-0 border-t border-[#e9ecef] p-[14px]">
-        <button
+        <Button
+          fullWidth
+          variant="outline"
           onClick={handleCreateIDP}
-          className="w-full rounded-[8px] border-2 border-[#016699] bg-white px-[14px] py-[10px] font-['Open_Sans',_sans-serif] text-[13px] font-bold text-[#016699] hover:bg-[#016699] hover:text-white transition-colors flex items-center justify-center gap-[6px]"
+          leftSection={<TrendingUp className="w-[15px] h-[15px]" />}
+          rightSection={checkedTotal > 0 ? <Badge size="sm" radius="xl" color="primary">{checkedTotal} KB</Badge> : undefined}
         >
-          <TrendingUp className="w-[15px] h-[15px]" />
           Create IDP
-          {checkedTotal > 0 && (
-            <span className="rounded-full bg-[#016699] px-[7px] py-[1px] text-[10px] font-bold text-white">
-              {checkedTotal} KB
-            </span>
-          )}
-        </button>
+        </Button>
       </div>
     </div>
   );
