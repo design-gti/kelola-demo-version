@@ -769,9 +769,11 @@ export default function CopilotProvider({ children }: { children: React.ReactNod
 
   useEffect(() => {
     let cancelled = false;
-    ensureSession().finally(() => {
-      if (!cancelled) setSessionReady(true);
-    });
+    ensureSession()
+      .catch(() => false)
+      .then(ok => {
+        if (!cancelled) setSessionReady(ok);
+      });
     return () => {
       cancelled = true;
     };
@@ -786,6 +788,15 @@ export default function CopilotProvider({ children }: { children: React.ReactNod
         using its hooks, like AssistantWidget) only mounts once a session is
         guaranteed to exist. Sidebar/main (children) render immediately and
         never wait on this.
+
+        Gated on ensureSession() actually SUCCEEDING, not merely settling:
+        when /api/session is unreachable (a `next dev` worker that has
+        panicked answers 500 to every route, which is what a full disk looks
+        like locally), mounting anyway used to fire the handshake against a
+        sessionless backend and CopilotKit's dev console then covered the
+        page with a red "Runtime info request failed with status 500"
+        overlay. The rest of the app works fine without the assistant, so a
+        dead runtime now costs the assistant only.
       */}
       {sessionReady && (
         <CopilotKit runtimeUrl="/api/copilotkit">
