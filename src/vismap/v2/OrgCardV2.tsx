@@ -32,10 +32,12 @@ const SEAT_GLOW_NEAR = "8c";
 const SEAT_GLOW_FAR = "59";
 /** Cahaya dari dalam pada foto, untuk layer yang menempel pada ORANG. */
 const PHOTO_GLOW = "a6";
-/** Semburat tipis pada badan kartu — sinyal kursi menyelimuti seluruh kartu. */
-const SEAT_TINT_BODY = "14";
-/** Baris posisi dibuat sedikit lebih pekat supaya hierarkinya tidak hilang. */
-const SEAT_TINT_HEADER = "2b";
+/**
+ * Semburat warna kursi. SATU nilai untuk seluruh kartu — baris posisi dan badan
+ * kartu sama pekatnya, jadi warnanya terbaca sebagai satu bidang utuh, bukan dua
+ * blok bertingkat. Yang membedakan baris posisi tinggal garis putus-putusnya.
+ */
+const SEAT_TINT = "2b";
 
 const SIM_ACCENT = "var(--mantine-color-secondary-5)";
 const SIM_ACCENT_DARK = "var(--mantine-color-secondary-9)";
@@ -183,7 +185,7 @@ export default function OrgCardV2({
         // Warna heatmap KURSI menyelimuti seluruh badan kartu, bukan cuma baris
         // posisinya. Fotonya sendiri tidak tersentuh: ia punya kotak sendiri di
         // atas latar ini, dan area foto adalah jatah sinyal ORANG.
-        background: riskColor ? `${riskColor}${SEAT_TINT_BODY}` : "white",
+        background: riskColor ? `${riskColor}${SEAT_TINT}` : "white",
         border: `${frameWidth}px solid ${frameColor}`,
         borderRadius: 12,
         overflow: "visible",
@@ -338,7 +340,7 @@ export default function OrgCardV2({
           alignItems: "center",
           gap: 6,
           padding: "6px 8px",
-          background: riskColor ? `${riskColor}${SEAT_TINT_HEADER}` : "#f8f9fa",
+          background: riskColor ? "transparent" : "#f8f9fa",
           borderBottom: `1px dashed ${riskColor ?? "#e9ecef"}`,
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,

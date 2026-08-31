@@ -1,6 +1,6 @@
 id,name,Orientasi Hasil,Kerjasama,Komunikasi,Daya Analisis,Adaptabilitas,Inisiatif,Pelayanan Pelanggan,Integritas,Pengembangan Diri,Pengambilan Keputusan,Manajemen Waktu,Disiplin,Keterampilan Interpersonal
 p01,Intan Permatasari,5,4,4,4,4,5,3,3,3,5,3,4,3
-p02,Ratna Juwita,1,2,1,2,1,1,1,1,2,1,2,1,2
+p02,Ratna Juwita,1,2,1,2,1,1,1,1,2,1,2,1,1
 p03,Citra Ayu Ningsih,4,2,4,2,3,3,3,3,2,4,4,3,2
 p04,Aditya Wibowo,4,2,2,4,2,4,2,4,3,3,2,3,3
 p05,Ayu Lestari,5,5,5,5,5,5,5,5,5,5,5,5,5
@@ -9,7 +9,7 @@ p07,Putri Maharani,4,5,4,5,5,5,4,4,5,5,4,5,5
 p08,Rina Kartika,2,2,2,2,3,3,4,2,2,2,2,2,3
 p09,Teguh Firmansyah,4,4,3,4,3,3,3,4,4,4,4,4,3
 p10,Wisnu Baskoro,2,3,3,2,2,2,3,4,3,2,2,4,2
-p11,Cindy Pratiwi,1,2,2,1,1,1,1,2,2,2,1,2,1
+p11,Cindy Pratiwi,1,2,1,1,1,1,1,2,1,2,1,2,1
 p12,Anisa Rahmadani,5,5,5,4,5,5,5,4,4,4,5,4,5
 p13,Meliana Sianturi,2,3,3,2,3,2,2,2,2,3,4,4,4
 p14,Novita Hutagalung,2,4,3,3,3,4,3,3,3,3,3,4,3
@@ -17,12 +17,12 @@ p15,Olivia Manurung,1,2,1,1,1,1,2,1,1,1,1,2,1
 p16,Farhan Hakim,3,2,3,4,3,2,2,3,4,3,3,2,2
 p17,Farah Salsabila,5,5,5,5,4,5,5,4,5,4,5,4,5
 p18,Gilang Saputro,2,3,2,2,4,2,2,3,3,2,2,4,2
-p19,Indah Purnama,2,3,2,4,2,2,2,2,3,3,3,4,2
+p19,Indah Purnama,1,1,1,2,1,2,1,2,1,1,1,2,1
 p20,Bintang Mahesa,3,3,2,4,2,3,3,2,3,2,4,4,3
 p21,Desak Putu Ariani,3,3,3,3,4,5,5,4,3,3,3,3,5
-p22,Ahmad Al-Faruq,1,2,1,1,2,1,2,2,2,2,1,2,1
+p22,Ahmad Al-Faruq,1,2,1,1,1,1,2,2,1,2,1,2,1
 p23,Ida Ayu Prameswari,4,2,4,3,2,4,3,2,3,3,2,4,2
-p24,Hafiz Ramadhan,1,1,2,1,2,1,2,2,1,1,2,1,2
+p24,Hafiz Ramadhan,1,1,2,1,2,1,1,2,1,1,2,1,2
 p25,Sabrina Yulianti,5,4,5,4,4,5,5,5,5,5,5,5,5
 p26,Siti Rahmawati,3,2,2,2,2,2,4,4,2,3,3,2,2
 p27,Bram Sitorus,4,4,3,2,4,2,3,3,2,3,3,2,4
@@ -36,7 +36,7 @@ p34,Rizky Ramadhan,2,2,2,4,3,2,2,3,2,4,2,3,4
 p35,Dewi Anggraini,2,4,3,2,2,2,2,2,4,4,3,2,4
 p36,Andi Saputra,2,4,4,2,3,3,2,2,3,3,3,2,3
 p37,Fajar Nugroho,3,3,3,4,3,3,4,3,3,3,4,2,3
-p38,Dimas Prasetyo,3,2,3,2,2,2,4,3,2,2,3,2,2
+p38,Dimas Prasetyo,2,1,1,1,1,1,1,2,2,1,1,1,1
 p39,Yoga Pratama,2,3,3,4,3,3,3,2,2,3,3,2,2
 p40,Bayu Setiawan,3,2,3,4,4,2,2,3,2,2,3,4,2
 p41,Nadia Safitri,3,3,3,4,4,2,2,2,2,4,3,3,2
@@ -80,25 +80,25 @@ p78,Ridho Setiadi,2,3,3,3,2,3,4,3,4,2,2,2,3
 p79,Ulfa Nabilah,4,2,4,3,3,3,4,3,2,3,3,2,2
 p80,Vera Anggita,3,3,3,2,4,4,4,2,3,4,2,4,4
 p81,Josua Tampubolon,3,2,2,3,3,2,3,4,4,2,3,4,4
-p82,Wulan Ramadhani,3,3,3,2,3,4,3,4,2,3,3,3,3
+p82,Wulan Ramadhani,2,2,2,2,1,1,1,1,2,1,1,1,1
 p83,Ruben Simanjuntak,3,2,2,3,3,2,3,3,3,2,4,2,3
-p84,Yasmin Khairunnisa,3,2,4,3,4,4,2,2,2,4,3,2,4
-p85,Kevin Napitupulu,3,2,3,4,2,4,2,3,3,3,2,3,2
+p84,Yasmin Khairunnisa,1,1,1,1,1,1,1,1,2,1,1,1,1
+p85,Kevin Napitupulu,1,1,1,2,2,1,1,1,2,1,1,1,1
 p86,Zulfa Amalia,2,3,3,3,3,4,3,3,3,4,2,2,3
 p87,Marco Silalahi,3,4,3,4,4,3,3,2,3,3,2,4,4
 p88,Amelia Rizki,2,2,2,3,3,3,3,3,4,4,3,2,3
 p89,Gerry Panggabean,2,2,2,2,3,2,4,2,3,3,3,2,4
-p90,Bunga Lestari,3,2,3,2,4,3,4,3,4,3,3,4,3
-p91,Chika Ardhana,4,3,2,3,3,2,3,4,4,3,2,3,3
+p90,Bunga Lestari,1,1,1,2,1,1,1,1,2,2,1,1,2
+p91,Chika Ardhana,1,1,1,2,1,1,2,1,1,1,1,1,2
 p92,Wayan Suardika,3,2,2,3,4,2,2,4,4,2,4,2,3
 p93,Diah Ayu Kusuma,3,2,2,2,2,2,3,3,2,3,2,2,3
 p94,Made Arsana,4,3,3,3,4,4,3,3,4,2,3,2,2
 p95,Erika Wijayanti,3,3,2,4,3,4,2,4,3,3,2,3,4
 p96,Komang Aditya,2,4,3,2,3,2,3,2,2,4,3,3,2
-p97,Putu Darmawan,3,4,4,2,4,3,2,3,4,2,4,2,2
+p97,Putu Darmawan,1,2,1,1,1,1,1,2,1,1,1,1,2
 p98,Fani Nurhaliza,2,3,4,4,3,3,2,2,2,3,2,2,4
 p99,Rendra Pratama,3,2,3,2,4,4,3,4,4,3,4,2,4
-p100,Gina Puspasari,3,2,2,3,3,2,3,4,3,4,2,2,3
+p100,Gina Puspasari,1,1,2,1,2,1,1,1,1,2,1,1,1
 p101,Doni Saputra,3,2,3,2,3,3,2,2,4,4,2,3,4
 p102,Hesti Nuraini,2,4,4,2,3,4,2,4,2,3,3,3,4
 p103,Ferdi Ahmad,4,3,3,2,3,2,3,4,2,4,3,3,2
@@ -108,6 +108,6 @@ p106,Jasmine Aulia,2,2,3,2,2,2,2,2,2,3,2,2,2
 p107,Yusuf Abdillah,3,4,2,2,2,2,3,2,3,2,2,2,3
 p108,Karina Dewanti,3,2,3,2,2,4,3,3,2,2,2,4,2
 p109,Adam Nurhakim,2,4,3,4,2,3,3,3,2,4,3,3,2
-p110,Rio Sanjaya,2,3,3,3,3,3,2,3,3,3,4,2,2
+p110,Rio Sanjaya,2,1,1,1,1,1,2,1,1,1,1,2,1
 p111,Lita Puspaningrum,2,3,2,3,2,2,2,4,3,4,3,4,2
 p112,Tio Wicaksono,2,2,2,4,4,4,3,3,4,2,3,2,2
