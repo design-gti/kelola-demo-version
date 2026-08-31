@@ -1,5 +1,59 @@
 # Changelog
 
+## Vismap V3 — Panel Simulation berbasis langkah
+
+Panel simulasi V3 berhenti menumpang `SimulationPanel` V1. Alasannya bukan gaya,
+tapi model: V1 memodelkan satu swap sebagai sepasang id kursi lalu menukar field
+personal di antaranya — cukup untuk "dua orang tukar kursi", tapi tidak bisa
+mengungkapkan langkah yang MENGOSONGKAN kursi, dan tidak bisa menjawab "siapa
+yang tergeser". Padahal itu inti panel V3: daftar langkah bernomor, masing-masing
+dengan verdict dan daftar konsekuensinya sendiri.
+
+Rinciannya di [docs/vismap-v3.md](docs/vismap-v3.md) — bagian "Model simulasi
+V3" untuk aturan konsekuensinya, AC-5.7 dan AC-5.8 untuk acceptance criteria.
+
+### Added
+
+- **Model langkah simulasi** (`src/vismap/v3/simulation.ts`): `Exchange` (dua
+  orang bertukar kursi) dan `Cut & Replace` (kandidat mengisi posisi target,
+  posisi asalnya jadi kosong, orang yang tergeser keluar dari struktur).
+  Penghuni tiap kursi dilacak eksplisit karena `id` menempel pada KURSI, bukan
+  pada orang — tanpa itu, fakta berbasis orang seperti `isTalent` menjawab
+  tentang orang yang salah begitu ada satu langkah.
+- **Konsekuensi per langkah** dalam kalimat, dengan chip subjek (posisi atau
+  orang), dari empat aturan: atasan yang kehilangan suksesor siap, talent yang
+  tergeser keluar, posisi yang jadi kosong, dan kesiapan orang yang masuk di
+  bawah ambang READY. Ambangnya diambil dari range tertinggi Setting Heatmap
+  Condition, bukan angka sendiri, supaya artinya sama dengan heatmap kanvas.
+- **Panel Simulation V3** (`src/vismap/v3/components/SimulationPanelV3.tsx`):
+  langkah bernomor dengan chip verdict Good/At Risk, seksi Consequences yang
+  bisa dilipat, tombol Set as Career/Succession Plan per langkah, plus Add
+  Simulation Step dan Stop Simulation.
+- **Aksi Cut & Replace** di submenu Simulation kini berfungsi (sebelumnya
+  placeholder). Exchange dan Cut & Replace sama-sama membuka form langkah dengan
+  posisi yang diklik sebagai target dan jenis aksinya terpilih.
+
+### Changed
+
+- Langkah dievaluasi **progresif**: tiap langkah dilihat pada keadaan saat ia
+  dijalankan, jadi kotak langkah #2 menyebut orang yang baru duduk di sana
+  karena langkah #1 — dan menghapus langkah #1 menghitung ulang seluruh langkah
+  sesudahnya beserta konsekuensinya.
+- Banner Simulation Mode: teksnya tidak lagi menyuruh "pilih employee di panel
+  kiri" (alur V1), dan lebarnya disesuaikan dengan panel 420px milik V3 —
+  sebelumnya `right: 300` mengasumsikan panel V1 dan tertutup panel baru.
+
+### Not yet
+
+- **Set as Career/Succession Plan** belum menyimpan apa pun. Bentuk datanya
+  ("career plan" itu posisi target? suksesor? urutan langkah?) belum ada di
+  store kanonik, jadi tombolnya mengatakan itu apa adanya alih-alih menulis
+  tafsiran yang bisa salah.
+- **Promote, Mutation, Change Job Criteria** masih placeholder.
+- Sisi kanvas dari sketsanya belum dikerjakan: chip `< Previous` (jejak penghuni
+  sebelumnya per kursi), pil readiness `?` untuk posisi kosong, dan frame
+  putus-putus + pil `SIMULATION MODE` yang menggantikan banner amber sekarang.
+
 ## Vismap V3 — Overlay Indikator (arah desain)
 
 V3 tidak lagi sekadar salinan V1: tab view diganti overlay indikator yang bisa

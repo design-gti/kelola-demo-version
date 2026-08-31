@@ -50,12 +50,13 @@ Tiga level isolasi ditimbang, dan yang dipilih level tengah:
 |---|---|---|
 | `src/vismap/App.tsx` | `src/vismap/v3/VismapV3.tsx` | Shell: pan/zoom, top bar, tab filter, search, zoom control, simulate, susunan `OrgNode` — target utama eksplorasi layout |
 | `src/vismap/components/OrgChartCard.tsx` | `src/vismap/v3/components/OrgChartCardV3.tsx` | Kartu karyawan: target utama eksplorasi visual |
+| `src/vismap/components/SimulationPanel.tsx` | `src/vismap/v3/components/SimulationPanelV3.tsx` + `src/vismap/v3/simulation.ts` | Panel simulasi: konsepnya berubah dari daftar swap datar jadi langkah bernomor dengan verdict dan Consequences per langkah |
 
 ### Yang masih share dengan V1 (copy-on-demand)
 
 `EmployeeDetail`, `EmployeeDetailPanel`, `SuccessionPanel`,
 `SuccessorComparison`, `IDPCreation`, `TableView`, `TabFilter`, `DataEditor`,
-`HeatmapSettings`, `SimulationPanel`, `DataVisibilityModal`,
+`HeatmapSettings`, `DataVisibilityModal`,
 `SuccessionRiskModal`, `NeedDevelopModal`, dan seluruh `components/ui/*`
 (shadcn primitives).
 
@@ -333,12 +334,52 @@ Sambungan pada tahap ini:
 | Succession | Membuka SuccessionPanel untuk posisi itu |
 | Development | Membuka EmployeeDetailPanel (skor + Create IDP) |
 | iProfile | Membuka halaman detail karyawan |
-| Simulation → Exchange | Masuk Simulation Mode dengan posisi itu sebagai target |
-| Simulation → 4 aksi lain | **Placeholder**: toast "belum tersedia di V3" |
+| Simulation → Exchange | Masuk Simulation Mode, panel langsung membuka form langkah dengan posisi itu sebagai target dan jenis aksi Exchange |
+| Simulation → Cut & Replace | Sama, dengan jenis aksi Cut & Replace |
+| Simulation → 3 aksi lain (Promote, Mutation, Change Job Criteria) | **Placeholder**: toast "belum tersedia di V3" |
 
-Empat aksi terakhir sengaja belum berfungsi supaya tidak ada aksi yang tampak
-berhasil padahal tidak mengubah apa pun. Perluasannya perlu model simulasi baru
-di luar SimulationPanel V1.
+Tiga aksi terakhir sengaja belum berfungsi supaya tidak ada aksi yang tampak
+berhasil padahal tidak mengubah apa pun.
+
+### Model simulasi V3
+
+Panel simulasi V3 tidak menumpang `SimulationPanel` V1. Alasannya bukan gaya,
+tapi model: V1 memodelkan satu swap sebagai sepasang id kursi dan menukar field
+personal di antaranya. Itu cukup untuk "dua orang tukar kursi", tapi tidak bisa
+mengungkapkan langkah yang MENGOSONGKAN kursi, dan tidak bisa menjawab "siapa
+yang tergeser" — padahal itu inti panel V3.
+
+Dua perubahan modelnya (`src/vismap/v3/simulation.ts`):
+
+1. **Penghuni kursi dilacak eksplisit.** Satu baris `Employee` = satu KURSI
+   berisi orang: `position`/`managerId` menempel pada kursi, `name`/foto/skor
+   pada orangnya. Karena perpindahan dilakukan dengan menukar field personal,
+   `id` tetap milik kursi — jadi setelah satu langkah, id kursi bukan lagi id
+   orangnya, dan fakta berbasis ORANG (mis. `isTalent`) akan menjawab tentang
+   orang yang salah. `occupantOf` memetakan kursi → id kanonik penghuninya.
+2. **Langkah dievaluasi progresif.** Tiap langkah dilihat pada keadaan saat ia
+   dijalankan, bukan keadaan awal — sehingga kotak langkah #2 menyebut orang
+   yang baru duduk di sana karena langkah #1, dan menghapus langkah #1 membuat
+   seluruh langkah sesudahnya dihitung ulang.
+
+Verdict sebuah langkah = `at-risk` kalau ada konsekuensi, `good` kalau tidak.
+Empat aturan konsekuensinya:
+
+| Aturan | Subjek chip | Kapan muncul |
+|---|---|---|
+| Suksesor siap berkurang | posisi | Jumlah bawahan langsung yang kesiapannya masuk range READY turun. Dihitung untuk SEMUA atasan, bukan hanya dua kursi yang tersentuh — memindahkan orang keluar dari sebuah tim menurunkan kesiapan suksesi atasannya, dan efek itu tidak terlihat di kanvas |
+| Kehilangan talent | orang | Orang yang tergeser keluar dari struktur (`cut-replace`) berstatus Talent (kuadran Star 9-box) |
+| Posisi jadi kosong | posisi | Kursi yang tadinya terisi menjadi `(Vacant)` |
+| Kesiapan di bawah ambang | orang | Kesiapan orang yang masuk di bawah batas bawah range READY |
+
+Ambang READY diambil dari range tertinggi di Setting Heatmap Condition, bukan
+angka sendiri, supaya "suksesor siap" di panel berarti sama dengan yang dibaca
+heatmap kanvas.
+
+Tombol **Set as Career/Succession Plan** per langkah belum menyimpan apa pun:
+bentuk datanya ("career plan" itu posisi target? suksesor? urutan langkah?)
+belum ada di store kanonik, jadi ia mengatakannya apa adanya alih-alih menulis
+tafsiran yang bisa salah.
 
 ## 8.3 User Story & Acceptance Criteria
 
@@ -470,6 +511,29 @@ Then muncul pesan bahwa aksi tersebut belum tersedia di V3
 And struktur organisasi tidak berubah
 ```
 
+**AC-5.7 — Langkah simulasi melaporkan konsekuensinya**
+
+```gherkin
+Given Simulation Mode aktif
+When saya menambah langkah Cut & Replace yang mengisi sebuah posisi dengan
+     kandidat dari posisi lain
+Then langkah itu muncul bernomor dengan verdict At Risk
+And Consequences-nya menyebut posisi yang jadi kosong, atasan yang kehilangan
+    suksesor siap, talent yang tergeser keluar, dan kesiapan yang masih di
+    bawah ambang — masing-masing dengan chip subjeknya
+And kanvas menampilkan posisi asal kandidat sebagai [VACANT]
+```
+
+**AC-5.8 — Menghapus satu langkah menghitung ulang langkah sesudahnya**
+
+```gherkin
+Given ada dua langkah simulasi, dan langkah #2 memakai kursi yang diubah
+      langkah #1
+When saya menghapus langkah #1
+Then langkah yang tersisa menampilkan keadaan tanpa langkah #1
+And Consequences-nya ikut dihitung ulang
+```
+
 **AC-5.6 — Succession membuka panel suksesi posisi**
 
 ```gherkin
@@ -501,7 +565,9 @@ Then panel pengembangan karyawan tersebut terbuka beserta skor dan aksi Create I
 | `src/vismap/v3/employeeFacts.ts` | Turunan Talent (9-box Star), Teams (department), Tenure (joinDate → `getToday()`) |
 | `src/vismap/v3/components/OrgChartCardV3.tsx` | Card position + card employee terpisah, dua heatmap, ikon Critical & Talent |
 | `src/vismap/v3/components/PositionActionMenu.tsx` | Empat tombol aksi + submenu Simulation |
-| `src/vismap/v3/VismapV3.tsx` | Toolbar toggle, state overlay, penyaluran aksi ke panel V1 yang sudah ada |
+| `src/vismap/v3/simulation.ts` | Model langkah simulasi: pelacakan penghuni kursi, Exchange & Cut & Replace, aturan Consequences, verdict |
+| `src/vismap/v3/components/SimulationPanelV3.tsx` | Panel langkah bernomor: verdict, Consequences yang bisa dilipat, form tambah langkah |
+| `src/vismap/v3/VismapV3.tsx` | Toolbar toggle, state overlay, state langkah simulasi, penyaluran aksi ke panel |
 
 Kartu V3 sengaja dibuat "bodoh": semua keputusan overlay dihitung di
 `VismapV3`/`OrgNode` lalu diturunkan sebagai warna/boolean. Ini menghindari

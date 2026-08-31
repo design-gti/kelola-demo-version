@@ -34,7 +34,8 @@ import DataVisibilityModal from "../components/DataVisibilityModal";
 import { Toaster } from "../components/ui/sonner";
 import { toast } from "sonner";
 import HeatmapSettings, { type HeatmapConfig } from "../components/HeatmapSettings";
-import SimulationPanel, { type SimulationSwap } from "../components/SimulationPanel";
+import SimulationPanelV3 from "./components/SimulationPanelV3";
+import { buildSimulation, type SimulationActionKind, type SimulationStep, type StepView } from "./simulation";
 import ReadinessPill from "../components/ReadinessPill";
 import PositionActionMenu, { type SimulationAction } from "./components/PositionActionMenu";
 import DevelopmentPanelV3 from "./components/DevelopmentPanelV3";
@@ -430,9 +431,9 @@ export default function VismapV3({ initialTab }: { initialTab?: string } = {}) {
 
   // Simulation mode state
   const [isSimulationMode, setIsSimulationMode] = useState(false);
-  const [pendingSwaps, setPendingSwaps] = useState<SimulationSwap[]>([]);
-  const [simulationApplied, setSimulationApplied] = useState(false);
+  const [simulationSteps, setSimulationSteps] = useState<SimulationStep[]>([]);
   const [initialSimulationTargetId, setInitialSimulationTargetId] = useState<string | null>(null);
+  const [initialSimulationKind, setInitialSimulationKind] = useState<SimulationActionKind | null>(null);
 
   const searchInputRef = useRef<HTMLDivElement>(null);
   
@@ -658,56 +659,55 @@ export default function VismapV3({ initialTab }: { initialTab?: string } = {}) {
     }
   };
   
-  // Apply swaps to employee list for simulation
-  const applySwaps = (emps: Employee[], swaps: SimulationSwap[]): Employee[] => {
-    let result = emps.map(e => ({ ...e }));
-    for (const swap of swaps) {
-      const idxA = result.findIndex(e => e.id === swap.aId);
-      const idxB = result.findIndex(e => e.id === swap.bId);
-      if (idxA === -1 || idxB === -1) continue;
-      const a = result[idxA] as Record<string, unknown>;
-      const b = result[idxB] as Record<string, unknown>;
-      // Swap only personal identity data — structure (position, jobTitle, managerId) stays fixed
-      const personalFields = ['name', 'imageUrl', 'competencyScore', 'readinessScore', 'performanceRating', 'gender', 'city', 'maritalStatus', 'iq', 'capability', 'commitment', 'contribution'] as const;
-      for (const field of personalFields) {
-        const tmp = a[field];
-        a[field] = b[field];
-        b[field] = tmp;
-      }
-    }
-    return result;
-  };
+  // Keadaan hasil simulasi. Perhitungannya ada di src/vismap/v3/simulation.ts
+  // (bukan inline seperti `applySwaps` V1) karena langkah V3 bisa mengosongkan
+  // kursi dan harus melaporkan konsekuensinya — logika yang perlu bisa diuji
+  // tanpa merender kanvas.
+  //
+  // `readyMin` diambil dari range READY di Setting Heatmap Condition, bukan
+  // ambang sendiri, supaya "suksesor siap" di panel simulasi berarti sama
+  // dengan yang dibaca heatmap kanvas.
+  const readyMin = (() => {
+    const sorted = [...heatmapConfig.readinessScore].sort((a, b) => a.min - b.min);
+    return sorted[sorted.length - 1]?.min ?? 81;
+  })();
 
-  const simulatedEmployees = isSimulationMode ? applySwaps(employees, pendingSwaps) : employees;
+  const simulation = buildSimulation(employees, isSimulationMode ? simulationSteps : [], readyMin);
+  const simulatedEmployees = isSimulationMode ? simulation.employees : employees;
   const simulatedOrgChart = buildOrgChart(simulatedEmployees);
-  const simulatedEmployeeIds = new Set(pendingSwaps.flatMap(s => [s.aId, s.bId]));
+  const simulatedEmployeeIds = new Set(
+    simulationSteps.flatMap(s => [s.targetSeatId, s.incomingSeatId])
+  );
 
-  const handleSimulationAddSwap = (swap: SimulationSwap) => {
-    const alreadySwapped = pendingSwaps.some(
-      s => (s.aId === swap.aId && s.bId === swap.bId) || (s.aId === swap.bId && s.bId === swap.aId)
+  const handleSimulationAddStep = (step: Omit<SimulationStep, 'id'>) => {
+    const duplicate = simulationSteps.some(
+      s => s.kind === step.kind && s.targetSeatId === step.targetSeatId && s.incomingSeatId === step.incomingSeatId
     );
-    if (alreadySwapped) { toast.info('Swap ini sudah ada.'); return; }
-    setPendingSwaps(prev => [...prev, swap]);
-    const nameA = employees.find(e => e.id === swap.aId)?.name?.split(' ')[0] ?? swap.aId;
-    const nameB = employees.find(e => e.id === swap.bId)?.name?.split(' ')[0] ?? swap.bId;
-    toast.success(`Swap ditambahkan: ${nameA} ⇄ ${nameB}`);
+    if (duplicate) { toast.info('Langkah ini sudah ada.'); return; }
+    // Id langkah cukup unik di dalam satu sesi simulasi; dipakai sebagai key
+    // React dan sebagai pegangan tombol hapus.
+    const id = `${step.kind}-${step.targetSeatId}-${step.incomingSeatId}-${simulationSteps.length}`;
+    setSimulationSteps(prev => [...prev, { ...step, id }]);
   };
 
-  const handleSimulationApply = () => {
-    setSimulationApplied(true);
-    toast.success('Simulasi diterapkan ke canvas.');
+  const handleSimulationRemoveStep = (stepId: string) => {
+    setSimulationSteps(prev => prev.filter(s => s.id !== stepId));
   };
 
-  const handleSimulationReset = () => {
-    setPendingSwaps([]);
-    setSimulationApplied(false);
-    toast.info('Semua swap direset.');
+  // Sengaja belum mengubah data apa pun: "career/succession plan" belum
+  // punya definisi di store kanonik (posisi target? suksesor? urutan langkah?),
+  // dan menulis sesuatu yang salah lebih buruk daripada mengatakannya belum ada
+  // — prinsip yang sama dengan aksi placeholder lain di V3 (docs §7).
+  const handleSimulationSetAsPlan = (view: StepView) => {
+    toast.info(
+      `Set as Career/Succession Plan (${view.target.position}) belum tersimpan — bentuk datanya masih dirancang.`
+    );
   };
 
-  const handleSimulationClose = () => {
+  const handleSimulationStop = () => {
     setIsSimulationMode(false);
-    setPendingSwaps([]);
-    setSimulationApplied(false);
+    setSimulationSteps([]);
+    setInitialSimulationTargetId(null);
   };
 
   // Klik card position → pilih card itu dan buka menu aksi. Klik ulang card yang
@@ -737,19 +737,23 @@ export default function VismapV3({ initialTab }: { initialTab?: string } = {}) {
   // SimulationPanel V1; empat lainnya sengaja placeholder (docs/vismap-v3.md §8)
   // supaya tidak ada aksi yang tampak berhasil padahal tidak mengubah apa pun.
   const handleSimulationAction = (action: SimulationAction, employee: Employee) => {
-    if (action === 'exchange') {
+    // Exchange dan Cut & Replace sudah punya model langkahnya
+    // (src/vismap/v3/simulation.ts), jadi keduanya masuk Simulation Mode dengan
+    // posisi ini sebagai target langkah pertama. Tiga aksi sisanya belum
+    // dimodelkan dan tetap mengatakannya apa adanya, bukan diam-diam gagal.
+    if (action === 'exchange' || action === 'cut-replace') {
       setActionMenuId(null);
       setSimulationMenuOpen(false);
       setSelectedEmployee(null);
       setSidePanel(null);
       setSuccessionFocusId(null);
-      setPendingSwaps([]);
+      setSimulationSteps([]);
       setInitialSimulationTargetId(employee.id);
+      setInitialSimulationKind(action);
       setIsSimulationMode(true);
       return;
     }
-    const labels: Record<Exclude<SimulationAction, 'exchange'>, string> = {
-      'cut-replace': 'Cut & Replace',
+    const labels: Record<Exclude<SimulationAction, 'exchange' | 'cut-replace'>, string> = {
       'promote': 'Promote',
       'mutation': 'Mutation',
       'change-job-criteria': 'Change Job Criteria',
@@ -1190,16 +1194,15 @@ export default function VismapV3({ initialTab }: { initialTab?: string } = {}) {
 
       {/* Simulation Panel */}
       {isSimulationMode && (
-        <SimulationPanel
-          swaps={pendingSwaps}
-          employees={employees}
+        <SimulationPanelV3
           simulatedEmployees={simulatedEmployees}
-          onRemoveSwap={(i) => setPendingSwaps(prev => prev.filter((_, idx) => idx !== i))}
-          onAddSwap={handleSimulationAddSwap}
-          onApply={handleSimulationApply}
-          onReset={handleSimulationReset}
-          onClose={handleSimulationClose}
-          initialTargetId={initialSimulationTargetId}
+          views={simulation.views}
+          onAddStep={handleSimulationAddStep}
+          onRemoveStep={handleSimulationRemoveStep}
+          onSetAsPlan={handleSimulationSetAsPlan}
+          onStop={handleSimulationStop}
+          initialTargetSeatId={initialSimulationTargetId}
+          initialKind={initialSimulationKind}
         />
       )}
 
@@ -1246,10 +1249,10 @@ export default function VismapV3({ initialTab }: { initialTab?: string } = {}) {
             <button
               onClick={() => {
                 if (isSimulationMode) {
-                  handleSimulationClose();
+                  handleSimulationStop();
                 } else {
                   setIsSimulationMode(true);
-                  setPendingSwaps([]);
+                  setSimulationSteps([]);
                 }
               }}
               style={{
@@ -1355,17 +1358,17 @@ export default function VismapV3({ initialTab }: { initialTab?: string } = {}) {
         <div
           data-no-drag
           style={{
-            position: 'fixed', top: 64, left: 0, right: 300, zIndex: 49,
+            position: 'fixed', top: 64, left: 0, right: 420, zIndex: 49,
             background: '#fef3c7', borderBottom: '1px solid #fbbf24',
             padding: '6px 16px', display: 'flex', alignItems: 'center', gap: 8,
             fontFamily: "'Open Sans', sans-serif", fontSize: 11, color: '#92400e',
           }}
         >
           <Shuffle size={13} />
-          <strong>Simulation Mode aktif</strong> — Pilih employee di panel kiri untuk mensimulasikan pertukaran posisi.
-          {pendingSwaps.length > 0 && (
+          <strong>Simulation Mode aktif</strong> — Susun langkahnya di panel Simulation, dan kanvas mengikuti hasilnya.
+          {simulationSteps.length > 0 && (
             <span style={{ marginLeft: 8, background: '#f59e0b', color: 'white', borderRadius: 20, padding: '1px 8px', fontWeight: 700, fontSize: 10 }}>
-              {pendingSwaps.length} swap pending
+              {simulationSteps.length} langkah
             </span>
           )}
         </div>
