@@ -4,7 +4,12 @@ import { useNavigate, NavLink, useLocation } from 'react-router';
 import { mockEmployees, Employee } from '../data/mockEmployees';
 import { tdpEmployees, CSV_RAW_HEADERS } from '../data/tdpEmployees';
 import { getProfileUrl } from '../data/profileLinks';
-import { Badge as ProdigyBadge } from '@talentlytica/prodigy';
+/*
+ * Tombol bilah alat memakai design system Prodigy. Pemetaan variannya:
+ * Primary <Button>, Secondary color="secondary", Outline variant="outline",
+ * Ghost variant="subtle", Danger color="error"; ikon lewat leftSection.
+ */
+import { Badge as ProdigyBadge, Button as DsButton } from '@talentlytica/prodigy';
 import * as XLSX from 'xlsx';
 import {
   Filter,
@@ -613,6 +618,12 @@ export default function TableScreener({ onToolbarRender, onSharedToolbarRender, 
   /** Variable kolom yang menggantikan tampilan Total Score per cluster (nama kategori → key kolom di cluster) */
   const [clusterTotalSlotOverride, setClusterTotalSlotOverride] = useState<Record<string, string>>({});
   const [presets, setPresets] = useState<FilterPreset[]>([]);
+  /**
+   * Preset yang sedang dipakai. Dulu namanya hanya dikirim ke induk untuk
+   * dijadikan judul halaman; sekarang tombol Presets sendiri yang memakainya,
+   * jadi statusnya terbaca tepat di tempat menggantinya.
+   */
+  const [activePresetLabel, setActivePresetLabel] = useState<string | null>(null);
   const [isPresetDialogOpen, setIsPresetDialogOpen] = useState(false);
   const [presetName, setPresetName] = useState('');
   const [isPresetPopoverOpen, setIsPresetPopoverOpen] = useState(false);
@@ -2050,6 +2061,7 @@ export default function TableScreener({ onToolbarRender, onSharedToolbarRender, 
     // Save to localStorage
     localStorage.setItem('visibleColumns', JSON.stringify(validColumns));
     // Notify parent of the selected preset label
+    setActivePresetLabel(presetLabels[presetType]);
     onPresetChange?.(presetLabels[presetType]);
   };
 
@@ -2478,14 +2490,15 @@ export default function TableScreener({ onToolbarRender, onSharedToolbarRender, 
   useEffect(() => {
     if (onToolbarRender) {
       onToolbarRender(
-        <Button
+        <DsButton
           variant="outline"
-          className="flex items-center gap-2 rounded-full"
+          size="sm"
+          radius="xl"
+          leftSection={<Columns3 size={16} />}
           onClick={() => setIsVisibleColumnsDialogOpen(true)}
         >
-          <Columns3 className="w-4 h-4" style={{ color: '#016699' }} />
           Data Visibility
-        </Button>
+        </DsButton>
       );
     }
     return () => onToolbarRender?.(null);
@@ -2497,30 +2510,34 @@ export default function TableScreener({ onToolbarRender, onSharedToolbarRender, 
     const sharedButtons = (
       <div className="flex gap-3">
           {/* Filter Button */}
-          <Button
+          <DsButton
             variant="outline"
             size="sm"
+            radius="xl"
             onClick={() => setIsFilterDialogOpen(true)}
-            className="flex items-center gap-2 rounded-full"
-            style={{ fontWeight: 700 }}
+            leftSection={<Filter size={16} />}
+            rightSection={hasActiveFilters ? <ProdigyBadge color="info" size="xs">Active</ProdigyBadge> : undefined}
           >
-            <Filter className="w-4 h-4" style={{ color: '#016699' }} />
             Filters
-            {hasActiveFilters && (
-              <ProdigyBadge color="info" size="xs" ml={4}>
-                Active
-              </ProdigyBadge>
-            )}
-          </Button>
+          </DsButton>
 
 
           {/* Preset Manager */}
           <Popover open={isPresetPopoverOpen} onOpenChange={(open) => { setIsPresetPopoverOpen(open); if (!open) setPresetSearch(''); }}>
             <PopoverTrigger asChild>
-              <Button variant="outline" size="sm" className="flex items-center gap-2 rounded-full" style={{ fontWeight: 700 }}>
-                <Bookmark className="w-4 h-4" style={{ color: '#016699' }} />
-                Presets
-              </Button>
+              {/* Preset aktif dibedakan lewat VARIAN design system (light),
+                  bukan warna yang ditulis tangan — labelnya sendiri tidak cukup
+                  untuk membedakan "sudah memilih" dari "belum memilih". */}
+              <DsButton
+                variant={activePresetLabel ? 'light' : 'outline'}
+                size="sm"
+                radius="xl"
+                title={activePresetLabel ? `Preset aktif: ${activePresetLabel}` : 'Pilih preset'}
+                leftSection={<Bookmark size={16} />}
+                styles={{ root: { maxWidth: 220 }, label: { overflow: 'hidden', textOverflow: 'ellipsis' } }}
+              >
+                {activePresetLabel ?? 'Presets'}
+              </DsButton>
             </PopoverTrigger>
             <PopoverContent align="end" className="w-[220px] p-0 rounded-[12px] overflow-hidden shadow-[2px_4px_20px_0px_#00000012] border border-[#dee2e6]">
               {/* Search */}
@@ -2640,6 +2657,7 @@ export default function TableScreener({ onToolbarRender, onSharedToolbarRender, 
     return () => onSharedToolbarRender(null);
   }, [
     hasActiveFilters,
+    activePresetLabel,
     presets,
     presetSearch,
     isPresetPopoverOpen,

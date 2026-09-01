@@ -45,3 +45,6 @@ next-env.d.ts
 /scripts/eval/harvested-questions.json
 /scripts/eval/harvested-feedback.json
 /scripts/eval/harvested-feedback.csv
+
+# Keluaran scripts/export-vismap-svg.mjs — berkas SVG ~1MB yang bisa dibangkitkan ulang
+/public/exports/

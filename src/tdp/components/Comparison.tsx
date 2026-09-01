@@ -6,7 +6,6 @@ import { loadEmployeeDraftEmployees } from '../data/employeeDraft';
 import { CSV_RAW_HEADERS } from '../data/tdpEmployees';
 import { ColumnConfig } from '../data/columnDefinitions';
 import { getProfileUrl } from '../data/profileLinks';
-import { Pagination } from '@mantine/core';
 import {
   X,
   Users,
@@ -19,6 +18,8 @@ import {
   ChevronUp,
 } from 'lucide-react';
 import { Button } from './ui/button';
+/** Bilah alat memakai Button design system Prodigy (lihat catatan di TableScreener). */
+import { Button as DsButton } from '@talentlytica/prodigy';
 import { Input } from './ui/input';
 import VisibleColumnsDialog from './VisibleColumnsDialog';
 import { Columns3 } from 'lucide-react';
@@ -273,9 +274,40 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
   // Card display order (unpinned cards)
   const [cardOrder, setCardOrder] = useState<string[]>([]);
 
-  // Pagination
-  const CARDS_PER_PAGE = 4;
-  const [currentPage, setCurrentPage] = useState(0);
+  /*
+   * Carousel, bukan halaman.
+   *
+   * Dulu layar dikunci 4 kartu dan lebarnya melar mengikuti lebar layar, jadi
+   * di layar lebar kartunya jadi terlalu longgar sementara di layar sempit
+   * terlalu padat — dan sisanya harus dibuka lewat halaman. Sekarang lebar
+   * kartu TETAP, dan berapa kartu yang terlihat ditentukan lebar layar; sisanya
+   * digulir mendatar. Satu deret utuh, jadi urutan ranking tidak terpotong
+   * batas halaman.
+   */
+  const CARD_W = 300;
+  const CARD_GAP = 10;
+  const railRef = useRef<HTMLDivElement | null>(null);
+  const [railScroll, setRailScroll] = useState(0);
+  const [railMetrics, setRailMetrics] = useState({ view: 0, total: 0 });
+
+  // Setiap set-state dijaga supaya hanya jalan kalau angkanya BERUBAH. Tanpa itu
+  // pengukuran ini memicu render, render memicu pengukuran, dan React berhenti
+  // dengan "Maximum update depth exceeded".
+  const measureRail = () => {
+    const el = railRef.current;
+    if (!el) return;
+    setRailScroll((prev) => (Math.abs(prev - el.scrollLeft) > 0.5 ? el.scrollLeft : prev));
+    setRailMetrics((prev) =>
+      prev.view === el.clientWidth && prev.total === el.scrollWidth
+        ? prev
+        : { view: el.clientWidth, total: el.scrollWidth });
+  };
+
+
+  /** Geser tepat satu kartu — bukan satu layar, supaya tidak ada kartu terlewat. */
+  const scrollByCard = (dir: 1 | -1) => {
+    railRef.current?.scrollBy({ left: dir * (CARD_W + CARD_GAP), behavior: 'smooth' });
+  };
 
   // Visible columns — read from localStorage (shared with Table view)
   const [visibleColumns, setVisibleColumns] = useState<Set<string>>(() => {
@@ -348,16 +380,15 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
   useEffect(() => {
     if (!onToolbarRender) return;
     onToolbarRender(
-      <Button
+      <DsButton
         variant="outline"
         size="sm"
-        className="flex items-center gap-2 rounded-full"
-        style={{ fontWeight: 700 }}
+        radius="xl"
+        leftSection={<Columns3 size={16} />}
         onClick={() => setIsColumnsDialogOpen(true)}
       >
-        <Columns3 className="w-4 h-4" style={{ color: '#016699' }} />
         Data Visibility
-      </Button>
+      </DsButton>
     );
     return () => onToolbarRender(null);
   }, [onToolbarRender]);
@@ -564,25 +595,32 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
     );
   }, [comparisonEmployees, pinnedIds, employeeRankings, compareSearch, localHiddenIds, localShowOnlyIds]);
 
-  // Pagination: slice the display list into pages of CARDS_PER_PAGE
-  const totalPages = Math.max(1, Math.ceil(displayEmployees.length / CARDS_PER_PAGE));
-  const safePage = Math.min(currentPage, totalPages - 1);
-  const pagedEmployees = useMemo(() => {
-    const start = safePage * CARDS_PER_PAGE;
-    return displayEmployees.slice(start, start + CARDS_PER_PAGE);
-  }, [displayEmployees, safePage]);
+  // Seluruh hasil filter dirender dalam satu deret; yang membatasi tinggal
+  // lebar layar, bukan angka halaman.
+  const pagedEmployees = displayEmployees;
 
-  // Clamp page when employees change
   useEffect(() => {
-    if (currentPage >= totalPages) setCurrentPage(Math.max(0, totalPages - 1));
-  }, [totalPages, currentPage]);
+    const el = railRef.current;
+    if (!el) return;
+    measureRail();
+    const onScroll = () => measureRail();
+    el.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    // Lebar deret berubah saat jumlah kartu atau jumlah baris variabel berubah.
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(onScroll) : null;
+    ro?.observe(el);
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      ro?.disconnect();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [displayEmployees.length]);
 
-  // Slide direction for the page-change carousel animation
-  const [slideDir, setSlideDir] = useState<'next' | 'prev'>('next');
-  const goToPage = (nextIndex: number) => {
-    setSlideDir(nextIndex > safePage ? 'next' : 'prev');
-    setCurrentPage(nextIndex);
-  };
+  /** Perkiraan berapa kartu yang muat sekarang — hanya untuk keterangan. */
+  const visibleCount = Math.max(1, Math.floor((railMetrics.view + CARD_GAP) / (CARD_W + CARD_GAP)));
+  const canScrollLeft = railScroll > 4;
+  const canScrollRight = railScroll + railMetrics.view < railMetrics.total - 4;
 
   // ── Card drag handlers ────────────────────────────────────────────────────
   const handleCardDragStart = (e: React.DragEvent, id: string) => {
@@ -738,7 +776,17 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
             pointerEvents: showStickyBar ? 'auto' : 'none',
           }}
         >
-          <div className="grid grid-cols-4 gap-[10px]">
+          {/* Ikut digeser sejauh gulir deret, kalau tidak nama di bilah ini
+              tidak lagi sejajar dengan kartunya begitu deret digulir. */}
+          <div
+            className="grid"
+            style={{
+              gridTemplateColumns: `repeat(${pagedEmployees.length}, ${CARD_W}px)`,
+              gap: CARD_GAP,
+              width: 'max-content',
+              transform: `translateX(${-railScroll + 24}px)`,
+            }}
+          >
             {pagedEmployees.map(emp => {
               const isPinned = pinnedIds.includes(emp.id);
               return (
@@ -811,9 +859,9 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
         </div>
       )}
 
-      {/* Cards paginated grid */}
-      <div className="flex-1 min-h-0">
-        <div className="h-full overflow-auto p-6">
+      {/* Deret kartu — digulir mendatar */}
+      <div className="flex-1 min-h-0 relative">
+        <div ref={railRef} className="h-full overflow-auto p-6" style={{ scrollBehavior: 'smooth' }}>
         {/* ----------------------------------------------------------------
             Row-based layout: structure computed once, values per employee.
             Each "row" spans all 4 columns so items align perfectly.
@@ -847,16 +895,22 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
             });
           });
 
-          const FIXED_COLS = 4; // Always 4 columns — empty slots stay visible
-          const gridStyle = { gridTemplateColumns: `repeat(${FIXED_COLS}, minmax(0, 1fr))` };
+          // Kolom berlebar TETAP; berapa yang terlihat ditentukan lebar layar —
+          // itulah inti carousel-nya.
+          //
+          // Tetap grid berbasis BARIS (bukan grid-auto-flow: column): sel-selnya
+          // dipancarkan berurutan per baris variabel, dan dengan auto-flow column
+          // setiap sel akan membuat kolomnya sendiri sehingga tata letaknya kacau.
+          const FIXED_COLS = 0; // tidak ada lagi slot kosong yang perlu diisi
+          const gridStyle = { gridTemplateColumns: `repeat(${pagedEmployees.length}, ${CARD_W}px)` };
 
           return (
             <div
-              key={safePage}
-              className={`relative animate-in duration-300 ease-out fill-mode-both ${
-                slideDir === 'next' ? 'slide-in-from-right-12' : 'slide-in-from-left-12'
-              }`}
-              style={{ willChange: 'transform', backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
+              className="relative"
+              // Selebar isinya, bukan selebar layar: latar kartu digambar oleh
+              // grid absolut di bawahnya, dan itu hanya menutupi seluruh deret
+              // kalau induknya ikut selebar deret.
+              style={{ width: 'max-content' }}
             >
               {/* Column-strip backgrounds — card visual per column */}
               <div
@@ -1152,10 +1206,34 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
         })()}
 
         </div> {/* end scroll container */}
+
+        {/* Tombol carousel — menempel di tepi deret, muncul hanya kalau memang
+            masih ada kartu di arah itu. */}
+        {canScrollLeft && (
+          <button
+            onClick={() => scrollByCard(-1)}
+            title="Kartu sebelumnya"
+            className="absolute z-30 flex items-center justify-center rounded-full bg-white border border-gray-200"
+            style={{ left: 10, top: 140, width: 36, height: 36, boxShadow: '0 4px 16px rgba(0,0,0,0.14)' }}
+          >
+            <ChevronLeft className="w-5 h-5" style={{ color: '#016699' }} />
+          </button>
+        )}
+        {canScrollRight && (
+          <button
+            onClick={() => scrollByCard(1)}
+            title="Kartu berikutnya"
+            className="absolute z-30 flex items-center justify-center rounded-full bg-white border border-gray-200"
+            style={{ right: 10, top: 140, width: 36, height: 36, boxShadow: '0 4px 16px rgba(0,0,0,0.14)' }}
+          >
+            <ChevronRight className="w-5 h-5" style={{ color: '#016699' }} />
+          </button>
+        )}
       </div> {/* end cards grid wrapper */}
 
-      {/* Floating pagination — fixed at bottom, slides up on scroll-down, down on scroll-up */}
-      {totalPages > 1 && (
+      {/* Keterangan jumlah — menggantikan pagination; navigasinya lewat gulir
+          mendatar dan tombol carousel di tepi deret. */}
+      {displayEmployees.length > 0 && (
         <div
           className="fixed left-1/2 z-[9999]"
           style={{
@@ -1168,23 +1246,28 @@ export default function Comparison({ onToolbarRender, pinnedIds: pinnedIdsProp, 
           }}
         >
           <div
-            className="flex items-center gap-3 bg-white border border-gray-200 rounded-full px-4 py-2"
+            className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-3 py-2"
             style={{ boxShadow: '0 6px 20px rgba(0,0,0,0.12)' }}
           >
-            <Pagination
-              total={totalPages}
-              value={safePage + 1}
-              onChange={(p) => goToPage(p - 1)}
-              radius="xl"
-              size="sm"
-              color="#016699"
-              getItemProps={() => ({ style: { fontFamily: 'inherit' } })}
-            />
-
-            <span className="text-xs text-gray-500 pl-1 pr-1">
-              {safePage * CARDS_PER_PAGE + 1}–
-              {Math.min((safePage + 1) * CARDS_PER_PAGE, displayEmployees.length)} of {displayEmployees.length}
+            <button
+              onClick={() => scrollByCard(-1)}
+              disabled={!canScrollLeft}
+              className="w-7 h-7 flex items-center justify-center rounded-full disabled:opacity-30"
+              title="Geser kiri"
+            >
+              <ChevronLeft className="w-4 h-4" style={{ color: '#016699' }} />
+            </button>
+            <span className="text-xs text-gray-500">
+              {visibleCount} dari {displayEmployees.length} terlihat
             </span>
+            <button
+              onClick={() => scrollByCard(1)}
+              disabled={!canScrollRight}
+              className="w-7 h-7 flex items-center justify-center rounded-full disabled:opacity-30"
+              title="Geser kanan"
+            >
+              <ChevronRight className="w-4 h-4" style={{ color: '#016699' }} />
+            </button>
           </div>
         </div>
       )}

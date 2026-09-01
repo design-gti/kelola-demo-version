@@ -101,7 +101,7 @@ const LABEL_FROM_ZOOM = [0, 9, 18, 30];
 /** Di atas ini kartunya sudah terbaca sendiri, jadi semua label dilepas. */
 const LABEL_UNTIL_ZOOM = 55;
 /** Tinggi teks label di LAYAR (px) — konstan, tidak ikut ter-scale kanvas. */
-const LABEL_SCREEN_SIZE = 12;
+const LABEL_SCREEN_SIZE = 10;
 
 function AreaLabel({ text, depth, zoom }: { text: string; depth: number; zoom: number }) {
   const from = LABEL_FROM_ZOOM[depth];
