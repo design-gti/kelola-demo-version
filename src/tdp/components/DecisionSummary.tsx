@@ -21,7 +21,7 @@ import {
   BookOpen,
   PlayCircle,
 } from 'lucide-react';
-import { Badge } from './ui/badge';
+import { Tag } from "@/components/ui/Tag";
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Textarea } from './ui/textarea';
@@ -258,18 +258,35 @@ export default function DecisionSummary() {
     setFollowUpActions(followUpActions.filter((_, i) => i !== index));
   };
 
-  const getStatusColor = (status: DecisionStatus) => {
+  /*
+    Warna pil, dipetakan ke TOKEN design system.
+
+    Dulu fungsi ini mengembalikan kelas Tailwind (`bg-green-100 text-green-800`) untuk
+    `Badge` lokal modul tdp — implementasi pil KETIGA di repo ini, terpisah dari `Tag`
+    maupun `Badge` Mantine. Sekarang ia mengembalikan prop `Tag`, jadi warna pil tdp
+    datang dari palet yang sama dengan seluruh aplikasi.
+
+    Pemetaannya: green/emerald → success, yellow → warning, red → error,
+    blue → primary, gray → gray.
+  */
+  /*
+    ⚠️ `layoff` UNGU, dan ungu tidak ada di palet design system. Ia dipertahankan
+    lewat jalan keluar `latar`+`warna` dengan hex Tailwind purple-50/700 aslinya —
+    memetakannya ke `gray` akan membuat keputusan paling berat di daftar ini kehilangan
+    warnanya sendiri, dan itu keputusan rancangan, bukan pembersihan.
+  */
+  const propWarnaStatus = (status: DecisionStatus) => {
     switch (status) {
       case 'promotion':
-        return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+        return { warnaDS: 'success' as const };
       case 'salary-review':
-        return 'bg-[#016699] bg-opacity-10 text-[#016699] border-[#016699] border-opacity-30';
+        return { warnaDS: 'primary' as const };
       case 'bonus':
-        return 'bg-[#FD9F28] bg-opacity-10 text-[#FD9F28] border-[#FD9F28] border-opacity-30';
+        return { warnaDS: 'warning' as const };
       case 'layoff':
-        return 'bg-purple-50 text-purple-700 border-purple-200';
+        return { latar: '#faf5ff', warna: '#7e22ce' };
       default:
-        return 'bg-gray-50 text-gray-700 border-gray-200';
+        return { warnaDS: 'gray' as const };
     }
   };
 
@@ -565,7 +582,7 @@ export default function DecisionSummary() {
             {/* Statistics */}
             <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
               <Card className="bg-white px-[8px] py-[4px] rounded-[8px] flex flex-col gap-[2px]">
-                <div className="flex flex-col font-['Open_Sans',sans-serif] font-normal text-[#495057] text-[10px]">
+                <div className="flex flex-col font-normal text-[#495057] text-[10px]">
                   <p className="leading-[normal]">Employees</p>
                 </div>
                 <div className="flex flex-col font-semibold text-[#016699] text-[14px]">
@@ -575,7 +592,7 @@ export default function DecisionSummary() {
                 </div>
               </Card>
               <Card className="bg-white px-[8px] py-[4px] rounded-[8px] flex flex-col gap-[2px]">
-                <div className="flex flex-col font-['Open_Sans',sans-serif] font-normal text-[#495057] text-[10px]">
+                <div className="flex flex-col font-normal text-[#495057] text-[10px]">
                   <p className="leading-[normal]">Total Decisions</p>
                 </div>
                 <div className="flex flex-col font-semibold text-[#016699] text-[14px]">
@@ -583,7 +600,7 @@ export default function DecisionSummary() {
                 </div>
               </Card>
               <Card className="bg-white px-[8px] py-[4px] rounded-[8px] flex flex-col gap-[2px]">
-                <div className="flex flex-col font-['Open_Sans',sans-serif] font-normal text-[#495057] text-[10px]">
+                <div className="flex flex-col font-normal text-[#495057] text-[10px]">
                   <p className="leading-[normal]">Active Filters</p>
                 </div>
                 <div className="flex flex-col font-semibold text-[#016699] text-[14px]">
@@ -591,7 +608,7 @@ export default function DecisionSummary() {
                 </div>
               </Card>
               <Card className="bg-white px-[8px] py-[4px] rounded-[8px] flex flex-col gap-[2px]">
-                <div className="flex flex-col font-['Open_Sans',sans-serif] font-normal text-[#495057] text-[10px]">
+                <div className="flex flex-col font-normal text-[#495057] text-[10px]">
                   <p className="leading-[normal]">Active Variables</p>
                 </div>
                 <div className="flex flex-col font-semibold text-[#016699] text-[14px]">
@@ -640,13 +657,12 @@ export default function DecisionSummary() {
                                 {decision.employee.role} • {decision.employee.department}
                               </p>
                             </div>
-                            <Badge
-                              variant="secondary"
-                              className={`${getStatusColor(decision.status)} flex items-center gap-1`}
+                            <Tag
+                              {...propWarnaStatus(decision.status)}
+                              kiri={getStatusIcon(decision.status)}
                             >
-                              {getStatusIcon(decision.status)}
                               {getStatusLabel(decision.status)}
-                            </Badge>
+                            </Tag>
                           </div>
 
                           {/* Performance Indicators */}

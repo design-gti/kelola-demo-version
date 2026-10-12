@@ -134,7 +134,10 @@ rows.forEach((r, i) => {
     "[LEADERSHIP STYLE] Leadership Style": STYLES[(discIdx(r.disc) + Math.floor(comp / 25)) % STYLES.length],
     "[LEADERSHIP STYLE] Subordinate Style": SUB_STYLE[i % SUB_STYLE.length],
     "[LEADERSHIP STYLE] Social Style": SOCIAL[discIdx(r.disc) % SOCIAL.length],
-    "Referance ID": "",
+    // Di kelola-web ini UUID karyawan dari backend. Di demo, id karyawan (p01…) memainkan
+    // peran yang sama: kunci stabil yang dipakai tautan profil (/iprofile?id=…) dan data
+    // tambahan dari Profile Data. Dibiarkan kosong, keduanya diam-diam tidak tersambung.
+    "Referance ID": r.id,
     "Tim": `Tim ${r.department}`,
   };
   KOMPETENSI.forEach((k, j) => { rec[`[KOMPETENSI] ${k}`] = vary(kBase, j, i); });

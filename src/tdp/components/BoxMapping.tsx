@@ -627,7 +627,7 @@ export default function BoxMapping() {
             <DialogPrimitive.Content className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[9999] bg-white rounded-2xl p-8 shadow-2xl max-w-4xl w-full max-h-[85vh] overflow-y-auto">
               <div className="flex items-start justify-between mb-6">
                 <div>
-                  <DialogPrimitive.Title className="text-2xl font-bold text-gray-900 mb-2">
+                  <DialogPrimitive.Title className="judul-modal mb-2">
                     {BOX_RECOMMENDATIONS[selectedBox as keyof typeof BOX_RECOMMENDATIONS]?.title}
                   </DialogPrimitive.Title>
                   <DialogPrimitive.Description className="text-sm text-gray-600">

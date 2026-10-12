@@ -14,7 +14,7 @@ import {
   Users,
   Shield,
 } from 'lucide-react';
-import { Badge } from './ui/badge';
+import { Tag } from "@/components/ui/Tag";
 import {
   Dialog,
   DialogContent,
@@ -34,29 +34,38 @@ export default function EmployeeDetailModal({
   isOpen,
   onClose,
 }: EmployeeDetailModalProps) {
-  const getFlightRiskColor = (risk: string) => {
+  /*
+    Warna pil, dipetakan ke TOKEN design system.
+
+    Dulu fungsi ini mengembalikan kelas Tailwind (`bg-green-100 text-green-800`) untuk
+    `Badge` lokal modul tdp — implementasi pil KETIGA di repo ini, terpisah dari `Tag`
+    maupun `Badge` Mantine. Sekarang ia mengembalikan prop `Tag`, jadi warna pil tdp
+    datang dari palet yang sama dengan seluruh aplikasi.
+
+    Pemetaannya: green/emerald → success, yellow → warning, red → error,
+    blue → primary, gray → gray.
+  */
+  const warnaRisikoHengkang = (risk: string) => {
     switch (risk) {
       case 'Low':
-        return 'bg-green-100 text-green-800';
+        return 'success' as const;
       case 'Medium':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'warning' as const;
       case 'High':
-        return 'bg-red-100 text-red-800';
+        return 'error' as const;
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'gray' as const;
     }
   };
 
-  const getPromotionReadinessColor = (readiness: string) => {
+  const warnaKesiapanPromosi = (readiness: string) => {
     switch (readiness) {
       case 'Ready Now':
-        return 'bg-green-100 text-green-800';
+        return 'success' as const;
       case 'Ready in 1-2 years':
-        return 'bg-blue-100 text-blue-800';
-      case 'Not Ready':
-        return 'bg-gray-100 text-gray-800';
+        return 'primary' as const;
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'gray' as const;
     }
   };
 
@@ -394,11 +403,9 @@ export default function EmployeeDetailModal({
                     }}
                   >
                     <div className="text-xs text-gray-500 tracking-wide mb-2">Flight Risk</div>
-                    <Badge
-                      className={`${getFlightRiskColor(employee.flightRisk)} text-sm font-semibold`}
-                    >
+                    <Tag warnaDS={warnaRisikoHengkang(employee.flightRisk)}>
                       {employee.flightRisk}
-                    </Badge>
+                    </Tag>
                   </div>
 
                   <div
@@ -411,13 +418,9 @@ export default function EmployeeDetailModal({
                     <div className="text-xs text-gray-500 tracking-wide mb-2">
                       Promotion Readiness
                     </div>
-                    <Badge
-                      className={`${getPromotionReadinessColor(
-                        employee.promotionReadiness
-                      )} text-sm font-semibold`}
-                    >
+                    <Tag warnaDS={warnaKesiapanPromosi(employee.promotionReadiness)}>
                       {employee.promotionReadiness}
-                    </Badge>
+                    </Tag>
                   </div>
 
                   <div

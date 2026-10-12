@@ -25,7 +25,7 @@ import {
   XCircle,
 } from 'lucide-react';
 import { Button } from './ui/button';
-import { Badge } from './ui/badge';
+import { Tag } from "@/components/ui/Tag";
 import { Checkbox } from './ui/checkbox';
 import {
   Dialog,
@@ -295,15 +295,15 @@ function EmployeeCard({ employee, getFlightRiskColor, getPromotionReadinessColor
           <div className="space-y-2 text-xs">
             <div>
               <div className="text-gray-500 mb-1">Flight Risk</div>
-              <Badge className={`${getFlightRiskColor(employee.flightRisk)} text-xs`}>
+              <Tag warnaDS={getFlightRiskColor(employee.flightRisk)}>
                 {employee.flightRisk}
-              </Badge>
+              </Tag>
             </div>
             <div>
               <div className="text-gray-500 mb-1">Promotion Readiness</div>
-              <Badge className={`${getPromotionReadinessColor(employee.promotionReadiness)} text-xs`}>
+              <Tag warnaDS={getPromotionReadinessColor(employee.promotionReadiness)}>
                 {employee.promotionReadiness}
-              </Badge>
+              </Tag>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
@@ -497,29 +497,38 @@ export default function SwipeReview() {
     }
   };
 
+  /*
+    Warna pil, dipetakan ke TOKEN design system.
+
+    Dulu fungsi ini mengembalikan kelas Tailwind (`bg-green-100 text-green-800`) untuk
+    `Badge` lokal modul tdp — implementasi pil KETIGA di repo ini, terpisah dari `Tag`
+    maupun `Badge` Mantine. Sekarang ia mengembalikan prop `Tag`, jadi warna pil tdp
+    datang dari palet yang sama dengan seluruh aplikasi.
+
+    Pemetaannya: green/emerald → success, yellow → warning, red → error,
+    blue → primary, gray → gray.
+  */
   const getFlightRiskColor = (risk: string) => {
     switch (risk) {
       case 'Low':
-        return 'bg-green-100 text-green-800';
+        return 'success' as const;
       case 'Medium':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'warning' as const;
       case 'High':
-        return 'bg-red-100 text-red-800';
+        return 'error' as const;
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'gray' as const;
     }
   };
 
   const getPromotionReadinessColor = (readiness: string) => {
     switch (readiness) {
       case 'Ready Now':
-        return 'bg-green-100 text-green-800';
+        return 'success' as const;
       case 'Ready in 1-2 years':
-        return 'bg-blue-100 text-blue-800';
-      case 'Not Ready':
-        return 'bg-gray-100 text-gray-800';
+        return 'primary' as const;
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'gray' as const;
     }
   };
 
@@ -615,10 +624,12 @@ export default function SwipeReview() {
                 >
                   <Filter className="w-4 h-4 mr-2" style={{ color: hasActiveFilters ? 'white' : '#016699' }} />
                   Filters
+                  {/* Latar putih di atas bilah primary — belum ada token untuk pasangan
+                      itu, jadi lewat jalan keluar `latar`+`warna`. */}
                   {hasActiveFilters && (
-                    <Badge className="ml-2 bg-white text-[#016699] rounded-full">
+                    <Tag latar="#fff" warna="#016699" style={{ marginLeft: 8 }}>
                       Active
-                    </Badge>
+                    </Tag>
                   )}
                 </Button>
               </DialogTrigger>
