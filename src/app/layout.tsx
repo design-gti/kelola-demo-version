@@ -7,6 +7,7 @@ import AppMantineProvider from "@/components/AppMantineProvider";
 import CopilotProvider from "@/components/CopilotProvider";
 import Sidebar from "@/components/Sidebar";
 import AppHeader, { HEADER_HEIGHT } from "@/components/AppHeader";
+import MenuGuideHint from "@/components/MenuGuideHint";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -63,6 +64,10 @@ export default function RootLayout({
                   tanpa padding ini isi halaman masuk ke bawah header. */}
               <AppHeader />
               <div style={{ paddingTop: HEADER_HEIGHT }}>{children}</div>
+              {/* Petunjuk ke panduan menu — di luar {children} supaya tidak ikut
+                  ter-unmount tiap pindah halaman, dan ia memang perlu tahu
+                  perpindahan antar-menu. */}
+              <MenuGuideHint />
             </main>
           </CopilotProvider>
         </AppMantineProvider>
