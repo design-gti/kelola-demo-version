@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { ActionIcon, List, Modal, Text, Tooltip, UnstyledButton } from "@mantine/core";
+import { ActionIcon, Button, List, Modal, Text, Tooltip, UnstyledButton } from "@mantine/core";
 import { IconBell, IconInfoCircle } from "@tabler/icons-react";
 import { menuTitle } from "@/lib/nav";
 import { menuInfo } from "@/lib/menuInfo";
+import { MENU_INFO_BUTTON_ATTR, MENU_INFO_EVENT, restartTour } from "@/lib/tourSignals";
 
 /**
  * Header standar untuk semua halaman: kotak putih mengambang dengan bayangan,
@@ -26,6 +27,17 @@ export default function AppHeader() {
   const title = menuTitle(pathname);
   const info = menuInfo(pathname);
   const [infoOpen, setInfoOpen] = useState(false);
+
+  /*
+   * Tur onboarding perlu tahu kapan penjelasan menu dibuka dan ditutup, supaya
+   * langkahnya maju TEPAT setelah user benar-benar membacanya. Dikabarkan lewat
+   * event di window, bukan lewat context/prop: header ini dipakai semua halaman
+   * dan turnya hidup di luar pohon komponennya, jadi menariknya ke satu provider
+   * bersama hanya untuk satu boolean justru mengikat keduanya tanpa perlu.
+   */
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent(MENU_INFO_EVENT, { detail: { open: infoOpen, pathname } }));
+  }, [infoOpen, pathname]);
 
   return (
     <>
@@ -61,6 +73,7 @@ export default function AppHeader() {
         {info && (
           <Tooltip label={`Tentang menu ${title}`} position="right" withArrow>
             <UnstyledButton
+              {...{ [MENU_INFO_BUTTON_ATTR]: "" }}
               onClick={() => setInfoOpen(true)}
               aria-label={`Penjelasan menu ${title}`}
               style={{ display: "flex", alignItems: "center" }}
@@ -96,6 +109,22 @@ export default function AppHeader() {
               {info.value}
             </Text>
           </Section>
+
+          {/* Petunjuk ke ikon ini hanya muncul sekali per menu. Tanpa jalan
+              masuk kedua, orang yang terlanjur melewatkannya tidak punya cara
+              memunculkannya lagi — dan di sinilah ia akan mencarinya, karena
+              inilah satu-satunya tempat "penjelasan" di aplikasi. */}
+          <Button
+            variant="subtle"
+            size="xs"
+            style={{ alignSelf: "flex-start" }}
+            onClick={() => {
+              setInfoOpen(false);
+              restartTour();
+            }}
+          >
+            Tampilkan lagi petunjuk panduan
+          </Button>
         </div>
       )}
     </Modal>
