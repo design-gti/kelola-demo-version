@@ -87,7 +87,7 @@ export function buildCanonicalEmployees(): Employee[] {
       successors: sIds.length,
       successorIds: sIds.length ? sIds : undefined,
       managerId: p.managerId ?? undefined,
-      imageUrl: p.photoUrl ?? `/avatars/photo_wc2026/${p.id}.png`,
+      imageUrl: p.photoUrl ?? `/avatars/employee/${p.id}.png`,
       performanceRating: perf ? Math.max(1, Math.min(5, Math.round(perf / 20))) : 3,
       readinessScore: readiness,
       criticalPosition: p.potential === "high",

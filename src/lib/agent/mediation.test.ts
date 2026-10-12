@@ -179,25 +179,27 @@ describe("getAgentRankedEmployeesView", () => {
 
 describe("getAgentOrgHierarchyView", () => {
   it("resolves a manager + direct reports, identically for every session", () => {
-    const view = getAgentOrgHierarchyView(hrSession, "Kylian Mbappe");
-    expect(view.person?.name).toBe("Kylian Mbappe");
-    expect(getAgentOrgHierarchyView(managerSession, "Kylian Mbappe")).toEqual(view);
+    const view = getAgentOrgHierarchyView(hrSession, "Ayu Lestari");
+    expect(view.person?.name).toBe("Ayu Lestari");
+    expect(getAgentOrgHierarchyView(managerSession, "Ayu Lestari")).toEqual(view);
   });
 });
 
 describe("getAgentEmployeeRankView", () => {
   it("answers the exact question that previously got a hallucinated answer", () => {
-    const view = getAgentEmployeeRankView(hrSession, "Son Heung-min", "performance");
+    const view = getAgentEmployeeRankView(hrSession, "Ahmad Al-Faruq", "performance");
     expect(view).not.toBeNull();
-    expect(view?.person.name).toBe("Son Heung-min");
-    // Real value verified directly against public/data/tdp-employees.csv's
-    // Performance column — NOT the 17th the assistant once claimed.
-    expect(view?.rank).toBe(16);
+    expect(view?.person.name).toBe("Ahmad Al-Faruq");
+    // Nilai nyata, dihitung dari kolom `performance` di participants.csv —
+    // sumber yang dipakai getEmployeeRank. Sengaja BUKAN tdp-employees.csv:
+    // kolom Performance di sana diturunkan lewat rumus lain dan memberi
+    // peringkat berbeda untuk orang yang sama.
+    expect(view?.rank).toBe(55);
   });
 
   it("is identical regardless of session role — restriction is intentionally disabled", () => {
-    const hrView = getAgentEmployeeRankView(hrSession, "Kylian Mbappe", "performance");
-    const managerView = getAgentEmployeeRankView(managerSession, "Kylian Mbappe", "performance");
+    const hrView = getAgentEmployeeRankView(hrSession, "Ayu Lestari", "performance");
+    const managerView = getAgentEmployeeRankView(managerSession, "Ayu Lestari", "performance");
     // asOf is a fresh timestamp per call, so compare everything else instead of the whole object.
     expect(managerView?.person).toEqual(hrView?.person);
     expect(managerView?.rank).toBe(hrView?.rank);

@@ -105,7 +105,9 @@ rows.forEach((r, i) => {
     "Manager ID": r.manager_id || "",
     "Report To": r.manager_id ? (nameById[r.manager_id] ?? "") : "",
     "Photo URL": "",
-    "Gender": i % 3 === 0 ? "Perempuan" : "Laki-laki",
+    // Dari kolom `gender` di participants.csv — sumber yang sama dengan
+    // iProfile, jadi satu orang tidak bisa berbeda jenis kelamin antar layar.
+    "Gender": r.gender || "Laki-laki",
     "City": CITIES[i % CITIES.length],
     "Marital Status": i % 2 === 0 ? "Menikah" : "Belum Menikah",
     "Education": EDU[i % EDU.length],
@@ -132,7 +134,10 @@ rows.forEach((r, i) => {
     "[LEADERSHIP STYLE] Leadership Style": STYLES[(discIdx(r.disc) + Math.floor(comp / 25)) % STYLES.length],
     "[LEADERSHIP STYLE] Subordinate Style": SUB_STYLE[i % SUB_STYLE.length],
     "[LEADERSHIP STYLE] Social Style": SOCIAL[discIdx(r.disc) % SOCIAL.length],
-    "Referance ID": "",
+    // Di kelola-web ini UUID karyawan dari backend. Di demo, id karyawan (p01…) memainkan
+    // peran yang sama: kunci stabil yang dipakai tautan profil (/iprofile?id=…) dan data
+    // tambahan dari Profile Data. Dibiarkan kosong, keduanya diam-diam tidak tersambung.
+    "Referance ID": r.id,
     "Tim": `Tim ${r.department}`,
   };
   KOMPETENSI.forEach((k, j) => { rec[`[KOMPETENSI] ${k}`] = vary(kBase, j, i); });

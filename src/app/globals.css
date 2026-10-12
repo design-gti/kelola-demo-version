@@ -26,6 +26,48 @@ html, body {
   animation: pulse-alert 2.4s ease-in-out infinite;
 }
 
+/*
+ * Sorotan karyawan di box mapping: seberkas cahaya putih menyapu dari kiri ke
+ * kanan, terus-menerus.
+ *
+ * Dipakai karena titik di 9-box hanya berdiameter 20px — pada ukuran itu warna
+ * atau garis diam nyaris tidak tertangkap mata di antara puluhan titik lain,
+ * sedangkan GERAKAN tertangkap langsung. Yang bergerak adalah lapisan di ATAS
+ * foto, jadi wajah orangnya tetap terlihat.
+ *
+ * Sudut 20deg membuat berkasnya miring seperti pantulan cahaya di kaca, bukan
+ * palang lurus yang terbaca sebagai elemen UI.
+ */
+@keyframes tm-sweep {
+  0%   { transform: translateX(-160%) rotate(20deg); }
+  100% { transform: translateX(160%) rotate(20deg); }
+}
+.tm-spotlight-sweep {
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 55%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: tm-sweep 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Gerak tanpa henti melelahkan sebagian orang, dan sebagian lagi memang
+   memintanya berhenti lewat setelan sistem. Sorotannya tetap ada — cahayanya
+   diam di tengah titik alih-alih menyapu. */
+@media (prefers-reduced-motion: reduce) {
+  .tm-spotlight-sweep {
+    animation: none;
+    transform: translateX(85%) rotate(20deg);
+  }
+}
+
 /* CopilotChat's own root class defaults to content-based height (no
    flex-grow), so it keeps growing with every message instead of filling the
    panel's flex column — the inner message list never gets a bounded height
@@ -219,6 +261,14 @@ html, body {
   min-width: 0;
   word-break: break-word;
 }
+/* Penanda taraf di depan butir KB. Lebarnya dikunci supaya teks butirnya rata
+   satu sama lain meski tarafnya berbeda digit. */
+.kb-chip-level {
+  flex-shrink: 0;
+  width: 20px;
+  font-weight: 700;
+  opacity: 0.55;
+}
 .kb-chip-remove {
   flex-shrink: 0;
   display: inline-flex;
@@ -263,3 +313,28 @@ html, body {
 html[data-embed] aside[data-app-sidebar] {
   display: none !important;
 }
+
+/*
+ * Titik skor 16PF membesar saat barisnya di-hover.
+ *
+ * Penanda arah: dua gelembung kutub muncul bersamaan di bawah trek, dan tanpa
+ * ini tidak ada yang menunjukkan titik mana yang sedang diterangkan — di daftar
+ * 16 baris yang rapat, baris yang di-hover mudah tertukar dengan tetangganya.
+ *
+ * transform-nya ditulis lengkap berikut translateX(-50%): nilai itu yang
+ * menengahkan titik pada posisi skornya, dan menimpanya dengan scale saja akan
+ * menggeser titiknya setengah lebar ke kanan.
+ */
+.pf-marker {
+  /* Penengah titik pada posisi skornya; ditulis di sini, bukan sebagai gaya
+     inline, supaya aturan hover di bawah bisa menambahkan scale tanpa
+     menghilangkannya. */
+  transform: translateX(-50%);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.group\/factor:hover .pf-marker {
+  transform: translateX(-50%) scale(1.2);
+  box-shadow: 0 0 0 3px rgba(1, 102, 153, 0.18);
+}
+
+

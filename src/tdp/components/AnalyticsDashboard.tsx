@@ -21,7 +21,7 @@ import {
   ArrowLeft,
   X,
 } from 'lucide-react';
-import { Badge } from './ui/badge';
+import { Tag } from "@/components/ui/Tag";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogOverlay, DialogPortal } from './ui/dialog';
@@ -464,7 +464,7 @@ export default function AnalyticsDashboard() {
                 <div className="w-12 h-12 bg-[#FDF5F3] rounded-lg flex items-center justify-center">
                   <Shield className="w-6 h-6 text-[#DE350B]" />
                 </div>
-                <Badge className="bg-[#FDF5F3] text-[#DE350B] border border-[#F6A5A6]">Critical</Badge>
+                <Tag warnaDS="error">Critical</Tag>
               </div>
               <div className="font-subtitle mb-2" style={{ color: '#868E96' }}>Succession Risk</div>
               <div className="text-3xl font-bold mb-1" style={{ color: '#495057' }}>
@@ -482,7 +482,7 @@ export default function AnalyticsDashboard() {
                 <div className="w-12 h-12 bg-[#FFF4E0] rounded-lg flex items-center justify-center">
                   <Zap className="w-6 h-6 text-[#FF8918]" />
                 </div>
-                <Badge className="bg-[#FFF4E0] text-[#FF8918] border border-[#FFB063]">High</Badge>
+                <Tag warnaDS="warning">High</Tag>
               </div>
               <div className="font-subtitle mb-2" style={{ color: '#868E96' }}>Flight Risk - Top Talent</div>
               <div className="text-3xl font-bold mb-1" style={{ color: '#495057' }}>
@@ -500,7 +500,7 @@ export default function AnalyticsDashboard() {
                 <div className="w-12 h-12 bg-[#FFF4E0] rounded-lg flex items-center justify-center">
                   <Clock className="w-6 h-6 text-[#FF8918]" />
                 </div>
-                <Badge className="bg-[#FFF4E0] text-[#FF8918] border border-[#FFB063]">Medium</Badge>
+                <Tag warnaDS="warning">Medium</Tag>
               </div>
               <div className="font-subtitle mb-2" style={{ color: '#868E96' }}>Stuck in Role (&gt;36mo)</div>
               <div className="text-3xl font-bold mb-1" style={{ color: '#495057' }}>
@@ -518,7 +518,7 @@ export default function AnalyticsDashboard() {
                 <div className="w-12 h-12 bg-[#E7F5FF] rounded-lg flex items-center justify-center">
                   <DollarSign className="w-6 h-6 text-[#016699]" />
                 </div>
-                <Badge className="bg-[#E7F5FF] text-[#016699] border border-[#A4C7FF]">Review</Badge>
+                <Tag warnaDS="primary">Review</Tag>
               </div>
               <div className="font-subtitle mb-2" style={{ color: '#868E96' }}>Compensation Gap</div>
               <div className="text-3xl font-bold mb-1" style={{ color: '#495057' }}>
@@ -774,9 +774,9 @@ export default function AnalyticsDashboard() {
               <Award className="w-5 h-5 text-[#016699]" />
               Department Health Score
               {selectedDepartment !== 'all' && (
-                <Badge className="ml-2 bg-[#016699] text-white">
+                <Tag warnaDS="primary" style={{ marginLeft: 8 }}>
                   {selectedDepartment} Only
-                </Badge>
+                </Tag>
               )}
             </h3>
             <div className="space-y-3">
@@ -1009,7 +1009,7 @@ export default function AnalyticsDashboard() {
               </DialogPrimitive.Close>
 
               <div className="mb-6">
-                <h2 className="font-subheading text-[#016699] mb-2">
+                <h2 className="judul-modal text-[#016699] mb-2">
                   {PERFORMANCE_MATRIX_RECOMMENDATIONS[selectedBoxRecommendation].title}
                 </h2>
                 <p className="font-body italic mb-1" style={{ color: '#868E96' }}>

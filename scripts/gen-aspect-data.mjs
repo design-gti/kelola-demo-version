@@ -69,8 +69,34 @@ function tierOf(position) {
 // atas), dan beberapa sengaja dibuat lebih rendah/berlubang supaya heatmap
 // punya dinamika (bukan semua orang hijau). Selebihnya skor mengikuti
 // competency score existing di participants.csv + jitter per aspek.
-const TOP_TALENT_IDS = new Set(["p05", "p07", "p17", "p25", "p12", "p31"]); // Mbappe, Rodri, Lautaro, Messi, Griezmann, Kane
-const STRUGGLING_IDS = new Set(["p11", "p15", "p22", "p24", "p02"]); // Enzo, Cody, Rafael, Nico, Musiala
+const TOP_TALENT_IDS = new Set(["p05", "p07", "p17", "p25", "p12", "p31"]);
+
+/*
+ * Orang yang skornya sengaja jauh di bawah standar kursinya sendiri, sehingga
+ * layer Need Development memerahkannya (ambang merah = match < 66%).
+ *
+ * Dulu daftarnya lima id tetap. Masalahnya, kelimanya tersebar di level mana
+ * saja, jadi pada layar penuh berisi ratusan kartu nyaris tidak ada merah yang
+ * terlihat — padahal justru level bawah yang realistisnya paling sering butuh
+ * pengembangan.
+ *
+ * Sekarang: lima id itu tetap dipertahankan, DITAMBAH sebagian pemegang kursi
+ * DAUN (yang tidak punya bawahan sama sekali) yang dipilih secara deterministik.
+ * Bukan acak per-run — memakai hash id yang sama seperti nilai lainnya, supaya
+ * datanya identik setiap kali script ini dijalankan ulang.
+ */
+const STRUGGLING_SEEDS = ["p11", "p15", "p22", "p24", "p02"];
+/** Porsi kursi daun yang dijadikan "butuh pengembangan". */
+const STRUGGLING_LEAF_SHARE = 0.22;
+
+// Kursi daun = id yang tidak pernah muncul sebagai manager_id orang lain.
+const managerIds = new Set(pRows.map((r) => r.manager_id).filter(Boolean));
+const STRUGGLING_IDS = new Set(STRUGGLING_SEEDS);
+for (const r of pRows) {
+  if (managerIds.has(r.id)) continue;                 // punya bawahan → bukan level bawah
+  if (TOP_TALENT_IDS.has(r.id)) continue;             // talent tidak ikut dijatuhkan
+  if (seeded01(`struggle-pick:${r.id}`) < STRUGGLING_LEAF_SHARE) STRUGGLING_IDS.add(r.id);
+}
 
 const positions = [...new Map(pRows.map((r) => [r.position, r])).values()].map((r) => ({
   position: r.position,
@@ -104,9 +130,11 @@ const participantScores = pRows.map((r) => {
       return clamp15(tier + (roll < 0.7 ? 2 : 1));
     }
     if (STRUGGLING_IDS.has(r.id)) {
-      // Sengaja berlubang: di bawah tier sendiri (-1/-2).
+      // Sengaja berlubang: dominan -2 dari tier sendiri. Dengan standar kursi
+      // di sekitar tier, rata-rata rasionya jatuh di bawah 66% — ambang merah
+      // Need Development. Kalau mayoritasnya -1, hasilnya cuma oranye.
       const roll = seeded01(`struggle:${r.id}:${aspect}:${i}`);
-      return clamp15(tier - (roll < 0.6 ? 2 : 1));
+      return clamp15(tier - (roll < 0.75 ? 2 : 1));
     }
     // Selebihnya: berkisar DI SEKITAR tier sendiri, condong ke bawah/rata
     // (40% -1, 40% rata, 20% +1) — cukup buat "need development" di kursi

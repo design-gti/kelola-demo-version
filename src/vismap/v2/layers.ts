@@ -131,3 +131,25 @@ export function isTalent(emp: Employee, config: HeatmapConfig): boolean {
 export function isVacant(emp: Employee): boolean {
   return emp.name === "(Vacant)";
 }
+
+/**
+ * Layer yang menyalakan layer lain.
+ *
+ * Succession risk sebuah KURSI dihitung dari kesiapan para calon penerusnya —
+ * jadi warna bingkai kursi tidak berarti apa-apa kalau angka kesiapan yang
+ * mendasarinya tidak ikut terlihat. Karena itu "% Ready to Promote" dinyalakan
+ * bersamanya dan dikunci selama Succession Risk masih menyala.
+ *
+ * Arahnya satu-arah: menyalakan Succession Risk memaksa % Ready ikut menyala,
+ * tapi % Ready tetap berdiri sendiri tanpa Succession Risk.
+ */
+export const LAYER_REQUIRES: Partial<Record<LayerId, LayerId>> = {
+  "succession-risk": "ready-to-promote",
+};
+
+/** Layer ini sedang dipaksa menyala oleh layer lain, jadi tidak boleh dimatikan. */
+export function isLayerLocked(id: LayerId, active: Set<LayerId>): boolean {
+  return Object.entries(LAYER_REQUIRES).some(
+    ([owner, required]) => required === id && active.has(owner as LayerId),
+  );
+}

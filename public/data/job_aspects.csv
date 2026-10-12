@@ -1,0 +1,95 @@
+job,aspect,standard
+Hunter,Mendengar Aktif,4
+Hunter,Inisiatif,5
+Hunter,Negosiasi,4
+Hunter,Kegigihan,5
+Hunter,Persuasi,5
+Hunter,Kemitraan Strategis,4
+Hunter,Ketahanan Tekanan,4
+Hunter,Pemahaman Organisasi Klien,3
+Hunter,Penguasaan Sales Technology,3
+Hunter,Ketajaman Komersial,3
+Hunter,Analisis Kebutuhan Klien,4
+Hunter,Penguasaan Produk & Pasar,4
+Farmer,Mendengar Aktif,4
+Farmer,Koordinasi Lintas Fungsi,4
+Farmer,Keandalan,5
+Farmer,Enablement Klien,3
+Farmer,Pemantauan Kinerja Akun,4
+Farmer,Kemitraan Strategis,5
+Farmer,Orientasi Melayani,5
+Farmer,Kepekaan Sosial,4
+Farmer,Pemahaman Organisasi Klien,3
+Farmer,Penguasaan Sales Technology,3
+Farmer,Manajemen Layanan Klien,5
+Farmer,Evaluasi Kesehatan Akun,4
+Farmer,Penguasaan Produk & Pasar,3
+Teknologi,Mendengar Aktif,3
+Teknologi,Inisiatif,3
+Teknologi,Keandalan,3
+Teknologi,Koordinasi Lintas Fungsi,3
+Teknologi,Ketahanan Tekanan,3
+Teknologi,Kegigihan,3
+Teknologi,Pemantauan Kinerja Akun,3
+Teknologi,Rekayasa Perangkat Lunak,4
+Teknologi,Arsitektur & Rancangan Sistem,4
+Teknologi,Keandalan & Operasional Sistem,4
+Teknologi,Keamanan Informasi,4
+Teknologi,Pengelolaan Data,4
+Keuangan,Mendengar Aktif,3
+Keuangan,Keandalan,3
+Keuangan,Pemantauan Kinerja Akun,3
+Keuangan,Koordinasi Lintas Fungsi,3
+Keuangan,Kepekaan Sosial,3
+Keuangan,Inisiatif,3
+Keuangan,Ketahanan Tekanan,3
+Keuangan,Pelaporan & Standar Akuntansi,4
+Keuangan,Analisis & Perencanaan Keuangan,4
+Keuangan,Pengendalian & Kepatuhan,4
+Keuangan,Pengelolaan Data,4
+Operasional,Keandalan,3
+Operasional,Koordinasi Lintas Fungsi,3
+Operasional,Pemantauan Kinerja Akun,3
+Operasional,Inisiatif,3
+Operasional,Mendengar Aktif,3
+Operasional,Ketahanan Tekanan,3
+Operasional,Orientasi Melayani,3
+Operasional,Perbaikan Proses,4
+Operasional,Kendali Mutu,4
+Operasional,Manajemen Rantai Pasok,4
+Operasional,Pengelolaan Data,4
+SDM,Mendengar Aktif,3
+SDM,Kepekaan Sosial,3
+SDM,Orientasi Melayani,3
+SDM,Enablement Klien,3
+SDM,Koordinasi Lintas Fungsi,3
+SDM,Keandalan,3
+SDM,Pemantauan Kinerja Akun,3
+SDM,Negosiasi,3
+SDM,Rekrutmen & Seleksi,4
+SDM,Pengembangan Talenta,4
+SDM,Manajemen Kinerja & Remunerasi,4
+Produk,Mendengar Aktif,3
+Produk,Inisiatif,3
+Produk,Kemitraan Strategis,3
+Produk,Koordinasi Lintas Fungsi,3
+Produk,Pemantauan Kinerja Akun,3
+Produk,Kepekaan Sosial,3
+Produk,Persuasi,3
+Produk,Analisis Strategis,4
+Produk,Riset Pasar & Wawasan Pelanggan,4
+Produk,Pengelolaan Data,4
+Produk,Tata Kelola & Manajemen Risiko,4
+Produk,Analisis Kebutuhan Klien,4
+Marketing,Mendengar Aktif,3
+Marketing,Inisiatif,3
+Marketing,Persuasi,3
+Marketing,Koordinasi Lintas Fungsi,3
+Marketing,Kepekaan Sosial,3
+Marketing,Kemitraan Strategis,3
+Marketing,Pemantauan Kinerja Akun,3
+Marketing,Strategi Merek & Komunikasi,4
+Marketing,Pemasaran Digital & Analitik,4
+Marketing,Riset Pasar & Wawasan Pelanggan,4
+Marketing,Penguasaan Produk & Pasar,4
+Marketing,Ketajaman Komersial,4

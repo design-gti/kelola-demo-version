@@ -2,12 +2,18 @@
 /**
  * Dataset karyawan TDP.
  *
- * CSV di-FETCH saat runtime dari `/data/tdp-employees.csv` (disajikan oleh
- * kelola-demo-version tempat TDP di-embed di `/tdp/`), lalu teksnya diinjeksikan
- * ke `csvSource` di bootstrap (main.tsx) SEBELUM modul ini di-import secara dinamis.
- * Jadi parsing tetap terjadi sekali saat module-load (seperti versi `?raw`),
- * dan `CSV_RAW_HEADERS` + kolom turunannya tetap valid — tanpa mengubah consumer.
- * Ganti data cukup edit CSV + reload (tanpa rebuild).
+ * ⚠️ Di repo INI, CSV-nya di-FETCH dari `/api/tdp-csv` — dihasilkan `tdpCsv.ts` dari
+ * kelola-api (atau mock). BUKAN dari berkas statis `public/data/tdp-employees.csv`;
+ * itu jalur milik repo demo, dan berkasnya tidak ada di sini. Lihat
+ * `src/app/(app)/tdp-view/page.tsx`, yang memanggil `setRawCsv()` dengan hasil fetch
+ * itu SEBELUM mengimpor App-nya.
+ *
+ * Perbedaannya bukan sepele: CSV demo membawa 81 kolom termasuk `[ENGAGEMENT] ...`
+ * dan `[LEADERSHIP STYLE] ...`; yang dihasilkan kelola membawa 28 dan hanya punya
+ * grup `[KOMPETENSI]`. Medan turunan yang menunjuk kolom demo tidak akan terisi.
+ *
+ * Parsing tetap terjadi sekali saat module-load (seperti versi `?raw`), dan
+ * `CSV_RAW_HEADERS` + kolom turunannya tetap valid — tanpa mengubah consumer.
  */
 import type { Employee } from './types';
 import { rawCsv as csvText } from './csvSource';
@@ -51,9 +57,19 @@ const CSV_HEADERS = {
   readinessHAV: 'Readiness',
   usia: '[Readiness] Usia',
   readinessRiskHeat: '[Readiness] Risk Heat',
-  engagementScore: 'Commitment',
+  /*
+    ⚠️ Tiga header di bawah SEBELUMNYA menunjuk nama milik CSV demo yang tidak pernah ada
+    di CSV yang dihasilkan `tdpCsv.ts` — `Commitment` (yang ada `Engagement`) dan
+    `[Potensi] Score` (yang ada `Potensi`). Akibatnya `engagementScore` dan `potensiScore`
+    tak pernah terisi, dan medan turunannya diam-diam jatuh ke cadangan.
+
+    Terukur: kartu Compare menyelamatkan diri lewat cadangannya sendiri di `get3CScores`,
+    tapi `potentialRating` — yang dipakai sumbu Box Mapping dan Swipe Review — jatuh ke
+    rata-rata instrumen lama, bukan angka potensi yang dipancarkan kelola.
+  */
+  engagementScore: 'Engagement',
   performanceScore: 'Performance',
-  potensiScore: '[Potensi] Score',
+  potensiScore: 'Potensi',
 } as const;
 
 type HeaderVariant = { primary: string; legacy?: string };
@@ -213,10 +229,36 @@ function deriveAssessmentScore(competencies: number[]): number {
   return Math.round(avg * 20);
 }
 
-function generateEmployeeId(rawId: string): string {
-  const numeric = rawId.replace(/[^0-9]/g, '');
-  if (!numeric) return rawId;
-  return `EMP${numeric.padStart(3, '0')}`;
+/*
+  Nomor karyawan dipakai APA ADANYA.
+
+  ── Kenapa normalisasinya dibuang ──
+
+  Versi sebelumnya membuang setiap karakter non-digit lalu menyusun ulang
+  `EMP` + angka: `rawId.replace(/[^0-9]/g, '')` → `` `EMP${numeric.padStart(3, '0')}` ``.
+
+  Itu masuk akal untuk CSV demo, yang nomornya seragam. Terhadap data sungguhan ia
+  merusak dua hal sekaligus:
+
+  1. **Menciptakan tabrakan dari nilai yang dijamin unik.** `EMPZ001` dan `EMP001`
+     sama-sama menyusut jadi `001`, lalu keduanya lahir kembali sebagai `EMP001`.
+     Terukur di tenant Staging Kelola: 26 karyawan, 26 nomor berbeda, dan
+     `employees.employee_number` bahkan punya UNIQUE constraint di basis data —
+     tabrakannya murni buatan fungsi ini. Akibatnya React memperingatkan
+     "two children with the same key".
+
+  2. **Menampilkan nomor yang salah kepada pemakai.** `EmployeeDetailModal` merender
+     `ID: {employee.id}`, jadi orang yang nomornya `EMPZ001` ditampilkan sebagai
+     `EMP001` — nomor milik orang LAIN. Ini yang lebih berbahaya daripada peringatan
+     konsolnya: peringatan terlihat, nomor yang salah tidak.
+
+  ⚠️ `MULTI_TEAM` di bawah masih dikunci dengan format lama (`EMP` + digit panjang).
+  Ia peninggalan demo dan tidak cocok dengan satu pun karyawan di tenant ini, baik
+  sebelum maupun sesudah perubahan ini. Penugasan multi-tim yang benar semestinya
+  datang dari `/teams`, bukan dari peta yang dipatok di kode.
+*/
+export function generateEmployeeId(rawId: string): string {
+  return rawId.trim();
 }
 
 const AVATAR_FEMALE = '/avatars/female.jpg';
@@ -224,12 +266,23 @@ const AVATAR_MALE   = '/avatars/male.jpg';
 
 function buildPhotoUrl(name: string, fallback?: string, gender?: string, pid?: string): string {
   if (fallback && fallback.trim()) return fallback.trim();
-  // Per-person WC photo keyed by canonical p-id (p01.png..p24.png).
+  /*
+    Foto per orang berkunci p-id — dan di sini itu SAH: TDP membaca
+    `tdp-employees.csv`, yang kolom `Employee ID`-nya memang berisi `p01`…`p112`,
+    bukan UUID dari kelola-api. Bedakan dari iProfile: idnya UUID, jadi fotonya
+    diambil dari `employees.photo` (lihat `src/data/model/foto.ts`).
+
+    Jalurnya dulu `/avatars/photo_wc2026/` — folder yang tidak ada di repo ini,
+    jadi setiap permintaan gagal dan `onError` di pemanggilnya diam-diam jatuh ke
+    foto generik.
+  */
   const id = (pid ?? '').trim();
-  if (/^p\d+$/i.test(id)) return `/avatars/photo_wc2026/${id.toLowerCase()}.png`;
+  if (/^p\d+$/i.test(id)) return `/avatars/employee/${id.toLowerCase()}.png`;
   const g = (gender ?? '').trim().toLowerCase();
-  if (g === 'perempuan') return AVATAR_FEMALE;
-  if (g === 'laki-laki') return AVATAR_MALE;
+  // Data kelola bernilai "Female"/"Male"; CSV demo lama memakai bahasa Indonesia. Keduanya dikenali —
+  // dulu hanya yang Indonesia, jadi semua orang jatuh ke avatar laki-laki.
+  if (g === 'female' || g === 'perempuan') return AVATAR_FEMALE;
+  if (g === 'male' || g === 'laki-laki') return AVATAR_MALE;
   return AVATAR_MALE;
 }
 
@@ -305,7 +358,34 @@ function rowToEmployee(row: Record<string, string>): Employee {
     return values.reduce((s, v) => s + v, 0) / values.length;
   };
 
-  const kompetensiAvg = groupAverage('[KOMPETENSI]');         // 1-5
+  /*
+    Rata-rata atas BEBERAPA awalan sekaligus, dihitung sebagai satu himpunan.
+
+    Bukan rata-rata dari rata-rata: aspek General dan Technical jumlahnya jauh berbeda per
+    orang — seseorang dinilai 13 aspek General tapi hanya 3-5 aspek Technical. Merata-rata
+    dua rata-rata akan memberi bobot yang sama pada 13 butir dan 3 butir.
+  */
+  const rataDariBeberapaAwalan = (prefixes: string[]): number | undefined => {
+    const values = Object.keys(row)
+      .filter((k) => prefixes.some((p) => k.startsWith(p)) && !EXCLUDE_FROM_AVG.has(k))
+      .map((k) => parseNumber(row[k]))
+      .filter((v): v is number => typeof v === 'number' && v <= 5);
+    if (values.length === 0) return undefined;
+    return values.reduce((s, v) => s + v, 0) / values.length;
+  };
+
+  /*
+    Rata-rata aspek competency — dari kolom yang isinya SAMA dengan kartu Competency
+    iProfile (`[GENERAL] …` / `[TECHNICAL] …`).
+
+    ⚠️ Dulu dari `[KOMPETENSI]`, instrumen tabel `/talent-decision`. Terukur, keduanya
+    kosakata yang berbeda: 9 dari 13 aspeknya tidak ada sama sekali di iProfile, dan dari
+    yang namanya kebetulan sama, 60 dari 75 perbandingan berbeda angkanya. Akibatnya satu
+    kartu Compare bisa menampilkan "Inisiatif 5" di section Capability dan "Inisiatif 2"
+    di section General — orang yang sama, aspek bernama sama. Kolom `[KOMPETENSI]` kini
+    tidak dipancarkan lagi; lihat catatan di `tdpCsv.ts`.
+  */
+  const kompetensiAvg = rataDariBeberapaAwalan(['[GENERAL]', '[TECHNICAL]']); // 1-5
   const heroesAvg = groupAverage('[ENGAGEMENT]');                 // 1-5 (presen_kecocokan 0-1 also included; filtered below)
   // Recompute heroes avg excluding presen_kecocokan / hasil_rekomendasi (non 1-5 items)
   const heroesItems = Object.keys(row)
@@ -324,8 +404,15 @@ function rowToEmployee(row: Record<string, string>): Employee {
     v === undefined ? undefined : Math.round(v * 20);
 
   // Direct columns first; fall back to derived values.
-  const competencyMatch =
-    parseNumber(row[CSV_HEADERS.capability]) ?? to100(kompetensiAvg);
+  /*
+    Capability = Competency Score untuk JABATAN SAAT INI (% kecocokan terhadap standar posisi, sama dengan
+    iProfile). Kalau CSV membawa kolomnya, nilainya dipakai apa adanya — kosong berarti 0/"tanpa data",
+    BUKAN rata-rata aspek: dulu jatuh ke rata-rata General+Technical, angka yang berbeda arti dengan nama
+    yang sama. Rata-rata hanya cadangan untuk CSV lama yang tak punya kolom itu.
+  */
+  const competencyMatch = CSV_HEADERS.capability in row
+    ? parseNumber(row[CSV_HEADERS.capability]) ?? 0
+    : to100(kompetensiAvg);
 
   const yearsInCompany = parseNumber(row[CSV_HEADERS.yearsInCompany]) ?? 0;
   const yearsInRole = parseNumber(row[CSV_HEADERS.yearsInRole]) ?? 0;
@@ -380,9 +467,12 @@ function rowToEmployee(row: Record<string, string>): Employee {
     successorIdentified: false,
     manager,
     photo: buildPhotoUrl(name, row[CSV_HEADERS.photoUrl], row['Gender'], row[CSV_HEADERS.employeeId]),
-    performanceRatingDate: performanceFinal > 0 ? '2026-04-01' : undefined,
-    potentialRatingDate: potentialFinal > 0 ? '2026-04-01' : undefined,
-    engagementScoreDate: engagementFinal > 0 ? '2026-04-01' : undefined,
+    // Tanggal rating DIKOSONGKAN: dulu literal '2026-04-01' untuk semua orang — tanggal karangan yang
+    // membuat tooltip "data sudah lama" menyatakan sesuatu yang tak pernah diukur. Lembar Profile Data
+    // belum menyimpan tanggal asesmennya; begitu ada, isi dari sana.
+    performanceRatingDate: undefined,
+    potentialRatingDate: undefined,
+    engagementScoreDate: undefined,
     personality: row[CSV_HEADERS.personality] || undefined,
     leadershipType: row[CSV_HEADERS.leadershipType] || undefined,
     iqScore: iq,

@@ -1,6 +1,6 @@
 ﻿"use client";
 import { useContext, useState } from 'react';
-import { Tabs } from '@mantine/core';
+import { Chip, Group } from '@mantine/core';
 import svgPaths from '../imports/svg-djevy8uiqd';
 import svgPathsPotency from '../imports/svg-87qx2z9isd';
 import { StandardPositionSelect } from './StandardPositionSelect';
@@ -9,7 +9,6 @@ import { KeyBehaviourBreakdown, type KeyBehaviour } from './KeyBehaviourBreakdow
 import { ProfileContext } from '../lib/ProfileContext';
 import { aspectsFor } from '../lib/aspects';
 
-type TabType = 'competency' | 'potency';
 /** Cara aspek ditampilkan: daftar kartu skor, atau spider/radar chart. */
 type ViewMode = 'list' | 'chart';
 
@@ -17,10 +16,9 @@ export type { KeyBehaviour };
 export type AspectItem = { label: string; category: string; score: number; standardScore: number; dev: boolean; keyBehaviours?: KeyBehaviour[] };
 
 interface ScoreAspectProps {
-  Frame79: React.ComponentType;
-  /** Baris toolbar tab Competency. `leftSlot` diisi toggle list/chart dari sini,
-   *  Keduanya statis hasil import Figma, jadi bagian yang perlu state (toggle
-   *  tampilan) dititipkan lewat slot dari sini. */
+  /** Header kartu; judulnya dioper karena dipakai dua kartu dengan nama berbeda. */
+  Frame79: React.ComponentType<{ title: string; rightSlot?: React.ReactNode }>;
+  /** Tombol Score Records, dipasang di sudut kanan atas kepala kartu. */
   Frame153: React.ComponentType;
   /** Baris dropdown standar jabatan; `rightSlot` diisi toggle list/spider,
    *  `showLegend` dimatikan di view chart (chart punya legend sendiri). */
@@ -35,83 +33,145 @@ function byCategory(items: AspectItem[]): [string, AspectItem[]][] {
   return [...map.entries()];
 }
 
-export function ScoreAspectWithTabs({ Frame79, Frame153, Frame116, scoreAspects }: ScoreAspectProps) {
-  const [activeTab, setActiveTab] = useState<TabType>('competency');
-  // Satu state dipakai kedua tab — pilihan "cara lihat" terasa milik kartunya,
-  // bukan milik masing-masing tab.
-  const [viewMode, setViewMode] = useState<ViewMode>('chart');
+/** "All" berarti tanpa penyaringan; sisanya nama kategori apa adanya. */
+const ALL = 'all';
 
-  // Satu daftar aspek untuk orang ini — General dan Technical berbaur, karena
-  // keduanya cuma kategori. Aspek mana yang dinilai ditentukan posisinya, dan
-  // standarnya oleh Job-nya; keduanya diurus `aspectsFor`.
-  const { position, employeeId } = useContext(ProfileContext);
-  const competencyItems = aspectsFor(position, employeeId);
+/**
+ * Penyaring kategori. Isinya diturunkan dari data, bukan ditulis tetap:
+ * kategori bisa ditambah lewat halaman Aspect, dan penyaring di sini ikut
+ * sendiri.
+ *
+ * Berupa chip, bukan tab: tab berbagi lebar kartu sama rata, jadi begitu
+ * kategorinya bertambah labelnya saling menyempit sampai terpotong. Lebar
+ * chip mengikuti panjang namanya dan sisanya turun ke baris berikutnya.
+ */
+function CategoryChips({
+  categories,
+  value,
+  onChange,
+}: {
+  categories: string[];
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  // Satu kategori saja tidak perlu penyaring — chipnya cuma jadi hiasan.
+  if (categories.length < 2) return null;
 
   return (
-    <div className="bg-white content-stretch flex flex-col gap-[12px] items-center overflow-clip p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Score Aspect">
-      <Frame79 />
-      
-      {/* Tab memakai komponen design system; gayanya dari tema (blok
-          .mantine-Tabs-* di globals.css), tidak ditulis ulang di sini.
-          `grow` membuat kedua tab membagi rata lebar kartu seperti rancangan. */}
-      <Tabs
-        value={activeTab}
-        onChange={(v) => setActiveTab((v as TabType) ?? 'competency')}
-        w="100%"
-      >
-        <Tabs.List grow>
-          <Tabs.Tab value="competency">Competency</Tabs.Tab>
-          <Tabs.Tab value="potency">Potency</Tabs.Tab>
-        </Tabs.List>
-      </Tabs>
+    <Chip.Group
+      multiple={false}
+      value={value}
+      // Nilai kosong dipulangkan ke "All" supaya kartunya tidak pernah
+      // kehabisan aspek untuk digambar.
+      onChange={(v) => onChange((v as string) || ALL)}
+    >
+      <Group gap={6} wrap="wrap" justify="center" w="100%">
+        <Chip value={ALL} size="xs" radius="xl" variant="light">
+          All
+        </Chip>
+        {categories.map((c) => (
+          <Chip key={c} value={c} size="xs" radius="xl" variant="light">
+            {c}
+          </Chip>
+        ))}
+      </Group>
+    </Chip.Group>
+  );
+}
 
-      {activeTab === 'competency' ? (
-        <>
-          <Frame116
-            rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
-            showLegend={viewMode === 'list'}
-          />
-          {viewMode === 'chart'
-            ? <AspectRadarChart items={competencyItems} />
-            : <CompetencyContent items={competencyItems} />}
-          {/* Aksi kartu ditaruh paling bawah, di luar rangkaian kontrol. */}
-          <Frame153 />
-        </>
-      ) : (
-        <>
-          <PotencyFilter
-            rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
-            showLegend={viewMode === 'list'}
-          />
-          {viewMode === 'chart'
-            ? <AspectRadarChart items={scoreAspects.potency} />
-            : <PotencyContent items={scoreAspects.potency} />}
-        </>
-      )}
-      
-      <div className="absolute left-0 overflow-clip size-[16px] top-[16px]" data-name="grip-vertical">
-        <div className="absolute inset-[16.67%_33.33%]" data-name="Vector">
-          <div className="absolute inset-[-7.03%_-14.06%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 6.83333 12.1667">
-              <g id="Vector">
-                <path d={svgPaths.p3bb3ed00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.pccbae00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p363ea80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p374adb00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p29561a80} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                <path d={svgPaths.p21375e00} stroke="var(--stroke-0, #ADB5BD)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-              </g>
-            </svg>
-          </div>
-        </div>
-      </div>
+/** Kategori yang benar-benar ada di daftar aspek, urut kemunculan pertama. */
+const categoriesOf = (items: AspectItem[]) => [...new Set(items.map((a) => a.category))];
+
+/**
+ * Tinggi maksimum daftar aspek di mode list, dalam px.
+ *
+ * Satu orang bisa dinilai belasan aspek dan tiap aspek satu blok, jadi daftarnya
+ * jauh lebih tinggi daripada radar chart di mode satunya — kolom kiri memanjang
+ * melewati dua kolom lain. Angkanya didekatkan ke tinggi radar chart supaya
+ * berganti mode tidak membuat halaman melompat.
+ *
+ * Gulir mendatar sengaja dimatikan: yang dimaksud hanya gulir tegak, dan kartu
+ * selebar 368px tidak boleh ikut bergeser ke samping.
+ */
+const LIST_MAX_HEIGHT = 420;
+
+/** Kerangka kartu skor — dipakai kartu Competency maupun Potency. */
+function ScoreCard({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="bg-white content-stretch flex flex-col gap-[12px] items-center overflow-clip p-[16px] relative rounded-[8px] shadow-[2px_2px_15px_0px_rgba(0,0,0,0.1)] shrink-0 w-[368px]" data-name="Score Aspect">
+      {children}
+
     </div>
   );
 }
 
 /**
- * Toggle tampilan aspek: spider chart vs list. Dipakai di kedua tab —
- * di Competency lewat `leftSlot` Frame153, di Potency langsung (PotencyControls).
+ * Skor Competency — aspek yang dinilai untuk posisi orang ini beserta standar
+ * Job-nya. Berdiri sebagai kartu sendiri; dulu satu kartu bertab dengan Potency.
+ */
+export function CompetencyScoresCard({ Frame79, Frame153, Frame116 }: Omit<ScoreAspectProps, 'scoreAspects'>) {
+  const [viewMode, setViewMode] = useState<ViewMode>('chart');
+  const [category, setCategory] = useState<string>(ALL);
+
+  // Satu daftar aspek untuk orang ini — General dan Technical berbaur, karena
+  // keduanya cuma kategori. Aspek mana yang dinilai ditentukan posisinya, dan
+  // standarnya oleh Job-nya; keduanya diurus `aspectsFor`.
+  const { position, employeeId } = useContext(ProfileContext);
+  const all = aspectsFor(position, employeeId);
+  const items = category === ALL ? all : all.filter((a) => a.category === category);
+
+  return (
+    <ScoreCard>
+      <Frame79 title="Competency Scores" rightSlot={<Frame153 />} />
+      <Frame116
+        rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
+        showLegend={viewMode === 'list'}
+      />
+      <CategoryChips categories={categoriesOf(all)} value={category} onChange={setCategory} />
+      {viewMode === 'chart' ? (
+        // Penanda kategori di lingkar luar cuma berarti saat kategorinya lebih
+        // dari satu; begitu disaring ke satu kategori isinya sudah seragam.
+        <AspectRadarChart items={items} showCategories={category === ALL} />
+      ) : (
+        <CompetencyContent items={items} />
+      )}
+    </ScoreCard>
+  );
+}
+
+/** Skor Potency — kartu terpisah dengan kontrol tampilannya sendiri. */
+export function PotencyScoresCard({
+  Frame79,
+  items: all,
+}: {
+  Frame79: React.ComponentType<{ title: string }>;
+  items: AspectItem[];
+}) {
+  // State tampilan milik kartu ini sendiri: sejak Competency dan Potency jadi
+  // dua kartu, mengubah salah satunya tidak lagi ikut mengubah yang lain.
+  const [viewMode, setViewMode] = useState<ViewMode>('chart');
+  const [category, setCategory] = useState<string>(ALL);
+  const items = category === ALL ? all : all.filter((a) => a.category === category);
+
+  return (
+    <ScoreCard>
+      <Frame79 title="Potency Scores" />
+      <PotencyFilter
+        rightSlot={<ViewModeToggle mode={viewMode} onChange={setViewMode} />}
+        showLegend={viewMode === 'list'}
+      />
+      <CategoryChips categories={categoriesOf(all)} value={category} onChange={setCategory} />
+      {viewMode === 'chart' ? (
+        <AspectRadarChart items={items} showCategories={category === ALL} />
+      ) : (
+        <PotencyContent items={items} />
+      )}
+    </ScoreCard>
+  );
+}
+
+/**
+ * Toggle tampilan aspek: spider chart vs list. Dipakai kedua kartu.
  * Ikonnya persis aset Figma yang sudah ada, cuma sekarang state aktifnya nyata.
  */
 export function ViewModeToggle({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode) => void }) {
@@ -204,7 +264,7 @@ function CategorySection({ title, children }: { title: string; children: React.R
 // Potency Content Component (data-driven)
 function PotencyContent({ items }: { items: AspectItem[] }) {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start overflow-clip relative shrink-0 w-full">
+    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full overflow-y-auto overflow-x-hidden pr-[4px]" style={{ maxHeight: LIST_MAX_HEIGHT }}>
       {byCategory(items).map(([cat, group]) => (
         <CategorySection key={cat} title={cat}>
           {group.map((a, i) => (
@@ -219,7 +279,7 @@ function PotencyContent({ items }: { items: AspectItem[] }) {
 // Competency Content Component (data-driven)
 function CompetencyContent({ items }: { items: AspectItem[] }) {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start overflow-clip relative shrink-0 w-full">
+    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full overflow-y-auto overflow-x-hidden pr-[4px]" style={{ maxHeight: LIST_MAX_HEIGHT }}>
       {byCategory(items).map(([cat, group]) => (
         <CategorySection key={cat} title={cat}>
           {group.map((a, i) => (

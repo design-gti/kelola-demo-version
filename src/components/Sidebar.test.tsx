@@ -1,8 +1,14 @@
 // @vitest-environment jsdom
 import type { ReactNode } from "react";
-import { cleanup, render } from "@testing-library/react";
+import { cleanup, render as rtlRender } from "@testing-library/react";
+import { MantineProvider } from "@mantine/core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import Sidebar from "./Sidebar";
+
+// Sidebar memakai komponen Mantine (NavLink), dan komponen Mantine menuntut
+// MantineProvider ada di atasnya — tanpa ini render-nya melempar sebelum satu
+// pun assertion dijalankan.
+const render = (ui: ReactNode) => rtlRender(<MantineProvider>{ui}</MantineProvider>);
 
 vi.mock("next/navigation", () => ({
   usePathname: () => "/vismap",
@@ -13,6 +19,20 @@ vi.mock("next/link", () => ({
     <a href={href}>{children}</a>
   ),
 }));
+
+// jsdom tidak menyediakan matchMedia, sementara Mantine memanggilnya saat
+// menyiapkan tema. Cukup dijawab seadanya — tidak ada uji di berkas ini yang
+// bergantung pada media query.
+window.matchMedia = window.matchMedia ?? ((query: string) => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: () => {},
+  removeListener: () => {},
+  addEventListener: () => {},
+  removeEventListener: () => {},
+  dispatchEvent: () => false,
+})) as typeof window.matchMedia;
 
 const sidebarWidth = () =>
   document.documentElement.style.getPropertyValue("--sidebar-w");

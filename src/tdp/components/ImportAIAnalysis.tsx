@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { ArrowLeft, Upload, FileText, Sparkles, X, Loader2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
-import { Badge } from './ui/badge';
+import { Tag } from "@/components/ui/Tag";
 
 export default function ImportAIAnalysis() {
   const navigate = useNavigate();
@@ -122,7 +122,7 @@ export default function ImportAIAnalysis() {
 
               {/* Title */}
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Generating AI Analysis</h3>
+                <h3 className="judul-modal mb-2">Generating AI Analysis</h3>
                 <p className="text-sm text-gray-600">{loadingText}</p>
               </div>
 
@@ -321,14 +321,13 @@ export default function ImportAIAnalysis() {
               <p className="text-sm font-medium text-gray-700 mb-3">Quick Suggestions:</p>
               <div className="flex flex-wrap gap-2">
                 {suggestionBadges.map((badge) => (
-                  <Badge
+                  <Tag
                     key={badge}
-                    variant="outline"
-                    className="cursor-pointer hover:bg-blue-50 hover:border-[#016699] transition-all px-3 py-1.5"
+                    garis="var(--mantine-color-primary-6)"
                     onClick={() => handleBadgeClick(badge)}
                   >
                     {badge}
-                  </Badge>
+                  </Tag>
                 ))}
               </div>
             </div>

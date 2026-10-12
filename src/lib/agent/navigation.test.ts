@@ -40,7 +40,7 @@ describe("navigation URL builders", () => {
   });
 
   it("builds a talent-mapping highlight deep link", () => {
-    expect(talentMappingUrl({ highlight: "Kylian Mbappe" })).toBe("/talent-mapping?highlight=Kylian+Mbappe");
+    expect(talentMappingUrl({ highlight: "Ayu Lestari" })).toBe("/talent-mapping?highlight=Ayu+Lestari");
   });
 
   it("builds the team-profile team+tab deep link verified live in Phase 0", () => {

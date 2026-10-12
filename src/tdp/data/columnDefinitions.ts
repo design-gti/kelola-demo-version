@@ -10,6 +10,10 @@ export interface ColumnConfig {
   defaultVisible: boolean;
   isCustom?: boolean;
   customType?: 'text' | 'numerical' | 'categorical';
+  /** Kolom dari Profile Data (data tambahan): hanya-baca di tabel, tipe aslinya di `tipeData`. */
+  dariProfileData?: boolean;
+  tipeData?: string;
+  clusterName?: string;
   categories?: string[]; // For categorical columns
   cluster?: 'competency' | 'commitment' | 'contribution' | 'aspect' | 'custom'; // For custom columns
 }

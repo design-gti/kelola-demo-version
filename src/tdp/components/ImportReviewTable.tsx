@@ -751,7 +751,7 @@ export default function ImportReviewTable() {
             >
               {/* Header */}
               <div className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Select Columns To Import</h2>
+                <h2 className="judul-modal mb-2">Select Columns To Import</h2>
                 <p className="text-sm text-gray-600">Choose which data columns you want to import to the system</p>
               </div>
 
@@ -866,7 +866,7 @@ export default function ImportReviewTable() {
                     <div className="p-2 bg-orange-100 rounded-full">
                       <ArrowLeftRight className="w-6 h-6 text-orange-600" />
                     </div>
-                    <h2 className="text-2xl font-bold text-gray-900">Confirm Switch Data</h2>
+                    <h2 className="judul-modal">Confirm Switch Data</h2>
                   </div>
                   <p className="text-sm text-gray-600">Are you sure you want to switch the data between these two employees?</p>
                 </div>

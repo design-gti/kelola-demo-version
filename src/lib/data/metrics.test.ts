@@ -129,9 +129,9 @@ describe("getRankedEmployees", () => {
 
 describe("getEmployeeRank", () => {
   it("finds a person by partial name and returns their absolute rank + total", () => {
-    const result = getEmployeeRank("son heung", "performance");
+    const result = getEmployeeRank("ahmad al", "performance");
     expect(result).not.toBeNull();
-    expect(result?.person.name).toBe("Son Heung-min");
+    expect(result?.person.name).toBe("Ahmad Al-Faruq");
     expect(result?.rank).toBeGreaterThan(0);
     expect(result?.rank).toBeLessThanOrEqual(result!.total);
   });
@@ -149,7 +149,7 @@ describe("getEmployeeRank", () => {
   });
 
   it("never exposes a raw score, only rank + total", () => {
-    const result = getEmployeeRank("Kylian Mbappe", "performance");
+    const result = getEmployeeRank("Ayu Lestari", "performance");
     expect(result).not.toHaveProperty("score");
     expect(result).not.toHaveProperty("performance_score");
   });
@@ -158,7 +158,7 @@ describe("getEmployeeRank", () => {
   // a hyphen/space difference in the one hyphenated name in the dataset
   // silently returned null instead of the real person.
   it("finds a hyphenated name even when the query uses a space instead", () => {
-    const result = getEmployeeRank("Son Heung Min", "performance");
-    expect(result?.person.name).toBe("Son Heung-min");
+    const result = getEmployeeRank("Ahmad Al Faruq", "performance");
+    expect(result?.person.name).toBe("Ahmad Al-Faruq");
   });
 });

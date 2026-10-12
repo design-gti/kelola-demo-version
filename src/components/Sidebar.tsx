@@ -10,7 +10,7 @@ import { ADMIN_ITEMS, NAV_ITEMS } from "@/lib/nav";
 // Ikon buka/tutup rail diambil dari Tabler — itu set ikon yang dipakai Prodigy
 // (@talentlytica/prodigy meng-import @tabler/icons-react), jadi bentuknya sama
 // dengan yang dipakai produk lain di design system ini.
-import { IconLayoutSidebarLeftCollapse, IconLayoutSidebarLeftExpand } from "@tabler/icons-react";
+import { IconLayoutSidebarLeftCollapse } from "@tabler/icons-react";
 
 /**
  * Rail navigasi kiri.
@@ -29,6 +29,17 @@ import { IconLayoutSidebarLeftCollapse, IconLayoutSidebarLeftExpand } from "@tab
  */
 const RAIL_BG = "linear-gradient(180deg, var(--mantine-color-primary-5) 0%, var(--mantine-color-primary-6) 100%)";
 const ON_RAIL = "var(--mantine-color-white)";
+
+/**
+ * Logo perusahaan di kepala rail.
+ *
+ * Bawaannya logo Talentlytica; instalasi yang memakai logo kliennya sendiri
+ * cukup menimpa kedua berkas di public/. Wordmark dipakai saat rail terbuka,
+ * simbolnya saja saat terlipat.
+ */
+const BRAND_BG = "var(--mantine-color-white)";
+const BRAND_LOGO_SRC = "/logo-talentlytica.svg";
+const BRAND_MARK_SRC = "/logo-talentlytica-mark.svg";
 // Latar item nav (diam / hover / aktif) dan tombol mode ada di globals.css —
 // lihat blok `.sidebar-rail`. Yang tersisa di sini hanya nilai yang benar-benar
 // dipakai sebagai inline style.
@@ -133,13 +144,16 @@ export default function Sidebar() {
         zIndex: 50,
       }}
     >
-      {/* Header */}
+      {/* Header — area logo perusahaan. Latarnya putih, bukan biru seperti
+          sisa rail: logo klien datang dengan warnanya sendiri, dan latar
+          netral membuatnya tampil apa adanya tanpa perlu versi khusus. */}
       <UnstyledButton
         onClick={toggle}
         title={collapsed ? "Expand" : "Collapse"}
         style={{
           padding: collapsed ? "8px 0" : "8px 16px",
-          borderBottom: "1px solid rgba(255,255,255,0.12)",
+          background: BRAND_BG,
+          borderBottom: "1px solid var(--mantine-color-gray-3)",
           minHeight: 52,
           display: "flex",
           alignItems: "center",
@@ -150,18 +164,13 @@ export default function Sidebar() {
         }}
       >
         {collapsed ? (
-          <IconLayoutSidebarLeftExpand size={20} color="rgba(255,255,255,0.7)" stroke={1.8} />
+          // Wordmark tidak terbaca di rail selebar 60px, jadi yang tampil
+          // hanya simbolnya.
+          <img src={BRAND_MARK_SRC} alt="Talentlytica" style={{ height: 20, width: "auto" }} />
         ) : (
           <>
-            <div>
-              <Text fw={800} size="md" c={ON_RAIL} lh={1.2}>
-                Kelola
-              </Text>
-              <Text size="xs" c="rgba(255,255,255,0.6)" mt={2}>
-                Demo Environment
-              </Text>
-            </div>
-            <IconLayoutSidebarLeftCollapse size={20} color="rgba(255,255,255,0.7)" stroke={1.8} style={{ flexShrink: 0 }} />
+            <img src={BRAND_LOGO_SRC} alt="Talentlytica" style={{ height: 24, width: "auto", display: "block" }} />
+            <IconLayoutSidebarLeftCollapse size={20} color="var(--mantine-color-gray-6)" stroke={1.8} style={{ flexShrink: 0 }} />
           </>
         )}
       </UnstyledButton>

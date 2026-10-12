@@ -73,7 +73,7 @@ export default function Root() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50 overflow-hidden">
+    <div className="h-full flex flex-col bg-gray-50">
       {/* Add to Decision Dialog */}
       <Dialog open={isAddDecisionDialogOpen} onOpenChange={setIsAddDecisionDialogOpen}>
         <DialogContent>
@@ -136,10 +136,8 @@ export default function Root() {
       </Dialog>
 
       {/* Main Content */}
-      <div className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain">
-        <main className="pt-0 pb-8">
-          <Outlet context={{ onAddDecision: handleOpenAddDecision }} />
-        </main>
+      <div className="flex-1 min-h-0">
+        <Outlet context={{ onAddDecision: handleOpenAddDecision }} />
       </div>
     </div>
   );

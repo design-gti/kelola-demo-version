@@ -1,11 +1,41 @@
 
 /*
  * Kelola Design System — Font Stack
+ *
  * Display / titles / buttons : Avenir, Avenir Next, Open Sans, sans-serif
- * Body / inputs / paragraphs : "Open Sans", sans-serif
- * Avenir is a system font on macOS/iOS; on other OSes Open Sans is the fallback.
+ * Body / inputs / paragraphs : Open Sans, sans-serif
+ *
+ * ── Kenapa `var(--font-open-sans)`, bukan `'Open Sans'` ──
+ *
+ * Open Sans DIINANGKAN SENDIRI lewat `next/font/local` di `src/app/layout.tsx`,
+ * dan `next/font` TIDAK mendaftarkan fontnya dengan nama "Open Sans". Ia membuat
+ * nama keluarganya sendiri — terukur `"openSans", "openSans Fallback"` — lalu
+ * mengeksposnya sebagai variabel `--font-open-sans`.
+ *
+ * Akibatnya menulis `'Open Sans'` TIDAK pernah mencapai berkas yang di-host itu.
+ * Ia cuma mencari font bernama "Open Sans" yang terpasang di sistem; kalau tidak
+ * ada, ia jatuh ke `sans-serif`.
+ *
+ * Terukur di Windows tanpa Open Sans terpasang, lebar teks yang sama:
+ *
+ *     var(--font-open-sans)      185.63px   ← berkas yang di-host
+ *     'Open Sans', sans-serif    183.19px
+ *     sans-serif                 183.19px   ← sama persis
+ *     Arial                      183.19px   ← sama persis
+ *
+ * Jadi seluruh teks yang mengandalkan nama literal itu tergambar Arial, bukan
+ * Open Sans — di mesin mana pun yang tidak kebetulan punya Open Sans terpasang.
+ * Padahal berkasnya ada, sudah diunduh, dan sudah dibayar ongkos muatnya.
+ *
+ * `'Open Sans'` tetap disimpan SESUDAH variabelnya sebagai jaring: kalau sistem
+ * memang punya, ia dipakai; kalau tidak, variabel di depannya sudah menang lebih
+ * dulu.
+ *
+ * ⚠️ Avenir tetap di depan pada `--font-display`. Ia bukan font sistem di
+ * Windows/Android, tapi berkasnya ikut di-host — lihat @font-face di
+ * `src/vismap/styles/globals.css`.
  */
 :root {
-  --font-display: Avenir, 'Avenir Next', 'Open Sans', sans-serif;
-  --font-body: 'Open Sans', sans-serif;
+  --font-display: Avenir, 'Avenir Next', var(--font-open-sans), 'Open Sans', sans-serif;
+  --font-body: var(--font-open-sans), 'Open Sans', sans-serif;
 }

@@ -1,5 +1,148 @@
 # Changelog
 
+## Vismap V3 — Overlay Indikator (arah desain)
+
+V3 tidak lagi sekadar salinan V1: tab view diganti overlay indikator yang bisa
+menyala bersamaan di atas SATU struktur organisasi, dan elemen employee
+dipisahkan dari card job position sehingga masing-masing punya heatmap sendiri.
+Arah desain, peta toggle → elemen, dan acceptance criteria-nya di
+[docs/vismap-v3.md](docs/vismap-v3.md) §8.
+
+### Added
+
+- **Lima toggle overlay** (`src/vismap/v3/overlays.ts`) menggantikan tab Default/
+  Succession Risk/Need Develop: Succession Risk (heatmap frame job position),
+  Need Development (heatmap card employee), Critical Position (ikon alert di
+  samping frame), Talent (ikon bintang di card employee), dan %Ready to Promote
+  (pil persentase pada garis struktur).
+- **Card position + card employee terpisah**
+  (`src/vismap/v3/components/OrgChartCardV3.tsx`) — ditulis ulang, bukan lagi
+  salinan kartu V1. Dua elemen, dua heatmap, plus chip Teams & Tenure di footer.
+- **Menu aksi card position**
+  (`src/vismap/v3/components/PositionActionMenu.tsx`) — Simulation, Succession,
+  Development, iProfile; Simulation punya submenu Exchange, Cut & Replace,
+  Promote, Mutation, dan Change Job Criteria.
+- **Judul konteks panel kanan** — `contextLabel` pada `SuccessionPanel` dan
+  `EmployeeDetailPanel`: V3 mengirim "Succession"/"Development" supaya user tahu
+  panel yang terbuka berasal dari aksi apa. Prop OPSIONAL dan default mati, V1
+  tidak mengirimnya sehingga render V1 identik — satu-satunya pengecualian atas
+  aturan copy-on-demand, dicatat sebagai amandemen di docs/vismap-v3.md §3.
+- **Focus suksesi** — aksi Succession menyalakan indikator SETEMPAT tanpa
+  menyentuh toggle: frame posisi yang diklik memakai heatmap Succession Risk, dan
+  para calon suksesornya menampilkan pil %Ready to Promote (succession readiness
+  terhadap posisi itu). Menyalin perilaku V1 di mode
+  Succession Risk saat satu posisi diklik. Selama focus, heatmap succession risk
+  EKSKLUSIF milik posisi itu: card position lain padam meski toggle-nya menyala,
+  dan kembali menyala begitu focus dilepas — begitu pula pil %Ready to Promote,
+  yang selama focus hanya tampil pada calon suksesor posisi itu. Posisi toggle
+  sendiri tidak pernah diubah, yang diatur hanya apa yang digambar. Focus berakhir
+  saat panel ditutup, card lain dipilih, atau aksi lain dijalankan. Lihat
+  docs/vismap-v3.md §8.6.
+- **Turunan data** (`src/vismap/v3/employeeFacts.ts`) untuk tiga hal yang tidak
+  ada di model Employee Vismap: Talent dari kuadran Star 9-box Talent Mapping
+  (`nineBoxIndex`), Teams dari `department`, Tenure dari `joinDate` iProfile
+  dihitung terhadap `getToday()` (bukan `new Date()`, supaya ikut terpaku saat
+  demo dipin lewat `NEXT_PUBLIC_DEMO_TODAY`).
+- **Panel Development V3** (`src/vismap/v3/components/DevelopmentPanelV3.tsx`) —
+  aksi Development membuka panel milik V3 sendiri, bukan `EmployeeDetailPanel`
+  V1: aspek yang skornya di bawah standar jabatan pembanding dikelompokkan per
+  aspek, dan tiap Key Behaviour punya checkbox.
+- **Key Behaviour tercentang terbawa ke form Create IDP** — tombol Create IDP
+  mengelompokkan KB tercentang per aspek, lalu mengirimnya sebagai param
+  `prefill` (base64 dari JSON `[{aspect, goals[]}]`) ke
+  `/idp?page=create-idp-admin.html`. Form membuat SATU baris program per aspek
+  (baris ke-2 dan seterusnya lewat `addProgram()`, jadi batas 5 baris milik form
+  tetap berlaku) dengan Aspect terisi dan Development Goals berisi KB-nya, satu
+  KB per baris teks. Param lama `aspect` & `participants` tidak berubah, jadi
+  tautan Create IDP dari V1 dan dari monitoring tetap seperti sebelumnya.
+  Participant diisi setelah satu macrotask karena sel Participant disuntikkan
+  oleh MutationObserver — pada baris yang baru dibuat sel itu belum ada saat
+  baris diisi.
+
+### Changed
+
+- **Badge Critical Position & Talent** — ikon jadi **filled** 17–18px di atas
+  badge berwarna penuh (merah `#E03131` / teal `#0F9D8F`) dengan cincin putih,
+  ditambah **tiga** gelombang radius `animate-ping` yang basisnya melebar keluar
+  badge (`-inset` 4/8/12px, jeda 0 / 0,6 / 1,2s). Keduanya menandai satu-dua kartu
+  di antara 112 dan kanvas sering dibaca pada zoom 35–45%, jadi sebaran gelombang
+  yang luas itulah yang membuat indikator tetap ketemu dari jarak jauh.
+  Komponennya `IndicatorBadge` di `OrgChartCardV3.tsx`; tanpa CSS baru karena
+  `animate-ping` sudah ada di Tailwind v4.
+- **Pil %Ready to Promote** — jadi tipe **filled** dengan teks selalu putih dan
+  teks 14px (dari 8px). Latarnya digelapkan dulu sampai teks putih memenuhi
+  kontras WCAG 4.5:1 (`pillFillColor`): hijau `#00875A` dan merah `#DE350B` lolos
+  apa adanya, oranye `#FD9F28` (kontras 2.07) turun jadi `#A7691A` (kontras 4.50).
+  Generik, bukan hardcode per warna, jadi tetap benar kalau range di Setting
+  Heatmap Condition diubah.
+- **`ReadinessPill` jadi elemen bersama** (`src/vismap/components/ReadinessPill.tsx`)
+  — dipakai kanvas V3 (`size="md"`) dan panel Succession (`size="sm"`), termasuk
+  pada baris successor yang belum di-expand yang sebelumnya hanya teks persentase.
+  Panel memakainya lewat prop opt-in `filledReadinessPill`; V1 tidak mengirimnya
+  sehingga chip outline dan teks persentase V1 tetap apa adanya.
+- **Pembagian dua ukuran kesiapan dipertegas** (docs/vismap-v3.md §8.2): heatmap
+  card employee khusus kesiapan terhadap posisi yang diisi sekarang, pil
+  persentase khusus kesiapan terhadap standar posisi di atasnya. Karena itu mode
+  focus tidak lagi memberi heatmap pada card employee suksesor.
+- **`src/vismap/v3/VismapV3.tsx`** — toolbar memakai toggle overlay; tombol
+  `+ Variable` menjadi `Filter Card Data (n)` dengan `n` = jumlah field aktif;
+  panel samping tidak lagi ditentukan tab melainkan aksi yang dipilih; modal
+  ringkasan Succession Risk / Need Develop kini ikut overlay. `OrgNode` ditulis
+  ulang mengikuti model overlay, dan `getCurrentHeatmapRanges` yang jadi mati
+  dihapus.
+
+### Notes
+
+- Hanya **Exchange** yang tersambung ke SimulationPanel V1. Cut & Replace,
+  Promote, Mutation, dan Change Job Criteria masih placeholder yang memberi tahu
+  apa adanya lewat toast — bukan aksi yang tampak berhasil padahal tidak
+  mengubah apa pun.
+- Chip Teams berisi satu department, bukan dua seperti mockup: store kanonik
+  hanya memodelkan satu department per posisi.
+- Tema tetap palet terang Kelola, bukan kanvas gelap pada mockup Whimsical, agar
+  perbandingan V1 vs V3 apple-to-apple.
+- V1 dan V2 tidak disentuh sama sekali pada perubahan ini.
+
+## Vismap V3 (sandbox eksplorasi desain)
+
+Opsi versi ketiga di halaman Visibility Map, disalin dari V1 pada titik awal
+yang identik, sebagai ruang eksplorasi desain yang tidak boleh menyentuh V1.
+PRD, keputusan arsitektur, dan acceptance criteria-nya di
+[docs/vismap-v3.md](docs/vismap-v3.md) — baca dulu sebelum mengubah apa pun
+di `src/vismap/v3/`.
+
+### Added
+
+- **`src/vismap/v3/VismapV3.tsx`** — salinan shell V1 (`src/vismap/App.tsx`):
+  kanvas pan/zoom, top bar + tab filter, search, kontrol zoom, Simulate, dan
+  susunan `OrgNode`. Switch versi dan render V2 dibuang dari salinan (V3 bukan
+  host), begitu pula state khusus V2 (`v2Tab`, `v2Layers`).
+- **`src/vismap/v3/components/OrgChartCardV3.tsx`** — salinan kartu org chart,
+  supaya eksplorasi bentuk kartu tidak mengubah kartu V1.
+- Tombol **V3** pada switch versi Vismap (kiri bawah kanvas).
+
+### Changed
+
+- **`src/vismap/App.tsx`** — tetap jadi host: union versinya jadi
+  `'v1' | 'v2' | 'v3'`, merender `VismapV3` saat V3 dipilih, dan menyembunyikan
+  top bar serta container kanvas V1 di mode V3 (V1 di-hide, bukan di-unmount,
+  supaya state dan datanya utuh saat kembali). Masuk ke V3 juga mereset
+  `showEmployeeDetail`/`comparisonData` milik V1, karena kedua halaman itu
+  dirender di luar container kanvas sehingga `display:none` saja tidak cukup.
+  Tidak ada handler atau cabang V1 lain yang diubah.
+
+### Notes
+
+- Isolasi V3 disengaja hanya sampai lapisan shell + kartu. Komponen lain
+  (`EmployeeDetail`, `TableView`, `SimulationPanel`, `HeatmapSettings`, seluruh
+  modal, dan `components/ui/*`) masih dipakai bersama V1. **Aturannya: begitu
+  eksplorasi V3 perlu mengubah salah satunya, salin dulu ke
+  `src/vismap/v3/components/` dengan sufiks `V3` dan ubah salinannya — jangan
+  pernah mengedit aslinya.**
+- Konsekuensi yang diterima sadar: di mode V3, pohon V1 tetap ter-mount di
+  belakang (dua pohon kartu hidup sekaligus). Sama seperti perilaku V2 hari ini,
+  dan tidak terasa pada skala data demo (112 karyawan).
+
 ## Agentic AI Assistant (CopilotKit)
 
 An in-app AI assistant for the Kelola HR dashboard: answers questions over

@@ -77,7 +77,7 @@ export function recommendAspects(
         }
       }
       for (const kb of aspect.keyBehaviours) {
-        for (const w of new Set(words(kb))) {
+        for (const w of new Set(words(kb.label))) {
           const hit = jobWords.find((jw) => alike(jw, w));
           if (hit) {
             score += 1;

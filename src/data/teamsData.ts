@@ -122,7 +122,7 @@ export function teamArchetype(team: Team): TeamArchetype | null {
 export interface StructuralTeamRecommendation {
   leaderId: string;
   leaderName: string;
-  /** Display name, e.g. "Kylian Mbappe's Team". */
+  /** Display name, e.g. "Ayu Lestari's Team". */
   name: string;
   /** Direct reports only — the leader is counted separately in the UI ("X + N members"). */
   memberIds: string[];

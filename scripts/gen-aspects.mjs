@@ -1,27 +1,29 @@
 // Aspek kompetensi — satu model untuk seluruh aplikasi.
 //
 // MODEL:
-//   Aspek       katalog tunggal (public/data/aspects.csv). Tidak ada lagi
-//               pemisahan struktural soft/hard; "General" dan "Technical"
-//               cuma dua kategori bawaan, sejajar dengan kategori lain yang
-//               nanti dibuat user.
-//   Posisi      menentukan aspek MANA yang dinilai untuk orang di posisi itu
-//               (maksimal 12, campuran General + Technical).
-//   Job         (= departemen) menentukan STANDAR tiap aspek. Aspek yang sama
-//               boleh punya standar berbeda antar Job — diatur di halaman
-//               Admin Settings ▸ Job Profile ▸ tab Standard.
+//   Aspek       katalog tunggal (public/data/aspects.csv). "General" dan
+//               "Technical" cuma dua kategori, sejajar dengan kategori lain
+//               yang nanti dibuat user.
+//   Key Behaviour  indikator perilaku, BERTARAF: tiap aspek punya beberapa KB
+//               di tiap taraf 1-5. Kolom taraf di halaman Aspect mengambil
+//               pilihannya dari taraf yang bersangkutan saja.
+//   Job         menentukan aspek MANA yang dinilai (maks 13) sekaligus
+//               STANDAR tiap aspeknya. Semua posisi dalam satu Job dinilai
+//               dengan aspek yang sama.
 //
-// Sumber (boleh diedit tangan, lalu jalankan ulang script ini):
-//   - public/data/aspects.csv                 (aspect, category, description, kb_family)
-//   - public/data/participants.csv            (daftar posisi & partisipan)
-//   - tabel POSITION_ASPECTS di bawah         (aspek per posisi)
+// Sumber — ketiganya hasil `node scripts/import-aspect-framework.mjs`, boleh
+// disunting tangan lalu jalankan ulang script ini:
+//   - public/data/aspects.csv                (aspect, category, description)
+//   - public/data/aspect_key_behaviours.csv  (aspect, level, key_behaviour)
+//   - public/data/job_aspects.csv            (job, aspect, standard)
+//   - public/data/participants.csv           (daftar posisi & partisipan)
 //
 // Output:
-//   - public/data/position_aspects.csv           (position, aspect)
-//   - public/data/job_aspect_standards.csv       (job, aspect, standard)
+//   - public/data/position_aspects.csv              (position, aspect)
+//   - public/data/job_aspect_standards.csv          (job, aspect, standard)
 //   - public/data/participant_competency_scores.csv (id, name, aspect, score)
-//   - public/data/participant_aspect_kb_scores.csv  (id, aspect, key_behaviour, score)
-//   - src/data/model/aspects.generated.ts        (dipakai UI, import sinkron)
+//   - public/data/participant_aspect_kb_scores.csv  (id, aspect, level, key_behaviour, score)
+//   - src/data/model/aspects.generated.ts           (dipakai UI, import sinkron)
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -29,7 +31,7 @@ import { dirname, join } from "node:path";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (p) => readFileSync(join(ROOT, p), "utf8").replace(/^﻿/, "");
 
-/** Pembaca CSV yang mengerti tanda kutip — deskripsi aspek mengandung koma. */
+/** Pembaca CSV yang mengerti tanda kutip — deskripsi & KB mengandung koma. */
 function parseCSVLine(line) {
   const out = [];
   let cur = "";
@@ -38,223 +40,113 @@ function parseCSVLine(line) {
     const ch = line[i];
     if (quoted) {
       if (ch === '"') {
-        if (line[i + 1] === '"') { cur += '"'; i++; }
-        else quoted = false;
+        if (line[i + 1] === '"') {
+          cur += '"';
+          i++;
+        } else quoted = false;
       } else cur += ch;
     } else if (ch === '"') quoted = true;
-    else if (ch === ",") { out.push(cur); cur = ""; }
-    else cur += ch;
+    else if (ch === ",") {
+      out.push(cur);
+      cur = "";
+    } else cur += ch;
   }
   out.push(cur);
-  return out.map((v) => v.trim());
+  return out;
 }
+
 function parseCSV(text) {
   const lines = text.split(/\r?\n/).filter((l) => l.trim());
-  const headers = parseCSVLine(lines[0]);
+  const headers = parseCSVLine(lines[0]).map((h) => h.trim());
   return lines.slice(1).map((line) => {
     const vals = parseCSVLine(line);
-    return headers.reduce((o, h, i) => ((o[h] = vals[i] ?? ""), o), {});
+    return headers.reduce((o, h, i) => ((o[h] = (vals[i] ?? "").trim()), o), {});
   });
 }
+
 const csv = (v) => {
   const s = String(v ?? "");
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
-const clamp15 = (n) => Math.max(1, Math.min(5, n));
-const hash = (s) => [...s].reduce((a, c) => a + c.charCodeAt(0), 0);
 
-/** Batas aspek yang dinilai per posisi — radar iProfile masih terbaca sampai segini. */
-const MAX_ASPECTS_PER_POSITION = 12;
-
-// ── Aspek General per rumpun peran ───────────────────────────────────────────
-// Dikelompokkan jadi beberapa paket, bukan ditulis ulang 33 kali: peran dengan
-// tuntutan serupa memang dinilai pada aspek yang sama, dan kalau ditulis satu
-// per satu perbedaannya jadi tidak sengaja alih-alih disengaja.
-const GENERAL_BUNDLES = {
-  /** Pemimpin unit: mengarahkan orang, memutuskan, merencanakan. */
-  leader: ["Leadership", "Kemampuan Perencanaan", "Daya Analisa", "Keterampilan Interpersonal", "Kemampuan verbal", "Kerjasama"],
-  /** Peran analitis: bekerja dengan data dan penalaran. */
-  analyst: ["Logika Berpikir", "Daya Analisa", "Kemampuan Numerikal", "Kemampuan verbal", "Kerjasama", "Fleksibilitas"],
-  /** Peran teknis pelaksana: memecahkan masalah dan beradaptasi dengan perubahan. */
-  builder: ["Logika Berpikir", "Daya Analisa", "Kerjasama", "Fleksibilitas", "Kemampuan Perencanaan", "Kemampuan verbal"],
-  /** Peran yang berporos pada orang. */
-  people: ["Keterampilan Interpersonal", "Kerjasama", "Kemampuan verbal", "Fleksibilitas", "Kemampuan Perencanaan", "Daya Analisa"],
-  /** Peran komunikasi & kreatif. */
-  creative: ["Kemampuan verbal", "Fleksibilitas", "Daya Analisa", "Kerjasama", "Keterampilan Interpersonal", "Kemampuan Perencanaan"],
-};
-
-/** Aspek teknis per posisi — lanjutan tabel lama, kini tanpa kolom kategori. */
-const TECHNICAL_BY_POSITION = {
-  "Head of Engineering": ["Arsitektur Sistem", "Code Review", "Keamanan Aplikasi", "CI/CD", "Cloud Infrastructure", "Observability"],
-  "Principal Engineer": ["Arsitektur Sistem", "Desain Terdistribusi", "Technical Roadmap", "Cloud Infrastructure", "Observability"],
-  "Backend Lead": ["Desain API", "Basis Data", "Optimasi Query", "Message Queue", "Containerization"],
-  "Frontend Lead": ["Arsitektur Komponen", "State Management", "Aksesibilitas", "Performa Web", "Design System"],
-  "Senior Engineer": ["Kualitas Kode", "Pengujian Otomatis", "Debugging", "Version Control"],
-  "Head of Finance": ["Pelaporan Keuangan", "Analisis Anggaran", "Manajemen Risiko", "Kepatuhan Pajak", "Standar Akuntansi"],
-  "Senior Finance Manager": ["Pelaporan Keuangan", "Analisis Anggaran", "Manajemen Kas", "Standar Akuntansi"],
-  "Senior Finance Analyst": ["Pemodelan Keuangan", "Analisis Varians", "Rekonsiliasi", "Spreadsheet Lanjutan", "Standar Akuntansi"],
-  "Finance Analyst": ["Pemodelan Keuangan", "Rekonsiliasi", "Analisis Varians", "Spreadsheet Lanjutan", "Standar Akuntansi"],
-  Controller: ["Pengendalian Internal", "Pelaporan Keuangan", "Audit Kepatuhan", "Standar Akuntansi"],
-  "HR Business Partner": ["Manajemen Talenta", "Perencanaan SDM", "Hubungan Industrial", "HRIS"],
-  "HR Manager": ["Manajemen Kinerja", "Remunerasi", "Hubungan Industrial", "HRIS"],
-  "Talent Acquisition Lead": ["Sourcing Kandidat", "Teknik Wawancara", "Employer Branding", "ATS"],
-  "People Ops Specialist": ["Administrasi Personalia", "Onboarding", "Kepatuhan Ketenagakerjaan", "HRIS"],
-  "VP Operations": ["Perencanaan Kapasitas", "Manajemen Rantai Pasok", "Kendali Mutu", "Analitik Operasional", "Keselamatan Kerja"],
-  "Operations Manager": ["Perencanaan Produksi", "Kendali Mutu", "Efisiensi Proses", "Keselamatan Kerja"],
-  "Operations Analyst": ["Analitik Operasional", "Pemetaan Proses", "Spreadsheet Lanjutan"],
-  "Operations Strategist": ["Perencanaan Strategis", "Analitik Operasional", "Pemodelan Skenario"],
-  "Supply Chain Lead": ["Manajemen Rantai Pasok", "Manajemen Vendor", "Perencanaan Inventori", "Sistem ERP"],
-  "Supply Chain Manager": ["Manajemen Rantai Pasok", "Negosiasi Pengadaan", "Perencanaan Inventori", "Sistem ERP"],
-  "Head of Marketing": ["Strategi Kampanye", "Riset Pasar", "Manajemen Brand", "Analitik Digital", "Otomasi Pemasaran"],
-  "Senior Marketing Manager": ["Strategi Kampanye", "Riset Pasar", "Analitik Digital"],
-  "Growth Marketing Manager": ["Eksperimen Pertumbuhan", "Analitik Digital", "Optimasi Konversi", "Otomasi Pemasaran"],
-  "Growth Marketing Lead": ["Eksperimen Pertumbuhan", "Optimasi Konversi", "Analitik Digital"],
-  "Brand Manager": ["Manajemen Brand", "Strategi Kampanye", "Riset Pasar"],
-  "Senior Brand Strategist": ["Strategi Brand", "Riset Pasar", "Narasi & Positioning"],
-  "Creative Director": ["Arahan Kreatif", "Storytelling Visual", "Manajemen Produksi"],
-  "Digital Content Specialist": ["Penulisan Konten", "Produksi Visual", "SEO", "Analitik Digital"],
-  "Chief Executive Officer": ["Strategi Korporat", "Alokasi Modal", "Tata Kelola"],
-  "Chief Strategy Officer": ["Strategi Korporat", "Analisis Kompetitif", "Pemodelan Skenario"],
-  "Chief Revenue Officer": ["Strategi Pendapatan", "Manajemen Pipeline", "Penetapan Harga"],
-  "VP Corporate Strategy": ["Strategi Korporat", "Analisis Kompetitif", "Pemodelan Skenario"],
-  "Head of Governance": ["Manajemen Risiko", "Kepatuhan Regulasi", "Audit Internal"],
-};
-
-/** Paket aspek General untuk tiap posisi. */
-const BUNDLE_BY_POSITION = {
-  "Head of Engineering": "leader",
-  "Principal Engineer": "builder",
-  "Backend Lead": "builder",
-  "Frontend Lead": "builder",
-  "Senior Engineer": "builder",
-  "Head of Finance": "leader",
-  "Senior Finance Manager": "leader",
-  "Senior Finance Analyst": "analyst",
-  "Finance Analyst": "analyst",
-  Controller: "analyst",
-  "HR Business Partner": "people",
-  "HR Manager": "people",
-  "Talent Acquisition Lead": "people",
-  "People Ops Specialist": "people",
-  "VP Operations": "leader",
-  "Operations Manager": "leader",
-  "Operations Analyst": "analyst",
-  "Operations Strategist": "analyst",
-  "Supply Chain Lead": "leader",
-  "Supply Chain Manager": "leader",
-  "Head of Marketing": "leader",
-  "Senior Marketing Manager": "creative",
-  "Growth Marketing Manager": "analyst",
-  "Growth Marketing Lead": "analyst",
-  "Brand Manager": "creative",
-  "Senior Brand Strategist": "creative",
-  "Creative Director": "creative",
-  "Digital Content Specialist": "creative",
-  "Chief Executive Officer": "leader",
-  "Chief Strategy Officer": "leader",
-  "Chief Revenue Officer": "leader",
-  "VP Corporate Strategy": "leader",
-  "Head of Governance": "leader",
-};
-
-/** Dipakai posisi yang belum terdaftar di dua tabel di atas. */
-const DEFAULT_TECHNICAL = ["Penguasaan Alat Kerja", "Kualitas Output", "Dokumentasi", "Analitik Data", "Kepatuhan Prosedur"];
-const DEFAULT_BUNDLE = "builder";
-
-// ── Key Behaviour ────────────────────────────────────────────────────────────
-/**
- * KB aspek General — indikator perilaku spesifik per aspek.
- *
- * Tiap aspek punya tepat KB_PER_ASPECT butir: skala penilaiannya 1-5, jadi satu
- * KB per taraf membuat pemetaan taraf → KB di halaman Aspect selalu penuh.
- */
-const KB_GENERAL = {
-  "Logika Berpikir": ["Berpikir Sistematis", "Berpikir Kritis", "Pemecahan Masalah", "Pengambilan Kesimpulan Logis", "Pengujian Asumsi"],
-  "Kemampuan Numerikal": ["Ketepatan Hitung", "Interpretasi Data Angka", "Estimasi Cepat", "Pembacaan Tabel & Grafik", "Ketelitian Angka"],
-  "Kemampuan verbal": ["Pemahaman Bacaan", "Kejelasan Ekspresi Lisan", "Kosakata & Tata Bahasa", "Penyusunan Tulisan Kerja", "Penyesuaian Gaya Bahasa"],
-  "Daya Analisa": ["Identifikasi Pola", "Analisis Sebab-Akibat", "Sintesis Informasi", "Evaluasi Alternatif", "Penyederhanaan Masalah"],
-  Fleksibilitas: ["Adaptasi Perubahan", "Keterbukaan pada Ide Baru", "Toleransi Ambiguitas", "Penyesuaian Prioritas", "Pemulihan Setelah Hambatan"],
-  Leadership: ["Pengambilan Keputusan", "Memotivasi Tim", "Delegasi Tugas", "Tanggung Jawab atas Hasil", "Pengembangan Anggota Tim"],
-  "Keterampilan Interpersonal": ["Mendengarkan Aktif", "Empati", "Membangun Hubungan Kerja", "Membaca Situasi Sosial", "Penyampaian Umpan Balik"],
-  Kerjasama: ["Kontribusi dalam Tim", "Resolusi Konflik", "Berbagi Informasi", "Dukungan ke Rekan Kerja", "Menjaga Komitmen Bersama"],
-  "Kemampuan Perencanaan": ["Penetapan Prioritas", "Manajemen Waktu", "Antisipasi Risiko", "Penyusunan Langkah Kerja", "Pemantauan Pelaksanaan"],
-};
-
-/**
- * KB aspek Technical memakai tangga penguasaan. Bentuknya beda-beda menurut
- * `kb_family` di katalog (sisa pengelompokan teknis lama) — kolom itu tidak
- * ditampilkan di UI, semata supaya KB aspek regulasi tidak berbunyi seperti KB
- * aspek perkakas.
- */
-const KB_BY_FAMILY = {
-  "Technical Core": ["Penguasaan Konsep Dasar", "Penerapan pada Pekerjaan Harian", "Penanganan Kasus Kompleks", "Perbaikan Cara Kerja", "Berbagi Pengetahuan ke Tim"],
-  "Tools & Platform": ["Penguasaan Fitur Inti", "Pemakaian dalam Alur Kerja", "Troubleshooting Mandiri", "Optimasi & Otomasi", "Pendampingan Pengguna Lain"],
-  Regulasi: ["Pemahaman Ketentuan", "Penerapan pada Proses Kerja", "Identifikasi Risiko Kepatuhan", "Dokumentasi & Pelaporan", "Pembaruan atas Perubahan Aturan"],
-};
-
-/** Tiap aspek wajib punya sebanyak ini KB — dijaga oleh pemeriksaan di bawah. */
-const KB_PER_ASPECT = 5;
-
-// ── Rakit ────────────────────────────────────────────────────────────────────
-const catalog = parseCSV(read("public/data/aspects.csv"));
-const byLabel = Object.fromEntries(catalog.map((a) => [a.aspect, a]));
-const participants = parseCSV(read("public/data/participants.csv"));
-
-const positions = [...new Set(participants.map((p) => p.position))];
-const jobOfPosition = Object.fromEntries(participants.map((p) => [p.position, p.department]));
-
-/** Aspek yang dinilai untuk sebuah posisi: General sesuai paket + Technical-nya. */
-function aspectsOf(position) {
-  const general = GENERAL_BUNDLES[BUNDLE_BY_POSITION[position] ?? DEFAULT_BUNDLE];
-  const technical = TECHNICAL_BY_POSITION[position] ?? DEFAULT_TECHNICAL;
-  return [...general, ...technical].slice(0, MAX_ASPECTS_PER_POSITION);
+/** Hash kecil & stabil supaya angka yang keluar sama tiap kali dijalankan. */
+function hash(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+  return h;
 }
 
-// Semua aspek yang dipakai harus ada di katalog — kalau tidak, UI akan
-// menampilkan baris tanpa deskripsi tanpa ada yang menyadari.
-const unknown = positions.flatMap((p) => aspectsOf(p)).filter((a) => !byLabel[a]);
+const SCALE = 5;
+const clamp15 = (n) => Math.max(1, Math.min(SCALE, n));
+const MAX_ASPECTS_PER_JOB = 13;
+
+// ── Baca sumber ──────────────────────────────────────────────────────────────
+const catalog = parseCSV(read("public/data/aspects.csv"));
+const kbRows = parseCSV(read("public/data/aspect_key_behaviours.csv")).map((r) => ({
+  aspect: r.aspect,
+  level: Number(r.level),
+  label: r.key_behaviour,
+}));
+const jobAspectRows = parseCSV(read("public/data/job_aspects.csv")).map((r) => ({
+  job: r.job,
+  aspect: r.aspect,
+  standard: Number(r.standard),
+}));
+const participants = parseCSV(read("public/data/participants.csv"));
+
+const byLabel = Object.fromEntries(catalog.map((a) => [a.aspect, a]));
+const positions = [...new Set(participants.map((p) => p.position))];
+const jobOfPosition = Object.fromEntries(participants.map((p) => [p.position, p.department]));
+const jobs = [...new Set(participants.map((p) => p.department))];
+
+// ── Periksa keutuhan data ────────────────────────────────────────────────────
+const unknown = jobAspectRows.map((r) => r.aspect).filter((a) => !byLabel[a]);
 if (unknown.length) throw new Error(`Aspek tidak ada di aspects.csv: ${[...new Set(unknown)].join(", ")}`);
 
-const tooMany = positions.filter((p) => aspectsOf(p).length > MAX_ASPECTS_PER_POSITION);
-if (tooMany.length) throw new Error(`Posisi melebihi ${MAX_ASPECTS_PER_POSITION} aspek: ${tooMany.join(", ")}`);
+const jobsWithoutAspects = jobs.filter((j) => !jobAspectRows.some((r) => r.job === j));
+if (jobsWithoutAspects.length) {
+  throw new Error(`Job tanpa aspek di job_aspects.csv: ${jobsWithoutAspects.join(", ")}`);
+}
 
-// --- position_aspects.csv ---
+/** Aspek + standar untuk sebuah Job. */
+const aspectsOfJob = Object.fromEntries(
+  jobs.map((j) => [j, jobAspectRows.filter((r) => r.job === j).map((r) => r.aspect)]),
+);
+const standardOf = (job, aspect) =>
+  jobAspectRows.find((r) => r.job === job && r.aspect === aspect)?.standard ?? 3;
+
+const tooMany = jobs.filter((j) => aspectsOfJob[j].length > MAX_ASPECTS_PER_JOB);
+if (tooMany.length) throw new Error(`Job melebihi ${MAX_ASPECTS_PER_JOB} aspek: ${tooMany.join(", ")}`);
+
+/** KB satu aspek, dikelompokkan menurut taraf. */
+const kbOf = (aspect) => kbRows.filter((k) => k.aspect === aspect);
+
+// Tiap aspek yang dipakai harus punya KB di semua taraf: kolom taraf 1-5 di
+// halaman Aspect mengambil pilihannya dari sini, jadi taraf yang kosong berarti
+// ada kolom tanpa satu pun pilihan.
+const dipakai = [...new Set(jobAspectRows.map((r) => r.aspect))];
+for (const a of dipakai) {
+  const punya = new Set(kbOf(a).map((k) => k.level));
+  const kurang = Array.from({ length: SCALE }, (_, i) => i + 1).filter((l) => !punya.has(l));
+  if (kurang.length) throw new Error(`Aspek "${a}" tidak punya KB di taraf ${kurang.join(", ")}`);
+}
+
+/** Aspek yang dinilai untuk sebuah posisi = aspek Job-nya. */
+const aspectsOf = (position) => aspectsOfJob[jobOfPosition[position]] ?? [];
+
+// ── position_aspects.csv ─────────────────────────────────────────────────────
 const posLines = ["position,aspect"];
 positions.forEach((p) => aspectsOf(p).forEach((a) => posLines.push([p, a].map(csv).join(","))));
 writeFileSync(join(ROOT, "public/data/position_aspects.csv"), posLines.join("\n") + "\n", "utf8");
 
-// --- job_aspect_standards.csv ---
-// Standar ditetapkan per Job, bukan per posisi: aspek yang sama boleh berbeda
-// tuntutannya antar departemen. Nilainya deterministik — dasar 3, naik untuk
-// Job yang memuat posisi paling senior, plus variasi kecil per aspek.
-const levelOf = (title) => {
-  const t = title.toLowerCase();
-  if (/^(chief|ceo|cto|cfo)|(^| )vp( |$)|president/.test(t)) return 1;
-  if (/head of|director|lead\b|principal/.test(t)) return 2;
-  if (/manager|controller|business partner|strategist/.test(t)) return 3;
-  return 4;
-};
-const jobs = [...new Set(participants.map((p) => p.department))];
-const topLevelOfJob = Object.fromEntries(
-  jobs.map((j) => [j, Math.min(...participants.filter((p) => p.department === j).map((p) => levelOf(p.position)))]),
-);
-/** Aspek yang dipakai sebuah Job = gabungan aspek seluruh posisinya. */
-const aspectsOfJob = Object.fromEntries(
-  jobs.map((j) => [
-    j,
-    [...new Set(positions.filter((p) => jobOfPosition[p] === j).flatMap(aspectsOf))],
-  ]),
-);
-const standardOf = (job, aspect) =>
-  clamp15(3 + (topLevelOfJob[job] <= 1 ? 1 : 0) + (hash(job + aspect) % 2));
-
+// ── job_aspect_standards.csv ─────────────────────────────────────────────────
 const stdLines = ["job,aspect,standard"];
 jobs.forEach((j) => aspectsOfJob[j].forEach((a) => stdLines.push([j, a, standardOf(j, a)].map(csv).join(","))));
 writeFileSync(join(ROOT, "public/data/job_aspect_standards.csv"), stdLines.join("\n") + "\n", "utf8");
 
-// --- participant_competency_scores.csv ---
+// ── participant_competency_scores.csv ────────────────────────────────────────
 // Skor disebar di sekitar standar Job-nya supaya sebagian orang di bawah
-// standar dan sebagian di atas — bukan acak lepas dari tuntutan posisinya.
+// standar dan sebagian di atas — bukan acak lepas dari tuntutan jabatannya.
 const SCORE_DELTAS = [-2, -1, -1, 0, 0, 1, 1];
 const scoreOf = (id, job, aspect) =>
   clamp15(standardOf(job, aspect) + SCORE_DELTAS[hash(id + aspect) % SCORE_DELTAS.length]);
@@ -267,44 +159,42 @@ participants.forEach((p) =>
 );
 writeFileSync(join(ROOT, "public/data/participant_competency_scores.csv"), scoreLines.join("\n") + "\n", "utf8");
 
-// --- participant_aspect_kb_scores.csv ---
+// ── participant_aspect_kb_scores.csv ─────────────────────────────────────────
+// Satu skor per Key Behaviour. Taraf KB ikut ditulis supaya breakdown di
+// iProfile bisa menunjukkan perilaku itu ada di taraf berapa.
 const KB_DELTAS = [0, 1, -1, 1, 0, -1];
-const kbLabelsOf = (aspect) => {
-  const entry = byLabel[aspect];
-  if (entry?.category === "General") return KB_GENERAL[aspect] ?? [];
-  return KB_BY_FAMILY[entry?.kb_family] ?? KB_BY_FAMILY["Technical Core"];
-};
-// Aspek yang KB-nya kurang dari lima akan tampil sebagai baris dengan taraf
-// kosong di halaman Aspect — dihentikan di sini, bukan dibiarkan lolos.
-const kbShort = catalog.map((a) => a.aspect).filter((a) => kbLabelsOf(a).length !== KB_PER_ASPECT);
-if (kbShort.length) {
-  throw new Error(`Aspek dengan KB ≠ ${KB_PER_ASPECT}: ${kbShort.join(", ")}`);
-}
 
-const kbLines = ["id,aspect,key_behaviour,score"];
+const kbLines = ["id,aspect,level,key_behaviour,score"];
 participants.forEach((p) =>
   aspectsOf(p.position).forEach((a) => {
     const base = scoreOf(p.id, p.department, a);
-    kbLabelsOf(a).forEach((kb) =>
-      kbLines.push([p.id, a, kb, clamp15(base + KB_DELTAS[hash(p.id + a + kb) % KB_DELTAS.length])].map(csv).join(",")),
+    kbOf(a).forEach((kb) =>
+      kbLines.push(
+        [p.id, a, kb.level, kb.label, clamp15(base + KB_DELTAS[hash(p.id + a + kb.label) % KB_DELTAS.length])]
+          .map(csv)
+          .join(","),
+      ),
     );
   }),
 );
 writeFileSync(join(ROOT, "public/data/participant_aspect_kb_scores.csv"), kbLines.join("\n") + "\n", "utf8");
 
-// --- modul TS ---
+// ── modul TS ─────────────────────────────────────────────────────────────────
 const catalogOut = catalog.map((a) => ({
   label: a.aspect,
   category: a.category,
   description: a.description,
-  keyBehaviours: kbLabelsOf(a.aspect),
+  keyBehaviours: kbOf(a.aspect).map((k) => ({ level: k.level, label: k.label })),
 }));
 const aspectsByPosition = Object.fromEntries(positions.map((p) => [p, aspectsOf(p)]));
 const standardsByJob = Object.fromEntries(
   jobs.map((j) => [j, Object.fromEntries(aspectsOfJob[j].map((a) => [a, standardOf(j, a)]))]),
 );
 const scoresByParticipant = Object.fromEntries(
-  participants.map((p) => [p.id, Object.fromEntries(aspectsOf(p.position).map((a) => [a, scoreOf(p.id, p.department, a)]))]),
+  participants.map((p) => [
+    p.id,
+    Object.fromEntries(aspectsOf(p.position).map((a) => [a, scoreOf(p.id, p.department, a)])),
+  ]),
 );
 const kbByParticipant = Object.fromEntries(
   participants.map((p) => [
@@ -312,24 +202,39 @@ const kbByParticipant = Object.fromEntries(
     Object.fromEntries(
       aspectsOf(p.position).map((a) => {
         const base = scoreOf(p.id, p.department, a);
-        return [a, kbLabelsOf(a).map((kb) => ({ label: kb, score: clamp15(base + KB_DELTAS[hash(p.id + a + kb) % KB_DELTAS.length]) }))];
+        return [
+          a,
+          kbOf(a).map((kb) => ({
+            label: kb.label,
+            level: kb.level,
+            score: clamp15(base + KB_DELTAS[hash(p.id + a + kb.label) % KB_DELTAS.length]),
+          })),
+        ];
       }),
     ),
   ]),
 );
 
 const ts = `// AUTO-GENERATED oleh scripts/gen-aspects.mjs — jangan edit manual.
-// Sumber: public/data/aspects.csv + participants.csv + tabel di generator.
-// Regenerate: node scripts/gen-aspects.mjs (sudah dihook di npm run seed).
+// Sumber: public/data/aspects.csv + aspect_key_behaviours.csv + job_aspects.csv
+// + participants.csv. Regenerate: node scripts/gen-aspects.mjs (dihook di npm run seed).
 
 export type AspectCategory = string;
-export type AspectKeyBehaviour = { label: string; score: number };
-export type CatalogAspect = { label: string; category: AspectCategory; description: string; keyBehaviours: string[] };
+/** Key Behaviour beserta tarafnya; skor hanya ada pada breakdown per partisipan. */
+export type KeyBehaviourRef = { level: number; label: string };
+export type AspectKeyBehaviour = { label: string; level: number; score: number };
+export type CatalogAspect = {
+  label: string;
+  category: AspectCategory;
+  description: string;
+  /** ${SCALE} taraf, beberapa butir per taraf. */
+  keyBehaviours: KeyBehaviourRef[];
+};
 
 /** Semua aspek yang dikenal aplikasi, apa pun kategorinya. */
 export const ASPECT_CATALOG: CatalogAspect[] = ${JSON.stringify(catalogOut, null, 2)};
 
-/** Aspek yang dinilai untuk tiap posisi (maks ${MAX_ASPECTS_PER_POSITION}). */
+/** Aspek yang dinilai untuk tiap posisi — sama untuk semua posisi dalam satu Job. */
 export const ASPECTS_BY_POSITION: Record<string, string[]> = ${JSON.stringify(aspectsByPosition, null, 2)};
 
 /** Job (departemen) tiap posisi — dipakai untuk menemukan standar aspeknya. */
@@ -346,9 +251,10 @@ export const KB_BY_PARTICIPANT: Record<string, Record<string, AspectKeyBehaviour
 `;
 writeFileSync(join(ROOT, "src/data/model/aspects.generated.ts"), ts, "utf8");
 
-const perPos = positions.map((p) => aspectsOf(p).length);
+const perJob = jobs.map((j) => aspectsOfJob[j].length);
 console.log(
-  `gen-aspects: ${catalog.length} aspek katalog, ${positions.length} posisi ` +
-    `(aspek/posisi ${Math.min(...perPos)}-${Math.max(...perPos)}), ${jobs.length} job, ` +
-    `${stdLines.length - 1} baris standar, ${scoreLines.length - 1} baris skor, ${kbLines.length - 1} baris KB`,
+  `gen-aspects: ${catalog.length} aspek katalog, ${kbRows.length} KB bertaraf, ` +
+    `${jobs.length} job (aspek/job ${Math.min(...perJob)}-${Math.max(...perJob)}), ` +
+    `${positions.length} posisi, ${stdLines.length - 1} baris standar, ` +
+    `${scoreLines.length - 1} baris skor, ${kbLines.length - 1} baris KB`,
 );

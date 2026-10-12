@@ -181,9 +181,10 @@ export function JobProfile({ name }: { name: string }) {
                 {rows.map((row) => (
                   <Table.Tr key={row.participantId}>
                     <Table.Td>
-                      {/* Indentasi mengikuti kedalaman di hierarki Vismap —
-                          atasan dulu, bawahannya menjorok ke kanan. */}
-                      <Text size="sm" c="#495057" style={{ paddingLeft: row.depth * 18 }}>
+                      {/* Semua rata kiri, tanpa indentasi. Urutannya tetap
+                          mengikuti hierarki (atasan dulu, lalu bawahannya), dan
+                          kolom Report To yang menunjukkan siapa atasan siapa. */}
+                      <Text size="sm" c="#495057">
                         {row.title}
                       </Text>
                     </Table.Td>

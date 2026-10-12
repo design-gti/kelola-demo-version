@@ -45,29 +45,29 @@ export const EVAL_CASES: EvalCase[] = [
   {
     id: "ceo-position-holder",
     question: "Siapa yang menjabat sebagai CEO sekarang?",
-    note: "Verified: pos-p05 'Chief Executive Officer' is held by Kylian Mbappe (generated.ts).",
+    note: "Verified: pos-p05 'Chief Executive Officer' is held by Ayu Lestari (generated.ts).",
     check: (trace, text) => {
       if (!called(trace, "getPositionHolder")) return { pass: false, reason: "getPositionHolder was not called" };
-      if (!has(text, "Kylian Mbappe")) return { pass: false, reason: `answer doesn't mention Kylian Mbappe: "${text}"` };
-      return { pass: true, reason: "called getPositionHolder and named Kylian Mbappe" };
+      if (!has(text, "Ayu Lestari")) return { pass: false, reason: `answer doesn't mention Ayu Lestari: "${text}"` };
+      return { pass: true, reason: "called getPositionHolder and named Ayu Lestari" };
     },
   },
   {
     id: "position-singular-plural",
     question: "Siapa yang menjabat sebagai Operation Analyst sekarang?",
-    note: "Regression for the singular/plural matching bug (2026-07-29) — real title is 'Operations Analyst', held by Son Heung-min.",
+    note: "Regression for the singular/plural matching bug (2026-07-29) — real title is 'Operations Analyst', held by Ahmad Al-Faruq.",
     check: (trace, text) => {
       if (!called(trace, "getPositionHolder")) return { pass: false, reason: "getPositionHolder was not called" };
       const output = firstOutput<{ matches?: unknown[] }>(trace, "getPositionHolder");
       if (!output?.matches?.length) return { pass: false, reason: "tool returned zero matches for the singular query" };
-      if (!has(text, "Son Heung-min")) return { pass: false, reason: `answer doesn't mention Son Heung-min: "${text}"` };
-      return { pass: true, reason: "singular query still resolved to Son Heung-min" };
+      if (!has(text, "Ahmad Al-Faruq")) return { pass: false, reason: `answer doesn't mention Ahmad Al-Faruq: "${text}"` };
+      return { pass: true, reason: "singular query still resolved to Ahmad Al-Faruq" };
     },
   },
   {
     id: "name-hyphen-space",
     question: "Siapa manager dari Son Heung Min?",
-    note: "Regression for the hyphen/space matching bug (2026-07-29) — real name is 'Son Heung-min', manager verified live as Lautaro Martinez.",
+    note: "Regression for the hyphen/space matching bug (2026-07-29) — real name is 'Ahmad Al-Faruq', manager verified live as Lautaro Martinez.",
     check: (trace, text) => {
       if (!called(trace, "getOrgHierarchy")) return { pass: false, reason: "getOrgHierarchy was not called" };
       const output = firstOutput<{ person?: unknown }>(trace, "getOrgHierarchy");
@@ -103,7 +103,7 @@ export const EVAL_CASES: EvalCase[] = [
   },
   {
     id: "single-person-rank-no-hallucination",
-    question: "Ranking berapa Son Heung-min untuk performance?",
+    question: "Ranking berapa Ahmad Al-Faruq untuk performance?",
     note: "Regression for the rank hallucination (2026-07-28) — real rank is 16 of 33, verified against tdp-employees.csv.",
     check: (trace, text) => {
       if (!called(trace, "getEmployeeRank")) return { pass: false, reason: "getEmployeeRank was not called — model may be guessing instead" };
@@ -116,7 +116,7 @@ export const EVAL_CASES: EvalCase[] = [
   {
     id: "metric-disambiguation",
     question: "Siapa 5 karyawan dengan competency tertinggi?",
-    note: "Verified: top-5 by competency is [Kylian Mbappe, Jude Bellingham, Cristiano Ronaldo, Rodri, Vinicius Junior] — a genuinely different set from top-5 performance, which Vinicius Junior is NOT in.",
+    note: "Verified: top-5 by competency is [Ayu Lestari, Intan Permatasari, Cristiano Ronaldo, Rodri, Vinicius Junior] — a genuinely different set from top-5 performance, which Vinicius Junior is NOT in.",
     check: (trace, text) => {
       const call = trace.find(t => t.name === "getRankedEmployees");
       if (!call) return { pass: false, reason: "getRankedEmployees was not called" };
@@ -214,7 +214,7 @@ export const EVAL_CASES: EvalCase[] = [
   },
   {
     id: "personality-no-fabrication",
-    question: "Bagaimana kepribadian DISC dari Jude Bellingham?",
+    question: "Bagaimana kepribadian DISC dari Intan Permatasari?",
     note: "Anti-hallucination check, same principle as the rank case: getEmployeePersonality needs a raw candidateId with no name-to-id tool of its own — if the model states a specific DISC type, a real tool call must back it.",
     check: (trace, text) => {
       const claimsAType = hasAny(text, ["driver", "persuader", "mediator", "analyzer"]);

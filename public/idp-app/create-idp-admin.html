@@ -25,6 +25,26 @@
       padding-bottom: 80px;
     }
     
+    .page-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .page-topbar .breadcrumb { margin-bottom: 0; }
+    /* Button design system, varian outline warna primary: pill, garis dan
+       teks primary, terisi tipis saat di-hover. */
+    .btn-program-library {
+      display: flex; align-items: center; gap: 6px;
+      background: transparent;
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-pill);
+      color: var(--primary);
+      font-family: var(--font-title);
+      font-size: 13px;
+      font-weight: var(--fw-semibold);
+      height: 32px; padding: 0 var(--space-md);
+      cursor: pointer; white-space: nowrap;
+      transition: background var(--duration-base), color var(--duration-base), border-color var(--duration-base);
+    }
+    .btn-program-library:hover { background: var(--primary-1); }
+    .btn-program-library:active { background: var(--primary-2); border-color: var(--primary-6); color: var(--primary-6); }
+
     .breadcrumb { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; font-family: var(--font-body); font-size: 13px; }
     .breadcrumb-back { background: none; border: none; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; padding: 0; line-height: 1; }
     .breadcrumb-back:hover { color: var(--primary); }
@@ -1003,11 +1023,14 @@
     
     /* ═══════════════ PROGRAM LIBRARY MODAL ═══════════════ */
     .library-modal {
-      width: 421px;
-      max-height: 500px;
-      overflow-y: auto;
+      width: 720px;
+      max-width: calc(100vw - 48px);
+      max-height: 560px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
-    
+
     .library-header {
       display: flex;
       justify-content: space-between;
@@ -1015,100 +1038,153 @@
       margin-bottom: 16px;
     }
     
-    .library-header-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
     
-    .add-program-library-btn {
-      background: white;
-      border: none;
-      color: var(--primary);
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 0;
-      white-space: nowrap;
-    }
     
-    .add-program-library-btn:hover {
-      text-decoration: underline;
-    }
-    
-    .add-program-library-btn svg {
-      width: 16px;
-      height: 16px;
-      stroke: var(--primary);
-      stroke-width: 2;
-    }
-    
-    .chips-row {
+    .lib-toolbar {
       display: flex;
       gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-      padding-bottom: 16px;
+      align-items: center;
+      padding-bottom: 12px;
+      margin-bottom: 4px;
       border-bottom: 1px solid var(--border);
     }
-    
-    .filter-chip {
-      padding: 6px 12px;
-      border-radius: var(--radius-pill);
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      cursor: pointer;
-      border: none;
-      transition: all var(--duration-base);
-    }
-    
-    .filter-chip.active {
-      background: var(--primary);
-      color: white;
-    }
-    
-    .filter-chip.inactive {
-      background: var(--border);
-      color: var(--text-body);
-    }
-    
-    .program-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    
-    .program-item {
-      padding: 12px;
-      background: var(--surface-sunken);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.2s;
-      border: 1px solid transparent;
-    }
-    
-    .program-item:hover {
-      background: var(--primary-1);
-      border-color: var(--primary);
-    }
-    
-    .program-title {
+
+    .lib-search,
+    .lib-aspect-filter {
       font-family: var(--font-body);
       font-size: 12px;
+      color: var(--text-strong);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 8px 14px;
+      background: white;
+      outline: none;
+    }
+
+    .lib-search { flex: 1; }
+    .lib-search:focus,
+    .lib-aspect-filter:focus { border-color: var(--primary); }
+
+    .lib-aspect-filter {
+      max-width: 240px;
+      cursor: pointer;
+    }
+
+    .lib-table-wrap {
+      flex: 1;
+      overflow-y: auto;
+      margin: 0 -4px;
+      padding: 0 4px;
+    }
+
+    .lib-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-body);
+    }
+
+    .lib-table th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: white;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .lib-table td {
+      padding: 10px 8px;
+      font-size: 12px;
+      color: var(--text-body);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .lib-row { cursor: pointer; }
+    .lib-row:hover td { background: var(--primary-1); }
+    .lib-row.sel td { background: var(--primary-1); }
+
+    .lib-col-check { width: 28px; }
+    .lib-col-aspect { width: 190px; }
+
+    .lib-check {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      margin-top: 1px;
+    }
+
+    .lib-prog-name {
       font-weight: 600;
       color: var(--text-strong);
-      margin-bottom: 4px;
     }
-    
-    .program-vendor {
+
+    .lib-prog-kind {
+      font-size: 11px;
+      color: var(--text-faint);
+      margin-top: 2px;
+    }
+
+    /* Tiap aspek punya belasan KB — ditampilkan ringkas supaya barisnya
+       tetap rendah, lalu dibuka penuh saat tombolnya ditekan. */
+    .lib-kb-list {
+      margin: 0;
+      padding-left: 16px;
+      color: var(--text-body);
+    }
+
+    .lib-kb-list li { margin-bottom: 2px; }
+    .lib-kb-list li.hidden-kb { display: none; }
+    .lib-row.open .lib-kb-list li.hidden-kb { display: list-item; }
+
+    .lib-kb-toggle {
+      background: none;
+      border: none;
+      padding: 2px 0 0;
       font-family: var(--font-body);
       font-size: 11px;
+      font-weight: 500;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .lib-kb-toggle:hover { text-decoration: underline; }
+
+    .lib-level {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-faint);
+      margin-right: 4px;
+    }
+
+    .lib-empty {
+      padding: 24px 8px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-faint);
+    }
+
+    .lib-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .lib-selected-note {
+      font-family: var(--font-body);
+      font-size: 12px;
       color: var(--text-faint);
     }
 
@@ -1335,6 +1411,7 @@
     }
 
   </style>
+  <script src="aspect-library.js"></script>
 </head>
 <body>
   <!-- Add Column Modal -->
@@ -1381,28 +1458,56 @@
         <span class="modal-title">Program Library</span>
         <button class="modal-close" onclick="closeProgramLibraryModal()">×</button>
       </div>
-      <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:48px 32px; text-align:center; gap:14px;">
-        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--border)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-        </svg>
-        <div>
-          <p style="font-family:var(--font-body); font-size:14px; font-weight:600; color:var(--text-body); margin:0 0 6px;">This feature is under development</p>
-          <p style="font-family:var(--font-body); font-size:12px; color:var(--text-faint); margin:0; line-height:1.6; max-width:260px;">The Program Library is actively being built and will be available soon. We appreciate your patience.</p>
+
+      <div class="lib-toolbar">
+        <input type="text" class="lib-search" id="libSearch" placeholder="Search program...">
+        <select class="lib-aspect-filter" id="libAspectFilter">
+          <option value="">All aspects</option>
+        </select>
+      </div>
+
+      <div class="lib-table-wrap">
+        <table class="lib-table">
+          <thead>
+            <tr>
+              <th class="lib-col-check"></th>
+              <th>Program</th>
+              <th class="lib-col-aspect">Aspect</th>
+              <th>Key Behaviour</th>
+            </tr>
+          </thead>
+          <tbody id="libTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="lib-footer">
+        <span class="lib-selected-note" id="libSelectedNote">No program selected</span>
+        <div style="display:flex; gap:8px;">
+          <button class="btn-modal-cancel" onclick="closeProgramLibraryModal()">Cancel</button>
+          <button class="btn-modal-submit" onclick="applyLibrarySelection()">Add to IDP</button>
         </div>
       </div>
     </div>
   </div>
   
   <div class="page-wrapper" style="padding: 0; max-width: none; margin: 0;">
-    <nav class="breadcrumb">
-      <button class="breadcrumb-back" onclick="window.location.href='monitoring-admin.html'">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    <div class="page-topbar">
+      <nav class="breadcrumb">
+        <button class="breadcrumb-back" onclick="window.location.href='monitoring-admin.html'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="breadcrumb-link" onclick="window.location.href='monitoring-admin.html'">Monitoring</button>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Create IDP</span>
+      </nav>
+      <button class="btn-program-library" onclick="openProgramLibraryPage()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+        Program Library
       </button>
-      <button class="breadcrumb-link" onclick="window.location.href='monitoring-admin.html'">Monitoring</button>
-      <span class="breadcrumb-sep">/</span>
-      <span class="breadcrumb-current">Create IDP</span>
-    </nav>
+    </div>
     
     <div class="program-card">
       <div class="table-header">
@@ -2019,12 +2124,19 @@
       currentLibraryRow = btn.closest('tr');
       const modal = document.getElementById('programLibraryModal');
       modal.classList.add('active');
+      _libSelectedId = null;
+      document.getElementById('libSelectedNote').textContent = 'No program selected';
+      // Baris review bisa punya lebih dari satu aspek; yang pertama dipakai.
+      var aspCell = currentLibraryRow && currentLibraryRow.querySelector('td.col-aspect');
+      _libPresetAspect = aspCell ? (aspCell.dataset.aspValue || '').split(',')[0].trim() : '';
+      initProgramLibrary();
     }
 
     function closeProgramLibraryModal() {
       const modal = document.getElementById('programLibraryModal');
       modal.classList.remove('active');
       currentLibraryRow = null;
+      _libSelectedId = null;
     }
     
     function openAIGenerateModal() {
@@ -2032,62 +2144,137 @@
       openAIGeneratorModal();
     }
     
-    function filterByCategory(btn, category) {
-      // Update filter chip state
-      document.querySelectorAll('.filter-chip').forEach(chip => {
-        chip.classList.remove('active');
-        chip.classList.add('inactive');
-      });
-      btn.classList.remove('inactive');
-      btn.classList.add('active');
+    // ── Program Library (tabel program + aspek + Key Behaviour) ─────────
+    // Aspek dan KB-nya dibaca dari katalog yang sama dengan Admin Settings,
+    // supaya program yang dipilih di sini memakai aspek yang benar-benar ada.
+    var _libPrograms = [];
+    var _libSelectedId = null;
+    var _libWired = false;
+    var _libPresetAspect = '';
 
-      // Filter program list
-      const programList = document.getElementById('programList');
-      const programItems = programList.querySelectorAll('.program-item');
+    /** Jumlah KB yang langsung terlihat; sisanya di balik tombol "See all". */
+    var LIB_KB_PREVIEW = 2;
 
-      programItems.forEach(item => {
-        const itemCategory = item.getAttribute('data-category');
-        if (itemCategory === category) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+    function libEsc(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
-    function selectProgram(item, programName, vendor, aspect) {
+    function renderLibTable() {
+      var body = document.getElementById('libTableBody');
+      if (!body) return;
+      var q = (document.getElementById('libSearch').value || '').toLowerCase();
+      var aspect = document.getElementById('libAspectFilter').value || '';
+
+      var rows = _libPrograms.filter(function (p) {
+        if (aspect && p.aspect !== aspect) return false;
+        if (!q) return true;
+        return p.name.toLowerCase().indexOf(q) !== -1 || p.aspect.toLowerCase().indexOf(q) !== -1;
+      });
+
+      if (!rows.length) {
+        body.innerHTML = '<tr><td colspan="4" class="lib-empty">No matching program</td></tr>';
+        return;
+      }
+
+      body.innerHTML = rows.map(function (p) {
+        var kb = p.keyBehaviours || [];
+        var items = kb.map(function (k, i) {
+          return '<li class="' + (i < LIB_KB_PREVIEW ? '' : 'hidden-kb') + '">' +
+            '<span class="lib-level">L' + k.level + '</span>' + libEsc(k.label) + '</li>';
+        }).join('');
+        var more = kb.length > LIB_KB_PREVIEW
+          ? '<button type="button" class="lib-kb-toggle" onclick="toggleLibKb(event, this)">' +
+            'See all (' + kb.length + ')</button>'
+          : '';
+        return '<tr class="lib-row' + (p.id === _libSelectedId ? ' sel' : '') + '" data-id="' + p.id + '" ' +
+          'onclick="selectLibProgram(\'' + p.id + '\')">' +
+          '<td class="lib-col-check"><input type="checkbox" class="lib-check"' +
+            (p.id === _libSelectedId ? ' checked' : '') + '></td>' +
+          '<td><div class="lib-prog-name">' + libEsc(p.name) + '</div>' +
+            '<div class="lib-prog-kind">' + libEsc(p.kind) + '</div></td>' +
+          '<td class="lib-col-aspect"><span class="asp-chip">' + libEsc(p.aspect) + '</span></td>' +
+          '<td>' + (kb.length ? '<ul class="lib-kb-list">' + items + '</ul>' + more : '—') + '</td>' +
+          '</tr>';
+      }).join('');
+    }
+
+    function toggleLibKb(ev, btn) {
+      ev.stopPropagation();
+      var row = btn.closest('tr');
+      var open = row.classList.toggle('open');
+      var total = row.querySelectorAll('.lib-kb-list li').length;
+      btn.textContent = open ? 'Hide' : 'See all (' + total + ')';
+    }
+
+    /** Hanya satu program yang bisa aktif — satu baris IDP satu program. */
+    function selectLibProgram(id) {
+      _libSelectedId = (_libSelectedId === id) ? null : id;
+      renderLibTable();
+      var picked = _libPrograms.find(function (p) { return p.id === _libSelectedId; });
+      document.getElementById('libSelectedNote').textContent =
+        picked ? 'Selected: ' + picked.name : 'No program selected';
+    }
+
+    function applyLibrarySelection() {
+      var picked = _libPrograms.find(function (p) { return p.id === _libSelectedId; });
+      if (!picked) { closeProgramLibraryModal(); return; }
       if (currentLibraryRow) {
-        // Update program name
-        const programInput = currentLibraryRow.querySelector('.program-name');
+        var programInput = currentLibraryRow.querySelector('.program-name');
         if (programInput) {
-          programInput.value = programName;
+          programInput.value = picked.name;
           updateProgramButtons(programInput);
         }
-
-        // Update vendor
-        const vendorCell = currentLibraryRow.querySelector('.col-vendor');
-        if (vendorCell) {
-          const vendorInput = vendorCell.querySelector('input');
-          if (vendorInput) { vendorInput.value = vendor; } else { vendorCell.textContent = vendor; }
-        }
-
-        // Update aspect
-        const aspectCell = currentLibraryRow.querySelector('.col-aspect');
-        if (aspectCell && window._aspSet) window._aspSet(aspectCell, aspect);
-
-        // Update category - determine category from vendor/aspect relationship
-        const category = item.getAttribute('data-category').toUpperCase();
-        const categoryText = category === 'JOB-ASSIGNMENT' ? 'JOB ASSIGNMENT' : category;
-        const categoryCell = currentLibraryRow.querySelector('.col-category');
-        if (categoryCell && window._catSet) {
-          window._catSet(categoryCell, categoryText);
-        }
+        // Vendor dan Category sengaja dibiarkan kosong — katalog aspek tidak
+        // memuat keduanya, jadi keduanya tetap diisi manual oleh user.
+        var aspectCell = currentLibraryRow.querySelector('.col-aspect');
+        if (aspectCell && window._aspSet) window._aspSet(aspectCell, picked.aspect);
       }
       closeProgramLibraryModal();
     }
-    
-    function addProgramLibrary() {
-      alert('Add Program Library feature coming soon!');
+
+    /**
+     * Kalau kolom Aspect baris itu sudah terisi, library dibuka langsung
+     * tersaring ke aspek tersebut — program yang relevan yang muncul lebih
+     * dulu, bukan seluruh katalog.
+     */
+    function applyLibAspectPreset() {
+      var sel = document.getElementById("libAspectFilter");
+      if (!sel) return;
+      var cocok = Array.prototype.some.call(sel.options, function (o) { return o.value === _libPresetAspect; });
+      sel.value = cocok ? _libPresetAspect : "";
+      var cari = document.getElementById("libSearch");
+      if (cari) cari.value = "";
+    }
+
+    function initProgramLibrary() {
+      if (_libWired) { applyLibAspectPreset(); return renderLibTable(); }
+      AspectLibrary.ready().then(function (lib) {
+        _libPrograms = lib.programs;
+        var sel = document.getElementById('libAspectFilter');
+        sel.innerHTML = '<option value="">All aspects</option>' + lib.aspects.map(function (a) {
+          return '<option value="' + libEsc(a.name) + '">' + libEsc(a.name) + '</option>';
+        }).join('');
+        document.getElementById('libSearch').addEventListener('input', renderLibTable);
+        sel.addEventListener('change', renderLibTable);
+        _libWired = true;
+        applyLibAspectPreset();
+        renderLibTable();
+      }).catch(function (e) {
+        console.error('aspect library', e);
+        document.getElementById('libTableBody').innerHTML =
+          '<tr><td colspan="4" class="lib-empty">Failed to load aspect catalog</td></tr>';
+      });
+    }
+
+/** Halaman pengelolaan library; aspek yang sedang dipilih ikut dibawa. */
+    function openProgramLibraryPage() {
+      var q = new URLSearchParams({ from: 'create-idp-admin.html' });
+      var cell = document.querySelector('td.col-aspect');
+      var asp = cell ? (cell.dataset.aspValue || '').split(',')[0].trim() : '';
+      if (asp) q.set('aspect', asp);
+      window.location.href = 'program-library.html?' + q.toString();
     }
     
     
@@ -2929,22 +3116,73 @@
       var params = new URLSearchParams(window.location.search);
       var aspect = params.get('aspect');
       var participants = params.get('participants');
-      if (!aspect && !participants) return;
+      /* `prefill` (base64 JSON: [{aspect, goals:[...]}, ...]) dipakai Vismap V3:
+         Key Behaviour yang dicentang di panel Development ikut terbawa sebagai
+         satu baris program per aspek, dengan Development Goals sudah terisi.
+         base64 dipakai karena label KB panjang dan berisi tanda baca.
+         Param lama (`aspect`, `participants`) tetap berlaku apa adanya. */
+      var prefill = params.get('prefill');
+      if (!aspect && !participants && !prefill) return;
 
-      var firstRow = document.querySelector('#programTableBody tr:not(.subtask-row)');
-      if (!firstRow) return;
+      var names = participants
+        ? participants.split(',').map(function(n){ return n.trim(); }).filter(Boolean)
+        : null;
 
-      /* ── Fill aspect ── */
-      if (aspect && window._aspSet) {
-        var aspCell = firstRow.querySelector('.col-aspect');
-        if (aspCell) window._aspSet(aspCell, aspect);
+      var entries = null;
+      if (prefill) {
+        try {
+          entries = JSON.parse(decodeURIComponent(escape(atob(prefill))));
+        } catch (e) {
+          console.error('prefill tidak bisa dibaca', e);
+        }
       }
 
-      /* ── Fill participants ── */
-      if (participants && window._pcpPrefill) {
-        var cell = firstRow.querySelector('.participant-cell');
-        if (cell) window._pcpPrefill(cell, participants.split(',').map(function(n){ return n.trim(); }).filter(Boolean));
+      function mainRows() {
+        return document.querySelectorAll('#programTableBody tr:not(.subtask-row)');
       }
+
+      function fillRow(row, entry) {
+        if (!row || !entry) return;
+        if (entry.aspect && window._aspSet) {
+          var aspCell = row.querySelector('.col-aspect');
+          if (aspCell) window._aspSet(aspCell, entry.aspect);
+        }
+        if (entry.goals && entry.goals.length) {
+          var ta = row.querySelector('.col-goals textarea');
+          if (ta) {
+            ta.value = entry.goals.join('\n');
+            ta.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        }
+      }
+
+      /* Sel Participant disuntikkan oleh MutationObserver, jadi pada baris yang
+         baru dibuat addProgram() sel itu belum ada saat baris diisi. Pengisian
+         participant ditunda satu macrotask supaya observer sudah jalan. */
+      function fillParticipantsLater() {
+        if (!names || !names.length || !window._pcpPrefill) return;
+        setTimeout(function() {
+          Array.prototype.forEach.call(mainRows(), function(row) {
+            var cell = row.querySelector('.participant-cell');
+            if (cell) window._pcpPrefill(cell, names);
+          });
+        }, 0);
+      }
+
+      if (entries && entries.length) {
+        entries.forEach(function(entry, i) {
+          /* Baris pertama sudah ada; sisanya ditambahkan lewat addProgram()
+             yang juga menegakkan batas 5 baris program milik form ini. */
+          if (i > 0 && typeof addProgram === 'function') addProgram();
+          var rows = mainRows();
+          fillRow(rows[i] || rows[rows.length - 1], entry);
+        });
+        fillParticipantsLater();
+        return;
+      }
+
+      fillRow(mainRows()[0], aspect ? { aspect: aspect } : null);
+      fillParticipantsLater();
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', prefillFromUrl);
@@ -3196,11 +3434,15 @@
 
   <script>
   (function(){
-    var ASPECT_SECTIONS = [
-      { section: 'Kepemimpinan', items: ['LEADERSHIP','COMMUNICATION','TEAMWORK'] },
-      { section: 'Pengembangan Diri', items: ['PROBLEM SOLVING','CRITICAL THINKING','CREATIVITY','ANALYTICAL THINKING'] },
-      { section: 'Teknis', items: ['TIME MANAGEMENT','ADAPTABILITY','CUSTOMER FOCUS'] }
-    ];
+    // Diisi dari katalog aspek Admin Settings; dikelompokkan per kategori
+    // aspek (General / Technical) supaya daftarnya tetap terbaca.
+    var ASPECT_SECTIONS = [];
+    AspectLibrary.ready().then(function(lib){
+      var byCat = {};
+      lib.aspects.forEach(function(a){ (byCat[a.category] = byCat[a.category] || []).push(a.name); });
+      ASPECT_SECTIONS = Object.keys(byCat).map(function(c){ return { section: c, items: byCat[c] }; });
+      if(document.getElementById('aspList')) renderAspList('');
+    }).catch(function(e){ console.error('aspect library', e); });
     var CHEV = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-body)" stroke-width="1.5" style="flex-shrink:0"><path d="M6 9l6 6 6-6"/></svg>';
     var _aspPicker = null, _aspActive = null;
 
@@ -3303,17 +3545,15 @@
 
   <script>
   (function(){
-    var GOALS = [
-      'Mampu menyusun analisis akar masalah secara terstruktur dalam setiap kasus.',
-      'Meningkatkan kemampuan komunikasi lintas tim untuk kolaborasi yang efektif.',
-      'Mengembangkan keterampilan kepemimpinan dalam mengelola tim proyek.',
-      'Mampu mengambil keputusan berbasis data dengan cepat dan akurat.',
-      'Meningkatkan kemampuan presentasi di hadapan stakeholder.',
-      'Mengelola waktu dan prioritas pekerjaan secara mandiri.',
-      'Mengembangkan pola pikir kritis dalam mengevaluasi solusi.',
-      'Mampu beradaptasi terhadap perubahan proses kerja dengan cepat.'
-    ];
-    var _picker = null, _input = null;
+    // Rekomendasi Development Goals adalah Key Behaviour milik aspek yang
+    // terisi di baris itu — persis seperti yang dijanjikan tooltipnya.
+    // Selama aspeknya kosong tidak ada yang bisa direkomendasikan, jadi
+    // pickernya tidak muncul dan user menulis sendiri.
+    var _kbByAspect = {};
+    AspectLibrary.ready().then(function(lib){ _kbByAspect = lib.kbByAspect; })
+      .catch(function(e){ console.error('aspect library', e); });
+
+    var _picker = null, _input = null, _goals = [];
 
     function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
@@ -3337,7 +3577,7 @@
     function renderList(){
       var list = document.getElementById('goalList');
       var q = (_input.value||'').toLowerCase();
-      var filtered = GOALS.filter(function(g){ return g.toLowerCase().indexOf(q) !== -1; });
+      var filtered = _goals.filter(function(g){ return g.toLowerCase().indexOf(q) !== -1; });
       list.innerHTML = filtered.map(function(g){ return '<div class="goal-item" data-value="'+esc(g)+'">'+esc(g)+'</div>'; }).join('');
       return filtered.length;
     }
@@ -3360,8 +3600,9 @@
       _input = input;
       var row = input.closest('tr');
       var aspCell = row && row.querySelector('td.col-aspect');
-      var hasAspect = !!(aspCell && (aspCell.dataset.aspValue || '').trim());
-      if(!hasAspect){ _picker.classList.remove('open'); _input = null; return; }
+      var aspect = aspCell ? (aspCell.dataset.aspValue || '').trim() : '';
+      if(!aspect){ _picker.classList.remove('open'); _input = null; return; }
+      _goals = (_kbByAspect[aspect] || []).map(function(kb){ return kb.label; });
       if(!renderList()){ _picker.classList.remove('open'); return; }
       position();
       _picker.classList.add('open');

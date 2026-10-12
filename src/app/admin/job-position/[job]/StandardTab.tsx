@@ -129,7 +129,7 @@ function CategorySection({
             <Table.Thead>
               <Table.Tr>
                 <Table.Th>Aspect Name</Table.Th>
-                <Table.Th>Aspect Description</Table.Th>
+                <Table.Th>Definisi</Table.Th>
                 <Table.Th>Standard</Table.Th>
                 <Table.Th>Key Behavior Showed</Table.Th>
                 <Table.Th>Mandatory Aspect</Table.Th>

@@ -149,7 +149,10 @@ rows.forEach((r, idx) => {
     employee: {
       nik: "23497" + String(idx + 1).padStart(5, "0"),
       dob: (((idx % 28) + 1) + " ") + MON[idx % 12] + " 199" + (idx % 10),
-      gender: idx % 3 === 0 ? "Perempuan" : "Laki-laki",
+      // Dibaca dari kolom `gender` di participants.csv, bukan diterka dari
+      // nomor urut seperti sebelumnya — nama orangnya sekarang berjenis kelamin
+      // jelas, jadi tebakan berdasarkan urutan akan langsung terlihat salah.
+      gender: r.gender || "Laki-laki",
       lastEducation: EDU[idx % EDU.length],
       city, province,
       maritalStatus: idx % 2 === 0 ? "Menikah" : "Belum Menikah",

@@ -99,8 +99,17 @@ function DialogTitle({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Title>) {
   return (
+    /*
+      `judul-modal` = spesifikasi judul modal untuk seluruh aplikasi (Heading 6),
+      dideklarasikan di `src/app/globals.css`. Menggantikan `font-title font-bold`:
+      `.font-title` menulis `font-size: 14px` sebagai angka tetap dan dipakai
+      untuk EMPAT peran sekaligus menurut komentarnya sendiri ("Card titles, modal
+      titles, nav labels, button labels"), jadi menyetel judul modal lewat kelas
+      itu berarti menyetel tiga hal lain juga. `font-bold` di sana pun redundan —
+      `.font-title` sudah 700.
+    */
     <DialogPrimitive.Title
-      className={cn("font-title font-bold", className)}
+      className={cn("judul-modal", className)}
       {...filterFigmaProps(props)}
     >
       {children}
