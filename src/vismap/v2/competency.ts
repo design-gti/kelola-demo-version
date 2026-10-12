@@ -1,4 +1,4 @@
-// Perhitungan kecocokan kompetensi untuk panel Development V3.
+// Perhitungan kecocokan kompetensi untuk panel Development Vismap V2.
 //
 // Tiga sumber yang sudah dipakai modul lain (iProfile & Admin Job Position),
 // bukan data baru — jadi angka di V3 tidak pernah berbeda arti dari sana:

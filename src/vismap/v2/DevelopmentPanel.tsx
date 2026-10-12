@@ -1,7 +1,5 @@
 "use client";
-// Panel Development V3 — SALINAN-BARU, bukan `EmployeeDetailPanel` yang dipakai
-// V1 (aturan copy-on-demand, docs/vismap-v3.md §3): tampilannya diubah total
-// jadi dua tab, sehingga tidak boleh menumpang komponen share.
+// Panel Development Vismap V2 — dibuka dari menu kartu ("Development").
 //
 // Dua tab menjawab dua pertanyaan yang di versi lama tercampur jadi
 // "Competency Score" dan "Readiness Score" tanpa konteks jabatan:
@@ -35,9 +33,9 @@ import {
   Tooltip,
   UnstyledButton,
 } from '@mantine/core';
-import { devAspectsFor, hasCompetencyData, matchPercentFor, positionOptions, type DevAspect } from '../competency';
+import { devAspectsFor, hasCompetencyData, matchPercentFor, positionOptions, type DevAspect } from './competency';
 
-interface DevelopmentPanelV3Props {
+interface DevelopmentPanelProps {
   employeeId: string;
   employeeName: string;
   employeePosition: string;
@@ -152,9 +150,9 @@ function AspectRow({ aspect, checked, onToggleKb }: {
   );
 }
 
-export default function DevelopmentPanelV3({
+export default function DevelopmentPanel({
   employeeId, employeeName, employeePosition, managerPosition, onClose,
-}: DevelopmentPanelV3Props) {
+}: DevelopmentPanelProps) {
   const [tab, setTab] = useState<TabId>('current');
   const allPositions = useMemo(() => positionOptions(), []);
 
@@ -222,7 +220,7 @@ export default function DevelopmentPanelV3({
   return (
     <div
       className="fixed right-0 top-0 h-full w-[420px] bg-white shadow-[-4px_0px_30px_0px_rgba(0,0,0,0.1)] z-[100] flex flex-col animate-in slide-in-from-right duration-300"
-      data-name="Development Panel V3"
+      data-name="Development Panel"
     >
       {/* Header — label konteks, nama, dan jabatan disusun bertumpuk supaya
           tidak saling tertimpa seperti pada panel versi sebelumnya. */}

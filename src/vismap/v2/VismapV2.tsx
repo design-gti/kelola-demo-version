@@ -37,7 +37,7 @@ import { computeInitiativeSuccess, initiativeSuccessColor, type Initiative } fro
 import { INITIATIVES_SEED } from "./initiativesSeed";
 import HistoryTimeline from "./HistoryTimeline";
 import { buildHistory } from "./orgHistory";
-import DevelopmentPanelV3 from "../v3/components/DevelopmentPanelV3";
+import DevelopmentPanel from "./DevelopmentPanel";
 
 /** Aksen mode Initiatives — ungu, beda dari simulasi (secondary) supaya dua
  *  jenis sinyal ini gampang dibedakan sekilas. */
@@ -350,7 +350,7 @@ interface Props {
   historyMode?: boolean;
   /**
    * Data opsional yang dicetak di kartu — dipilih lewat modal "Filter Card Data"
-   * yang sama dengan V1/V3, jadi pilihannya konsisten antar-versi.
+   * yang sama dengan yang dipakai di tempat lain di aplikasi.
    */
   visibleColumns?: CardFieldVisibility;
   onToggleLayer: (id: LayerId) => void;
@@ -706,7 +706,7 @@ export default function VismapV2({
     const onDown = (e: PointerEvent) => {
       const el = e.target as HTMLElement | null;
       if (!el) return;
-      if (el.closest('[data-name="Development Panel V3"]')) return;
+      if (el.closest('[data-name="Development Panel"]')) return;
       if (el.closest("[data-mantine-stop-propagation], .mantine-Popover-dropdown, [role='listbox']")) return;
       setDevSeatId(null);
     };
@@ -878,7 +878,7 @@ export default function VismapV2({
     closeMenu();
   };
   const handleMenuDevelopment = () => {
-    // Sama dengan V3: panel geser dari kanan, bukan pindah ke halaman IDP.
+    // Panel geser dari kanan, bukan pindah ke halaman IDP.
     // Membandingkan aspek sambil melihat org chart-nya jauh lebih berguna
     // daripada meninggalkan peta hanya untuk membaca daftar aspek.
     if (!cardMenu) return;
@@ -1397,8 +1397,7 @@ export default function VismapV2({
         </div>
       )}
 
-      {/* Panel Development — komponen yang sama dengan V3 supaya perilakunya
-          identik dan tidak ada versi kedua yang harus dirawat terpisah.
+      {/* Panel Development.
 
           Di-portal ke document.body seperti floating menu kartu. Kanvas ini
           punya z-index sendiri (40), dan itu membuat stacking context: selama
@@ -1412,7 +1411,7 @@ export default function VismapV2({
         const parentId = parentSeatOf.get(devSeatId);
         return createPortal(
           <div data-no-drag>
-            <DevelopmentPanelV3
+            <DevelopmentPanel
               employeeId={person.id}
               employeeName={person.name}
               employeePosition={seat.position}
